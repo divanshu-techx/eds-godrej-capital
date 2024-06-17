@@ -1,0 +1,188 @@
+body {
+    font-family: Arial, sans-serif; /* light green background */
+    margin: 0;
+    padding: 20px;
+}
+
+.address-cards {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping to keep layout responsive */
+    justify-content: center; /* Center the cards horizontally */
+    gap: 20px; /* Space between the cards */
+    margin: 31px auto;
+    max-width: 1300px; /* Constrain the width to align cards */
+}
+
+.card {
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 10px; /* Rounded corners */
+    padding: 10px; /* Padding inside the card */
+    width: calc(25% - 40px); /* Ensure cards fit in one row and account for gap */
+    height: 300px; /* Fixed height to make the card square */
+    box-shadow: 0 2px 5px rgb(0 0 0 / 10%); /* Subtle shadow for a 3D effect */
+    background-color: #fff; /* White background */
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s; /* Smooth transition for hover effects */
+    display: flex; /* Flex layout to center content */
+    flex-direction: column; /* Vertical alignment */
+    justify-content: space-between; /* Distribute space between elements */
+    overflow: hidden; /* Ensure content stays within the card */
+    text-overflow: ellipsis; /* Handle overflowed text with ellipsis */
+    box-sizing: border-box; /* Include padding and border in dimensions */
+    cursor: pointer; /* Pointer cursor for hover effect */
+    flex-grow: 1;
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Slight lift effect on hover */
+    box-shadow: 0 4px 10px rgb(0 0 0 / 15%); /* More pronounced shadow on hover */
+    background-color: #b9dc79; /* Light green background on hover */
+    color: #fff; /* White text on hover */
+}
+
+.card h2 {
+    font-size: 1.2em; /* Slightly larger font size for the title */
+    margin-bottom: 5px; /* Space below the title */
+    color: #333; /* Dark text color */
+    white-space: nowrap; /* Prevent text wrap */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Ellipsis for overflow */
+}
+
+.card p {
+    margin: 5px 0; /* Space between paragraphs */
+    color: #333; /* Dark text color */
+    font-size: 0.9em; /* Smaller font size for content */
+    white-space: nowrap; /* Prevent text wrap */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Ellipsis for overflow */
+}
+
+.card .phone, .card .hours {
+    font-weight: bold; /* Bold font for phone number and hours */
+    color: #333; /* Dark text color */
+    font-size: 0.9em; /* Smaller font size for phone and hours */
+}
+
+.card:hover h2, .card:hover p, .card:hover .phone, .card:hover .hours {
+    color: #fff; /* White text on hover */
+}
+
+/* Responsive design */
+@media (width <= 1200px) {
+    .card {
+        width: calc(33.333% - 40px); /* 3 cards per row */
+    }
+}
+
+@media (width <= 900px) {
+    .card {
+        width: calc(50% - 40px); /* 2 cards per row */
+    }
+}
+
+@media (width <= 600px) {
+    .card {
+        width: calc(100% - 40px); /* 1 card per row */
+    }
+}
+
+.card.active {
+    background-color: #b9dc79; /* Light green background when active */
+    color: #fff; /* White text when active */
+    box-shadow: 0 4px 10px rgba(0 0 0 / 15%); /* Consistent shadow on active */
+}
+
+.filters-dropdown-wrapper{
+    padding: 15px;
+}
+
+.filters {
+    display: flex;
+    align-items: center;
+    background-color: #f9fdf5; /* matching light green */
+    border: 1px solid #e0e0e0; /* light border */
+    border-radius: 8px; /* rounded corners */
+    padding: 10px;
+    gap: 10px;
+    padding-left: 559px;
+}
+
+.filters label {
+    display: none; /* hide labels for simplicity */
+}
+
+.filters select,
+.filters input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px; /* rounded corners */
+    background-color: white; /* white background */
+    box-shadow: inset 0 1px 3px rgba(0 0 0 / 10%); /* subtle shadow */
+    font-size: 14px;
+    flex: 1;
+    max-width: 200px; /* consistent width */
+}
+
+.filters select {
+    appearance: none;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="none" stroke="gray" stroke-width=".5" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>') no-repeat right 10px center;
+    background-size: 12px;
+}
+
+.filters input {
+    max-width: 150px; /* consistent width for input */
+}
+
+
+.google-map {
+    position: relative;
+}
+
+#map-canvas {
+    height: 100%;
+    width: 100%;
+}
+
+#map-card {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0 0 0 / 80%);
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0 0 0 / 50%);
+    width: 430px;
+    max-width: 100%;
+    overflow: hidden;
+    z-index: 1000; /* Ensure it is above the map */
+}
+
+#map-card h2 {
+    margin-top: 0;
+    font-size: 1.2em;
+}
+
+#map-card p {
+    margin: 5px 0;
+    font-size: 0.9em;
+}
+
+#map-card .phone, #map-card .hours {
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+#map-card button {
+    background: #ff4c4c;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#map-card button:hover {
+    background: #ff7878;
+}
