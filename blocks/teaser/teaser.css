@@ -160,3 +160,14 @@ button {
 .section.teaser-container{
     padding:unset;
 }
+
+.section.teaser-container .teaser-wrapper .teaser ul li {
+    font-size: 14px; 
+    text-align: start;
+    color:#fff;
+  }
+
+.section.teaser-container .teaser-wrapper .teaser ul li::marker {
+    color: green;
+    font-size: 1.5em; 
+  }
