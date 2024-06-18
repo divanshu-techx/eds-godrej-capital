@@ -64,6 +64,21 @@ export function decorateMain(main) {
   decorateBlocks(main);
 }
 
+function aggregateTabSectionsIntoComponents(main) {
+  calculateTabSectionCoordinates(main);
+
+  // when we aggregate tab sections into a tab autoblock, the index get's lower.
+  // say we have 3 tabs starting at index 10, 12 and 14. and then 3 tabs at 18, 20 and 22.
+  // when we fold the first 3 into 1, those will start at index 10. But the other 3 should now
+  // start at 6 instead of 18 because 'removed' 2 sections.
+  let sectionIndexDelta = 0;
+  Object.keys(tabElementMap).map(async (tabComponentIndex) => {
+    const tabSections = tabElementMap[tabComponentIndex];
+    await autoBlockTabComponent(main, tabComponentIndex - sectionIndexDelta, tabSections);
+    sectionIndexDelta = tabSections.length - 1;
+  });
+}
+
 /**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
@@ -158,20 +173,7 @@ async function autoBlockTabComponent(main, targetIndex, tabSections) {
   section.style.display = null;
 }
 
-function aggregateTabSectionsIntoComponents(main) {
-  calculateTabSectionCoordinates(main);
 
-  // when we aggregate tab sections into a tab autoblock, the index get's lower.
-  // say we have 3 tabs starting at index 10, 12 and 14. and then 3 tabs at 18, 20 and 22.
-  // when we fold the first 3 into 1, those will start at index 10. But the other 3 should now
-  // start at 6 instead of 18 because 'removed' 2 sections.
-  let sectionIndexDelta = 0;
-  Object.keys(tabElementMap).map(async (tabComponentIndex) => {
-    const tabSections = tabElementMap[tabComponentIndex];
-    await autoBlockTabComponent(main, tabComponentIndex - sectionIndexDelta, tabSections);
-    sectionIndexDelta = tabSections.length - 1;
-  });
-}
 
 /**
  * Loads everything that doesn't need to be delayed.
