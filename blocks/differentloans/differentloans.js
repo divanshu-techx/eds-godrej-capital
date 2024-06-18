@@ -6,7 +6,7 @@ const SELECTORS = {
 
 const API_URL = {
   Different_Home_Loan_Url:
-    'https://main--eds-practice--imjeekxgurjar.hlx.page/different_types_of_loan/query-index.json',
+    'https://main--eds-godrej-capital--divanshu-techx.hlx.live/different_type_of_loan/query-index.json',
 };
 
 const CREATE_SELECTOR_CLASS = {
