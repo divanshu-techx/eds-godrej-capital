@@ -1,0 +1,59 @@
+main .aboutlast-banner-container > div {
+  max-width: unset;
+}
+
+main .aboutlast-banner-container {
+  padding: 0;
+}
+
+.aboutlast-banner {
+  position: relative;
+  padding: 32px;
+  min-height: 300px;
+  background: linear-gradient(90deg, #242424 0%,
+  rgba(36, 36, 36, 60%) 23.3%, rgba(36, 36, 36, 0%) 76.88%);
+
+
+}
+
+.aboutlast-banner h3 {
+  margin-left: auto;
+  margin-right: auto;
+  color: white;
+  width: hug (418px)px;
+  height: hug (95px)px;
+  top: 1538px;
+  left: 80px;
+  gap: 4px;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 36px;
+  font-weight: 300;
+  line-height: 42.23px;
+  text-align: left;
+}
+
+.aboutlast-banner h2 {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  color: white;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 54px;
+  font-weight: 600;
+  line-height: 48.6px;
+  text-align: left;
+}
+
+.aboutlast-banner picture {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  object-fit: cover;
+  box-sizing: border-box;
+}
+
+.aboutlast-banner img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
