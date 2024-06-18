@@ -184,18 +184,11 @@ export default async function decorate() {
 
   window.updateDisplay = updateDisplay;
   window.updateRange = function updateslide(id) {
-    const { value } = document.getElementById(`${id}Range`).value;
+    const value = document.getElementById(`${id}Range`).value;
     document.getElementById(id).textContent = value;
     updateDisplay();
   };
   document.getElementById('loanamount').addEventListener('input', function updateInput() {
-    // const value = parseFloat(this.textContent.replace(/[^\d.]/g, ''));
-    // const min = parseFloat(this.dataset.min);
-    // const max = parseFloat(this.dataset.max);
-    // const clampedValue = Math.min(Math.max(value, min), max);
-    // this.textContent = clampedValue.toLocaleString();
-    // document.getElementById('loanamountRange').value = clampedValue;
-    // updateDisplay();
     const value = parseFloat(this.textContent.replace(/\D/g, ''));
     const loanAmountRangeElement = document.getElementById('loanamountRange');
     const numericValue = Number(value);
