@@ -2,8 +2,17 @@
 header .nav-wrapper {
   background-color: var(--background-color);
   width: 100%;
-  z-index: 2;
+  /* z-index: 2;
+  position: fixed; */
+  box-shadow: 2px 2px 4px rgb(0 0 0 / 16%);
+}
+
+header{
+  z-index: 10;
   position: fixed;
+  width:100%;
+  top:0;
+  order:2;
 }
 
 header nav {
@@ -246,7 +255,6 @@ header nav .nav-sections .belowNavMainContainer .secondElementDiv
  {
   flex: 1;
   box-sizing: border-box;
-  padding: 10px;
 }
 
 header nav .nav-sections .belowNavMainContainer .firstElementChildDiv {
@@ -366,8 +374,6 @@ header nav .nav-sections .belowNavMainContainer .thirdElementDiv {
 }
 
 
-
-
 header nav .nav-sections .parentContainerdiv{
   display:flex;
 }
@@ -377,13 +383,12 @@ header nav .nav-sections .firstElementChildDiv ul {
   padding: 0; 
   margin: 0; 
   display: grid!important; 
-  /* grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); */
   gap: 0;
 }
 
 .firstElementChildDiv li {
   background-color: #fff;
-  padding: 10px;
+  padding: 10px 40px;
 }
 
 header nav .nav-sections ul > li > ul {
@@ -508,6 +513,78 @@ header nav .nav-tools input[type=text]{
   box-sizing: border-box;
   padding:12px 20px;
   font-size: 14px;
+  display:block!important;
+}
+
+.firstElementChildDiv ul {
+  list-style-type: none; 
+  padding: 0; 
+}
+
+.firstElementChildDiv ul li {
+  border-bottom: 1px solid #b8b8b8; 
+}
+
+.firstElementChildDiv ul li a {
+  text-decoration: none; 
+  color: #333; 
+  display: block; 
+}
+
+.firstElementChildDiv ul li.active {
+  font-weight: bold; 
+}
+
+.belowNavMainContainer .secondElementDiv li.listElement {
+  padding: 10px 40px;
+  /* border-bottom: 1px solid #b8b8b8; */
+}
+
+.header-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  order: 2;
+}
+
+.subheader {
+  order: 1;
+  background: #F4F4F4;
+  ;
+
+  @media (width <= 786px){
+    display:none;
+  }
+}
+
+.subheader .subheader-wrapper .default-content-wrapper ul{
+  display:flex;
+  justify-content: end;
+  font-size:12px;
+  gap:2em;
+  list-style: none;
+  line-height: 21px;
+  margin:10px;
+}
+
+.subheader .subheader-wrapper .default-content-wrapper ul .subheader-list{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  gap:5px;
+  cursor: pointer;
+}
+
+.subheader .subheader-wrapper .default-content-wrapper ul .subheader-list picture{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.subheader-container .default-content-wrapper ul li img{
+  width:16px;
+  height:16px;
 }
 
 

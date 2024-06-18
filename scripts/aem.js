@@ -706,6 +706,18 @@ async function loadHeader(header) {
 }
 
 /**
+ * Loads a block named 'subHeader' into subHeader
+ * @param header subHeader element
+ * @returns {Promise}
+ */
+async function loadSubHeader(header) {
+  const subHeaderBlock = buildBlock('subheader', '');
+  header.append(subHeaderBlock);
+  decorateBlock(subHeaderBlock);
+  return loadBlock(subHeaderBlock);
+}
+
+/**
  * Loads a block named 'footer' into footer
  * @param footer footer element
  * @returns {Promise}
@@ -767,4 +779,5 @@ export {
   updateSectionsStatus,
   waitForLCP,
   wrapTextNodes,
+  loadSubHeader,
 };

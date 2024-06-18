@@ -33,6 +33,11 @@
     padding: 16px;
     border-radius: 4px;
 }
+
+.content-container a{
+  border:1px solid #f4f4f4;
+  padding:10px;
+}
  
 /* Container for the loan cards */
 .content-container {
@@ -49,6 +54,7 @@
     border-radius: 4px;
     padding:8px;
     display:flex;
+    gap:10px;
   }
 
   .tab{
@@ -92,13 +98,13 @@
   .loanTitle {
     font-size: 18px; 
     margin: 0 0 10px 0; 
-    color: #333; 
+    color: #3b3b3b; 
   }
   
   /* Description of the loan card */
   .loanDescription {
     font-size: 14px;
-    color: #666; 
+    color: #3b3b3b; 
     margin: 0;
   }
   
@@ -131,13 +137,14 @@
 }
  
 .loan-content h2 {
-    margin: 0 0 8px;
+    margin: 0;
     font-size: 16px;
 }
  
 .loan-content p {
     margin: 0;
     font-size: 14px;
+    line-height: 16.42px;
 }
 
 .different-loans-title{
@@ -155,7 +162,7 @@
     overflow-x: auto; 
     -webkit-overflow-scrolling: touch; 
     scroll-snap-type: x mandatory; 
-    padding-bottom: 15px;
+    padding: 15px;
     justify-content: flex-start;
   }
 

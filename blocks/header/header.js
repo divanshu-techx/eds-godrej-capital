@@ -278,6 +278,8 @@ export default async function decorate(block) {
                           item.forEach((subItem) => {
                               subUl.appendChild(createListElement(subItem.title, subItem.path));
                               depth = subItem.depth;
+                              if (depth < 2)
+                                displayURLContent(subItem.path);
                           });
                           secondElementDiv.appendChild(subUl);
                       }
@@ -292,7 +294,9 @@ export default async function decorate(block) {
             parentContainerDiv.appendChild(firstElementChildDiv);
         }
      
+        if (depth == '1' || depth == '2') {
           parentContainerDiv.appendChild(secondElementDiv);
+      }
           parentContainerDiv.appendChild(thirdElementDiv);
    
           const subLists = secondElementDiv.querySelectorAll('.subList');
