@@ -1,0 +1,45 @@
+.tabs-container-calculator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Style the container that holds the buttons */
+.button-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+/* Style the buttons */
+.button-container button {
+    padding: 10px 20px;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* Style the active button */
+.button-container button.active {
+    background-color: #ccc;
+    border-color: #999;
+    font-weight: bold;
+}
+
+/* Hover effects for buttons */
+.button-container button:hover:not(.active) {
+    background-color: #e1e1e1;
+    border-color: #bbb;
+}
+
+/* Hide all sections by default */
+/* .cal {
+    display: none;
+} */
+
+/* Style the active section */
+.cal.active {
+    display: block;
+}
