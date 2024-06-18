@@ -153,7 +153,8 @@ export default async function decorate(block) {
 
       // console.log('js called');
 
-      const api = "https://main--eds-practice--imjeekxgurjar.hlx.page/nav-element/globalnavigation.json";
+      //const api = "https://main--eds-practice--imjeekxgurjar.hlx.page/nav-element/globalnavigation.json";
+      const api = "https://main--eds-godrej-capital--divanshu-techx.hlx.live/nav-element/globalnavigation.json";
       let responseData = [];
 
       // Create the topnav div
@@ -418,7 +419,7 @@ export default async function decorate(block) {
         }
 
         function displayURLContent(url) {
-          let mainUrl = "https://main--eds-practice--imjeekxgurjar.hlx.page" + url;
+          let mainUrl = "https://main--eds-godrej-capital--divanshu-techx.hlx.live" + url;
           fetch(mainUrl)
               .then(response => response.text())
               .then(data => {
