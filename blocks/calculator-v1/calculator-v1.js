@@ -9,7 +9,6 @@ function initializetabs() {
 
     if (mainElement) {
         const calSections = mainElement.querySelectorAll('.cal');
-
         if (calSections.length >= 2) {
             const tabsContainer = document.createElement('div');
             tabsContainer.classList.add('tabs-container-calculator');
@@ -69,8 +68,8 @@ function initializetabs() {
                 });
             }
 
-            // Clear main element and append the tabs container
-            mainElement.innerHTML = '';
+            // // Clear main element and append the tabs container
+            // mainElement.innerHTML = '';
             mainElement.appendChild(tabsContainer);
 
             // Show the initial active tab and its content

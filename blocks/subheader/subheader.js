@@ -7,8 +7,6 @@ export default async function decorate(block) {
   if (isDecorated) return;
   isDecorated = true;
 
-  console.log(block);
-
   const subHeaderMeta = getMetadata('sub');
   const subHeaderPath = subHeaderMeta ? new URL(subHeaderMeta, window.location).pathname : '/sub';
 

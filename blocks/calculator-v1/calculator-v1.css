@@ -34,12 +34,6 @@
     border-color: #bbb;
 }
 
-/* Hide all sections by default */
-/* .cal {
-    display: none;
-} */
-
-/* Style the active section */
 .cal.active {
     display: block;
 }

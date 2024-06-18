@@ -65,8 +65,8 @@ export default async function decorate() {
       'div',
       { class: 'detail' },
       createElement(
-        'p',
-        { style: 'color: #9088D2' },
+        'div',
+        { style: 'color: #3b3b3b' },
         laonamountTitle,
       ),
       createElement(
@@ -85,7 +85,7 @@ export default async function decorate() {
             min: loanAmountMinValue,
             max: loanAmountMaxValue,
             step: '50000',
-            style: 'color: #6258A8',
+            style: 'color: #3b3b3b',
           },
         ),
       ),
@@ -104,12 +104,12 @@ export default async function decorate() {
       'div',
       { class: 'range-values' },
       createElement(
-        'p',
+        'div',
         { class: 'min-value' },
         loanAmountMinValue,
       ),
       createElement(
-        'p',
+        'div',
         {
           class: 'max-value',
           style: 'float: right;',
@@ -126,8 +126,8 @@ export default async function decorate() {
       'div',
       { class: 'detail' },
       createElement(
-        'p',
-        { style: 'color: #9088D2' },
+        'div',
+        { style: 'color: #3b3b3b' },
         interestrateTitle,
       ),
       createElement(
@@ -165,12 +165,12 @@ export default async function decorate() {
       'div',
       { class: 'range-values' },
       createElement(
-        'p',
+        'div',
         { class: 'min-value' },
         `${interestrateMinvalue}'%'`,
       ),
       createElement(
-        'p',
+        'div',
         {
           class: 'max-value',
           style: 'float: right;',
@@ -187,8 +187,8 @@ export default async function decorate() {
       'div',
       { class: 'detail' },
       createElement(
-        'p',
-        { style: 'color: #9088D2' },
+        'div',
+        { style: 'color: #3b3b3b' },
         tenureTitleYear,
       ),
       createElement(
@@ -226,12 +226,12 @@ export default async function decorate() {
       'div',
       { class: 'range-values' },
       createElement(
-        'p',
+        'div',
         { class: 'min-value' },
         `${tenureMinYearvalue} Year`,
       ),
       createElement(
-        'p',
+        'div',
         {
           class: 'max-value',
           style: 'float: right;',
@@ -248,8 +248,8 @@ export default async function decorate() {
       'div',
       { class: 'detail' },
       createElement(
-        'p',
-        { style: 'color: #9088D2' },
+        'div',
+        { style: 'color: #3b3b3b' },
         tenureTitleMonths,
       ),
       createElement(
@@ -289,12 +289,12 @@ export default async function decorate() {
       'div',
       { class: 'range-values' },
       createElement(
-        'p',
+        'div',
         { class: 'min-value' },
         `${tenureMinMonthvalue} Month`,
       ),
       createElement(
-        'p',
+        'div',
         {
           class: 'max-value', style: 'float: right;',
         },
@@ -319,7 +319,7 @@ export default async function decorate() {
       'div',
       { style: 'chart-detail' },
       createElement(
-        'p',
+        'div',
         { id: 'price-container-emi' },
         'Your Monthly Emi',
         createElement('p', { id: 'price' }, '0'),
@@ -576,8 +576,8 @@ export default async function decorate() {
         datasets: [
           {
             label: 'Principal',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'rgba(140, 177, 51)',
+            borderColor: 'rgba(140, 177, 51)',
             data: [],
           },
           {
@@ -612,7 +612,7 @@ export default async function decorate() {
         datasets: [
           {
             data: [P, 0],
-            backgroundColor: ['rgb(255, 99, 132)', 'rgb(54, 162, 235)'],
+            backgroundColor: ['rgba(140, 177, 51)', 'rgb(59, 59, 59)'],
             hoverOffset: 4,
           },
         ],
