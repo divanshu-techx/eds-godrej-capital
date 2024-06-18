@@ -184,7 +184,8 @@ export default async function decorate() {
 
   window.updateDisplay = updateDisplay;
   window.updateRange = function updateslide(id) {
-    const value = document.getElementById(`${id}Range`).value;
+    const element = document.getElementById(`${id}Range`);
+    const { value } = element;
     document.getElementById(id).textContent = value;
     updateDisplay();
   };
