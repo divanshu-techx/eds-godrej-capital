@@ -1,0 +1,117 @@
+.section.carousel-v1-container{
+    display: none;
+}
+.carousel-wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%; 
+    margin: 0 auto; 
+}
+
+.teaser-wrapper {
+    display: flex;
+    transition: transform 0.5s ease; 
+}
+
+.teaser-container {
+    flex: 0 0 auto;
+    width: 100%;
+    padding: 0 10px; 
+}
+
+.carousel-control {
+    position: absolute;
+    top: 45%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.5); 
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    padding: 10px;
+    z-index: 10;
+    color: #333; 
+}
+
+.carousel-control.left {
+    left: 0;
+}
+
+.carousel-control.right {
+    right: 0;
+}
+
+.carousel-dots {
+    text-align: center;
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+@media (max-width: 600px) {
+    .carousel-dots {
+        text-align: start;
+        margin-left: 10px;
+    }
+}
+
+
+
+.carousel-dot {
+    display: inline-block;
+    width: 16px;
+    height: 8px;
+    background: #FFFDFD57;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 1px;
+}
+
+.carousel-dot.active {
+    background-image: linear-gradient(to right, white 50%, #555 50%);
+    width:96px;
+    height: 8px;
+}
+
+@media (max-width: 600px) {
+    .carousel-dot {
+        left: 20px!important;
+        text-align: left!important;
+        height: 4px!important;
+        width: 8px!important;
+    }
+    .carousel-dot.active {
+        width:48px!important;
+        height: 4px!important;
+    }
+}
+
+.video-background video {
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.carousel-numbers .carousel-number.active{
+    color:green;
+}
+.carousel-timer-line {
+    height: 4px;
+    width: 0%;
+    background-color: green; 
+    transition: width 0.5s ease;
+}
+.carousel-numbers{
+    text-align: end;
+    margin-right: 50px;
+}
+.carousel-numbers .carousel-number{
+    background:none;
+}
+.summary{
+    font-size: 14px;
+}
