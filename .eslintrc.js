@@ -1,6 +1,9 @@
 module.exports = {
   root: true,
   extends: 'airbnb-base',
+  globals: {
+    Chart: 'readonly',
+  },
   env: {
     browser: true,
   },

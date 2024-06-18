@@ -1,6 +1,7 @@
 import styles from './google-map-styles.js';
 
 let map;
+let google;
 
 function createMap(lat, long, mapCanvasID, icons) {
   const pointA = new google.maps.LatLng(lat, long);
