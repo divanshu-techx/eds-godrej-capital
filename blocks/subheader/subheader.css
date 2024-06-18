@@ -1,0 +1,25 @@
+.subheader>div {
+    gap: 35px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    padding-top: 4px;
+}
+
+.subheader .subheader-wrapper>div {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.subheader .subheader-wrapper>div:nth-of-type(1) {
+    margin-right: auto;
+    margin-left: 35px;
+}
+
+.subheader .subheader-wrapper>div:last-child {
+    margin-right: 35px;
+
+}

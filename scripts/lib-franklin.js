@@ -429,7 +429,12 @@ export async function loadBlocks(main) {
     updateSectionsStatus(main);
   }
 }
-
+export function loadSubHeader(header) {
+  const subheaderBlock = buildBlock('subheader', '');
+  header.append(subheaderBlock);
+  decorateBlock(subheaderBlock);
+  return loadBlock(subheaderBlock);
+}
 /**
  * Returns a picture element with webp and fallbacks
  * @param {string} src The image URL
