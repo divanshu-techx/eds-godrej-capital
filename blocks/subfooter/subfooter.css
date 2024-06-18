@@ -1,26 +1,35 @@
 /* .hidden {
     display: none;
-}
-
-.active {
+  }
+  
+  .active {
     font-weight: bold;
-}
+  }
+  
 
-/* Hide both divs by default */
-.footer-wrapper, .subfooter-container {
+  .footer-wrapper, .subfooter-container {
     display: none;
-}
-
-/* Show the desktop div on screens wider than 768px (desktop view) */
-@media (min-width: 769px) {
+  }
+  
+  .third-section-wrapper.third-section {
+    display: none;
+  }
+  
+  @media (min-width: 769px) {
+    .third-section-wrapper{
+      display: block;
+    }
     .footer-wrapper {
         display: block;
     }
-}
-
-/* Show the mobile div on screens 768px wide or narrower (mobile view) */
-@media (max-width: 768px) {
+  }
+  
+  @media (max-width: 768px) {
     .subfooter-container {
         display: block;
     }
-} */
+  
+    .third-section-wrapper.third-section {
+      display: none;
+    }
+  } */
