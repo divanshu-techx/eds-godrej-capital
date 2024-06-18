@@ -134,3 +134,17 @@ padding:0;
 padding-top:20px;
 }
 
+@media (min-width: 600px) {
+.subfooter-wrapper{
+  display:none;
+}
+}
+
+@media (max-width: 600px) {
+.footer-wrapper{
+  display:none;
+}
+}
+
+
+

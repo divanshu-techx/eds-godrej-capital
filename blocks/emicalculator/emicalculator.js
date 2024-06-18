@@ -85,7 +85,7 @@ export default async function decorate() {
             min: loanAmountMinValue,
             max: loanAmountMaxValue,
             step: '50000',
-            style: 'color: #3b3b3b',
+            style: 'color:#b3b3b3',
           },
         ),
       ),
@@ -146,7 +146,7 @@ export default async function decorate() {
             min: interestrateMinvalue,
             max: interestrateMaxvalue,
             step: '0.5',
-            style: 'color: #6258A8',
+            style: 'color:#b3b3b3',
           },
         ),
       ),
@@ -188,7 +188,7 @@ export default async function decorate() {
       { class: 'detail' },
       createElement(
         'div',
-        { style: 'color: #3b3b3b' },
+        { style: 'color:#b3b3b3' },
         tenureTitleYear,
       ),
       createElement(
@@ -207,7 +207,7 @@ export default async function decorate() {
             min: tenureMinYearvalue,
             max: tenureMaxYearvalue,
             step: '1',
-            style: 'color: #6258A8',
+            style: 'color:#b3b3b3',
           },
         ),
       ),
@@ -249,7 +249,7 @@ export default async function decorate() {
       { class: 'detail' },
       createElement(
         'div',
-        { style: 'color: #3b3b3b' },
+        { style: 'color:#b3b3b3' },
         tenureTitleMonths,
       ),
       createElement(
@@ -270,7 +270,7 @@ export default async function decorate() {
             min: tenureMinMonthvalue,
             max: tenureMaxMonthvalue,
             step: '1',
-            style: 'color: #6258A8',
+            style: 'color:#b3b3b3',
           },
         ),
       ),
