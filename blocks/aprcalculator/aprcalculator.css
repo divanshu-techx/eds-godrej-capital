@@ -1,0 +1,62 @@
+.aprcalculator{
+    .calculator-container {
+        width: 80%;
+        margin: 20px auto;
+        padding: 20px;
+        background: white;
+        box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+    }
+    
+    .inputs label, .inputs span {
+        display: block;
+        margin: 10px 0;
+    }
+    
+    .inputs input[type="range"] {
+        width: 100%;
+    }
+    
+    .outputs {
+        margin-top: 20px;
+    }
+    
+    .result {
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+    
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        color: white;
+        background-color: #007BFF;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .input-details {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .input-span-desc {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .input-details .inputspan {
+        border: 1px solid grey;
+        padding: 5px;
+        width: 120px;
+    }
+
+    .input-bottom-details{
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .error{
+        color: red;
+    }
+}
