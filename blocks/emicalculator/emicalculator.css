@@ -245,3 +245,41 @@ input[type='number'] {
 	font-size: 14px;
 	color:#b3b3b3;
   }
+  .loan-details-upper{
+
+}
+.loan-details {
+width: 540px;
+height: 100px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 10px;
+margin-top: 20px;
+background: rgba(244, 244, 244, 1);
+padding: 5px 20px;
+font: 16px;
+color: rgba(0, 0, 0, 1);
+border-radius: 4px;
+}
+
+.loan-details #apply-btn{
+padding:10px 20px;
+font-size: 16px;
+background: #3CB8FF;
+border: 2px;
+line-height: 16.2px;
+font-size: 14px;
+font-weight: 500;
+}
+.chart-details{
+	font-size: 16px;
+	font-weight: 600;
+}
+#price-container-emi{
+	font-size: 16px;
+	font-weight: 600;
+}
+#price-container-emi #price{
+	color:#8cb133;
+}

@@ -41,10 +41,3 @@
 .section.calculator-v1-container{
     display:none;
 }
-
-
-@media (max-width: 600px) {
-    .breakup{
-      display:none;
-    }
-    }
