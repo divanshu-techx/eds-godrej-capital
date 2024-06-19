@@ -589,7 +589,7 @@ color:black;
   align-items: center;
 }
 
-.subheader-container .default-content-wrapper ul li img{
+.subheader .default-content-wrapper ul li img{
   width:16px;
   height:16px;
 }

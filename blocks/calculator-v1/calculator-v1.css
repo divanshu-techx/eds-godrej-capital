@@ -45,3 +45,18 @@
 .section.calculator-v1-container{
     display:none;
 }
+
+@media (max-width: 768px) {
+    .chartDetails {
+        display: none !important; /* Hide the chart details on mobile */
+    }
+    .sub-container{
+        display: block!important;
+    }
+    .view {
+        background-color: #f4f4f4;
+        padding: 20px;
+        border-radius: 4px;
+        width: 100%!important;
+    }
+}
