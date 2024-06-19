@@ -92,7 +92,7 @@ export default async function decorate() {
     createElement(
       'div',
       { class: 'detail' },
-      createElement('p', { style: 'color: #9088D2' }, laonamountTitle),
+      createElement('p', { style: 'color: #3b3b3b' }, laonamountTitle),
       createElement(
         'div',
         { class: 'inputDetail' },
@@ -119,7 +119,7 @@ export default async function decorate() {
     createElement(
       'div',
       { class: 'detail' },
-      createElement('p', { style: 'color: #9088D2' }, existingEmiTitle),
+      createElement('p', { style: 'color: #3b3b3b' }, existingEmiTitle),
       createElement(
         'div',
         { class: 'inputDetail' },
@@ -146,7 +146,7 @@ export default async function decorate() {
     createElement(
       'div',
       { class: 'detail' },
-      createElement('p', { style: 'color: #9088D2' }, interestrateTitle),
+      createElement('p', { style: 'color: #3b3b3b' }, interestrateTitle),
       createElement(
         'div',
         { class: 'inputDetail' },
@@ -173,7 +173,7 @@ export default async function decorate() {
     createElement(
       'div',
       { class: 'detail' },
-      createElement('p', { style: 'color: #9088D2' }, tenureTitleYear),
+      createElement('p', { style: 'color: #3b3b3b' }, tenureTitleYear),
       createElement(
         'div',
         { class: 'inputDetail' },
@@ -200,7 +200,7 @@ export default async function decorate() {
     createElement(
       'div',
       { class: 'detail' },
-      createElement('p', { style: 'color: #9088D2' }, tenureTitleMonths),
+      createElement('p', { style: 'color: #3b3b3b' }, tenureTitleMonths),
       createElement(
         'div',
         { class: 'inputDetail' },
