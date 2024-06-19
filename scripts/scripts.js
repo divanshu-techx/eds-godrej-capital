@@ -12,6 +12,7 @@ import {
   loadBlocks,
   loadCSS,
   loadSubHeader,
+  loadSecFooter,
   getMetadata,
 } from './aem.js';
 
@@ -109,6 +110,7 @@ async function loadLazy(doc) {
 
   loadHeader(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
+  loadSecFooter(doc.querySelector('footer'));
   loadSubHeader(doc.querySelector('header'));
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();

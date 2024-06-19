@@ -578,6 +578,11 @@ header nav .nav-tools input[type=text]{
   cursor: pointer;
 }
 
+.subheader .subheader-wrapper .default-content-wrapper ul .subheader-list a:any-link{
+text-decoration: none;
+color:black;
+}
+
 .subheader .subheader-wrapper .default-content-wrapper ul .subheader-list picture{
   display:flex;
   justify-content: center;
@@ -596,4 +601,6 @@ header nav .nav-tools input[type=text]{
 .subheader-list:not(:first-child) {
   text-align: right;
 }
+
+
 

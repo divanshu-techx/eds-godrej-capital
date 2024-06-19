@@ -719,6 +719,19 @@ async function loadSubHeader(header) {
 
 /**
  * Loads a block named 'footer' into footer
+ * @param footer subfooter element
+ * @returns {Promise}
+ */
+
+async function loadSecFooter(footer) {
+  const secFooterBlock = buildBlock('secfooter', '');
+  footer.append(secFooterBlock);
+  decorateBlock(secFooterBlock);
+  return loadBlock(secFooterBlock);
+}
+
+/**
+ * Loads a block named 'footer' into footer
  * @param footer footer element
  * @returns {Promise}
  */
@@ -780,4 +793,5 @@ export {
   waitForLCP,
   wrapTextNodes,
   loadSubHeader,
+  loadSecFooter,
 };
