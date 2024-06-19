@@ -103,3 +103,6 @@
   }
 }
  
+.footer-element .button-container a{
+    display:block;
+}

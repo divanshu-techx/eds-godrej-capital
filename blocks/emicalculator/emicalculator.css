@@ -204,12 +204,12 @@ input[type='number'] {
   appearance: textfield;
 }
 
-#pieChart {
+/* #pieChart {
 	width: 300px !important;
 	height: 300px !important;
 	display: block;
 	box-sizing: border-box;
-}
+} */
 
 .inputDetail {
 	min-width: 300px;

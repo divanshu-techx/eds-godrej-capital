@@ -313,7 +313,7 @@
     flex: 0 0 100%;
     scroll-snap-align: start;
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     align-items: flex-start;
     justify-content: center;
     position: relative;
@@ -352,7 +352,7 @@
   
   .carousel-v1 .carousel-v1-slide-indicators {
     display: flex;
-    justify-content: center;
+    justify-content: end;
     gap: 0.5rem;
   }
   
@@ -484,4 +484,8 @@
   
   .section.hero-carousel-v1.carousel-v1-container div{
     max-width: unset;
+  }
+
+  .carousel-v1--navigation-buttons{
+    display: none;
   }

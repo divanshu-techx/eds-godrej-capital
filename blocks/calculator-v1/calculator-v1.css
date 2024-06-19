@@ -60,3 +60,21 @@
         width: 100%!important;
     }
 }
+
+#canvasItems{
+    font-size: 14px;
+}
+
+.chartDetails {
+    position: relative; /* Ensure the parent container is positioned */
+}
+
+#canvasItems {
+    position: absolute;
+    top: 50%; /* Adjust top position as needed */
+    left: 50%; /* Adjust left position as needed */
+    transform: translate(-50%, -50%); /* Center the items relative to parent */
+    text-align: center; /* Center align text within #canvasItems */
+    z-index: 1; /* Ensure #canvasItems appear above canvas */
+}
+
