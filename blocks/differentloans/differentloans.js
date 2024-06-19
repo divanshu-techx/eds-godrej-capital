@@ -54,7 +54,8 @@ function handleLoanTab(tabName, contentContainer, data) {
   let filteredData;
   if (tabName === 'all') {
     filteredData = data;
-  } else {;
+  } else {
+    ;
     filteredData = data.filter((item) =>
       item.category.toLowerCase().split(',').includes(tabName)
     );
