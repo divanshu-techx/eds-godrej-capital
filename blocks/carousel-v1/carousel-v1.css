@@ -457,3 +457,31 @@
       --slide-content-width: auto;
     }
   }
+
+  .carousel-v1-slides-container {
+    position: relative; /* Ensure container is the reference for absolute positioning */
+  }
+  
+  .carousel-v1--navigation-buttons {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    pointer-events: none; /* Ensure only buttons are clickable */
+  }
+  
+  .carousel-v1--navigation-buttons button {
+    pointer-events: all; /* Restore clickability to buttons */
+    background: rgba(0, 0, 0, 0.5); /* Optional: semi-transparent background */
+    color: white; /* Optional: button text color */
+    border: none; /* Optional: remove button borders */
+    padding: 10px; /* Optional: button padding */
+    cursor: pointer; /* Optional: change cursor on hover */
+  }
+  
+  .section.hero-carousel-v1.carousel-v1-container div{
+    max-width: unset;
+  }
