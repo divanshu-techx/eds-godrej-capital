@@ -474,12 +474,12 @@
   }
   
   .carousel-v1--navigation-buttons button {
-    pointer-events: all; /* Restore clickability to buttons */
-    background: rgba(0, 0, 0, 0.5); /* Optional: semi-transparent background */
-    color: white; /* Optional: button text color */
-    border: none; /* Optional: remove button borders */
-    padding: 10px; /* Optional: button padding */
-    cursor: pointer; /* Optional: change cursor on hover */
+    pointer-events: all;
+    background: rgba(0, 0, 0, 0.5); 
+    color: white; 
+    border: none;
+    padding: 10px; 
+    cursor: pointer;
   }
   
   .section.hero-carousel-v1.carousel-v1-container div{
@@ -489,3 +489,12 @@
   .carousel-v1--navigation-buttons{
     display: none;
   }
+
+  .section.hero-carousel-v1.carousel-v1-container {
+    padding: 0 32px;
+    margin-top: 85px;
+}
+
+.carousel-v1-container ul li::marker{
+  color:green;
+}

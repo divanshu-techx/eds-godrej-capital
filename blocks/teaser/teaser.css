@@ -372,5 +372,24 @@ button {
       position: relative;
     }
   }
-  
-  
+
+  .teaser > div p:nth-child(4){
+    display: flex;
+  }
+
+  .teaser strong a{
+    padding:10px;
+    background: #3CB8FF;
+    color:#fff;
+    font-size: 12px;
+    display: inline;
+    text-decoration: none;
+  }
+
+  .teaser em a{
+    padding:10px;
+    background: inherit;
+    color:#fff;
+    font-size: 12px;
+    text-decoration: none;
+  }
