@@ -73,7 +73,7 @@ function initializetabs() {
       heroCarouselSecondary.insertAdjacentElement('afterend', tabsContainer);
 
       // Append each .cal section to the tabs container (move instead of append)
-      calSections.forEach(section => {
+      calSections.forEach((section) => {
         tabsContainer.appendChild(section);
       });
 

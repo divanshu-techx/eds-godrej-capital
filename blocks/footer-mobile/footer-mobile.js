@@ -21,7 +21,6 @@ export default async function decorate(block) {
       secondDiv.style.display = 'none';
 
       firstDiv.addEventListener('click', () => {
-        console.log('footer js called');
         const isExpanded = secondDiv.style.display === 'block';
         hideAllDropdowns(secondDiv); // Hide all other dropdowns
         secondDiv.style.display = isExpanded ? 'none' : 'block';

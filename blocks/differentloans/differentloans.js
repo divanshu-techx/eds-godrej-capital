@@ -55,11 +55,7 @@ function handleLoanTab(tabName, contentContainer, data) {
   if (tabName === 'all') {
     filteredData = data;
   } else {
-    ;
-    filteredData = data.filter((item) =>
-      item.category.toLowerCase().split(',').includes(tabName)
-    );
-    console.log(filteredData);
+    filteredData = data.filter((item) => item.category.toLowerCase().split(',').includes(tabName));
   }
   if (filteredData.length > 0) {
     contentContainer.innerHTML = filteredData
@@ -72,7 +68,7 @@ function handleLoanTab(tabName, contentContainer, data) {
              <p class='loanDescription'>${item.description}</p>
           </div>
       </a>
-          `
+          `,
       )
       .join('');
   } else {
@@ -88,7 +84,6 @@ async function fetchData() {
 }
 function addEventListeners(tabsContainer, contentContainer) {
   const tabs = tabsContainer.querySelectorAll(SELECTORS.tabsSelector);
-  console.log('tabs are', tabs);
   tabs.forEach((tab) => {
     tab.addEventListener('click', async () => {
       tabs.forEach((t) => t.classList.remove('active'));

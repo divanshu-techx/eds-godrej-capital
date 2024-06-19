@@ -147,14 +147,10 @@ export default async function decorate(block) {
   navWrapper.append(nav);
   block.append(navWrapper);
 
-  var navElement = document.getElementById("nav");
-  // console.log(navElement);
+  const navElement = document.getElementById('nav');
   // my js called
 
-  // console.log('js called');
-
-  //const api = "https://main--eds-practice--imjeekxgurjar.hlx.page/nav-element/globalnavigation.json";
-  const api = "https://main--eds-godrej-capital--divanshu-techx.hlx.live/nav-element/globalnavigation.json";
+  const api = 'https://main--eds-godrej-capital--divanshu-techx.hlx.live/nav-element/globalnavigation.json';
   let responseData = [];
 
   // Create the topnav div
@@ -179,8 +175,6 @@ export default async function decorate(block) {
   navSections.appendChild(topNav);
   navSections.appendChild(belowNavMainContainer);
 
-
-
   // Function to render news items
   function getResponseData(filteredData) {
     // Create the ul element
@@ -193,11 +187,11 @@ export default async function decorate(block) {
 
       // Create the a element
       const a = document.createElement('a');
-      a.href = "#.html";
+      a.href = '#.html';
       a.textContent = item.HeadingName;
       a.setAttribute('data-path', item.ChildPageUrl);
       a.setAttribute('data-depth', item.depth);
-      a.setAttribute('data-navItem', item.HeadingName)
+      a.setAttribute('data-navItem', item.HeadingName);
 
       // Replace spaces with hyphens and add custom class
       const apiClass = item.HeadingName.replace(/\s+/g, '-');
@@ -217,23 +211,23 @@ export default async function decorate(block) {
 
     navItems.forEach((navItem) => {
       navItem.addEventListener('click', () => {
-        let depth = navItem.getAttribute('data-depth'),
-          navElement = navItem.getAttribute('data-navItem'),
-          childPath = navItem.getAttribute('data-path');
+        const depth = navItem.getAttribute('data-depth');
+        const navElement = navItem.getAttribute('data-navItem');
+        const childPath = navItem.getAttribute('data-path');
         getChildApiResponse(childPath, navElement, depth);
         belowNavMainContainer.classList.toggle('show');
       });
     });
-    //  rotation behave of nav bar 
+    //  rotation behave of nav bar
     const navLinks = document.querySelectorAll('.anchorClass');
-    navLinks.forEach(link => {
+    navLinks.forEach((link) => {
       link.addEventListener('click', function (event) {
         event.preventDefault();
         if (this.classList.contains('rotate')) {
           this.classList.remove('rotate');
           belowNavMainContainer.classList.remove('show');
         } else {
-          navLinks.forEach(link => link.classList.remove('rotate'));
+          navLinks.forEach((link) => link.classList.remove('rotate'));
           this.classList.add('rotate');
           belowNavMainContainer.classList.add('show');
         }
@@ -241,15 +235,14 @@ export default async function decorate(block) {
     });
   }
 
-
-  function createListElement(textContent, href = "#.html") {
+  function createListElement(textContent, href = '#.html') {
     const li = document.createElement('li');
     li.className = 'listElement';
     const a = document.createElement('a');
     a.href = href;
     a.textContent = textContent;
     a.className = 'anchorPath';
-    a.addEventListener('click', function (event) {
+    a.addEventListener('click', (event) => {
       event.preventDefault();
     });
     li.appendChild(a);
@@ -278,15 +271,14 @@ export default async function decorate(block) {
             item.forEach((subItem) => {
               subUl.appendChild(createListElement(subItem.title, subItem.path));
               depth = subItem.depth;
-              if (depth < 2)
-                displayURLContent(subItem.path);
+              if (depth < 2) { displayURLContent(subItem.path); }
             });
             secondElementDiv.appendChild(subUl);
           }
         }
       }
     } else {
-      console.error("childResponseData is not an array or object.");
+      console.error('childResponseData is not an array or object.');
     }
 
     if (depth === '2') {
@@ -311,10 +303,10 @@ export default async function decorate(block) {
 
     mainItems.forEach((item, index) => {
       item.addEventListener('click', () => {
-        mainItems.forEach(mainItem => mainItem.classList.remove('active'));
+        mainItems.forEach((mainItem) => mainItem.classList.remove('active'));
         item.classList.add('active');
         thirdElementDiv.innerHTML = '';
-        subLists.forEach(subList => subList.classList.remove('active'));
+        subLists.forEach((subList) => subList.classList.remove('active'));
         if (index < subLists.length) {
           subLists[index].classList.add('active');
           const firstSubItem = subLists[index].querySelector('.anchorPath');
@@ -327,11 +319,11 @@ export default async function decorate(block) {
     });
 
     const anchorTags = secondElementDiv.querySelectorAll('.anchorPath');
-    anchorTags.forEach(anchor => {
+    anchorTags.forEach((anchor) => {
       anchor.addEventListener('click', function () {
-        anchorTags.forEach(anchor => anchor.classList.remove('anchor_active'));
+        anchorTags.forEach((anchor) => anchor.classList.remove('anchor_active'));
         this.classList.add('anchor_active');
-        let imagePath = this.getAttribute('href');
+        const imagePath = this.getAttribute('href');
         displayURLContent(imagePath);
       });
     });
@@ -355,7 +347,6 @@ export default async function decorate(block) {
         return response.json();
       })
       .then((response) => {
-        // console.log(response.data);
         responseData = response.data;
         getResponseData(responseData);
       })
@@ -365,10 +356,9 @@ export default async function decorate(block) {
   }
 
   function transformResponseData(data) {
-    // console.log(data.depth);
-    let depth = data.depth;
+    const { depth } = data;
     const transformedData = {};
-    data.forEach(item => {
+    data.forEach((item) => {
       if (item.parent) {
         if (!transformedData[item.parent]) {
           transformedData[item.parent] = [];
@@ -376,20 +366,17 @@ export default async function decorate(block) {
         transformedData[item.parent].push({
           title: item.title,
           path: item.path,
-          depth: depth
+          depth,
         });
-      } else {
-        if (item.title) {
-          if (!transformedData[item.title]) {
-            transformedData[item.title] = [];
-          }
-          transformedData[item.title].push({
-            title: item.title,
-            path: item.path,
-            depth: depth
-          });
+      } else if (item.title) {
+        if (!transformedData[item.title]) {
+          transformedData[item.title] = [];
         }
-
+        transformedData[item.title].push({
+          title: item.title,
+          path: item.path,
+          depth,
+        });
       }
     });
 
@@ -408,13 +395,10 @@ export default async function decorate(block) {
         return response.json();
       })
       .then((response) => {
-        // console.log(response.data);
-        let childResponseData = response.data;
+        const childResponseData = response.data;
         childResponseData.depth = depth;
-        // console.log(childResponseData.depth);
         // Transform the response data
         const transformedData = transformResponseData(childResponseData);
-        // console.log(transformedData);
         getChildResponseData(transformedData);
       })
       .catch((error) => {
@@ -423,14 +407,14 @@ export default async function decorate(block) {
   }
 
   function displayURLContent(url) {
-    let mainUrl = "https://main--eds-godrej-capital--divanshu-techx.hlx.live" + url;
+    const mainUrl = `https://main--eds-godrej-capital--divanshu-techx.hlx.live${url}`;
     fetch(mainUrl)
-      .then(response => response.text())
-      .then(data => {
-        let tempDiv = document.createElement('div');
+      .then((response) => response.text())
+      .then((data) => {
+        const tempDiv = document.createElement('div');
         tempDiv.innerHTML = data;
 
-        let mainContent = tempDiv.querySelector('main');
+        const mainContent = tempDiv.querySelector('main');
 
         if (mainContent) {
           thirdElementDiv.innerHTML = '';
@@ -440,7 +424,7 @@ export default async function decorate(block) {
           console.error('Main tag not found in fetched content.');
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error fetching URL content:', error);
       });
   }
