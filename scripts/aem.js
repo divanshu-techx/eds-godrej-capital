@@ -706,6 +706,18 @@ async function loadHeader(header) {
 }
 
 /**
+ * Loads a block named 'headermobile' into header
+ * @param {Element} header headermobile element
+ * @returns {Promise}
+ */
+async function loadheaderMobile(header) {
+  const loadheaderMobileBlock = buildBlock('headerMobile', '');
+  header.append(loadheaderMobileBlock);
+  decorateBlock(loadheaderMobileBlock);
+  return loadBlock(loadheaderMobileBlock);
+}
+
+/**
  * Loads a block named 'subHeader' into subHeader
  * @param header subHeader element
  * @returns {Promise}
@@ -794,4 +806,5 @@ export {
   wrapTextNodes,
   loadSubHeader,
   loadSecFooter,
+  loadheaderMobile,
 };
