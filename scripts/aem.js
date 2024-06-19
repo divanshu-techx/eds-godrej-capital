@@ -705,17 +705,17 @@ async function loadHeader(header) {
   return loadBlock(headerBlock);
 }
 
-/**
- * Loads a block named 'headermobile' into header
- * @param {Element} header headermobile element
- * @returns {Promise}
- */
-async function loadheaderMobile(header) {
-  const loadheaderMobileBlock = buildBlock('headerMobile', '');
-  header.append(loadheaderMobileBlock);
-  decorateBlock(loadheaderMobileBlock);
-  return loadBlock(loadheaderMobileBlock);
-}
+// /**
+//  * Loads a block named 'headermobile' into header
+//  * @param {Element} header headermobile element
+//  * @returns {Promise}
+//  */
+// async function loadheaderMobile(header) {
+//   const loadheaderMobileBlock = buildBlock('headerMobile', '');
+//   header.append(loadheaderMobileBlock);
+//   decorateBlock(loadheaderMobileBlock);
+//   return loadBlock(loadheaderMobileBlock);
+// }
 
 /**
  * Loads a block named 'subHeader' into subHeader
@@ -806,5 +806,5 @@ export {
   wrapTextNodes,
   loadSubHeader,
   loadSecFooter,
-  loadheaderMobile,
+  // loadheaderMobile,
 };

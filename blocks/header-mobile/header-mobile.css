@@ -6,3 +6,12 @@
         display:block;
     }
   }
+
+  .decorated-ul, .decorated-ol {
+    display: none;
+}
+
+/* Show active elements */
+.active {
+    display: block;
+}

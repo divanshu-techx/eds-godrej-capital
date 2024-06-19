@@ -13,7 +13,7 @@ import {
   loadCSS,
   loadSubHeader,
   loadSecFooter,
-  loadheaderMobile,
+  // loadheaderMobile,
   getMetadata,
 } from './aem.js';
 
@@ -110,7 +110,7 @@ async function loadLazy(doc) {
   if (hash && element) element.scrollIntoView();
 
   loadHeader(doc.querySelector('header'));
-  loadheaderMobile(doc.querySelector('header'));
+  // loadheaderMobile(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
   loadSecFooter(doc.querySelector('footer'));
   loadSubHeader(doc.querySelector('header'));
