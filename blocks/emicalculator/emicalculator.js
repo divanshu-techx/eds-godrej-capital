@@ -1,6 +1,6 @@
 export default async function decorate() {
   var container = document.querySelector('.emicalculator-container');
-
+  
   function createElement(type, attributes = {}, ...children) {
       const element = document.createElement(type);
       for (const [key, value] of Object.entries(attributes)) {
