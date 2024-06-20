@@ -193,54 +193,87 @@ export default async function decorate(block) {
       navSections.appendChild(topNav);
       navSections.appendChild(belowNavMainContainer);
 
-  // Function to render news items
+        // Function to render news items
         function getResponseData(filteredData) {
-              // Create the ul element
-              const ul = document.createElement('ul');
-
-              filteredData.forEach((item) => {
-                  // Create the li element
-                  const li = document.createElement('li');
-                  li.className = 'listElement';
-
-                  // Create the a element
-                  const a = document.createElement('a');
-                  a.href = "#.html";
-                  a.textContent = item.HeadingName;
-                  a.setAttribute('data-path', item.ChildPageUrl);
-                  a.setAttribute('data-depth',item.depth);
-                  a.setAttribute('data-navItem',item.HeadingName)
-                  const apiClass = item.HeadingName.replace(/\s+/g, '-');
-                  const customClass = 'anchorClass';
-                  a.classList.add(apiClass, customClass);
-                  li.appendChild(a);
-                  ul.appendChild(li);
+          // Create the ul element
+          const ul = document.createElement('ul');
+      
+          filteredData.forEach((item) => {
+              // Create the li element
+              const li = document.createElement('li');
+              li.className = 'listElement';
+      
+              // Create the a element
+              const a = document.createElement('a');
+              a.href = "#.html";
+              a.textContent = item.HeadingName;
+              a.setAttribute('data-path', item.ChildPageUrl);
+              a.setAttribute('data-depth', item.depth);
+              a.setAttribute('data-navItem', item.HeadingName);
+      
+              // Replace spaces with hyphens and add custom class
+              const apiClass = item.HeadingName.replace(/\s+/g, '-');
+              const customClass = 'anchorClass';
+              a.classList.add(apiClass, customClass);
+      
+              // Append the a element to the li
+              li.appendChild(a);
+              // Append the li element to the ul
+              ul.appendChild(li);
+          });
+      
+          // Append the ul to the topNav
+          topNav.appendChild(ul);
+      
+          // Select all anchorClass elements and belowNavMainContainer
+          const navItems = ul.querySelectorAll('a.anchorClass');
+          const belowNavMainContainer = document.querySelector('.belowNavMainContainer');
+      
+          // Add mouseover event listener to each nav item
+          navItems.forEach((navItem) => {
+              navItem.addEventListener('mouseover', function(event) {
+                  event.preventDefault();
+                  const parentLi = this.parentElement;
+      
+                  // Remove 'selected' class from all list elements
+                  ul.querySelectorAll('li').forEach(li => li.classList.remove('selected'));
+      
+                  // Add 'selected' class to the hovered list element
+                  parentLi.classList.add('selected');
+      
+                  // Add 'rotate' class and show belowNavMainContainer
+                  navItems.forEach(link => link.classList.remove('rotate'));
+                  this.classList.add('rotate');
+                  belowNavMainContainer.classList.add('show');
+      
+                  // Get attributes and call getChildApiResponse
+                  let depth = this.getAttribute('data-depth'),
+                      navElement = this.getAttribute('data-navItem'),
+                      childPath = this.getAttribute('data-path');
+                  getChildApiResponse(childPath, navElement, depth);
               });
-
-              topNav.appendChild(ul);
-                  const navItems = ul.querySelectorAll('a.anchorClass');
-                  const belowNavMainContainer = document.querySelector('.belowNavMainContainer');
-                  navItems.forEach((navItem) => {
-                    navItem.addEventListener('click', function(event) {
-                        event.preventDefault();
-                        const parentLi = this.parentElement;
-                        const isAlreadySelected = parentLi.classList.contains('selected');
-                        ul.querySelectorAll('li').forEach(li => li.classList.remove('selected'));
-                        if (isAlreadySelected) {
-                            this.classList.remove('rotate');
-                            belowNavMainContainer.classList.remove('show');
-                        } else {
-                            parentLi.classList.add('selected');
-                            navItems.forEach(link => link.classList.remove('rotate'));
-                            this.classList.add('rotate');
-                            belowNavMainContainer.classList.add('show');
-                        }
-                        let depth = this.getAttribute('data-depth'),
-                            navElement = this.getAttribute('data-navItem'),
-                            childPath = this.getAttribute('data-path');
-                        getChildApiResponse(childPath, navElement, depth);
-                    });
-                });
+          });
+      
+          // Add mouseleave event listener to document to hide belowNavMainContainer when hovering out
+          document.addEventListener('mouseleave', (event) => {
+              if (!belowNavMainContainer.contains(event.target) && !ul.contains(event.target)) {
+                  belowNavMainContainer.classList.remove('show');
+                  ul.querySelectorAll('li').forEach(li => li.classList.remove('selected'));
+                  navItems.forEach(link => link.classList.remove('rotate'));
+              }
+          });
+      
+          // Add mouseover event listener to belowNavMainContainer to keep it visible
+          belowNavMainContainer.addEventListener('mouseover', () => {
+              belowNavMainContainer.classList.add('show');
+          });
+      
+          // Add mouseleave event listener to belowNavMainContainer to hide it when mouse leaves
+          belowNavMainContainer.addEventListener('mouseleave', () => {
+              belowNavMainContainer.classList.remove('show');
+              ul.querySelectorAll('li').forEach(li => li.classList.remove('selected'));
+              navItems.forEach(link => link.classList.remove('rotate'));
+          });
         }
 
         function createListElement(textContent, href = "#.html") {
@@ -262,75 +295,87 @@ export default async function decorate(block) {
           secondElementDiv.innerHTML = '';
           let depth;
           const ul = document.createElement('ul');
+         
           if (typeof childResponseData === 'object' && childResponseData !== null) {
-              for (const key in childResponseData) {
-                  if (childResponseData.hasOwnProperty(key)) {
-                      const item = childResponseData[key];
-                      const li = createListElement(key);
-                      ul.appendChild(li);
-                      if (Array.isArray(item)) {
-                          const subUl = document.createElement('ul');
-                          subUl.className = 'subList';
-                          item.forEach((subItem) => {
-                              subUl.appendChild(createListElement(subItem.title, subItem.path));
-                              depth = subItem.depth;
-                              if (depth < 2)
-                                displayURLContent(subItem.path);
-                          });
-                          secondElementDiv.appendChild(subUl);
-                      }
-                  }
+            for (const key in childResponseData) {
+              if (childResponseData.hasOwnProperty(key)) {
+                const item = childResponseData[key];
+                const li = createListElement(key);
+                ul.appendChild(li);
+       
+                if (Array.isArray(item)) {
+                  const subUl = document.createElement('ul');
+                  subUl.className = 'subList';
+                  item.forEach((subItem) => {
+                    subUl.appendChild(createListElement(subItem.title, subItem.path));
+                    depth = subItem.depth;
+                    if (depth < 2) {
+                      displayURLContent(subItem.path);
+                    }
+                  });
+                  secondElementDiv.appendChild(subUl);
+                }
               }
+            }
           } else {
-              console.error("childResponseData is not an array or object.");
+            console.error("childResponseData is not an array or object.");
           }
+       
           if (depth === '2') {
             firstElementChildDiv.appendChild(ul);
             parentContainerDiv.appendChild(firstElementChildDiv);
-        }
-        if (depth == '1' || depth == '2') {
-          parentContainerDiv.appendChild(secondElementDiv);
-      }
+          }
+       
+          if (depth == '1' || depth == '2') {
+            parentContainerDiv.appendChild(secondElementDiv);
+          }
+         
           parentContainerDiv.appendChild(thirdElementDiv);
+       
           const subLists = secondElementDiv.querySelectorAll('.subList');
           if (subLists.length > 0) {
-              subLists[0].classList.add('active');
+            subLists[0].classList.add('active');
           }
+       
           const mainItems = firstElementChildDiv.querySelectorAll('.listElement');
           if (mainItems.length > 0) {
-              mainItems[0].classList.add('active');
+            mainItems[0].classList.add('active');
           }
+       
           mainItems.forEach((item, index) => {
-              item.addEventListener('click', () => {
-                  mainItems.forEach(mainItem => mainItem.classList.remove('active'));
-                  item.classList.add('active');
-                  thirdElementDiv.innerHTML = '';
-                  subLists.forEach(subList => subList.classList.remove('active'));
-                  if (index < subLists.length) {
-                      subLists[index].classList.add('active');
-                      const firstSubItem = subLists[index].querySelector('.anchorPath');
-                      if (firstSubItem) {
-                          displayURLContent(firstSubItem.getAttribute('href'));
-                          firstSubItem.classList.add('anchor_active');
-                      }
-                  }
-              });
+            item.addEventListener('mouseover', () => { // Change to mouseover
+              mainItems.forEach(mainItem => mainItem.classList.remove('active'));
+              item.classList.add('active');
+              thirdElementDiv.innerHTML = '';
+              subLists.forEach(subList => subList.classList.remove('active'));
+              if (index < subLists.length) {
+                subLists[index].classList.add('active');
+                const firstSubItem = subLists[index].querySelector('.anchorPath');
+                if (firstSubItem) {
+                  displayURLContent(firstSubItem.getAttribute('href'));
+                  firstSubItem.classList.add('anchor_active');
+                }
+              }
+            });
           });
+       
           const anchorTags = secondElementDiv.querySelectorAll('.anchorPath');
           anchorTags.forEach(anchor => {
-              anchor.addEventListener('click', function () {
-                  anchorTags.forEach(anchor => anchor.classList.remove('anchor_active'));
-                  this.classList.add('anchor_active');
-                  let imagePath = this.getAttribute('href');
-                  displayURLContent(imagePath);
-              });
+            anchor.addEventListener('mouseover', function () { // Change to mouseover
+              anchorTags.forEach(anchor => anchor.classList.remove('anchor_active'));
+              this.classList.add('anchor_active');
+              let imagePath = this.getAttribute('href');
+              displayURLContent(imagePath);
+            });
           });
+       
           belowNavMainContainer.appendChild(parentContainerDiv);
+       
           if (mainItems.length > 0) {
-              const firstMainItem = mainItems[0];
-              firstMainItem.click(); // Simulate a click on the first main item
+            const firstMainItem = mainItems[0];
+            firstMainItem.dispatchEvent(new Event('mouseover')); // Simulate a mouseover on the first main item
           }
-      }
+        }
         function getApiResponse(api) {
             fetch(api, {
                 method: 'GET',
