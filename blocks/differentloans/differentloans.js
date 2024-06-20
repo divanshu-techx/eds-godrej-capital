@@ -1,12 +1,14 @@
 import ffetch from '../../scripts/ffetch.js';
 
+const mainTitle = getDataAttributeValueByName('title');
+const queryIndexApiUrl  = getDataAttributeValueByName('queryindexurl');
+
 const SELECTORS = {
   tabsSelector: '.tab',
 };
 
 const API_URL = {
-  Different_Home_Loan_Url:
-    'https://main--eds-godrej-capital--divanshu-techx.hlx.live/different_type_of_loan/query-index.json',
+  Different_Home_Loan_Url:queryIndexApiUrl,
 };
 
 const CREATE_SELECTOR_CLASS = {
@@ -16,7 +18,7 @@ const CREATE_SELECTOR_CLASS = {
 };
 
 const AUTHORABLE_VALUES = {
-  loansTitle: 'Different Types of Loans for Your Financing Needs',
+  loansTitle: mainTitle,
 };
 
 function createTitle(block) {
@@ -110,3 +112,8 @@ export default async function decorate(block) {
     console.error('Error fetching data:', err);
   }
 }
+
+function getDataAttributeValueByName(name) {
+      const element = document.querySelector(`[data-${name}]`);
+      return element ? element.getAttribute(`data-${name}`) : null;
+  }
