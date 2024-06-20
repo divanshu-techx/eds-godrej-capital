@@ -5,6 +5,7 @@ import { loadFragment } from '../fragment/fragment.js';
 // const decorateBlockPromise = decorate1(block);
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 900px)');
+console.log(isDesktop);
 
 function closeOnEscape(e) {
   if (e.code === 'Escape') {
@@ -215,12 +216,17 @@ export default async function decorate(block) {
 
       var navElement = document.getElementById("nav");
       // console.log(navElement);
-  // my js called
+      // my js called
 
-      // console.log('js called');
+      const api = getDataAttributeValueByName('globalnavigationapiurl');
 
-      //const api = "https://main--eds-practice--imjeekxgurjar.hlx.page/nav-element/globalnavigation.json";
-      const api = "https://main--eds-godrej-capital--divanshu-techx.hlx.live/nav-element/globalnavigation.json";
+      console.log(api);
+
+      function getDataAttributeValueByName(name) {
+        const element = document.querySelector(`[data-${name}]`);
+        return element ? element.getAttribute(`data-${name}`) : null;
+      }
+
       let responseData = [];
 
       // Create the topnav div
@@ -242,17 +248,8 @@ export default async function decorate(block) {
       const thirdElementDiv = document.createElement('div');
       thirdElementDiv.className = 'thirdElementDiv';
 
-      // navSections.appendChild(topNav);
-      // navSections.appendChild(belowNavMainContainer);
-
-      if(!isDesktop){
-        navSections.appendChild(topNav);
-        navSections.appendChild(belowNavMainContainer);
-      } else {
-        // navSections.appendChild(nav-mobile);
-    }
-
-    
+      navSections.appendChild(topNav);
+      navSections.appendChild(belowNavMainContainer);
 
   // Function to render news items
         function getResponseData(filteredData) {
@@ -496,7 +493,7 @@ export default async function decorate(block) {
         }
 
         function displayURLContent(url) {
-          let mainUrl = "https://main--eds-godrej-capital--divanshu-techx.hlx.live" + url;
+          let mainUrl = url;
           fetch(mainUrl)
               .then(response => response.text())
               .then(data => {
