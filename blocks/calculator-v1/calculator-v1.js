@@ -2,7 +2,7 @@
 export default async function decorate() {
     initializetabs();
 }
- 
+
 // Function to initialize tabs dynamically
 function initializetabs() {
     const mainElement = document.querySelector('main');
@@ -12,7 +12,6 @@ function initializetabs() {
         const calSections = mainElement.querySelectorAll('.cal');
  
         if (calSections.length >= 2) {
-            console.log(calSections.length);
             const tabsContainer = document.createElement('div');
             tabsContainer.classList.add('tabs-container');
  
@@ -57,7 +56,7 @@ function initializetabs() {
                         section.style.display = 'none'; // Hide inactive tab content
                     }
                 });
-                
+ 
                 // Update the active state of tab buttons
                 const tabButtons = buttonContainer.querySelectorAll('button');
                 tabButtons.forEach((button, i) => {

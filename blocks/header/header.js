@@ -1,13 +1,13 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
-// media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 900px)');
 
 function closeOnEscape(e) {
   if (e.code === 'Escape') {
     const nav = document.getElementById('nav');
     const navSections = nav.querySelector('.nav-sections');
+    const navMobile = nav.querySelector('.nav-mobile');
     const navSectionExpanded = navSections.querySelector('[aria-expanded="true"]');
     if (navSectionExpanded && isDesktop.matches) {
       // eslint-disable-next-line no-use-before-define
@@ -15,7 +15,7 @@ function closeOnEscape(e) {
       navSectionExpanded.focus();
     } else if (!isDesktop.matches) {
       // eslint-disable-next-line no-use-before-define
-      toggleMenu(nav, navSections);
+      toggleMenu(nav, navSections,navMobile);
       nav.querySelector('button').focus();
     }
   }
@@ -53,14 +53,21 @@ function toggleAllNavSections(sections, expanded = false) {
  * @param {Element} navSections The nav sections within the container element
  * @param {*} forceExpanded Optional param to force nav expand behavior when not null
  */
-function toggleMenu(nav, navSections, forceExpanded = null) {
+
+function toggleMenu(nav, navSections, navMobile, forceExpanded = null) {
   const expanded = forceExpanded !== null ? !forceExpanded : nav.getAttribute('aria-expanded') === 'true';
   const button = nav.querySelector('.nav-hamburger button');
+  
+  // Toggle body scroll based on the menu state
   document.body.style.overflowY = (expanded || isDesktop.matches) ? '' : 'hidden';
   nav.setAttribute('aria-expanded', expanded ? 'false' : 'true');
   toggleAllNavSections(navSections, expanded || isDesktop.matches ? 'false' : 'true');
   button.setAttribute('aria-label', expanded ? 'Open navigation' : 'Close navigation');
-  // enable nav dropdown keyboard accessibility
+  if (isDesktop.matches) {
+    navMobile.style.display = 'none';
+  } else {
+    navMobile.style.display = expanded ? 'none' : 'block';
+  }
   const navDrops = navSections.querySelectorAll('.nav-drop');
   if (isDesktop.matches) {
     navDrops.forEach((drop) => {
@@ -77,9 +84,9 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
       drop.removeEventListener('focus', focusNavSection);
     });
   }
-  // enable menu collapse on escape keypress
+
+  // Enable or disable menu collapse on escape keypress based on the current state
   if (!expanded || isDesktop.matches) {
-    // collapse menu on escape press
     window.addEventListener('keydown', closeOnEscape);
   } else {
     window.removeEventListener('keydown', closeOnEscape);
@@ -101,11 +108,16 @@ export default async function decorate(block) {
   const nav = document.createElement('nav');
   nav.id = 'nav';
   while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
-
-  const classes = ['brand', 'sections', 'tools'];
+  const classes = ['brand', 'sections', 'mobile', 'tools'];
   classes.forEach((c, i) => {
     const section = nav.children[i];
-    if (section) section.classList.add(`nav-${c}`);
+    // console.log(`Section ${i}:`, section);
+    if (section) {
+      section.classList.add(`nav-${c}`);
+      // console.log(`Content of nav-${c}:`, section.innerHTML);
+    } else {
+      console.warn(`No element found for nav-${c}`);
+    }
   });
 
   const navBrand = nav.querySelector('.nav-brand');
@@ -116,6 +128,7 @@ export default async function decorate(block) {
   }
 
   const navSections = nav.querySelector('.nav-sections');
+  const navMobile = nav.querySelector('.nav-mobile');
   if (navSections) {
     navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
       if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');
@@ -135,12 +148,12 @@ export default async function decorate(block) {
       hamburger.innerHTML = `<button type="button" aria-controls="nav" aria-label="Open navigation">
           <span class="nav-hamburger-icon"></span>
         </button>`;
-      hamburger.addEventListener('click', () => toggleMenu(nav, navSections));
+      hamburger.addEventListener('click', () => toggleMenu(nav, navSections,navMobile));
       nav.prepend(hamburger);
       nav.setAttribute('aria-expanded', 'false');
       // prevent mobile nav behavior on window resize
-      toggleMenu(nav, navSections, isDesktop.matches);
-      isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, isDesktop.matches));
+      toggleMenu(nav, navSections,navMobile, isDesktop.matches);
+      isDesktop.addEventListener('change', () => toggleMenu(nav, navSections,navMobile, isDesktop.matches));
 
       const navWrapper = document.createElement('div');
       navWrapper.className = 'nav-wrapper';
@@ -148,13 +161,14 @@ export default async function decorate(block) {
       block.append(navWrapper);
 
       var navElement = document.getElementById("nav");
-      // console.log(navElement);
-  // my js called
 
-      // console.log('js called');
+      const api = getDataAttributeValueByName('globalnavigationapiurl');
 
-      //const api = "https://main--eds-practice--imjeekxgurjar.hlx.page/nav-element/globalnavigation.json";
-      const api = "https://main--eds-godrej-capital--divanshu-techx.hlx.live/nav-element/globalnavigation.json";
+      function getDataAttributeValueByName(name) {
+        const element = document.querySelector(`[data-${name}]`);
+        return element ? element.getAttribute(`data-${name}`) : null;
+      }
+
       let responseData = [];
 
       // Create the topnav div
@@ -177,9 +191,7 @@ export default async function decorate(block) {
       thirdElementDiv.className = 'thirdElementDiv';
 
       navSections.appendChild(topNav);
-        navSections.appendChild(belowNavMainContainer);
-
-    
+      navSections.appendChild(belowNavMainContainer);
 
   // Function to render news items
         function getResponseData(filteredData) {
@@ -241,7 +253,6 @@ export default async function decorate(block) {
                   });
         }
 
-
         function createListElement(textContent, href = "#.html") {
           const li = document.createElement('li');
           li.className = 'listElement';
@@ -256,15 +267,12 @@ export default async function decorate(block) {
           return li;
         }
 
-        // }
         function getChildResponseData(childResponseData) {
           parentContainerDiv.innerHTML = '';
           firstElementChildDiv.innerHTML = '';
           secondElementDiv.innerHTML = '';
           let depth;
-     
           const ul = document.createElement('ul');
-     
           if (typeof childResponseData === 'object' && childResponseData !== null) {
               for (const key in childResponseData) {
                   if (childResponseData.hasOwnProperty(key)) {
@@ -355,7 +363,6 @@ export default async function decorate(block) {
                 return response.json();
             })
             .then((response) => {
-                // console.log(response.data);
                 responseData = response.data;
                 getResponseData(responseData);
             })
@@ -365,7 +372,6 @@ export default async function decorate(block) {
         }
 
         function transformResponseData(data) {
-          // console.log(data.depth);
           let depth = data.depth;
           const transformedData = {};
           data.forEach(item => {
@@ -395,8 +401,6 @@ export default async function decorate(block) {
 
           return transformedData;
         }
-
-  // child path response
         function getChildApiResponse(api, navElement, depth) {
           fetch(api, {
               method: 'GET',
@@ -408,13 +412,9 @@ export default async function decorate(block) {
               return response.json();
           })
           .then((response) => {
-              // console.log(response.data);
               let childResponseData = response.data;
               childResponseData.depth = depth;
-              // console.log(childResponseData.depth);
-              // Transform the response data
               const transformedData = transformResponseData(childResponseData);
-              // console.log(transformedData);
               getChildResponseData(transformedData);
           })
           .catch((error) => {
@@ -423,15 +423,13 @@ export default async function decorate(block) {
         }
 
         function displayURLContent(url) {
-          let mainUrl = "https://main--eds-godrej-capital--divanshu-techx.hlx.live" + url;
+          let mainUrl = url;
           fetch(mainUrl)
               .then(response => response.text())
               .then(data => {
                   let tempDiv = document.createElement('div');
                   tempDiv.innerHTML = data;
-     
                   let mainContent = tempDiv.querySelector('main');
-     
                   if (mainContent) {
                       thirdElementDiv.innerHTML = '';
                       thirdElementDiv.appendChild(mainContent);
