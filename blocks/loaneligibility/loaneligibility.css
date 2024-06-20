@@ -152,7 +152,7 @@ input[type="range"]:focus::-ms-fill-upper {
     background: #8cb133;
 }
  
-#price {
+#MonthlyEmiPrice {
     color: #130f31;
     font-size: 25px;
 }
@@ -201,7 +201,7 @@ input[type='number'] {
   appearance: textfield;
 }
  
-#pieChart {
+#mypieChart {
     width: 300px !important;
     height: 300px !important;
     display: block;
