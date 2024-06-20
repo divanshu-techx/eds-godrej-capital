@@ -104,8 +104,22 @@ export default async function decorate() {
 
   const view = createElement('div', { class: 'view' }, details);
 
+  const loanDetailsUpper = createElement('div', { class: 'loan-details-upper' },
+    createElement('div', { class: 'chart-details' },
+        createElement('span',{ class:'details-span-principal'},' '),
+        createElement('div', { class:'detailsloan', style: 'color: #3b3b3b' }, 'Principal'),
+        createElement('div', { id: 'cp', style: 'color: #3B3B3B; font-size: 17px;' })
+    ),
+    createElement('div', { class: 'chart-details' },
+        createElement('span',{ class:'details-span-interest'},''),
+        createElement('div', { class:'detailsloan', style: 'color: #3b3b3b' }, 'Interest'),
+        createElement('div', { id: 'ci', style: 'color: #3B3B3B; font-size: 17px;' })
+    ),
+);
+
   const breakup = createElement('div', { class: 'breakup' },
       createElement('div', { class: "chartDetails" },
+            createElement('div',{class:'canvasDetail'},
           createElement('canvas', { id: 'pieChart' }),
           createElement('div', { id: 'canvasItems' },
               createElement('div', { class: 'intrest' },
@@ -118,19 +132,11 @@ export default async function decorate() {
                   createElement('span', { id: 'monthTenure' }), 'M'
               ),
           )),
+          loanDetailsUpper,
+        ),
   );
 
 
-  const loanDetailsUpper = createElement('div', { class: 'loan-details-upper' },
-      createElement('div', { class: 'chart-details' },
-          createElement('div', { style: 'color: #3b3b3b' }, 'Principal'),
-          createElement('div', { id: 'cp', style: 'color: #3B3B3B; font-size: 17px;' })
-      ),
-      createElement('div', { class: 'chart-details' },
-          createElement('div', { style: 'color: #3b3b3b' }, 'Interest'),
-          createElement('div', { id: 'ci', style: 'color: #3B3B3B; font-size: 17px;' })
-      ),
-  );
 
   const loanDetails = createElement('div', { class: 'loan-details' },
       createElement('div', { class: 'chart-details' },
@@ -144,7 +150,7 @@ export default async function decorate() {
   );
 
   const subContainer = createElement('div', { class: 'sub-container' }, view, breakup);
-  breakup.append(loanDetailsUpper, loanDetails);
+  breakup.append(loanDetails);
 
   container.append(subContainer);
 
