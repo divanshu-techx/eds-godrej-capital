@@ -1,11 +1,7 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
-// import { decorate1 } from './headermobileDecorator.js';
 
-// const decorateBlockPromise = decorate1(block);
-// media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 900px)');
-console.log(isDesktop);
 
 function closeOnEscape(e) {
   if (e.code === 'Escape') {
@@ -57,38 +53,6 @@ function toggleAllNavSections(sections, expanded = false) {
  * @param {Element} navSections The nav sections within the container element
  * @param {*} forceExpanded Optional param to force nav expand behavior when not null
  */
-// function toggleMenu(nav, navSections, forceExpanded = null) {
-//   const expanded = forceExpanded !== null ? !forceExpanded : nav.getAttribute('aria-expanded') === 'true';
-//   const button = nav.querySelector('.nav-hamburger button');
-//   document.body.style.overflowY = (expanded || isDesktop.matches) ? '' : 'hidden';
-//   nav.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-//   toggleAllNavSections(navSections, expanded || isDesktop.matches ? 'false' : 'true');
-//   button.setAttribute('aria-label', expanded ? 'Open navigation' : 'Close navigation');
-//   // enable nav dropdown keyboard accessibility
-//   const navDrops = navSections.querySelectorAll('.nav-drop');
-//   if (isDesktop.matches) {
-//     navDrops.forEach((drop) => {
-//       if (!drop.hasAttribute('tabindex')) {
-//         drop.setAttribute('role', 'button');
-//         drop.setAttribute('tabindex', 0);
-//         drop.addEventListener('focus', focusNavSection);
-//       }
-//     });
-//   } else {
-//     navDrops.forEach((drop) => {
-//       drop.removeAttribute('role');
-//       drop.removeAttribute('tabindex');
-//       drop.removeEventListener('focus', focusNavSection);
-//     });
-//   }
-//   // enable menu collapse on escape keypress
-//   if (!expanded || isDesktop.matches) {
-//     // collapse menu on escape press
-//     window.addEventListener('keydown', closeOnEscape);
-//   } else {
-//     window.removeEventListener('keydown', closeOnEscape);
-//   }
-// }
 
 function toggleMenu(nav, navSections, navMobile, forceExpanded = null) {
   const expanded = forceExpanded !== null ? !forceExpanded : nav.getAttribute('aria-expanded') === 'true';
@@ -96,24 +60,14 @@ function toggleMenu(nav, navSections, navMobile, forceExpanded = null) {
   
   // Toggle body scroll based on the menu state
   document.body.style.overflowY = (expanded || isDesktop.matches) ? '' : 'hidden';
-  
-  // Set the aria-expanded attribute to reflect the current state
   nav.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-  
-  // Toggle all nav sections based on the current state
   toggleAllNavSections(navSections, expanded || isDesktop.matches ? 'false' : 'true');
-  
-  // Set the aria-label of the button based on the current state
   button.setAttribute('aria-label', expanded ? 'Open navigation' : 'Close navigation');
-
-  // Handle the display of nav-mobile based on the current state and viewport
   if (isDesktop.matches) {
     navMobile.style.display = 'none';
   } else {
     navMobile.style.display = expanded ? 'none' : 'block';
   }
-
-  // Enable or disable nav dropdown keyboard accessibility based on viewport
   const navDrops = navSections.querySelectorAll('.nav-drop');
   if (isDesktop.matches) {
     navDrops.forEach((drop) => {
@@ -139,7 +93,6 @@ function toggleMenu(nav, navSections, navMobile, forceExpanded = null) {
   }
 }
 
-
 /**
  * loads and decorates the header, mainly the nav
  * @param {Element} block The header block element
@@ -155,13 +108,6 @@ export default async function decorate(block) {
   const nav = document.createElement('nav');
   nav.id = 'nav';
   while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
-
-  // const classes = ['brand', 'sections', 'tools', 'mobile'];
-  // classes.forEach((c, i) => {
-  //   const section = nav.children[i];
-  //   console.log(section)
-  //   if (section) section.classList.add(`nav-${c}`);
-  // });
   const classes = ['brand', 'sections', 'mobile', 'tools'];
   classes.forEach((c, i) => {
     const section = nav.children[i];
@@ -215,12 +161,8 @@ export default async function decorate(block) {
       block.append(navWrapper);
 
       var navElement = document.getElementById("nav");
-      // console.log(navElement);
-      // my js called
 
       const api = getDataAttributeValueByName('globalnavigationapiurl');
-
-      console.log(api);
 
       function getDataAttributeValueByName(name) {
         const element = document.querySelector(`[data-${name}]`);
@@ -311,7 +253,6 @@ export default async function decorate(block) {
                   });
         }
 
-
         function createListElement(textContent, href = "#.html") {
           const li = document.createElement('li');
           li.className = 'listElement';
@@ -326,15 +267,12 @@ export default async function decorate(block) {
           return li;
         }
 
-        // }
         function getChildResponseData(childResponseData) {
           parentContainerDiv.innerHTML = '';
           firstElementChildDiv.innerHTML = '';
           secondElementDiv.innerHTML = '';
           let depth;
-     
           const ul = document.createElement('ul');
-     
           if (typeof childResponseData === 'object' && childResponseData !== null) {
               for (const key in childResponseData) {
                   if (childResponseData.hasOwnProperty(key)) {
@@ -425,7 +363,6 @@ export default async function decorate(block) {
                 return response.json();
             })
             .then((response) => {
-                // console.log(response.data);
                 responseData = response.data;
                 getResponseData(responseData);
             })
@@ -435,7 +372,6 @@ export default async function decorate(block) {
         }
 
         function transformResponseData(data) {
-          // console.log(data.depth);
           let depth = data.depth;
           const transformedData = {};
           data.forEach(item => {
@@ -465,8 +401,6 @@ export default async function decorate(block) {
 
           return transformedData;
         }
-
-  // child path response
         function getChildApiResponse(api, navElement, depth) {
           fetch(api, {
               method: 'GET',
@@ -478,13 +412,9 @@ export default async function decorate(block) {
               return response.json();
           })
           .then((response) => {
-              // console.log(response.data);
               let childResponseData = response.data;
               childResponseData.depth = depth;
-              // console.log(childResponseData.depth);
-              // Transform the response data
               const transformedData = transformResponseData(childResponseData);
-              // console.log(transformedData);
               getChildResponseData(transformedData);
           })
           .catch((error) => {
@@ -499,9 +429,7 @@ export default async function decorate(block) {
               .then(data => {
                   let tempDiv = document.createElement('div');
                   tempDiv.innerHTML = data;
-     
                   let mainContent = tempDiv.querySelector('main');
-     
                   if (mainContent) {
                       thirdElementDiv.innerHTML = '';
                       thirdElementDiv.appendChild(mainContent);
