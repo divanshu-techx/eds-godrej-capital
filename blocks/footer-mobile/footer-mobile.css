@@ -1,108 +1,110 @@
+
+@media (width <= 900px){
+		.footer-mobile-wrapper {
+			position: fixed;
+			bottom: 0;
+			width: 100%;
+			background-color: #fff;
+			padding: 10px;
+			z-index: 1000;
+			box-sizing: border-box;
+			box-shadow: 0px -4px 8px 0px rgba(0, 0, 0, 0.1);
+		}
+	}
+
+
+.footer-element {
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	position: relative;
+}
+
+.footer-element > div:first-child {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.footer-element:last-child .button-container a {
+	background: #3CB8FF;
+	border-radius: 2px;
+	box-sizing: border-box;
+	padding: 8px 8px;
+	font-size: 14px;
+	display: block !important;
+	color: #fff;
+}
+
+.footer-element img {
+	width: 22px;
+	height: 22px;
+}
+
+.dropdown-content {
+	left:50%;
+	transform: translateX(-50%);
+	position: absolute;
+	width: 100%;
+	box-sizing: border-box;
+	margin-bottom: 461px;
+	z-index: 999;
+	padding:10px;
+	background-color: #fff;
+	box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-content ol {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.dropdown-content ol > li {
+	padding: 5px 0;
+	cursor: pointer;
+	position: relative;
+}
+
+.dropdown-content ol > li span {
+	font-weight: bold;
+	margin-left: 5px;
+}
+
+.footer-element.active {
+	background-color: #f0f0f0;
+}
+
 .footer-mobile {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: flex-end;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #f8f9fa;
-    border-top: 1px solid #ddd;
-    padding: 10px 0;
-    z-index: 1000;
-  }
-   
-  .footer-element {
-    flex: 1;
-    text-align: center;
-    cursor: pointer;
-    position: relative;
-  }
-   
-  .footer-element > div:first-child {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-   
-  .footer-element > div:first-child p {
-    margin: 5px 0;
-    font-weight: bold;
-  }
-   
-  .footer-element img {
-    width: 45px;
-    height: 44px;
-  }
-   
-  .dropdown-content {
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #fff;
-    border: 1px solid #ddd;
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 999;
-    display: none;
-    width: 400px; /* Adjust the width as per your requirement */
-    max-width: calc(100vw - 20px);
-  }
-   
-   
-  .dropdown-content ol {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-   
-  .dropdown-content ol > li {
-    padding: 5px 0;
-    cursor: pointer;
-    position: relative;
-  }
-   
-  .dropdown-content ol > li span {
-    font-weight: bold;
-    margin-left: 5px;
-  }
-   
-  .footer-element.active {
-    background-color: #f0f0f0;
-  }
- 
-  /* Hide both divs by default */
-.footer-wrapper {
-  display: none;
+	display: block;
 }
- 
-.footer-mobile {
-  display: none;
+
+@media (width >=901px) {
+	.footer-mobile {
+		display: none;
+	}
 }
- 
-/* Show the desktop div on screens wider than 768px (desktop view) */
-@media (min-width: 769px) {
-  .footer-wrapper {
-      display: block;
-  }
+
+@media (width <=900px) {
+	.footer-mobile {
+		display: flex;
+		justify-content: space-evenly;
+		padding: 15px 20px;
+		box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+	}
+
+	.footer-element {
+		width: auto;
+	}
 }
- 
-/* Show the mobile div on screens 768px wide or narrower (mobile view) */
-@media (max-width: 768px) {
- 
-  .footer-mobile {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    display: flex;
-  }
- 
-  .footer-element {
-    width: auto;
-    margin: 0 10px;
-  }
+
+.footer-element .button-container a {
+	display: block;
+	color: #7D7D7D;
+	padding: 0;
 }
- 
-.footer-element .button-container a{
-    display:block;
+
+.footer-element p {
+	font-size: 12px !important;
+	color: #7D7D7D;
 }

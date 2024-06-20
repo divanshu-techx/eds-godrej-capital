@@ -210,47 +210,37 @@ export default async function decorate(block) {
                   a.setAttribute('data-path', item.ChildPageUrl);
                   a.setAttribute('data-depth',item.depth);
                   a.setAttribute('data-navItem',item.HeadingName)
-
-                  // Replace spaces with hyphens and add custom class
                   const apiClass = item.HeadingName.replace(/\s+/g, '-');
                   const customClass = 'anchorClass';
                   a.classList.add(apiClass, customClass);
-                  // Append the a element to the li
                   li.appendChild(a);
-                  // Append the li element to the ul
                   ul.appendChild(li);
               });
 
-              // Append the ul to the topNav
               topNav.appendChild(ul);
-                  // Add event listeners to show/hide the belowNavMainContainer
                   const navItems = ul.querySelectorAll('a.anchorClass');
                   const belowNavMainContainer = document.querySelector('.belowNavMainContainer');
-
                   navItems.forEach((navItem) => {
-                      navItem.addEventListener('click', () => {
-                          let depth = navItem.getAttribute('data-depth'),
-                              navElement = navItem.getAttribute('data-navItem') ,
-                              childPath =  navItem.getAttribute('data-path');
-                              getChildApiResponse(childPath, navElement, depth);
-                          belowNavMainContainer.classList.toggle('show');
-                      });
-                  });
-                //  rotation behave of nav bar 
-                  const navLinks = document.querySelectorAll('.anchorClass');
-                  navLinks.forEach(link => {
-                    link.addEventListener('click', function(event) {
-                      event.preventDefault();
-                      if (this.classList.contains('rotate')) {
-                        this.classList.remove('rotate');
-                        belowNavMainContainer.classList.remove('show');
-                      } else {
-                        navLinks.forEach(link => link.classList.remove('rotate'));
-                        this.classList.add('rotate');
-                        belowNavMainContainer.classList.add('show');
-                      }
+                    navItem.addEventListener('click', function(event) {
+                        event.preventDefault();
+                        const parentLi = this.parentElement;
+                        const isAlreadySelected = parentLi.classList.contains('selected');
+                        ul.querySelectorAll('li').forEach(li => li.classList.remove('selected'));
+                        if (isAlreadySelected) {
+                            this.classList.remove('rotate');
+                            belowNavMainContainer.classList.remove('show');
+                        } else {
+                            parentLi.classList.add('selected');
+                            navItems.forEach(link => link.classList.remove('rotate'));
+                            this.classList.add('rotate');
+                            belowNavMainContainer.classList.add('show');
+                        }
+                        let depth = this.getAttribute('data-depth'),
+                            navElement = this.getAttribute('data-navItem'),
+                            childPath = this.getAttribute('data-path');
+                        getChildApiResponse(childPath, navElement, depth);
                     });
-                  });
+                });
         }
 
         function createListElement(textContent, href = "#.html") {
@@ -266,7 +256,6 @@ export default async function decorate(block) {
           li.appendChild(a);
           return li;
         }
-
         function getChildResponseData(childResponseData) {
           parentContainerDiv.innerHTML = '';
           firstElementChildDiv.innerHTML = '';
@@ -279,7 +268,6 @@ export default async function decorate(block) {
                       const item = childResponseData[key];
                       const li = createListElement(key);
                       ul.appendChild(li);
-     
                       if (Array.isArray(item)) {
                           const subUl = document.createElement('ul');
                           subUl.className = 'subList';
@@ -296,27 +284,22 @@ export default async function decorate(block) {
           } else {
               console.error("childResponseData is not an array or object.");
           }
-   
           if (depth === '2') {
             firstElementChildDiv.appendChild(ul);
             parentContainerDiv.appendChild(firstElementChildDiv);
         }
-     
         if (depth == '1' || depth == '2') {
           parentContainerDiv.appendChild(secondElementDiv);
       }
           parentContainerDiv.appendChild(thirdElementDiv);
-   
           const subLists = secondElementDiv.querySelectorAll('.subList');
           if (subLists.length > 0) {
               subLists[0].classList.add('active');
           }
-     
           const mainItems = firstElementChildDiv.querySelectorAll('.listElement');
           if (mainItems.length > 0) {
               mainItems[0].classList.add('active');
           }
-     
           mainItems.forEach((item, index) => {
               item.addEventListener('click', () => {
                   mainItems.forEach(mainItem => mainItem.classList.remove('active'));
@@ -333,7 +316,6 @@ export default async function decorate(block) {
                   }
               });
           });
-     
           const anchorTags = secondElementDiv.querySelectorAll('.anchorPath');
           anchorTags.forEach(anchor => {
               anchor.addEventListener('click', function () {
@@ -343,15 +325,12 @@ export default async function decorate(block) {
                   displayURLContent(imagePath);
               });
           });
-     
           belowNavMainContainer.appendChild(parentContainerDiv);
-     
           if (mainItems.length > 0) {
               const firstMainItem = mainItems[0];
               firstMainItem.click(); // Simulate a click on the first main item
           }
       }
-
         function getApiResponse(api) {
             fetch(api, {
                 method: 'GET',
