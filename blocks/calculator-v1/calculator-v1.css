@@ -1,4 +1,4 @@
-.tabs-container-calculator {
+.tabs-container{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,26 +6,30 @@
 }
 
 /* Style the container that holds the buttons */
-.button-container {
+.tabs-container .button-container {
     display: flex;
     gap: 10px;
-    margin-bottom: 10px;
+    padding:10px;
+    background: #F4F4F4;
+    border-radius: 4px;
 }
 
 /* Style the buttons */
-.button-container button {
+.tabs-container .button-container button {
     padding: 10px 20px;
-    background-color: #f1f1f1;
     border: 1px solid #ccc;
     cursor: pointer;
     transition: background-color 0.3s, border-color 0.3s;
+    background-color: #fff;
 }
 
 /* Style the active button */
-.button-container button.active {
-    background-color: #ccc;
-    border-color: #999;
+
+.tabs-container .button-container button.active {
+    background-color: #3cb8ff;
     font-weight: bold;
+    color:white;
+    font-size: 14px;
 }
 
 /* Hover effects for buttons */
@@ -34,12 +38,38 @@
     border-color: #bbb;
 }
 
-/* Hide all sections by default */
-/* .cal {
-    display: none;
-} */
-
-/* Style the active section */
 .cal.active {
     display: block;
 }
+
+.section.calculator-v1-container{
+    display:none;
+}
+
+@media (max-width: 768px) {
+    .chartDetails {
+        display: none !important; /* Hide the chart details on mobile */
+    }
+    .sub-container{
+        display: block!important;
+    }
+    .view {
+        background-color: #f4f4f4;
+        padding: 20px;
+        border-radius: 4px;
+        width: 100%!important;
+    }
+}
+
+.chartDetails {
+    position: relative; 
+}
+
+#canvasItems {
+    position: absolute;
+    top: 110px;
+    left: 110px;
+    font-size: 14px;
+    text-align: center;
+}
+

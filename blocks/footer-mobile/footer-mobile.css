@@ -71,26 +71,26 @@
   .footer-element.active {
     background-color: #f0f0f0;
   }
-
+ 
   /* Hide both divs by default */
 .footer-wrapper {
   display: none;
 }
-
+ 
 .footer-mobile {
   display: none;
 }
-
+ 
 /* Show the desktop div on screens wider than 768px (desktop view) */
 @media (min-width: 769px) {
   .footer-wrapper {
       display: block;
   }
 }
-
+ 
 /* Show the mobile div on screens 768px wide or narrower (mobile view) */
 @media (max-width: 768px) {
-
+ 
   .footer-mobile {
     flex-direction: row;
     flex-wrap: nowrap;
@@ -102,4 +102,7 @@
     margin: 0 10px;
   }
 }
-   
+ 
+.footer-element .button-container a{
+    display:block;
+}
