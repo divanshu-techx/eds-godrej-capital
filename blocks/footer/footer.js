@@ -34,22 +34,20 @@ export default async function decorate(block) {
         footerSection.setAttribute('role', 'button');
         footerSection.setAttribute('tabindex', '0');
 
-        if (footerSection.querySelector('ul'))
-          footerSection.classList.add('footer-li');
+        if (footerSection.querySelector('ul')) { footerSection.classList.add('footer-li'); }
         footerSection.addEventListener('click', () => {
           if (isDesktop.matches) {
-            const expanded =
-              footerSection.getAttribute('aria-expanded') === 'true';
+            const expanded = footerSection.getAttribute('aria-expanded') === 'true';
             footerSection.setAttribute(
               'aria-expanded',
-              expanded ? 'false' : 'true'
+              expanded ? 'false' : 'true',
             );
           }
         });
       });
   }
   const thirdsection = footer.querySelector(
-    '.third-section-wrapper > .third-section'
+    '.third-section-wrapper > .third-section',
   );
   const enterinside = thirdsection.querySelector('div');
   enterinside.classList.add('third-section_part');
@@ -59,4 +57,3 @@ export default async function decorate(block) {
   });
   block.append(footer);
 }
-

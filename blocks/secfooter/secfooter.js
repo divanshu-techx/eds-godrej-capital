@@ -20,7 +20,7 @@ export default async function decorate(block) {
       liElements.forEach((li) => {
         li.classList.add('secfooter-list');
       });
-      block.textContent = '';  // Clear the block's existing content
+      block.textContent = ''; // Clear the block's existing content
       block.append(secfooter); // Append the new secfooter
     } else {
       console.error('secfooter fragment is empty or malformed.');
