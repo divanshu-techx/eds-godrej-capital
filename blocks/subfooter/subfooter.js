@@ -1,6 +1,5 @@
 export default async function decorate(block) {
-  console.log(block);
-
+  
   // add a class name on sub div of parent div
   const footerItem = block.querySelectorAll(':scope > div');
   footerItem.forEach((elm) => {
