@@ -36,10 +36,6 @@
     cursor: pointer;
 }
  
-/* .view,
-.breakup {
-    width: 50%;
-} */
 .details input {
     width: 100%;
 }
@@ -58,7 +54,6 @@
  
 input[type="range"] {
     appearance: none;
-    margin: 10px 0;
     width: 100%;
 }
  
@@ -157,13 +152,6 @@ input[type="range"]:focus::-ms-fill-upper {
     font-size: 25px;
 }
  
-/* .loan-details {
-    width: 90%;
-    display: flex;
-    justify-content: space-between;
-    gap: 30px;
-} */
- 
 #price-container {
     color: #8cb133;
     margin-top: 50px;
@@ -231,52 +219,6 @@ input[type='number'] {
   .inputDetail input {
     flex: 1;
   }
-/*  
- 
-  .range-values{
-    font-size: 14px;
-    color:#b3b3b3;
-  }
-  .loan-details-upper{
- 
-}
-.loan-details {
-width: 540px;
-height: 100px;
-display: flex;
-justify-content: space-between;
-align-items: center;
-gap: 10px;
-margin-top: 20px;
-background: rgba(244, 244, 244, 1);
-padding: 5px 20px;
-font-size: 16px;
-color: rgba(0, 0, 0, 1);
-border-radius: 4px;
-}
- 
-.loan-details #apply-btn{
-padding:10px 20px;
-font-size: 16px;
-background: #3CB8FF;
-border: 2px;
-line-height: 16.2px;
-font-size: 14px;
-font-weight: 500;
-color:white;
-}
-.chart-details{
-    font-size: 16px;
-    font-weight: 600;
-}
-#price-container-emi{
-    font-size: 16px;
-    font-weight: 600;
-}
-#price-container-emi #price{
-    color:#8cb133;
-}
-
 
 /* Container for the entire section */
 .sub-container {
@@ -297,21 +239,10 @@ color:white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Details section inside view */
-.details {
-    margin-bottom: 20px;
-}
-
-/* Detail boxes inside details section */
-.detail {
-    margin-bottom: 15px;
-}
-
 /* Label text styling */
 .detail p {
     color: #3b3b3b;
     font-weight: 500;
-    margin-bottom: 5px;
 }
 
 /* Input and span container */
@@ -333,14 +264,12 @@ color:white;
 /* Range input */
 input[type="range"] {
     width: 100%;
-    margin-top: 5px;
 }
 
 /* Range values */
 .range-values {
     display: flex;
     justify-content: space-between;
-    margin-top: 5px;
 }
 
 .range-values .min-value,
@@ -358,8 +287,10 @@ input[type="range"] {
 /* Breakup section */
 .breakup {
     flex: 1 1 300px;
-    padding: 20px;
     border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
 }
 
 .chartDetails {
@@ -382,7 +313,6 @@ input[type="range"] {
 
 .loan-details {
     text-align: center;
-    margin-top: 20px;
 }
 
 #apply-btn-le {
@@ -401,7 +331,7 @@ input[type="range"] {
 }
 
 #apply-btn:hover {
-    background-color: #45a049;
+    /* background-color: #45a049; */
 }
 
 /* Responsive adjustments */
@@ -414,3 +344,16 @@ input[type="range"] {
         flex: 1 1 100%;
     }
 }
+.loan-details {
+    max-width: 540px; 
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background: rgba(244, 244, 244, 1);
+    padding: 20px 20px;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 1);
+    border-radius: 4px;
+  }

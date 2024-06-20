@@ -615,5 +615,9 @@ color:black;
   grid-area: sections;
 }
 
+.thirdElementDiv > main > div{
+  display: flex;
+}
+
 
 
