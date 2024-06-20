@@ -1,7 +1,11 @@
-function hasWrapper(el) {
-    return !!el.firstElementChild && window.getComputedStyle(el.firstElementChild).display === 'block';
-}
 export default async function decorate(block) {
+    addInitialStrurcture(block)
+
+    addingHeaderMobFunctionlity(block)
+}
+
+
+function addInitialStrurcture(block) {
     [...block.children].forEach((row) => {
 
         // decorate accordion item label
@@ -9,9 +13,7 @@ export default async function decorate(block) {
         const summary = document.createElement('summary');
         summary.className = 'accordion-item-label';
         summary.append(...label.childNodes);
-        // if (!hasWrapper(summary)) {
-        //     summary.innerHTML = `<p>${summary.innerHTML}</p>`;
-        // }
+
         // decorate accordion item body
         const body = row.children[1];
         console.log(body);
@@ -20,12 +22,6 @@ export default async function decorate(block) {
             if (!body.hasChildNodes()) {
                 body.classList.add('no-children-inside');
             }
-            // if (body.hasChildNodes('p')) {
-            //     console('check')
-            // }
-            // if (!hasWrapper(body)) {
-            //     body.innerHTML = `<p>${body.innerHTML}</p>`;
-            // }
         }
 
         // decorate accordion item
@@ -34,9 +30,11 @@ export default async function decorate(block) {
         details.append(summary, body);
         row.replaceWith(details);
     });
-    console.log('block header accordian', block)
+}
+
+function addingHeaderMobFunctionlity(block) {
     const accordionBodies = block.querySelectorAll('.header-accordion-item-body > ol > li , .header-accordion-item-body > ul > li');
-    console.log('accordian bodies', accordionBodies)
+
     accordionBodies.forEach(item => {
         const childOl = item.querySelector('ol, ul');
         console.log(childOl);
@@ -61,4 +59,3 @@ export default async function decorate(block) {
         }
     });
 }
-
