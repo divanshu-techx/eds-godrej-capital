@@ -1,0 +1,145 @@
+.headerMobile.block {
+    display: none;
+}
+
+@media (width <=786px) {
+    .headerMobile.block {
+        display: block;
+    }
+}
+
+.decorated-ul,
+.decorated-ol {
+    display: none;
+}
+
+/* Show active elements */
+.active {
+    display: block;
+}
+
+.headermobile-wrapper {
+    background-color: #F2F2F2;
+    padding: 20px;
+}
+
+.headermobile details {
+    background: #ffffff;
+    border-radius: 4px;
+}
+
+.header-accordion-item {
+    margin-bottom: 1rem;
+}
+
+
+.headermobile details summary {
+    position: relative;
+    padding: 0 16px;
+    padding-right: 48px;
+    font-size: 18px;
+    font-weight: 300;
+    display: flex;
+    line-height: 21px;
+    cursor: pointer;
+    list-style: none;
+    height: 50px;
+    overflow: auto;
+    overflow-y: hidden;
+    transition: background-color 0.2s;
+    align-items: center;
+}
+
+.headermobile details[open] .header-accordion-item-body {
+    background-color: #F2F2F2;
+    margin-top: -21px;
+}
+
+
+
+.headermobile details summary::-webkit-details-marker {
+    display: none;
+}
+
+.headermobile details summary::after {
+    content: "\02795";
+    position: absolute;
+    top: 30%;
+    right: 33px;
+    color: black;
+    font-size: 16px;
+    width: 9px;
+    height: 9px;
+}
+
+.headermobile details[open] summary::after {
+    content: "\2796";
+    color: black;
+}
+
+.headermobile details .header-accordion-item-body {
+    padding: 0 16px;
+}
+
+.header-accordion-item-body ol li.has-children {
+    cursor: pointer;
+}
+
+.header-accordion-item-body ol li.has-children ol {
+    display: none;
+    /* Initially hide the children */
+}
+
+.headermobile details ul li,
+.headermobile details ol li {
+    font-size: 1rem;
+    line-height: 18.77px;
+    font-weight: 300;
+    list-style-type: none;
+}
+
+.header-accordion-item-body ul li,
+.header-accordion-item-body ol li {
+    margin-bottom: 10px;
+}
+
+.header-accordion-item-body ul li:first-of-type,
+.header-accordion-item-body ol li:first-of-type {
+    padding-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+.headermobile details ul li.has-children,
+.headermobile details ol li.has-children {
+    position: relative;
+}
+
+
+.headermobile details ul li.has-children::after,
+.headermobile details ol li.has-children::after {
+    content: "\02795";
+    position: absolute;
+    top: 10%;
+    font-weight: 300;
+    right: 18px;
+    font-size: 16px;
+    line-height: 18px;
+    color: black;
+    font-size: 16px;
+    width: 10px;
+    height: 19px;
+}
+
+.headermobile details ul li.has-children.active::after,
+.headermobile details ol li.has-children.active::after {
+    content: "\02796";
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 18px;
+}
+
+.header-accordion-item-body ul,
+.header-accordion-item-body ol {
+    padding-left: 0;
+}
