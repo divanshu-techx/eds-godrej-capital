@@ -286,7 +286,7 @@ export default async function decorate(block) {
       parentContainerDiv.appendChild(firstElementChildDiv);
     }
 
-    if (depth == '1' || depth == '2') {
+    if (depth === '1' || depth === '2') {
       parentContainerDiv.appendChild(secondElementDiv);
     }
     parentContainerDiv.appendChild(thirdElementDiv);

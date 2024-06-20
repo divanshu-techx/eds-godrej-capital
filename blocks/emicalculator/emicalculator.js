@@ -437,7 +437,8 @@
 
 //     document.querySelector('#cp').innerText = P.toLocaleString('en-IN', opts);
 //     document.querySelector('#ci').innerText = payableInterest.toLocaleString('en-IN', opts);
-//     document.querySelector('#ct').innerText = (P + payableInterest).toLocaleString('en-IN', opts);
+//     document.querySelector('#ct').innerText
+//     = (P + payableInterest).toLocaleString('en-IN', opts);
 //     document.querySelector('#price').innerText = emi.toLocaleString('en-IN', opts);
 
 //     pie.data.datasets[0].data[0] = P;
@@ -500,10 +501,14 @@
 //   }
 
 //   // Error message spans
-//   const loanAmtError = createErrorSpan(`Value should be between ${loanAmountMinValue} and ${loanAmountMaxValue}`);
-//   const interestRateError = createErrorSpan(`Value should be between ${interestrateMinvalue} % and  ${interestrateMaxvalue}%`);
-//   const loanPeriodError = createErrorSpan(`Value should be between ${tenureMinYearvalue} and ${tenureMaxYearvalue}`);
-//   const loanPeriodMonthError = createErrorSpan(`Value should be between ${tenureMinMonthvalue} and ${tenureMaxMonthvalue}`);
+//   const loanAmtError = createErrorSpan(
+//   `Value should be between ${loanAmountMinValue} and ${loanAmountMaxValue}`);
+//   const interestRateError = createErrorSpan(
+//   `Value should be between ${interestrateMinvalue} % and ${interestrateMaxvalue}%`);
+//   const loanPeriodError = createErrorSpan(
+//   `Value should be between ${tenureMinYearvalue} and ${tenureMaxYearvalue}`);
+//   const loanPeriodMonthError = createErrorSpan(
+//   `Value should be between ${tenureMinMonthvalue} and ${tenureMaxMonthvalue}`);
 
 //   // Append error message spans to their respective input containers
 //   amountDetail.appendChild(loanAmtError);

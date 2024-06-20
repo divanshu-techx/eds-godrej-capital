@@ -35,10 +35,13 @@
 //     window.hlx = window.hlx || {};
 //     if (!window.hlx.rum) {
 //       const usp = new URLSearchParams(window.location.search);
-//       const weight = (usp.get('rum') === 'on') ? 1 : 100; // with parameter, weight is 1. Defaults to 100.
+//       const weight = (usp.get('rum') === 'on') ? 1 : 100;
+//       with parameter, weight is 1. Defaults to 100.
 //       // eslint-disable-next-line no-bitwise
-//       const hashCode = (s) => s.split('').reduce((a, b) => (((a << 5) - a) + b.charCodeAt(0)) | 0, 0);
-//       const id = `${hashCode(window.location.href)}-${new Date().getTime()}-${Math.random().toString(16).substr(2, 14)}`;
+//       const hashCode = (s) => s.split('').reduce((a, b) => (((a << 5) - a)
+//         + b.charCodeAt(0)) | 0, 0);
+//       const id = `${hashCode(window.location.href)}-${new Date().getTime()}-${
+//       Math.random().toString(16).substr(2, 14)}`;
 //       const random = Math.random();
 //       const isSelected = (random * weight < 1);
 //       // eslint-disable-next-line object-curly-newline
@@ -48,7 +51,8 @@
 //     if (window.hlx && window.hlx.rum && window.hlx.rum.isSelected) {
 //       const sendPing = (pdata = data) => {
 //         // eslint-disable-next-line object-curly-newline, max-len, no-use-before-define
-//         const body = JSON.stringify({ weight, id, referer: window.location.href, generation: window.hlx.RUM_GENERATION, checkpoint, ...data });
+//         const body = JSON.stringify({ weight, id,referer: window.location.href,
+//         generation: window.hlx.RUM_GENERATION, checkpoint, ...data });
 //         const url = `https://rum.hlx.page/.rum/${weight}`;
 //         // eslint-disable-next-line no-unused-expressions
 //         navigator.sendBeacon(url, body);
@@ -99,7 +103,8 @@
 //  */
 // export function getMetadata(name) {
 //   const attr = name && name.includes(':') ? 'property' : 'name';
-//   const meta = [...document.head.querySelectorAll(`meta[${attr}="${name}"]`)].map((m) => m.content).join(', ');
+//   const meta = [...document.head.querySelectorAll(
+//   `meta[${attr}="${name}"]`)].map((m) => m.content).join(', ');
 //   return meta || '';
 // }
 
@@ -171,7 +176,8 @@
 //     }
 //   }));
 
-//   const symbols = Object.values(ICONS_CACHE).filter((v) => !v.styled).map((v) => v.html).join('\n');
+//   const symbols = Object.values(ICONS_CACHE).filter(
+//   (v) => !v.styled).map((v) => v.html).join('\n');
 //   svgSprite.innerHTML += symbols;
 
 //   icons.forEach((span) => {
@@ -327,7 +333,9 @@
 //     const section = sections[i];
 //     const status = section.dataset.sectionStatus;
 //     if (status !== 'loaded') {
-//       const loadingBlock = section.querySelector('.block[data-block-status="initialized"], .block[data-block-status="loading"]');
+//       const loadingBlock = section.querySelector(
+//       '.block[data-block-status="initialized"],
+//        .block[data-block-status="loading"]');
 //       if (loadingBlock) {
 //         section.dataset.sectionStatus = 'loading';
 //         break;
@@ -463,7 +471,8 @@
 //     if (i < breakpoints.length - 1) {
 //       const source = document.createElement('source');
 //       if (br.media) source.setAttribute('media', br.media);
-//       source.setAttribute('srcset', `${pathname}?width=${br.width}&format=${ext}&optimize=medium`);
+//       source.setAttribute('srcset',
+//        `${pathname}?width=${br.width}&format=${ext}&optimize=medium`);
 //       picture.appendChild(source);
 //     } else {
 //       const img = document.createElement('img');
