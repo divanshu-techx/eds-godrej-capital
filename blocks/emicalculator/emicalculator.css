@@ -7,20 +7,11 @@
 	background-image: linear-gradient(to bottom left, #e4dfec, white, white);
 }
 
-.sub-container {
+/* .sub-container {
 	display: flex;
 	width: 100%;
 	gap: 50px;
 	height: max-content;
-}
-
-/* .header {
-	width: 100%;
-	height: auto;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	margin-bottom: 30px;
 } */
 
 .header button {
@@ -37,10 +28,10 @@
 	cursor: pointer;
 }
 
-.view,
+/* .view,
 .breakup {
 	width: 50%;
-}
+} */
 
 .details input {
 	width: 100%;
@@ -169,12 +160,12 @@ input[type="range"]:focus::-ms-fill-upper {
 	font-size: 25px;
 }
 
-.loan-details {
+/* .loan-details {
 	width: 90%;
 	display: flex;
 	justify-content: space-between;
 	gap: 30px;
-}
+} */
 
 #price-container {
 	color: #8cb133;
@@ -244,12 +235,12 @@ input[type='number'] {
 	flex: 1;
   }
 
-  .view{
+  /* .view{
 	background-color: #f4f4f4;
 	padding:20px;
 	border-radius:4px;
 	box-sizing: border-box;
-  }
+  } */
 
   .range-values{
 	font-size: 14px;
@@ -299,10 +290,11 @@ color:white;
 #price-container-emi #price{
 	color:#8cb133;
 }
-.chartDetails {
+/* .chartDetails {
     position: relative;
     display: flex;
-}
+	justify-content: space-around;
+} */
 
 
 .chart-details .detailsloan{
@@ -326,3 +318,143 @@ color:white;
 	border-radius: 4px;
 	margin: 0px 5px;
 }
+
+
+/* Container for the entire section */
+.sub-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; /* Center align items */
+    max-width: 1200px; /* Max width of the container */
+    margin: 0 auto; /* Center container horizontally */
+}
+
+/* Each view section within sub-container */
+.view {
+    flex: 1 1 300px; /* Flex properties for responsiveness */
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Details section inside view */
+.details {
+    margin-bottom: 20px;
+}
+
+/* Detail boxes inside details section */
+.detail {
+    margin-bottom: 15px;
+}
+
+/* Label text styling */
+.detail p {
+    color: #3b3b3b;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+/* Input and span container */
+.inputDetail {
+    display: flex;
+    align-items: center;
+}
+
+/* Span inside inputDetail */
+.inputDetail .rupeeSpan,
+.inputDetail .percentSpan,
+.inputDetail .yearSpan,
+.inputDetail .monthSpan {
+    margin-right: 5px;
+    color: #b3b3b3;
+    font-weight: bold;
+}
+
+/* Range input */
+input[type="range"] {
+    width: 100%;
+    margin-top: 5px;
+}
+
+/* Range values */
+.range-values {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.range-values .min-value,
+.range-values .max-value {
+    color: #3b3b3b;
+    font-size: 14px;
+}
+
+/* Error message */
+.error-message {
+    color: red;
+    display: none;
+}
+
+/* Breakup section */
+.breakup {
+    flex: 1 1 300px;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.chartDetails {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.canvasDetail {
+    position: relative;
+}
+
+.loan-details-upper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.loan-details {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#apply-btn {
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#apply-btn:hover {
+    /* background-color: #45a049; */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sub-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .view, .breakup {
+        flex: 1 1 100%;
+    }
+}
+
+
+
