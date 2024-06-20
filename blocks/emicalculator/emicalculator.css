@@ -242,13 +242,14 @@ input[type='number'] {
   }
   
   .inputDetail input {
-	flex: 1; /* Makes the input take the remaining space */
+	flex: 1;
   }
 
   .view{
 	background-color: #f4f4f4;
 	padding:20px;
 	border-radius:4px;
+	box-sizing: border-box;
   }
 
   .range-values{
