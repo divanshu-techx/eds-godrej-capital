@@ -24,7 +24,7 @@ export default async function decorate(block) {
         const isExpanded = secondDiv.style.display === 'block';
         hideAllDropdowns(secondDiv); // Hide all other dropdowns
         secondDiv.style.display = isExpanded ? 'none' : 'block';
-        firstDiv.style.backgroundColor = isExpanded ? '' : '#f0f0f0'; // Change color for open dropdown
+        firstDiv.style.backgroundColor = isExpanded ? '' : '#fff';
       });
 
       const listItems = secondDiv.querySelectorAll('li');
