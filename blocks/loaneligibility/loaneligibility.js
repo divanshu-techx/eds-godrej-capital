@@ -1,4 +1,4 @@
-export default async function decorate() {
+export default async function decorate(block) {
   const container = document.querySelector('.loaneligibility');
   let i;
   let option;
@@ -45,24 +45,24 @@ export default async function decorate() {
     return element ? element.getAttribute(`data-${name}`) : null;
   }
  
-  const loanAmountMaxValue = getDataAttributeValueByName('income-maxvalue');
-  const loanAmountMinValue = getDataAttributeValueByName('income-minvalue');
+  const loanAmountMaxValue = getDataAttributeValueByName('income-max-value');
+  const loanAmountMinValue = getDataAttributeValueByName('income-min-value');
   const laonamountTitle = getDataAttributeValueByName('income-title');
- 
+
   const existingEmiTitle = getDataAttributeValueByName('existing-emi-title');
   const existingEmiMin = getDataAttributeValueByName('existing-emi-min');
   const existingEmiMax = getDataAttributeValueByName('existing-emi-max');
  
-  const interestRateMaxValue = getDataAttributeValueByName('interestrate-maxvalue');
-  const interestRateMinValue = getDataAttributeValueByName('interestrate-minvalue');
-  const interestrateTitle = getDataAttributeValueByName('interestrate-title');
+  const interestRateMaxValue = getDataAttributeValueByName('interest-rate-max-value');
+  const interestRateMinValue = getDataAttributeValueByName('interest-rate-min-value');
+  const interestrateTitle = getDataAttributeValueByName('interest-rate-title');
   const tenureTitleYear = getDataAttributeValueByName('tenure-title-year');
-  const tenureMinYearValue = getDataAttributeValueByName('tenure-min-yearvalue');
-  const tenureMaxYearValue = getDataAttributeValueByName('tenure-max-yearvalue');
+  const tenureMinYearValue = getDataAttributeValueByName('tenure-min-year-value');
+  const tenureMaxYearValue = getDataAttributeValueByName('tenure-max-year-value');
   const tenureTitleMonths = getDataAttributeValueByName('tenure-title-months');
-  const tenureMinMonthValue = getDataAttributeValueByName('tenure-min-monthvalue');
-  const tenureMaxMonthValue = getDataAttributeValueByName('tenure-max-monthvalue');
-  const redirectionPath = getDataAttributeValueByName('redirectionPath');
+  const tenureMinMonthValue = getDataAttributeValueByName('tenure-min-month-value');
+  const tenureMaxMonthValue = getDataAttributeValueByName('tenure-max-month-value');
+  const redirectionPath = getDataAttributeValueByName('redirection-path');
   const productList = getDataAttributeValueByName('product-list');
  
   const selectProductPlaceHolder = getDataAttributeValueByName('select-product-place-holder');
@@ -303,7 +303,7 @@ export default async function decorate() {
       createElement('p', { id: 'CT', style: 'color: #3B3B3B; font-size: 17px;' }),
     ),footer,
     createElement('div', { class: 'chart-details' },
-      createElement('button', { id: 'apply-btn' }, 'Apply Now'),
+      createElement('button', { id: 'apply-btn-le' }, 'Apply Now'),
   ),
   createElement('div',{id:'mylineChart'}),
   // <canvas id="lineChart" height="200px" width="200px"></canvas>
@@ -534,12 +534,12 @@ export default async function decorate() {
   // Set the product type in the apply button data attributes.
   selectProduct.addEventListener('input', function () {
     const selectedValue = this.value;
-    applyButton = document.getElementById('apply-btn');
+    applyButton = document.getElementById('apply-btn-le');
     applyButton.setAttribute('data-product', selectedValue);
   });
  
   //  Handle button click event to redirect with query parameter
-  document.getElementById('apply-btn').addEventListener('click', function () {
+  document.getElementById('apply-btn-le').addEventListener('click', function () {
     const productValue = this.getAttribute('data-product');
     if (productValue) {
       url = `${redirectionPath}?product=${encodeURIComponent(productValue)}`;
