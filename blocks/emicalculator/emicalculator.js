@@ -21,18 +21,18 @@ export default async function decorate() {
       return element ? element.getAttribute(`data-${name}`) : null;
   }
 
-  const loanAmountMaxValue = getDataAttributeValueByName('laonamount-maxvalue');
-  const loanAmountMinValue = getDataAttributeValueByName('laonamount-minvalue');
-  const laonamount_title = getDataAttributeValueByName('laonamount-title');
-  const interestrate_maxvalue = getDataAttributeValueByName('interestrate-maxvalue');
-  const interestrate_minvalue = getDataAttributeValueByName('interestrate-minvalue');
-  const interestrate_title = getDataAttributeValueByName('interestrate-title');
+  const loanAmountMaxValue = getDataAttributeValueByName('loan-amount-max-value');
+  const loanAmountMinValue = getDataAttributeValueByName('loan-amount-min-value');
+  const laonamount_title = getDataAttributeValueByName('loan-amount-title');
+  const interestrate_maxvalue = getDataAttributeValueByName('interest-rate-max-value');
+  const interestrate_minvalue = getDataAttributeValueByName('interest-rate-min-value');
+  const interestrate_title = getDataAttributeValueByName('Interest-rate-title');
   const tenure_title_year = getDataAttributeValueByName('tenure-title-year');
-  const tenure_min_yearvalue = getDataAttributeValueByName('tenure-min-yearvalue');
-  const tenure_max_yearvalue = getDataAttributeValueByName('tenure-max-yearvalue');
+  const tenure_min_yearvalue = getDataAttributeValueByName('tenure-min-year-value');
+  const tenure_max_yearvalue = getDataAttributeValueByName('tenure-max-year-value');
   const tenure_title_months = getDataAttributeValueByName('tenure-title-months');
-  const tenure_min_monthvalue = getDataAttributeValueByName('tenure-min-monthvalue');
-  const tenure_max_monthvalue = getDataAttributeValueByName('tenure-max-monthvalue');
+  const tenure_min_monthvalue = getDataAttributeValueByName('tenure-min-month-value');
+  const tenure_max_monthvalue = getDataAttributeValueByName('tenure-max-month-value');
 
   const amountDetail = createElement('div', {},
       createElement('div', { class: 'detail' },
