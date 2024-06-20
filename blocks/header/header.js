@@ -5,6 +5,7 @@ import { loadFragment } from '../fragment/fragment.js';
 // const decorateBlockPromise = decorate1(block);
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 900px)');
+console.log(isDesktop);
 
 function closeOnEscape(e) {
   if (e.code === 'Escape') {
@@ -242,17 +243,8 @@ export default async function decorate(block) {
       const thirdElementDiv = document.createElement('div');
       thirdElementDiv.className = 'thirdElementDiv';
 
-      // navSections.appendChild(topNav);
-      // navSections.appendChild(belowNavMainContainer);
-
-      if(!isDesktop){
-        navSections.appendChild(topNav);
-        navSections.appendChild(belowNavMainContainer);
-      } else {
-        // navSections.appendChild(nav-mobile);
-    }
-
-    
+      navSections.appendChild(topNav);
+      navSections.appendChild(belowNavMainContainer);
 
   // Function to render news items
         function getResponseData(filteredData) {
