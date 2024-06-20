@@ -12,7 +12,6 @@ function initializetabs() {
         const calSections = mainElement.querySelectorAll('.cal');
  
         if (calSections.length >= 2) {
-            console.log(calSections.length);
             const tabsContainer = document.createElement('div');
             tabsContainer.classList.add('tabs-container');
  
