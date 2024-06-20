@@ -29,7 +29,7 @@
     border: none;
     background-color: transparent;
     font-size: 35px;
-    color: #9088d2;
+    color: #8cb133;
 }
  
 .header button:hover {
@@ -47,6 +47,8 @@
 .detail {
     display: flex;
     justify-content: space-between;
+    font-size: 14px;
+    align-items: center;
 }
  
 .footer {
@@ -54,9 +56,8 @@
     justify-content: space-between;
 }
  
-/*----- Styling the sliders ----*/
 input[type="range"] {
-    -webkit-appearance: none;
+    appearance: none;
     margin: 10px 0;
     width: 100%;
 }
@@ -69,20 +70,20 @@ input[type="range"]::-webkit-slider-runnable-track {
     width: 100%;
     height: 6px;
     cursor: pointer;
-    background: #9088d2;
+    background: #8cb133;
     border-radius: 10px;
 }
  
 input[type="range"]::-webkit-slider-thumb {
     box-shadow: 2px 2px 5px #b3b3b3, -1px -1px 3px grey;
-    border: 5px solid #ffffff;
+    /* border: 5px solid #fff; */
     height: 20px;
     width: 20px;
     border-radius: 50%;
-    background: #9088d2;
+    background: #8cb133;
     cursor: pointer;
     margin-top: -6px;
-    -webkit-appearance: none;
+    appearance: none;
 }
  
 input[type="range"]:focus::-webkit-slider-runnable-track {
@@ -93,7 +94,7 @@ input[type="range"]::-moz-range-track {
     width: 100%;
     height: 6px;
     cursor: pointer;
-    background: #9088d2;
+    background: #8cb133;
     border-color: transparent;
     border-width: 16px 0;
     color: transparent;
@@ -102,11 +103,11 @@ input[type="range"]::-moz-range-track {
  
 input[type="range"]::-moz-range-thumb {
     box-shadow: 2px 2px 5px #b3b3b3, -1px -1px 3px grey;
-    border: 5px solid #ffffff;
+    border: 5px solid #ffff;
     height: 20px;
     width: 20px;
     border-radius: 50%;
-    background: #9088d2;
+    background: #8cb133;
     cursor: pointer;
     margin-top: -6px;
 }
@@ -115,7 +116,7 @@ input[type="range"]::-ms-track {
     width: 100%;
     height: 6px;
     cursor: pointer;
-    background: #9088d2;
+    background: #8cb133;
     border-color: transparent;
     border-width: 16px 0;
     color: transparent;
@@ -123,35 +124,34 @@ input[type="range"]::-ms-track {
 }
  
 input[type="range"]::-ms-fill-lower {
-    background: #9088d2;
+    background: #8cb133;
     border-radius: 5px;
 }
  
 input[type="range"]::-ms-fill-upper {
-    background: #9088d2;
+    background: #8cb133;
     border-radius: 5px;
 }
  
 input[type="range"]::-ms-thumb {
     box-shadow: 2px 2px 5px #b3b3b3, -1px -1px 3px grey;
-    border: 5px solid #ffffff;
+    border: 5px solid #fff;
     height: 20px;
     width: 20px;
     border-radius: 50%;
-    background: #9088d2;
+    background: #8cb133;
     cursor: pointer;
     margin-top: -6px;
 }
  
 input[type="range"]:focus::-ms-fill-lower {
-    background: #9088d2;
+    background: #8cb133;
 }
  
 input[type="range"]:focus::-ms-fill-upper {
-    background: #9088d2;
+    background: #8cb133;
 }
  
-/*-------------------------------------*/
 #price {
     color: #130f31;
     font-size: 25px;
@@ -165,7 +165,7 @@ input[type="range"]:focus::-ms-fill-upper {
 }
  
 #price-container {
-    color: #9088d2;
+    color: #8cb133;
     margin-top: 50px;
 }
  
@@ -180,24 +180,104 @@ input[type="range"]:focus::-ms-fill-upper {
     display: flex;
     justify-content: space-between;
 }
+ 
 .details input[type="number"] {
-    /* width: 100%; */
     max-width: 120px;
-    /* padding: 0px 17px; */
     width: 100%;
+    border: none;
+    height: 40px;
+    border-radius: 4px;
+    text-align: end;
 }
+ 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
+  appearance: none;
   margin: 0;
 }
  
 /* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
+input[type='number'] {
+  appearance: textfield;
 }
+ 
+#pieChart {
+    width: 300px !important;
+    height: 300px !important;
+    display: block;
+    box-sizing: border-box;
+}
+ 
 .inputDetail {
+    min-width: 300px;
+    justify-content: end;
     display: flex;
-    justify-content: center;
     align-items: center;
+    color:#b3b3b3;
+  }
+ 
+  .inputDetail span {
+    margin-right: 1px;
+    background: white;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    font-size:14px;
+    width: 50px;
+    justify-content: center;
+    border-radius: 4px;
+  }
+ 
+  .inputDetail input {
+    flex: 1; /* Makes the input take the remaining space */
+  }
+ 
+  .view{
+    background-color: #f4f4f4;
+    padding:20px;
+    border-radius:4px;
+  }
+ 
+  .range-values{
+    font-size: 14px;
+    color:#b3b3b3;
+  }
+  .loan-details-upper{
+ 
+}
+.loan-details {
+width: 540px;
+height: 100px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 10px;
+margin-top: 20px;
+background: rgba(244, 244, 244, 1);
+padding: 5px 20px;
+font: 16px;
+color: rgba(0, 0, 0, 1);
+border-radius: 4px;
+}
+ 
+.loan-details #apply-btn{
+padding:10px 20px;
+font-size: 16px;
+background: #3CB8FF;
+border: 2px;
+line-height: 16.2px;
+font-size: 14px;
+font-weight: 500;
+color:white;
+}
+.chart-details{
+    font-size: 16px;
+    font-weight: 600;
+}
+#price-container-emi{
+    font-size: 16px;
+    font-weight: 600;
+}
+#price-container-emi #price{
+    color:#8cb133;
 }
