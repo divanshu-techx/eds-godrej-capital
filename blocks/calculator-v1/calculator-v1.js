@@ -1,6 +1,7 @@
 // Exported default async function to decorate the block
 export default async function decorate() {
     initializetabs();
+
 }
  
 // Function to initialize tabs dynamically
@@ -57,7 +58,7 @@ function initializetabs() {
                         section.style.display = 'none'; // Hide inactive tab content
                     }
                 });
-                
+
                 // Update the active state of tab buttons
                 const tabButtons = buttonContainer.querySelectorAll('button');
                 tabButtons.forEach((button, i) => {
