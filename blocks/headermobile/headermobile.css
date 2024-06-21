@@ -32,6 +32,10 @@
     margin-bottom: 1rem;
 }
  
+.header-accordion-item[open]:has(.header-accordion-item-body.no-children-inside) {
+    padding-bottom: 21px;
+}
+ 
  
 .headermobile details summary {
     position: relative;
@@ -101,6 +105,7 @@
     font-family: Poppins;
     font-size: 18px;
     font-weight: 400;
+    line-height: 27px;
     text-align: left;
 }
  

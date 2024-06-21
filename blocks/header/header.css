@@ -192,13 +192,14 @@ header nav .nav-sections .anchorClass{
   text-decoration: none;
   position: relative; 
   padding-right: 20px;
+  color: var(--color-charcoal-black);
 }
 
 header nav .nav-sections .anchorClass.rotate{
   text-decoration: none;
   position: relative; 
   padding-right: 20px;
-  color:green;
+  color:var(--color-citrus);
 }
 
 header nav .nav-sections .anchorClass::after{
@@ -219,7 +220,7 @@ header nav .nav-sections .anchorClass::after{
 
 header nav .nav-sections .anchorClass.rotate::after{
   transform: rotate(225deg);
-  color:green;
+  color:var(--color-citrus);
 }
 
 header nav .nav-sections .belowNavMainContainer.show{
@@ -236,7 +237,7 @@ header nav .nav-sections .belowNavMainContainer{
 header nav .nav-sections .belowNavMainContainer {
   height: auto;
   max-width: 1200px;
-  background-color: #fff;
+  background-color: var(--background-color);
   box-sizing: border-box;
   margin: 0 auto;
   padding: 10px;
@@ -508,7 +509,7 @@ header nav .nav-tools input[type=text]{
   box-sizing: border-box;
   border: none;
   font-size: 16px;
-  background-color: white;
+  background-color: var(--color-white);
   background-image: url('/icons/search.svg');
   background-position: 10px 10px; 
   background-repeat: no-repeat;
@@ -516,10 +517,10 @@ header nav .nav-tools input[type=text]{
 }
 
 .header .section .default-content-wrapper .button-container a{
-  background:#3CB8FF;
+  background:var(--color-sky-dark);
   border-radius:2px;
   box-sizing: border-box;
-  padding:8px 8px;
+  padding:12px 20px;
   font-size: 14px;
   display:block!important;
   color:white;
@@ -546,7 +547,6 @@ header nav .nav-tools input[type=text]{
 
 .belowNavMainContainer .secondElementDiv li.listElement {
   padding: 10px 40px;
-  /* border-bottom: 1px solid #b8b8b8; */
 }
 
 .header-wrapper {
@@ -570,12 +570,13 @@ header nav .nav-tools input[type=text]{
 .subheader .subheader-wrapper .default-content-wrapper ul{
   display:flex;
   justify-content: end;
-  font-size:12px;
+  font-size:var(--body-3-desktop);
   gap:2em;
   list-style: none;
   line-height: 21px;
   margin:10px;
   padding:0;
+  color:var(--color-charcoal-black);
 }
 
 .subheader .subheader-wrapper .default-content-wrapper ul .subheader-list{
