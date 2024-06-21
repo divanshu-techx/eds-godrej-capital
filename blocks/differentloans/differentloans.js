@@ -22,7 +22,7 @@ const AUTHORABLE_VALUES = {
 };
 
 function createTitle(block) {
-  const title = document.createElement('h4');
+  const title = document.createElement('h2');
   title.textContent = AUTHORABLE_VALUES.loansTitle;
   title.className = CREATE_SELECTOR_CLASS.titleContainer;
   block.appendChild(title);

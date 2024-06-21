@@ -559,7 +559,7 @@ header nav .nav-tools input[type=text]{
 
 .subheader {
   order: 1;
-  background: #F4F4F4;
+  background:var(--color-silver);
   ;
 
   @media (width <= 786px){
@@ -574,7 +574,7 @@ header nav .nav-tools input[type=text]{
   gap:2em;
   list-style: none;
   line-height: 21px;
-  margin:10px;
+  margin:10px 0;
   padding:0;
   color:var(--color-charcoal-black);
 }
