@@ -94,13 +94,13 @@ function handleTabClick(event, data, tablist, tabpanel, dropdown) {
 
   renderData(data, selectedTab, selectedOption, tabpanel);
 }
-let selectedOption="Indian Resident Salaried";
+let selectedOption = 'Indian Resident Salaried';
 function handleDropdownChange(data, tablist, tabpanel, dropdown) {
   const selectedTabButton = tablist.querySelector('button[aria-selected="true"]');
   const selectedTab = selectedTabButton
     ? selectedTabButton.innerHTML
     : tablist.querySelector('button').innerHTML;
-    selectedOption = dropdown.value;
+  selectedOption = dropdown.value;
 
   renderData(data, selectedTab, selectedOption, tabpanel);
 }
@@ -121,8 +121,8 @@ function createDropdownForTabs(tabNames, tablist, data, tabpanel, dropdown) {
 
   dropdownForTabs.addEventListener('change', () => {
     const selectedTab = dropdownForTabs.value;
-    const selectedOption = dropdown.value;
-    renderData(data, selectedTab, selectedOption, tabpanel);
+    const selectedOptionLocal = dropdown.value;
+    renderData(data, selectedTab, selectedOptionLocal, tabpanel);
   });
 
   return dropdownForTabs;
@@ -135,8 +135,6 @@ function handleViewportChange(tablist, tabsListDropdown) {
   const allCards = document.querySelectorAll('.interest-card');
   const mobileCardContainer = document.querySelector('.mobile-card-container');
 
-  //const selectedOption = tabsListDropdown.value;
-
   if (window.innerWidth <= 968) {
     tablist.style.display = 'none';
     tabsListDropdown.style.display = 'block';
@@ -144,7 +142,6 @@ function handleViewportChange(tablist, tabsListDropdown) {
     allCards.forEach((card) => {
       if (card.id === selectedOption) {
         card.style.display = 'block';
-        console.log(true)
         mobileCardContainer.innerHTML = ''; // Clear previous content
         mobileCardContainer.appendChild(card.cloneNode(true));
       } else {
@@ -281,10 +278,10 @@ async function decorate(block) {
   }
 
   const selectedTabButton = tablist.querySelector('button[aria-selected="true"]');
-  const selectedTab = selectedTabButton ? selectedTabButton.innerHTML : tabNames[0]; // Default to first tab if no button is selected
-  const selectedOption = 'Indian Resident Salaried'; // Default category
+  const selectedTab = selectedTabButton ? selectedTabButton.innerHTML : tabNames[0];
+  const selectedOptionDefault = 'Indian Resident Salaried'; // Default category
 
-  renderData(data, selectedTab, selectedOption, tabpanel);
+  renderData(data, selectedTab, selectedOptionDefault, tabpanel);
 
   const tabsListDropdown = createDropdownForTabs(tabNames, tablist, data, tabpanel, dropdown);
   documentsWrapper.appendChild(tabsListDropdown);
@@ -300,10 +297,10 @@ async function decorate(block) {
   // Event listeners
   window.addEventListener('resize', () => handleViewportChange(tablist, tabsListDropdown, data, tabpanel));
   dropdown.addEventListener('change', () => {
-    const selectedTab = tablist.querySelector('button[aria-selected="true"]').innerHTML;
-    const selectedOption = dropdown.value;
+    const selectedTabLocal = tablist.querySelector('button[aria-selected="true"]').innerHTML;
+    const selectedOptionLocal = dropdown.value;
     handleViewportChange(tablist, tabsListDropdown, data, tabpanel);
-    renderData(data, selectedTab, selectedOption, tabpanel); // Also update the data when dropdown changes
+    renderData(data, selectedTabLocal, selectedOptionLocal, tabpanel);
   });
 
   handleViewportChange(tablist, tabsListDropdown, data, tabpanel); // Initial setup
