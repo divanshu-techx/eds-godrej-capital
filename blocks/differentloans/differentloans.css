@@ -26,13 +26,7 @@
     background-color: #007BFF;
 }
  
-.content-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    padding: 16px;
-    border-radius: 4px;
-}
+
 
 .content-container a{
   border:1px solid var(--color-silver);
@@ -44,8 +38,7 @@
     display: flex;
     flex-wrap: wrap; 
     justify-content: center; 
-    gap: 20px; 
-    padding: 20px; 
+    gap: 24px; 
     box-sizing: border-box;
   }
 
