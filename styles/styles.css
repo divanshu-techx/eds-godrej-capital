@@ -18,8 +18,10 @@
     --color-ruby-light: #FFECF4;
     /* Dark Grey */
     --color-dark-grey: #B8B8B8;
+    --color-dark-grey-secondary:#3b3b3b;
     /* White */
     --color-white: #FFFFFF;
+    --color-white-secondary:#f2f2f2;
     /* Light Grey */
     --color-light-grey: #E8E8E8;
     /* Silver */
@@ -195,12 +197,12 @@ main img {
 
 /* sections */
 main .section {
-  padding: 64px 16px;
+  padding: 16px 8px;
 }
 
 @media (width >= 600px) {
   main .section {
-    padding: 64px 32px;
+    padding: 32px 16px;
   }
 }
 
@@ -215,5 +217,11 @@ main .section {
 main .section.light,
 main .section.highlight {
   background-color: var(--light-color);
+}
+
+main .section .default-content-wrapper h1,h2,h3,h4,h5,h6{
+  text-align: center;
+  margin:0;
+  font-weight: 500;
 }
 
