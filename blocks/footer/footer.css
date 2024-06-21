@@ -117,7 +117,7 @@ footer .partitionfirstcolumn picture img{
 
 footer .partitionfirstcolumn-container{
   display: grid;
-  padding: 3rem 2rem;
+  padding: 3rem 0;
   background-color: #f4f8e8;
   grid-template-columns: repeat(2, 25%) auto;
   @media (width <= 900px){
@@ -180,7 +180,7 @@ footer .partitionfirstcolumn-container .partitionfirstcolumn > div:last-child im
 
 .secfooter.block .default-content-wrapper a:any-link {
   text-decoration: none;
-  color: #3b3b3b;
+  color: var(--pure-white);
 }
 
 .section.mobilesubfooter-container .default-content-wrapper a:any-link {
@@ -192,6 +192,7 @@ footer .partitionfirstcolumn-container .partitionfirstcolumn > div:last-child im
 
 .secfooter-list:first-child{
   margin-right: auto;
+  color: var(--pure-white);
 }
 
 .section.mobilesubfooter-container {
