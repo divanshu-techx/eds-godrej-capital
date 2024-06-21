@@ -56,6 +56,11 @@
     --body-3: 12px;
   }
 
+/* media query  */
+--breakpoint-mobile: 768px;
+--breakpoint-tablet: 900px;
+--breakpoint-desktop: 1200px;
+
   /* nav height */
 
   --nav-height: 70px;
