@@ -8,10 +8,10 @@ footer{
   background-color: #f4f8e8;
 }
 
-@media (width <= 900px){
+@media (width <=900px) {
   footer {
     background-color: #8CB133;
-}
+  }
 }
 
 @media (max-width: 768px) {
@@ -35,40 +35,63 @@ list-style-type: none;
 padding:unset;
 }
 
-footer .footer-li{
-  position:relative;
+footer .footer-li {
+  position: relative;
   font-size: 14px;
 }
 
 footer .footer-footer-1 .default-content-wrapper h4{
   font-size: 24px;
+  margin-bottom: 10px;
   margin-right: 50px;
+  font-weight: 400;
+  line-height: 28px;
+  color: var(--color-black);
 }
 
-footer .footer-footer-1 .default-content-wrapper{
+footer .footer-footer-1 .default-content-wrapper ul>li>strong {
+  font-size: var(--body-font-size-default);
+  font-weight: 500;
+  line-height: 18px;
+}
+
+footer .footer-footer-1 .default-content-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   border-left: 1px solid #8cb133;
-  border-right: 1px solid #8cb133; 
+  border-right: 1px solid #8cb133;
 }
 
-footer .footer-footer-1 .default-content-wrapper ul{
+footer .footer-footer-1 .default-content-wrapper ul {
   list-style-type: none;
-    padding: 0;
-    margin: 0;
-    text-align: left;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  margin-left: 16px;
+}
+
+footer .footer-footer-1 .default-content-wrapper ul>li>ul {
+  margin: 0;
+  padding: 0;
+}
+
+footer .footer-footer-1 .default-content-wrapper ul>li>ul>li a {
+  color: var(--color-black);
+  font-size: var(--body-font-size-s);
+  font-weight: 300;
+  line-height: 30px;
 }
 
 footer .footer-footer-1 .default-content-wrapper li {
-  margin: 5px 0;
+  margin: 15px 0px;
 }
 
-footer .footer-footer-1 .default-content-wrapper li strong{
+footer .footer-footer-1 .default-content-wrapper li strong {
   margin-bottom: 5px;
 }
 
-footer .footer-footer-1 .default-content-wrapper li ul{
+footer .footer-footer-1 .default-content-wrapper li ul {
   padding-left: 20px;
 }
 
@@ -77,7 +100,7 @@ footer .footer-li::after {
   display: inline-block;
   position: absolute;
   top: .5em;
-  margin-left:10px;
+  margin-left: 10px;
   transform: rotate(135deg);
   width: 6px;
   height: 6px;
@@ -90,12 +113,12 @@ footer .footer-li[aria-expanded="true"]::after {
   transform: rotate(315deg);
 }
 
-footer .footer-footer-1 .default-content-wrapper > ul > li > ul {
+footer .footer-footer-1 .default-content-wrapper>ul>li>ul {
   display: none;
   position: relative;
 }
 
-footer .footer-footer-1 .default-content-wrapper > ul > li[aria-expanded="true"] > ul {
+footer .footer-footer-1 .default-content-wrapper>ul>li[aria-expanded="true"]>ul {
   display: block;
 }
 
@@ -103,9 +126,9 @@ footer .footer-footer-1 .default-content-wrapper{
   margin:unset;
 }
 
-footer .third-section-wrapper .third-section > div {
+footer .third-section-wrapper .third-section>div {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   gap:12px;
 }
 
@@ -117,7 +140,7 @@ footer .partitionfirstcolumn picture img{
 
 footer .partitionfirstcolumn-container{
   display: grid;
-  padding: 3rem 2rem;
+  padding: 3rem 0;
   background-color: #f4f8e8;
   grid-template-columns: repeat(2, 25%) auto;
   @media (width <= 900px){
@@ -125,49 +148,79 @@ footer .partitionfirstcolumn-container{
   }
 }
 
-footer .third-section-wrapper{
-  margin:unset;
+
+footer .third-section-wrapper {
+  margin: unset;
 }
 
 footer .default-content-wrapper :is(h1, h2, h3, h4, h5, h6){
   margin:unset;
 }
 
-footer .partitionfirstcolumn-container .partitionfirstcolumn > div:last-child img{
-  height:48px;
-  width:48px;
-} 
+footer .third-section-wrapper .third-section_part-subparts p>strong {
+  font-size: var(--body-font-size-default);
+  font-weight: 500;
+  line-height: 18px;
+  color: var(--color-black);
+}
 
-.section.copyright-section .default-content-wrapper{
+footer .third-section-wrapper .third-section_part-subparts p {
+  font-size: var(--body-font-size-s);
+  font-weight: 300;
+  line-height: 30px;
+  cursor:pointer;
+}
+
+footer .partitionfirstcolumn-container .partitionfirstcolumn>div:last-child img {
+  height: 48px;
+  width: 48px;
+}
+
+footer .partitionfirstcolumn-container .partitionfirstcolumn div p {
+  font-weight: 400;
+  font-size: var(--body-font-size-s);
+  line-height: 21px;
+  color:var(--color-black-primary);
+}
+
+footer .partitionfirstcolumn-container .partitionfirstcolumn div p>strong {
+  font-weight: 500;
+  font-size: var(--body-font-size-default);
+  line-height: 40px;
+  color:var(--color-black);
+}
+
+.section.copyright-section .default-content-wrapper {
   display: flex;
   justify-content: space-between;
 
 }
 
-.section.copyright-section .default-content-wrapper p{
+.section.copyright-section .default-content-wrapper p {
   font-size: 12px;
-  padding:0;
-  padding-top:20px;
+  padding: 0;
+  padding-top: 20px;
 }
 
-@media (width <= 900px){
-  .secfooter.block .highlight-desktop-footer{
-    display:none;
+@media (width <=900px) {
+  .secfooter.block .highlight-desktop-footer {
+    display: none;
   }
 }
 
-@media (width >= 900px){
+@media (width >=900px) {
   .secfooter.block {
-    display:block;
+    display: block;
     background: #8CB133;
   }
-  .section.mobilesubfooter-container{
+
+  .section.mobilesubfooter-container {
     display: none;
   }
 }
 
 
-.secfooter.block .default-content-wrapper ul{
+.secfooter.block .default-content-wrapper ul {
   display: flex;
   justify-content: end;
   font-size: 12px;
@@ -180,7 +233,7 @@ footer .partitionfirstcolumn-container .partitionfirstcolumn > div:last-child im
 
 .secfooter.block .default-content-wrapper a:any-link {
   text-decoration: none;
-  color: #3b3b3b;
+  color: var(--pure-white);
 }
 
 .section.mobilesubfooter-container .default-content-wrapper a:any-link {
@@ -192,6 +245,7 @@ footer .partitionfirstcolumn-container .partitionfirstcolumn > div:last-child im
 
 .secfooter-list:first-child{
   margin-right: auto;
+  color: var(--pure-white);
 }
 
 .section.mobilesubfooter-container {
@@ -223,15 +277,15 @@ footer .partitionfirstcolumn-container .partitionfirstcolumn > div:last-child im
   margin-top:10px;
 }
 
-.mobilesubfooter-container .default-content-wrapper .button-container a.button{
-  display:block;
+.mobilesubfooter-container .default-content-wrapper .button-container a.button {
+  display: block;
   font-weight: 600;
 }
 
-@media (width <= 900px){
-  .secfooter.block{
+@media (width <=900px) {
+  .secfooter.block {
     margin-bottom: 120px;
-    padding:40px 0;
+    padding: 40px 0;
   }
 }
 

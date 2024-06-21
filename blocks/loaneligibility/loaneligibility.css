@@ -237,7 +237,7 @@ input[type='number'] {
 
 /* Each view section within sub-container */
 .view {
-    flex: 1 1 300px; /* Flex properties for responsiveness */
+    /* flex: 1 1 300px; */
     background-color: #f2f2f2;
     padding: 20px;
     border-radius: 8px;
