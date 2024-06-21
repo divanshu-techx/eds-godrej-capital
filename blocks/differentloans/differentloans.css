@@ -140,6 +140,7 @@
     margin: 0;
     font-size: 16px;
     font-weight: 500;
+    text-align: start;
 }
  
 .loan-content p {
