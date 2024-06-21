@@ -36,10 +36,6 @@
     cursor: pointer;
 }
  
-.view,
-.breakup {
-    width: 50%;
-}
 .details input {
     width: 100%;
 }
@@ -58,7 +54,6 @@
  
 input[type="range"] {
     appearance: none;
-    margin: 10px 0;
     width: 100%;
 }
  
@@ -157,13 +152,6 @@ input[type="range"]:focus::-ms-fill-upper {
     font-size: 25px;
 }
  
-.loan-details {
-    width: 90%;
-    display: flex;
-    justify-content: space-between;
-    gap: 30px;
-}
- 
 #price-container {
     color: #8cb133;
     margin-top: 50px;
@@ -229,55 +217,143 @@ input[type='number'] {
   }
  
   .inputDetail input {
-    flex: 1; /* Makes the input take the remaining space */
+    flex: 1;
   }
- 
-  .view{
-    background-color: #f4f4f4;
-    padding:20px;
-    border-radius:4px;
-  }
- 
-  .range-values{
+
+/* Container for the entire section */
+.sub-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; /* Center align items */
+    max-width: 1200px; /* Max width of the container */
+    margin: 0 auto; /* Center container horizontally */
+}
+
+/* Each view section within sub-container */
+.view {
+    flex: 1 1 300px; /* Flex properties for responsiveness */
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Label text styling */
+.detail p {
+    color: #3b3b3b;
+    font-weight: 500;
+}
+
+/* Input and span container */
+.inputDetail {
+    display: flex;
+    align-items: center;
+}
+
+/* Span inside inputDetail */
+.inputDetail .rupeeSpan,
+.inputDetail .percentSpan,
+.inputDetail .yearSpan,
+.inputDetail .monthSpan {
+    margin-right: 5px;
+    color: #b3b3b3;
+    font-weight: bold;
+}
+
+/* Range input */
+input[type="range"] {
+    width: 100%;
+}
+
+/* Range values */
+.range-values {
+    display: flex;
+    justify-content: space-between;
+}
+
+.range-values .min-value,
+.range-values .max-value {
+    color: #3b3b3b;
     font-size: 14px;
-    color:#b3b3b3;
-  }
-  .loan-details-upper{
- 
+}
+
+/* Error message */
+.error-message {
+    color: red;
+    display: none;
+}
+
+/* Breakup section */
+.breakup {
+    flex: 1 1 300px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.chartDetails {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.canvasDetail {
+    position: relative;
+}
+
+.loan-details-upper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.loan-details {
+    text-align: center;
+}
+
+#apply-btn-le {
+    background-color: #3CB8FF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#apply-btn:hover {
+    /* background-color: #45a049; */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sub-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .view, .breakup {
+        flex: 1 1 100%;
+    }
 }
 .loan-details {
-width: 540px;
-height: 100px;
-display: flex;
-justify-content: space-between;
-align-items: center;
-gap: 10px;
-margin-top: 20px;
-background: rgba(244, 244, 244, 1);
-padding: 5px 20px;
-font: 16px;
-color: rgba(0, 0, 0, 1);
-border-radius: 4px;
-}
- 
-.loan-details #apply-btn{
-padding:10px 20px;
-font-size: 16px;
-background: #3CB8FF;
-border: 2px;
-line-height: 16.2px;
-font-size: 14px;
-font-weight: 500;
-color:white;
-}
-.chart-details{
+    max-width: 540px; 
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background: rgba(244, 244, 244, 1);
+    padding: 20px 20px;
     font-size: 16px;
-    font-weight: 600;
-}
-#price-container-emi{
-    font-size: 16px;
-    font-weight: 600;
-}
-#price-container-emi #price{
-    color:#8cb133;
-}
+    color: rgba(0, 0, 0, 1);
+    border-radius: 4px;
+  }
