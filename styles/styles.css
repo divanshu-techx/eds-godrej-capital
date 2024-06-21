@@ -95,12 +95,8 @@ header {
   height: var(--nav-height);
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3,
+h4, h5, h6 {
   font-family: var(--heading-font-family);
   font-weight: 600;
   line-height: 1.25;
@@ -109,36 +105,14 @@ h6 {
   scroll-margin: calc(var(--nav-height) + 1em);
 }
 
-h1 {
-  font-size: var(--heading-1);
-}
+h1 { font-size: var(--heading-1); } 
+h2 { font-size: var(--heading-2); }
+h3 { font-size: var(--title); }
+h4 { font-size: var(--body-1); }
+h5 { font-size: var(--body-2); }
+h6 { font-size: var(--body-3); }
 
-h2 {
-  font-size: var(--heading-2);
-}
-
-h3 {
-  font-size: var(--title);
-}
-
-h4 {
-  font-size: var(--body-1);
-}
-
-h5 {
-  font-size: var(--body-2);
-}
-
-h6 {
-  font-size: var(--body-3);
-}
-
-p,
-dl,
-ol,
-ul,
-pre,
-blockquote {
+p, dl, ol, ul, pre, blockquote {
   margin-top: 1em;
   margin-bottom: 1em;
 }
@@ -189,25 +163,20 @@ button {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 12px 32px;
+  padding:12px 32px;
 }
 
-a.button:hover,
-a.button:focus,
-button:hover,
-button:focus {
+a.button:hover, a.button:focus, button:hover, button:focus  {
   background-color: var(--link-hover-color);
   cursor: pointer;
 }
 
-button:disabled,
-button:disabled:hover {
+button:disabled, button:disabled:hover {
   background-color: var(--light-color);
   cursor: unset;
 }
 
-a.button.secondary,
-button.secondary {
+a.button.secondary, button.secondary {
   background-color: unset;
   border: 2px solid currentcolor;
   color: var(--text-color)
@@ -232,12 +201,12 @@ main img {
 
 /* sections */
 main .section {
-  padding: 64px 16px;
+  padding: 16px 8px;
 }
 
-@media (width >=600px) {
+@media (width >= 600px) {
   main .section {
-    padding: 64px 32px;
+    padding: 32px 16px;
   }
 }
 
@@ -253,3 +222,10 @@ main .section.light,
 main .section.highlight {
   background-color: var(--light-color);
 }
+
+main .section .default-content-wrapper h1,h2,h3,h4,h5,h6{
+  text-align: center;
+  margin:0;
+  font-weight: 500;
+}
+
