@@ -42,6 +42,7 @@ footer .footer-li {
 
 footer .footer-footer-1 .default-content-wrapper h4{
   font-size: 24px;
+  margin-bottom: 10px;
   margin-right: 50px;
   font-weight: 400;
   line-height: 28px;
@@ -83,7 +84,7 @@ footer .footer-footer-1 .default-content-wrapper ul>li>ul>li a {
 }
 
 footer .footer-footer-1 .default-content-wrapper li {
-  margin: 5px 0;
+  margin: 15px 0px;
 }
 
 footer .footer-footer-1 .default-content-wrapper li strong {
@@ -167,6 +168,7 @@ footer .third-section-wrapper .third-section_part-subparts p {
   font-size: var(--body-font-size-s);
   font-weight: 300;
   line-height: 30px;
+  cursor:pointer;
 }
 
 footer .partitionfirstcolumn-container .partitionfirstcolumn>div:last-child img {
@@ -178,12 +180,14 @@ footer .partitionfirstcolumn-container .partitionfirstcolumn div p {
   font-weight: 400;
   font-size: var(--body-font-size-s);
   line-height: 21px;
+  color:var(--color-black-primary);
 }
 
 footer .partitionfirstcolumn-container .partitionfirstcolumn div p>strong {
   font-weight: 500;
   font-size: var(--body-font-size-default);
   line-height: 40px;
+  color:var(--color-black);
 }
 
 .section.copyright-section .default-content-wrapper {

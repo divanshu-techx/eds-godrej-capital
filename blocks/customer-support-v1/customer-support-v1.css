@@ -58,7 +58,7 @@
     text-align: left;
     flex: 1;
     font-weight: 500;
-    color:var(--color-dark-grey-secondary);
+    color:var(--color-charcoal-black);
   }
 
   .cards-remove{
