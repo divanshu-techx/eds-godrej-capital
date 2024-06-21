@@ -1,7 +1,6 @@
 import ffetch from '../../scripts/ffetch.js';
 
 // Retrieve configurable values from data attributes
-const loanMainTitle = getDataAttributeValueByName('title');
 const queryIndexApiUrl = getDataAttributeValueByName('queryindexurl');
 
 // Selectors for DOM elements
@@ -21,16 +20,10 @@ const CREATE_SELECTOR_CLASS = {
   titleContainer: 'different-loans-title',
 };
 
-// Authorable values for dynamic content
-const AUTHORABLE_VALUES = {
-  loansTitle: loanMainTitle,
-};
-
 // Main function to decorate the block
 export default async function decorate(block) {
   try {
     const responseData = await fetchData();
-    createTitle(block);
     const categories = getDistinctCategories(responseData);
     const tabsContainer = createTabs(block, categories);
     const tabs = tabsContainer.querySelectorAll(SELECTORS.tabsSelector);
@@ -51,14 +44,6 @@ async function fetchData() {
     console.log('API is not getting response');
   }
   return responseData;
-}
-
-// Create and append the title to the block
-function createTitle(block) {
-  const title = document.createElement('h2');
-  title.textContent = AUTHORABLE_VALUES.loansTitle;
-  title.className = CREATE_SELECTOR_CLASS.titleContainer;
-  block.appendChild(title);
 }
 
 // Extract distinct categories from the data
