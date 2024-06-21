@@ -170,11 +170,6 @@ header nav .nav-sections {
   background-color: var(--overlay-color);
 }
 
-/* header nav[aria-expanded="true"] .nav-sections {
-  display: block;
-  visibility: visible;
-  align-self: start;
-} */
 
 header nav[aria-expanded="true"] .nav-sections {
   display: false;
@@ -240,19 +235,17 @@ header nav .nav-sections .belowNavMainContainer{
 
 header nav .nav-sections .belowNavMainContainer {
   height: auto;
-  /* max-width: 1352px; */
   max-width: 1200px;
   background-color: #fff;
   box-sizing: border-box;
   margin: 0 auto;
   padding: 10px;
   margin-left:-150px;
-  margin-top: 8px;
 }
 
 header nav .nav-sections .belowNavMainContainer .parentContainerdiv {
   display: flex;
-  flex-wrap: nowrap; /* Prevent wrapping */
+  flex-wrap: nowrap;
   height: 100%;
 }
 
@@ -287,18 +280,27 @@ header nav .nav-sections .belowNavMainContainer .thirdElementDiv {
   justify-content: center;
 }
 
+header nav .nav-sections .belowNavMainContainer .thirdElementDiv .columns p a{
+  background: #3CB8FF;
+  border-radius: 2px;
+  box-sizing: border-box;
+  padding: 8px 8px;
+  font-size: 14px;
+  color: white;
+}
+
 .listElement{
   padding:10px;
+}
+
+.listElement.selected{
+  border-bottom: 4px solid #8cb133;
 }
 
 .listElement.active a {
   color: #3CB8FF;
 }
 
-/* .secondElementDiv .subList.active,
-.secondElementDiv .subList.active * {
-  color: #3CB8FF;
-} */
 .subList.active .anchorPath.anchor_active{
   color: #3CB8FF;
   text-decoration: none;
@@ -610,9 +612,11 @@ color:black;
 
 .section.nav-mobile{
   display:none;
-  /* @media (width <= 786px){
-    display:block;
-  } */
+  grid-area: sections;
+}
+
+.thirdElementDiv > main > div{
+  display: flex;
 }
 
 

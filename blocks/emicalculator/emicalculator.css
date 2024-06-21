@@ -1,29 +1,4 @@
 
-.container {
-	height: auto;
-	width: 700px;
-	border-radius: 20px;
-	padding: 20px;
-	margin: 50px 0;
-	background-image: linear-gradient(to bottom left, #e4dfec, white, white);
-}
-
-.sub-container {
-	display: flex;
-	width: 100%;
-	gap: 50px;
-	height: max-content;
-}
-
-/* .header {
-	width: 100%;
-	height: auto;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	margin-bottom: 30px;
-} */
-
 .header button {
 	height: max-content;
 	width: max-content;
@@ -38,20 +13,20 @@
 	cursor: pointer;
 }
 
-.view,
-.breakup {
-	width: 50%;
-}
 
 .details input {
 	width: 100%;
 }
 
 .detail {
-	display: flex;
-    justify-content: space-between;
+	/* display: flex;
+    justify-content: space-between; */
     font-size: 14px;
     align-items: center;
+	@media (min-width: 768px){
+		display: flex;
+		justify-content: space-between;
+			}
 }
 
 .footer {
@@ -61,7 +36,7 @@
 
 input[type="range"] {
 	appearance: none;
-	margin: 10px 0;
+	/* margin: 10px 0; */
 	width: 100%;
 }
 
@@ -76,7 +51,6 @@ input[type="range"]:focus {
     height: 5px; 
     background: linear-gradient(to right, green 0%, green calc(var(--value) * 100% / (50000000 - 500000)), white calc(var(--value) * 100% / (50000000 - 500000)), white 100%);
     outline: none; 
-    opacity: 0.7; 
     transition: opacity 0.15s ease-in-out; 
 }
 
@@ -167,14 +141,7 @@ input[type="range"]:focus::-ms-fill-upper {
 
 #price {
 	color: #130f31;
-	font-size: 25px;
-}
-
-.loan-details {
-	width: 90%;
-	display: flex;
-	justify-content: space-between;
-	gap: 30px;
+	font-size: 14px;
 }
 
 #price-container {
@@ -242,57 +209,176 @@ input[type='number'] {
   }
   
   .inputDetail input {
-	flex: 1; /* Makes the input take the remaining space */
+	flex: 1;
   }
 
-  .view{
-	background-color: #f4f4f4;
-	padding:20px;
-	border-radius:4px;
-  }
 
   .range-values{
 	font-size: 14px;
 	color:#b3b3b3;
   }
-  .loan-details-upper{
+  
+.loan-details-upper{
+	justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
 
-}
-.loan-details {
-width: 540px;
-height: 100px;
-display: flex;
-justify-content: space-between;
-align-items: center;
-gap: 10px;
-margin-top: 20px;
-background: rgba(244, 244, 244, 1);
-padding: 5px 20px;
-font: 16px;
-color: rgba(0, 0, 0, 1);
-border-radius: 4px;
-}
 
 .loan-details #apply-btn{
-padding:10px 20px;
-font-size: 16px;
-background: #3CB8FF;
-border: 2px;
-line-height: 16.2px;
-font-size: 14px;
-font-weight: 500;
-color:white;
+	padding:10px 20px;
+	background: #3CB8FF;
+	font-weight: 500;
+	color:white;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	cursor: pointer;
+	border-radius: 4px;
+	transition: background-color 0.3s ease;
 }
+
 .chart-details{
-	font-size: 16px;
+	font-size: 13px;
 	font-weight: 600;
+	text-align: start;
 }
 #price-container-emi{
-	font-size: 16px;
+	font-size: 13px;
 	font-weight: 600;
 }
 #price-container-emi #price{
 	color:#8cb133;
 }
+
+.chart-details .detailsloan{
+	display: inline;
+}
+
+.chart-details .details-span-principal{
+	width: 20px;
+	height: 20px;
+	padding: 2px 10px;
+	background: #8CB133;
+	border-radius: 4px;
+	margin: 0px 5px;
+}
+
+.chart-details .details-span-interest{
+	width: 20px;
+	height: 20px;
+	padding: 2px 10px;
+	background: #3B3B3B;
+	border-radius: 4px;
+	margin: 0px 5px;
+}
+
+
+.sub-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; 
+    max-width: 1200px; 
+    margin: 0 auto; 
+}
+
+/* Each view section within sub-container */
+.view {
+    flex: 1 1 300px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Label text styling */
+.detail p {
+    color: #3b3b3b;
+    font-weight: 500;
+}
+
+/* Input and span container */
+.inputDetail {
+    display: flex;
+    align-items: center;
+}
+
+/* Span inside inputDetail */
+.inputDetail .rupeeSpan,
+.inputDetail .percentSpan,
+.inputDetail .yearSpan,
+.inputDetail .monthSpan {
+    margin-right: 5px;
+    color: #b3b3b3;
+    font-weight: bold;
+}
+
+/* Range input */
+input[type="range"] {
+    width: 100%;
+}
+
+/* Range values */
+.range-values {
+    display: flex;
+    justify-content: space-between;
+}
+
+.range-values .min-value,
+.range-values .max-value {
+    color: #3b3b3b;
+    font-size: 14px;
+}
+
+/* Error message */
+.error-message {
+    color: red;
+    display: none;
+}
+
+
+.chartDetails {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.canvasDetail {
+    position: relative;
+}
+
+.loan-details-upper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.loan-details {
+    text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sub-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .view, .breakup {
+        flex: 1 1 100%;
+    }
+}
+
+.breakup {
+    flex: 1 1 300px;
+    border-radius: 8px;
+    background-color: #fff;
+	display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
 
 

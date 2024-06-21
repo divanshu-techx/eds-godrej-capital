@@ -6,7 +6,7 @@ export default async function decorate() {
 // Function to initialize tabs dynamically
 function initializetabs() {
     const mainElement = document.querySelector('main');
-    const heroCarouselSecondary = document.querySelector('.hero-carousel-secondary');
+    const heroCarouselSecondary = document.querySelector('.calculator-v1-container');
  
     if (mainElement && heroCarouselSecondary) {
         const calSections = mainElement.querySelectorAll('.cal');
