@@ -1,3 +1,22 @@
+function numberToWords(num) {
+    if (num < 1000) {
+        return num.toString();
+    }
+ 
+    const suffixes = [
+        [1e7, 'crore'],
+        [1e5, 'lakh'],
+        [1e3, 'thousand']
+    ];
+ 
+    for (let i = 0; i < suffixes.length; i++) {
+        const [divisor, suffix] = suffixes[i];
+        if (num >= divisor) {
+            return `${Math.floor(num / divisor)} ${suffix}`;
+        }
+    }
+}
+
 export default async function decorate() {
   var container = document.querySelector('.emicalculator-container');
   
@@ -44,8 +63,9 @@ export default async function decorate() {
       ),
       createElement('input', { type: 'range', id: 'loan-amount', min: loanAmountMinValue, max: loanAmountMaxValue, step: '50000' }),
       createElement('div', { class: 'range-values' },
-          createElement('p', { class: 'min-value' }, loanAmountMinValue),
-          createElement('p', { class: 'max-value', style: 'float: right;' }, loanAmountMaxValue))
+          createElement('p', { class: 'min-value' }, numberToWords(loanAmountMinValue)),
+          createElement('p', { class: 'max-value', style: 'float: right;' }, numberToWords(loanAmountMaxValue))
+        )
   );
 
   const interestDetail = createElement('div', {},
