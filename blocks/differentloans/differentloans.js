@@ -80,7 +80,7 @@ function handleLoanTab(tabName, contentContainer, data) {
 async function fetchData() {
   const responseData = await ffetch(API_URL.Different_Home_Loan_Url).all();
   if (!responseData.ok) {
-    console.log('Api is not getting response');
+  //  console.log('Api is not getting response');
   }
   return responseData;
 }
