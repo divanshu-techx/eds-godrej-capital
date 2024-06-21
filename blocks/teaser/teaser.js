@@ -2,16 +2,98 @@ export default async function decorate(block) {
   const teaserContainer = block.closest('.teaser-container');
 
   if (teaserContainer) {
-    applyInitialStyles(teaserContainer);
-    applyTextAlignmentAndPlacement(teaserContainer);
-    convertAnchorsToButtons(block);
-    hideSpecifiedButtons(teaserContainer);
-    handleBackgroundStyle(teaserContainer, block);
-    hidePictures(block);
-    showContainer(teaserContainer);
+    console.log("teaser", teaserContainer);
+    createTeaser();
+    // applyInitialStyles(teaserContainer);
+    // applyTextAlignmentAndPlacement(teaserContainer);
+    // convertAnchorsToButtons(block);
+    // hideSpecifiedButtons(teaserContainer);
+    // handleBackgroundStyle(teaserContainer, block);
+    // hidePictures(block);
+    // showContainer(teaserContainer);
   }
 }
 
+
+function createTeaser(){
+  const teaserContainer = document.querySelector(".teaser-container");
+    if (!teaserContainer) return;
+
+    const teaserWrapper = teaserContainer.querySelector(".teaser-wrapper");
+    if (!teaserWrapper) return;
+
+    const teaserBlock = teaserWrapper.querySelector(".teaser.block");
+    if (!teaserBlock) return;
+
+    const paragraphs = teaserBlock.querySelectorAll("p");
+    const images = teaserBlock.querySelectorAll("picture img");
+
+    if (paragraphs.length < 3 || images.length === 0) return;
+
+    // Extract data from the existing structure
+    const title = paragraphs[0].innerText;
+    const subtitle = paragraphs[1].innerHTML;
+    const description = paragraphs[2].innerText;
+    const applyLink = paragraphs[3].querySelector("a[href*='Apply']");
+    const knowLink = paragraphs[3].querySelector("a[href*='Know']");
+    const backgroundImageSrc = images[0].src;
+
+    // Create the new card structure
+    const card = document.createElement("div");
+    card.className = "card";
+
+    const cardBg = document.createElement("img");
+    cardBg.className = "card-bg";
+    cardBg.src = backgroundImageSrc;
+    cardBg.alt = "Background Image";
+    card.appendChild(cardBg);
+
+    const cardContent = document.createElement("div");
+    cardContent.className = "card-content";
+
+    const cardTitle = document.createElement("h1");
+    cardTitle.innerText = title;
+    cardContent.appendChild(cardTitle);
+
+    const cardSubtitle = document.createElement("h2");
+    cardSubtitle.innerHTML = subtitle.replace(/\n/g, "<br>");
+    cardContent.appendChild(cardSubtitle);
+
+    const cardDescription = document.createElement("p");
+    cardDescription.innerText = description;
+    cardContent.appendChild(cardDescription);
+
+    const cardButtons = document.createElement("div");
+    cardButtons.className = "card-buttons";
+
+    if (applyLink) {
+        const applyButton = document.createElement("button");
+        applyButton.className = "apply-btn";
+        applyButton.innerText = applyLink.innerText;
+        applyButton.onclick = () => {
+            window.location.href = applyLink.href;
+        };
+        cardButtons.appendChild(applyButton);
+    }
+
+    if (knowLink) {
+        const knowButton = document.createElement("button");
+        knowButton.className = "know-btn";
+        knowButton.innerText = knowLink.innerText;
+        knowButton.onclick = () => {
+            window.location.href = knowLink.href;
+        };
+        cardButtons.appendChild(knowButton);
+    }
+
+    cardContent.appendChild(cardButtons);
+    card.appendChild(cardContent);
+
+    // Replace the old structure with the new card structure
+    teaserContainer.innerHTML = '';
+    teaserContainer.appendChild(card);
+
+}
 const applyInitialStyles = (container) => {
   const mobileAlignment = container.getAttribute('data-mobile-alignment');
   const desktopAlignment = container.getAttribute(

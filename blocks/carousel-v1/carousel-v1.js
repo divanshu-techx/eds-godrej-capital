@@ -207,7 +207,7 @@ export default async function decorate(block) {
 // Select the main element
 let teaser = groupTeasersByTargetId('main'); 
 
-createCarousel(block, teaser["homepage-carousel"]);
+//createCarousel(block, teaser["homepage-carousel"]);
 //initializeCarousel(block);
 
 
@@ -360,6 +360,7 @@ function initializeCarousel(block) {
 }
 
 function createSlide(row, slideIndex, carouselId) {
+  debugger
   const slide = document.createElement('li');
   slide.dataset.slideIndex = slideIndex;
   slide.setAttribute('id', `carousel-${carouselId}-slide-${slideIndex}`);
