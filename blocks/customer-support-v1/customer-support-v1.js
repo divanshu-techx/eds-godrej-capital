@@ -7,7 +7,7 @@ export default async function decorate(block) {
   const footerDiv = document.createElement('div');
   footerDiv.classList.add('cards-footer');
   allDivs.forEach((div, index) => {
-    if (index == 0 || index == 1) {
+    if (index === 0 || index === 1) {
       const valueElement = div.querySelector('div:nth-child(2) p');
       if (valueElement && valueElement.textContent.trim() === 'true') {
         div.classList.add('show-on-mobile');
@@ -20,12 +20,11 @@ export default async function decorate(block) {
         removeDiv.classList.add('cards-remove');
         headerDiv.appendChild(div);
       }
-    } else if (index == 7) {
+    } else if (index === 7) {
       div.classList.add('hide-on-mobile');
       const removeDiv = div.querySelector('div:nth-child(2)');
       removeDiv.classList.add('cards-remove');
       footerDiv.appendChild(div);
-      console.log(div);
     } else {
       const valueElement = div.querySelector('div:nth-child(3) > p');
       // console.log(valueElement);

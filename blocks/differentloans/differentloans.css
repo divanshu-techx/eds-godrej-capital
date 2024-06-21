@@ -5,13 +5,14 @@
 }
  
 .tab {
-    padding: 5px;
+    padding: 10px;
     cursor: pointer;
     border: none;
     background: none;
     outline: none;
     font-size: 14px;
-    color: #007BFF; 
+    font-weight: 500;
+    color: var(--color-charcoal-black); 
     transition: color 0.3s;
 }
  
@@ -34,7 +35,7 @@
 }
 
 .content-container a{
-  border:1px solid #f4f4f4;
+  border:1px solid var(--color-silver);
   padding:10px;
 }
  
@@ -49,9 +50,9 @@
   }
 
   .buttons-container{
-    background: #F4F4F4;
+    background: var(--color-silver);
     border-radius: 4px;
-    padding:8px;
+    padding:10px;
     display:flex;
     gap:10px;
   }
@@ -138,16 +139,20 @@
 .loan-content h2 {
     margin: 0;
     font-size: 16px;
+    font-weight: 500;
+    text-align: start;
 }
  
 .loan-content p {
     margin: 0;
-    font-size: 14px;
+    font-size:var(--body-font-size-s);
     line-height: 16.42px;
+    font-weight: 300;
 }
 
 .different-loans-title{
     text-align: center;
+    font-weight: 500;
 }
 
 @media (max-width: 768px) {
@@ -188,7 +193,3 @@
     margin: 0; 
   }
 }
-
-/* .section.differentloans-container{
-  margin-top:100px;
-} */

@@ -2,7 +2,6 @@ import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
 let isDecorated = false;
-
 export default async function decorate(block) {
   if (isDecorated) return;
   isDecorated = true;

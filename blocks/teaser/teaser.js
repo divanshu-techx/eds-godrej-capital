@@ -13,9 +13,9 @@ export default async function decorate(block) {
 }
 
 const applyInitialStyles = (container) => {
-  const mobileAlignment = container.getAttribute("data-mobile-alignment");
+  const mobileAlignment = container.getAttribute('data-mobile-alignment');
   const desktopAlignment = container.getAttribute(
-    "data-desktop-text-alignment"
+    'data-desktop-text-alignment'
   );
 
   const applyStyles = () => {
@@ -29,10 +29,10 @@ const applyInitialStyles = (container) => {
 
 const applyTextAlignmentAndPlacement = (container) => {
   const desktopTextAlignment = container.getAttribute(
-    "data-desktop-text-alignment"
+    'data-desktop-text-alignment'
   );
   const desktopTextPlacement = container.getAttribute(
-    "data-desktop-text-placement"
+    'data-desktop-text-placement'
   );
 
   const wrapper = container.querySelector('.teaser-wrapper');
@@ -57,25 +57,25 @@ const applyTextAlignmentAndPlacement = (container) => {
 };
 
 const convertAnchorsToButtons = (block) => {
-  const paragraphs = block.querySelectorAll("p");
+  const paragraphs = block.querySelectorAll('p');
 
   paragraphs.forEach((paragraph) => {
-    convertAnchorToButton(paragraph, "strong a", "primary-button");
-    convertAnchorToButton(paragraph, "em a", "secondary-button");
+    convertAnchorToButton(paragraph, 'strong a', 'primary-button');
+    convertAnchorToButton(paragraph, 'em a', 'secondary-button');
   });
 };
 
 const convertAnchorToButton = (parent, selector, buttonClass) => {
   const element = parent.querySelector(selector);
   if (element) {
-    const anchor = element.closest("a");
+    const anchor = element.closest('a');
     const button = createButton(anchor.innerText, anchor.href, buttonClass);
     anchor.replaceWith(button);
   }
 };
 
 const createButton = (text, href, className) => {
-  const button = document.createElement("button");
+  const button = document.createElement('button');
   button.innerText = text;
   button.className = className;
   button.onclick = () => {
@@ -88,8 +88,8 @@ const hideSpecifiedButtons = (container) => {
   const buttonsToHide = container.getAttribute('data-hide-button')?.split(' ');
   if (buttonsToHide) {
     buttonsToHide.forEach((buttonType) => {
-      const buttonSelector =
-        buttonType === 'primary' ? '.primary-button' : '.secondary-button';
+      const buttonSelector
+       = buttonType === 'primary' ? '.primary-button' : '.secondary-button';
       const button = container.querySelector(buttonSelector);
       if (button) {
         button.style.display = 'none';
@@ -145,8 +145,8 @@ const handleBackgroundStyle = (container, block) => {
   if (!mp4VideoUrl) {
     const pictures = container.querySelectorAll('picture img');
     if (pictures.length > 0) {
-      let imageUrl =
-        window.innerWidth < 600 ? pictures[1].src : pictures[0].src;
+      let imageUrl
+       = window.innerWidth < 600 ? pictures[1].src : pictures[0].src;
       createImageBackground(container, imageUrl);
     }
   }
