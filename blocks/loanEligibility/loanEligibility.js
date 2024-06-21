@@ -1,5 +1,132 @@
+function createElement(type, attributes = {}, ...children) {
+  const element = document.createElement(type);
+
+  Object.entries(attributes).forEach(([key, value]) => {
+    element.setAttribute(key, value);
+  });
+
+  children.forEach((child) => {
+    if (typeof child === 'string') {
+      element.appendChild(document.createTextNode(child));
+    } else {
+      element.appendChild(child);
+    }
+  });
+
+  return element;
+}
+ //  error message
+ function createErrorSpan(message) {
+  return createElement('span', { class: 'error-message', style: 'color: red; display: none;' }, message);
+}
+function numberToWords(num) {
+  if (num < 1000) {
+      return num.toString();
+  }
+
+  const suffixes = [
+      [1e7, 'crore'],
+      [1e5, 'lakh'],
+      [1e3, 'thousand']
+  ];
+
+  for (let i = 0; i < suffixes.length; i++) {
+      const [divisor, suffix] = suffixes[i];
+      if (num >= divisor) {
+          return `${Math.floor(num / divisor)} ${suffix}`;
+      }
+  }
+}
+
+function getDataAttributeValueByName(name) {
+  const element = document.querySelector(`[data-${name}]`);
+  return element ? element.getAttribute(`data-${name}`) : null;
+}
+
+function calculateLoanDetails(p, r, n, m, line) {
+  let i;
+  let totalInterest = 0;
+  const yearlyInterest = [];
+  const yearPrinCIpal = [];
+  const years = [];
+  let year = 1; // Allow incrementing
+  let counter = 0;
+  let prinCIpalAccumulator = 0;
+  let interestAccumulator = 0;
+  const totalMonths = n * 12 + m;
+
+  const emi = (p * r * (1 + r) ** totalMonths) / ((1 + r) ** totalMonths - 1);
+  const totalPayment = emi * totalMonths;
+  totalInterest = totalPayment - p;
+
+  let currentPrinCIpal = p; // New variable to avoid modifying the parameter
+
+  for (i = 0; i < totalMonths; i += 1) {
+    const interest = currentPrinCIpal * r;
+    currentPrinCIpal -= (emi - interest);
+    prinCIpalAccumulator += emi - interest;
+    interestAccumulator += interest;
+    counter += 1; // Increment counter
+    if (counter === 12) {
+      years.push(year);
+      yearlyInterest.push(parseInt(interestAccumulator, 10));
+      yearPrinCIpal.push(parseInt(prinCIpalAccumulator, 10));
+      counter = 0;
+      year += 1; // Increment year
+      interestAccumulator = 0; // Reset yearly interest accumulator
+      prinCIpalAccumulator = 0; // Reset yearly prinCIpal accumulator
+    }
+  }
+
+  line.data.datasets[0].data = yearPrinCIpal;
+  line.data.datasets[1].data = yearlyInterest;
+  line.data.labels = years;
+  return totalInterest;
+}
+
+function displayDetails(P,R,N,M,E,line,pie,block) {
+  const r = parseFloat(R) / 1200;
+  const n = parseFloat(N);
+  const m = parseFloat(M);
+  const totalMonths = n * 12 + m;
+
+  const emi = (P * r * (1 + r) ** totalMonths) / ((1 + r) ** totalMonths - 1);
+  const payableInterest = calculateLoanDetails(P, r, n, m,line);
+
+  const opts = { style: 'currency', currency: 'INR' };
+
+  block.querySelector('#CP').innerText = P.toLocaleString('en-IN', opts);
+
+  block.querySelector('#CI').innerText = payableInterest.toLocaleString('en-IN', opts);
+
+  block.querySelector('#CT').innerText = (P + payableInterest).toLocaleString('en-IN', opts);
+
+  block.querySelector("#Rate").innerText =
+        R.toLocaleString("en-IN", R) + "%";
+
+    block.querySelector("#month_Tenure").innerText =
+        M.toLocaleString("en-IN", M + 'M');
+
+    block.querySelector("#year_tenure").innerText =
+        N.toLocaleString("en-IN", N + 'Y');
+
+  block.querySelector('#MonthlyEmiPrice').innerText = emi.toLocaleString('en-IN', opts);
+
+ block.querySelector('#le').innerText = `₹ ${Math.max(0, P - E).toLocaleString()}`;
+
+  pie.data.datasets[0].data[0] = P;
+  pie.data.datasets[0].data[1] = payableInterest;
+  pie.update();
+  line.update();
+}
+
 export default async function decorate(block) {
-  const container = document.querySelector('.loaneligibility');
+
+  initialize(block);
+}
+function initialize(block) {
+
+  // const container = document.querySelector('.loaneligibility');
   let i;
   let option;
   let P;
@@ -11,39 +138,7 @@ export default async function decorate(block) {
   let line;
   let url;
  
-  function createElement(type, attributes = {}, ...children) {
-    const element = document.createElement(type);
- 
-    Object.entries(attributes).forEach(([key, value]) => {
-      element.setAttribute(key, value);
-    });
- 
-    children.forEach((child) => {
-      if (typeof child === 'string') {
-        element.appendChild(document.createTextNode(child));
-      } else {
-        element.appendChild(child);
-      }
-    });
- 
-    return element;
-  }
- 
-  // const header = createElement(
-  //   'div',
-  //   { class: 'header' },
-  //   createElement('h1', {}, 'Loan Eligibility  Calculator'),
-  //   createElement(
-  //     'button',
-  //     {},
-  //     createElement('i', { class: 'bi bi-list' }),
-  //   ),
-  // );
- 
-  function getDataAttributeValueByName(name) {
-    const element = document.querySelector(`[data-${name}]`);
-    return element ? element.getAttribute(`data-${name}`) : null;
-  }
+
  
   const loanAmountMaxValue = getDataAttributeValueByName('income-max-value');
   const loanAmountMinValue = getDataAttributeValueByName('income-min-value');
@@ -108,8 +203,8 @@ export default async function decorate(block) {
     createElement(
       'div',
       { class: 'range-values' },
-      createElement('p', { class: 'min-value' }, loanAmountMinValue),
-      createElement('p', { class: 'max-value', style: 'float: right;' }, loanAmountMaxValue),
+      createElement('p', { class: 'min-value' }, numberToWords(loanAmountMinValue)),
+      createElement('p', { class: 'max-value', style: 'float: right;' }, numberToWords(loanAmountMaxValue)),
     ),
   );
  
@@ -309,162 +404,85 @@ export default async function decorate(block) {
   createElement('div',{id:'mylineChart'}),
   // <canvas id="lineChart" height="200px" width="200px"></canvas>
   );
-  container.append(subContainer);
+  block.append(subContainer);
   breakup.append(loaneligibilityDetails,loanDetails);
  
-  const loanAmtSlider = document.getElementById('loanAmount');
-  const loanAmtText = document.getElementById('loan-amount-text');
+  const loanAmtSlider = block.querySelector('#loanAmount');
+  const loanAmtText = block.querySelector('#loan-amount-text');
  
-  const exisitingEmiText = document.getElementById('exisiting-emi-text');
-  const exisitingEmiAmountSlider = document.getElementById('exisiting-emi-amount');
+  const exisitingEmiText = block.querySelector('#exisiting-emi-text');
+  const exisitingEmiAmountSlider = block.querySelector('#exisiting-emi-amount');
  
-  const intRateSlider = document.getElementById('interestRate');
-  const intRateText = document.getElementById('linterest_Rate_Text');
-  const loanPeriodSlider = document.getElementById('loanPeriod');
-  const loanPeriodText = document.getElementById('loanPeriodText');
-  const loanPeriodSliderMonth = document.getElementById('loanPeriodMonth');
-  const loanPeriodTextMonth = document.getElementById('loanPeriodMonthText');
+  const intRateSlider = block.querySelector('#interestRate');
+  const intRateText = block.querySelector('#linterest_Rate_Text');
+  const loanPeriodSlider = block.querySelector('#loanPeriod');
+  const loanPeriodText = block.querySelector('#loanPeriodText');
+  const loanPeriodSliderMonth = block.querySelector('#loanPeriodMonth');
+  const loanPeriodTextMonth = block.querySelector('#loanPeriodMonthText');
  
-  function calculateLoanDetails(p, r, n, m) {
-    let totalInterest = 0;
-    const yearlyInterest = [];
-    const yearPrinCIpal = [];
-    const years = [];
-    let year = 1; // Allow incrementing
-    let counter = 0;
-    let prinCIpalAccumulator = 0;
-    let interestAccumulator = 0;
-    const totalMonths = n * 12 + m;
- 
-    const emi = (p * r * (1 + r) ** totalMonths) / ((1 + r) ** totalMonths - 1);
-    const totalPayment = emi * totalMonths;
-    totalInterest = totalPayment - p;
- 
-    let currentPrinCIpal = p; // New variable to avoid modifying the parameter
- 
-    for (i = 0; i < totalMonths; i += 1) {
-      const interest = currentPrinCIpal * r;
-      currentPrinCIpal -= (emi - interest);
-      prinCIpalAccumulator += emi - interest;
-      interestAccumulator += interest;
-      counter += 1; // Increment counter
-      if (counter === 12) {
-        years.push(year);
-        yearlyInterest.push(parseInt(interestAccumulator, 10));
-        yearPrinCIpal.push(parseInt(prinCIpalAccumulator, 10));
-        counter = 0;
-        year += 1; // Increment year
-        interestAccumulator = 0; // Reset yearly interest accumulator
-        prinCIpalAccumulator = 0; // Reset yearly prinCIpal accumulator
-      }
-    }
- 
-    line.data.datasets[0].data = yearPrinCIpal;
-    line.data.datasets[1].data = yearlyInterest;
-    line.data.labels = years;
-    return totalInterest;
-  }
- 
-  function displayDetails() {
-    const r = parseFloat(R) / 1200;
-    const n = parseFloat(N);
-    const m = parseFloat(M);
-    const totalMonths = n * 12 + m;
- 
-    const emi = (P * r * (1 + r) ** totalMonths) / ((1 + r) ** totalMonths - 1);
-    const payableInterest = calculateLoanDetails(P, r, n, m);
- 
-    const opts = { style: 'currency', currency: 'INR' };
- 
-    document.querySelector('#CP').innerText = P.toLocaleString('en-IN', opts);
- 
-    document.querySelector('#CI').innerText = payableInterest.toLocaleString('en-IN', opts);
- 
-    document.querySelector('#CT').innerText = (P + payableInterest).toLocaleString('en-IN', opts);
- 
-    document.querySelector("#Rate").innerText =
-          R.toLocaleString("en-IN", R) + "%";
- 
-      document.querySelector("#month_Tenure").innerText =
-          M.toLocaleString("en-IN", M + 'M');
- 
-      document.querySelector("#year_tenure").innerText =
-          N.toLocaleString("en-IN", N + 'Y');
- 
-    document.querySelector('#MonthlyEmiPrice').innerText = emi.toLocaleString('en-IN', opts);
- 
-    document.querySelector('#le').innerText = `₹ ${Math.max(0, P - E).toLocaleString()}`;
- 
-    pie.data.datasets[0].data[0] = P;
-    pie.data.datasets[0].data[1] = payableInterest;
-    pie.update();
-    line.update();
-  }
+
  
   loanAmtSlider.addEventListener('change', (self) => {
     loanAmtText.value = self.target.value;
     P = parseFloat(self.target.value);
-    displayDetails();
+    displayDetails(P,R,N,M,E,line,pie,block);
   });
  
   loanAmtText.addEventListener('blur', (self) => {
     loanAmtSlider.value = self.target.value;
     P = parseFloat(self.target.value);
-    displayDetails();
+    displayDetails(P,R,N,M,E,line,pie,block);
   });
  
   exisitingEmiAmountSlider.addEventListener('change', (self) => {
     exisitingEmiText.value = self.target.value;
     E = parseFloat(self.target.value);
-    displayDetails();
+    displayDetails(P,R,N,M,E,line,pie,block);
   });
  
   exisitingEmiText.addEventListener('blur', (self) => {
     exisitingEmiAmountSlider.value = self.target.value;
     E = parseFloat(self.target.value);
-    displayDetails();
+    displayDetails(P,R,N,M,E,line,pie,block);
   });
  
   intRateSlider.addEventListener('change', (self) => {
     intRateText.value = self.target.value;
     R = parseFloat(self.target.value);
-    displayDetails();
+    displayDetails(P,R,N,M,E,line,pie,block);
   });
  
   intRateText.addEventListener('blur', (self) => {
     intRateSlider.value = self.target.value;
     R = parseFloat(self.target.value);
-    displayDetails();
+    displayDetails(P,R,N,M,E,line,pie,block);
   });
  
   loanPeriodSlider.addEventListener('change', (self) => {
     loanPeriodText.value = self.target.value;
     N = parseFloat(self.target.value);
-    displayDetails();
+    displayDetails(P,R,N,M,E,line,pie,block);
   });
  
   loanPeriodText.addEventListener('blur', (self) => {
     loanPeriodSlider.value = self.target.value;
     N = parseFloat(self.target.value);
-    displayDetails();
+    displayDetails(P,R,N,M,E,line,pie,block);
   });
  
   loanPeriodSliderMonth.addEventListener('change', (self) => {
     loanPeriodTextMonth.value = self.target.value;
     M = parseFloat(self.target.value);
-    displayDetails();
+    displayDetails(P,R,N,M,E,line,pie,block);
   });
  
   loanPeriodTextMonth.addEventListener('blur', (self) => {
     loanPeriodSliderMonth.value = self.target.value;
     M = parseFloat(self.target.value);
-    displayDetails();
+    displayDetails(P,R,N,M,E,line,pie,block);
   });
  
-  //  error message
-  function createErrorSpan(message) {
-    return createElement('span', { class: 'error-message', style: 'color: red; display: none;' }, message);
-  }
+ 
  
   //   Error message spans
   const loanAmtError = createErrorSpan(`Value should be between ${loanAmountMinValue} and ${loanAmountMaxValue}`);
@@ -551,79 +569,77 @@ export default async function decorate(block) {
     }
   });
  
-  function initialize() {
-    //  Set input values to their minimum values
-    loanAmtSlider.value = loanAmountMinValue;
-    loanAmtText.value = loanAmountMinValue;
-    P = parseFloat(loanAmountMinValue);
- 
-    intRateSlider.value = interestRateMinValue;
-    intRateText.value = interestRateMinValue;
-    R = parseFloat(interestRateMinValue);
- 
-    loanPeriodSlider.value = tenureMinYearValue;
-    loanPeriodText.value = tenureMinYearValue;
-    N = parseFloat(tenureMinYearValue);
- 
-    loanPeriodSliderMonth.value = tenureMinMonthValue;
-    loanPeriodTextMonth.value = tenureMinMonthValue;
-    M = parseFloat(tenureMinMonthValue);
- 
-    exisitingEmiAmountSlider.value = existingEmiMin;
-    exisitingEmiText.value = existingEmiMin;
-    E = parseFloat(existingEmiMin);
- 
-    line = new Chart(document.getElementById('mylineChart'), {
-      data: {
-        labels: [],
-        datasets: [
-          {
-            label: 'PrinCIpal',
-            backgroundColor: 'rgba(140, 177, 51, 1)',
-            borderColor: 'rgba(140, 177, 51, 1)',
-            data: [],
-          },
-          {
-            label: 'Interest',
-            backgroundColor: 'rgba(59, 59, 59, 1)',
-            borderColor: 'rgba(59, 59, 59, 1)',
-            data: [],
-          },
-        ],
-      },
-      type: 'line',
-      options: {
-        scales: {
-          y: {
-            ticks: {
-              callback(val) {
-                return val.toLocaleString('en-IN', {
-                  style: 'currency',
-                  currency: 'INR',
-                });
-              },
+
+
+  //  Set input values to their minimum values
+  loanAmtSlider.value = loanAmountMinValue;
+  loanAmtText.value = loanAmountMinValue;
+  P = parseFloat(loanAmountMinValue);
+
+  intRateSlider.value = interestRateMinValue;
+  intRateText.value = interestRateMinValue;
+  R = parseFloat(interestRateMinValue);
+
+  loanPeriodSlider.value = tenureMinYearValue;
+  loanPeriodText.value = tenureMinYearValue;
+  N = parseFloat(tenureMinYearValue);
+
+  loanPeriodSliderMonth.value = tenureMinMonthValue;
+  loanPeriodTextMonth.value = tenureMinMonthValue;
+  M = parseFloat(tenureMinMonthValue);
+
+  exisitingEmiAmountSlider.value = existingEmiMin;
+  exisitingEmiText.value = existingEmiMin;
+  E = parseFloat(existingEmiMin);
+
+  line = new Chart(document.getElementById('mylineChart'), {
+    data: {
+      labels: [],
+      datasets: [
+        {
+          label: 'PrinCIpal',
+          backgroundColor: 'rgba(140, 177, 51, 1)',
+          borderColor: 'rgba(140, 177, 51, 1)',
+          data: [],
+        },
+        {
+          label: 'Interest',
+          backgroundColor: 'rgba(59, 59, 59, 1)',
+          borderColor: 'rgba(59, 59, 59, 1)',
+          data: [],
+        },
+      ],
+    },
+    type: 'line',
+    options: {
+      scales: {
+        y: {
+          ticks: {
+            callback(val) {
+              return val.toLocaleString('en-IN', {
+                style: 'currency',
+                currency: 'INR',
+              });
             },
           },
         },
       },
-    });
- 
-    pie = new Chart(document.getElementById('mypieChart'), {
-      type: 'doughnut',
-      data: {
-        // labels: ['PrinCIpal', 'Interest'],
-        datasets: [
-          {
-            data: [P, 0],
-            backgroundColor: ['rgba(140, 177, 51, 1)', 'rgba(59, 59, 59, 1)'],
-            hoverOffset: 4,
-          },
-        ],
-      },
-    });
- 
-    displayDetails();
-  }
- 
-  initialize();
+    },
+  });
+
+  pie = new Chart(document.getElementById('mypieChart'), {
+    type: 'doughnut',
+    data: {
+      // labels: ['PrinCIpal', 'Interest'],
+      datasets: [
+        {
+          data: [P, 0],
+          backgroundColor: ['rgba(140, 177, 51, 1)', 'rgba(59, 59, 59, 1)'],
+          hoverOffset: 4,
+        },
+      ],
+    },
+  });
+
+  displayDetails(P,R,N,M,E,line,pie,block);
 }
