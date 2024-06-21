@@ -266,7 +266,7 @@ input[type='number'] {
 	margin: 0px 5px;
 }
 
-.chart-details .details-span-interest {
+.chart-details .details-span-interest{
 	width: 20px;
 	height: 20px;
 	padding: 2px 10px;
@@ -287,6 +287,11 @@ input[type='number'] {
 
 /* Each view section within sub-container */
 .view {
+    /* flex: 1 1 300px; */
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	flex: 1 1 300px;
 	background-color: var(--color-white-secondary);
 	padding: 20px;
@@ -383,3 +388,6 @@ input[type="range"] {
 	justify-content: space-between;
 	flex-direction: column;
 }
+
+
+
