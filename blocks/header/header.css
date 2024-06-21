@@ -362,12 +362,6 @@ header nav .nav-sections .belowNavMainContainer .thirdElementDiv .columns p a{
   margin-bottom: 10px;
 }
 
-.columns > div > div:last-child{
-  /* margin-right: 20px;
-  background-color: blue;
-  width: 50%; */
-}
-
 .columns img {
   max-width: 100%;
   height: auto;
@@ -560,8 +554,6 @@ header nav .nav-tools input[type=text]{
 .subheader {
   order: 1;
   background:var(--color-silver);
-  ;
-
   @media (width <= 786px){
     display:none;
   }
@@ -585,11 +577,13 @@ header nav .nav-tools input[type=text]{
   align-items: center;
   gap:5px;
   cursor: pointer;
+  font-size: var(--paragraph-1);
 }
 
 .subheader .subheader-wrapper .default-content-wrapper ul .subheader-list a:any-link{
 text-decoration: none;
-color:black;
+font-size: var(--paragraph-1);
+color:var(--color-dark-grey-secondary);
 }
 
 .subheader .subheader-wrapper .default-content-wrapper ul .subheader-list picture{
