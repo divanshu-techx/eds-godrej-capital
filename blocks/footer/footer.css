@@ -105,7 +105,7 @@ footer .footer-footer-1 .default-content-wrapper{
 
 footer .third-section-wrapper .third-section > div {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   gap:12px;
 }
 
