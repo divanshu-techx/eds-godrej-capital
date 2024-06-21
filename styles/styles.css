@@ -35,6 +35,7 @@
   --heading-font-family: var(--body-font-family);
   --body-font-size-s: 14px;
   --body-font-size-default: 16px;
+  --body-font-size-xs:12px;
 
   /* mobile  */
   --heading-1: 32px;
@@ -61,7 +62,7 @@
   --nav-height-subheader:40px;
 
   /* links  */
-  --link-color: #035fe6;
+  --link-color: #58B7E5;
   --link-hover-color: #136ff6;
   --light-color: #eee;
   --dark-color: #ccc;

@@ -1,188 +1,179 @@
+/* Tabs container */
 .tabs-container {
-    display: flex;
-    margin-bottom: 16px;
-    justify-content: center;
+  display: flex;
+  margin-bottom: 16px;
+  justify-content: center;
 }
- 
+
+/* Tab styles */
 .tab {
-    padding: 10px;
-    cursor: pointer;
-    border: none;
-    background: none;
-    outline: none;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--color-charcoal-black); 
-    transition: color 0.3s;
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  background: var(--color-white);
+  outline: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-charcoal-black);
+  transition: color 0.3s;
 }
- 
+
 .tab:hover {
-    color: #fff;
-    background-color: #007BFF;
+  color: #fff;
+  background-color: #007BFF;
 }
- 
+
 .tab.active {
-    color: #fff;
-    background-color: #007BFF;
+  color: #fff;
+  background-color: #007BFF;
 }
- 
 
-
-.content-container a{
-  border:1px solid var(--color-silver);
-  padding:10px;
+/* Loan card container */
+.content-container a {
+  border: 1px solid var(--color-silver);
+  padding: 10px;
 }
- 
+
 /* Container for the loan cards */
 .content-container {
-    display: flex;
-    flex-wrap: wrap; 
-    justify-content: center; 
-    gap: 24px; 
-    box-sizing: border-box;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  box-sizing: border-box;
+}
 
-  .buttons-container{
-    background: var(--color-silver);
-    border-radius: 4px;
-    padding:10px;
-    display:flex;
-    gap:10px;
-  }
+/* Buttons container */
+.buttons-container {
+  background: var(--color-silver);
+  border-radius: 4px;
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+}
 
-  .tab{
-    background-color: #fff;
-  }
+/* Individual loan card */
+.loan-card {
+  flex: 1;
+  max-width: 23%;
+  min-width: 200px;
+  background-color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  width: calc(33% - 32px);
+}
 
-  /* Individual loan card */
-  .loan-card {
-    flex: 1; 
-    max-width: 23%; 
-    min-width: 200px; 
-    background-color: #fff;
-    border-radius: 8px; 
-    text-decoration: none; 
-    overflow: hidden; 
-    transition: transform 0.2s ease; 
-    background: #fff;
-    width: calc(33% - 32px);
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* Hover effect for the loan card */
-  .loan-card:hover {
-    transform: translateY(-5px); 
-  }
-  
-  /* Image inside the loan card */
-  .loan-image {
-    width: 100%; 
-    height: auto; 
-    border-bottom: 1px solid #e0e0e0; 
-  }
-  
-  /* Content inside the loan card */
-  .loan-content {
-    padding: 15px;
-  }
-  
-  /* Title of the loan card */
-  .loanTitle {
-    font-size: 18px; 
-    margin: 0 0 10px 0; 
-    color: #3b3b3b; 
-  }
-  
-  /* Description of the loan card */
-  .loanDescription {
-    font-size: 14px;
-    color: #3b3b3b; 
-    margin: 0;
-  }
-  
-  
-  @media screen and (max-width: 1024px) {
-    .loan-card {
-      max-width: 48%; 
-    }
-  }
-  
-  @media screen and (max-width: 768px) {
-    .loan-card {
-      max-width: 100%; 
-    }
-  }
-  
- 
 .loan-card:hover {
-    transform: scale(1.05);
+  transform: translateY(-5px);
 }
- 
+
+/* Image inside the loan card */
 .loan-image {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid #e0e0e0;
+  object-fit: cover;
 }
- 
+
+/* Content inside the loan card */
 .loan-content {
-    padding: 16px 16px 16px 0;
-}
- 
-.loan-content h2 {
-    margin: 0;
-    font-size: 16px;
-    font-weight: 500;
-    text-align: start;
-}
- 
-.loan-content p {
-    margin: 0;
-    font-size:var(--body-font-size-s);
-    line-height: 16.42px;
-    font-weight: 300;
+  padding: 15px;
 }
 
-.different-loans-title{
-    text-align: center;
-    font-weight: 500;
+.loanTitle {
+  font-size: 18px;
+  margin: 0 0 10px 0;
+  color: var(--color-charcoal-black);
 }
 
-@media (max-width: 768px) {
-  .differentloans-container{
-    border-radius: 20px 20px 0px 0px;
+.loanDescription {
+  font-size: 14px;
+  color: var(--color-charcoal-black);
+  margin: 0;
+}
+
+.different-loans-title {
+  text-align: center;
+  font-weight: 500;
+}
+
+@media screen and (width <= 1024px) {
+  .loan-card {
+      max-width: 48%;
   }
-  
+}
+
+@media screen and (width <= 768px) {
+  .differentloans-container {
+      border-radius: 20px 20px 0px 0px;
+  }
+
   .content-container {
-    display: flex;
-    flex-wrap: nowrap; 
-    overflow-x: auto; 
-    -webkit-overflow-scrolling: touch; 
-    scroll-snap-type: x mandatory; 
-    padding: 15px;
-    justify-content: flex-start;
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+      padding: 15px;
+      justify-content: flex-start;
   }
 
-    .loan-card {
+  .loan-card {
       flex: 0 0 auto;
-      width: 80%; 
-      margin-right: 10px; 
-      scroll-snap-align: start; 
-      background-color: #fff; 
-      border-radius: 8px; 
+      width: 40%;
+      margin-right: 10px;
+      scroll-snap-align: start;
+      background-color: var(--background-color);
+      border-radius: 8px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
+
   .loan-content {
-    padding: 15px; 
+      padding: 15px;
   }
+
   .loanTitle {
-    font-size: 18px; 
-    margin: 0 0 10px 0;
-    color: #333;
+      font-size: 18px;
+      margin: 0 0 10px 0;
+      color: #333;
   }
+
   .loanDescription {
-    font-size: 14px; 
-    color: #666; 
-    margin: 0; 
+      font-size: 14px;
+      color: #666;
+      margin: 0;
   }
+}
+
+/* Hover effect for the loan card */
+.loan-card:hover {
+  transform: scale(1.05);
+}
+
+.loan-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.loan-content {
+  padding: 16px 16px 16px 0;
+}
+
+.loan-content h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: start;
+}
+
+.loan-content p {
+  margin: 0;
+  font-size: var(--body-font-size-s);
+  line-height: 16.42px;
+  font-weight: 300;
 }
