@@ -90,6 +90,8 @@
     gap: 10px;
     padding: 0;
     padding-left: 10px;
+    align-items: center;
+    justify-content: center;
 }
  
 .accordion-item-label.accordian-item-label-pictuire p {
@@ -99,7 +101,6 @@
     font-family: Poppins;
     font-size: 18px;
     font-weight: 400;
-    line-height: 27px;
     text-align: left;
 }
  
