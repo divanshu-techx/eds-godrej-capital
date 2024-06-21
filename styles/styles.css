@@ -1,46 +1,67 @@
-/*
- * Copyright 2020 Adobe. All rights reserved.
- * This file is licensed to you under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License. You may obtain a copy
- * of the License at http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under
- * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
- * OF ANY KIND, either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
- */
-
 :root {
+
+  --background-color: #FFFFFF; 
   /* colors */
+    /* Citrus */
+    --color-citrus: #8CB133;
+    --color-citrus-light: #F0F6E4;
+    /* Black */
+    --color-black: #000000;
+    /* Sky */
+    --color-sky: #3CB8FF;
+    --color-sky-dark:#00A2FF;
+    --color-sky-light: #E8F4F9;
+    /* Charcoal Black */
+    --color-charcoal-black: #3B3B3B;
+    /* Ruby */
+    --color-ruby: #F50076;
+    --color-ruby-light: #FFECF4;
+    /* Dark Grey */
+    --color-dark-grey: #B8B8B8;
+    /* White */
+    --color-white: #FFFFFF;
+    /* Light Grey */
+    --color-light-grey: #E8E8E8;
+    /* Silver */
+    --color-silver: #F4F4F4;
+
+  /* fonts */
+  --body-font-family: 'Work Sans', sans-serif;
+  --heading-font-family: var(--body-font-family);
+  --body-font-size-s: 14px;
+  --body-font-size-default:16px;
+  
+  /* mobile  */
+  --heading-1-mobile: 32px;
+  --heading-2-mobile: 20px;
+  --title-mobile: 20px;
+  --body-1-mobile: 18px;
+  --body-2-mobile: 14px;
+  --paragraph-1-mobile: 12px;
+  --paragraph-2-mobile: 11px;
+  --paragraph-3-mobile: 10px;
+
+  /* desktop  */
+  --heading-1-desktop: 54px;
+  --heading-2-desktop: 36px;
+  --title-desktop: 24px;
+  --body-1-desktop: 16px;
+  --body-2-desktop: 14px;
+  --body-3-desktop:12px;
+
+  /* nav height */
+  --nav-height: 70px;
+  --nav-height-subheader:40px;
+
+  /* links  */
   --link-color: #035fe6;
   --link-hover-color: #136ff6;
-  --background-color: white;
   --light-color: #eee;
   --dark-color: #ccc;
   --text-color: black;
-
-  /* fonts */
-  /* --body-font-family: roboto, roboto-fallback; */
-  --body-font-family: 'Work Sans', sans-serif;
-  --heading-font-family: var(--body-font-family);
-  /* --fixed-font-family: 'Roboto Mono', menlo, consolas, 'Liberation Mono', monospace; */
-
-  /* body sizes */
-  --body-font-size-m: 22px;
-  --body-font-size-s: 18px;
-  --body-font-size-xs: 16px;
-
-  /* heading sizes */
-  --heading-font-size-xxl: 48px;
-  --heading-font-size-xl: 40px;
-  --heading-font-size-l: 32px;
-  --heading-font-size-m: 24px;
-  --heading-font-size-s: 20px;
-  --heading-font-size-xs: 18px;
-
-  /* nav height */
-  --nav-height: 64px;
 }
+
+
 
 @font-face {
   font-family: roboto-fallback;
@@ -49,24 +70,14 @@
   src: local('Arial');
 }
 
-@media (width >= 900px) {
-  :root {
-    --heading-font-size-xxl: 60px;
-    --heading-font-size-xl: 48px;
-    --heading-font-size-l: 36px;
-    --heading-font-size-m: 30px;
-    --heading-font-size-s: 24px;
-    --heading-font-size-xs: 22px;
-  }
-}
+
 
 body {
-  font-size: var(--body-font-size-m);
+  font-size: var(--body-font-size-default);
   margin: 0;
   font-family: var(--body-font-family);
   line-height: 1.6;
-  color: var(--text-color);
-  background-color: var(--background-color);
+  background-color: var(--color-white);
   display: none;
 }
 
@@ -88,12 +99,12 @@ h4, h5, h6 {
   scroll-margin: calc(var(--nav-height) + 1em);
 }
 
-h1 { font-size: var(--heading-font-size-xxl) }
-h2 { font-size: var(--heading-font-size-xl) }
-h3 { font-size: var(--heading-font-size-l) }
-h4 { font-size: var(--heading-font-size-m) }
-h5 { font-size: var(--heading-font-size-s) }
-h6 { font-size: var(--heading-font-size-xs) }
+h1 { font-size: var(--heading-1-desktop); } 
+h2 { font-size: var(--heading-2-desktop); }
+h3 { font-size: var(--title-desktop); }
+h4 { font-size: var(--body-1-desktop); }
+h5 { font-size: var(--body-2-desktop); }
+h6 { font-size: var(--paragraph-1-desktop); }
 
 p, dl, ol, ul, pre, blockquote {
   margin-top: 1em;
@@ -204,6 +215,3 @@ main .section.highlight {
   background-color: var(--light-color);
 }
 
-/* *:focus {
-  outline: none;
-} */

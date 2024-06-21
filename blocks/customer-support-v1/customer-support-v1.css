@@ -9,16 +9,14 @@
     text-align: center;
     font-size: 2rem;
   }
-   
-  /* Style for the cards container */
+ 
   .cards-container {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap:5px;
   }
-   
-  /* Style for each card */
+
   .cards {
     display: flex;
     align-items: center;
@@ -27,7 +25,16 @@
     padding: 10px;
     border-radius: 10px;
     box-shadow: 2px 2px 4px 0px #0000001F;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
+
+@media (min-width: 900px) {
+  .cards:hover {
+      background-color: #3CB8FF;
+      color: white;
+  }
+}
+
   @media (max-width: 768px) {
     .cards {
         flex:1;
@@ -36,16 +43,12 @@
     }
   }
 
-
-   
-  /* Style for images inside the cards */
   .cards img {
     max-width: 50px;
     height: auto;
     margin-right: 10px;
   }
-   
-  /* Style for text inside the cards */
+
   .cards p {
     margin: 0;
     font-size: 14px;
@@ -90,3 +93,4 @@
 .customer-support-v1 .cards-container .cards{
   cursor: pointer;
 }
+
