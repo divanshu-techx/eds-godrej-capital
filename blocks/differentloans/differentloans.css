@@ -1,11 +1,10 @@
-/* Tabs container */
+
 .tabs-container {
   display: flex;
   margin-bottom: 16px;
   justify-content: center;
 }
 
-/* Tab styles */
 .tab {
   padding: 10px;
   cursor: pointer;
@@ -28,13 +27,10 @@
   background-color: #007BFF;
 }
 
-/* Loan card container */
 .content-container a {
   border: 1px solid var(--color-silver);
-  padding: 10px;
 }
 
-/* Container for the loan cards */
 .content-container {
   display: flex;
   flex-wrap: wrap;
@@ -43,7 +39,6 @@
   box-sizing: border-box;
 }
 
-/* Buttons container */
 .buttons-container {
   background: var(--color-silver);
   border-radius: 4px;
@@ -52,7 +47,6 @@
   gap: 10px;
 }
 
-/* Individual loan card */
 .loan-card {
   flex: 1;
   max-width: 23%;
@@ -71,7 +65,6 @@
   transform: translateY(-5px);
 }
 
-/* Image inside the loan card */
 .loan-image {
   width: 100%;
   height: auto;
@@ -79,7 +72,6 @@
   object-fit: cover;
 }
 
-/* Content inside the loan card */
 .loan-content {
   padding: 15px;
 }
@@ -113,14 +105,19 @@
   }
 
   .content-container {
-      display: flex;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scroll-snap-type: x mandatory;
-      padding: 15px;
-      justify-content: flex-start;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding: 15px;
+    justify-content: flex-start;
+    -ms-overflow-style: none;
+    scrollbar-width: none; 
   }
+  .content-container::-webkit-scrollbar {
+    display: none;
+}
 
   .loan-card {
       flex: 0 0 auto;
@@ -149,7 +146,6 @@
   }
 }
 
-/* Hover effect for the loan card */
 .loan-card:hover {
   transform: scale(1.05);
 }
@@ -177,3 +173,27 @@
   line-height: 16.42px;
   font-weight: 300;
 }
+
+.loanTitle {
+  position: relative;
+  font-size: 18px;
+  margin: 0 0 10px 0;
+  color: #3b3b3b;
+  padding-right: 24px;
+}
+
+@media (max-width: 768px) {
+  .loanTitle::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 11px;
+      height: 10px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-image: url('/icons/arrowsvg.svg'); 
+  }
+}
+
