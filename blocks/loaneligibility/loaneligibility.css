@@ -362,3 +362,15 @@ input[type="range"] {
     color: rgba(0, 0, 0, 1);
     border-radius: 4px;
   }
+
+  .loan-eligiblity-details{
+    width: 100%;
+    background:  #8cb133;
+    color: #fff;
+}
+.loan-eligiblity-details .chart-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}

@@ -48,7 +48,7 @@ export default async function decorate(block) {
   const loanAmountMaxValue = getDataAttributeValueByName('income-max-value');
   const loanAmountMinValue = getDataAttributeValueByName('income-min-value');
   const laonamountTitle = getDataAttributeValueByName('income-title');
-
+ 
   const existingEmiTitle = getDataAttributeValueByName('existing-emi-title');
   const existingEmiMin = getDataAttributeValueByName('existing-emi-min');
   const existingEmiMax = getDataAttributeValueByName('existing-emi-max');
@@ -240,21 +240,36 @@ export default async function decorate(block) {
       'div',
       { style: 'chart-detail' },
       createElement(
-        'p',
-        { id: 'price-container-emi' },
+        'div',
+        { id: 'price-container-emi',style: 'color:#3b3b3b' },
         'Your Monthly Emi',
-        createElement('p', { id: 'MonthlyEmiPrice' }, '0'),
+        createElement('div', { id: 'MonthlyEmiPrice',style:'color: #8cb133' }, '0'),
       ),
     ),
   );
  
   const view = createElement('div', { class: 'view' }, details, footer);
+   
+  const loanDetailsUpper=createElement('div',{class:'loan-details-upper'},
+    createElement(
+      'div',
+      { class: 'chart-details' },
+      createElement('span',{ class:'details-span-principal'},' '),
+      createElement('div', {class:'detailsloan', style: 'color: #3B3B3B' }, 'PrinCIpal'),
+      createElement('div', { id: 'CP', style: 'color: #3B3B3B; font-size: 17px;' }),
+    ),
+    createElement(
+      'div',
+      { class: 'chart-details' },
+      createElement('span',{ class:'details-span-interest'},''),
+      createElement('div', {class:'detailsloan', style: 'color: #3B3B3B' }, 'Interest'),
+      createElement('div', { id: 'CI', style: 'color: #3B3B3B; font-size: 17px;' }),
+    ),
+  )
  
   const breakup = createElement('div', { class: 'breakup' },
-    createElement('canvas',{id:"mypieChart"}),
-    // <canvas id="pieChart"></canvas>,
     createElement('div', { class: "chartDetails" },
-        createElement('canvas', { id: 'pieChart' }),
+      createElement('canvas',{id:"mypieChart"}),
         createElement('div', { id: 'canvasItems' },
             createElement('div', { class: 'intrest' },
                 createElement('div', { style: 'color: #3b3b3b' }, 'Intrest Rate'),
@@ -265,31 +280,17 @@ export default async function decorate(block) {
                 createElement('span', { id: 'year_tenure' }), 'Y', ' | ',
                 createElement('span', { id: 'month_Tenure' }), 'M'
             ),
-        )),
+        ),loanDetailsUpper),
 );
  
   const subContainer = createElement('div', { class: 'sub-container' }, view, breakup);
  
-  const loanDetailsUpper=createElement('div',{class:'loan-details-upper'},
-    createElement(
-      'div',
-      { class: 'chart-details' },
-      createElement('p', { style: 'color: #3B3B3B' }, 'PrinCIpal'),
-      createElement('p', { id: 'CP', style: 'color: #3B3B3B; font-size: 17px;' }),
-    ),
-    createElement(
-      'div',
-      { class: 'chart-details' },
-      createElement('p', { style: 'color: #3B3B3B' }, 'Interest'),
-      createElement('p', { id: 'CI', style: 'color: #3B3B3B; font-size: 17px;' }),
-    ),
-  )
  
   const loaneligibilityDetails=createElement('div',{class:'loan-eligiblity-details'},
     createElement(
       'div',
       { class: 'chart-details' },
-      createElement('p', { style: 'color: #3B3B3B' }, 'Loan eligibility'),
+      createElement('p', { style: 'color: #fff; margin-right:10px;' }, 'Loan eligibility'),
       createElement('p', { id: 'le', style: 'color: #3B3B3B; font-size: 17px;' }),
     ),
   );
@@ -299,8 +300,8 @@ export default async function decorate(block) {
     createElement(
       'div',
       { class: 'chart-details' },
-      createElement('p', { style: 'color: #3B3B3B' }, 'Total Payable'),
-      createElement('p', { id: 'CT', style: 'color: #3B3B3B; font-size: 17px;' }),
+      createElement('div', { style: 'color: #3B3B3B' }, 'Total Payable'),
+      createElement('div', { id: 'CT', style: 'color: #3B3B3B; font-size: 17px;' }),
     ),footer,
     createElement('div', { class: 'chart-details' },
       createElement('button', { id: 'apply-btn-le' }, 'Apply Now'),
@@ -309,7 +310,7 @@ export default async function decorate(block) {
   // <canvas id="lineChart" height="200px" width="200px"></canvas>
   );
   container.append(subContainer);
-  breakup.append(loanDetailsUpper,loaneligibilityDetails,loanDetails);
+  breakup.append(loaneligibilityDetails,loanDetails);
  
   const loanAmtSlider = document.getElementById('loanAmount');
   const loanAmtText = document.getElementById('loan-amount-text');
