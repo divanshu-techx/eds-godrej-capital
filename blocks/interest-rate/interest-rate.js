@@ -30,7 +30,6 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
 
   // Clear previous data
   tabpanel.innerHTML = '';
-
   // Display the filtered data
   filteredData.forEach((item) => {
     let sectionIndex = 1;
