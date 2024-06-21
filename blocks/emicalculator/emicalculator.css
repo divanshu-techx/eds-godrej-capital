@@ -18,8 +18,6 @@
 }
 
 .detail {
-	/* display: flex;
-    justify-content: space-between; */
 	font-size: 14px;
 	align-items: center;
 
@@ -218,12 +216,6 @@ input[type='number'] {
 	color: var(--color-dark-grey-secondary);
 }
 
-.loan-details-upper {
-	justify-content: center;
-	display: flex;
-	flex-direction: column;
-}
-
 
 .loan-details #apply-btn {
 	padding: 10px 20px;
@@ -258,46 +250,44 @@ input[type='number'] {
 }
 
 .chart-details .details-span-principal {
-	width: 20px;
-	height: 20px;
-	padding: 2px 10px;
-	background: var(--color-citrus);
-	border-radius: 4px;
-	margin: 0px 5px;
+	width: 20px !important;
+    height: 20px !important;
+    display: inline-block;
+    background: var(--color-citrus);
+    border-radius: 4px;
+    margin: 0px 5px;
 }
 
 .chart-details .details-span-interest{
-	width: 20px;
-	height: 20px;
-	padding: 2px 10px;
-	background: var(--color-charcoal-black);
-	border-radius: 4px;
-	margin: 0px 5px;
+	width: 20px !important;
+    height: 20px !important;
+    display: inline-block;
+    background: var(--color-charcoal-black);
+    border-radius: 4px;
+    margin: 0px 5px;
 }
 
 
 .sub-container {
 	display: flex;
-	flex-wrap: wrap;
-	gap: 20px;
-	justify-content: center;
-	max-width: 1200px;
-	margin: 0 auto;
-}
+  }
 
-/* Each view section within sub-container */
 .view {
-    /* flex: 1 1 300px; */
-    background-color: #f2f2f2;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	flex: 1 1 300px;
-	background-color: var(--color-white-secondary);
-	padding: 20px;
+	max-width: 772px;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 0 10px;
+  }
+  
+  .breakup {
+	max-width: 540px;
+	width: 100%;
+	box-sizing: border-box;
 	border-radius: 8px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
 
 /* Label text styling */
 .detail p {
@@ -356,12 +346,6 @@ input[type="range"] {
 	position: relative;
 }
 
-.loan-details-upper {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 20px;
-}
 
 .loan-details {
 	text-align: center;
@@ -380,11 +364,3 @@ input[type="range"] {
 	}
 }
 
-.breakup {
-	flex: 1 1 300px;
-	border-radius: 8px;
-	background-color: var(--color-white);
-	display: flex;
-	justify-content: space-between;
-	flex-direction: column;
-}

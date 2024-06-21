@@ -1,27 +1,4 @@
-.container {
-    height: auto;
-    width: 700px;
-    border-radius: 20px;
-    padding: 20px;
-    margin: 50px 0;
-    background-image: linear-gradient(to bottom left, #e4dfec, white, white);
-}
-.sub-container {
-    display: flex;
-    width: 100%;
-    gap: 50px;
-    height: max-content;
-}
- 
-/* .header {
-    width: 100%;
-    height: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 30px;
-} */
- 
+
 .header button {
     height: max-content;
     width: max-content;
@@ -41,13 +18,11 @@
 }
  
 .detail {
-    /* display: flex;
-    justify-content: space-between; */
     font-size: 14px;
     align-items: center;
     @media (min-width: 768px){
-display: flex;
-justify-content: space-between;
+        display: flex;
+        justify-content: space-between;
     }
 
 }
@@ -225,19 +200,12 @@ input[type='number'] {
     flex: 1;
   }
 
-/* Container for the entire section */
 .sub-container {
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center; /* Center align items */
-    max-width: 1200px; /* Max width of the container */
-    margin: 0 auto; /* Center container horizontally */
+    gap: 40px;
 }
 
-/* Each view section within sub-container */
 .view {
-    /* flex: 1 1 300px; */
     background-color: #f2f2f2;
     padding: 20px;
     border-radius: 8px;
@@ -283,15 +251,7 @@ input[type="range"] {
     font-size: 14px;
 }
 
-/* Error message */
-.error-message {
-    color: red;
-    display: none;
-}
-
-/* Breakup section */
 .breakup {
-    flex: 1 1 300px;
     border-radius: 8px;
     display: flex;
     justify-content: space-between;
@@ -307,13 +267,6 @@ input[type="range"] {
 
 .canvasDetail {
     position: relative;
-}
-
-.loan-details-upper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
 }
 
 .loan-details {
