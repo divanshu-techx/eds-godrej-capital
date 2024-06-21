@@ -29,6 +29,7 @@
   --body-font-family: 'Work Sans', sans-serif;
   --heading-font-family: var(--body-font-family);
   --body-font-size-s: 14px;
+  --body-font-size-default:16px;
   
   /* mobile  */
   --heading-1-mobile: 32px;
@@ -51,7 +52,16 @@
   /* nav height */
   --nav-height: 70px;
   --nav-height-subheader:40px;
+
+  /* links  */
+  --link-color: #035fe6;
+  --link-hover-color: #136ff6;
+  --light-color: #eee;
+  --dark-color: #ccc;
+  --text-color: black;
 }
+
+
 
 @font-face {
   font-family: roboto-fallback;
@@ -63,11 +73,10 @@
 
 
 body {
-  font-size: var(--body-font-size-s);
+  font-size: var(--body-font-size-default);
   margin: 0;
   font-family: var(--body-font-family);
   line-height: 1.6;
-  color: var(--color-dark-grey);
   background-color: var(--color-white);
   display: none;
 }
