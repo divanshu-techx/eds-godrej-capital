@@ -41,10 +41,15 @@
 }
  
 .detail {
-    display: flex;
-    justify-content: space-between;
+    /* display: flex;
+    justify-content: space-between; */
     font-size: 14px;
     align-items: center;
+    @media (min-width: 768px){
+display: flex;
+justify-content: space-between;
+    }
+
 }
  
 .footer {
