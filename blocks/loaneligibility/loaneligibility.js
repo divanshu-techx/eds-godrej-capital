@@ -1,3 +1,4 @@
+
 export default async function decorate(block) {
   const container = document.querySelector('.loaneligibility');
   let i;
