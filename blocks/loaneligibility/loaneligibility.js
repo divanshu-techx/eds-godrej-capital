@@ -291,8 +291,8 @@ export default async function decorate(block) {
     createElement(
       'div',
       { class: 'chart-details' },
-      createElement('p', { style: 'color: #fff; margin-right:10px;' }, 'Loan eligibility'),
-      createElement('p', { id: 'le', style: 'color: #3B3B3B; font-size: 17px;' }),
+      createElement('p', { style: 'color: #fff; margin-right:10px;font-size:16;font-weight:400;' }, 'Loan eligibility'),
+      createElement('p', { id: 'le', style: 'color: #fff; margin-left:10px;font-size:24;font-weight:500;' }),
     ),
   );
   const loanDetails = createElement(
