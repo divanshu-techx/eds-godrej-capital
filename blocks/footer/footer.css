@@ -42,8 +42,8 @@ footer .footer-li {
 
 footer .footer-footer-1 .default-content-wrapper h4{
   font-size: 24px;
-  margin-bottom: 10px;
-  margin-right: 50px;
+  margin-bottom: 15px;
+  margin-right: 55px;
   font-weight: 400;
   line-height: 28px;
   color: var(--color-black);
@@ -84,7 +84,7 @@ footer .footer-footer-1 .default-content-wrapper ul>li>ul>li a {
 }
 
 footer .footer-footer-1 .default-content-wrapper li {
-  margin: 15px 0px;
+  margin: 2px 0px 10px;
 }
 
 footer .footer-footer-1 .default-content-wrapper li strong {
@@ -133,9 +133,14 @@ footer .third-section-wrapper .third-section>div {
 }
 
 footer .partitionfirstcolumn picture img{
-  width: auto;
-  height: auto;
+  max-width: 213px;
+  width: 100%;
+  height: 100%;
   max-height: 70px;
+  overflow: hidden;
+}
+footer .partitionfirstcolumn-wrapper {
+  margin: 6px !important;
 }
 
 footer .partitionfirstcolumn-container{

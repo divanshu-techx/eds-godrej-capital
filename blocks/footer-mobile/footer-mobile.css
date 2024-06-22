@@ -22,13 +22,14 @@
   align-items: center;
   }
   .footer-element:last-child .button-container a {
-  background: #3CB8FF;
-  border-radius: 2px;
-  box-sizing: border-box;
-  padding: 8px 8px;
-  font-size: 14px;
-  display: block !important;
-  color: #fff;
+    background: var(--color-sky-dark);
+    border-radius: 2px;
+    box-sizing: border-box;
+    padding: 12px 20px;
+    font-size: 14px;
+    display: block !important;
+    color: var(--color-white);
+    font-weight: 500;
   }
   .footer-element img {
   width: 22px;
