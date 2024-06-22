@@ -256,14 +256,14 @@ export default async function decorate(block) {
       'div',
       { class: 'chart-details' },
       createElement('span',{ class:'details-span-principal'},' '),
-      createElement('div', {class:'detailsloan', style: 'color: #3B3B3B' }, 'PrinCIpal'),
+      createElement('div', {class:'detailsloan', style: 'color: #000000; font-size: 16px; font-weight:400;' }, 'PrinCIpal'),
       createElement('div', { id: 'CP', style: 'color: #3B3B3B; font-size: 17px;' }),
     ),
     createElement(
       'div',
       { class: 'chart-details' },
       createElement('span',{ class:'details-span-interest'},''),
-      createElement('div', {class:'detailsloan', style: 'color: #3B3B3B' }, 'Interest'),
+      createElement('div', {class:'detailsloan', style: 'color: #000000; font-size: 16px; font-weight:400;' }, 'Interest'),
       createElement('div', { id: 'CI', style: 'color: #3B3B3B; font-size: 17px;' }),
     ),
   )

@@ -391,3 +391,16 @@ input[type="range"] {
 	}
 }
 
+#loan-amt-text{
+	padding-right:10px;
+}
+#interest-rate-text{
+	padding-right:10px;
+}
+#loan-period-text{
+	padding-right:10px;
+}
+#loan-period-month-text{
+	padding-right: 10px;
+}
+
