@@ -99,7 +99,7 @@ export default async function decorate(block) {
         { class: 'inputDetail' },
         createElement('span', { class: 'rupeeSpan' }, '₹'),
         createElement('input', {
-          id: 'loan-amount-text', type: 'number', min: loanAmountMinValue, max: loanAmountMaxValue, step: '50000', style: 'color: #b3b3b3',
+          id: 'loan-amount-text', type: 'number', min: loanAmountMinValue, max: loanAmountMaxValue, step: '50000', style: 'color: #3b3b3b; font-size:14px;font-weight:400',
         }),
       ),
     ),
@@ -126,7 +126,7 @@ export default async function decorate(block) {
         { class: 'inputDetail' },
         createElement('span', { class: 'rupeeSpan' }, '₹'),
         createElement('input', {
-          id: 'exisiting-emi-text', type: 'number', min: existingEmiMin, max: existingEmiMax, step: '5', style: 'color: #b3b3b3',
+          id: 'exisiting-emi-text', type: 'number', min: existingEmiMin, max: existingEmiMax, step: '5', style: 'color: #3b3b3b; font-size:14px;font-weight:400',
         }),
       ),
     ),
@@ -153,7 +153,7 @@ export default async function decorate(block) {
         { class: 'inputDetail' },
         createElement('span', { class: 'percentSpan' }, '%'),
         createElement('input', {
-          id: 'linterest_Rate_Text', type: 'number', min: interestRateMinValue, max: interestRateMaxValue, step: '0.5', style: 'color: #b3b3b3',
+          id: 'linterest_Rate_Text', type: 'number', min: interestRateMinValue, max: interestRateMaxValue, step: '0.5', style: 'color: #3b3b3b; font-size:14px;font-weight:400',
         }),
       ),
     ),
@@ -180,7 +180,7 @@ export default async function decorate(block) {
         { class: 'inputDetail' },
         createElement('span', { class: 'yearSpan' }, 'Yrs.'),
         createElement('input', {
-          id: 'loanPeriodText', type: 'number', min: tenureMinYearValue, max: tenureMaxYearValue, step: '1', style: 'color: #b3b3b3',
+          id: 'loanPeriodText', type: 'number', min: tenureMinYearValue, max: tenureMaxYearValue, step: '1', style: 'color: #3b3b3b; font-size:14px;font-weight:400',
         }),
       ),
     ),
@@ -207,7 +207,7 @@ export default async function decorate(block) {
         { class: 'inputDetail' },
         createElement('span', { class: 'monthSpan' }, 'Mos.'),
         createElement('input', {
-          id: 'loanPeriodMonthText', type: 'number', min: tenureMinMonthValue, max: tenureMaxMonthValue, step: '1', style: 'color: #b3b3b3',
+          id: 'loanPeriodMonthText', type: 'number', min: tenureMinMonthValue, max: tenureMaxMonthValue, step: '1', style: 'color: #3b3b3b; font-size:14px;font-weight:400',
         }),
       ),
     ),
