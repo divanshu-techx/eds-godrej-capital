@@ -157,12 +157,6 @@ input[type="range"]:focus::-ms-fill-upper {
 	display: block;
 }
 
-
-.range-values {
-	display: flex;
-	justify-content: space-between;
-}
-
 .details input[type="number"] {
 	max-width: 120px;
     width: 100%;
@@ -190,7 +184,11 @@ input[type='number'] {
 	height: 300px !important;
 	display: block;
 	box-sizing: border-box;
+	@media( width <= 900px){
+		display:none!important;
+	}
 }
+
 
 .inputDetail {
 	min-width: 300px;
@@ -254,7 +252,8 @@ input[type='number'] {
 #price-container-emi #price {
 	color: var(--color-citrus);
 	font-size:24px;
-	font-weight:400
+	font-weight:400;
+	text-align:start;
 }
 
 .chart-details .detailsloan {
@@ -267,7 +266,12 @@ input[type='number'] {
     display: inline-block;
     background: var(--color-citrus);
     border-radius: 4px;
-    margin: 0px 5px;
+    /* margin: 0px 5px; */
+}
+
+.chart-detail-adjust{
+	display: flex;
+	align-items: center;
 }
 
 .chart-details .details-span-interest{
@@ -276,7 +280,7 @@ input[type='number'] {
     display: inline-block;
     background: var(--color-charcoal-black);
     border-radius: 4px;
-    margin: 0px 5px;
+    /* margin: 0px 5px; */
 }
 
 
@@ -302,6 +306,11 @@ input[type='number'] {
     justify-content: space-between;
     flex-direction: column;
   }
+
+  .sub-container {
+    display: flex;
+    gap: 20px;
+}
 
 /* Label text styling */
 .detail p {
@@ -339,6 +348,7 @@ input[type="range"] {
 .range-values .max-value {
 	color: var(--color-black);
     font-size: var(--body-font-size-s);
+	font-weight: 300;
 }
 
 /* Error message */
@@ -402,5 +412,11 @@ input[type="range"] {
 }
 #loan-period-month-text{
 	padding-right: 10px;
+}
+
+.loan-details-upper .chart-details:nth-child(2){
+	@media(width>=901px){
+		margin-top:12px;
+	}
 }
 

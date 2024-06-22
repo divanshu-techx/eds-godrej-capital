@@ -143,12 +143,6 @@ input[type="range"]:focus::-ms-fill-upper {
     display: block;
 }
  
- 
-.range-values {
-    display: flex;
-    justify-content: space-between;
-}
- 
 .details input[type="number"] {
     max-width: 120px;
     width: 100%;
@@ -178,8 +172,32 @@ input[type='number'] {
     height:100%;
     display: block;
     box-sizing: border-box;
+    @media( width <= 900px){
+		display:none;
+	}
+}
+.chart-detail-adjust{
+	display: flex;
+	align-items: center;
+}
+
+.chart-details .details-span-interest{
+	width: 20px !important;
+    height: 20px !important;
+    display: inline-block;
+    background: var(--color-charcoal-black);
+    border-radius: 4px;
+    /* margin: 0px 5px; */
 }
  
+.chart-details .details-span-principal {
+	width: 20px !important;
+    height: 20px !important;
+    display: inline-block;
+    background: var(--color-citrus);
+    border-radius: 4px;
+    /* margin: 0px 5px; */
+}
 .inputDetail {
     min-width: 300px;
     justify-content: end;
@@ -206,7 +224,7 @@ input[type='number'] {
 
 .sub-container {
     display: flex;
-    gap: 40px;
+    gap: 20px;
 }
 
 .view {
@@ -250,12 +268,14 @@ input[type="range"] {
 .range-values {
     display: flex;
     justify-content: space-between;
+    margin-bottom:10px;
 }
 
 .range-values .min-value,
 .range-values .max-value {
     color: var(--color-black);
     font-size: var(--body-font-size-s);
+    font-weight: 300;
 }
 
 .breakup {
@@ -307,6 +327,7 @@ input[type="range"] {
         flex: 1 1 100%;
     }
 }
+
 .loan-details {
     max-width: 540px; 
     height: auto;
@@ -367,3 +388,43 @@ select {
     border-color: var(--color-ruby);
     outline: none;
   }
+
+  #loan-amount-text{
+    padding-right:10px;
+  }
+  #exisiting-emi-text{
+    padding-right:10px;
+  }
+  #linterest_Rate_Text{
+    padding-right:10px;
+  }
+  #loanPeriodText{
+    padding-right:10px;
+  }
+  #loanPeriodMonthText{
+    padding-right:10px;
+  }
+
+  .view {
+	max-width: 772px;
+	width: 100%;
+	box-sizing: border-box;
+	background-color: var(--color-silver);
+    padding: 20px;
+    border-radius: 4px;
+  }
+  
+  .breakup {
+	max-width: 540px;
+	width: 100%;
+	box-sizing: border-box;
+	border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+
+  .sub-container {
+    display: flex;
+    gap: 20px;
+}

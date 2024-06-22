@@ -5,6 +5,10 @@ header .nav-wrapper {
   /* z-index: 2;
   position: fixed; */
   box-shadow: 2px 2px 4px rgb(0 0 0 / 16%);
+
+  @media(width <= 900px){
+    background-color:var(--color-silver) ;
+  }
 }
 
 header{

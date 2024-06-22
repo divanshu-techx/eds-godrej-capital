@@ -28,7 +28,7 @@
 
 .tabs-container .button-container button.active {
     background-color: #3cb8ff;
-    font-weight: bold;
+    font-weight: 500;
     color:white;
     font-size: 14px;
 }
@@ -37,6 +37,7 @@
 .button-container button:hover:not(.active) {
     background-color: #e1e1e1;
     border-color: #bbb;
+    color:#3b3b3b;
 }
 
 .cal.active {
@@ -67,8 +68,8 @@
 
 #canvasItems {
     position: absolute;
-    top: 110px;
-    left: 110px;
+    top: 102px;
+    left: 102px;
     font-size: var(--body-font-size-default);
     text-align: center;
 }

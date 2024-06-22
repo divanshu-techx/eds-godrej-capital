@@ -93,7 +93,7 @@ export default async function decorate(block) {
     createElement(
       'div',
       { class: 'detail' },
-      createElement('p', { style: 'color: #3b3b3b' }, laonamountTitle),
+      createElement('div', { style: 'color: #3b3b3b' }, laonamountTitle),
       createElement(
         'div',
         { class: 'inputDetail' },
@@ -109,8 +109,8 @@ export default async function decorate(block) {
     createElement(
       'div',
       { class: 'range-values' },
-      createElement('p', { class: 'min-value' }, loanAmountMinValue),
-      createElement('p', { class: 'max-value', style: 'float: right;' }, loanAmountMaxValue),
+      createElement('div', { class: 'min-value' }, loanAmountMinValue),
+      createElement('div', { class: 'max-value', style: 'float: right;' }, loanAmountMaxValue),
     ),
   );
  
@@ -136,8 +136,8 @@ export default async function decorate(block) {
     createElement(
       'div',
       { class: 'range-values' },
-      createElement('p', { class: 'min-value' }, existingEmiMin),
-      createElement('p', { class: 'max-value', style: 'float: right;' }, existingEmiMax),
+      createElement('div', { class: 'min-value' }, existingEmiMin),
+      createElement('div', { class: 'max-value', style: 'float: right;' }, existingEmiMax),
     ),
   );
  
@@ -147,7 +147,7 @@ export default async function decorate(block) {
     createElement(
       'div',
       { class: 'detail' },
-      createElement('p', { style: 'color: #3b3b3b' }, interestrateTitle),
+      createElement('div', { style: 'color: #3b3b3b' }, interestrateTitle),
       createElement(
         'div',
         { class: 'inputDetail' },
@@ -163,8 +163,8 @@ export default async function decorate(block) {
     createElement(
       'div',
       { class: 'range-values' },
-      createElement('p', { class: 'min-value' }, `${interestRateMinValue}%`),
-      createElement('p', { class: 'max-value', style: 'float: right;' }, `${interestRateMaxValue}%`),
+      createElement('div', { class: 'min-value' }, `${interestRateMinValue}%`),
+      createElement('div', { class: 'max-value', style: 'float: right;' }, `${interestRateMaxValue}%`),
     ),
   );
  
@@ -174,7 +174,7 @@ export default async function decorate(block) {
     createElement(
       'div',
       { class: 'detail' },
-      createElement('p', { style: 'color: #3b3b3b' }, tenureTitleYear),
+      createElement('div', { style: 'color: #3b3b3b' }, tenureTitleYear),
       createElement(
         'div',
         { class: 'inputDetail' },
@@ -190,8 +190,8 @@ export default async function decorate(block) {
     createElement(
       'div',
       { class: 'range-values' },
-      createElement('p', { class: 'min-value' }, `${tenureMinYearValue} Year`),
-      createElement('p', { class: 'max-value', style: 'float: right;' }, `${tenureMaxYearValue} Year`),
+      createElement('div', { class: 'min-value' }, `${tenureMinYearValue} Year`),
+      createElement('div', { class: 'max-value', style: 'float: right;' }, `${tenureMaxYearValue} Year`),
     ),
   );
  
@@ -201,7 +201,7 @@ export default async function decorate(block) {
     createElement(
       'div',
       { class: 'detail' },
-      createElement('p', { style: 'color: #3b3b3b' }, tenureTitleMonths),
+      createElement('div', { style: 'color: #3b3b3b' }, tenureTitleMonths),
       createElement(
         'div',
         { class: 'inputDetail' },
@@ -217,8 +217,8 @@ export default async function decorate(block) {
     createElement(
       'div',
       { class: 'range-values' },
-      createElement('p', { class: 'min-value' }, `${tenureMinMonthValue} Month`),
-      createElement('p', { class: 'max-value', style: 'float: right;' }, `${tenureMaxMonthValue} Month`),
+      createElement('div', { class: 'min-value' }, `${tenureMinMonthValue} Month`),
+      createElement('div', { class: 'max-value', style: 'float: right;' }, `${tenureMaxMonthValue} Month`),
     ),
   );
  
@@ -249,26 +249,26 @@ export default async function decorate(block) {
     ),
   );
  
-  const view = createElement('div', { class: 'view' }, details, footer);
+  const view = createElement('div', { class: 'view view-loaneli' }, details, footer);
    
   const loanDetailsUpper=createElement('div',{class:'loan-details-upper'},
     createElement(
       'div',
-      { class: 'chart-details' },
+      { class: 'chart-details chart-details-loaneli' },
       createElement('span',{ class:'details-span-principal'},' '),
       createElement('div', {class:'detailsloan', style: 'color: #000000; font-size: 16px; font-weight:400;' }, 'PrinCIpal'),
       createElement('div', { id: 'CP', style: 'color: #3B3B3B; font-size: 17px;' }),
     ),
     createElement(
       'div',
-      { class: 'chart-details' },
+      { class: 'chart-details chart-details-loaneli' },
       createElement('span',{ class:'details-span-interest'},''),
       createElement('div', {class:'detailsloan', style: 'color: #000000; font-size: 16px; font-weight:400;' }, 'Interest'),
       createElement('div', { id: 'CI', style: 'color: #3B3B3B; font-size: 17px;' }),
     ),
   )
  
-  const breakup = createElement('div', { class: 'breakup' },
+  const breakup = createElement('div', { class: 'breakup breadup-loaneli' },
     createElement('div', { class: "chartDetails" },
       createElement('canvas',{id:"mypieChart"}),
         createElement('div', { id: 'canvasItems' },
@@ -291,8 +291,8 @@ export default async function decorate(block) {
     createElement(
       'div',
       { class: 'chart-details' },
-      createElement('p', { style: 'color: #fff; margin-right:10px;font-size:16;font-weight:400;' }, 'Loan eligibility'),
-      createElement('p', { id: 'le', style: 'color: #fff; margin-left:10px;font-size:24;font-weight:500;' }),
+      createElement('div', { style: 'color: #fff; margin-right:10px;font-size:16;font-weight:400;' }, 'Loan eligibility'),
+      createElement('div', { id: 'le', style: 'color: #fff; margin-left:10px;font-size:24;font-weight:500;' }),
     ),
   );
   const loanDetails = createElement(
@@ -618,8 +618,14 @@ export default async function decorate(block) {
             data: [P, 0],
             backgroundColor: ['rgba(140, 177, 51, 1)', 'rgba(59, 59, 59, 1)'],
             hoverOffset: 4,
-          },
+            borderWidth: 8,
+          }, 
         ],
+        options: {
+          cutoutPercentage: 30,
+          responsive: true,
+          maintainAspectRatio: false,
+      } 
       },
     });
  
