@@ -5,9 +5,9 @@ function numberToWords(num) {
     }
  
     const suffixes = [
-        [1e7, 'crore'],
-        [1e5, 'lakh'],
-        [1e3, 'thousand']
+        [1e7, 'Crores'],
+        [1e5, 'Lakhs'],
+        [1e3, 'Thousands']
     ];
  
     for (let i = 0; i < suffixes.length; i++) {
