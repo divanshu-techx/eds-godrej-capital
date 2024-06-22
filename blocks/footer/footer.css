@@ -87,6 +87,32 @@ footer .footer-footer-1 .default-content-wrapper li {
   margin: 2px 0px 10px;
 }
 
+footer .footer-footer-1 .default-content-wrapper ul li ul{
+  margin: 5px 0px 10px;
+}
+
+footer .footer-footer-1 .default-content-wrapper ul li ul li:first-child{
+  margin: 5px 0px 0px;
+  color: var(--color-black);
+  font-size: var(--body-font-size-s);
+  font-weight: 300;
+  line-height: 30px;
+}
+footer .footer-footer-1 .default-content-wrapper ul li ul li:nth-child(2){
+  margin: 0px 0px 10px;
+  color: var(--color-black);
+  font-size: var(--body-font-size-s);
+  font-weight: 300;
+  line-height: 30px;
+}
+footer .footer-footer-1 .default-content-wrapper ul li ul li:nth-child(3){
+  margin: -8px 0px 10px;
+  color: var(--color-black);
+  font-size: var(--body-font-size-s);
+  font-weight: 300;
+  line-height: 30px;
+}
+
 footer .footer-footer-1 .default-content-wrapper li strong {
   margin-bottom: 5px;
 }
