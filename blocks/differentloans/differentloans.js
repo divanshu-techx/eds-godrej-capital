@@ -16,7 +16,7 @@ const API_URL = {
 // CSS class names for creating elements
 const CREATE_SELECTOR_CLASS = {
   contentContainer: 'content-container',
-  tabsContainer: 'tabs-loan-container',
+  tabsContainer: 'tabs-loans-container',
   titleContainer: 'different-loans-title',
 };
 
