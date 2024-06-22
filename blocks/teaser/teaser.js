@@ -1,9 +1,10 @@
+import { div } from "../utils/dom-helper.js";
 export default async function decorate(block) {
   const teaserContainer = block.closest('.teaser-container');
 
   if (teaserContainer) {
     console.log("teaser", teaserContainer);
-    createTeaser();
+    createTeaser(teaserContainer);
     // applyInitialStyles(teaserContainer);
     // applyTextAlignmentAndPlacement(teaserContainer);
     // convertAnchorsToButtons(block);
@@ -14,86 +15,53 @@ export default async function decorate(block) {
   }
 }
 
-
-function createTeaser(){
-  const teaserContainer = document.querySelector(".teaser-container");
-    if (!teaserContainer) return;
-
+/**
+ * Transforms the HTML structure by:
+ * 1. Removing the `teaser-wrapper` and moving its child `teaser` element up.
+ * 2. Creating separate containers for image elements and text content inside the `teaser` element.
+ */
+function createTeaser(teaserContainer){
+    // Select the teaser-wrapper element
     const teaserWrapper = teaserContainer.querySelector(".teaser-wrapper");
     if (!teaserWrapper) return;
 
-    const teaserBlock = teaserWrapper.querySelector(".teaser.block");
-    if (!teaserBlock) return;
+    // Select the teaser element inside teaser-wrapper
+    const teaser = teaserWrapper.querySelector(".teaser");
+    if (!teaser) return;
 
-    const paragraphs = teaserBlock.querySelectorAll("p");
-    const images = teaserBlock.querySelectorAll("picture img");
+    // Add the teaser-wrapper class to the teaser element
+    teaser.classList.add("teaser-wrapper");
 
-    if (paragraphs.length < 3 || images.length === 0) return;
+    // Move the teaser element out of the teaser-wrapper
+    teaserWrapper.parentNode.insertBefore(teaser, teaserWrapper);
 
-    // Extract data from the existing structure
-    const title = paragraphs[0].innerText;
-    const subtitle = paragraphs[1].innerHTML;
-    const description = paragraphs[2].innerText;
-    const applyLink = paragraphs[3].querySelector("a[href*='Apply']");
-    const knowLink = paragraphs[3].querySelector("a[href*='Know']");
-    const backgroundImageSrc = images[0].src;
+    // Remove the teaser-wrapper element
+    teaserWrapper.remove();
 
-    // Create the new card structure
-    const card = document.createElement("div");
-    card.className = "card";
+    // Create new structure elements using domEl
+    const carouselSlideImage = div({ class: "carousel-slide-image" });
+    const carouselSlideContent = div({ class: "carousel-slide-content" });
 
-    const cardBg = document.createElement("img");
-    cardBg.className = "card-bg";
-    cardBg.src = backgroundImageSrc;
-    cardBg.alt = "Background Image";
-    card.appendChild(cardBg);
+    // Move image elements to carousel-slide-image
+    const images = teaser.querySelectorAll("picture");
+    images.forEach(image => {
+        const imageWrapper = div(image);
+        carouselSlideImage.appendChild(imageWrapper);
+    });
 
-    const cardContent = document.createElement("div");
-    cardContent.className = "card-content";
+    // Move text content to carousel-slide-content
+    const paragraphs = teaser.querySelectorAll("p");
+    paragraphs.forEach(paragraph => {
+        carouselSlideContent.appendChild(paragraph);
+    });
 
-    const cardTitle = document.createElement("h1");
-    cardTitle.innerText = title;
-    cardContent.appendChild(cardTitle);
-
-    const cardSubtitle = document.createElement("h2");
-    cardSubtitle.innerHTML = subtitle.replace(/\n/g, "<br>");
-    cardContent.appendChild(cardSubtitle);
-
-    const cardDescription = document.createElement("p");
-    cardDescription.innerText = description;
-    cardContent.appendChild(cardDescription);
-
-    const cardButtons = document.createElement("div");
-    cardButtons.className = "card-buttons";
-
-    if (applyLink) {
-        const applyButton = document.createElement("button");
-        applyButton.className = "apply-btn";
-        applyButton.innerText = applyLink.innerText;
-        applyButton.onclick = () => {
-            window.location.href = applyLink.href;
-        };
-        cardButtons.appendChild(applyButton);
-    }
-
-    if (knowLink) {
-        const knowButton = document.createElement("button");
-        knowButton.className = "know-btn";
-        knowButton.innerText = knowLink.innerText;
-        knowButton.onclick = () => {
-            window.location.href = knowLink.href;
-        };
-        cardButtons.appendChild(knowButton);
-    }
-
-    cardContent.appendChild(cardButtons);
-    card.appendChild(cardContent);
-
-    // Replace the old structure with the new card structure
-    teaserContainer.innerHTML = '';
-    teaserContainer.appendChild(card);
-
+    // Clear the teaser's children and append the new structure
+    teaser.innerHTML = '';
+    teaser.appendChild(carouselSlideImage);
+    teaser.appendChild(carouselSlideContent);
 }
+
+
 const applyInitialStyles = (container) => {
   const mobileAlignment = container.getAttribute('data-mobile-alignment');
   const desktopAlignment = container.getAttribute(
