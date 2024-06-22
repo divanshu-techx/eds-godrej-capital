@@ -181,3 +181,18 @@
 .header-accordion-item-body ol {
     padding-left: 0;
 }
+
+@media(width >= 600px){
+    .section.headermobile-container.nav-mobile .accordion-item-label{
+        font-family: var(--body-font-family-primary);
+        font-weight: 300;
+        font-size: 18px;
+        color:var(--color-black);
+    }
+
+    .headermobile details ol li {
+        font-size: 16px;
+        font-weight: 300;
+        font-family: var(--body-font-family-primary);
+    }
+}

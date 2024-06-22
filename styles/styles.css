@@ -7,7 +7,9 @@
   --color-citrus-light: #F0F6E4;
   /* Black */
   --color-black: #000000;
+  --color-black-fadded:#1d1d1d;
   --color-black-primary:#4E4E4E;
+  --color-black-grey:#7d7d7d;
   /* Sky */
   --color-sky: #3CB8FF;
   --color-sky-dark: #00A2FF;
@@ -32,7 +34,9 @@
 
   /* fonts */
   --body-font-family: 'Work Sans', sans-serif;
+  --body-font-family-primary:'Poppins';
   --heading-font-family: var(--body-font-family);
+  --heading-font-family-primary:var(--body-font-family-primary);
   --body-font-size-s: 14px;
   --body-font-size-default: 16px;
   --body-font-size-xs:12px;
