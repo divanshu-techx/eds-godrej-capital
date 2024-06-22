@@ -221,6 +221,7 @@ header nav .nav-sections .anchorClass::after{
 header nav .nav-sections .anchorClass.rotate::after{
   transform: rotate(180deg);
   color:var(--color-citrus);
+  fill: #8cb133;
 }
 
 header nav .nav-sections .belowNavMainContainer.show{
