@@ -197,6 +197,8 @@ header nav .nav-sections .anchorClass{
   position: relative; 
   padding-right: 20px;
   color: var(--color-charcoal-black);
+  font-weight: 400;
+  font-size: var(--body-font-size-xs);
 }
 
 header nav .nav-sections .anchorClass.rotate{
@@ -208,22 +210,16 @@ header nav .nav-sections .anchorClass.rotate{
 
 header nav .nav-sections .anchorClass::after{
   position: absolute;
-  right: 10px;
-  top: 50%;
-  width: 6px;
-  height: 6px;
-  margin-top: -5px;
-  border-width: 0 2px 2px 0;
-  border-style: solid;
-  transform-origin: 75% 75%;
-  transform: rotate(45deg);
+  transform: rotate(0deg);
+  margin-left:4px;
   transition: transform 0.1s ease;
-  content: "";
+  content: url(/icons/dropdown.svg);
   box-sizing: content-box;
+  color:var(--color-charcoal-black);
 }
 
 header nav .nav-sections .anchorClass.rotate::after{
-  transform: rotate(225deg);
+  transform: rotate(180deg);
   color:var(--color-citrus);
 }
 
@@ -326,7 +322,7 @@ header nav .nav-sections .belowNavMainContainer .thirdElementDiv .columns p a{
   width: 100%;
   box-sizing: border-box;
   padding: 20px;
-  background-color: #fff;
+  background-color: var(--color-white);
 }
 
 .columns > div {
@@ -336,7 +332,7 @@ header nav .nav-sections .belowNavMainContainer .thirdElementDiv .columns p a{
 
 .columns > div > div:first-child {
   margin-right: 20px;
-  background-color: #fff;
+  background-color: var(--color-white);
   width: 50%;
   overflow: hidden;
   word-wrap: break-word;
@@ -394,7 +390,7 @@ header nav .nav-sections .firstElementChildDiv ul {
 }
 
 .firstElementChildDiv li {
-  background-color: #fff;
+  background-color: var(--color-white);
   padding: 10px 40px;
 }
 
@@ -521,7 +517,8 @@ header nav .nav-tools input[type=text]{
   padding:12px 20px;
   font-size: 14px;
   display:block!important;
-  color:white;
+  color:var(--color-white);
+  font-weight: 500;
 }
 
 .firstElementChildDiv ul {
@@ -582,6 +579,7 @@ header nav .nav-tools input[type=text]{
   gap:5px;
   cursor: pointer;
   font-size: var(--paragraph-1);
+  font-weight:400;
 }
 
 .subheader .subheader-wrapper .default-content-wrapper ul .subheader-list a:any-link{
