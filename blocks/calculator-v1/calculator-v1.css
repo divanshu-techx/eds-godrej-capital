@@ -1,8 +1,8 @@
 .tabs-container{
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
     /* align-items: center; */
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 
 /* Style the container that holds the buttons */
@@ -11,7 +11,7 @@
     justify-content: center;
     gap: 10px;
     padding:10px;
-    background: #F4F4F4;
+    /* background: #F4F4F4; */
     border-radius: 4px;
 }
 
