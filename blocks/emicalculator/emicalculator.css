@@ -328,6 +328,15 @@ input[type='number'] {
     justify-content: space-between;
     flex-direction: column;
   }
+  .breakupdesktop{
+	max-width: 540px;
+	width: 100%;
+	box-sizing: border-box;
+	border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
 
   .sub-container {
     display: flex;
