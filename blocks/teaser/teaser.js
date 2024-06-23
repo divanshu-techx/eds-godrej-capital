@@ -1,16 +1,65 @@
+import { div } from "../utils/dom-helper.js";
 export default async function decorate(block) {
   const teaserContainer = block.closest('.teaser-container');
 
   if (teaserContainer) {
-    applyInitialStyles(teaserContainer);
-    applyTextAlignmentAndPlacement(teaserContainer);
-    convertAnchorsToButtons(block);
-    hideSpecifiedButtons(teaserContainer);
-    handleBackgroundStyle(teaserContainer, block);
-    hidePictures(block);
-    showContainer(teaserContainer);
+    createTeaser(teaserContainer);
+    // applyInitialStyles(teaserContainer);
+    // applyTextAlignmentAndPlacement(teaserContainer);
+    // convertAnchorsToButtons(block);
+    // hideSpecifiedButtons(teaserContainer);
+    // handleBackgroundStyle(teaserContainer, block);
+    // hidePictures(block);
+    // showContainer(teaserContainer);
   }
 }
+
+/**
+ * Transforms the HTML structure by:
+ * 1. Removing the `teaser-wrapper` and moving its child `teaser` element up.
+ * 2. Creating separate containers for image elements and text content inside the `teaser` element.
+ */
+function createTeaser(teaserContainer){
+    // Select the teaser-wrapper element
+    const teaserWrapper = teaserContainer.querySelector(".teaser-wrapper");
+    if (!teaserWrapper) return;
+
+    // Select the teaser element inside teaser-wrapper
+    const teaser = teaserWrapper.querySelector(".teaser");
+    if (!teaser) return;
+
+    // Add the teaser-wrapper class to the teaser element
+    teaser.classList.add("teaser-wrapper");
+
+    // Move the teaser element out of the teaser-wrapper
+    teaserWrapper.parentNode.insertBefore(teaser, teaserWrapper);
+
+    // Remove the teaser-wrapper element
+    teaserWrapper.remove();
+
+    // Create new structure elements using domEl
+    const carouselSlideImage = div({ class: "carousel-slide-image" });
+    const carouselSlideContent = div({ class: "carousel-slide-content" });
+
+    // Move image elements to carousel-slide-image
+    const images = teaser.querySelectorAll("picture");
+    images.forEach(image => {
+        const imageWrapper = div(image);
+        carouselSlideImage.appendChild(imageWrapper);
+    });
+
+    // Move text content to carousel-slide-content
+    const paragraphs = teaser.querySelectorAll("p");
+    paragraphs.forEach(paragraph => {
+        carouselSlideContent.appendChild(paragraph);
+    });
+
+    // Clear the teaser's children and append the new structure
+    teaser.innerHTML = '';
+    teaser.appendChild(carouselSlideImage);
+    teaser.appendChild(carouselSlideContent);
+}
+
 
 const applyInitialStyles = (container) => {
   const mobileAlignment = container.getAttribute('data-mobile-alignment');
@@ -115,13 +164,13 @@ const handleBackgroundStyle = (container, block) => {
         }
       }
     });
-    const applyBackgroundImage = () => {
-      container.style.backgroundImage = `url(${
-        window.innerWidth < 600 ? mobileImageSrc : desktopImageSrc
-      })`;
-    };
-    applyBackgroundImage();
-    window.addEventListener('resize', applyBackgroundImage);
+    // const applyBackgroundImage = () => {
+    //   container.style.backgroundImage = `url(${
+    //     window.innerWidth < 600 ? mobileImageSrc : desktopImageSrc
+    //   })`;
+    // };
+    // applyBackgroundImage();
+    // window.addEventListener('resize', applyBackgroundImage);
   }
 
   const videoLinks = block.querySelectorAll('a[href]');
