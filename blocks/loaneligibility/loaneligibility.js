@@ -1,4 +1,3 @@
-
 export default async function decorate(block) {
   const container = document.querySelector('.loaneligibility');
   let i;
@@ -271,7 +270,7 @@ export default async function decorate(block) {
   const breakup = createElement('div', { class: 'breakup breadup-loaneli' },
     createElement('div', { class: "chartDetails" },
       createElement('canvas',{id:"mypieChart"}),
-        createElement('div', { id: 'canvasItems' },
+        createElement('div', { id: 'canvasItems-loanele' },
             createElement('div', { class: 'intrest' },
                 createElement('div', { style: 'color: #3b3b3b' }, 'Intrest Rate'),
                 createElement('div', { id: 'Rate' })
@@ -284,7 +283,6 @@ export default async function decorate(block) {
         ),loanDetailsUpper),
 );
  
-  const subContainer = createElement('div', { class: 'sub-container' }, view, breakup);
  
  
   const loaneligibilityDetails=createElement('div',{class:'loan-eligiblity-details'},
@@ -308,10 +306,54 @@ export default async function decorate(block) {
       createElement('button', { id: 'apply-btn-le' }, 'Apply Now'),
   ),
   createElement('div',{id:'mylineChart'}),
-  // <canvas id="lineChart" height="200px" width="200px"></canvas>
   );
-  container.append(subContainer);
+ 
   breakup.append(loaneligibilityDetails,loanDetails);
+ 
+//mobile breakup
+      const mobileBreakup = createElement('div', { class: 'mobile-loaneligible'},
+        createElement('div',{class:'mobile-loaneligibale'},
+          createElement('h3',{class:'mobile-loan-eligible-label'},'Loan Eligibility Amount'),
+          createElement('h2',{class:'mobile-loan-eligible-details',id:'mobile-le'}),
+        ),
+        createElement('div',{class:'mobile-breakup-loaneligible'},
+        createElement('div',{class:'mobile-breakup-loaneligible-left'},
+            createElement('div', { class: 'loaneligible-Totaltenure' },
+                createElement('div', { style: 'color: #3b3b3b;font-size:14;font-weight:400;' }, 'Total Tenure'),
+                createElement('div',{class:'mobile-loan-tenure-monthYear'},
+                createElement('span', { id: 'mobile_year_tenure' }), 'Years', ' ',
+                createElement('span', { id: 'mobile_month_Tenure' }), 'Months'
+                ),
+            ),
+            createElement('div',{class:'mobile-loan-tenure-amount'},
+                createElement('p',{class:'mobile-loan-tenure-amount-label'},'Total Amount Payable'),
+                createElement('p', { id: 'mobile_CT', class:'mobile-tenure-amount-detail' })
+            ),
+            createElement('div',{class:'mobile-loan-tenure-interest'},
+                createElement('p',{class:'mobile-loan-tenure-interest-label'},'Interest Amount'),
+                createElement('p', { id: 'mobile_CI', style: 'color: #3B3B3B; font-size: 24px; font-weight:400;' })
+            ),
+        ),
+        createElement('div',{class:'mobile-loan-breakup-right'},
+            createElement('div',{class:'mobile-loan-tenure-right'},
+                createElement('div',{class:'mobile-loan-tenure-emi'},
+                createElement('p',{class:'mobile-loan-tenure-emi-label'},'Monthly EMI'),
+                createElement('span', { id: 'mobile_interest_rate',class:'mobile-tenure-interest-rate' }),
+                ),
+                createElement('div',{class:'mobile-loan-tenure-emi-details'},
+                    createElement('h2', { id: 'mobile_monthly_emi_price',class:'mobile-tenure-emi-price' },),
+                )
+            ),
+            createElement('div',{class:'mobile-loan-tenure-apply'},
+                createElement('button',{id:'apply-btn-loan'},'Apply Now')
+            )
+        )
+      ),
+    );
+ 
+  const subContainer = createElement('div', { class: 'sub-container' }, view, breakup,mobileBreakup);
+ 
+  container.append(subContainer);
  
   const loanAmtSlider = document.getElementById('loanAmount');
   const loanAmtText = document.getElementById('loan-amount-text');
@@ -375,26 +417,42 @@ export default async function decorate(block) {
     const emi = (P * r * (1 + r) ** totalMonths) / ((1 + r) ** totalMonths - 1);
     const payableInterest = calculateLoanDetails(P, r, n, m);
  
-    const opts = { style: 'currency', currency: 'INR' };
+    const opts = { style: 'currency', currency: 'INR',maximumFractionDigits: 0 };
  
     document.querySelector('#CP').innerText = P.toLocaleString('en-IN', opts);
  
     document.querySelector('#CI').innerText = payableInterest.toLocaleString('en-IN', opts);
  
+    document.querySelector('#mobile_CI').innerText = payableInterest.toLocaleString('en-IN', opts);
+ 
     document.querySelector('#CT').innerText = (P + payableInterest).toLocaleString('en-IN', opts);
  
+    document.querySelector('#mobile_CT').innerText = (P + payableInterest).toLocaleString('en-IN', opts);
+ 
     document.querySelector("#Rate").innerText =
+          R.toLocaleString("en-IN", R) + "%";
+ 
+    document.querySelector("#mobile_interest_rate").innerText =
           R.toLocaleString("en-IN", R) + "%";
  
       document.querySelector("#month_Tenure").innerText =
           M.toLocaleString("en-IN", M + 'M');
  
+      document.querySelector("#mobile_month_Tenure").innerText =
+          M.toLocaleString("en-IN", M + 'M');
+ 
       document.querySelector("#year_tenure").innerText =
+          N.toLocaleString("en-IN", N + 'Y');
+ 
+      document.querySelector("#mobile_year_tenure").innerText =
           N.toLocaleString("en-IN", N + 'Y');
  
     document.querySelector('#MonthlyEmiPrice').innerText = emi.toLocaleString('en-IN', opts);
  
+    document.querySelector('#mobile_monthly_emi_price').innerText = emi.toLocaleString('en-IN', opts);
+ 
     document.querySelector('#le').innerText = `₹ ${Math.max(0, P - E).toLocaleString()}`;
+    document.querySelector('#mobile-le').innerText = `₹ ${Math.max(0, P - E).toLocaleString()}`;
  
     pie.data.datasets[0].data[0] = P;
     pie.data.datasets[0].data[1] = payableInterest;
@@ -579,7 +637,7 @@ export default async function decorate(block) {
         labels: [],
         datasets: [
           {
-            label: 'PrinCIpal',
+            label: 'Principal',
             backgroundColor: 'rgba(140, 177, 51, 1)',
             borderColor: 'rgba(140, 177, 51, 1)',
             data: [],
@@ -619,13 +677,13 @@ export default async function decorate(block) {
             backgroundColor: ['rgba(140, 177, 51, 1)', 'rgba(59, 59, 59, 1)'],
             hoverOffset: 4,
             borderWidth: 8,
-          }, 
+          },
         ],
         options: {
           cutoutPercentage: 30,
           responsive: true,
           maintainAspectRatio: false,
-      } 
+      }
       },
     });
  

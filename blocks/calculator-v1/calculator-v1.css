@@ -73,4 +73,11 @@
     font-size: var(--body-font-size-default);
     text-align: center;
 }
+#canvasItems-loanele{
+    position: absolute;
+    top: 102px;
+    left: 140px;
+    font-size: var(--body-font-size-default);
+    text-align: center;
+}
 
