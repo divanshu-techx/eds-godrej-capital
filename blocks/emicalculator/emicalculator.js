@@ -273,26 +273,26 @@ function initialize(block) {
     const mobileBreakup = createElement('div', { class: 'mobile-breakup' },
         createElement('div',{class:'mobile-breakup-left'},
             createElement('div', { class: 'tenure' },
-                createElement('div', { style: 'color: #3b3b3b;font-size:14;font-weight:400;' }, 'Total Tenure'),
+                createElement('div', { style: 'color: #111111;font-size:14px;font-weight:500;' }, 'Total Tenure'),
                 createElement('div',{class:'mobile-tenure-monthYear'},
                 createElement('span', { id: 'mobile-yearTenure' }), 'Years', ' ',
                 createElement('span', { id: 'mobile-monthTenure' }), 'Months'
                 ),
             ),
             createElement('div',{class:'mobile-tenure-amount'},
-                createElement('p',{class:'mobile-tenure-amount-label'},'Total Amount Payable'),
-                createElement('p', { id: 'tenure-amount', class:'mobile-tenure-amount-detail' })
+                createElement('div',{class:'mobile-tenure-amount-label'},'Total Amount Payable'),
+                createElement('div', { id: 'tenure-amount', class:'mobile-tenure-amount-detail' })
             ),
             createElement('div',{class:'mobile-tenure-interest'},
-                createElement('p',{class:'mobile-tenure-interest-label'},'Interest Amount'),
-                createElement('p', { id: 'tenure-interest', style: 'color: #3B3B3B; font-size: 24px; font-weight:400;' })
+                createElement('div',{class:'mobile-tenure-interest-label'},'Interest Amount'),
+                createElement('div', { id: 'tenure-interest', style: 'color: #757575;font-size:12px;font-weight:400;' })
             ),
         ),
         createElement('div',{class:'mobile-breakup-right'},
             createElement('div',{class:'mobile-tenure-right'},
                 createElement('div',{class:'mobile-tenure-emi'},
-                createElement('p',{class:'mobile-tenure-emi-label'},'Monthly EMI'),
-                createElement('span', { id: 'tenure-rate',class:'mobile-tenure-interest-rate' }),
+                createElement('div',{class:'mobile-tenure-emi-label'},'Monthly EMI'),
+                createElement('div', { id: 'tenure-rate',class:'mobile-tenure-interest-rate' }),
                 ),
                 createElement('div',{class:'mobile-tenure-emi-details'},
                     createElement('h2', { id: 'tenure-price',class:'mobile-tenure-emi-price' },),
@@ -422,13 +422,7 @@ function initialize(block) {
             loanPeriodMonthError.style.display = "none";
         }
     });
- 
- 
- 
- 
- 
- 
- 
+
     loan_amt_slider.value = loanAmountMinValue;
     loan_amt_text.value = loanAmountMinValue;
     P = parseFloat(loanAmountMinValue);

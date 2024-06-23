@@ -269,6 +269,9 @@ input[type="range"] {
     display: flex;
     justify-content: space-between;
     margin-bottom:10px;
+    @media (min-width: 768px) and (max-width: 900px){
+        margin-bottom: unset;
+    }
 }
 
 .range-values .min-value,

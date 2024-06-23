@@ -8,8 +8,10 @@
   /* Black */
   --color-black: #000000;
   --color-black-fadded:#1d1d1d;
+  --color-black-secondary:#111111;
   --color-black-primary:#4E4E4E;
   --color-black-grey:#7d7d7d;
+  --color-black-grey-primary:#757575;
   /* Sky */
   --color-sky: #3CB8FF;
   --color-sky-dark: #00A2FF;
@@ -69,6 +71,7 @@
 
   --nav-height: 70px;
   --nav-height-subheader:40px;
+  --combined-height:110px;
 
   /* links  */
   --link-color: #58B7E5;
