@@ -1,5 +1,5 @@
 :root {
-
+--slide-content-width: 50%;
   --background-color: #FFFFFF;
   /* colors */
   /* Citrus */
@@ -45,6 +45,7 @@
 
   /* mobile  */
   --heading-1: 32px;
+  --customize-heading:32px;
   --heading-2: 20px;
   --title: 20px;
   --body-1: 18px;
@@ -53,14 +54,19 @@
   --paragraph-2: 11px;
   --paragraph-3: 10px;
 
-  @media (width >=900px) {
+  @media (width >=901px) {
     --heading-1: 54px;
+    --customize-heading:54px;
     --heading-2: 36px;
     --title: 24px;
     --body-1: 16px;
     --body-2: 14px;
     --body-3: 12px;
   }
+  @media (min-width: 600px) and (max-width: 900px){
+    --customize-heading:36px;
+  }
+
 
 /* media query  */
 --breakpoint-mobile: 768px;
@@ -81,6 +87,7 @@
   --text-color: #000000;
   --pure-white:#ffffff;
 }
+
 
 
 
@@ -120,7 +127,7 @@ h4, h5, h6 {
   scroll-margin: calc(var(--nav-height) + 1em);
 }
 
-h1 { font-size: var(--heading-1); } 
+h1 { font-size: var(--customize-heading); } 
 h2 { font-size: var(--heading-2); }
 h3 { font-size: var(--title); }
 h4 { font-size: var(--body-1); }
