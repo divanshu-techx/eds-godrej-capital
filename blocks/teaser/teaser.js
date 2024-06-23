@@ -3,7 +3,6 @@ export default async function decorate(block) {
   const teaserContainer = block.closest('.teaser-container');
 
   if (teaserContainer) {
-    console.log("teaser", teaserContainer);
     createTeaser(teaserContainer);
     // applyInitialStyles(teaserContainer);
     // applyTextAlignmentAndPlacement(teaserContainer);
@@ -165,13 +164,13 @@ const handleBackgroundStyle = (container, block) => {
         }
       }
     });
-    const applyBackgroundImage = () => {
-      container.style.backgroundImage = `url(${
-        window.innerWidth < 600 ? mobileImageSrc : desktopImageSrc
-      })`;
-    };
-    applyBackgroundImage();
-    window.addEventListener('resize', applyBackgroundImage);
+    // const applyBackgroundImage = () => {
+    //   container.style.backgroundImage = `url(${
+    //     window.innerWidth < 600 ? mobileImageSrc : desktopImageSrc
+    //   })`;
+    // };
+    // applyBackgroundImage();
+    // window.addEventListener('resize', applyBackgroundImage);
   }
 
   const videoLinks = block.querySelectorAll('a[href]');

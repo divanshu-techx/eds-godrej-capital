@@ -204,10 +204,12 @@ function groupTeasersByTargetId(mainSelector) {
 import { fetchPlaceholders } from '../../scripts/aem.js';
 
 export default async function decorate(block) {
+  const carouselContainer = block.closest('.carousel-v1-container');
+  const targetId = carouselContainer.getAttribute('data-teaser-target-id');
 // Select the main element
-let teaser = groupTeasersByTargetId('main'); 
+  let teaser = groupTeasersByTargetId('main'); 
 
-//createCarousel(block, teaser["homepage-carousel"]);
+  createCarousel(block, teaser[targetId]);
 //initializeCarousel(block);
 
 
@@ -241,6 +243,7 @@ async function createCarousel(block, rows){
   mainElement.prepend(slidesWrapper);
 
   let slideIndicators;
+  const isSingleSlide = rows.length < 2;
 
   const slideIndicatorsNav = document.createElement('nav');
   slideIndicatorsNav.setAttribute('aria-label', placeholders.carouselSlideControls || 'Carousel Slide Controls');
@@ -293,7 +296,6 @@ function initializeCarousel(block) {
   const slideChangeTime = carouselContainer.getAttribute('data-timing');
 
   const teaserContainers = document.querySelectorAll(`.teaser-container[data-teaser-target-id="${targetId}"]`);
-
   const mainElement = document.createElement('div');
   mainElement.classList.add('carousel-wrapper');
   mainElement.setAttribute('id', `carousel-v1-${carouselId}`);
@@ -319,7 +321,9 @@ function initializeCarousel(block) {
   mainElement.prepend(slidesWrapper);
 
   let slideIndicators;
+
   if (!isSingleSlide) {
+
     const slideIndicatorsNav = document.createElement('nav');
     slideIndicatorsNav.setAttribute('aria-label', 'Carousel Slide Controls');
     slideIndicators = document.createElement('ol');
@@ -337,13 +341,15 @@ function initializeCarousel(block) {
     container.append(slideNavButtons);
   }
 
+  console.log("teasercontainer", teaserContainers);
+
   teaserContainers.forEach((row, idx) => {
     const slide = createSlide(row, idx, carouselId);
     slidesWrapper.append(slide);
 
     if (slideIndicators) {
       const indicator = document.createElement('li');
-      indicator.classList.add('carousel-slide-indicator');
+      indicator.classList.add('carousel-v1-slide-indicator');
       indicator.dataset.targetSlide = idx;
       indicator.innerHTML = `<button type="button"><span>Show Slide ${idx + 1} of ${teaserContainers.length}</span></button>`;
       slideIndicators.append(indicator);
@@ -351,22 +357,23 @@ function initializeCarousel(block) {
     row.remove();
   });
 
-  container.append(slidesWrapper);
-  block.prepend(container);
+//   container.append(slidesWrapper);
+//   block.prepend(container);
 
-  if (!isSingleSlide) {
-    bindEvents(block);
-  }
+//   if (!isSingleSlide) {
+//     bindEvents(block);
+//   }
 }
 
 function createSlide(row, slideIndex, carouselId) {
-  debugger
+  console.log("row", row);
   const slide = document.createElement('li');
   slide.dataset.slideIndex = slideIndex;
   slide.setAttribute('id', `carousel-${carouselId}-slide-${slideIndex}`);
   slide.classList.add('carousel-v1-slide');
 
   row.querySelectorAll(':scope > div').forEach((column, colIdx) => {
+    //console.log("column", column);
     column.classList.add(`carousel-slide-v1-${colIdx === 0 ? 'image' : 'content'}`);
     slide.append(column);
   });
@@ -447,7 +454,7 @@ function showSlide(block, slideIndex = 0) {
   activeSlide.querySelectorAll('a').forEach((link) => link.removeAttribute('tabindex'));
 
   block.querySelector('.carousel-v1-slides').scrollTo({
-    top: 0,
+    top: 10,
     left: activeSlide.offsetLeft,
     behavior: 'smooth',
   });
