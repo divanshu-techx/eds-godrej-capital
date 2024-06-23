@@ -1,4 +1,3 @@
-
 function numberToWords(num) {
     if (num < 1000) {
         return num.toString();
@@ -21,7 +20,7 @@ function getDataAttributeValueByName(name) {
     const element = document.querySelector(`[data-${name}]`);
     return element ? element.getAttribute(`data-${name}`) : null;
 }
-
+ 
 function createElement(type, attributes = {}, ...children) {
     const element = document.createElement(type);
     for (const [key, value] of Object.entries(attributes)) {
@@ -36,12 +35,12 @@ function createElement(type, attributes = {}, ...children) {
     }
     return element;
 }
-
+ 
 //error message
 function createErrorSpan(message) {
     return createElement('span', { class: 'error-message', style: 'color: red; display: none;' }, message);
 }
-
+ 
 function calculateLoanDetails(p, r, emi, n, m,line) {
     let totalInterest = 0;
     let yearlyInterest = [];
@@ -68,48 +67,70 @@ function calculateLoanDetails(p, r, emi, n, m,line) {
     line.data.labels = years;
     return totalInterest;
 }
-
+ 
 function displayDetails(P,R,N,M,line,pie,block) {
     let r = parseFloat(R) / 1200;
     let n = parseFloat(N);
     let m = parseFloat(M);
     let totalMonths = n * 12 + m;
-
+ 
     let num = P * r * Math.pow(1 + r, totalMonths);
     let denom = Math.pow(1 + r, totalMonths) - 1;
     let emi = num / denom;
-
+ 
     let payableInterest = calculateLoanDetails(P, r, emi, n, m,line);
-
-    let opts = { style: "currency", currency: "INR" };
-
+ 
+    let opts = { style: "currency", currency: "INR", maximumFractionDigits: 0 };
+ 
     block.querySelector("#cp").innerText =
         P.toLocaleString("en-IN", opts);
-
+ 
     block.querySelector("#ci").innerText =
         payableInterest.toLocaleString("en-IN", opts);
-
+ 
+    block.querySelector("#tenure-interest").innerText =
+        payableInterest.toLocaleString("en-IN", opts);
+ 
     block.querySelector("#ct").innerText =
         (P + payableInterest).toLocaleString("en-IN", opts);
-
+ 
+       
+    block.querySelector("#tenure-amount").innerText =
+    (P + payableInterest).toLocaleString("en-IN", opts);
+ 
     block.querySelector("#price").innerText =
         emi.toLocaleString("en-IN", opts);
-
+ 
+    block.querySelector("#tenure-price").innerText =
+        emi.toLocaleString("en-IN", opts);
+ 
     block.querySelector("#rate").innerText =
         R.toLocaleString("en-IN", R) + "%";
-
+ 
+    block.querySelector("#tenure-rate").innerText =
+        R.toLocaleString("en-IN", R) + "%";
+ 
     block.querySelector("#monthTenure").innerText =
         M.toLocaleString("en-IN", M + 'M');
-
+   
+    block.querySelector("#mobile-monthTenure").innerText =
+        N.toLocaleString("en-IN", M + 'M');
+ 
     block.querySelector("#yearTenure").innerText =
         N.toLocaleString("en-IN", N + 'Y');
-
+ 
+    block.querySelector("#mobile-yearTenure").innerText =
+        N.toLocaleString("en-IN", N + 'Y');
+ 
+    block.querySelector("#mobile-monthTenure").innerText =
+        N.toLocaleString("en-IN", M + 'M');
+ 
     pie.data.datasets[0].data[0] = P;
     pie.data.datasets[0].data[1] = payableInterest;
     pie.update();
     line.update();
 }
-
+ 
 function initialize(block) {
     const loanAmountMaxValue = getDataAttributeValueByName('loan-amount-max-value');
     const loanAmountMinValue = getDataAttributeValueByName('loan-amount-min-value');
@@ -123,7 +144,7 @@ function initialize(block) {
     const tenure_title_months = getDataAttributeValueByName('tenure-title-months');
     const tenure_min_monthvalue = getDataAttributeValueByName('tenure-min-month-value');
     const tenure_max_monthvalue = getDataAttributeValueByName('tenure-max-month-value');
-  
+ 
     const amountDetail = createElement('div', {},
         createElement('div', { class: 'detail' },
             createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, laonamount_title),
@@ -138,7 +159,7 @@ function initialize(block) {
             createElement('div', { class: 'max-value', style: 'float: right;' }, numberToWords(loanAmountMaxValue))
           )
     );
-  
+ 
     const interestDetail = createElement('div', {},
         createElement('div', { class: 'detail' },
             createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, interestrate_title),
@@ -152,7 +173,7 @@ function initialize(block) {
             createElement('div', { class: 'min-value' }, interestrate_minvalue + "%"),
             createElement('div', { class: 'max-value', style: 'float: right;' }, interestrate_maxvalue + "%"))
     );
-  
+ 
     const tenureYearsDetail = createElement('div', {},
         createElement('div', { class: 'detail' },
             createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, tenure_title_year),
@@ -166,7 +187,7 @@ function initialize(block) {
             createElement('div', { class: 'min-value' }, tenure_min_yearvalue + " Year"),
             createElement('div', { class: 'max-value', style: 'float: right;' }, tenure_max_yearvalue + " Year"))
     );
-  
+ 
     const tenureMonthsDetail = createElement('div', {},
         createElement('div', { class: 'detail' },
             createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, tenure_title_months),
@@ -180,11 +201,11 @@ function initialize(block) {
             createElement('div', { class: 'min-value' }, tenure_min_monthvalue + " Month"),
             createElement('div', { class: 'max-value', style: 'float: right;' }, tenure_max_monthvalue + " Month"))
     );
-  
+ 
     const details = createElement('div', { class: 'details' },
         amountDetail, interestDetail, tenureYearsDetail, tenureMonthsDetail
     );
-  
+ 
     const footer = createElement('div', { class: 'footer' },
         createElement('div', { style: 'chart-details' },
             createElement('div', { id: 'price-container-emi', style: 'color:#3b3b3b' }, "Your Monthly Emi",
@@ -192,9 +213,9 @@ function initialize(block) {
             )
         )
     );
-  
+ 
     const view = createElement('div', { class: 'view' }, details);
-  
+ 
     const loanDetailsUpper = createElement('div', { class: 'loan-details-upper' },
       createElement('div', { class: 'chart-details' },
         createElement('div', { class: 'chart-detail-adjust' },
@@ -212,8 +233,8 @@ function initialize(block) {
           createElement('div', { id: 'ci', style: 'color: #3B3B3B; font-size: 24px; font-weight:400;' })
       ),
   );
-  
-    const breakup = createElement('div', { class: 'breakup' },
+ 
+    const breakup = createElement('div', { class: 'breakupdesktop' },
         createElement('div', { class: "chartDetails" },
               createElement('div',{class:'canvasDetail'},
             createElement('canvas', { id: 'pieChart' }),
@@ -231,9 +252,9 @@ function initialize(block) {
             loanDetailsUpper,
           ),
     );
-  
-  
-  
+ 
+ 
+ 
     const loanDetails = createElement('div', { class: 'loan-details' },
         createElement('div', { class: 'chart-details' },
             createElement('div', { style: 'color: #000000; font-size:16px;font-weight:400' }, 'Total Amount Payable'),
@@ -244,12 +265,50 @@ function initialize(block) {
             createElement('button', { id: 'apply-btn' }, 'Apply Now'),
         ),
     );
-  
-    const subContainer = createElement('div', { class: 'sub-container' }, view, breakup);
+ 
     breakup.append(loanDetails);
-  
+ 
+ 
+    //mobile breakup
+    const mobileBreakup = createElement('div', { class: 'mobile-breakup' },
+        createElement('div',{class:'mobile-breakup-left'},
+            createElement('div', { class: 'tenure' },
+                createElement('div', { style: 'color: #3b3b3b;font-size:14;font-weight:400;' }, 'Total Tenure'),
+                createElement('div',{class:'mobile-tenure-monthYear'},
+                createElement('span', { id: 'mobile-yearTenure' }), 'Years', ' ',
+                createElement('span', { id: 'mobile-monthTenure' }), 'Months'
+                ),
+            ),
+            createElement('div',{class:'mobile-tenure-amount'},
+                createElement('p',{class:'mobile-tenure-amount-label'},'Total Amount Payable'),
+                createElement('p', { id: 'tenure-amount', class:'mobile-tenure-amount-detail' })
+            ),
+            createElement('div',{class:'mobile-tenure-interest'},
+                createElement('p',{class:'mobile-tenure-interest-label'},'Interest Amount'),
+                createElement('p', { id: 'tenure-interest', style: 'color: #3B3B3B; font-size: 24px; font-weight:400;' })
+            ),
+        ),
+        createElement('div',{class:'mobile-breakup-right'},
+            createElement('div',{class:'mobile-tenure-right'},
+                createElement('div',{class:'mobile-tenure-emi'},
+                createElement('p',{class:'mobile-tenure-emi-label'},'Monthly EMI'),
+                createElement('span', { id: 'tenure-rate',class:'mobile-tenure-interest-rate' }),
+                ),
+                createElement('div',{class:'mobile-tenure-emi-details'},
+                    createElement('h2', { id: 'tenure-price',class:'mobile-tenure-emi-price' },),
+                )
+            ),
+            createElement('div',{class:'mobile-tenure-apply'},
+                createElement('button',{id:'apply-btn'},'Apply Now')
+            )
+        )
+    );
+ 
+ 
+    const subContainer = createElement('div', { class: 'sub-container' }, view, breakup,mobileBreakup);
+   
     block.append(subContainer);
-  
+ 
     var P, R, N, M, pie, line;
     var loan_amt_slider = block.querySelector("#loan-amount");
   //   console.log(loan_amt_slider);
@@ -261,8 +320,8 @@ function initialize(block) {
     var loan_period_text = block.querySelector("#loan-period-text");
     var loan_period_slider_month = block.querySelector("#loan-period-month");
     var loan_period_text_month = block.querySelector("#loan-period-month-text");
-  
-  
+ 
+ 
     loan_amt_slider.addEventListener("change", (self) => {
         loan_amt_text.value = self.target.value;
         // var value = (this.value-this.min)/(this.max-this.min)*100
@@ -270,63 +329,63 @@ function initialize(block) {
         P = parseFloat(self.target.value);
         displayDetails(P,R,N,M,line,pie,block);
     });
-  
+ 
     loan_amt_text.addEventListener("blur", (self) => {
         loan_amt_slider.value = self.target.value;
         P = parseFloat(self.target.value);
         displayDetails(P,R,N,M,line,pie,block);
     });
-  
+ 
     int_rate_slider.addEventListener("change", (self) => {
         int_rate_text.value = self.target.value;
         R = parseFloat(self.target.value);
         displayDetails(P,R,N,M,line,pie,block);
     });
-  
+ 
     int_rate_text.addEventListener("blur", (self) => {
         int_rate_slider.value = self.target.value;
         R = parseFloat(self.target.value);
         displayDetails(P,R,N,M,line,pie,block);
     });
-  
+ 
     loan_period_slider.addEventListener("change", (self) => {
         loan_period_text.value = self.target.value;
         N = parseFloat(self.target.value);
         displayDetails(P,R,N,M,line,pie,block);
     });
-  
+ 
     loan_period_text.addEventListener("blur", (self) => {
         loan_period_slider.value = self.target.value;
         N = parseFloat(self.target.value);
         displayDetails(P,R,N,M,line,pie,block);
     });
-  
+ 
     loan_period_slider_month.addEventListener("change", (self) => {
         loan_period_text_month.value = self.target.value;
         M = parseFloat(self.target.value);
         displayDetails(P,R,N,M,line,pie,block);
     });
-  
+ 
     loan_period_text_month.addEventListener("blur", (self) => {
         loan_period_slider_month.value = self.target.value;
         M = parseFloat(self.target.value);
         displayDetails(P,R,N,M,line,pie,block);
     });
-  
+ 
     // Error message spans
     const loanAmtError = createErrorSpan("Value should be between " + loanAmountMinValue + " and " + loanAmountMaxValue);
     const interestRateError = createErrorSpan("Value should be between " + interestrate_minvalue + "% and " + interestrate_maxvalue + "%");
     const loanPeriodError = createErrorSpan("Value should be between " + tenure_min_yearvalue + " and " + tenure_max_yearvalue);
     const loanPeriodMonthError = createErrorSpan("Value should be between " + tenure_min_monthvalue + " and " + tenure_max_monthvalue);
-  
+ 
     // Append error message spans to their respective input containers
     amountDetail.appendChild(loanAmtError);
     interestDetail.appendChild(interestRateError);
     tenureYearsDetail.appendChild(loanPeriodError);
     tenureMonthsDetail.appendChild(loanPeriodMonthError);
-  
+ 
     // Event listeners for input elements to validate input values
-  
+ 
     //error for loan amount
     loan_amt_text.addEventListener("input", function () {
         if (parseFloat(this.value) < parseFloat(loanAmountMinValue) || parseFloat(this.value) > parseFloat(loanAmountMaxValue)) {
@@ -335,8 +394,8 @@ function initialize(block) {
             loanAmtError.style.display = "none";
         }
     });
-    
-  
+   
+ 
     //error for loan amount
     int_rate_text.addEventListener("input", function () {
         if (parseFloat(this.value) < parseFloat(interestrate_minvalue) || parseFloat(this.value) > parseFloat(interestrate_maxvalue)) {
@@ -345,7 +404,7 @@ function initialize(block) {
             interestRateError.style.display = "none";
         }
     });
-  
+ 
     //error for year
     loan_period_text.addEventListener("input", function () {
         if (parseFloat(this.value) < parseFloat(tenure_min_yearvalue) || parseFloat(this.value) > parseFloat(tenure_max_yearvalue)) {
@@ -354,7 +413,7 @@ function initialize(block) {
             loanPeriodError.style.display = "none";
         }
     });
-  
+ 
     //error for month
     loan_period_text_month.addEventListener("input", function () {
         if (parseFloat(this.value) < parseFloat(tenure_min_monthvalue) || parseFloat(this.value) > parseFloat(tenure_max_monthvalue)) {
@@ -363,29 +422,29 @@ function initialize(block) {
             loanPeriodMonthError.style.display = "none";
         }
     });
-  
-  
-  
-
-
-
-
+ 
+ 
+ 
+ 
+ 
+ 
+ 
     loan_amt_slider.value = loanAmountMinValue;
     loan_amt_text.value = loanAmountMinValue;
     P = parseFloat(loanAmountMinValue);
-
+ 
     int_rate_slider.value = interestrate_minvalue;
     int_rate_text.value = interestrate_minvalue;
     R = parseFloat(interestrate_minvalue);
-
+ 
     loan_period_slider.value = tenure_min_yearvalue;
     loan_period_text.value = tenure_min_yearvalue;
     N = parseFloat(tenure_min_yearvalue);
-
+ 
     loan_period_slider_month.value = tenure_min_monthvalue;
     loan_period_text_month.value = tenure_min_monthvalue;
     M = parseFloat(tenure_min_monthvalue);
-
+ 
     line = new Chart(document.getElementById("lineChart"), {
         data: {
             labels: [],
@@ -420,7 +479,7 @@ function initialize(block) {
             },
         },
     });
-
+ 
     pie = new Chart(document.getElementById("pieChart"), {
         type: "doughnut",
         data: {
@@ -440,11 +499,11 @@ function initialize(block) {
             maintainAspectRatio: false,
         }    
     });
-
+ 
     displayDetails(P,R,N,M,line,pie,block);
 }
-
+ 
 export default async function decorate(block) {
-
+ 
   initialize(block);
 }
