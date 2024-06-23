@@ -270,7 +270,7 @@ export default async function decorate(block) {
   const breakup = createElement('div', { class: 'breakup breadup-loaneli' },
     createElement('div', { class: "chartDetails" },
       createElement('canvas',{id:"mypieChart"}),
-        createElement('div', { id: 'canvasItems' },
+        createElement('div', { id: 'canvasItems-loanele' },
             createElement('div', { class: 'intrest' },
                 createElement('div', { style: 'color: #3b3b3b' }, 'Intrest Rate'),
                 createElement('div', { id: 'Rate' })

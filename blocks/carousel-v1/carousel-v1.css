@@ -301,6 +301,7 @@ justify-content: space-around;
     display: block !important;
     color: var(--color-white);
     font-weight: 400;
+    text-decoration: none;
 }
 
 .hero-carousel-v1 .carousel-slide-content.carousel-slide-v1-content p:nth-child(4) a:last-child{
@@ -312,6 +313,7 @@ justify-content: space-around;
     display: block !important;
     color: var(--color-white);
     font-weight: 400;
+    text-decoration: none;
 }
 
 .hero-carousel-v1 .carousel-v1-slide-indicator button:disabled {
