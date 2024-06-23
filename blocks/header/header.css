@@ -12,7 +12,7 @@ header .nav-wrapper {
 }
 
 header{
-  z-index: 10;
+  z-index: 1000;
   position: fixed;
   width:100%;
   top:0;
@@ -556,7 +556,7 @@ header nav .nav-tools input[type=text]{
 .subheader {
   order: 1;
   background:var(--color-silver);
-  @media (width <= 786px){
+  @media (width <= 900px){
     display:none;
   }
 }

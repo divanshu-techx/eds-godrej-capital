@@ -100,17 +100,19 @@
 	position: fixed;
 	bottom: 100px;
   left:0;
-	background-color: white;
-	border: 1px solid #ccc;
+	background-color: rgb(232, 152, 152);
+	border: 1px solid #0d0707;
 	padding: 40px;
+  box-sizing: border-box;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	display: none;
 	z-index: 1;
-	width: 80vw;
-	max-width: 600px;
+	/* width: 80vw;
+	max-width: 600px; */
+  /* box-sizing: border-box; */
   }
   .dropdown-content.products-class {
-	position: fixed;
+	/* position: fixed;
 	bottom: 100px;
   left:0;
 	background-color: white;
@@ -120,7 +122,7 @@
 	display: none;
 	z-index: 1;
 	width: 80vw;
-	max-width: 600px;
+	max-width: 600px; */
   }
    
   .dropdown-content::after {
@@ -157,3 +159,44 @@
 	margin-left: auto;
 	padding-left: 10px; /* Adjust as needed for spacing */
   }
+  
+  .footer-element {
+    position: relative;
+  }
+  
+  .overlay {
+    @media(width <= 900px){
+      position: fixed;
+      left: 0;
+      width: 100vw;
+      background-color: rgba(36, 36, 36, 0.12);
+      backdrop-filter: blur(8px); 
+      z-index: 999; 
+      display: none;
+    }
+  }
+  
+  .overlay.open {
+    display: block;
+  }
+  
+  .footer-element .dropdown-content {
+    display: none;
+    overflow-y: auto;
+    width: 100%; 
+    position: fixed; 
+    left: 0;
+    bottom: 100px; 
+    background-color: rgba(255, 255, 255, 0.9); 
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1000; 
+    min-width: 300px;
+  }
+  
+  
+  .footer-element .dropdown-content.open {
+    display: block;
+    opacity: 1;
+  }
+  
