@@ -398,8 +398,64 @@
 
 .hero-carousel-secondary .carousel-v1-slide-indicators{
   display: flex;
-  justify-content: center;
-  gap: 0.5rem;
+  justify-content: end;
+  gap: 1rem;
+}
+
+.hero-carousel-secondary .carousel-v1-slide-indicators .slide-prev{
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+    background-color: rgba(0 0 0 / 25%);
+    border-radius: 8px;
+    margin: 0;
+    padding: 0;
+    width: 2rem;
+    height: 2rem;
+    position: relative;
+    background-color: rgba(0 0 0 / 25%);
+}
+
+.hero-carousel-secondary .carousel-v1-slide-indicators .slide-next{
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+    background-color: rgba(0 0 0 / 25%);
+    border-radius: 8px;
+    margin: 0;
+    padding: 0;
+    width: 2rem;
+    height: 2rem;
+    position: relative;
+    background-color: rgba(0 0 0 / 25%);
+}
+
+.hero-carousel-secondary .carousel-v1-slide-indicators .slide-prev::after{
+  display: block;
+  content: "";
+  border: 3px white solid;
+  border-bottom: 0;
+  border-left: 0;
+  height: 0.75rem;
+  width: 0.75rem;
+  position: absolute;
+  top: 50%;
+  left: calc(50% + 3px);
+  transform: translate(-50%, -50%) rotate(-135deg);
+}
+
+.hero-carousel-secondary .carousel-v1-slide-indicators .slide-next::after{
+  display: block;
+  content: "";
+  border: 3px white solid;
+  border-bottom: 0;
+  border-left: 0;
+  height: 0.75rem;
+  width: 0.75rem;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  left: calc(50% - 3px);
 }
 
 .hero-carousel-secondary .carousel-v1-slide-indicators span{
