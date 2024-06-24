@@ -330,10 +330,18 @@ function initialize(block) {
  
     loan_amt_slider.addEventListener("change", (self) => {
         loan_amt_text.value = self.target.value;
-        // var value = (this.value-this.min)/(this.max-this.min)*100
-        // this.style.background = 'linear-gradient(to right, #82CFD0 0%, #82CFD0 ' + value + '%, #fff ' + value + '%, white 100%)'
+        let inputValue = self.target.value;
+        console.log(inputValue);
+        let percentageValue = ((inputValue - loanAmountMinValue) / (loanAmountMaxValue - loanAmountMinValue)) * 100;
+        console.log(percentageValue);
+        loan_amt_slider.classList.add('selected');
+        loan_amt_slider.style.setProperty('--value', percentageValue + '%');
         P = parseFloat(self.target.value);
         displayDetails(P,R,N,M,line,pie,block);
+    });
+
+    loan_amt_slider.addEventListener("change", () => {
+        loan_amt_slider.classList.remove('selected');
     });
  
     loan_amt_text.addEventListener("blur", (self) => {
@@ -400,6 +408,7 @@ function initialize(block) {
             loanAmtError.style.display = "none";
         }
     });
+
    
  
     //error for loan amount
