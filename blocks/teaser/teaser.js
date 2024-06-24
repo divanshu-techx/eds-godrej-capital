@@ -205,9 +205,9 @@ const handleBackgroundStyle = (container, block) => {
       mp4VideoUrl = href;
     }
   });
-  if (mp4VideoUrl) {
+  if (backgroundStyle === "video") {
    
-    createVideoPopup(container, mp4VideoUrl, true);
+    createInlineVideoPlayer(container, mp4VideoUrl);
   } else if (videoUrl) {
    
     createVideoPopup(container, videoUrl, false);
@@ -260,6 +260,55 @@ const createVideoPopup = (container, videoUrl, isMp4) => {
   };
   container.querySelector('.button-container').appendChild(playButton);
 };
+
+
+const createInlineVideoPlayer  = (container, videoUrl) => {
+  console.log("createInlineVideoPlayer", container);
+   // Step 1: Create and style the play button
+   const playButton = document.createElement('button');
+   playButton.className = 'play-button';
+   playButton.innerText = '▶';
+   playButton.style.position = 'absolute';
+   playButton.style.top = '50%';
+   playButton.style.left = '50%';
+   playButton.style.transform = 'translate(-50%, -50%)';
+   playButton.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+   playButton.style.color = 'white';
+   playButton.style.border = 'none';
+   playButton.style.borderRadius = '50%';
+   playButton.style.padding = '10px 15px';
+   playButton.style.fontSize = '24px';
+   playButton.style.cursor = 'pointer';
+   playButton.style.zIndex = '10'; // Ensure it's above the video
+ 
+   // Ensure container is positioned relatively
+   container.style.position = 'relative';
+   container.style.display = 'flex';
+   container.style.justifyContent = 'center';
+   container.style.alignItems = 'center';
+   
+   // Add play button to the container
+   container.appendChild(playButton);
+ 
+   // Step 2: Handle button click
+   playButton.onclick = () => {
+     // Remove the play button
+     playButton.remove();
+ 
+     // Step 3: Add the video element
+    
+       const video = document.createElement('video');
+       video.setAttribute('controls', true);
+       video.src = videoUrl;
+       video.style.width = '100%';
+       video.style.height = '100%';
+       video.style.objectFit = 'cover'; // Ensure video covers the container
+       container.appendChild(video);
+       video.play();
+    
+   };
+};
+
 
 const createImageBackground = (container, imageUrl) => {
   container.style.backgroundImage = `url(${imageUrl})`;
