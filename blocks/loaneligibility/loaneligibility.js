@@ -255,15 +255,15 @@ export default async function decorate(block) {
       'div',
       { class: 'chart-details chart-details-loaneli' },
       createElement('span',{ class:'details-span-principal'},' '),
-      createElement('div', {class:'detailsloan', style: 'color: #000000; font-size: 16px; font-weight:400;' }, 'PrinCIpal'),
-      createElement('div', { id: 'CP', style: 'color: #3B3B3B; font-size: 17px;' }),
+      createElement('div', {class:'detailsloan', style: 'color: #000000; font-size: 16px; font-weight:400;margin-left:10px;;' }, 'Principal'),
+      createElement('div', { id: 'CP', style: 'color: #3B3B3B; font-size: 24px; font-weight:400;' }),
     ),
     createElement(
       'div',
       { class: 'chart-details chart-details-loaneli' },
       createElement('span',{ class:'details-span-interest'},''),
-      createElement('div', {class:'detailsloan', style: 'color: #000000; font-size: 16px; font-weight:400;' }, 'Interest'),
-      createElement('div', { id: 'CI', style: 'color: #3B3B3B; font-size: 17px;' }),
+      createElement('div', {class:'detailsloan', style: 'color: #000000; font-size: 16px; font-weight:400;margin-left:10px;' }, 'Interest'),
+      createElement('div', { id: 'CI', style: 'color: #3B3B3B; font-size: 24px; font-weight:400;' }),
     ),
   )
  
@@ -272,11 +272,11 @@ export default async function decorate(block) {
       createElement('canvas',{id:"mypieChart"}),
         createElement('div', { id: 'canvasItems-loanele' },
             createElement('div', { class: 'intrest' },
-                createElement('div', { style: 'color: #3b3b3b' }, 'Intrest Rate'),
+                createElement('div', { style: 'color: #3b3b3b;font-size:14;font-weight:400;' }, 'Interest Rate'),
                 createElement('div', { id: 'Rate' })
             ),
             createElement('div', { class: 'tenure' },
-                createElement('div', { style: 'color: #3b3b3b' }, 'Total Tenure'),
+                createElement('div', { style: 'color: #111111;font-size:14px;font-weight:500;' }, 'Total Tenure'),
                 createElement('span', { id: 'year_tenure' }), 'Y', ' | ',
                 createElement('span', { id: 'month_Tenure' }), 'M'
             ),
