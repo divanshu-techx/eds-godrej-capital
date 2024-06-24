@@ -31,7 +31,8 @@
     justify-content: center;
     position: relative;
     width: 100%;
-    min-height: min(40rem, calc(100svh - var(--nav-height)));
+    /* min-height: min(40rem, calc(100svh - var(--nav-height))); */
+    min-height: 500px;
   }
 
   .hero-carousel-secondary .carousel-v1 .carousel-v1-slide {
