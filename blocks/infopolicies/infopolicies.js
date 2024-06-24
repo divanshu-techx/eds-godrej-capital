@@ -1,7 +1,58 @@
-// Main function that initializes and decorates the block
+var indexUrl=getDataAttributeValueByName('queryindexurl');
+console.log(indexUrl);
+
+
+export default async function decorate(block) {
+  console.log('hii');
+  var data,dropdown;
+  //   path;
+
+  try {
+    // Fetch the data asynchronously
+    data = await fetchData();
+
+  //   // Get distinct parents and paths from the data
+  //   parent = getDistinctParents(data);
+  //   path = getAllPaths(data);
+  //   console.log(path);
+  //   console.log(parent);
+
+  const infopoliciesEle = document.getElementsByClassName('infopolicies');
+  var firstChildElement;
+  if (infopoliciesEle.length > 0) {
+      firstChildElement = infopoliciesEle[0];
+      console.log(firstChildElement);
+  }
+    // Create the tabs and tab contents containers
+    const { tabsContainer, tabContentsContainer } = createTabsAndContentsContainers(firstChildElement);
+
+    // Create the dropdown element once
+    dropdown = createDropdown();
+
+    // Populate tabs and their contents
+    populateTabsAndContents(data, tabsContainer, tabContentsContainer, dropdown);
+
+    // Initialize the first tab and update the dropdown
+    initializeFirstTab(data, dropdown);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+
+  // Add event listener to the dropdown to update options on change
+  dropdown.addEventListener('change', () => {
+    updateDropdownOptions(dropdown);
+  });
+}
+
+
+
+function getDataAttributeValueByName(name) {
+  const element = document.querySelector(`[data-${name}]`);
+  return element ? element.getAttribute(`data-${name}`) : null;
+}
 // Fetch data from the provided URL
 async function fetchData() {
-  const responseData = await fetch('https://main--edge--pushpanderyadav.hlx.page/information_and_policies/query-index.json');
+  const responseData = await fetch(indexUrl);
   const dataObj = await responseData.json();
   console.log('new object is', dataObj);
   return dataObj.data;
@@ -21,25 +72,15 @@ function getAllPaths(data) {
   return data.map((item) => item.path);
 }
 
-// Get or create the main container element
-function getOrCreateMainContainer() {
-  let main = document.getElementById('main');
-  if (!main) {
-    main = document.createElement('div');
-    main.id = 'main';
-    document.body.appendChild(main);
-  }
-  return main;
-}
 
 // Create and return the tabs and tab contents containers
-function createTabsAndContentsContainers(main) {
+function createTabsAndContentsContainers(infoPoliciesEle) {
   let tabsContainer = document.getElementById('tabs');
   if (!tabsContainer) {
     tabsContainer = document.createElement('div');
     tabsContainer.id = 'tabs';
     tabsContainer.className = 'tabs-container';
-    main.appendChild(tabsContainer);
+    infoPoliciesEle.appendChild(tabsContainer);
   }
 
   let tabContentsContainer = document.getElementById('tab-contents');
@@ -47,7 +88,7 @@ function createTabsAndContentsContainers(main) {
     tabContentsContainer = document.createElement('div');
     tabContentsContainer.id = 'tab-contents';
     tabContentsContainer.className = 'tabs-content';
-    main.appendChild(tabContentsContainer);
+    infoPoliciesEle.appendChild(tabContentsContainer);
   }
 
   return { tabsContainer, tabContentsContainer };
@@ -62,7 +103,8 @@ function createDropdown() {
 
 // Fetch and display data for the selected option
 function fetchSelectedOptionData(dataPath) {
-  const mainUrl = `https://main--edge--pushpanderyadav.hlx.live${dataPath}`;
+  const mainUrl = dataPath;
+  console.log(mainUrl);
   fetch(mainUrl)
     .then((response) => response.text())
     .then((data) => {
@@ -163,41 +205,5 @@ function updateDropdownOptions(dropdown) {
   }
 }
 
-export default async function decorate() {
-  console.log('hii');
-  let dropdown; let data; let parent; let
-    path;
 
-  try {
-    // Fetch the data asynchronously
-    data = await fetchData();
 
-    // Get distinct parents and paths from the data
-    parent = getDistinctParents(data);
-    path = getAllPaths(data);
-    console.log(path);
-    console.log(parent);
-
-    // Get or create the main container
-    const main = getOrCreateMainContainer();
-
-    // Create the tabs and tab contents containers
-    const { tabsContainer, tabContentsContainer } = createTabsAndContentsContainers(main);
-
-    // Create the dropdown element once
-    dropdown = createDropdown();
-
-    // Populate tabs and their contents
-    populateTabsAndContents(data, tabsContainer, tabContentsContainer, dropdown);
-
-    // Initialize the first tab and update the dropdown
-    initializeFirstTab(data, dropdown);
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-
-  // Add event listener to the dropdown to update options on change
-  dropdown.addEventListener('change', () => {
-    updateDropdownOptions(dropdown);
-  });
-}
