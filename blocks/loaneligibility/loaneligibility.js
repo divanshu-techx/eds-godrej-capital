@@ -267,7 +267,7 @@ export default async function decorate(block) {
       createElement(
         'div',
         { id: 'price-container-emi',style: 'color:#3b3b3b' },
-        'Your Monthly Emi',
+        monthlyemilabel,
         createElement('div', { id: 'MonthlyEmiPrice',style:'color: #8cb133' }, '0'),
       ),
     ),
