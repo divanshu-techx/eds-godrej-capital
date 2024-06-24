@@ -108,8 +108,8 @@ export default async function decorate(block) {
     createElement(
       'div',
       { class: 'range-values' },
-      createElement('div', { class: 'min-value' }, loanAmountMinValue),
-      createElement('div', { class: 'max-value', style: 'float: right;' }, loanAmountMaxValue),
+      createElement('div', { class: 'min-value' }, numberToWords(loanAmountMinValue)),
+      createElement('div', { class: 'max-value', style: 'float: right;' }, numberToWords(loanAmountMaxValue)),
     ),
   );
  
@@ -691,4 +691,22 @@ const mobileBreakup = createElement('div', { class: 'mobile-loaneligible'},
   }
  
   initialize();
+}
+function numberToWords(num) {
+  if (num < 1000) {
+      return num.toString();
+  }
+
+  const suffixes = [
+      [1e7, 'Crores'],
+      [1e5, 'Lakhs'],
+      [1e3, 'Thousands']
+  ];
+
+  for (let i = 0; i < suffixes.length; i++) {
+      const [divisor, suffix] = suffixes[i];
+      if (num >= divisor) {
+          return `${Math.floor(num / divisor)} ${suffix}`;
+      }
+  }
 }
