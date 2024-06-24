@@ -69,7 +69,7 @@ function groupTeasersByTargetId(mainSelector) {
 }
 
 
- import { fetchPlaceholders } from '../../scripts/aem.js';
+import { fetchPlaceholders } from '../../scripts/aem.js';
 
 
 
@@ -80,8 +80,7 @@ export default async function decorate(block) {
   let teaser = groupTeasersByTargetId('main'); 
 
   createCarousel(block, teaser[targetId]);
-  
-//initializeCarousel(block);
+
 }
 
 
@@ -127,6 +126,9 @@ async function createCarousel(block, rows){
   summary.className = 'summary-content';
   summary.innerHTML = summaryContent;
   summaryWrapper.appendChild(summary);
+  const progressBar = document.createElement('div');
+  progressBar.classList.add('carousel-v1-progress-bar-container');
+  progressBar.innerHTML = `<div class="carousel-v1-progress-bar"></div>`;
   // Create the <ol> element for slide indicators
   const slideIndicators = document.createElement('ol');
   slideIndicators.classList.add('carousel-v1-slide-indicators');
@@ -150,6 +152,7 @@ async function createCarousel(block, rows){
   slideIndicatorsNav.append(slideIndicators);
 
   // Append slideIndicatorsNav to block
+  block.append(progressBar)
   block.append(summaryWrapper);
   block.append(slideIndicatorsNav);
 
@@ -175,7 +178,10 @@ async function createCarousel(block, rows){
   block.prepend(container);
 
   if (rows.length >= 2) {
-    bindEvents(block);
+    bindEvents(block,(currentSlideIndex) => {
+      console.log(currentSlideIndex);
+      //updateProgressBar(currentSlideIndex, rows.length);
+    });
   }
 
 }
@@ -206,6 +212,9 @@ function createSlide(row, slideIndex, carouselId) {
 }
 
 function bindEvents(block) {
+  const slides = block.querySelectorAll('.carousel-v1-slides > li');
+  const totalSlides = slides.length;
+
   const slideIndicators = block.querySelectorAll('.carousel-v1-slide-indicator');
   if (!slideIndicators) return;
 
@@ -236,8 +245,18 @@ function bindEvents(block) {
   block.querySelectorAll('.carousel-v1-slide').forEach((slide) => {
     slideObserver.observe(slide);
   });
+
+  updateProgressBar(0,totalSlides,block);
 }
 
+
+function updateProgressBar(currentSlideIndex, totalSlides,block) {
+  const progressBar = block.querySelector('.carousel-v1-progress-bar');
+  if (!progressBar) return;
+
+  const progressPercentage = ((currentSlideIndex + 1) / totalSlides) * 100;
+  progressBar.style.width = `${progressPercentage}%`;
+}
 
 function updateActiveSlide(slide) {
   const block = slide.closest('.carousel-v1');
@@ -283,4 +302,6 @@ function showSlide(block, slideIndex = 0) {
 
   // Update active slide index in the dataset for reference
   block.dataset.activeSlide = realSlideIndex;
+
+  updateProgressBar(realSlideIndex, slides.length,block);
 }
