@@ -498,7 +498,7 @@ function initialize(block) {
                     data: [P, 0],
                     backgroundColor: ["rgba(140, 177, 51, 1)", "rgba(59, 59, 59, 1)"],
                     hoverOffset: 4,
-                    borderWidth: 8,
+                    borderWidth: 15,
                 },
             ],
         },
