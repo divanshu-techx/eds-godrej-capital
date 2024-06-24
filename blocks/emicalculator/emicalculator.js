@@ -214,7 +214,7 @@ function initialize(block) {
  
     const footer = createElement('div', { class: 'footer' },
         createElement('div', { style: 'chart-details' },
-            createElement('div', { id: 'price-container-emi', style: 'color:#3b3b3b' }, "Your Monthly Emi",
+            createElement('div', { id: 'price-container-emi', style: 'color:#3b3b3b' }, monthly_emi_label ,
                 createElement('div', { id: 'price' }, '0'),
             )
         )
