@@ -4,14 +4,29 @@ export default async function decorate(block) {
 
   if (teaserContainer) {
     createTeaser(teaserContainer);
-    // applyInitialStyles(teaserContainer);
-    // applyTextAlignmentAndPlacement(teaserContainer);
-    // convertAnchorsToButtons(block);
-    // hideSpecifiedButtons(teaserContainer);
-    // handleBackgroundStyle(teaserContainer, block);
+    //applyInitialStyles(teaserContainer);
+    applyTextAlignmentAndPlacement(teaserContainer);
+   // convertAnchorsToButtons(block);
+    hideSpecifiedButtons(teaserContainer);
+
+    handleBackgroundStyle(teaserContainer, block);
     // hidePictures(block);
     // showContainer(teaserContainer);
+    triggerCustomEvent();
   }
+}
+
+function triggerCustomEvent() {
+  // Create the custom event
+  const customEvent = new CustomEvent("allMethodsCompleted", {
+    detail: {
+      message: "All methods completed",
+      timestamp: new Date()
+    }
+  });
+
+  // Dispatch the custom event on the document
+  document.dispatchEvent(customEvent);
 }
 
 /**
@@ -84,7 +99,7 @@ const applyTextAlignmentAndPlacement = (container) => {
     'data-desktop-text-placement'
   );
 
-  const wrapper = container.querySelector('.teaser-wrapper');
+  const wrapper = container.querySelector('.teaser-wrapper .carousel-slide-content');
 
   wrapper.style.textAlign = desktopTextAlignment;
 
@@ -110,6 +125,7 @@ const convertAnchorsToButtons = (block) => {
 
   paragraphs.forEach((paragraph) => {
     convertAnchorToButton(paragraph, 'strong a', 'primary-button');
+    convertAnchorToButton(paragraph, 'a', 'primary-button');
     convertAnchorToButton(paragraph, 'em a', 'secondary-button');
   });
 };
@@ -135,6 +151,7 @@ const createButton = (text, href, className) => {
 
 const hideSpecifiedButtons = (container) => {
   const buttonsToHide = container.getAttribute('data-hide-button')?.split(' ');
+ 
   if (buttonsToHide) {
     buttonsToHide.forEach((buttonType) => {
       const buttonSelector
@@ -173,7 +190,10 @@ const handleBackgroundStyle = (container, block) => {
     // window.addEventListener('resize', applyBackgroundImage);
   }
 
+ 
+
   const videoLinks = block.querySelectorAll('a[href]');
+  
   let videoUrl = '';
   let mp4VideoUrl = '';
 
@@ -186,19 +206,21 @@ const handleBackgroundStyle = (container, block) => {
     }
   });
   if (mp4VideoUrl) {
+   
     createVideoPopup(container, mp4VideoUrl, true);
   } else if (videoUrl) {
+   
     createVideoPopup(container, videoUrl, false);
   }
 
-  if (!mp4VideoUrl) {
-    const pictures = container.querySelectorAll('picture img');
-    if (pictures.length > 0) {
-      let imageUrl
-       = window.innerWidth < 600 ? pictures[1].src : pictures[0].src;
-      createImageBackground(container, imageUrl);
-    }
-  }
+  // if (!mp4VideoUrl) {
+  //   const pictures = container.querySelectorAll('picture img');
+  //   if (pictures.length > 0) {
+  //     let imageUrl
+  //      = window.innerWidth < 600 ? pictures[1].src : pictures[0].src;
+  //     //createImageBackground(container, imageUrl);
+  //   }
+  // }
 };
 
 const createVideoPopup = (container, videoUrl, isMp4) => {
