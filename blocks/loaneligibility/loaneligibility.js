@@ -311,45 +311,45 @@ export default async function decorate(block) {
   breakup.append(loaneligibilityDetails,loanDetails);
  
 //mobile breakup
-      const mobileBreakup = createElement('div', { class: 'mobile-loaneligible'},
-        createElement('div',{class:'mobile-loaneligibale'},
-          createElement('h3',{class:'mobile-loan-eligible-label'},'Loan Eligibility Amount'),
-          createElement('h2',{class:'mobile-loan-eligible-details',id:'mobile-le'}),
-        ),
-        createElement('div',{class:'mobile-breakup-loaneligible'},
-        createElement('div',{class:'mobile-breakup-loaneligible-left'},
-            createElement('div', { class: 'loaneligible-Totaltenure' },
-                createElement('div', { style: 'color: #3b3b3b;font-size:14;font-weight:400;' }, 'Total Tenure'),
-                createElement('div',{class:'mobile-loan-tenure-monthYear'},
-                createElement('span', { id: 'mobile_year_tenure' }), 'Years', ' ',
-                createElement('span', { id: 'mobile_month_Tenure' }), 'Months'
-                ),
-            ),
-            createElement('div',{class:'mobile-loan-tenure-amount'},
-                createElement('p',{class:'mobile-loan-tenure-amount-label'},'Total Amount Payable'),
-                createElement('p', { id: 'mobile_CT', class:'mobile-tenure-amount-detail' })
-            ),
-            createElement('div',{class:'mobile-loan-tenure-interest'},
-                createElement('p',{class:'mobile-loan-tenure-interest-label'},'Interest Amount'),
-                createElement('p', { id: 'mobile_CI', style: 'color: #3B3B3B; font-size: 24px; font-weight:400;' })
-            ),
-        ),
-        createElement('div',{class:'mobile-loan-breakup-right'},
-            createElement('div',{class:'mobile-loan-tenure-right'},
-                createElement('div',{class:'mobile-loan-tenure-emi'},
-                createElement('p',{class:'mobile-loan-tenure-emi-label'},'Monthly EMI'),
-                createElement('span', { id: 'mobile_interest_rate',class:'mobile-tenure-interest-rate' }),
-                ),
-                createElement('div',{class:'mobile-loan-tenure-emi-details'},
-                    createElement('h2', { id: 'mobile_monthly_emi_price',class:'mobile-tenure-emi-price' },),
-                )
-            ),
-            createElement('div',{class:'mobile-loan-tenure-apply'},
-                createElement('button',{id:'apply-btn-loan'},'Apply Now')
-            )
-        )
+const mobileBreakup = createElement('div', { class: 'mobile-loaneligible'},
+  createElement('div',{class:'mobile-loaneligibale'},
+    createElement('h3',{class:'mobile-loan-eligible-label'},'Loan Eligibility Amount'),
+    createElement('h2',{class:'mobile-loan-eligible-details',id:'mobile-le'}),
+  ),
+  createElement('div',{class:'mobile-breakup'},
+  createElement('div',{class:'mobile-breakup-left'},
+      createElement('div', { class: 'loaneligible-Totaltenure' },
+          createElement('div', { style: 'color: #111111;font-size:14px;font-weight:500;' }, 'Total Tenure'),
+          createElement('div',{class:'mobile-tenure-monthYear'},
+          createElement('span', { id: 'mobile_year_tenure' }), 'Years', ' ',
+          createElement('span', { id: 'mobile_month_Tenure' }), 'Months'
+          ),
       ),
-    );
+      createElement('div',{class:'mobile-tenure-amount'},
+          createElement('p',{class:'mobile-tenure-amount-label'},'Total Amount Payable'),
+          createElement('p', { id: 'mobile_CT', class:'mobile-tenure-amount-detail' })
+      ),
+      createElement('div',{class:'mobile-tenure-interest'},
+          createElement('p',{class:'mobile-tenure-interest-label'},'Interest Amount'),
+          createElement('p', { id: 'mobile_CI', style: 'color: #757575;font-size:12px;font-weight:400;' })
+      ),
+  ),
+  createElement('div',{class:'mobile-breakup-right'},
+      createElement('div',{class:'mobile-tenure-right'},
+          createElement('div',{class:'mobile-tenure-emi'},
+          createElement('p',{class:'mobile-tenure-emi-label'},'Monthly EMI'),
+          createElement('span', { id: 'mobile_interest_rate',class:'mobile-tenure-interest-rate' }),
+          ),
+          createElement('div',{class:'mobile-tenure-emi-details'},
+              createElement('h2', { id: 'mobile_monthly_emi_price',class:'mobile-tenure-emi-price' },),
+          )
+      ),
+      createElement('div',{class:'mobile-tenure-apply'},
+          createElement('button',{id:'apply-btn-loan'},'Apply Now')
+      )
+  )
+),
+);
  
   const subContainer = createElement('div', { class: 'sub-container' }, view, breakup,mobileBreakup);
  
