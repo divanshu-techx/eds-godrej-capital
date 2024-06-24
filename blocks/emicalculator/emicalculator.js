@@ -108,7 +108,7 @@ function displayDetails(P,R,N,M,line,pie,block) {
         R.toLocaleString("en-IN", R) + "%";
  
     block.querySelector("#tenure-rate").innerText =
-        R.toLocaleString("en-IN", R) + "%";
+        "@" + R.toLocaleString("en-IN", R) + "%";
  
     block.querySelector("#monthTenure").innerText =
         M.toLocaleString("en-IN", M + 'M');
@@ -144,12 +144,18 @@ function initialize(block) {
     const tenure_title_months = getDataAttributeValueByName('tenure-title-months');
     const tenure_min_monthvalue = getDataAttributeValueByName('tenure-min-month-value');
     const tenure_max_monthvalue = getDataAttributeValueByName('tenure-max-month-value');
- 
+    const principal_amount_label=  getDataAttributeValueByName('principal-amount-label');
+    const interest_payable_label=  getDataAttributeValueByName('Interest-payable-label');
+    const total_amount_payable_label =  getDataAttributeValueByName('total-amount-payable-label');
+    const interest_rate_label  =  getDataAttributeValueByName('interest-rate-label');
+    const total_tenure_label   =  getDataAttributeValueByName('total-tenure-label');
+    const apply_now_label    =  getDataAttributeValueByName('apply-now-label');
+    const monthly_emi_label     =  getDataAttributeValueByName('monthly-emi-label')
     const amountDetail = createElement('div', {},
         createElement('div', { class: 'detail' },
             createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, laonamount_title),
             createElement('div', { class: "inputDetail" },
-                createElement('span', { class: "rupeeSpan" }, "Rs"),
+                createElement('span', { class: "rupeeSpan" }, "Rs."),
                 createElement('input', { id: 'loan-amt-text', type: 'number', min: loanAmountMinValue, max: loanAmountMaxValue, step: '50000', style: 'color: #3b3b3b; font-size:14px;font-weight:400' })
             )
         ),
@@ -208,7 +214,7 @@ function initialize(block) {
  
     const footer = createElement('div', { class: 'footer' },
         createElement('div', { style: 'chart-details' },
-            createElement('div', { id: 'price-container-emi', style: 'color:#3b3b3b' }, "Your Monthly Emi",
+            createElement('div', { id: 'price-container-emi', style: 'color:#3b3b3b' }, monthly_emi_label ,
                 createElement('div', { id: 'price' }, '0'),
             )
         )
@@ -220,7 +226,7 @@ function initialize(block) {
       createElement('div', { class: 'chart-details' },
         createElement('div', { class: 'chart-detail-adjust' },
             createElement('span',{ class:'details-span-principal'},' '),
-            createElement('div', { class:'detailsloan', style: 'color: #000000; font-size: 16px; font-weight:400;margin-left:10px;' }, 'Principal'),
+            createElement('div', { class:'detailsloan', style: 'color: #000000; font-size: 16px; font-weight:400;margin-left:10px;' }, principal_amount_label),
         ),
          
           createElement('div', { id: 'cp', style: 'color: #3B3B3B; font-size: 24px; font-weight:400;' })
@@ -228,7 +234,7 @@ function initialize(block) {
       createElement('div', { class: 'chart-details' },
         createElement('div', { class: 'chart-detail-adjust' },
             createElement('span',{ class:'details-span-interest'},''),
-            createElement('div', { class:'detailsloan', style: 'color: #000000; font-size: 16px; font-weight:400;margin-left:10px;' }, 'Interest'),
+            createElement('div', { class:'detailsloan', style: 'color: #000000; font-size: 16px; font-weight:400;margin-left:10px;' }, interest_payable_label),
         ),
           createElement('div', { id: 'ci', style: 'color: #3B3B3B; font-size: 24px; font-weight:400;' })
       ),
@@ -240,11 +246,11 @@ function initialize(block) {
             createElement('canvas', { id: 'pieChart' }),
             createElement('div', { id: 'canvasItems' },
                 createElement('div', { class: 'intrest' },
-                    createElement('div', { style: 'color: #3b3b3b;font-size:14;font-weight:400;' }, 'Intrest Rate'),
+                    createElement('div', { style: 'color: #3b3b3b;font-size:14;font-weight:400;' }, interest_rate_label),
                     createElement('div', { id: 'rate' })
                 ),
                 createElement('div', { class: 'tenure' },
-                    createElement('div', { style: 'color: #3b3b3b;font-size:14;font-weight:400;' }, 'Total Tenure'),
+                    createElement('div', { style: 'color: #3b3b3b;font-size:14;font-weight:400;' }, total_tenure_label),
                     createElement('span', { id: 'yearTenure' }), 'Y', ' | ',
                     createElement('span', { id: 'monthTenure' }), 'M'
                 ),
@@ -257,12 +263,12 @@ function initialize(block) {
  
     const loanDetails = createElement('div', { class: 'loan-details' },
         createElement('div', { class: 'chart-details' },
-            createElement('div', { style: 'color: #000000; font-size:16px;font-weight:400' }, 'Total Amount Payable'),
+            createElement('div', { style: 'color: #000000; font-size:16px;font-weight:400' }, total_amount_payable_label),
             createElement('div', { id: 'ct' })
         ),
         footer,
         createElement('div', { class: 'chart-details' },
-            createElement('button', { id: 'apply-btn' }, 'Apply Now'),
+            createElement('button', { id: 'apply-btn' }, apply_now_label),
         ),
     );
  
@@ -273,25 +279,25 @@ function initialize(block) {
     const mobileBreakup = createElement('div', { class: 'mobile-breakup' },
         createElement('div',{class:'mobile-breakup-left'},
             createElement('div', { class: 'tenure' },
-                createElement('div', { style: 'color: #111111;font-size:14px;font-weight:500;' }, 'Total Tenure'),
+                createElement('div', { style: 'color: #111111;font-size:14px;font-weight:500;' }, total_tenure_label),
                 createElement('div',{class:'mobile-tenure-monthYear'},
                 createElement('span', { id: 'mobile-yearTenure' }), 'Years', ' ',
                 createElement('span', { id: 'mobile-monthTenure' }), 'Months'
                 ),
             ),
             createElement('div',{class:'mobile-tenure-amount'},
-                createElement('div',{class:'mobile-tenure-amount-label'},'Total Amount Payable'),
+                createElement('div',{class:'mobile-tenure-amount-label'},total_amount_payable_label),
                 createElement('div', { id: 'tenure-amount', class:'mobile-tenure-amount-detail' })
             ),
             createElement('div',{class:'mobile-tenure-interest'},
-                createElement('div',{class:'mobile-tenure-interest-label'},'Interest Amount'),
+                createElement('div',{class:'mobile-tenure-interest-label'},interest_payable_label),
                 createElement('div', { id: 'tenure-interest', style: 'color: #757575;font-size:12px;font-weight:400;' })
             ),
         ),
         createElement('div',{class:'mobile-breakup-right'},
             createElement('div',{class:'mobile-tenure-right'},
                 createElement('div',{class:'mobile-tenure-emi'},
-                createElement('div',{class:'mobile-tenure-emi-label'},'Monthly EMI'),
+                createElement('div',{class:'mobile-tenure-emi-label'},monthly_emi_label),
                 createElement('div', { id: 'tenure-rate',class:'mobile-tenure-interest-rate' }),
                 ),
                 createElement('div',{class:'mobile-tenure-emi-details'},
@@ -299,7 +305,7 @@ function initialize(block) {
                 )
             ),
             createElement('div',{class:'mobile-tenure-apply'},
-                createElement('button',{id:'apply-btn'},'Apply Now')
+                createElement('button',{id:'apply-btn'},apply_now_label)
             )
         )
     );

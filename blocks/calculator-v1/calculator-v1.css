@@ -81,3 +81,29 @@
     text-align: center;
 }
 
+.tabs-container .button-container {
+    display: flex;
+    margin-bottom: 1rem;
+}
+ 
+select{
+    margin: 10px auto;
+}
+/* Hide dropdown by default */
+.tab-dropdown {
+    display: none;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+ 
+/* Mobile view styles */
+@media (max-width: 768px) {
+    .button-container {
+        display: none!important;
+    }
+ 
+    .tab-dropdown {
+        display: block!important;
+    }
+}
+
