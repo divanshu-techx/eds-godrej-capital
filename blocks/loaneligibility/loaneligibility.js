@@ -44,40 +44,53 @@ export default async function decorate(block) {
     const element = document.querySelector(`[data-${name}]`);
     return element ? element.getAttribute(`data-${name}`) : null;
   }
- 
-  const loanAmountMaxValue = getDataAttributeValueByName('income-max-value');
-  const loanAmountMinValue = getDataAttributeValueByName('income-min-value');
-  const laonamountTitle = getDataAttributeValueByName('income-title');
- 
-  const existingEmiTitle = getDataAttributeValueByName('existing-emi-title');
-  const existingEmiMin = getDataAttributeValueByName('existing-emi-min');
-  const existingEmiMax = getDataAttributeValueByName('existing-emi-max');
- 
-  const interestRateMaxValue = getDataAttributeValueByName('interest-rate-max-value');
-  const interestRateMinValue = getDataAttributeValueByName('interest-rate-min-value');
-  const interestrateTitle = getDataAttributeValueByName('interest-rate-title');
-  const tenureTitleYear = getDataAttributeValueByName('tenure-title-year');
-  const tenureMinYearValue = getDataAttributeValueByName('tenure-min-year-value');
-  const tenureMaxYearValue = getDataAttributeValueByName('tenure-max-year-value');
-  const tenureTitleMonths = getDataAttributeValueByName('tenure-title-months');
-  const tenureMinMonthValue = getDataAttributeValueByName('tenure-min-month-value');
-  const tenureMaxMonthValue = getDataAttributeValueByName('tenure-max-month-value');
-  const redirectionPath = getDataAttributeValueByName('redirection-path');
-  const productList = getDataAttributeValueByName('product-list');
- 
+
+   const loanAmountMaxValue = getDataAttributeValueByName('income-max-value');
+   const loanAmountMinValue = getDataAttributeValueByName('income-min-value');
+   const laonamountTitle = getDataAttributeValueByName('income-title');
+
+   const existingEmiTitle = getDataAttributeValueByName('existing-emi-title');
+   const existingEmiMin = getDataAttributeValueByName('existing-emi-min');
+   const existingEmiMax = getDataAttributeValueByName('existing-emi-max');
+   const interestRateMaxValue = getDataAttributeValueByName('interest-rate-max-value');
+   const interestRateMinValue = getDataAttributeValueByName('interest-rate-min-value');
+   const interestrateTitle = getDataAttributeValueByName('interest-rate-title');
+   const tenureTitleYear = getDataAttributeValueByName('tenure-title-year');
+   const tenureMinYearValue = getDataAttributeValueByName('tenure-min-year-value');
+   const tenureMaxYearValue = getDataAttributeValueByName('tenure-max-year-value');
+   const tenureTitleMonths = getDataAttributeValueByName('tenure-title-months');
+   const tenureMinMonthValue = getDataAttributeValueByName('tenure-min-month-value');
+   const tenureMaxMonthValue = getDataAttributeValueByName('tenure-max-month-value');
+   const redirectionPath = getDataAttributeValueByName('redirection-path');
+   const productList = getDataAttributeValueByName('product-list');
+    const selectProductLabel = getDataAttributeValueByName('Select-product-label');
+    const interestratelabel = getDataAttributeValueByName('Interest-rate-label');
+    const totaltenurelabel = getDataAttributeValueByName('Total-tenure-label');
+    const yearlabel = getDataAttributeValueByName('Year-label');
+    const monthlabel = getDataAttributeValueByName('Month-label');
+    const tenureseparator = getDataAttributeValueByName('Tenure-separator');
+    const principalamountlabel = getDataAttributeValueByName('Principal-amount-label');
+    const interestpayablelabel = getDataAttributeValueByName('Interest-payable-label');
+    const loaneligibilitylabel = getDataAttributeValueByName('Loan-eligibility-label');
+    const totalamountlabel = getDataAttributeValueByName('Total-amount-label');
+    const monthlyemilabel = getDataAttributeValueByName('Monthly-emi-label');
+    console.log(monthlyemilabel);
+    const applynowbutton = getDataAttributeValueByName('Apply-now-button');
+    const mobileyear = getDataAttributeValueByName('Mobile-year');
+    const mobilemonths = getDataAttributeValueByName('Mobile-month');
   const selectProductPlaceHolder = getDataAttributeValueByName('select-product-place-holder');
- 
+
   //  Create a select element
   const selectProduct = document.createElement('select');
- 
+
   //   Loop through the array and create option elements
   option = document.createElement('option');
   option.text = selectProductPlaceHolder;
   selectProduct.appendChild(option);
- 
+
   //  Split the string into an array of loan options
   const optionsArray = productList.split(',');
- 
+
   //   Loop through the array and create option elements
   for (i = 0; i < optionsArray.length; i += 1) {
     option = document.createElement('option');
@@ -85,7 +98,19 @@ export default async function decorate(block) {
     option.text = optionsArray[i];
     selectProduct.appendChild(option);
   }
- 
+
+  const product = createElement(
+        'div',
+        {},
+        createElement(
+          'div',
+          { class: 'detail' },
+          createElement('div', { style: 'color: #3b3b3b' }, selectProductLabel),
+          selectProduct
+
+        ),
+      );
+
   const amountDetail = createElement(
     'div',
     {},
@@ -112,7 +137,7 @@ export default async function decorate(block) {
       createElement('div', { class: 'max-value', style: 'float: right;' }, numberToWords(loanAmountMaxValue)),
     ),
   );
- 
+
   const existingEmi = createElement(
     'div',
     {},
@@ -139,7 +164,7 @@ export default async function decorate(block) {
       createElement('div', { class: 'max-value', style: 'float: right;' }, existingEmiMax),
     ),
   );
- 
+
   const interestDetail = createElement(
     'div',
     {},
@@ -166,7 +191,7 @@ export default async function decorate(block) {
       createElement('div', { class: 'max-value', style: 'float: right;' }, `${interestRateMaxValue}%`),
     ),
   );
- 
+
   const tenureYearsDetail = createElement(
     'div',
     {},
@@ -193,7 +218,7 @@ export default async function decorate(block) {
       createElement('div', { class: 'max-value', style: 'float: right;' }, `${tenureMaxYearValue} Year`),
     ),
   );
- 
+
   const tenureMonthsDetail = createElement(
     'div',
     {},
@@ -220,19 +245,19 @@ export default async function decorate(block) {
       createElement('div', { class: 'max-value', style: 'float: right;' }, `${tenureMaxMonthValue} Month`),
     ),
   );
- 
- 
+
+
   const details = createElement(
     'div',
     { class: 'details' },
-    selectProduct,
+    product,
     amountDetail,
     existingEmi,
     interestDetail,
     tenureYearsDetail,
     tenureMonthsDetail,
   );
- 
+
   const footer = createElement(
     'div',
     { class: 'footer' },
@@ -247,49 +272,49 @@ export default async function decorate(block) {
       ),
     ),
   );
- 
+
   const view = createElement('div', { class: 'view view-loaneli' }, details, footer);
-   
+
   const loanDetailsUpper=createElement('div',{class:'loan-details-upper'},
     createElement(
       'div',
       { class: 'chart-details chart-details-loaneli' },
       createElement('span',{ class:'details-span-principal'},' '),
-      createElement('div', {class:'detailsloan', style: 'color: #000000; font-size: 16px; font-weight:400;margin-left:10px;;' }, 'Principal'),
+      createElement('div', {class:'detailsloan', style: 'color: #000000; font-size: 16px; font-weight:400;margin-left:10px;;' },principalamountlabel),
       createElement('div', { id: 'CP', style: 'color: #3B3B3B; font-size: 24px; font-weight:400;' }),
     ),
     createElement(
       'div',
       { class: 'chart-details chart-details-loaneli' },
       createElement('span',{ class:'details-span-interest'},''),
-      createElement('div', {class:'detailsloan', style: 'color: #000000; font-size: 16px; font-weight:400;margin-left:10px;' }, 'Interest'),
+      createElement('div', {class:'detailsloan', style: 'color: #000000; font-size: 16px; font-weight:400;margin-left:10px;' }, interestpayablelabel),
       createElement('div', { id: 'CI', style: 'color: #3B3B3B; font-size: 24px; font-weight:400;' }),
     ),
   )
- 
+
   const breakup = createElement('div', { class: 'breakup breadup-loaneli' },
     createElement('div', { class: "chartDetails" },
       createElement('canvas',{id:"mypieChart"}),
         createElement('div', { id: 'canvasItems-loanele' },
             createElement('div', { class: 'intrest' },
-                createElement('div', { style: 'color: #3b3b3b;font-size:14;font-weight:400;' }, 'Interest Rate'),
+                createElement('div', { style: 'color: #3b3b3b;font-size:14;font-weight:400;' }, interestratelabel),
                 createElement('div', { id: 'Rate' })
             ),
             createElement('div', { class: 'tenure' },
-                createElement('div', { style: 'color: #111111;font-size:14px;font-weight:500;' }, 'Total Tenure'),
-                createElement('span', { id: 'year_tenure' }), 'Y', ' | ',
-                createElement('span', { id: 'month_Tenure' }), 'M'
+                createElement('div', { style: 'color: #111111;font-size:14px;font-weight:500;' }, totaltenurelabel),
+                createElement('span', { id: 'year_tenure' }), yearlabel, tenureseparator,
+                createElement('span', { id: 'month_Tenure' }), monthlabel
             ),
         ),loanDetailsUpper),
 );
- 
- 
- 
+
+
+
   const loaneligibilityDetails=createElement('div',{class:'loan-eligiblity-details'},
     createElement(
       'div',
       { class: 'chart-details' },
-      createElement('div', { style: 'color: #fff; margin-right:10px;font-size:16;font-weight:400;' }, 'Loan eligibility'),
+      createElement('div', { style: 'color: #fff; margin-right:10px;font-size:16;font-weight:400;' }, loaneligibilitylabel),
       createElement('div', { id: 'le', style: 'color: #fff; margin-left:10px;font-size:24;font-weight:500;' }),
     ),
   );
@@ -299,45 +324,45 @@ export default async function decorate(block) {
     createElement(
       'div',
       { class: 'chart-details' },
-      createElement('div', { style: 'color: #3B3B3B' }, 'Total Payable'),
+      createElement('div', { style: 'color: #3B3B3B' }, totalamountlabel),
       createElement('div', { id: 'CT', style: 'color: #3B3B3B; font-size: 17px;' }),
     ),footer,
     createElement('div', { class: 'chart-details' },
-      createElement('button', { id: 'apply-btn-le' }, 'Apply Now'),
+      createElement('button', { id: 'apply-btn-le' }, applynowbutton),
   ),
   createElement('div',{id:'mylineChart'}),
   );
- 
+
   breakup.append(loaneligibilityDetails,loanDetails);
- 
+
 //mobile breakup
 const mobileBreakup = createElement('div', { class: 'mobile-loaneligible'},
   createElement('div',{class:'mobile-loaneligibale'},
-    createElement('h3',{class:'mobile-loan-eligible-label'},'Loan Eligibility Amount'),
+    createElement('h3',{class:'mobile-loan-eligible-label'},loaneligibilitylabel),
     createElement('h2',{class:'mobile-loan-eligible-details',id:'mobile-le'}),
   ),
   createElement('div',{class:'mobile-breakup'},
   createElement('div',{class:'mobile-breakup-left'},
       createElement('div', { class: 'loaneligible-Totaltenure' },
-          createElement('div', { style: 'color: #111111;font-size:14px;font-weight:500;' }, 'Total Tenure'),
+          createElement('div', { style: 'color: #111111;font-size:14px;font-weight:500;' }, totaltenurelabel),
           createElement('div',{class:'mobile-tenure-monthYear'},
-          createElement('span', { id: 'mobile_year_tenure' }), 'Years', ' ',
-          createElement('span', { id: 'mobile_month_Tenure' }), 'Months'
+          createElement('span', { id: 'mobile_year_tenure' }), mobileyear, ' ',
+          createElement('span', { id: 'mobile_month_Tenure' }), mobilemonths
           ),
       ),
       createElement('div',{class:'mobile-tenure-amount'},
-          createElement('div',{class:'mobile-tenure-amount-label'},'Total Amount Payable'),
+          createElement('div',{class:'mobile-tenure-amount-label'},totalamountlabel),
           createElement('div', { id: 'mobile_CT', class:'mobile-tenure-amount-detail' })
       ),
       createElement('div',{class:'mobile-tenure-interest'},
-          createElement('div',{class:'mobile-tenure-interest-label'},'Interest Amount'),
+          createElement('div',{class:'mobile-tenure-interest-label'},interestpayablelabel),
           createElement('div', { id: 'mobile_CI', style: 'color: #757575;font-size:12px;font-weight:400;' })
       ),
   ),
   createElement('div',{class:'mobile-breakup-right'},
       createElement('div',{class:'mobile-tenure-right'},
           createElement('div',{class:'mobile-tenure-emi'},
-          createElement('div',{class:'mobile-tenure-emi-label'},'Monthly EMI'),
+          createElement('div',{class:'mobile-tenure-emi-label'},monthlyemilabel),
           createElement('span', { id: 'mobile_interest_rate',class:'mobile-tenure-interest-rate' }),
           ),
           createElement('div',{class:'mobile-tenure-emi-details'},
@@ -345,7 +370,7 @@ const mobileBreakup = createElement('div', { class: 'mobile-loaneligible'},
           )
       ),
       createElement('div',{class:'mobile-tenure-apply'},
-          createElement('button',{id:'apply-btn-loan'},'Apply Now')
+          createElement('button',{id:'apply-btn-loan'},applynowbutton)
       )
   )
 ),
