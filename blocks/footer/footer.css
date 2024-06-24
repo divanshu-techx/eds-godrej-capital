@@ -121,11 +121,11 @@ footer .footer-footer-1 .default-content-wrapper li ul {
   padding-left: 20px;
 }
 
-footer .footer-li::after {
+footer .footer-li strong::after {
   content: '';
   display: inline-block;
   position: absolute;
-  top: .5em;
+  top: 4px;
   margin-left: 10px;
   transform: rotate(135deg);
   width: 6px;
@@ -134,9 +134,10 @@ footer .footer-li::after {
   border-radius: 0 1px 0 0;
   border-width: 2px 2px 0 0;
 }
-
-footer .footer-li[aria-expanded="true"]::after {
+ 
+footer .footer-li[aria-expanded="true"] strong::after {
   transform: rotate(315deg);
+  top:9px;
 }
 
 footer .footer-footer-1 .default-content-wrapper>ul>li>ul {

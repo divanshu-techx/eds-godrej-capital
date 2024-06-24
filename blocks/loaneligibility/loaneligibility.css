@@ -349,6 +349,7 @@ input[type="range"] {
     width: 100%;
     background:  #8cb133;
     color: #fff;
+    padding: 20px 0;
 }
 .loan-eligiblity-details .chart-details {
     display: flex;
@@ -643,4 +644,20 @@ select {
 	@media(width >= 901px){
 		display:block;
 	}
+}
+@media(width <= 900px){
+    .breakup.breadup-loaneli{
+        display:none;
+    }
+}
+
+#apply-btn-loan{
+        background: var(--color-sky-dark);
+		border-radius: 2px;
+		box-sizing: border-box;
+		padding: 7px 16px;
+		font-size: 14px;
+		display: block !important;
+		color: var(--color-white);
+		font-weight: 500;
 }
