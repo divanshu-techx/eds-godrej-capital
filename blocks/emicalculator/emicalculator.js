@@ -108,7 +108,7 @@ function displayDetails(P,R,N,M,line,pie,block) {
         R.toLocaleString("en-IN", R) + "%";
  
     block.querySelector("#tenure-rate").innerText =
-        R.toLocaleString("en-IN", R) + "%";
+        "@" + R.toLocaleString("en-IN", R) + "%";
  
     block.querySelector("#monthTenure").innerText =
         M.toLocaleString("en-IN", M + 'M');
