@@ -326,18 +326,18 @@ const mobileBreakup = createElement('div', { class: 'mobile-loaneligible'},
           ),
       ),
       createElement('div',{class:'mobile-tenure-amount'},
-          createElement('p',{class:'mobile-tenure-amount-label'},'Total Amount Payable'),
-          createElement('p', { id: 'mobile_CT', class:'mobile-tenure-amount-detail' })
+          createElement('div',{class:'mobile-tenure-amount-label'},'Total Amount Payable'),
+          createElement('div', { id: 'mobile_CT', class:'mobile-tenure-amount-detail' })
       ),
       createElement('div',{class:'mobile-tenure-interest'},
-          createElement('p',{class:'mobile-tenure-interest-label'},'Interest Amount'),
-          createElement('p', { id: 'mobile_CI', style: 'color: #757575;font-size:12px;font-weight:400;' })
+          createElement('div',{class:'mobile-tenure-interest-label'},'Interest Amount'),
+          createElement('div', { id: 'mobile_CI', style: 'color: #757575;font-size:12px;font-weight:400;' })
       ),
   ),
   createElement('div',{class:'mobile-breakup-right'},
       createElement('div',{class:'mobile-tenure-right'},
           createElement('div',{class:'mobile-tenure-emi'},
-          createElement('p',{class:'mobile-tenure-emi-label'},'Monthly EMI'),
+          createElement('div',{class:'mobile-tenure-emi-label'},'Monthly EMI'),
           createElement('span', { id: 'mobile_interest_rate',class:'mobile-tenure-interest-rate' }),
           ),
           createElement('div',{class:'mobile-tenure-emi-details'},
@@ -433,7 +433,7 @@ const mobileBreakup = createElement('div', { class: 'mobile-loaneligible'},
           R.toLocaleString("en-IN", R) + "%";
  
     document.querySelector("#mobile_interest_rate").innerText =
-          R.toLocaleString("en-IN", R) + "%";
+          "@" + R.toLocaleString("en-IN", R) + "%";
  
       document.querySelector("#month_Tenure").innerText =
           M.toLocaleString("en-IN", M + 'M');

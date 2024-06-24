@@ -81,9 +81,8 @@
     text-align: center;
 }
 
-.button-container {
+.tabs-container .button-container {
     display: flex;
-    justify-content: space-around;
     margin-bottom: 1rem;
 }
  
