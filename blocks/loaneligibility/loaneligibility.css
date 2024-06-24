@@ -431,7 +431,216 @@ select {
     display: flex;
     gap: 20px;
 }
-
+/* ------------- */
 .mobile-loaneligible{
-    display:none;
+	display: flex;
+	justify-content: space-around;
+	.mobile-tenure-apply {
+		align-items: center;
+		display: flex;
+		justify-content: center;
+	}
+	#apply-btn{
+		background: var(--color-sky-dark);
+		border-radius: 2px;
+		box-sizing: border-box;
+		padding: 7px 16px;
+		font-size: 14px;
+		display: block !important;
+		color: var(--color-white);
+		font-weight: 500;
+	}
+
+	.mobile-tenure-monthYear{
+		font-size: 12px;
+		font-weight: 400;
+		color:#757575;
+	}
+
+	.mobile-tenure-amount-detail{
+		font-size: 12px;
+		font-weight: 400;
+		color:#757575;
+	}
+
+	.mobile-tenure-amount-label{
+		font-size: 14px;
+		font-weight: 500;
+		color:#111111;
+	}
+
+	.mobile-tenure-interest-label{
+		font-size: 14px;
+		font-weight: 500;
+		color:#111111;
+	}
+	.mobile-tenure-interest-rate{
+		font-size: 12px;
+		color:#000000;
+		font-weight: 300;
+	}
+	.mobile-tenure-emi-label{
+        font-size: 18px;
+		color:#282828;
+		font-weight: 400;
+	}
+
+	.mobile-tenure-emi{
+		display: flex;
+		justify-content: center;
+	}
+	.mobile-tenure-emi-details{
+		color:#9fc355;
+		font-size: 32px;
+		font-weight: 700;
+	}
+
+	.mobile-breakup-left {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.mobile-breakup-left > div {
+		width: 100%;
+		text-align: center;
+		margin: 10px 0;
+	}
+	.mobile-tenure-monthYear {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.mobile-tenure-monthYear span {
+		margin: 0 5px;
+	}
+	@media (min-width: 768px) and (max-width: 900px){
+		display: block;
+		max-width: 273px;
+		width: 100%;
+		box-sizing: border-box;
+		background-color: var(--color-silver);
+		padding: 20px;
+		border-radius: 4px;
+	}
+	@media(width >= 901px){
+		display:none;
+	}
+}
+
+#apply-btn{
+	background: var(--color-sky-dark);
+	border-radius: 2px;
+	box-sizing: border-box;
+	padding: 7px 16px;
+	font-size: 14px;
+	display: block !important;
+	color: var(--color-white);
+	font-weight: 500;
+}
+
+.mobile-tenure-right{
+	justify-content: space-around;
+    display: flex;
+    flex-direction: column;
+}
+
+
+@media (min-width: 769px) and (max-width: 900px) {
+	.mobile-breakup-left{
+        text-align: center;
+	}
+	.mobile-tenure-right{
+		text-align: center;
+	}
+}
+@media (min-width: 769px) and (max-width: 900px){
+	.mobile-tenure-apply {
+		align-items: center;
+		display: flex;
+		justify-content: center;
+	}
+	#apply-btn{
+		background: var(--color-sky-dark);
+		border-radius: 2px;
+		box-sizing: border-box;
+		padding: 7px 16px;
+		font-size: 14px;
+		display: block !important;
+		color: var(--color-white);
+		font-weight: 500;
+	}
+
+	.mobile-tenure-monthYear{
+		font-size: 12px;
+		font-weight: 400;
+		color:#757575;
+	}
+
+	.mobile-tenure-amount-detail{
+		font-size: 12px;
+		font-weight: 400;
+		color:#757575;
+	}
+
+	.mobile-tenure-amount-label{
+		font-size: 14px;
+		font-weight: 500;
+		color:#111111;
+	}
+
+	.mobile-tenure-interest-label{
+		font-size: 14px;
+		font-weight: 500;
+		color:#111111;
+	}
+	.mobile-tenure-interest-rate{
+		font-size: 12px;
+		color:#000000;
+		font-weight: 300;
+	}
+	.mobile-tenure-emi-label{
+        font-size: 18px;
+		color:#282828;
+		font-weight: 400;
+	}
+
+	.mobile-tenure-emi{
+		display: flex;
+		justify-content: center;
+	}
+	.mobile-tenure-emi-details{
+		color:#9fc355;
+		font-size: 32px;
+		font-weight: 700;
+	}
+
+	.mobile-breakup-left {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.mobile-breakup-left > div {
+		width: 100%;
+		text-align: center;
+		margin: 10px 0;
+	}
+	.mobile-tenure-monthYear {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.mobile-tenure-monthYear span {
+		margin: 0 5px;
+	}
+	
+}
+
+
+.breakupdesktop{
+	@media(width <= 900px){
+		display: none;
+	}
+	@media(width >= 901px){
+		display:block;
+	}
 }

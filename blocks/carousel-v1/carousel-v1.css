@@ -22,11 +22,22 @@
     display: none;
   }
   
-  .carousel-v1 .carousel-v1-slide {
+  .hero-carousel-v1 .carousel-v1 .carousel-v1-slide {
     flex: 0 0 100%;
     scroll-snap-align: start;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    min-height: min(40rem, calc(100svh - var(--nav-height)));
+  }
+
+  .hero-carousel-secondary .carousel-v1 .carousel-v1-slide {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    display: flex;
     align-items: flex-start;
     justify-content: center;
     position: relative;
