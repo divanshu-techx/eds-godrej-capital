@@ -378,17 +378,23 @@
 .hero-carousel-secondary .carousel-v1 .carousel-v1-slide {
   flex: 0 0 100%;
   scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
   position: relative;
   width: 100%;
   min-height: 500px;
 }
 
 .hero-carousel-secondary .carousel-v1 .carousel-v1-slides {
-  display: flex;
-  scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
-  overflow: scroll clip;
-  max-width: 100%;
+    display: flex;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    overflow: scroll clip;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .hero-carousel-secondary .carousel-slide-content{
@@ -400,6 +406,7 @@
   display: flex;
   align-items: center;
   list-style: none;
+  justify-content: end;
   padding: 0;
   margin: 0;
 }
@@ -409,8 +416,14 @@
 }
 
 .hero-carousel-secondary .carousel-v1-slide-indicators button:disabled {
-  /* background-color: inherit;
-  color:#3cb8ff; */
+  background-color: inherit;
+  color:#000000;
+}
+
+.hero-carousel-secondary .carousel-v1-slide-indicators button {
+  background-color: inherit;
+  color:#3CB8FF;
+  padding:0;
 }
 
 .hero-carousel-secondary .carousel-v1-slide-indicators button:focus {
@@ -419,31 +432,21 @@
 
 
 .hero-carousel-secondary .carousel-v1-slide-indicators .slide-prev{
-    width: 3rem;
-    height: 3rem;
+    width: 30px;
+    height: 30px;
     padding: 0;
-    background-color: rgba(0 0 0 / 25%);
-    border-radius: 8px;
+    background-color: #3CB8FF;
     margin: 0;
-    padding: 0;
-    width: 2rem;
-    height: 2rem;
     position: relative;
-    background-color: rgba(0 0 0 / 25%);
 }
 
 .hero-carousel-secondary .carousel-v1-slide-indicators .slide-next{
-    width: 3rem;
-    height: 3rem;
+    width: 30px;
+    height: 30px;
     padding: 0;
-    background-color: rgba(0 0 0 / 25%);
-    border-radius: 8px;
+    background-color: #3CB8FF;
     margin: 0;
-    padding: 0;
-    width: 2rem;
-    height: 2rem;
     position: relative;
-    background-color: rgba(0 0 0 / 25%);
 }
 
 .hero-carousel-secondary .carousel-v1-slide-indicators .slide-prev::after{
@@ -474,20 +477,7 @@
   left: calc(50% - 3px);
 }
 
-/* .hero-carousel-secondary .carousel-v1-slide-indicators span{
-  border: 0;
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-    white-space: nowrap;
-} */
-
-.carousel-v1-progress-bar-container {
+.hero-carousel-secondary  .carousel-v1-progress-bar-container {
   width: 100%;
   height: 4px;
   background-color: #f0f0f0;
@@ -495,9 +485,32 @@
   top: 0; /* or bottom: 0; depending on placement */
 }
 
-.carousel-v1-progress-bar {
+.hero-carousel-secondary .carousel-v1-progress-bar {
   width: 0;
   height: 100%;
   background-color :#8CB133;
   transition: width 0.3s ease;
 }
+
+.hero-carousel-secondary .carousel-v1  {
+  /* display: flex; */
+}
+
+.hero-carousel-secondary .carousel-v1 .summary-wrapper{
+  display: inline-block;
+  vertical-align: bottom;
+  width: calc(50% - 10px);
+  margin-right: 10px;
+  font-weight: 400;
+  font-size: 14px;
+  color: #787878;
+
+}
+
+.hero-carousel-secondary .carousel-v1 nav{
+  display: inline-block;
+  vertical-align: bottom;
+  width: calc(50% - 10px);
+}
+
+
