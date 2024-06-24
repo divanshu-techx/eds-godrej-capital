@@ -86,10 +86,10 @@ export default async function decorate(block) {
 
 
 async function createCarousel(block, rows){
-  
   carouselId += 1;
   const placeholders = await fetchPlaceholders();
 
+  // Create the main carousel wrapper
   const mainElement = document.createElement('div');
   mainElement.classList.add('carousel-wrapper');
   mainElement.setAttribute('id', `carousel-v1-${carouselId}`);
@@ -99,37 +99,50 @@ async function createCarousel(block, rows){
     mainElement.appendChild(teaser);
   });
 
-  
   block.setAttribute('role', 'region');
   block.setAttribute('aria-roledescription', placeholders.carousel || 'Carousel-v1');
 
+  // Append main element to block
   block.appendChild(mainElement);
 
+  // Create container for slides
   const container = document.createElement('div');
   container.classList.add('carousel-v1-slides-container');
 
+  // Create the slides wrapper
   const slidesWrapper = document.createElement('ul');
   slidesWrapper.classList.add('carousel-v1-slides');
   mainElement.prepend(slidesWrapper);
 
-  let slideIndicators;
-  const isSingleSlide = rows.length < 2;
-
+  // Create navigation for slide indicators
   const slideIndicatorsNav = document.createElement('nav');
   slideIndicatorsNav.setAttribute('aria-label', placeholders.carouselSlideControls || 'Carousel Slide Controls');
-  slideIndicators = document.createElement('ol');
+
+  // Create the <ol> element for slide indicators
+  const slideIndicators = document.createElement('ol');
   slideIndicators.classList.add('carousel-v1-slide-indicators');
+
+  // Create navigation buttons as DOM elements
+  const prevButton = document.createElement('button');
+  prevButton.type = 'button';
+  prevButton.className = 'slide-prev';
+  prevButton.setAttribute('aria-label', placeholders.previousSlide || 'Previous Slide');
+
+  const nextButton = document.createElement('button');
+  nextButton.type = 'button';
+  nextButton.className = 'slide-next';
+  nextButton.setAttribute('aria-label', placeholders.nextSlide || 'Next Slide');
+
+  // Append navigation buttons to the slideIndicators
+  slideIndicators.appendChild(prevButton);
+  slideIndicators.appendChild(nextButton);
+
+  // Append slideIndicators to slideIndicatorsNav
   slideIndicatorsNav.append(slideIndicators);
+
+  // Append slideIndicatorsNav to block
   block.append(slideIndicatorsNav);
 
-  const slideNavButtons = document.createElement('div');
-  slideNavButtons.classList.add('carousel-v1-navigation-buttons');
-  slideNavButtons.innerHTML = `
-    <button type="button" class= "slide-prev" aria-label="${placeholders.previousSlide || 'Previous Slide'}"></button>
-    <button type="button" class="slide-next" aria-label="${placeholders.nextSlide || 'Next Slide'}"></button>
-  `;
-
-  container.append(slideNavButtons);
   rows.forEach((row, idx) => {
     const slide = createSlide(row, idx, carouselId);
     slidesWrapper.append(slide);
@@ -139,15 +152,19 @@ async function createCarousel(block, rows){
       indicator.classList.add('carousel-v1-slide-indicator');
       indicator.dataset.targetSlide = idx;
       indicator.innerHTML = `<button type="button"><span>${placeholders.showSlide || 'Show Slide'} ${idx + 1} ${placeholders.of || 'of'} ${rows.length}</span></button>`;
-      slideIndicators.append(indicator);
+      // Append indicator to slideIndicators
+      slideIndicators.insertBefore(indicator, nextButton); // Insert each indicator before the next button
     }
     row.remove();
   });
 
+  // Append slidesWrapper to container
   container.append(slidesWrapper);
+
+  // Prepend container to block
   block.prepend(container);
 
-  if (!isSingleSlide) {
+  if (rows.length >= 2) {
     bindEvents(block);
   }
 
@@ -181,21 +198,24 @@ function createSlide(row, slideIndex, carouselId) {
 }
 
 function bindEvents(block) {
-  const slideIndicators = block.querySelector('.carousel-v1-slide-indicators');
+  const slideIndicators = block.querySelectorAll('.carousel-v1-slide-indicator');
   if (!slideIndicators) return;
 
-  slideIndicators.querySelectorAll('button').forEach((button) => {
+  slideIndicators.forEach((button) => {
     button.addEventListener('click', (e) => {
-      const slideIndicator = e.currentTarget.parentElement;
+      console.log("button clicked");
+      const slideIndicator = e.currentTarget;
       showSlide(block, parseInt(slideIndicator.dataset.targetSlide, 10));
     });
   });
 
   block.querySelector('.slide-prev').addEventListener('click', () => {
+    console.log("button clicked");
     showSlide(block, parseInt(block.dataset.activeSlide, 10) - 1);
   });
 
   block.querySelector('.slide-next').addEventListener('click', () => {
+    console.log("button clicked");
     showSlide(block, parseInt(block.dataset.activeSlide, 10) + 1);
   });
 
