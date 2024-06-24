@@ -88,11 +88,14 @@ export default async function decorate(block) {
 async function createCarousel(block, rows){
   carouselId += 1;
   const placeholders = await fetchPlaceholders();
-
+  const carouselContainer = block.closest('.carousel-v1-container');
   // Create the main carousel wrapper
   const mainElement = document.createElement('div');
   mainElement.classList.add('carousel-wrapper');
   mainElement.setAttribute('id', `carousel-v1-${carouselId}`);
+  console.log(block);
+  let summaryContent = carouselContainer.getAttribute("data-summary");
+  console.log(summaryContent);
 
   // Append teaser containers to the main wrapper
   rows.forEach(teaser => {
@@ -118,6 +121,12 @@ async function createCarousel(block, rows){
   const slideIndicatorsNav = document.createElement('nav');
   slideIndicatorsNav.setAttribute('aria-label', placeholders.carouselSlideControls || 'Carousel Slide Controls');
 
+  const summaryWrapper = document.createElement("div");
+  summaryWrapper.className = 'summary-wrapper';
+  const summary = document.createElement("div");
+  summary.className = 'summary-content';
+  summary.innerHTML = summaryContent;
+  summaryWrapper.appendChild(summary);
   // Create the <ol> element for slide indicators
   const slideIndicators = document.createElement('ol');
   slideIndicators.classList.add('carousel-v1-slide-indicators');
@@ -141,6 +150,7 @@ async function createCarousel(block, rows){
   slideIndicatorsNav.append(slideIndicators);
 
   // Append slideIndicatorsNav to block
+  block.append(summaryWrapper);
   block.append(slideIndicatorsNav);
 
   rows.forEach((row, idx) => {
@@ -182,8 +192,6 @@ function createSlide(row, slideIndex, carouselId) {
   slide.classList.add('carousel-v1-slide');
 
   row.querySelectorAll(':scope > div').forEach((column, colIdx) => {
-    console.log("column: " , column);
-    console.log("colIdx: " , colIdx);
     //console.log("column", column);
     column.classList.add(`carousel-slide-v1-${colIdx === 0 ? 'image' : 'content'}`);
     slide.append(column);
