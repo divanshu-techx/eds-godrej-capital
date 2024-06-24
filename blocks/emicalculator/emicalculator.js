@@ -191,7 +191,7 @@ function initialize(block) {
         createElement('input', { type: 'range', id: 'loan-period', min: tenure_min_yearvalue, max: tenure_max_yearvalue, step: '1' }),
         createElement('div', { class: 'range-values' },
             createElement('div', { class: 'min-value' }, tenure_min_yearvalue + " Year"),
-            createElement('div', { class: 'max-value', style: 'float: right;' }, tenure_max_yearvalue + " Year"))
+            createElement('div', { class: 'max-value', style: 'float: right;' }, tenure_max_yearvalue + " Years"))
     );
  
     const tenureMonthsDetail = createElement('div', {},
@@ -205,7 +205,7 @@ function initialize(block) {
         createElement('input', { type: 'range', id: 'loan-period-month', min: tenure_min_monthvalue, max: tenure_max_monthvalue, step: '1' }),
         createElement('div', { class: 'range-values' },
             createElement('div', { class: 'min-value' }, tenure_min_monthvalue + " Month"),
-            createElement('div', { class: 'max-value', style: 'float: right;' }, tenure_max_monthvalue + " Month"))
+            createElement('div', { class: 'max-value', style: 'float: right;' }, tenure_max_monthvalue + " Months"))
     );
  
     const details = createElement('div', { class: 'details' },
