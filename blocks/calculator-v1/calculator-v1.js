@@ -14,9 +14,13 @@ function initializetabs() {
             const tabsContainer = document.createElement('div');
             tabsContainer.classList.add('tabs-container');
  
+            //create a div for button wrapper
+            const buttonWrapper=document.createElement('div');
+            buttonWrapper.classList.add('button-container');
+ 
             // Create a new container for tab buttons
             const buttonContainer = document.createElement('div');
-            buttonContainer.classList.add('button-container');
+            buttonContainer.classList.add('buttonWrapper');
  
             // Create a select element for mobile dropdown
             const dropdown = document.createElement('select');
@@ -28,7 +32,7 @@ function initializetabs() {
             calSections.forEach((section, index) => {
                 // Get the data-tab-title attribute value
                 const tabTitle = section.getAttribute('data-tab-title') || `Tab ${index + 1}`;
- 
+               
                 // Create Tab button
                 const tabButton = document.createElement('button');
                 tabButton.textContent = tabTitle;
@@ -36,6 +40,7 @@ function initializetabs() {
                     activateTab(section, index);
                 });
                 buttonContainer.appendChild(tabButton);
+                buttonWrapper.appendChild(buttonContainer)
  
                 // Create dropdown option
                 const option = document.createElement('option');
@@ -56,7 +61,7 @@ function initializetabs() {
                 }
             });
  
-            tabsContainer.appendChild(buttonContainer);
+            tabsContainer.appendChild(buttonWrapper);
             tabsContainer.appendChild(dropdown);
  
             dropdown.addEventListener('change', (event) => {
