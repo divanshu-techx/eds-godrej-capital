@@ -1,4 +1,3 @@
-
 /**
  * Groups teaser elements by their data-teaser-target-id values within a given main element.
  *
@@ -6,6 +5,7 @@
  * @returns {Object}  teaser elements.
  */
 function groupTeasersByTargetId(mainSelector) {
+  console.log("groupTeasersByTargetId");
   // Select the main element
   const mainElement = document.querySelector(mainSelector);
 
@@ -16,52 +16,62 @@ function groupTeasersByTargetId(mainSelector) {
   }
 
   // Select all elements with the data-teaser-target-id attribute within the main element
-  const teaserContainers = mainElement.querySelectorAll(
-    "[data-teaser-target-id]"
-  );
+  const teaserContainers = mainElement.querySelectorAll('[data-teaser-target-id]');
 
   // If no teaser containers are found, return an empty object
   if (teaserContainers.length === 0) {
-    console.warn(
-      `No teaser containers found in main element with selector: ${mainSelector}`
-    );
+    console.warn(`No teaser containers found in main element with selector: ${mainSelector}`);
     return {};
   }
 
   // Group the teasers by their data-teaser-target-id values
-  const groupedTeasers = Array.from(teaserContainers).reduce(
-    (groups, container) => {
-      // Get the data attribute value
-      const id = container.getAttribute("data-teaser-target-id");
+  const groupedTeasers = Array.from(teaserContainers).reduce((groups, container) => {
+    // Get the data attribute value
+    const id = container.getAttribute("data-teaser-target-id");
 
-      // Get the teaser element
-      const teaser = container.querySelector(".teaser");
+    // Check if the container already processed (ensure to reset groups before processing)
+    if (!groups._processed) {
+      groups._processed = new Set();
+    }
 
-      // If no teaser element is found, skip this container
-      if (!teaser) {
-        console.warn(
-          `No teaser found in container with data-teaser-target-id: ${id}`
-        );
-        return groups;
-      }
-
-      // Initialize the group if it doesn't exist
-      if (!groups[id]) {
-        groups[id] = [];
-      }
-
-      // Add the teaser element to the group
-      groups[id].push(teaser);
-
+    if (groups._processed.has(container)) {
+      console.warn(`Skipping already processed container with id: ${id}`);
       return groups;
-    },
-    {}
-  );
+    }
+
+    // Get the teaser element
+    const teaser = container.querySelector(".teaser");
+
+    // If no teaser element is found, skip this container
+    if (!teaser) {
+      console.warn(`No teaser found in container with data-teaser-target-id: ${id}`);
+      return groups;
+    }
+
+    // Initialize the group if it doesn't exist
+    if (!groups[id]) {
+      groups[id] = [];
+    }
+
+    // Add the teaser element to the group
+    groups[id].push(teaser);
+    
+    // Mark this container as processed
+    groups._processed.add(container);
+
+    return groups;
+  }, {});
+
+  // Clean up the helper property
+  delete groupedTeasers._processed;
 
   return groupedTeasers;
 }
 
-import { fetchPlaceholders } from '../../scripts/aem.js';
+
+ import { fetchPlaceholders } from '../../scripts/aem.js';
+
+
 
 export default async function decorate(block) {
   const carouselContainer = block.closest('.carousel-v1-container');
@@ -70,13 +80,13 @@ export default async function decorate(block) {
   let teaser = groupTeasersByTargetId('main'); 
 
   createCarousel(block, teaser[targetId]);
+  
 //initializeCarousel(block);
-
-
 }
 
 
 async function createCarousel(block, rows){
+  
   carouselId += 1;
   const placeholders = await fetchPlaceholders();
 
@@ -120,8 +130,6 @@ async function createCarousel(block, rows){
   `;
 
   container.append(slideNavButtons);
-
-
   rows.forEach((row, idx) => {
     const slide = createSlide(row, idx, carouselId);
     slidesWrapper.append(slide);
@@ -147,92 +155,18 @@ async function createCarousel(block, rows){
 
 let carouselId = 0;
 
-function initializeCarousel(block) {
-  carouselId += 1;
-  const carouselContainer = block.closest('.carousel-v1-container');
-  const targetId = carouselContainer.getAttribute('data-teaser-target-id');
-  const isPagination = carouselContainer.getAttribute('data-pagination');
-  const summary = carouselContainer.getAttribute('data-summary');
-  const slideChangeTime = carouselContainer.getAttribute('data-timing');
 
-  const teaserContainers = document.querySelectorAll(`.teaser-container[data-teaser-target-id="${targetId}"]`);
-  const mainElement = document.createElement('div');
-  mainElement.classList.add('carousel-wrapper');
-  mainElement.setAttribute('id', `carousel-v1-${carouselId}`);
-
-  const isSingleSlide = teaserContainers.length < 2;
-
-  // Append teaser containers to the main wrapper
-  teaserContainers.forEach(teaser => {
-    mainElement.appendChild(teaser);
-  });
-
-  block.setAttribute('role', 'region');
-  block.setAttribute('aria-roledescription', 'Carousel-v1');
-
-  block.appendChild(mainElement);
-
-  const container = document.createElement('div');
-  container.classList.add('carousel-v1-slides-container');
-
-  const slidesWrapper = document.createElement('ul');
-  slidesWrapper.classList.add('carousel-v1-slides');
-
-  mainElement.prepend(slidesWrapper);
-
-  let slideIndicators;
-
-  if (!isSingleSlide) {
-
-    const slideIndicatorsNav = document.createElement('nav');
-    slideIndicatorsNav.setAttribute('aria-label', 'Carousel Slide Controls');
-    slideIndicators = document.createElement('ol');
-    slideIndicators.classList.add('carousel-v1-slide-indicators');
-    slideIndicatorsNav.append(slideIndicators);
-    block.append(slideIndicatorsNav);
-
-    const slideNavButtons = document.createElement('div');
-    slideNavButtons.classList.add('carousel-v1--navigation-buttons');
-    slideNavButtons.innerHTML = `
-      <button type="button" class="slide-prev" aria-label='Previous Slide'></button>
-      <button type="button" class="slide-next" aria-label='Next Slide'></button>
-    `;
-
-    container.append(slideNavButtons);
-  }
-
-  console.log("teasercontainer", teaserContainers);
-
-  teaserContainers.forEach((row, idx) => {
-    const slide = createSlide(row, idx, carouselId);
-    slidesWrapper.append(slide);
-
-    if (slideIndicators) {
-      const indicator = document.createElement('li');
-      indicator.classList.add('carousel-v1-slide-indicator');
-      indicator.dataset.targetSlide = idx;
-      indicator.innerHTML = `<button type="button"><span>Show Slide ${idx + 1} of ${teaserContainers.length}</span></button>`;
-      slideIndicators.append(indicator);
-    }
-    row.remove();
-  });
-
-//   container.append(slidesWrapper);
-//   block.prepend(container);
-
-//   if (!isSingleSlide) {
-//     bindEvents(block);
-//   }
-}
 
 function createSlide(row, slideIndex, carouselId) {
-  console.log("row", row);
+ 
   const slide = document.createElement('li');
   slide.dataset.slideIndex = slideIndex;
   slide.setAttribute('id', `carousel-${carouselId}-slide-${slideIndex}`);
   slide.classList.add('carousel-v1-slide');
 
   row.querySelectorAll(':scope > div').forEach((column, colIdx) => {
+    console.log("column: " , column);
+    console.log("colIdx: " , colIdx);
     //console.log("column", column);
     column.classList.add(`carousel-slide-v1-${colIdx === 0 ? 'image' : 'content'}`);
     slide.append(column);
