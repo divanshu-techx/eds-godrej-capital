@@ -184,10 +184,8 @@ async function createCarousel(block, rows){
   block.prepend(container);
 
   if (rows.length >= 2) {
-    bindEvents(block,(currentSlideIndex) => {
-      console.log(currentSlideIndex);
-      //updateProgressBar(currentSlideIndex, rows.length);
-    });
+    bindEvents(block);
+    startAutoSlide(block);
   }
 
 }
@@ -290,6 +288,22 @@ function updateActiveSlide(slide) {
       indicator.querySelector('button').setAttribute('disabled', 'true');
     }
   });
+
+  updateProgressBar(slideIndex, slides.length,block);
+}
+
+let autoSlideTimer;
+
+function startAutoSlide(block) {
+  autoSlideTimer = setInterval(() => {
+    const currentSlideIndex = parseInt(block.dataset.activeSlide, 10);
+    showSlide(block, currentSlideIndex + 1);
+  }, 10000); // 10 seconds
+}
+
+function resetAutoSlide(block) {
+  clearInterval(autoSlideTimer);
+  startAutoSlide(block);
 }
 
 function showSlide(block, slideIndex = 0) {
@@ -310,4 +324,5 @@ function showSlide(block, slideIndex = 0) {
   block.dataset.activeSlide = realSlideIndex;
 
   updateProgressBar(realSlideIndex, slides.length,block);
+  resetAutoSlide(block);
 }
