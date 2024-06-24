@@ -370,3 +370,38 @@
     height: 8px;
   }
 }
+
+/* ------------- */
+/* second carousel  */
+.hero-carousel-secondary .carousel-slide-image {
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  width: 100%;
+}
+
+.hero-carousel-secondary .carousel-slide-image div{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-carousel-secondary .carousel-slide-image picture{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+.hero-carousel-secondary .carousel-slide-image img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
