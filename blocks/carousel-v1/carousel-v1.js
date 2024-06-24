@@ -68,10 +68,12 @@ function groupTeasersByTargetId(mainSelector) {
   return groupedTeasers;
 }
 
-
 import { fetchPlaceholders } from '../../scripts/aem.js';
 
-
+function padNumber(num, size) {
+  let s = "000" + num;
+  return s.substr(s.length - size);
+}
 
 export default async function decorate(block) {
   const carouselContainer = block.closest('.carousel-v1-container');
@@ -164,7 +166,11 @@ async function createCarousel(block, rows){
       const indicator = document.createElement('li');
       indicator.classList.add('carousel-v1-slide-indicator');
       indicator.dataset.targetSlide = idx;
-      indicator.innerHTML = `<button type="button"><span>${placeholders.showSlide || 'Show Slide'} ${idx + 1} ${placeholders.of || 'of'} ${rows.length}</span></button>`;
+      // indicator.innerHTML = `<button type="button"><span>${placeholders.showSlide || 'Show Slide'} ${idx + 1} ${placeholders.of || 'of'} ${rows.length}</span></button>`;
+      // indicator.innerHTML = `<button type="button"><span>${idx + 1}</span></button>`;
+      indicator.innerHTML = `<button type="button"><span>${padNumber(idx + 1, 2)}</span></button>`;
+
+      // indicator.innerHTML = `<button type="button"><span>${placeholders.showSlide || 'Show Slide'} ${padNumber(idx + 1, 2)} ${placeholders.of || 'of'} ${padNumber(rows.length, 2)}</span></button>`;
       // Append indicator to slideIndicators
       slideIndicators.insertBefore(indicator, nextButton); // Insert each indicator before the next button
     }
