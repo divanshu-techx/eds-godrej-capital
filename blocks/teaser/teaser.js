@@ -167,6 +167,7 @@ const hideSpecifiedButtons = (container) => {
 const handleBackgroundStyle = (container, block) => {
   const backgroundStyle = container.getAttribute('data-background-style');
   const teaserWrappers = container.querySelectorAll('.teaser-wrapper');
+
   if (backgroundStyle === 'image') {
     const pictures = container.querySelectorAll('picture');
     let desktopImageSrc = '';
@@ -262,8 +263,26 @@ const createVideoPopup = (container, videoUrl, isMp4) => {
 };
 
 
+// Function to find carousel-slide-image div inside a container
+const findCarouselSlideImage = (container) => {
+  const children = container.children;
+  for (let i = 0; i < children.length; i++) {
+    const child = children[i];
+    // Check if the child has a picture element inside
+    const pictureElement = child.querySelector('picture');
+    if (pictureElement) {
+      return child; // Return the first div found with a picture element
+    }
+  }
+  return null; // Return null if no suitable div is found
+};
+
+
 const createInlineVideoPlayer  = (container, videoUrl) => {
-  console.log("createInlineVideoPlayer", container);
+  const slideContent = container.querySelector('.carousel-slide-content');
+
+  const carouselSlideImage = findCarouselSlideImage(container);
+  
    // Step 1: Create and style the play button
    const playButton = document.createElement('button');
    playButton.className = 'play-button';
@@ -288,13 +307,25 @@ const createInlineVideoPlayer  = (container, videoUrl) => {
    container.style.alignItems = 'center';
    
    // Add play button to the container
-   container.appendChild(playButton);
+   slideContent.appendChild(playButton);
  
    // Step 2: Handle button click
-   playButton.onclick = () => {
+   playButton.onclick = (event) => {
+    const parentElement = event.target.parentNode;
+    // Get the parent of the parent (container of carousel-slide-image)
+    const grandparentElement = parentElement.parentNode;
+    console.log('Grandparent element:', grandparentElement);
+
+    // Find a div with class "image" inside grandparentElement
+    const imageDiv = grandparentElement.querySelector('.carousel-slide-image div');
+
      // Remove the play button
      playButton.remove();
- 
+     const pictureElement = imageDiv.querySelector('picture');
+     if (pictureElement) {
+        // Hide the picture element
+        pictureElement.style.display = 'none';
+      }
      // Step 3: Add the video element
     
        const video = document.createElement('video');
@@ -303,7 +334,7 @@ const createInlineVideoPlayer  = (container, videoUrl) => {
        video.style.width = '100%';
        video.style.height = '100%';
        video.style.objectFit = 'cover'; // Ensure video covers the container
-       container.appendChild(video);
+       imageDiv.appendChild(video);
        video.play();
     
    };
