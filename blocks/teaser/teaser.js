@@ -314,7 +314,6 @@ const createInlineVideoPlayer  = (container, videoUrl) => {
     const parentElement = event.target.parentNode;
     // Get the parent of the parent (container of carousel-slide-image)
     const grandparentElement = parentElement.parentNode;
-    console.log('Grandparent element:', grandparentElement);
 
     // Find a div with class "image" inside grandparentElement
     const imageDiv = grandparentElement.querySelector('.carousel-slide-image div');
