@@ -1,3 +1,18 @@
+function formatNumberToIndianCommas(number) {
+  const numStr = number.toString();
+  const [integerPart, decimalPart] = numStr.split('.');
+  const lastThreeDigits = integerPart.slice(-3);
+  const otherDigits = integerPart.slice(0, -3);
+  const formattedNumber = otherDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + (otherDigits ? "," : "") + lastThreeDigits;
+  return decimalPart ? `${formattedNumber}.${decimalPart}` : formattedNumber;
+}
+
+
+function removeCommaAndConvertToInt(numberString) {
+  let cleanedString = numberString.replace(/,/g, '');
+  let numberInt = parseInt(cleanedString, 10);
+  return numberInt;
+}
 export default async function decorate(block) {
   const container = document.querySelector('.loaneligibility');
   let i;
@@ -28,17 +43,6 @@ export default async function decorate(block) {
  
     return element;
   }
- 
-  // const header = createElement(
-  //   'div',
-  //   { class: 'header' },
-  //   createElement('h1', {}, 'Loan Eligibility  Calculator'),
-  //   createElement(
-  //     'button',
-  //     {},
-  //     createElement('i', { class: 'bi bi-list' }),
-  //   ),
-  // );
  
   function getDataAttributeValueByName(name) {
     const element = document.querySelector(`[data-${name}]`);
@@ -123,7 +127,7 @@ export default async function decorate(block) {
         { class: 'inputDetail' },
         createElement('span', { class: 'rupeeSpan' }, '₹'),
         createElement('input', {
-          id: 'loan-amount-text', type: 'number', min: loanAmountMinValue, max: loanAmountMaxValue, step: '50000', style: 'color: #3b3b3b; font-size:14px;font-weight:400',
+          id: 'loan-amount-text', type: 'text', min: loanAmountMinValue, max: loanAmountMaxValue, step: '50000', style: 'color: #3b3b3b; font-size:14px;font-weight:400',
         }),
       ),
     ),
@@ -484,19 +488,39 @@ const mobileBreakup = createElement('div', { class: 'mobile-loaneligible'},
     pie.update();
     line.update();
   }
- 
-  loanAmtSlider.addEventListener('change', (self) => {
-    loanAmtText.value = self.target.value;
-    P = parseFloat(self.target.value);
-    displayDetails();
-  });
- 
-  loanAmtText.addEventListener('blur', (self) => {
-    loanAmtSlider.value = self.target.value;
-    P = parseFloat(self.target.value);
-    displayDetails();
-  });
- 
+
+
+
+  loanAmtSlider.addEventListener("change", (self) => {
+    loanAmtText.value = formatNumberToIndianCommas(self.target.value);
+    P = removeCommaAndConvertToInt(self.target.value);
+    displayDetails(P, R, N, M, line, pie, block);
+});
+
+loanAmtText.addEventListener("blur", (self) => {
+    const valueWithoutCommas = removeCommaAndConvertToInt(self.target.value);
+    loanAmtSlider.value = valueWithoutCommas;
+    loanAmtText.value = formatNumberToIndianCommas(valueWithoutCommas);
+    P = valueWithoutCommas;
+    displayDetails(P, R, N, M, line, pie, block);
+});
+
+// Event listener to allow only numeric input
+loanAmtText.addEventListener('input', function(event) {
+    let value = this.value;
+    value = value.replace(/[^\d.]/g, ''); // Remove non-numeric characters except '.'
+    this.value = value;
+});
+
+
+     // Event listener to allow only numeric input
+     loanAmtSlider.addEventListener('input', function(event) {
+         let value = this.value;
+         value = value.replace(/[^\d.]/g, ''); // Remove non-numeric characters except '.'
+         this.value = value;
+     });
+  
+
   exisitingEmiAmountSlider.addEventListener('change', (self) => {
     exisitingEmiText.value = self.target.value;
     E = parseFloat(self.target.value);
@@ -551,7 +575,7 @@ const mobileBreakup = createElement('div', { class: 'mobile-loaneligible'},
   }
  
   //   Error message spans
-  const loanAmtError = createErrorSpan(`Value should be between ${loanAmountMinValue} and ${loanAmountMaxValue}`);
+  const loanAmtError = createErrorSpan(`Value should be between ${formatNumberToIndianCommas(loanAmountMinValue)} and ${formatNumberToIndianCommas(loanAmountMaxValue)}`);
   const interestRateError = createErrorSpan(`Value should be between ${interestRateMinValue}% and ${interestRateMaxValue}%`);
   const exisitingEmiError = createErrorSpan(`Value should be between${existingEmiMin}and ${existingEmiMax}`);
   const loanPeriodError = createErrorSpan(`Value should be between ${tenureMinYearValue} and ${tenureMaxYearValue}`);
@@ -637,9 +661,9 @@ const mobileBreakup = createElement('div', { class: 'mobile-loaneligible'},
  
   function initialize() {
     //  Set input values to their minimum values
-    loanAmtSlider.value = loanAmountMinValue;
-    loanAmtText.value = loanAmountMinValue;
-    P = parseFloat(loanAmountMinValue);
+    loanAmtSlider.value = removeCommaAndConvertToInt(loanAmountMinValue);
+    loanAmtText.value = formatNumberToIndianCommas(loanAmountMinValue);
+    P = removeCommaAndConvertToInt(loanAmountMinValue);
  
     intRateSlider.value = interestRateMinValue;
     intRateText.value = interestRateMinValue;
