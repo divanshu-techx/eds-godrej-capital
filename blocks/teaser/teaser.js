@@ -64,7 +64,7 @@ function createTeaser(teaserContainer){
     });
 
     // Move text content to carousel-slide-content
-    const paragraphs = teaser.querySelectorAll("p");
+    const paragraphs = teaser.querySelectorAll("p, ul");
     paragraphs.forEach(paragraph => {
         carouselSlideContent.appendChild(paragraph);
     });
