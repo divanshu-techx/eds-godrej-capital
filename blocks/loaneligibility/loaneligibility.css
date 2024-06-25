@@ -609,6 +609,7 @@ select {
 	.mobile-tenure-emi{
 		display: flex;
 		justify-content: center;
+        align-items: center;
 	}
 	.mobile-tenure-emi-details{
 		color:#9fc355;
