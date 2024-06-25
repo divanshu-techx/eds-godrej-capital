@@ -105,8 +105,8 @@ const applyTextAlignmentAndPlacement = (container) => {
 
   switch (desktopTextPlacement) {
     case 'left':
-      wrapper.style.marginLeft = '20px';
-      wrapper.style.marginRight = 'auto';
+      // wrapper.style.marginLeft = '20px';
+      // wrapper.style.marginRight = 'auto';
       break;
     case 'right':
       wrapper.style.marginLeft = 'auto';
