@@ -280,13 +280,16 @@
   
 
 .hero-carousel-v1 .carousel-v1-slide-indicators{
-    position: relative;
-    bottom: 40px;
-    left:34px;
-    @media(width >= 600px){
+  position: relative;
+  bottom: 40px;
+  left:34px;
+}
+@media(width >=600px){
+.hero-carousel-v1 .carousel-v1-slide-indicators{
       position: relative;
       bottom: 40px;
-    }
+      left:0;
+}
 }
 
 .hero-carousel-v1 p{
