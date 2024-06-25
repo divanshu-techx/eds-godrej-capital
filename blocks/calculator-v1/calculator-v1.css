@@ -98,7 +98,7 @@ select{
  
 /* Mobile view styles */
 @media (max-width: 768px) {
-    .button-container {
+    .tab-dropdown .button-container {
         display: none!important;
     }
  

@@ -344,3 +344,7 @@ footer .partitionfirstcolumn .button-container a.button{
   line-height: 21px;
   color: var(--color-black-primary);
 }
+
+footer .partitionfirstcolumn .button-container a.button:hover{
+  background-color: unset;
+}

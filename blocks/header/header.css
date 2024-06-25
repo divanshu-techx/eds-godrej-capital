@@ -490,6 +490,9 @@ header nav .nav-sections ul > li > ul > li {
 /* tools */
 header nav .nav-tools {
   grid-area: tools;
+  @media (width <= 900px){
+    display:none;
+  }
 }
 
 header nav .nav-tools .default-content-wrapper p{
