@@ -28,6 +28,7 @@
   .detail {
 	font-size: 14px;
 	align-items: center;
+	display: flex;
   
 	@media (min-width: 768px) {
 	  display: flex;
@@ -195,7 +196,8 @@
   }
   
   .inputDetail {
-	min-width: 300px;
+	max-width: 300px;
+	width:100%;
 	justify-content: end;
 	display: flex;
 	align-items: center;
