@@ -8,57 +8,45 @@ function groupTeasersByTargetId(mainSelector) {
   console.log("groupTeasersByTargetId");
   // Select the main element
   const mainElement = document.querySelector(mainSelector);
-
   // Check if main element exists
   if (!mainElement) {
     console.warn(`Main element not found with selector: ${mainSelector}`);
     return {};
   }
-
   // Select all elements with the data-teaser-target-id attribute within the main element
   const teaserContainers = mainElement.querySelectorAll('[data-teaser-target-id]');
-
   // If no teaser containers are found, return an empty object
   if (teaserContainers.length === 0) {
     console.warn(`No teaser containers found in main element with selector: ${mainSelector}`);
     return {};
   }
-
   // Group the teasers by their data-teaser-target-id values
   const groupedTeasers = Array.from(teaserContainers).reduce((groups, container) => {
     // Get the data attribute value
     const id = container.getAttribute("data-teaser-target-id");
-
     // Check if the container already processed (ensure to reset groups before processing)
     if (!groups._processed) {
       groups._processed = new Set();
     }
-
     if (groups._processed.has(container)) {
       console.warn(`Skipping already processed container with id: ${id}`);
       return groups;
     }
-
     // Get the teaser element
     const teaser = container.querySelector(".teaser");
-
     // If no teaser element is found, skip this container
     if (!teaser) {
       console.warn(`No teaser found in container with data-teaser-target-id: ${id}`);
       return groups;
     }
-
     // Initialize the group if it doesn't exist
     if (!groups[id]) {
       groups[id] = [];
     }
-
     // Add the teaser element to the group
     groups[id].push(teaser);
-    
     // Mark this container as processed
     groups._processed.add(container);
-
     return groups;
   }, {});
 
@@ -84,7 +72,6 @@ export default async function decorate(block) {
   createCarousel(block, teaser[targetId]);
 
 }
-
 
 async function createCarousel(block, rows){
   carouselId += 1;
@@ -166,12 +153,7 @@ async function createCarousel(block, rows){
       const indicator = document.createElement('li');
       indicator.classList.add('carousel-v1-slide-indicator');
       indicator.dataset.targetSlide = idx;
-      // indicator.innerHTML = `<button type="button"><span>${placeholders.showSlide || 'Show Slide'} ${idx + 1} ${placeholders.of || 'of'} ${rows.length}</span></button>`;
-      // indicator.innerHTML = `<button type="button"><span>${idx + 1}</span></button>`;
       indicator.innerHTML = `<button type="button"><span>${padNumber(idx + 1, 2)}</span></button>`;
-
-      // indicator.innerHTML = `<button type="button"><span>${placeholders.showSlide || 'Show Slide'} ${padNumber(idx + 1, 2)} ${placeholders.of || 'of'} ${padNumber(rows.length, 2)}</span></button>`;
-      // Append indicator to slideIndicators
       slideIndicators.insertBefore(indicator, nextButton); // Insert each indicator before the next button
     }
     row.remove();
@@ -187,12 +169,9 @@ async function createCarousel(block, rows){
     bindEvents(block);
     startAutoSlide(block);
   }
-
 }
 
 let carouselId = 0;
-
-
 
 function createSlide(row, slideIndex, carouselId) {
  
