@@ -662,3 +662,8 @@ select {
 		color: var(--color-white);
 		font-weight: 500;
 }
+
+.mobile-loaneligibale{
+    background-color: #8cb133;
+    color:#fff;
+}
