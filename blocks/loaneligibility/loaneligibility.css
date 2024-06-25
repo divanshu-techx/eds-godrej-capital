@@ -292,7 +292,7 @@ input[type="range"] {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .canvasDetail {
@@ -436,6 +436,7 @@ select {
 .mobile-loaneligible{
 	display: flex;
 	justify-content: space-around;
+    flex-direction: column;
 	.mobile-tenure-apply {
 		align-items: center;
 		display: flex;

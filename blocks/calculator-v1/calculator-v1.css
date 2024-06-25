@@ -98,12 +98,19 @@ select{
  
 /* Mobile view styles */
 @media (max-width: 768px) {
-    .button-container {
+    .tab-dropdown .button-container {
         display: none!important;
     }
  
     .tab-dropdown {
         display: block!important;
     }
+}
+
+.buttonWrapper {
+    display: flex;
+    padding: 10px;
+    gap: 10px;
+    background: #F4F4F4;
 }
 

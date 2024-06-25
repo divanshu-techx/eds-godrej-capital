@@ -333,3 +333,18 @@ footer .partitionfirstcolumn-container .partitionfirstcolumn div p>strong {
     padding: 40px 0;
   }
 }
+
+footer .partitionfirstcolumn .button-container a.button{
+  display: block;
+  padding:0;
+  display: flex;
+  justify-content: start;
+  font-weight: 400;
+  font-size: var(--body-font-size-s);
+  line-height: 21px;
+  color: var(--color-black-primary);
+}
+
+footer .partitionfirstcolumn .button-container a.button:hover{
+  background-color: unset;
+}

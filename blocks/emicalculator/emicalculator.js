@@ -3,17 +3,17 @@ function formatNumberToIndianCommas(number) {
     const numStr = number.toString();
     // Split the number into integer and decimal parts
     const [integerPart, decimalPart] = numStr.split('.');
- 
+
     // Format the integer part with Indian commas
     const lastThreeDigits = integerPart.slice(-3);
     const otherDigits = integerPart.slice(0, -3);
- 
+
     const formattedNumber = otherDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + (otherDigits ? "," : "") + lastThreeDigits;
-   
+
     // If there's a decimal part, add it back
     return decimalPart ? `${formattedNumber}.${decimalPart}` : formattedNumber;
 }
- 
+
 
 function removeCommaAndConvertToInt(numberString) {
     // Remove commas from the number string
@@ -68,7 +68,7 @@ function createElement(type, attributes = {}, ...children) {
 function createErrorSpan(message) {
     return createElement('span', { class: 'error-message', style: 'color: red; display: none;' }, message);
 }
-
+ 
 function calculateLoanDetails(p, r, emi, n, m,line) {
     let totalInterest = 0;
     let yearlyInterest = [];
@@ -159,11 +159,8 @@ function displayDetails(P,R,N,M,line,pie,block) {
     line.update();
 }
  
- 
- 
 function initialize(block) {
     const loanAmountMaxValue = getDataAttributeValueByName('loan-amount-max-value');
-    console.log(typeof(loanAmountMaxValue));
     const loanAmountMinValue = getDataAttributeValueByName('loan-amount-min-value');
     const laonamount_title = getDataAttributeValueByName('loan-amount-title');
     const interestrate_maxvalue = getDataAttributeValueByName('interest-rate-max-value');
@@ -467,7 +464,7 @@ function initialize(block) {
             loanPeriodMonthError.style.display = "none";
         }
     });
- 
+
     loan_amt_slider.value = removeCommaAndConvertToInt(loanAmountMinValue);
     // console.log(formatNumberToIndianCommas(loanAmountMinValue))
     loan_amt_text.value = formatNumberToIndianCommas(loanAmountMinValue);
@@ -529,7 +526,7 @@ function initialize(block) {
                     data: [P, 0],
                     backgroundColor: ["rgba(140, 177, 51, 1)", "rgba(59, 59, 59, 1)"],
                     hoverOffset: 4,
-                    borderWidth: 8,
+                    borderWidth: 15,
                 },
             ],
         },

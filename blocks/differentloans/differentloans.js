@@ -1,5 +1,5 @@
 import ffetch from '../../scripts/ffetch.js';
-
+var categories;
 // Retrieve configurable values from data attributes
 const queryIndexApiUrl = getDataAttributeValueByName('queryindexurl');
 
@@ -24,8 +24,15 @@ const CREATE_SELECTOR_CLASS = {
 export default async function decorate(block) {
   try {
     const responseData = await fetchData();
-    const categories = getDistinctCategories(responseData);
-    const tabsContainer = createTabs(block, categories);
+    const tabsNameArray = getTabNamesFromMetadata();
+    var tabsContainer;
+    console.log(tabsNameArray);
+    if(tabsNameArray.length > 0){
+      tabsContainer = createTabs(block, tabsNameArray);
+    } else {
+      categories = getDistinctCategories(responseData);
+      tabsContainer = createTabs(block, categories);
+    }
     const tabs = tabsContainer.querySelectorAll(SELECTORS.tabsSelector);
     tabs[0].classList.add('active');
     const contentContainer = createContentContainer(block);
@@ -138,5 +145,14 @@ function addEventListeners(tabs, responseData, contentContainer) {
 // Retrieve the value of a data attribute by name
 function getDataAttributeValueByName(name) {
   const element = document.querySelector(`[data-${name}]`);
-  return element ? element.getAttribute(`data-${name}`) : null;
+  return element ? element.getAttribute(`data-${name}`) : '';
+}
+
+function getTabNamesFromMetadata() {
+  const tabsName = getDataAttributeValueByName('tabs-name-ordering');
+  
+  if (!tabsName || tabsName.trim().length === 0) {
+      return [];
+  }
+  return tabsName.includes(',') ? tabsName.split(',') : [tabsName];
 }
