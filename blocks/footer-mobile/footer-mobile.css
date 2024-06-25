@@ -28,16 +28,16 @@
   background: var(--color-sky-dark);
   border-radius: 2px;
   box-sizing: border-box;
-  padding: 12px 20px;
-  font-size: 14px;
+  padding: 8px 10px;
+  font-size: 12px;
   display: block !important;
   color: var(--color-white);
   font-weight: 500;
 }
  
 .footer-element img {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
 }
  
 .dropdown-content ol {
@@ -82,7 +82,7 @@
   .footer-mobile {
     display: flex;
     justify-content: space-evenly;
-    max-width: 398px;
+    max-width: 350px;
     align-items: center;
     margin: auto;
     width: 100%;
