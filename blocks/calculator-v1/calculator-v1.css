@@ -107,10 +107,14 @@ select{
     }
 }
 
-.buttonWrapper {
-    display: flex;
-    padding: 10px;
-    gap: 10px;
-    background: #F4F4F4;
+
+.tabs-container .buttonWrapper {
+    display:none;
+    @media(width >= 600px){
+        display: flex;
+        padding: 10px;
+        gap: 10px;
+        background: #F4F4F4;
+    }
 }
 
