@@ -6,70 +6,75 @@
 	background-color: transparent;
 	font-size: 35px;
 	color: var(--color-citrus);
-}
-
-.header button:hover {
+  }
+  
+  .header button:hover {
 	cursor: pointer;
-}
-
-#mypieChart {
-    max-width: 300px !important;
-    width:100%;
-    max-height: 300px !important;
-    height:100%;
-    display: block;
-    box-sizing: border-box;
-}
-
-
-.details input {
+  }
+  
+  #mypieChart {
+	max-width: 300px !important;
 	width: 100%;
-}
-
-.detail {
+	max-height: 300px !important;
+	height: 100%;
+	display: block;
+	box-sizing: border-box;
+  }
+  
+  .details input {
+	width: 100%;
+  }
+  
+  .detail {
 	font-size: 14px;
 	align-items: center;
-
+  
 	@media (min-width: 768px) {
-		display: flex;
-		justify-content: space-between;
+	  display: flex;
+	  justify-content: space-between;
 	}
-}
-
-.footer {
+  }
+  
+  .footer {
 	display: flex;
 	justify-content: space-between;
-}
-
-input[type="range"] {
+  }
+  
+  input[type="range"] {
 	appearance: none;
 	/* margin: 10px 0; */
 	width: 100%;
-}
-
-input[type="range"]:focus {
+  }
+  
+  input[type="range"]:focus {
 	outline: none;
-}
-
-#loan-amount {
+  }
+  
+  #loan-amount {
 	-webkit-appearance: none;
 	appearance: none;
 	width: 100%;
 	height: 5px;
-	background: linear-gradient(to right, green 0%, green calc(var(--value) * 100% / (50000000 - 500000)), white calc(var(--value) * 100% / (50000000 - 500000)), white 100%);
+	background: linear-gradient(
+	  to right,
+	  green 0%,
+	  green calc(var(--value) * 100% / (50000000 - 500000)),
+	  white calc(var(--value) * 100% / (50000000 - 500000)),
+	  white 100%
+	);
 	outline: none;
 	transition: opacity 0.15s ease-in-out;
-}
-
-input[type="range"]::-webkit-slider-runnable-track {
+  }
+  
+  input[type="range"]::-webkit-slider-runnable-track {
 	width: 100%;
 	height: 6px;
 	cursor: pointer;
 	background: var(--color-citrus);
 	border-radius: 10px;
-}
-
-input[type="range"]::-webkit-slider-thumb {
+  }
+  
+  input[type="range"]::-webkit-slider-thumb {
 	box-shadow: 2px 2px 5px var(--color-dark-grey-secondary), -1px -1px 3px grey;
 	height: 20px;
 	width: 20px;
@@ -78,13 +83,13 @@ input[type="range"]::-webkit-slider-thumb {
 	cursor: pointer;
 	margin-top: -6px;
 	appearance: none;
-}
-
-input[type="range"]:focus::-webkit-slider-runnable-track {
+  }
+  
+  input[type="range"]:focus::-webkit-slider-runnable-track {
 	background: var(--color-citrus);
-}
-
-input[type="range"]::-moz-range-track {
+  }
+  
+  input[type="range"]::-moz-range-track {
 	width: 100%;
 	height: 6px;
 	cursor: pointer;
@@ -93,9 +98,9 @@ input[type="range"]::-moz-range-track {
 	border-width: 16px 0;
 	color: transparent;
 	border-radius: 10px;
-}
-
-input[type="range"]::-moz-range-thumb {
+  }
+  
+  input[type="range"]::-moz-range-thumb {
 	box-shadow: 2px 2px 5px var(--color-dark-grey-secondary), -1px -1px 3px grey;
 	border: 5px solid var(--color-white);
 	height: 20px;
@@ -104,9 +109,9 @@ input[type="range"]::-moz-range-thumb {
 	background: var(--color-citrus);
 	cursor: pointer;
 	margin-top: -6px;
-}
-
-input[type="range"]::-ms-track {
+  }
+  
+  input[type="range"]::-ms-track {
 	width: 100%;
 	height: 6px;
 	cursor: pointer;
@@ -115,19 +120,19 @@ input[type="range"]::-ms-track {
 	border-width: 16px 0;
 	color: transparent;
 	border-radius: 10px;
-}
-
-input[type="range"]::-ms-fill-lower {
+  }
+  
+  input[type="range"]::-ms-fill-lower {
 	background: var(--color-citrus);
 	border-radius: 5px;
-}
-
-input[type="range"]::-ms-fill-upper {
+  }
+  
+  input[type="range"]::-ms-fill-upper {
 	background: var(--color-citrus);
 	border-radius: 5px;
-}
-
-input[type="range"]::-ms-thumb {
+  }
+  
+  input[type="range"]::-ms-thumb {
 	box-shadow: 2px 2px 5px var(--color-dark-grey-secondary), -1px -1px 3px grey;
 	border: 5px solid var(--color-white);
 	height: 20px;
@@ -136,92 +141,89 @@ input[type="range"]::-ms-thumb {
 	background: var(--color-citrus);
 	cursor: pointer;
 	margin-top: -6px;
-}
-
-input[type="range"]:focus::-ms-fill-lower {
+  }
+  
+  input[type="range"]:focus::-ms-fill-lower {
 	background: var(--color-citrus);
-}
-
-input[type="range"]:focus::-ms-fill-upper {
+  }
+  
+  input[type="range"]:focus::-ms-fill-upper {
 	background: var(--color-citrus);
-}
-
-#price-container {
+  }
+  
+  #price-container {
 	color: var(--color-citrus);
 	margin-top: 50px;
-}
-
-#price-container::before {
+  }
+  
+  #price-container::before {
 	content: "Monthly Payable:";
 	font-size: 12px;
 	display: block;
-}
-
-.details input[type="number"] , .details input[type='text']{
-	max-width: 120px;
-    width: 100%;
-    border: none;
-    min-height: 40px;
-    height: 100%;
-    border-radius: 4px;
-    text-align: end;
-	padding: 0;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
+  }
+  
+  .details input[type="number"] , .details input[type='text']{
+	  max-width: 120px;
+	  width: 100%;
+	  border: none;
+	  min-height: 40px;
+	  height: 100%;
+	  border-radius: 4px;
+	  text-align: end;
+	  padding: 0;
+  }
+  
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
 	appearance: none;
 	margin: 0;
-}
-
-/* Firefox */
-input[type='number']{
+  }
+  
+  /* Firefox */
+  input[type="number"] {
 	appearance: textfield;
-}
-
-#pieChart {
+  }
+  
+  #pieChart {
 	width: 300px !important;
 	height: 300px !important;
 	display: block;
 	box-sizing: border-box;
-	@media( width <= 900px){
-		display:none!important;
+	@media (width <= 900px) {
+	  display: none !important;
 	}
-}
-
-
-.inputDetail {
+  }
+  
+  .inputDetail {
 	min-width: 300px;
 	justify-content: end;
 	display: flex;
 	align-items: center;
 	color: var(--color-dark-grey-secondary);
-}
-
-.inputDetail span {
-    margin-right: 1px;
-    background: var(--color-white);
-    height: 40px;
-    display: flex;
-    align-items: center;
-    font-size: var(--body-font-size-s);
-    width: 50px;
-    justify-content: center;
-    border-radius: 4px;
-}
-
-/* .inputDetail input {
-	flex: 1;
-} */
-
-
-.range-values {
+  }
+  
+  .inputDetail span {
+	margin-right: 1px;
+	background: var(--color-white);
+	height: 40px;
+	display: flex;
+	align-items: center;
+	font-size: var(--body-font-size-s);
+	width: 50px;
+	justify-content: center;
+	border-radius: 4px;
+  }
+  
+  /* .inputDetail input {
+	  flex: 1;
+  } */
+  
+  .range-values {
 	font-size: var(--body-2);
 	color: var(--color-dark-grey-secondary);
-}
-
-
-.loan-details #apply-btn {
+  }
+  
+  .loan-details #apply-btn {
 	padding: 12px 20px 12px 20px;
 	background: var(--color-sky);
 	font-weight: 500;
@@ -232,322 +234,328 @@ input[type='number']{
 	cursor: pointer;
 	border-radius: 2px;
 	transition: background-color 0.3s ease;
-}
-
-.chart-details {
+  }
+  
+  .chart-details {
 	text-align: start;
-}
-.chart-details #ct {
-	color: var(--color-charcoal-black); 
-	font-size:24px;
-	font-weight:400;
-}
-
-#price-container-emi {
+  }
+  .chart-details #ct {
 	color: var(--color-charcoal-black);
-	 font-size:16px;
-	 font-weight:400;
-}
-
-#price-container-emi #price {
+	font-size: 24px;
+	font-weight: 400;
+  }
+  
+  #price-container-emi {
+	color: var(--color-charcoal-black);
+	font-size: 16px;
+	font-weight: 400;
+  }
+  
+  #price-container-emi #price {
 	color: var(--color-citrus);
-	font-size:24px;
-	font-weight:400;
-	text-align:start;
-}
-
-.chart-details .detailsloan {
+	font-size: 24px;
+	font-weight: 400;
+	text-align: start;
+  }
+  
+  .chart-details .detailsloan {
 	display: inline;
-}
-
-.chart-details .details-span-principal {
+  }
+  
+  .chart-details .details-span-principal {
 	width: 20px !important;
-    height: 20px !important;
-    display: inline-block;
-    background: var(--color-citrus);
-    border-radius: 4px;
-    /* margin: 0px 5px; */
-}
-
-.chart-detail-adjust{
+	height: 20px !important;
+	display: inline-block;
+	background: var(--color-citrus);
+	border-radius: 4px;
+	/* margin: 0px 5px; */
+  }
+  
+  .chart-detail-adjust {
 	display: flex;
 	align-items: center;
-}
-
-.chart-details .details-span-interest{
+  }
+  
+  .chart-details .details-span-interest {
 	width: 20px !important;
-    height: 20px !important;
-    display: inline-block;
-    background: var(--color-charcoal-black);
-    border-radius: 4px;
-    /* margin: 0px 5px; */
-}
-
-
-.sub-container {
+	height: 20px !important;
+	display: inline-block;
+	background: var(--color-charcoal-black);
+	border-radius: 4px;
+	/* margin: 0px 5px; */
+  }
+  
+  .sub-container {
 	display: flex;
   }
-
-.view {
+  
+  .view {
 	/* max-width: 772px;
-	width: 100%;
-	box-sizing: border-box;
-	background-color: var(--color-silver);
-    padding: 20px;
-    border-radius: 4px; */
+	  width: 100%;
+	  box-sizing: border-box;
+	  background-color: var(--color-silver);
+	  padding: 20px;
+	  border-radius: 4px; */
   }
-  @media( width >= 901px){
-	.view{
-		max-width: 772px;
-		width: 100%;
-		box-sizing: border-box;
-		background-color: var(--color-silver);
-		padding: 20px;
-		border-radius: 4px;
+  @media (width >= 901px) {
+	.view {
+	  max-width: 772px;
+	  width: 100%;
+	  box-sizing: border-box;
+	  background-color: var(--color-silver);
+	  padding: 20px;
+	  border-radius: 4px;
 	}
   }
-
-  @media( width <= 900px){
-	.view{
-		max-width: 465px;
-		width: 100%;
-		box-sizing: border-box;
-		/* background-color: var(--color-silver); */
-		/* padding: 20px; */
-		border-radius: 4px;
+  
+  @media (width <= 900px) {
+	.view {
+	  max-width: 465px;
+	  width: 100%;
+	  box-sizing: border-box;
+	  /* background-color: var(--color-silver); */
+	  /* padding: 20px; */
+	  border-radius: 4px;
 	}
   }
-
   
   .breakup {
 	max-width: 540px;
 	width: 100%;
 	box-sizing: border-box;
 	border-radius: 8px;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
   }
-  .breakupdesktop{
+  .breakupdesktop {
 	max-width: 540px;
 	width: 100%;
 	box-sizing: border-box;
 	border-radius: 8px;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-  }
-
-  .sub-container {
-    display: flex;
-    gap: 20px;
-}
-
-/* Label text styling */
-.detail p {
-	color: var(--color-charcoal-black);
-	font-weight: 500;
-}
-
-/* Input and span container */
-.inputDetail {
-	display: flex;
-	align-items: center;
-}
-
-/* Span inside inputDetail */
-.inputDetail .rupeeSpan,
-.inputDetail .percentSpan,
-.inputDetail .yearSpan,
-.inputDetail .monthSpan {
-	color: var(--text-color);
-    font-weight: 400;
-}
-
-/* Range input */
-input[type="range"] {
-	width: 100%;
-}
-
-/* Range values */
-.range-values {
 	display: flex;
 	justify-content: space-between;
-}
-
-.range-values .min-value,
-.range-values .max-value {
+	flex-direction: column;
+  }
+  
+  .sub-container {
+	display: flex;
+	gap: 20px;
+  }
+  
+  /* Label text styling */
+  .detail p {
+	color: var(--color-charcoal-black);
+	font-weight: 500;
+  }
+  
+  /* Input and span container */
+  .inputDetail {
+	display: flex;
+	align-items: center;
+  }
+  
+  /* Span inside inputDetail */
+  .inputDetail .rupeeSpan,
+  .inputDetail .percentSpan,
+  .inputDetail .yearSpan,
+  .inputDetail .monthSpan {
+	color: var(--text-color);
+	font-weight: 400;
+  }
+  
+  /* Range input */
+  input[type="range"] {
+	width: 100%;
+  }
+  
+  /* Range values */
+  .range-values {
+	display: flex;
+	justify-content: space-between;
+  }
+  
+  .range-values .min-value,
+  .range-values .max-value {
 	color: var(--color-black);
-    font-size: var(--body-font-size-s);
+	font-size: var(--body-font-size-s);
 	font-weight: 300;
-}
-
-/* Error message */
-.error-message {
+  }
+  
+  /* Error message */
+  .error-message {
 	color: red;
 	display: none;
-}
-
-
-.chartDetails {
+  }
+  
+  .chartDetails {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
 	margin-bottom: 20px;
-}
-
-.canvasDetail {
-	position: relative;
-}
-
-.loan-details {
-    max-width: 540px; 
-    height: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    background: rgba(244, 244, 244, 1);
-	padding: 18px 18px;
-    font-size: 16px;
-    color: rgba(0, 0, 0, 1);
-    border-radius: 4px;
   }
-
-
-.loan-details {
+  
+  .canvasDetail {
+	position: relative;
+  }
+  
+  .loan-details {
+	max-width: 540px;
+	height: auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
+	background: rgba(244, 244, 244, 1);
+	padding: 18px 18px;
+	font-size: 16px;
+	color: rgba(0, 0, 0, 1);
+	border-radius: 4px;
+  }
+  
+  .loan-details {
 	text-align: center;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
 	.sub-container {
-		flex-direction: column;
-		gap: 10px;
+	  flex-direction: column;
+	  gap: 10px;
 	}
-
+  
 	.view,
 	.breakup {
-		flex: 1 1 100%;
+	  flex: 1 1 100%;
 	}
-}
-
-#loan-amt-text{
-	padding-right:10px;
-}
-#interest-rate-text{
-	padding-right:10px;
-}
-#loan-period-text{
-	padding-right:10px;
-}
-#loan-period-month-text{
+  }
+  
+  #loan-amt-text {
 	padding-right: 10px;
-}
-
-.loan-details-upper .chart-details:nth-child(2){
-	@media(width>=901px){
-		margin-top:12px;
+  }
+  #interest-rate-text {
+	padding-right: 10px;
+  }
+  #loan-period-text {
+	padding-right: 10px;
+  }
+  #loan-period-month-text {
+	padding-right: 10px;
+  }
+  
+  .loan-details-upper .chart-details:nth-child(2) {
+	@media (width>=901px) {
+	  margin-top: 12px;
 	}
-}
-
-
-.mobile-breakup{
+  }
+  
+  .mobile-breakup {
 	display: flex;
 	justify-content: space-around;
 	.mobile-tenure-apply {
-		align-items: center;
-		display: flex;
-		justify-content: center;
+	  align-items: center;
+	  display: flex;
+	  /* justify-content: center; */
+	  @media (max-width: 769px) {
+		margin-top: 10px;
+	  }
 	}
-	#apply-btn{
-		background: var(--color-sky-dark);
-		border-radius: 2px;
-		box-sizing: border-box;
-		padding: 7px 16px;
-		font-size: 14px;
-		display: block !important;
-		color: var(--color-white);
-		font-weight: 500;
+	#apply-btn {
+	  background: var(--color-sky-dark);
+	  border-radius: 2px;
+	  box-sizing: border-box;
+	  padding: 7px 16px;
+	  font-size: 14px;
+	  display: block !important;
+	  color: var(--color-white);
+	  font-weight: 500;
 	}
-
-	.mobile-tenure-monthYear{
-		font-size: 12px;
-		font-weight: 400;
-		color:#757575;
+  
+	.mobile-tenure-monthYear {
+	  font-size: 12px;
+	  font-weight: 400;
+	  color: #757575;
 	}
-
-	.mobile-tenure-amount-detail{
-		font-size: 12px;
-		font-weight: 400;
-		color:#757575;
+  
+	.mobile-tenure-amount-detail {
+	  font-size: 12px;
+	  font-weight: 400;
+	  color: #757575;
 	}
-
-	.mobile-tenure-amount-label{
-		font-size: 14px;
-		font-weight: 500;
-		color:#111111;
+  
+	.mobile-tenure-amount-label {
+	  font-size: 14px;
+	  font-weight: 500;
+	  color: #111111;
 	}
-
-	.mobile-tenure-interest-label{
-		font-size: 14px;
-		font-weight: 500;
-		color:#111111;
+  
+	.mobile-tenure-interest-label {
+	  font-size: 14px;
+	  font-weight: 500;
+	  color: #111111;
 	}
-	.mobile-tenure-interest-rate{
-		font-size: 12px;
-		color:#000000;
-		font-weight: 300;
+	.mobile-tenure-interest-rate {
+	  font-size: 12px;
+	  color: #000000;
+	  font-weight: 300;
+	  padding-left: 4px;
 	}
-	.mobile-tenure-emi-label{
-        font-size: 18px;
-		color:#282828;
-		font-weight: 400;
+	.mobile-tenure-emi-label {
+	  font-size: 18px;
+	  color: #282828;
+	  font-weight: 400;
 	}
-
-	.mobile-tenure-emi{
-		display: flex;
-		justify-content: center;
+  
+	.mobile-tenure-emi {
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
 	}
-	.mobile-tenure-emi-details{
-		color:#9fc355;
-		font-size: 32px;
-		font-weight: 700;
+	.mobile-tenure-emi-details {
+	  color: #9fc355;
+	  font-size: 32px;
+	  font-weight: 700;
+	  @media (max-width: 769px) {
+		margin-top: 5px;
+	  }
 	}
-
+	.mobile-tenure-emi-details .mobile-tenure-emi-price {
+	  text-align: left;
+	}
+  
 	.mobile-breakup-left {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
 	}
 	.mobile-breakup-left > div {
-		width: 100%;
-		text-align: center;
-		margin: 10px 0;
+	  width: 100%;
+	  text-align: center;
+	  margin: 10px 0;
 	}
 	.mobile-tenure-monthYear {
-		display: flex;
-		justify-content: center;
-		align-items: center;
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
 	}
 	.mobile-tenure-monthYear span {
-		margin: 0 5px;
+	  margin: 0 5px;
 	}
-	@media (min-width: 768px) and (max-width: 900px){
-		display: block;
-		max-width: 273px;
-		width: 100%;
-		box-sizing: border-box;
-		background-color: var(--color-silver);
-		padding: 20px;
-		border-radius: 4px;
+	@media (min-width: 768px) and (max-width: 900px) {
+	  display: block;
+	  max-width: 273px;
+	  width: 100%;
+	  box-sizing: border-box;
+	  background-color: var(--color-silver);
+	  padding: 20px;
+	  border-radius: 4px;
 	}
-	@media(width >= 901px){
-		display:none;
+	@media (width >= 901px) {
+	  display: none;
 	}
-}
-
-#apply-btn{
+  }
+  
+  #apply-btn {
 	background: var(--color-sky-dark);
 	border-radius: 2px;
 	box-sizing: border-box;
@@ -556,112 +564,109 @@ input[type="range"] {
 	display: block !important;
 	color: var(--color-white);
 	font-weight: 500;
-}
-
-.mobile-tenure-right{
+  }
+  
+  .mobile-tenure-right {
 	justify-content: space-around;
-    display: flex;
-    flex-direction: column;
-}
-
-
-@media (min-width: 769px) and (max-width: 900px) {
-	.mobile-breakup-left{
-        text-align: center;
-	}
-	.mobile-tenure-right{
-		text-align: center;
-	}
-}
-@media (min-width: 769px) and (max-width: 900px){
-	.mobile-tenure-apply {
-		align-items: center;
-		display: flex;
-		justify-content: center;
-	}
-	#apply-btn{
-		background: var(--color-sky-dark);
-		border-radius: 2px;
-		box-sizing: border-box;
-		padding: 7px 16px;
-		font-size: 14px;
-		display: block !important;
-		color: var(--color-white);
-		font-weight: 500;
-	}
-
-	.mobile-tenure-monthYear{
-		font-size: 12px;
-		font-weight: 400;
-		color:#757575;
-	}
-
-	.mobile-tenure-amount-detail{
-		font-size: 12px;
-		font-weight: 400;
-		color:#757575;
-	}
-
-	.mobile-tenure-amount-label{
-		font-size: 14px;
-		font-weight: 500;
-		color:#111111;
-	}
-
-	.mobile-tenure-interest-label{
-		font-size: 14px;
-		font-weight: 500;
-		color:#111111;
-	}
-	.mobile-tenure-interest-rate{
-		font-size: 12px;
-		color:#000000;
-		font-weight: 300;
-	}
-	.mobile-tenure-emi-label{
-        font-size: 18px;
-		color:#282828;
-		font-weight: 400;
-	}
-
-	.mobile-tenure-emi{
-		display: flex;
-		justify-content: center;
-	}
-	.mobile-tenure-emi-details{
-		color:#9fc355;
-		font-size: 32px;
-		font-weight: 700;
-	}
-
+	display: flex;
+	flex-direction: column;
+  }
+  
+  @media (min-width: 769px) and (max-width: 900px) {
 	.mobile-breakup-left {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
+	  text-align: center;
+	}
+	.mobile-tenure-right {
+	  text-align: center;
+	}
+  }
+  @media (min-width: 769px) and (max-width: 900px) {
+	.mobile-tenure-apply {
+	  align-items: center;
+	  display: flex;
+	  justify-content: center;
+	}
+	#apply-btn {
+	  background: var(--color-sky-dark);
+	  border-radius: 2px;
+	  box-sizing: border-box;
+	  padding: 7px 16px;
+	  font-size: 14px;
+	  display: block !important;
+	  color: var(--color-white);
+	  font-weight: 500;
+	}
+  
+	.mobile-tenure-monthYear {
+	  font-size: 12px;
+	  font-weight: 400;
+	  color: #757575;
+	}
+  
+	.mobile-tenure-amount-detail {
+	  font-size: 12px;
+	  font-weight: 400;
+	  color: #757575;
+	}
+  
+	.mobile-tenure-amount-label {
+	  font-size: 14px;
+	  font-weight: 500;
+	  color: #111111;
+	}
+  
+	.mobile-tenure-interest-label {
+	  font-size: 14px;
+	  font-weight: 500;
+	  color: #111111;
+	}
+	.mobile-tenure-interest-rate {
+	  font-size: 12px;
+	  color: #000000;
+	  font-weight: 300;
+	}
+	.mobile-tenure-emi-label {
+	  font-size: 18px;
+	  color: #282828;
+	  font-weight: 400;
+	}
+  
+	.mobile-tenure-emi {
+	  display: flex;
+	  justify-content: center;
+	}
+	.mobile-tenure-emi-details {
+	  color: #9fc355;
+	  font-size: 32px;
+	  font-weight: 700;
+	}
+  
+	.mobile-breakup-left {
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
 	}
 	.mobile-breakup-left > div {
-		width: 100%;
-		text-align: center;
-		margin: 10px 0;
+	  width: 100%;
+	  text-align: center;
+	  margin: 10px 0;
 	}
 	.mobile-tenure-monthYear {
-		display: flex;
-		justify-content: center;
-		align-items: center;
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
 	}
 	.mobile-tenure-monthYear span {
-		margin: 0 5px;
+	  margin: 0 5px;
 	}
-	
-}
-
-
-.breakupdesktop{
-	@media(width <= 900px){
-		display: none;
+  }
+  
+  .breakupdesktop {
+	@media (width <= 900px) {
+	  display: none;
 	}
-	@media(width >= 901px){
-		display:block;
+	@media (width >= 901px) {
+	  display: block;
 	}
-}
-
+  }
+  

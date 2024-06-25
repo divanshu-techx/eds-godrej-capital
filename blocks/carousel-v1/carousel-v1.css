@@ -212,6 +212,7 @@
   .section.hero-carousel-v1.carousel-v1-container {
     padding: 0;
     margin-top: var(--nav-height);
+    overflow: hidden;
     @media(width >= 901px){
       margin-top: var(--combined-height);
     }
@@ -294,7 +295,7 @@
 }
 
 .hero-carousel-v1 p{
-  margin:0
+  margin:0;
 }
 
 
@@ -391,5 +392,15 @@ margin-bottom: 20px;
   @media(width >= 600px){
     width: 16px;
     height: 8px;
+  }
+}
+
+hero-carousel-v1 nav{
+  position: relative;
+  bottom: 40px;
+  left:34px;
+  @media(width >= 600px){
+    position: relative;
+    bottom: 40px;
   }
 }
