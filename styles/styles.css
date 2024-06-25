@@ -223,7 +223,7 @@ main img {
 
 /* sections */
 main .section {
-  padding: 16px 8px;
+  padding: 16px 26px;
 }
 
 @media (width >= 600px) {
