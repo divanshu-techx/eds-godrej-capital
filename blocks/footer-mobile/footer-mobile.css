@@ -82,7 +82,7 @@
   .footer-mobile {
     display: flex;
     justify-content: space-evenly;
-    max-width: 350px;
+    max-width: 315px;
     align-items: center;
     margin: auto;
     width: 100%;
