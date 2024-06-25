@@ -436,6 +436,7 @@ select {
 .mobile-loaneligible{
 	display: flex;
 	justify-content: space-around;
+    flex-direction: column;
 	.mobile-tenure-apply {
 		align-items: center;
 		display: flex;

@@ -283,6 +283,7 @@
   position: relative;
   bottom: 40px;
   left:0;
+  padding: 0 10px;
 }
 @media(width >=600px){
 .hero-carousel-v1 .carousel-v1-slide-indicators{
