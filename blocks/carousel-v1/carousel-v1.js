@@ -92,9 +92,9 @@ async function createCarousel(block, rows){
   const mainElement = document.createElement('div');
   mainElement.classList.add('carousel-wrapper');
   mainElement.setAttribute('id', `carousel-v1-${carouselId}`);
-  console.log(block);
+ 
   let summaryContent = carouselContainer.getAttribute("data-summary");
-  console.log(summaryContent);
+ 
 
   // Append teaser containers to the main wrapper
   rows.forEach(teaser => {
@@ -145,9 +145,13 @@ async function createCarousel(block, rows){
   nextButton.setAttribute('aria-label', placeholders.nextSlide || 'Next Slide');
 
   // Append navigation buttons to the slideIndicators
+ console.log(block);
+ let styleType = carouselContainer.getAttribute('data-teaser-target-id');
+ if(styleType == 'homepage-carousel-secondary'){
   slideIndicators.appendChild(prevButton);
   slideIndicators.appendChild(nextButton);
-
+ }
+  
   // Append slideIndicators to slideIndicatorsNav
   slideIndicatorsNav.append(slideIndicators);
 
@@ -165,8 +169,12 @@ async function createCarousel(block, rows){
       indicator.classList.add('carousel-v1-slide-indicator');
       indicator.dataset.targetSlide = idx;
       indicator.innerHTML = `<button type="button"><span>${placeholders.showSlide || 'Show Slide'} ${idx + 1} ${placeholders.of || 'of'} ${rows.length}</span></button>`;
+      if(styleType == 'homepage-carousel-secondary'){
       // Append indicator to slideIndicators
       slideIndicators.insertBefore(indicator, nextButton); // Insert each indicator before the next button
+      }else{
+      slideIndicators.append(indicator); 
+      }
     }
     row.remove();
   });
@@ -224,15 +232,22 @@ function bindEvents(block) {
     });
   });
 
-  block.querySelector('.slide-prev').addEventListener('click', () => {
-    console.log("button clicked");
-    showSlide(block, parseInt(block.dataset.activeSlide, 10) - 1);
-  });
+  const prevButton = block.querySelector('.slide-prev');
+  const nextButton = block.querySelector('.slide-next');
 
-  block.querySelector('.slide-next').addEventListener('click', () => {
-    console.log("button clicked");
-    showSlide(block, parseInt(block.dataset.activeSlide, 10) + 1);
-  });
+  if (prevButton) {
+    prevButton.addEventListener('click', () => {
+      const activeSlide = parseInt(block.dataset.activeSlide, 10);
+      showSlide(block, isNaN(activeSlide) ? 0 : activeSlide - 1);
+    });
+  }
+  
+  if (nextButton) {
+    nextButton.addEventListener('click', () => {
+      const activeSlide = parseInt(block.dataset.activeSlide, 10);
+      showSlide(block, isNaN(activeSlide) ? 0 : activeSlide + 1);
+    });
+  }
 
   const slideObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
