@@ -609,6 +609,7 @@ select {
 	.mobile-tenure-emi{
 		display: flex;
 		justify-content: center;
+        align-items: center;
 	}
 	.mobile-tenure-emi-details{
 		color:#9fc355;
@@ -661,4 +662,9 @@ select {
 		display: block !important;
 		color: var(--color-white);
 		font-weight: 500;
+}
+
+.mobile-loaneligibale{
+    background-color: #8cb133;
+    color:#fff;
 }

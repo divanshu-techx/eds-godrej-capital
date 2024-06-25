@@ -72,16 +72,23 @@ export default async function decorate(block) {
       listItems.forEach((li) => {
         if (li.querySelector('ol')) {
           li.style.cursor = 'pointer';
+          // li.classList = 'open-list'
           const innerOl = li.querySelector('ol');
           innerOl.style.display = 'none';
-          const toggleSign = document.createElement('span');
-          toggleSign.textContent = ' +';
-          li.appendChild(toggleSign);
-          li.addEventListener('click', (event) => {
+          // const toggleSign = document.createElement('span');
+          // toggleSign.textContent = ' +';
+          // li.appendChild(toggleSign);
+          li.addEventListener('click', function (event) {
             event.stopPropagation();
+ 
+ 
             const isExpanded = innerOl.style.display === 'block';
             innerOl.style.display = isExpanded ? 'none' : 'block';
-            toggleSign.textContent = isExpanded ? ' +' : ' -';
+            this.classList.add('open-list');
+            if (isExpanded) {
+              this.classList.remove('open-list')
+            }
+            // toggleSign.textContent = isExpanded ? ' +' : ' -';
           });
         }
       });
