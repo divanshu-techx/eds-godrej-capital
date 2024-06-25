@@ -72,9 +72,9 @@
   display: block;
 }
  
-@media (width >=901px) {
+@media (width >= 901px) {
   .footer-mobile {
-    display: none;
+    display: none!important;
   }
 }
 
