@@ -1,3 +1,31 @@
+function formatNumberToIndianCommas(number) {
+    // Convert the number to a string
+    const numStr = number.toString();
+    // Split the number into integer and decimal parts
+    const [integerPart, decimalPart] = numStr.split('.');
+ 
+    // Format the integer part with Indian commas
+    const lastThreeDigits = integerPart.slice(-3);
+    const otherDigits = integerPart.slice(0, -3);
+ 
+    const formattedNumber = otherDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + (otherDigits ? "," : "") + lastThreeDigits;
+   
+    // If there's a decimal part, add it back
+    return decimalPart ? `${formattedNumber}.${decimalPart}` : formattedNumber;
+}
+ 
+
+function removeCommaAndConvertToInt(numberString) {
+    // Remove commas from the number string
+    let cleanedString = numberString.replace(/,/g, '');
+
+    // Convert the cleaned string to an integer
+    let numberInt = parseInt(cleanedString, 10);
+
+    return numberInt;
+}
+
+
 function numberToWords(num) {
     if (num < 1000) {
         return num.toString();
@@ -40,7 +68,7 @@ function createElement(type, attributes = {}, ...children) {
 function createErrorSpan(message) {
     return createElement('span', { class: 'error-message', style: 'color: red; display: none;' }, message);
 }
- 
+
 function calculateLoanDetails(p, r, emi, n, m,line) {
     let totalInterest = 0;
     let yearlyInterest = [];
@@ -131,8 +159,11 @@ function displayDetails(P,R,N,M,line,pie,block) {
     line.update();
 }
  
+ 
+ 
 function initialize(block) {
     const loanAmountMaxValue = getDataAttributeValueByName('loan-amount-max-value');
+    console.log(typeof(loanAmountMaxValue));
     const loanAmountMinValue = getDataAttributeValueByName('loan-amount-min-value');
     const laonamount_title = getDataAttributeValueByName('loan-amount-title');
     const interestrate_maxvalue = getDataAttributeValueByName('interest-rate-max-value');
@@ -156,10 +187,10 @@ function initialize(block) {
             createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, laonamount_title),
             createElement('div', { class: "inputDetail" },
                 createElement('span', { class: "rupeeSpan" }, "Rs."),
-                createElement('input', { id: 'loan-amt-text', type: 'number', min: loanAmountMinValue, max: loanAmountMaxValue, step: '50000', style: 'color: #3b3b3b; font-size:14px;font-weight:400' })
+                createElement('input', { id: 'loan-amt-text', type: 'text', min: loanAmountMinValue, max: loanAmountMaxValue,  style: 'color: #3b3b3b; font-size:14px;font-weight:400' })
             )
         ),
-        createElement('input', { type: 'range', id: 'loan-amount', min: loanAmountMinValue, max: loanAmountMaxValue, step: '50000' }),
+        createElement('input', { type: 'range', id: 'loan-amount', min: loanAmountMinValue, max: loanAmountMaxValue, }),
         createElement('div', { class: 'range-values' },
             createElement('div', { class: 'min-value' }, numberToWords(loanAmountMinValue)),
             createElement('div', { class: 'max-value', style: 'float: right;' }, numberToWords(loanAmountMaxValue))
@@ -171,10 +202,10 @@ function initialize(block) {
             createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, interestrate_title),
             createElement('div', { class: "inputDetail" },
                 createElement('span', { class: "percentSpan" }, "%"),
-                createElement('input', { id: 'interest-rate-text', type: 'number', min: interestrate_minvalue, max: interestrate_maxvalue, step: '0.5', style: 'color: #3b3b3b; font-size:14px;font-weight:400' })
+                createElement('input', { id: 'interest-rate-text', type: 'number', min: interestrate_minvalue, max: interestrate_maxvalue,  style: 'color: #3b3b3b; font-size:14px;font-weight:400' })
             )
         ),
-        createElement('input', { type: 'range', id: 'interest-rate', min: interestrate_minvalue, max: interestrate_maxvalue, step: '0.5' }),
+        createElement('input', { type: 'range', id: 'interest-rate', min: interestrate_minvalue, max: interestrate_maxvalue}),
         createElement('div', { class: 'range-values' },
             createElement('div', { class: 'min-value' }, interestrate_minvalue + "%"),
             createElement('div', { class: 'max-value', style: 'float: right;' }, interestrate_maxvalue + "%"))
@@ -185,10 +216,10 @@ function initialize(block) {
             createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, tenure_title_year),
             createElement('div', { class: "inputDetail" },
                 createElement('span', { class: "yearSpan" }, "Yrs."),
-                createElement('input', { id: 'loan-period-text', type: 'number', min: tenure_min_yearvalue, max: tenure_max_yearvalue, step: '1', style: 'color: #3b3b3b; font-size:14px;font-weight:400' })
+                createElement('input', { id: 'loan-period-text', type: 'number', min: tenure_min_yearvalue, max: tenure_max_yearvalue, style: 'color: #3b3b3b; font-size:14px;font-weight:400' })
             )
         ),
-        createElement('input', { type: 'range', id: 'loan-period', min: tenure_min_yearvalue, max: tenure_max_yearvalue, step: '1' }),
+        createElement('input', { type: 'range', id: 'loan-period', min: tenure_min_yearvalue, max: tenure_max_yearvalue}),
         createElement('div', { class: 'range-values' },
             createElement('div', { class: 'min-value' }, tenure_min_yearvalue + " Year"),
             createElement('div', { class: 'max-value', style: 'float: right;' }, tenure_max_yearvalue + " Years"))
@@ -199,10 +230,10 @@ function initialize(block) {
             createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, tenure_title_months),
             createElement('div', { class: "inputDetail" },
                 createElement('span', { class: "monthSpan" }, "Mos."),
-                createElement('input', { id: 'loan-period-month-text', type: 'number', min: tenure_min_monthvalue, max: tenure_max_monthvalue, step: '1', style: 'color: #3b3b3b; font-size:14px;font-weight:400' })
+                createElement('input', { id: 'loan-period-month-text', type: 'number', min: tenure_min_monthvalue, max: tenure_max_monthvalue, style: 'color: #3b3b3b; font-size:14px;font-weight:400' })
             )
         ),
-        createElement('input', { type: 'range', id: 'loan-period-month', min: tenure_min_monthvalue, max: tenure_max_monthvalue, step: '1' }),
+        createElement('input', { type: 'range', id: 'loan-period-month', min: tenure_min_monthvalue, max: tenure_max_monthvalue}),
         createElement('div', { class: 'range-values' },
             createElement('div', { class: 'min-value' }, tenure_min_monthvalue + " Month"),
             createElement('div', { class: 'max-value', style: 'float: right;' }, tenure_max_monthvalue + " Months"))
@@ -329,19 +360,27 @@ function initialize(block) {
  
  
     loan_amt_slider.addEventListener("change", (self) => {
-        loan_amt_text.value = self.target.value;
-        // var value = (this.value-this.min)/(this.max-this.min)*100
-        // this.style.background = 'linear-gradient(to right, #82CFD0 0%, #82CFD0 ' + value + '%, #fff ' + value + '%, white 100%)'
-        P = parseFloat(self.target.value);
+       // loan_amt_text.value = formatNumberWithCommas(self.target.value);
+        loan_amt_text.value = formatNumberToIndianCommas(self.target.value);
+        P = removeCommaAndConvertToInt(self.target.value);
         displayDetails(P,R,N,M,line,pie,block);
     });
  
     loan_amt_text.addEventListener("blur", (self) => {
-        loan_amt_slider.value = self.target.value;
-        P = parseFloat(self.target.value);
+        // console.log(self.target.value);
+        loan_amt_slider.value = removeCommaAndConvertToInt(self.target.value);
+        loan_amt_text.value = formatNumberToIndianCommas(self.target.value);
+        P = removeCommaAndConvertToInt(self.target.value);
         displayDetails(P,R,N,M,line,pie,block);
     });
- 
+
+        // Event listener to allow only numeric input
+        loan_amt_text.addEventListener('input', function(event) {
+            let value = this.value;
+            value = value.replace(/[^\d.]/g, ''); // Remove non-numeric characters except '.'
+            this.value = value;
+        });
+
     int_rate_slider.addEventListener("change", (self) => {
         int_rate_text.value = self.target.value;
         R = parseFloat(self.target.value);
@@ -379,7 +418,7 @@ function initialize(block) {
     });
  
     // Error message spans
-    const loanAmtError = createErrorSpan("Value should be between " + loanAmountMinValue + " and " + loanAmountMaxValue);
+    const loanAmtError = createErrorSpan("Value should be between " + formatNumberToIndianCommas(loanAmountMinValue) + " and " + formatNumberToIndianCommas(loanAmountMaxValue));
     const interestRateError = createErrorSpan("Value should be between " + interestrate_minvalue + "% and " + interestrate_maxvalue + "%");
     const loanPeriodError = createErrorSpan("Value should be between " + tenure_min_yearvalue + " and " + tenure_max_yearvalue);
     const loanPeriodMonthError = createErrorSpan("Value should be between " + tenure_min_monthvalue + " and " + tenure_max_monthvalue);
@@ -394,7 +433,7 @@ function initialize(block) {
  
     //error for loan amount
     loan_amt_text.addEventListener("input", function () {
-        if (parseFloat(this.value) < parseFloat(loanAmountMinValue) || parseFloat(this.value) > parseFloat(loanAmountMaxValue)) {
+        if (removeCommaAndConvertToInt(this.value) < removeCommaAndConvertToInt(loanAmountMinValue) || removeCommaAndConvertToInt(this.value) > removeCommaAndConvertToInt(loanAmountMaxValue)) {
             loanAmtError.style.display = "block";
         } else {
             loanAmtError.style.display = "none";
@@ -428,10 +467,11 @@ function initialize(block) {
             loanPeriodMonthError.style.display = "none";
         }
     });
-
-    loan_amt_slider.value = loanAmountMinValue;
-    loan_amt_text.value = loanAmountMinValue;
-    P = parseFloat(loanAmountMinValue);
+ 
+    loan_amt_slider.value = removeCommaAndConvertToInt(loanAmountMinValue);
+    // console.log(formatNumberToIndianCommas(loanAmountMinValue))
+    loan_amt_text.value = formatNumberToIndianCommas(loanAmountMinValue);
+    P = removeCommaAndConvertToInt(loanAmountMinValue);
  
     int_rate_slider.value = interestrate_minvalue;
     int_rate_text.value = interestrate_minvalue;
