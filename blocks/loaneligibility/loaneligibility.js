@@ -6,15 +6,159 @@ function formatNumberToIndianCommas(number) {
   const formattedNumber = otherDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + (otherDigits ? "," : "") + lastThreeDigits;
   return decimalPart ? `${formattedNumber}.${decimalPart}` : formattedNumber;
 }
- 
- 
 function removeCommaAndConvertToInt(numberString) {
   let cleanedString = numberString.replace(/,/g, '');
   let numberInt = parseInt(cleanedString, 10);
   return numberInt;
 }
+function numberToWords(num) {
+  if (num < 1000) {
+    return num.toString();
+  }
+ 
+  const suffixes = [
+    [1e7, 'Crores'],
+    [1e5, 'Lakhs'],
+    [1e3, 'Thousands']
+  ];
+ 
+  for (let i = 0; i < suffixes.length; i++) {
+    const [divisor, suffix] = suffixes[i];
+    if (num >= divisor) {
+      return `${Math.floor(num / divisor)} ${suffix}`;
+    }
+  }
+}
+//  error message
+function createErrorSpan(message) {
+  return createElement('span', { class: 'error-message', style: 'color: red; display: none;' }, message);
+}
+ 
+function createElement(type, attributes = {}, ...children) {
+  const element = document.createElement(type);
+ 
+  Object.entries(attributes).forEach(([key, value]) => {
+    element.setAttribute(key, value);
+  });
+ 
+  children.forEach((child) => {
+    if (typeof child === 'string') {
+      element.appendChild(document.createTextNode(child));
+    } else {
+      element.appendChild(child);
+    }
+  });
+ 
+  return element;
+}
+ 
+function getDataAttributeValueByName(name) {
+  const element = document.querySelector(`[data-${name}]`);
+  return element ? element.getAttribute(`data-${name}`) : null;
+}
+function calculateLoanDetails(p, r, n, m, pie, line) {
+  let i;
+  let totalInterest = 0;
+  const yearlyInterest = [];
+  const yearPrinCIpal = [];
+  const years = [];
+  let year = 1; // Allow incrementing
+  let counter = 0;
+  let prinCIpalAccumulator = 0;
+  let interestAccumulator = 0;
+  const totalMonths = n * 12 + m;
+ 
+  const emi = (p * r * (1 + r) ** totalMonths) / ((1 + r) ** totalMonths - 1);
+  const totalPayment = emi * totalMonths;
+  totalInterest = totalPayment - p;
+ 
+  let currentPrinCIpal = p; // New variable to avoid modifying the parameter
+ 
+  for (i = 0; i < totalMonths; i += 1) {
+    const interest = currentPrinCIpal * r;
+    currentPrinCIpal -= (emi - interest);
+    prinCIpalAccumulator += emi - interest;
+    interestAccumulator += interest;
+    counter += 1; // Increment counter
+    if (counter === 12) {
+      years.push(year);
+      yearlyInterest.push(parseInt(interestAccumulator, 10));
+      yearPrinCIpal.push(parseInt(prinCIpalAccumulator, 10));
+      counter = 0;
+      year += 1; // Increment year
+      interestAccumulator = 0; // Reset yearly interest accumulator
+      prinCIpalAccumulator = 0; // Reset yearly prinCIpal accumulator
+    }
+  }
+ 
+  line.data.datasets[0].data = yearPrinCIpal;
+  line.data.datasets[1].data = yearlyInterest;
+  line.data.labels = years;
+  return totalInterest;
+}
+ 
+function displayDetails(P, R, N, M, E, line, pie, block) {
+  const r = parseFloat(R) / 1200;
+  const n = parseFloat(N);
+  const m = parseFloat(M);
+  const totalMonths = n * 12 + m;
+ 
+  const emi = (P * r * (1 + r) ** totalMonths) / ((1 + r) ** totalMonths - 1);
+  const payableInterest = calculateLoanDetails(P, r, n, m, pie, line);
+ 
+  const opts = { style: 'currency', currency: 'INR', maximumFractionDigits: 0 };
+ 
+  block.querySelector('#CP').innerText = P.toLocaleString('en-IN', opts);
+ 
+  block.querySelector('#CI').innerText = payableInterest.toLocaleString('en-IN', opts);
+ 
+  block.querySelector('#mobile_CI').innerText = payableInterest.toLocaleString('en-IN', opts);
+ 
+  block.querySelector('#CT').innerText = (P + payableInterest).toLocaleString('en-IN', opts);
+ 
+  block.querySelector('#mobile_CT').innerText = (P + payableInterest).toLocaleString('en-IN', opts);
+ 
+  block.querySelector("#Rate").innerText =
+    R.toLocaleString("en-IN", R) + "%";
+ 
+  block.querySelector("#mobile_interest_rate").innerText =
+    "@" + R.toLocaleString("en-IN", R) + "%";
+ 
+  block.querySelector("#month_Tenure").innerText =
+    M.toLocaleString("en-IN", M + 'M');
+ 
+  block.querySelector("#mobile_month_Tenure").innerText =
+    M.toLocaleString("en-IN", M + 'M');
+ 
+  block.querySelector("#year_tenure").innerText =
+    N.toLocaleString("en-IN", N + 'Y');
+ 
+  block.querySelector("#mobile_year_tenure").innerText =
+    N.toLocaleString("en-IN", N + 'Y');
+ 
+  block.querySelector('#MonthlyEmiPrice').innerText = emi.toLocaleString('en-IN', opts);
+ 
+  block.querySelector('#mobile_monthly_emi_price').innerText = emi.toLocaleString('en-IN', opts);
+ 
+  block.querySelector('#le').innerText = `₹ ${Math.max(0, P - E).toLocaleString()}`;
+  block.querySelector('#mobile-le').innerText = `₹ ${Math.max(0, P - E).toLocaleString()}`;
+ 
+  pie.data.datasets[0].data[0] = P;
+  pie.data.datasets[0].data[1] = payableInterest;
+  pie.update();
+  line.update();
+}
+ 
+// Decorate Function
 export default async function decorate(block) {
-  const container = document.querySelector('.loaneligibility');
+  initialize(block);
+}
+ 
+ 
+function initialize(block) {
+ 
+  ///
+  // const container = document.querySelector('.loaneligibility');
   let i;
   let option;
   let P;
@@ -26,39 +170,6 @@ export default async function decorate(block) {
   let line;
   let url;
  
-  function createElement(type, attributes = {}, ...children) {
-    const element = document.createElement(type);
- 
-    Object.entries(attributes).forEach(([key, value]) => {
-      element.setAttribute(key, value);
-    });
- 
-    children.forEach((child) => {
-      if (typeof child === 'string') {
-        element.appendChild(document.createTextNode(child));
-      } else {
-        element.appendChild(child);
-      }
-    });
- 
-    return element;
-  }
- 
-  // const header = createElement(
-  //   'div',
-  //   { class: 'header' },
-  //   createElement('h1', {}, 'Loan Eligibility  Calculator'),
-  //   createElement(
-  //     'button',
-  //     {},
-  //     createElement('i', { class: 'bi bi-list' }),
-  //   ),
-  // );
- 
-  function getDataAttributeValueByName(name) {
-    const element = document.querySelector(`[data-${name}]`);
-    return element ? element.getAttribute(`data-${name}`) : null;
-  }
  
   const loanAmountMaxValue = getDataAttributeValueByName('income-max-value');
   const loanAmountMinValue = getDataAttributeValueByName('income-min-value');
@@ -89,7 +200,7 @@ export default async function decorate(block) {
   const loaneligibilitylabel = getDataAttributeValueByName('Loan-eligibility-label');
   const totalamountlabel = getDataAttributeValueByName('Total-amount-label');
   const monthlyemilabel = getDataAttributeValueByName('Monthly-emi-label');
-  console.log(monthlyemilabel);
+ 
   const applynowbutton = getDataAttributeValueByName('Apply-now-button');
   const mobileyear = getDataAttributeValueByName('Mobile-year');
   const mobilemonths = getDataAttributeValueByName('Mobile-month');
@@ -393,118 +504,28 @@ export default async function decorate(block) {
  
   const subContainer = createElement('div', { class: 'sub-container' }, view, breakup, mobileBreakup);
  
-  container.append(subContainer);
+  block.append(subContainer);
  
-  const loanAmtSlider = document.getElementById('loanAmount');
-  const loanAmtText = document.getElementById('loan-amount-text');
+  const loanAmtSlider = block.querySelector('#loanAmount');
+  const loanAmtText = block.querySelector('#loan-amount-text');
  
-  const exisitingEmiText = document.getElementById('exisiting-emi-text');
-  const exisitingEmiAmountSlider = document.getElementById('exisiting-emi-amount');
+  const exisitingEmiText = block.querySelector('#exisiting-emi-text');
+  const exisitingEmiAmountSlider = block.querySelector('#exisiting-emi-amount');
  
-  const intRateSlider = document.getElementById('interestRate');
-  const intRateText = document.getElementById('linterest_Rate_Text');
-  const loanPeriodSlider = document.getElementById('loanPeriod');
-  const loanPeriodText = document.getElementById('loanPeriodText');
-  const loanPeriodSliderMonth = document.getElementById('loanPeriodMonth');
-  const loanPeriodTextMonth = document.getElementById('loanPeriodMonthText');
+  const intRateSlider = block.querySelector('#interestRate');
+  const intRateText = block.querySelector('#linterest_Rate_Text');
+  const loanPeriodSlider = block.querySelector('#loanPeriod');
+  const loanPeriodText = block.querySelector('#loanPeriodText');
+  const loanPeriodSliderMonth = block.querySelector('#loanPeriodMonth');
+  const loanPeriodTextMonth = block.querySelector('#loanPeriodMonthText');
  
-  function calculateLoanDetails(p, r, n, m) {
-    let totalInterest = 0;
-    const yearlyInterest = [];
-    const yearPrinCIpal = [];
-    const years = [];
-    let year = 1; // Allow incrementing
-    let counter = 0;
-    let prinCIpalAccumulator = 0;
-    let interestAccumulator = 0;
-    const totalMonths = n * 12 + m;
  
-    const emi = (p * r * (1 + r) ** totalMonths) / ((1 + r) ** totalMonths - 1);
-    const totalPayment = emi * totalMonths;
-    totalInterest = totalPayment - p;
- 
-    let currentPrinCIpal = p; // New variable to avoid modifying the parameter
- 
-    for (i = 0; i < totalMonths; i += 1) {
-      const interest = currentPrinCIpal * r;
-      currentPrinCIpal -= (emi - interest);
-      prinCIpalAccumulator += emi - interest;
-      interestAccumulator += interest;
-      counter += 1; // Increment counter
-      if (counter === 12) {
-        years.push(year);
-        yearlyInterest.push(parseInt(interestAccumulator, 10));
-        yearPrinCIpal.push(parseInt(prinCIpalAccumulator, 10));
-        counter = 0;
-        year += 1; // Increment year
-        interestAccumulator = 0; // Reset yearly interest accumulator
-        prinCIpalAccumulator = 0; // Reset yearly prinCIpal accumulator
-      }
-    }
- 
-    line.data.datasets[0].data = yearPrinCIpal;
-    line.data.datasets[1].data = yearlyInterest;
-    line.data.labels = years;
-    return totalInterest;
-  }
- 
-  function displayDetails() {
-    const r = parseFloat(R) / 1200;
-    const n = parseFloat(N);
-    const m = parseFloat(M);
-    const totalMonths = n * 12 + m;
- 
-    const emi = (P * r * (1 + r) ** totalMonths) / ((1 + r) ** totalMonths - 1);
-    const payableInterest = calculateLoanDetails(P, r, n, m);
- 
-    const opts = { style: 'currency', currency: 'INR', maximumFractionDigits: 0 };
- 
-    document.querySelector('#CP').innerText = P.toLocaleString('en-IN', opts);
- 
-    document.querySelector('#CI').innerText = payableInterest.toLocaleString('en-IN', opts);
- 
-    document.querySelector('#mobile_CI').innerText = payableInterest.toLocaleString('en-IN', opts);
- 
-    document.querySelector('#CT').innerText = (P + payableInterest).toLocaleString('en-IN', opts);
- 
-    document.querySelector('#mobile_CT').innerText = (P + payableInterest).toLocaleString('en-IN', opts);
- 
-    document.querySelector("#Rate").innerText =
-      R.toLocaleString("en-IN", R) + "%";
- 
-    document.querySelector("#mobile_interest_rate").innerText =
-      "@" + R.toLocaleString("en-IN", R) + "%";
- 
-    document.querySelector("#month_Tenure").innerText =
-      M.toLocaleString("en-IN", M + 'M');
- 
-    document.querySelector("#mobile_month_Tenure").innerText =
-      M.toLocaleString("en-IN", M + 'M');
- 
-    document.querySelector("#year_tenure").innerText =
-      N.toLocaleString("en-IN", N + 'Y');
- 
-    document.querySelector("#mobile_year_tenure").innerText =
-      N.toLocaleString("en-IN", N + 'Y');
- 
-    document.querySelector('#MonthlyEmiPrice').innerText = emi.toLocaleString('en-IN', opts);
- 
-    document.querySelector('#mobile_monthly_emi_price').innerText = emi.toLocaleString('en-IN', opts);
- 
-    document.querySelector('#le').innerText = `₹ ${Math.max(0, P - E).toLocaleString()}`;
-    document.querySelector('#mobile-le').innerText = `₹ ${Math.max(0, P - E).toLocaleString()}`;
- 
-    pie.data.datasets[0].data[0] = P;
-    pie.data.datasets[0].data[1] = payableInterest;
-    pie.update();
-    line.update();
-  }
  
   loanAmtSlider.addEventListener("change", (self) => {
     // loan_amt_text.value = formatNumberWithCommas(self.target.value);
     loanAmtText.value = formatNumberToIndianCommas(self.target.value);
     P = removeCommaAndConvertToInt(self.target.value);
-    displayDetails();
+    displayDetails(P, R, N, M, E, line, pie, block);
   });
  
   loanAmtText.addEventListener("blur", (self) => {
@@ -512,7 +533,7 @@ export default async function decorate(block) {
     loanAmtSlider.value = valueWithoutCommas;
     loanAmtText.value = formatNumberToIndianCommas(valueWithoutCommas);
     P = valueWithoutCommas;
-    displayDetails();
+    displayDetails(P, R, N, M, E, line, pie, block);
   });
  
   // Event listener to allow only numeric input
@@ -532,7 +553,7 @@ export default async function decorate(block) {
   exisitingEmiAmountSlider.addEventListener('change', (self) => {
     exisitingEmiText.value = formatNumberToIndianCommas(self.target.value);
     E = removeCommaAndConvertToInt(self.target.value);
-    displayDetails();
+    displayDetails(P, R, N, M, E, line, pie, block);
   });
  
   exisitingEmiText.addEventListener('blur', (self) => {
@@ -540,43 +561,43 @@ export default async function decorate(block) {
     exisitingEmiAmountSlider.value = valueWithoutCommas;
     exisitingEmiText.value = formatNumberToIndianCommas(valueWithoutCommas);
     E = valueWithoutCommas;
-    displayDetails();
+    displayDetails(P, R, N, M, E, line, pie, block);
   });
  
   intRateSlider.addEventListener('change', (self) => {
     intRateText.value = self.target.value;
     R = parseFloat(self.target.value);
-    displayDetails();
+    displayDetails(P, R, N, M, E, line, pie, block);
   });
  
   intRateText.addEventListener('blur', (self) => {
     intRateSlider.value = self.target.value;
     R = parseFloat(self.target.value);
-    displayDetails();
+    displayDetails(P, R, N, M, E, line, pie, block);
   });
  
   loanPeriodSlider.addEventListener('change', (self) => {
     loanPeriodText.value = self.target.value;
     N = parseFloat(self.target.value);
-    displayDetails();
+    displayDetails(P, R, N, M, E, line, pie, block);
   });
  
   loanPeriodText.addEventListener('blur', (self) => {
     loanPeriodSlider.value = self.target.value;
     N = parseFloat(self.target.value);
-    displayDetails();
+    displayDetails(P, R, N, M, E, line, pie, block);
   });
  
   loanPeriodSliderMonth.addEventListener('change', (self) => {
     loanPeriodTextMonth.value = self.target.value;
     M = parseFloat(self.target.value);
-    displayDetails();
+    displayDetails(P, R, N, M, E, line, pie, block);
   });
  
   loanPeriodTextMonth.addEventListener('blur', (self) => {
     loanPeriodSliderMonth.value = self.target.value;
     M = parseFloat(self.target.value);
-    displayDetails();
+    displayDetails(P, R, N, M, E, line, pie, block);
   });
  
   //for slider color event listener
@@ -656,10 +677,7 @@ export default async function decorate(block) {
   });
  
  
-  //  error message
-  function createErrorSpan(message) {
-    return createElement('span', { class: 'error-message', style: 'color: red; display: none;' }, message);
-  }
+ 
  
  
   //   Error message spans
@@ -747,103 +765,86 @@ export default async function decorate(block) {
     }
   });
  
-  function initialize() {
-    //  Set input values to their minimum values
-    loanAmtSlider.value = removeCommaAndConvertToInt(loanAmountMinValue);
-    loanAmtText.value = formatNumberToIndianCommas(loanAmountMinValue);
-    P = removeCommaAndConvertToInt(loanAmountMinValue);
  
-    intRateSlider.value = interestRateMinValue;
-    intRateText.value = interestRateMinValue;
-    R = parseFloat(interestRateMinValue);
  
-    loanPeriodSlider.value = tenureMinYearValue;
-    loanPeriodText.value = tenureMinYearValue;
-    N = parseFloat(tenureMinYearValue);
+  ///
  
-    loanPeriodSliderMonth.value = tenureMinMonthValue;
-    loanPeriodTextMonth.value = tenureMinMonthValue;
-    M = parseFloat(tenureMinMonthValue);
  
-    exisitingEmiAmountSlider.value = removeCommaAndConvertToInt(existingEmiMin);
-    exisitingEmiText.value = formatNumberToIndianCommas(existingEmiMin);
-    E = removeCommaAndConvertToInt(existingEmiMin);
+  //  Set input values to their minimum values
+  loanAmtSlider.value = removeCommaAndConvertToInt(loanAmountMinValue);
+  loanAmtText.value = formatNumberToIndianCommas(loanAmountMinValue);
+  P = removeCommaAndConvertToInt(loanAmountMinValue);
  
-    line = new Chart(document.getElementById('mylineChart'), {
-      data: {
-        labels: [],
-        datasets: [
-          {
-            label: 'Principal',
-            backgroundColor: 'rgba(140, 177, 51, 1)',
-            borderColor: 'rgba(140, 177, 51, 1)',
-            data: [],
-          },
-          {
-            label: 'Interest',
-            backgroundColor: 'rgba(59, 59, 59, 1)',
-            borderColor: 'rgba(59, 59, 59, 1)',
-            data: [],
-          },
-        ],
-      },
-      type: 'line',
-      options: {
-        scales: {
-          y: {
-            ticks: {
-              callback(val) {
-                return val.toLocaleString('en-IN', {
-                  style: 'currency',
-                  currency: 'INR',
-                });
-              },
+  intRateSlider.value = interestRateMinValue;
+  intRateText.value = interestRateMinValue;
+  R = parseFloat(interestRateMinValue);
+ 
+  loanPeriodSlider.value = tenureMinYearValue;
+  loanPeriodText.value = tenureMinYearValue;
+  N = parseFloat(tenureMinYearValue);
+ 
+  loanPeriodSliderMonth.value = tenureMinMonthValue;
+  loanPeriodTextMonth.value = tenureMinMonthValue;
+  M = parseFloat(tenureMinMonthValue);
+ 
+  exisitingEmiAmountSlider.value = removeCommaAndConvertToInt(existingEmiMin);
+  exisitingEmiText.value = formatNumberToIndianCommas(existingEmiMin);
+  E = removeCommaAndConvertToInt(existingEmiMin);
+ 
+  line = new Chart(document.getElementById('mylineChart'), {
+    data: {
+      labels: [],
+      datasets: [
+        {
+          label: 'Principal',
+          backgroundColor: 'rgba(140, 177, 51, 1)',
+          borderColor: 'rgba(140, 177, 51, 1)',
+          data: [],
+        },
+        {
+          label: 'Interest',
+          backgroundColor: 'rgba(59, 59, 59, 1)',
+          borderColor: 'rgba(59, 59, 59, 1)',
+          data: [],
+        },
+      ],
+    },
+    type: 'line',
+    options: {
+      scales: {
+        y: {
+          ticks: {
+            callback(val) {
+              return val.toLocaleString('en-IN', {
+                style: 'currency',
+                currency: 'INR',
+              });
             },
           },
         },
       },
-    });
+    },
+  });
  
-    pie = new Chart(document.getElementById('mypieChart'), {
-      type: 'doughnut',
-      data: {
-        // labels: ['PrinCIpal', 'Interest'],
-        datasets: [
-          {
-            data: [P, 0],
-            backgroundColor: ['rgba(140, 177, 51, 1)', 'rgba(59, 59, 59, 1)'],
-            hoverOffset: 4,
-            borderWidth: 15,
-          },
-        ],
-        options: {
-          cutoutPercentage: 30,
-          responsive: true,
-          maintainAspectRatio: false,
-        }
-      },
-    });
+  pie = new Chart(document.getElementById('mypieChart'), {
+    type: 'doughnut',
+    data: {
+      // labels: ['PrinCIpal', 'Interest'],
+      datasets: [
+        {
+          data: [P, 0],
+          backgroundColor: ['rgba(140, 177, 51, 1)', 'rgba(59, 59, 59, 1)'],
+          hoverOffset: 4,
+          borderWidth: 15,
+        },
+      ],
+      options: {
+        cutoutPercentage: 30,
+        responsive: true,
+        maintainAspectRatio: false,
+      }
+    },
+  });
  
-    displayDetails();
-  }
- 
-  initialize();
-}
-function numberToWords(num) {
-  if (num < 1000) {
-    return num.toString();
-  }
- 
-  const suffixes = [
-    [1e7, 'Crores'],
-    [1e5, 'Lakhs'],
-    [1e3, 'Thousands']
-  ];
- 
-  for (let i = 0; i < suffixes.length; i++) {
-    const [divisor, suffix] = suffixes[i];
-    if (num >= divisor) {
-      return `${Math.floor(num / divisor)} ${suffix}`;
-    }
-  }
+  displayDetails(P, R, N, M, E, line, pie, block);
 }
