@@ -233,7 +233,7 @@ const createVideoPopup = (container, videoUrl, isMp4) => {
     popup.className = 'video-popup';
     if (isMp4) {
       const video = document.createElement('video');
-      video.setAttribute('controls', true);
+      video.setAttribute('controls', false);
       const source = document.createElement('source');
       source.src = videoUrl;
       source.type = 'video/mp4';
@@ -278,65 +278,81 @@ const findCarouselSlideImage = (container) => {
 };
 
 
-const createInlineVideoPlayer  = (container, videoUrl) => {
+const createInlineVideoPlayer = (container, videoUrl) => {
   const slideContent = container.querySelector('.carousel-slide-content');
-
   const carouselSlideImage = findCarouselSlideImage(container);
-  
-   // Step 1: Create and style the play button
-   const playButton = document.createElement('button');
-   playButton.className = 'play-button';
-   playButton.innerText = '▶';
-   playButton.style.position = 'absolute';
-   playButton.style.top = '50%';
-   playButton.style.left = '50%';
-   playButton.style.transform = 'translate(-50%, -50%)';
-   playButton.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-   playButton.style.color = 'white';
-   playButton.style.border = 'none';
-   playButton.style.borderRadius = '50%';
-   playButton.style.padding = '10px 15px';
-   playButton.style.fontSize = '24px';
-   playButton.style.cursor = 'pointer';
-   playButton.style.zIndex = '10'; // Ensure it's above the video
- 
-   // Ensure container is positioned relatively
-   container.style.position = 'relative';
-   container.style.display = 'flex';
-   container.style.justifyContent = 'center';
-   container.style.alignItems = 'center';
-   
-   // Add play button to the container
-   slideContent.appendChild(playButton);
- 
-   // Step 2: Handle button click
-   playButton.onclick = (event) => {
-    const parentElement = event.target.parentNode;
-    // Get the parent of the parent (container of carousel-slide-image)
-    const grandparentElement = parentElement.parentNode;
 
-    // Find a div with class "image" inside grandparentElement
-    const imageDiv = grandparentElement.querySelector('.carousel-slide-image div');
+  const playButtonInLine = document.createElement('button');
+  playButtonInLine.className = 'play-button-v1';
+  playButtonInLine.innerText = 'Play Video';
 
-     // Remove the play button
-     playButton.remove();
-     const pictureElement = imageDiv.querySelector('picture');
-     if (pictureElement) {
-        // Hide the picture element
-        pictureElement.style.display = 'none';
+  // Create and style the play button
+  const playButton = document.createElement('button');
+  playButton.className = 'play-button';
+  playButton.innerText = '▶';
+  playButton.style.position = 'absolute';
+  playButton.style.top = '45px';
+  playButton.style.transform = 'translate(-50%, -50%)';
+  playButton.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+  playButton.style.color = 'white';
+  playButton.style.border = 'none';
+  playButton.style.borderRadius = '50%';
+  playButton.style.padding = '10px 15px';
+  playButton.style.fontSize = '24px';
+  playButton.style.cursor = 'pointer';
+  playButton.style.zIndex = '10'; // Ensure it's above the video
+
+  // Ensure container is positioned relatively
+  container.style.position = 'relative';
+  container.style.display = 'flex';
+  container.style.justifyContent = 'center';
+  container.style.alignItems = 'center';
+
+  // Add play button to the container
+  slideContent.appendChild(playButton);
+  container.querySelector('.button-container').appendChild(playButtonInLine);
+
+  // Create the video element
+  const video = document.createElement('video');
+  video.setAttribute('controls', true);
+  video.src = videoUrl;
+  video.style.width = '100%';
+  video.style.height = '100%';
+  video.style.objectFit = 'cover'; // Ensure video covers the container
+
+  let videoAppended = false;
+
+  // Handle inline button click
+  playButtonInLine.onclick = () => {
+      playButton.click();
+  };
+
+  // Handle play button click
+  playButton.onclick = (event) => {
+      const parentElement = event.target.parentNode;
+      const grandparentElement = parentElement.parentNode;
+      const imageDiv = grandparentElement.querySelector('.carousel-slide-image div');
+
+      if (!videoAppended) {
+          const pictureElement = imageDiv.querySelector('picture');
+          if (pictureElement) {
+              pictureElement.style.display = 'none';
+          }
+
+          imageDiv.appendChild(video);
+          videoAppended = true;
       }
-     // Step 3: Add the video element
-    
-       const video = document.createElement('video');
-       video.setAttribute('controls', true);
-       video.src = videoUrl;
-       video.style.width = '100%';
-       video.style.height = '100%';
-       video.style.objectFit = 'cover'; // Ensure video covers the container
-       imageDiv.appendChild(video);
-       video.play();
-    
-   };
+
+      if (video.paused) {
+          video.play();
+          playButtonInLine.innerText = 'Pause';
+          playButton.innerText = '❚❚'; // Change play button icon to pause
+      } else {
+          video.pause();
+          playButtonInLine.innerText = 'Play';
+          playButton.innerText = '▶'; // Change play button icon to play
+      }
+  };
 };
 
 
