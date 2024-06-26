@@ -414,6 +414,67 @@ function initialize(block) {
         displayDetails(P,R,N,M,line,pie,block);
     });
  
+        //for slider color event listener
+ 
+        loan_amt_slider.addEventListener('input', function() {
+            const value = this.value;
+            const maxValue = this.max; // Get the maximum value of the range input
+            const percentage = (value / maxValue) * 100;
+            this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`
+          })
+     
+          loan_amt_text.addEventListener('input', function() {
+            const value = this.value;
+            const maxValue = this.max; // Get the maximum value of the range input
+            const percentage = (value / maxValue) * 100;
+            // console.log(value);
+            loan_amt_slider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`
+          })
+     
+     
+          int_rate_slider.addEventListener('input', function() {
+            const value = this.value;
+            const percentage = ((value - interestrate_minvalue) / (interestrate_maxvalue - interestrate_minvalue)) * 100;
+             
+            // Update the background gradient with the calculated percentage
+            this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`
+          });
+         
+          int_rate_text.addEventListener('input', function() {
+            const value = this.value;
+            const percentage = ((value - interestrate_minvalue) / (interestrate_maxvalue - interestrate_minvalue)) * 100;
+            // Update the background gradient with the calculated percentage
+            int_rate_slider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`
+          });
+     
+          loan_period_slider.addEventListener("input", function() {
+            const value = this.value;
+            const percentage = ((value - tenure_min_yearvalue) / (tenure_max_yearvalue - tenure_min_yearvalue)) * 100;  
+            // Update the background gradient with the calculated percentage
+            this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`;
+          });
+     
+          loan_period_text.addEventListener("input", function() {
+            const value = this.value;
+            const percentage = ((value - tenure_min_yearvalue) / (tenure_max_yearvalue - tenure_min_yearvalue)) * 100;
+            // Update the background gradient with the calculated percentage
+            loan_period_slider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`;
+          });
+     
+          loan_period_slider_month.addEventListener("input", function() {
+            const value = this.value;
+            const percentage = ((value - tenure_min_monthvalue) / (tenure_max_monthvalue - tenure_min_monthvalue)) * 100;  
+            // Update the background gradient with the calculated percentage
+            this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`;
+          });
+     
+          loan_period_slider_month.addEventListener("input", function() {
+            const value = this.value;
+            const percentage = ((value - tenure_min_monthvalue) / (tenure_max_monthvalue - tenure_min_monthvalue)) * 100;
+            // Update the background gradient with the calculated percentage
+            loan_period_slider_month.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`;
+          });
+     
     // Error message spans
     const loanAmtError = createErrorSpan("Value should be between " + formatNumberToIndianCommas(loanAmountMinValue) + " and " + formatNumberToIndianCommas(loanAmountMaxValue));
     const interestRateError = createErrorSpan("Value should be between " + interestrate_minvalue + "% and " + interestrate_maxvalue + "%");
