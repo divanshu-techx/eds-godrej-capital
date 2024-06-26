@@ -1,0 +1,115 @@
+/* Style for accordion */
+.accordion {
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+  }
+
+  .accordion button{
+    background: inherit;
+  }
+  /* Style for accordion header */
+  .accordion-header {
+    background-color: #f1f1f1;
+    color: #333;
+    cursor: pointer;
+    padding: 10px;
+    text-align: left;
+    width: 100%;
+    border: none;
+    outline: none;
+  }
+
+  /* Style for active accordion header */
+  .accordion-header.active {
+    background-color: #ddd;
+  }
+
+  /* Style for accordion content */
+  .accordion-content {
+    display: none;
+    padding: 10px;
+    background-color: #fff;
+    overflow: hidden;
+  }
+
+  /* Style for active accordion content */
+  .accordion-content.active {
+    display: block;
+  }
+
+  /* Style for the tab container */
+.tabs-container {
+    display: flex;
+    border-bottom: 2px solid #ccc;
+}
+
+/* Style for each tab */
+.tab {
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-bottom: none;
+    background-color: #f9f9f9;
+}
+
+/* Style for the active tab */
+.tab.active {
+    background-color: #fff;
+    border-color: #ccc;
+    border-bottom: 2px solid #fff; /* Highlight bottom border to match tab border */
+}
+
+/* Style for the content of each tab */
+.tab-content {
+    display: none;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+/* Show content of active tab */
+.tab.active + .tab-content {
+    display: block;
+}
+
+/* div adjust */
+.faq-banner-container{
+  display: flex;
+  gap: 20px;
+}
+
+
+/* image setting */
+.filtered-card-container .banner-category{
+  position: relative;
+}
+
+.filtered-card-container .banner-category .banner-image{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -1;
+}
+
+.faq-banner-container .filtered-card-container{
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+
+.faq.block .d-none{
+  display: none ;
+}
+
+.faq.block .d-block{
+  display: block;
+}
+
+.faq.block .d-flex{
+  display: flex;
+}
