@@ -11,7 +11,7 @@ export default async function decorate(block) {
     // Fetch the data asynchronously
     data = await fetchData();
 
-  //   // Get distinct parents and paths from the data
+//   // Get distinct parents and paths from the data
   //   parent = getDistinctParents(data);
   //   path = getAllPaths(data);
   //   console.log(path);
@@ -205,5 +205,30 @@ function updateDropdownOptions(dropdown) {
   }
 }
 
+const accordions = document.querySelectorAll('.accordion > div');
 
+    accordions.forEach(item => {
+      const header = item.querySelector(':scope > div:nth-child(1)');
+      const content = item.querySelector(':scope > div:nth-child(2)');
 
+      header.style.cursor = 'pointer';
+      header.style.fontWeight = 'bold';
+      header.style.backgroundColor = '#f1f1f1';
+      header.style.padding = '10px';
+      header.style.border = '1px solid #ccc';
+
+      content.classList.add('accordion-content');
+
+      header.addEventListener('click', function () {
+        // Close all accordion contents
+        accordions.forEach(i => {
+          if (i !== item) {
+            i.querySelector(':scope > div:nth-child(2)').classList.remove('active');
+          }
+        });
+
+        // Toggle the current accordion content
+        content.classList.toggle('active');
+      });
+    });
+  });
