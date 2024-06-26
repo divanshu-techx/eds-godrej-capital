@@ -51,7 +51,7 @@
 }
 
 .details input[type="number"] {
-    max-width: 120px;
+    max-width: 100px;
     width: 100%;
     border: none;
     min-height: 40px;
@@ -109,12 +109,15 @@ input[type='number'] {
 }
 
 .inputDetail {
-    max-width: 300px;
+    /* max-width: 300px; */
     width: 100%;
     justify-content: end;
     display: flex;
     align-items: center;
     color: #b3b3b3;
+    @media(width >= 767px){
+        min-width: 300px;
+    }
 }
 
 .inputDetail span {
@@ -124,9 +127,14 @@ input[type='number'] {
     display: flex;
     align-items: center;
     font-size: var(--body-font-size-s);
-    width: 50px;
+    width: 40px;
     justify-content: center;
     border-radius: 4px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    @media(width <=767px){
+        background:var(--color-silver);
+    }
 }
 
 
@@ -178,6 +186,7 @@ input[type="range"] {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
+    margin-top:10px;
 
     @media (min-width: 768px) and (max-width: 900px) {
         margin-bottom: unset;
@@ -189,6 +198,9 @@ input[type="range"] {
     color: var(--color-black);
     font-size: var(--body-font-size-s);
     font-weight: 300;
+    @media(max-width: 768px){
+        font-size: var(--body-font-size-xs);
+    }
 }
 
 .breakup {
@@ -321,6 +333,10 @@ input[type="range"] {
     background-position: calc(100% - 80px) center;
     background-size: 9px 9px;
     cursor: pointer;
+    @media(max-width:769px){
+        background-position: calc(100% - 10px)center;
+
+    }
 }
 
 .tabs-container .tab-dropdown{
@@ -384,6 +400,10 @@ select:focus {
     background-color: var(--color-silver);
     padding: 20px;
     border-radius: 4px;
+    @media(max-width:768px){
+        padding:20px 0px;
+        background-color:#fff;
+    }
 }
 
 .breakup {
@@ -411,6 +431,9 @@ select:focus {
         align-items: center;
         display: flex;
         justify-content: center;
+        @media(max-width: 768px){
+justify-content: flex-start;
+        }
     }
 
     #apply-btn {
@@ -481,16 +504,22 @@ select:focus {
         width: 100%;
         text-align: center;
         margin: 10px 0;
+        @media(max-width: 768px){
+            text-align: left;;
+                    }
     }
 
     .mobile-tenure-monthYear {
         display: flex;
         justify-content: center;
         align-items: center;
+        @media(max-width: 768px){
+            justify-content: flex-start;
+                    }
     }
 
     .mobile-tenure-monthYear span {
-        margin: 0 5px;
+        margin: 0 5px 0px 0px ;
     }
 
     @media (min-width: 768px) and (max-width: 900px) {
@@ -621,7 +650,7 @@ select:focus {
     }
 
     .mobile-tenure-monthYear span {
-        margin: 0 5px;
+        margin: 0 5px 0px 0px;
     }
 
 }

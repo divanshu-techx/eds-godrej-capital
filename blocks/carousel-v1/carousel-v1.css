@@ -244,7 +244,7 @@
 
 .hero-carousel-v1 .carousel-slide-content.carousel-slide-v1-content {
   z-index:10;
-  margin: 1.5rem 2rem;
+  margin: 1.5rem 1.5rem;
   color: white;
   position: relative;
   width: var(--slide-content-width, auto);
@@ -387,7 +387,7 @@ margin-bottom: 20px;
 .hero-carousel-v1 nav{
   position: relative;
   bottom: 40px;
-  left:34px;
+  left:24px;
   @media(width >= 600px){
     position: relative;
     bottom: 40px;
