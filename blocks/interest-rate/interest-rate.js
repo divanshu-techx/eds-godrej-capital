@@ -1,16 +1,13 @@
+
+const dataUrl = getDataAttributeValueByName('queryindexurl');
+console.log(dataUrl);
 async function fetchData(apiUrl) {
   try {
     const response = await fetch(apiUrl);
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    const contentType = response.headers.get('content-type');
-    if (!contentType || !contentType.includes('application/json')) {
-      throw new Error('Response is not JSON');
-    }
-    const responseData = await response.json();
-    return responseData.data; // Access the 'data' array
+    const data = await response.json();
+    return data.data;
   } catch (error) {
+    console.error('Error fetching data:', error);
     return null;
   }
 }
@@ -21,9 +18,9 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
   }
 
   const filteredData = data.filter(
-    (item) => item.tab === selectedTab && item.dropdown === selectedOption,
+    (item) => item.parent === selectedTab && item.category === selectedOption,
   );
-
+console.log(filteredData);
   if (filteredData.length === 0) {
     return;
   }
@@ -209,7 +206,7 @@ async function decorate(block) {
         div.classList.add('interest-rate-header');
         headerDiv.appendChild(div);
       } else if (index == 1) {
-        div.classList.add('other-card');
+        div.classList.add('interest-rates');
         allCards.appendChild(div);
       } else {
         const name = div.querySelector('div p').innerHTML;
@@ -242,7 +239,7 @@ async function decorate(block) {
 
   // Create a wrapper for "Select Documents" label and dropdown
   const documentsWrapper = document.createElement('div');
-  documentsWrapper.className = 'documents-wrapper'; // You can define your own class name here
+  documentsWrapper.className = 'documents-wrapper';
 
   const tabListLabel = document.createElement('label');
   tabListLabel.textContent = 'Select Documents:';
@@ -252,14 +249,6 @@ async function decorate(block) {
   tablist.className = 'tabs-list';
   tablist.setAttribute('role', 'tablist');
 
-  const tabNames = ['KYC Documents', 'Income Documents', 'Property Documents'];
-  const dropdownOptions = [
-    'Indian Resident Salaried',
-    'Non-Resident Indian Salaried',
-    'Business Self Employed',
-    'Professional Self Employed',
-  ];
-
   const tabpanel = document.createElement('div');
   tabpanel.className = 'tabs-panel';
   tabpanel.id = 'tabpanel-tab';
@@ -267,6 +256,14 @@ async function decorate(block) {
   tabpanel.setAttribute('role', 'tabpanel');
 
   let data = [];
+  data = await fetchData(dataUrl);
+
+  if (!data) {
+    return;
+  }
+
+  const tabNames = Array.from(new Set(data.map(item => item.parent)));
+  const dropdownOptions = Array.from(new Set(data.map(item => item.category)));
 
   tabNames.forEach((tabName, i) => {
     const button = document.createElement('button');
@@ -301,16 +298,9 @@ async function decorate(block) {
   mobileCardContainer.className = 'mobile-card-container';
   tabListWrapper.insertBefore(mobileCardContainer, documentsWrapper);
 
-  const apiUrl = 'https://main--godrej-capital-internal--divanshu-techx.hlx.live/website/query-index.json';
-  data = await fetchData(apiUrl);
-
-  if (!data) {
-    return;
-  }
-
   const selectedTabButton = tablist.querySelector('button[aria-selected="true"]');
   const selectedTab = selectedTabButton ? selectedTabButton.innerHTML : tabNames[0];
-  const selectedOptionDefault = 'Indian Resident Salaried'; // Default category
+  const selectedOptionDefault = dropdownOptions[0]; // Default category
 
   renderData(data, selectedTab, selectedOptionDefault, tabpanel);
 
@@ -323,7 +313,7 @@ async function decorate(block) {
   } else {
     tablist.querySelector('button').click(); // If no tab is selected, click the first tab button
   }
-  dropdown.value = selectedOption; // Set dropdown to default value
+  dropdown.value = selectedOptionDefault; // Set dropdown to default value
 
   // Event listeners
   window.addEventListener('resize', () => handleViewportChange(tablist, tabsListDropdown, data, tabpanel));
@@ -338,3 +328,7 @@ async function decorate(block) {
 }
 
 export default decorate;
+  function getDataAttributeValueByName(name) {
+        const element = document.querySelector(`[data-${name}]`);
+        return element ? element.getAttribute(`data-${name}`) : null;
+    }
