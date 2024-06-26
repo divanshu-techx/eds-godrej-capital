@@ -129,9 +129,6 @@ input[type='number'] {
     border-radius: 4px;
 }
 
-/* .inputDetail input {
-    flex: 1;
-  } */
 
 .sub-container {
     display: flex;
@@ -276,9 +273,9 @@ input[type="range"] {
 
 /* Custom Select Style */
 select {
-    width: 100%;
-    max-width: 300px;
-    padding: 10px 15px;
+    width: 300px;
+    height: 40px;
+    padding: 8px 96px;
     border: 1px solid var(--color-dark-grey);
     border-radius: 4px;
     background-color: var(--color-white);
@@ -290,11 +287,9 @@ select {
     -moz-appearance: none;
     background-image: url('/icons/dropdown.svg');
     background-repeat: no-repeat;
-    background-position: calc(100% - 76px) center;
+    background-position: calc(100% - 80px) center;
     background-size: 9px 9px;
     cursor: pointer;
-    text-align: center;
-    text-align-last: center;
 }
 
 select option {
