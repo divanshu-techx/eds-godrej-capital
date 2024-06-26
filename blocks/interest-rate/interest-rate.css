@@ -1,0 +1,138 @@
+.section.interest-rate-container {
+
+  background-color: #F0F6E4;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.interest-rate-wrapper {
+  display: flex;
+  justify-content: center;
+
+  background-color: #F0F6E4;
+}
+
+.interest-rate.block {
+  display: flex;
+  flex-direction: column;
+  width: 1200px;
+  justify-content: center;
+}
+
+.header-div {
+  display: block;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.allCards {
+  display: flex;
+  gap: 15px;
+  justify-content: space-around;
+}
+
+.allCards .interest-card,
+.allCards .other-card {
+  flex: 0 0 250px;
+  padding: 10px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.allCards .interest-card h2,
+.allCards .other-card h3 {
+  margin: 10px 0;
+}
+
+.allCards .interest-card p,
+.allCards .other-card p {
+  margin: 5px 0;
+}
+
+.interest-card {
+  background: #8CB133;
+  color: white;
+  width: 192px !important;
+}
+
+.interest-card h2{
+  font-size: 40px;
+  font-weight: 300;
+}
+
+.other-card{
+  width: 232px;
+  height: 100px;
+  font-size:14px;
+}
+
+.documentDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.tabs-panel {
+  width: 100%;
+  background-color: #fff;
+  max-width: 1200px; /* Adjust as necessary */
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.tabs-list-wrapper{
+  display: flex;
+}
+.tabs-dropdown-label{
+  display: none !important;
+}
+
+.tabs-list-label{
+  display: none !important;
+}
+
+@media (max-width: 968px) {
+  .allCards {
+    display: none;
+  }
+
+  .tabs-list-wrapper {
+    /* flex-direction: row; Ensure the items stay in a row */
+    justify-content: space-between; /* Keep space between items */
+    align-items: flex-start;
+  }
+
+  .mobile-card-container {
+    width: 48%;
+    margin-right: 2%; /* Add some space between the columns */
+  }
+
+  .tabs-list-wrapper .documents-wrapper,
+  .tabs-list-wrapper .category-wrapper {
+    width: 48%;
+  }
+
+  .tabs-list-wrapper .tabs-list-dropdown {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .tabs-dropdown {
+    width: 100%;
+  }
+  .tabs-list-label {
+    display: block !important;
+    font-size: small;
+  }
+  .tabs-dropdown-label{
+    display : block !important;
+    font-size: small;
+  }
+}
+
+
+
+
+
