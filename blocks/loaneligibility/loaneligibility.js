@@ -230,8 +230,8 @@ function initialize(block) {
     {},
     createElement(
       'div',
-      { class: 'detail' },
-      createElement('div', { style: 'color: #3b3b3b' }, selectProductLabel),
+      { class: 'detail-select' },
+      createElement('div', { class:"detail-select-child" ,style: 'color: #3b3b3b' }, selectProductLabel),
       selectProduct
  
     ),

@@ -181,7 +181,8 @@ function initialize(block) {
     const monthly_emi_label     =  getDataAttributeValueByName('monthly-emi-label')
     const amountDetail = createElement('div', {},
         createElement('div', { class: 'detail' },
-            createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, laonamount_title),
+            //createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, laonamount_title),
+            createElement('div', { class:'title' }, laonamount_title),
             createElement('div', { class: "inputDetail" },
                 createElement('span', { class: "rupeeSpan" }, "Rs."),
                 createElement('input', { id: 'loan-amt-text', type: 'text', min: loanAmountMinValue, max: loanAmountMaxValue,  style: 'color: #3b3b3b; font-size:14px;font-weight:400' })
@@ -196,7 +197,8 @@ function initialize(block) {
  
     const interestDetail = createElement('div', {},
         createElement('div', { class: 'detail' },
-            createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, interestrate_title),
+            // createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, interestrate_title),
+            createElement('div', { class:'title' }, interestrate_title),
             createElement('div', { class: "inputDetail" },
                 createElement('span', { class: "percentSpan" }, "%"),
                 createElement('input', { id: 'interest-rate-text', type: 'number', min: interestrate_minvalue, max: interestrate_maxvalue,  style: 'color: #3b3b3b; font-size:14px;font-weight:400' })
@@ -210,7 +212,8 @@ function initialize(block) {
  
     const tenureYearsDetail = createElement('div', {},
         createElement('div', { class: 'detail' },
-            createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, tenure_title_year),
+            // createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, tenure_title_year),
+            createElement('div', { class:'title' }, tenure_title_year),
             createElement('div', { class: "inputDetail" },
                 createElement('span', { class: "yearSpan" }, "Yrs."),
                 createElement('input', { id: 'loan-period-text', type: 'number', min: tenure_min_yearvalue, max: tenure_max_yearvalue, style: 'color: #3b3b3b; font-size:14px;font-weight:400' })
@@ -224,7 +227,8 @@ function initialize(block) {
  
     const tenureMonthsDetail = createElement('div', {},
         createElement('div', { class: 'detail' },
-            createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, tenure_title_months),
+            // createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, tenure_title_months),
+            createElement('div', { class:'title' }, tenure_title_months),
             createElement('div', { class: "inputDetail" },
                 createElement('span', { class: "monthSpan" }, "Mos."),
                 createElement('input', { id: 'loan-period-month-text', type: 'number', min: tenure_min_monthvalue, max: tenure_max_monthvalue, style: 'color: #3b3b3b; font-size:14px;font-weight:400' })
