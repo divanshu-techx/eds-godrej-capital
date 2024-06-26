@@ -8,19 +8,6 @@ export default async function decorate(block) {
       div.classList.add("quicktool-item");
     }
 
-    // Add event listeners to each div
-    div.addEventListener("mouseover", () => {
-      if (!div.classList.contains("quick-apply")) {
-        div.classList.add("hovered");
-      }
-    });
-
-    div.addEventListener("mouseout", () => {
-      if (!div.classList.contains("quick-apply")) {
-        div.classList.remove("hovered");
-      }
-    });
-
     const quickToolItem = div.querySelectorAll(":scope > div");
     quickToolItem.forEach((item, index) => {
       if (index === 0) {
