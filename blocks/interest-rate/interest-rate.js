@@ -34,22 +34,30 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
   filteredData.forEach((item) => {
     let sectionIndex = 1;
 
+    // Create a container for the sections
+    const sectionsContainer = document.createElement('div');
+    sectionsContainer.className = 'sections-container';
+
     // Iterate through sections until no more titles are found
     while (item[`title_${sectionIndex}`]) {
       const title = item[`title_${sectionIndex}`].trim();
       const description = item[`description_${sectionIndex}`] || ''; // Default to empty string if description is not present
       const bulletPoints = item[`bullet_points_${sectionIndex}`] || ''; // Default to empty string if bullet points are not present
 
+      // Create section element
+      const sectionElement = document.createElement('div');
+      sectionElement.className = `section section-${sectionIndex}`;
+
       // Create paragraph element for title with bold styling
       const titleElement = document.createElement('p');
       titleElement.textContent = title;
       titleElement.style.fontWeight = 'bold'; // Set bold font weight
-      tabpanel.appendChild(titleElement);
+      sectionElement.appendChild(titleElement);
 
       // Create paragraph element for description
       const descriptionElement = document.createElement('p');
       descriptionElement.textContent = description.trim();
-      tabpanel.appendChild(descriptionElement);
+      sectionElement.appendChild(descriptionElement);
 
       // Render bullet points if available
       if (bulletPoints.trim() !== '') {
@@ -62,23 +70,46 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
           const listElement = document.createElement('ul');
           listElement.style.listStyleType = 'disc'; // Set list style to bullet points
 
-          bulletPointsList.forEach((bullet) => {
+          // Show only the first 3 bullet points initially
+          const initialBulletPoints = bulletPointsList.slice(0, 3);
+          initialBulletPoints.forEach((bullet) => {
             const listItem = document.createElement('li');
             listItem.textContent = bullet;
             listElement.appendChild(listItem);
           });
 
-          tabpanel.appendChild(listElement);
+          sectionElement.appendChild(listElement);
+
+          // Add "Read More" button if there are more than 3 bullet points
+          if (bulletPointsList.length > 3) {
+            const readMoreButton = document.createElement('button');
+            readMoreButton.textContent = 'View Complete Lists of Documents';
+            readMoreButton.className = 'read-more-button';
+
+            readMoreButton.addEventListener('click', () => {
+              const remainingBulletPoints = bulletPointsList.slice(3);
+              remainingBulletPoints.forEach((bullet) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = bullet;
+                listElement.appendChild(listItem);
+              });
+              readMoreButton.style.display = 'none'; // Hide "Read More" button after expanding
+            });
+
+            sectionElement.appendChild(readMoreButton);
+          }
         }
       }
 
-      // Add some space between sections
-      tabpanel.appendChild(document.createElement('hr'));
-
+      sectionsContainer.appendChild(sectionElement);
       sectionIndex += 1;
     }
+
+    tabpanel.appendChild(sectionsContainer);
   });
 }
+
+
 
 function handleTabClick(event, data, tablist, tabpanel, dropdown) {
   tablist.querySelectorAll('.tabs-tab').forEach((btn) => {
