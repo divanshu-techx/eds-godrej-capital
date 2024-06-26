@@ -167,7 +167,8 @@ input[type='number'] {
 .inputDetail .yearSpan,
 .inputDetail .monthSpan {
     color: var(--text-color);
-    font-weight: 400;
+    font-weight: 300;
+    font-size: 14px;
 }
 
 /* Range input */

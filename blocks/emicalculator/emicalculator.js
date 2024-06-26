@@ -274,11 +274,11 @@ function initialize(block) {
             createElement('canvas', { id: 'pieChart' }),
             createElement('div', { id: 'canvasItems' },
                 createElement('div', { class: 'intrest' },
-                    createElement('div', { style: 'color: #3b3b3b;font-size:14;font-weight:400;' }, interest_rate_label),
+                    createElement('div', { style: 'color: #000;font-size:14px;font-weight:300;' }, interest_rate_label),
                     createElement('div', { id: 'rate' })
                 ),
                 createElement('div', { class: 'tenure' },
-                    createElement('div', { style: 'color: #3b3b3b;font-size:14;font-weight:400;' }, total_tenure_label),
+                    createElement('div', { style: 'color: #000;font-size:14px;font-weight:300;' }, total_tenure_label),
                     createElement('span', { id: 'yearTenure' }), 'Y', ' | ',
                     createElement('span', { id: 'monthTenure' }), 'M'
                 ),

@@ -134,7 +134,7 @@ input[type="number"] {
 .chart-details #ct {
 	color: var(--color-charcoal-black);
 	font-size: 24px;
-	font-weight: 400;
+	font-weight: 500;
 }
 
 #price-container-emi {
@@ -146,7 +146,7 @@ input[type="number"] {
 #price-container-emi #price {
 	color: var(--color-citrus);
 	font-size: 24px;
-	font-weight: 400;
+	font-weight: 600;
 	text-align: start;
 }
 

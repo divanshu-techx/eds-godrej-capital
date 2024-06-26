@@ -132,13 +132,13 @@ export default async function decorate(block) {
     createElement(
       'div',
       { class: 'detail' },
-      createElement('div', { style: 'color: #3b3b3b' }, laonamountTitle),
+      createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, laonamountTitle),
       createElement(
         'div',
         { class: 'inputDetail' },
         createElement('span', { class: 'rupeeSpan' }, 'Rs.'),
         createElement('input', {
-          id: 'loan-amount-text', type: 'text', min: loanAmountMinValue, max: loanAmountMaxValue, step: '50000', style: 'color: #3b3b3b; font-size:14px;font-weight:400',
+          id: 'loan-amount-text', type: 'text', min: loanAmountMinValue, max: loanAmountMaxValue, step: '50000', style: 'color: #3b3b3b; font-size:14px;font-weight:300',
         }),
       ),
     ),
@@ -159,13 +159,13 @@ export default async function decorate(block) {
     createElement(
       'div',
       { class: 'detail' },
-      createElement('p', { style: 'color: #3b3b3b' }, existingEmiTitle),
+      createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, existingEmiTitle),
       createElement(
         'div',
         { class: 'inputDetail' },
         createElement('span', { class: 'rupeeSpan' }, 'Rs.'),
         createElement('input', {
-          id: 'exisiting-emi-text', type: 'text', min: existingEmiMin, max: existingEmiMax, step: '5', style: 'color: #3b3b3b; font-size:14px;font-weight:400',
+          id: 'exisiting-emi-text', type: 'text', min: existingEmiMin, max: existingEmiMax, step: '5', style: 'color: #3b3b3b; font-size:14px;font-weight:300',
         }),
       ),
     ),
@@ -186,13 +186,13 @@ export default async function decorate(block) {
     createElement(
       'div',
       { class: 'detail' },
-      createElement('div', { style: 'color: #3b3b3b' }, interestrateTitle),
+      createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, interestrateTitle),
       createElement(
         'div',
         { class: 'inputDetail' },
         createElement('span', { class: 'percentSpan' }, '%'),
         createElement('input', {
-          id: 'linterest_Rate_Text', type: 'number', min: interestRateMinValue, max: interestRateMaxValue, step: '0.5', style: 'color: #3b3b3b; font-size:14px;font-weight:400',
+          id: 'linterest_Rate_Text', type: 'number', min: interestRateMinValue, max: interestRateMaxValue, step: '0.5', style: 'color: #3b3b3b; font-size:14px;font-weight:300',
         }),
       ),
     ),
@@ -213,13 +213,13 @@ export default async function decorate(block) {
     createElement(
       'div',
       { class: 'detail' },
-      createElement('div', { style: 'color: #3b3b3b' }, tenureTitleYear),
+      createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, tenureTitleYear),
       createElement(
         'div',
         { class: 'inputDetail' },
         createElement('span', { class: 'yearSpan' }, 'Yrs.'),
         createElement('input', {
-          id: 'loanPeriodText', type: 'number', min: tenureMinYearValue, max: tenureMaxYearValue, step: '1', style: 'color: #3b3b3b; font-size:14px;font-weight:400',
+          id: 'loanPeriodText', type: 'number', min: tenureMinYearValue, max: tenureMaxYearValue, step: '1', style: 'color: #3b3b3b; font-size:14px;font-weight:300',
         }),
       ),
     ),
@@ -240,13 +240,13 @@ export default async function decorate(block) {
     createElement(
       'div',
       { class: 'detail' },
-      createElement('div', { style: 'color: #3b3b3b' }, tenureTitleMonths),
+      createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, tenureTitleMonths),
       createElement(
         'div',
         { class: 'inputDetail' },
         createElement('span', { class: 'monthSpan' }, 'Mos.'),
         createElement('input', {
-          id: 'loanPeriodMonthText', type: 'number', min: tenureMinMonthValue, max: tenureMaxMonthValue, step: '1', style: 'color: #3b3b3b; font-size:14px;font-weight:400',
+          id: 'loanPeriodMonthText', type: 'number', min: tenureMinMonthValue, max: tenureMaxMonthValue, step: '1', style: 'color: #3b3b3b; font-size:14px;font-weight:300',
         }),
       ),
     ),
@@ -281,9 +281,9 @@ export default async function decorate(block) {
       { style: 'chart-detail' },
       createElement(
         'div',
-        { id: 'price-container-emi', style: 'color:#3b3b3b' },
+        { id: 'price-container-emi', style: 'color:#3b3b3b;font-size:16px;font-weight:400;' },
         monthlyemilabel,
-        createElement('div', { id: 'MonthlyEmiPrice', style: 'color: #8cb133' }, '0'),
+        createElement('div', { id: 'MonthlyEmiPrice', style: 'color: #8cb133;font-size:24px;font-weight:600' }, '0'),
       ),
     ),
   );
@@ -312,11 +312,11 @@ export default async function decorate(block) {
       createElement('canvas', { id: "mypieChart" }),
       createElement('div', { id: 'canvasItems-loanele' },
         createElement('div', { class: 'intrest' },
-          createElement('div', { style: 'color: #3b3b3b;font-size:14;font-weight:400;' }, interestratelabel),
+          createElement('div', { style: 'color: #000;font-size:14px;font-weight:300;' }, interestratelabel),
           createElement('div', { id: 'Rate' })
         ),
         createElement('div', { class: 'tenure' },
-          createElement('div', { style: 'color: #111111;font-size:14px;font-weight:500;' }, totaltenurelabel),
+          createElement('div', { style: 'color: #000;font-size:14px;font-weight:300;' }, totaltenurelabel),
           createElement('span', { id: 'year_tenure' }), yearlabel, tenureseparator,
           createElement('span', { id: 'month_Tenure' }), monthlabel
         ),
@@ -329,8 +329,8 @@ export default async function decorate(block) {
     createElement(
       'div',
       { class: 'chart-details' },
-      createElement('div', { style: 'color: #fff; margin-right:10px;font-size:16;font-weight:400;' }, loaneligibilitylabel),
-      createElement('div', { id: 'le', style: 'color: #fff; margin-left:10px;font-size:24;font-weight:500;' }),
+      createElement('div', { style: 'color: #fff; margin-right:10px;font-size:16px;font-weight:400;' }, loaneligibilitylabel),
+      createElement('div', { id: 'le', style: 'color: #fff; margin-left:10px;font-size:24px;font-weight:500;' }),
     ),
   );
   const loanDetails = createElement(
@@ -339,8 +339,8 @@ export default async function decorate(block) {
     createElement(
       'div',
       { class: 'chart-details' },
-      createElement('div', { style: 'color: #3B3B3B' }, totalamountlabel),
-      createElement('div', { id: 'CT', style: 'color: #3B3B3B; font-size: 17px;' }),
+      createElement('div', { style: 'color: #000;font-weight:400;font-size:16px;' }, totalamountlabel),
+      createElement('div', { id: 'CT', style: 'color: #3B3B3B; font-size: 24px;font-weight:500;' }),
     ), footer,
     createElement('div', { class: 'chart-details' },
       createElement('button', { id: 'apply-btn-le' }, applynowbutton),
