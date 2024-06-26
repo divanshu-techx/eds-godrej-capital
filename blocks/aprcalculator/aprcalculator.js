@@ -26,6 +26,41 @@ function extractDataAttributes() {
   };
 }
 
+function numberToWords(num) {
+  if (num < 1000) {
+      return num.toString();
+  }
+
+  const suffixes = [
+      [1e7, 'Crores'],
+      [1e5, 'Lakhs'],
+      [1e3, 'Thousands']
+  ];
+
+  for (let i = 0; i < suffixes.length; i++) {
+      const [divisor, suffix] = suffixes[i];
+      if (num >= divisor) {
+          return `${Math.floor(num / divisor)} ${suffix}`;
+      }
+  }
+}
+
+function formatNumberToIndianCommas(number) {
+  // Convert the number to a string
+  const numStr = number.toString();
+  // Split the number into integer and decimal parts
+  const [integerPart, decimalPart] = numStr.split('.');
+
+  // Format the integer part with Indian commas
+  const lastThreeDigits = integerPart.slice(-3);
+  const otherDigits = integerPart.slice(0, -3);
+
+  const formattedNumber = otherDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + (otherDigits ? "," : "") + lastThreeDigits;
+
+  // If there's a decimal part, add it back
+  return decimalPart ? `${formattedNumber}.${decimalPart}` : formattedNumber;
+}
+
 // Function to construct HTML code based on extracted data attributes
 function constructHtmlCode({
   loanAmountTitle, loanAmountMin, loanAmountMax,
@@ -41,15 +76,15 @@ function constructHtmlCode({
           <div class="input-details">
             <label for="loanamount">${loanAmountTitle}</label>
             <span id="amountlabel">Rs</span>
-            <span id="loanamount" class="inputspan" contenteditable="true" data-min="${loanAmountMin}" data-max="${loanAmountMax}" onblur="updateDisplay()">${loanAmountMin}</span>
+            <span id="loanamount" class="inputspan" contenteditable="true" data-min="${loanAmountMin}" data-max="${loanAmountMax}" onblur="updateDisplay()">${formatNumberToIndianCommas(loanAmountMin)}</span>
           </div>
           <input type="range" id="loanamountRange" min=${loanAmountMin} max=${loanAmountMax} value=${loanAmountMin} step="5000" oninput="updateRange('loanamount')">
           <div class="input-bottom-details">
-            <span>${loanAmountMin}</span>
-            <span>${loanAmountMax}</span>
+            <span>${numberToWords(loanAmountMin)}</span>
+            <span>${numberToWords(loanAmountMax)}</span>
           </div>
           <div class="errorMsg">
-            <p id="loanamountError" class="error" style="display: none;">Value must be between ${loanAmountMin} and ${loanAmountMax}</p>
+            <p id="loanamountError" class="error" style="display: none;">Value must be between ${formatNumberToIndianCommas(loanAmountMin)} and ${formatNumberToIndianCommas(loanAmountMax)}</p>
           </div>
         </div>
 
@@ -109,8 +144,8 @@ function constructHtmlCode({
           </div>
           <input type="range" id="originationchargesRange" min=${originationChargesMin} max=${originationChargesMax} value=${originationChargesMin} step="10000" oninput="updateRange('originationcharges')">
           <div class="input-bottom-details">
-            <span>${originationChargesMin}</span>
-            <span>${originationChargesMax}</span>
+            <span>${numberToWords(originationChargesMin)}</span>
+            <span>${numberToWords(originationChargesMax)}</span>
           </div>
           <div class="errorMsg">
             <p id="originationchargesError" class="error" style="display: none;">Value must be between ${originationChargesMin} and ${originationChargesMax}</p>
@@ -281,7 +316,7 @@ function setupApplyNowButton() {
 function updateRange(id) {
   const element = document.getElementById(`${id}Range`);
   const { value } = element;
-  document.getElementById(id).textContent = value;
+  document.getElementById(id).textContent = formatNumberToIndianCommas(value);
   updateDisplay();
 }
 
