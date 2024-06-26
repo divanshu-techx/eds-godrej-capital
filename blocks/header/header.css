@@ -199,7 +199,7 @@ header nav .nav-sections .anchorClass{
   padding-right: 20px;
   color: var(--color-charcoal-black);
   font-weight: 400;
-  font-size: var(--body-font-size-xs);
+  font-size: var(--body-font-size-s);
 }
 
 header nav .nav-sections .anchorClass.rotate{
