@@ -95,7 +95,7 @@
   border-radius: 5px;
 }
 
-.page-button.active {
+.page-button.page_active {
   background-color: #007bff;
   color: white;
 }
@@ -195,7 +195,3 @@
   border-radius: 5px;
 }
 
-.page-button.active {
-  background-color: #007bff;
-  color: white;
-}

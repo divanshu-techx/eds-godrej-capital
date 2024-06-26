@@ -123,7 +123,7 @@ export default async function decorate(block) {
         pageButton.textContent = i;
         pageButton.className = 'page-button';
         if (i === currentPage) {
-          pageButton.classList.add('active');
+          pageButton.classList.add('page_active');
         }
         pageButton.addEventListener('click', () => {
           renderPage(i);
