@@ -5,10 +5,14 @@ header .nav-wrapper {
   /* z-index: 2;
   position: fixed; */
   box-shadow: 2px 2px 4px rgb(0 0 0 / 16%);
+
+  @media(width <= 900px){
+    background-color:var(--color-silver) ;
+  }
 }
 
 header{
-  z-index: 10;
+  z-index: 1000;
   position: fixed;
   width:100%;
   top:0;
@@ -19,7 +23,7 @@ header nav {
   box-sizing: border-box;
   display: grid;
   grid-template:
-    'hamburger brand tools' var(--nav-height)
+    'brand tools hamburger' var(--nav-height)
     'sections sections sections' 1fr / auto 1fr auto;
   align-items: center;
   gap: 0 2em;
@@ -32,7 +36,7 @@ header nav {
 
 header nav[aria-expanded="true"] {
   grid-template:
-    'hamburger brand' var(--nav-height)
+    'brand hamburger' var(--nav-height)
     'sections sections' 1fr
     'tools tools' var(--nav-height) / auto 1fr;
   overflow-y: auto;
@@ -70,8 +74,9 @@ header nav a:any-link {
 header nav .nav-hamburger {
   grid-area: hamburger;
   height: 22px;
+  justify-content: end;
   display: flex;
-  align-items: center;
+  align-items: end;
 }
 
 header nav .nav-hamburger button {
@@ -80,7 +85,7 @@ header nav .nav-hamburger button {
   border: 0;
   border-radius: 0;
   padding: 0;
-  background-color: var(--background-color);
+  /* background-color: var(--background-color); */
   color: inherit;
   overflow: initial;
   text-overflow: initial;
@@ -192,34 +197,32 @@ header nav .nav-sections .anchorClass{
   text-decoration: none;
   position: relative; 
   padding-right: 20px;
+  color: var(--color-charcoal-black);
+  font-weight: 400;
+  font-size: var(--body-font-size-xs);
 }
 
 header nav .nav-sections .anchorClass.rotate{
   text-decoration: none;
   position: relative; 
   padding-right: 20px;
-  color:green;
+  color:var(--color-citrus);
 }
 
 header nav .nav-sections .anchorClass::after{
   position: absolute;
-  right: 10px;
-  top: 50%;
-  width: 6px;
-  height: 6px;
-  margin-top: -5px;
-  border-width: 0 2px 2px 0;
-  border-style: solid;
-  transform-origin: 75% 75%;
-  transform: rotate(45deg);
+  transform: rotate(0deg);
+  margin-left:4px;
   transition: transform 0.1s ease;
-  content: "";
+  content: url(/icons/dropdown.svg);
   box-sizing: content-box;
+  color:var(--color-charcoal-black);
 }
 
 header nav .nav-sections .anchorClass.rotate::after{
-  transform: rotate(225deg);
-  color:green;
+  transform: rotate(180deg);
+  color:var(--color-citrus);
+  fill: #8cb133;
 }
 
 header nav .nav-sections .belowNavMainContainer.show{
@@ -236,7 +239,7 @@ header nav .nav-sections .belowNavMainContainer{
 header nav .nav-sections .belowNavMainContainer {
   height: auto;
   max-width: 1200px;
-  background-color: #fff;
+  background-color: var(--background-color);
   box-sizing: border-box;
   margin: 0 auto;
   padding: 10px;
@@ -321,7 +324,7 @@ header nav .nav-sections .belowNavMainContainer .thirdElementDiv .columns p a{
   width: 100%;
   box-sizing: border-box;
   padding: 20px;
-  background-color: #fff;
+  background-color: var(--color-white);
 }
 
 .columns > div {
@@ -331,7 +334,7 @@ header nav .nav-sections .belowNavMainContainer .thirdElementDiv .columns p a{
 
 .columns > div > div:first-child {
   margin-right: 20px;
-  background-color: #fff;
+  background-color: var(--color-white);
   width: 50%;
   overflow: hidden;
   word-wrap: break-word;
@@ -359,12 +362,6 @@ header nav .nav-sections .belowNavMainContainer .thirdElementDiv .columns p a{
   text-wrap: balance;
   margin-top: 10px;
   margin-bottom: 10px;
-}
-
-.columns > div > div:last-child{
-  /* margin-right: 20px;
-  background-color: blue;
-  width: 50%; */
 }
 
 .columns img {
@@ -395,7 +392,7 @@ header nav .nav-sections .firstElementChildDiv ul {
 }
 
 .firstElementChildDiv li {
-  background-color: #fff;
+  background-color: var(--color-white);
   padding: 10px 40px;
 }
 
@@ -446,8 +443,8 @@ header nav .nav-sections ul > li > ul > li {
 
   header nav .nav-sections ul {
     display: flex;
-    gap: 2em;
-    margin: 0;
+    /* gap: 2em; */
+    margin: 0 25px;
     font-size: var(--body-font-size-xs);
   }
 
@@ -493,6 +490,9 @@ header nav .nav-sections ul > li > ul > li {
 /* tools */
 header nav .nav-tools {
   grid-area: tools;
+  @media (width <= 900px){
+    display:none;
+  }
 }
 
 header nav .nav-tools .default-content-wrapper p{
@@ -508,7 +508,7 @@ header nav .nav-tools input[type=text]{
   box-sizing: border-box;
   border: none;
   font-size: 16px;
-  background-color: white;
+  background-color: var(--color-white);
   background-image: url('/icons/search.svg');
   background-position: 10px 10px; 
   background-repeat: no-repeat;
@@ -516,13 +516,14 @@ header nav .nav-tools input[type=text]{
 }
 
 .header .section .default-content-wrapper .button-container a{
-  background:#3CB8FF;
+  background:var(--color-sky-dark);
   border-radius:2px;
   box-sizing: border-box;
-  padding:8px 8px;
+  padding:12px 20px;
   font-size: 14px;
   display:block!important;
-  color:white;
+  color:var(--color-white);
+  font-weight: 500;
 }
 
 .firstElementChildDiv ul {
@@ -546,7 +547,6 @@ header nav .nav-tools input[type=text]{
 
 .belowNavMainContainer .secondElementDiv li.listElement {
   padding: 10px 40px;
-  /* border-bottom: 1px solid #b8b8b8; */
 }
 
 .header-wrapper {
@@ -559,10 +559,8 @@ header nav .nav-tools input[type=text]{
 
 .subheader {
   order: 1;
-  background: #F4F4F4;
-  ;
-
-  @media (width <= 786px){
+  background:var(--color-silver);
+  @media (width <= 900px){
     display:none;
   }
 }
@@ -570,12 +568,13 @@ header nav .nav-tools input[type=text]{
 .subheader .subheader-wrapper .default-content-wrapper ul{
   display:flex;
   justify-content: end;
-  font-size:12px;
+  font-size:var(--body-3-desktop);
   gap:2em;
   list-style: none;
   line-height: 21px;
-  margin:10px;
+  margin:10px 0;
   padding:0;
+  color:var(--color-charcoal-black);
 }
 
 .subheader .subheader-wrapper .default-content-wrapper ul .subheader-list{
@@ -584,11 +583,14 @@ header nav .nav-tools input[type=text]{
   align-items: center;
   gap:5px;
   cursor: pointer;
+  font-size: var(--paragraph-1);
+  font-weight:400;
 }
 
 .subheader .subheader-wrapper .default-content-wrapper ul .subheader-list a:any-link{
 text-decoration: none;
-color:black;
+font-size: var(--paragraph-1);
+color:var(--color-charcoal-black);
 }
 
 .subheader .subheader-wrapper .default-content-wrapper ul .subheader-list picture{

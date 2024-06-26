@@ -1,8 +1,7 @@
-// Exported default async function to decorate the block
 export default async function decorate() {
     initializetabs();
 }
-
+ 
 // Function to initialize tabs dynamically
 function initializetabs() {
     const mainElement = document.querySelector('main');
@@ -15,9 +14,17 @@ function initializetabs() {
             const tabsContainer = document.createElement('div');
             tabsContainer.classList.add('tabs-container');
  
+            //create a div for button wrapper
+            const buttonWrapper=document.createElement('div');
+            buttonWrapper.classList.add('button-container');
+ 
             // Create a new container for tab buttons
             const buttonContainer = document.createElement('div');
-            buttonContainer.classList.add('button-container');
+            buttonContainer.classList.add('buttonWrapper');
+ 
+            // Create a select element for mobile dropdown
+            const dropdown = document.createElement('select');
+            dropdown.classList.add('tab-dropdown');
  
             let initialTabIndex = 0; // Default to the first tab
  
@@ -25,7 +32,7 @@ function initializetabs() {
             calSections.forEach((section, index) => {
                 // Get the data-tab-title attribute value
                 const tabTitle = section.getAttribute('data-tab-title') || `Tab ${index + 1}`;
- 
+               
                 // Create Tab button
                 const tabButton = document.createElement('button');
                 tabButton.textContent = tabTitle;
@@ -33,11 +40,19 @@ function initializetabs() {
                     activateTab(section, index);
                 });
                 buttonContainer.appendChild(tabButton);
+                buttonWrapper.appendChild(buttonContainer)
+ 
+                // Create dropdown option
+                const option = document.createElement('option');
+                option.textContent = tabTitle;
+                option.value = index;
+                dropdown.appendChild(option);
  
                 // Check if this section is marked as active
                 if (section.getAttribute('data-active') === 'true') {
                     initialTabIndex = index;
                     tabButton.classList.add('active');
+                    dropdown.value = index;
                 }
  
                 // Hide the section initially (except for the active one)
@@ -45,27 +60,28 @@ function initializetabs() {
                     section.style.display = 'none';
                 }
             });
-            tabsContainer.appendChild(buttonContainer);
+ 
+            tabsContainer.appendChild(buttonWrapper);
+            tabsContainer.appendChild(dropdown);
+ 
+            dropdown.addEventListener('change', (event) => {
+                activateTab(calSections[event.target.value], parseInt(event.target.value));
+            });
  
             function activateTab(selectedSection, index) {
                 // Hide all sections except the selected one
                 calSections.forEach((section, i) => {
-                    if (i === index) {
-                        section.style.display = 'block';
-                    } else {
-                        section.style.display = 'none'; // Hide inactive tab content
-                    }
+                    section.style.display = i === index ? 'block' : 'none';
                 });
  
                 // Update the active state of tab buttons
                 const tabButtons = buttonContainer.querySelectorAll('button');
                 tabButtons.forEach((button, i) => {
-                    if (i === index) {
-                        button.classList.add('active');
-                    } else {
-                        button.classList.remove('active');
-                    }
+                    button.classList.toggle('active', i === index);
                 });
+ 
+                // Update the dropdown value
+                dropdown.value = index;
             }
  
             // Append tabsContainer after heroCarouselSecondary

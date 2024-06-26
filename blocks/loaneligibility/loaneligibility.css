@@ -1,27 +1,3 @@
-.container {
-    height: auto;
-    width: 700px;
-    border-radius: 20px;
-    padding: 20px;
-    margin: 50px 0;
-    background-image: linear-gradient(to bottom left, #e4dfec, white, white);
-}
-.sub-container {
-    display: flex;
-    width: 100%;
-    gap: 50px;
-    height: max-content;
-}
- 
-/* .header {
-    width: 100%;
-    height: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 30px;
-} */
- 
 .header button {
     height: max-content;
     width: max-content;
@@ -31,217 +7,146 @@
     font-size: 35px;
     color: #8cb133;
 }
- 
+
 .header button:hover {
     cursor: pointer;
 }
- 
+
 .details input {
     width: 100%;
 }
- 
+
 .detail {
-    /* display: flex;
-    justify-content: space-between; */
     font-size: 14px;
     align-items: center;
-    @media (min-width: 768px){
-display: flex;
-justify-content: space-between;
+    display: flex;
+
+    @media (min-width: 768px) {
+        display: flex;
+        justify-content: space-between;
     }
 
 }
- 
+
 .footer {
     display: flex;
     justify-content: space-between;
 }
- 
-input[type="range"] {
-    appearance: none;
-    width: 100%;
-}
- 
-input[type="range"]:focus {
-    outline: none;
-}
- 
-input[type="range"]::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 6px;
-    cursor: pointer;
-    background: #8cb133;
-    border-radius: 10px;
-}
- 
-input[type="range"]::-webkit-slider-thumb {
-    box-shadow: 2px 2px 5px #b3b3b3, -1px -1px 3px grey;
-    /* border: 5px solid #fff; */
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    background: #8cb133;
-    cursor: pointer;
-    margin-top: -6px;
-    appearance: none;
-}
- 
-input[type="range"]:focus::-webkit-slider-runnable-track {
-    background: #b3b3b3;
-}
- 
-input[type="range"]::-moz-range-track {
-    width: 100%;
-    height: 6px;
-    cursor: pointer;
-    background: #8cb133;
-    border-color: transparent;
-    border-width: 16px 0;
-    color: transparent;
-    border-radius: 10px;
-}
- 
-input[type="range"]::-moz-range-thumb {
-    box-shadow: 2px 2px 5px #b3b3b3, -1px -1px 3px grey;
-    border: 5px solid #ffff;
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    background: #8cb133;
-    cursor: pointer;
-    margin-top: -6px;
-}
- 
-input[type="range"]::-ms-track {
-    width: 100%;
-    height: 6px;
-    cursor: pointer;
-    background: #8cb133;
-    border-color: transparent;
-    border-width: 16px 0;
-    color: transparent;
-    border-radius: 10px;
-}
- 
-input[type="range"]::-ms-fill-lower {
-    background: #8cb133;
-    border-radius: 5px;
-}
- 
-input[type="range"]::-ms-fill-upper {
-    background: #8cb133;
-    border-radius: 5px;
-}
- 
-input[type="range"]::-ms-thumb {
-    box-shadow: 2px 2px 5px #b3b3b3, -1px -1px 3px grey;
-    border: 5px solid #fff;
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    background: #8cb133;
-    cursor: pointer;
-    margin-top: -6px;
-}
- 
-input[type="range"]:focus::-ms-fill-lower {
-    background: #8cb133;
-}
- 
-input[type="range"]:focus::-ms-fill-upper {
-    background: #8cb133;
-}
- 
+
+
 #MonthlyEmiPrice {
     color: #130f31;
     font-size: 25px;
 }
- 
+
 #price-container {
     color: #8cb133;
     margin-top: 50px;
 }
- 
+
 #price-container::before {
     content: "Monthly Payable:";
     font-size: 12px;
     display: block;
 }
- 
- 
-.range-values {
-    display: flex;
-    justify-content: space-between;
-}
- 
+
 .details input[type="number"] {
     max-width: 120px;
     width: 100%;
     border: none;
-    height: 40px;
+    min-height: 40px;
+    height: 100%;
     border-radius: 4px;
     text-align: end;
+    padding: 0;
 }
- 
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  appearance: none;
-  margin: 0;
+    appearance: none;
+    margin: 0;
 }
- 
+
 /* Firefox */
 input[type='number'] {
-  appearance: textfield;
+    appearance: textfield;
 }
- 
+
 #mypieChart {
-    width: 300px !important;
-    height: 300px !important;
+    max-width: 300px !important;
+    width: 100%;
+    max-height: 300px !important;
+    height: 100%;
     display: block;
     box-sizing: border-box;
+
+    @media(width <=900px) {
+        display: none;
+    }
 }
- 
+
+.chart-detail-adjust {
+    display: flex;
+    align-items: center;
+}
+
+.chart-details .details-span-interest {
+    width: 20px !important;
+    height: 20px !important;
+    display: inline-block;
+    background: var(--color-charcoal-black);
+    border-radius: 4px;
+    /* margin: 0px 5px; */
+}
+
+.chart-details .details-span-principal {
+    width: 20px !important;
+    height: 20px !important;
+    display: inline-block;
+    background: var(--color-citrus);
+    border-radius: 4px;
+    /* margin: 0px 5px; */
+}
+
 .inputDetail {
-    min-width: 300px;
+    max-width: 300px;
+    width: 100%;
     justify-content: end;
     display: flex;
     align-items: center;
-    color:#b3b3b3;
-  }
- 
-  .inputDetail span {
+    color: #b3b3b3;
+}
+
+.inputDetail span {
     margin-right: 1px;
-    background: white;
+    background: var(--color-white);
     height: 40px;
     display: flex;
     align-items: center;
-    font-size:14px;
+    font-size: var(--body-font-size-s);
     width: 50px;
     justify-content: center;
     border-radius: 4px;
-  }
- 
-  .inputDetail input {
-    flex: 1;
-  }
-
-/* Container for the entire section */
-.sub-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center; /* Center align items */
-    max-width: 1200px; /* Max width of the container */
-    margin: 0 auto; /* Center container horizontally */
 }
 
-/* Each view section within sub-container */
+/* .inputDetail input {
+    flex: 1;
+  } */
+
+.sub-container {
+    display: flex;
+    gap: 20px;
+}
+
 .view {
-    flex: 1 1 300px; /* Flex properties for responsiveness */
-    background-color: #f2f2f2;
+    background-color: var(--color-silver);
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    max-width: 772px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    border-radius: 4px;
 }
 
 /* Label text styling */
@@ -261,9 +166,8 @@ input[type='number'] {
 .inputDetail .percentSpan,
 .inputDetail .yearSpan,
 .inputDetail .monthSpan {
-    margin-right: 5px;
-    color: #b3b3b3;
-    font-weight: bold;
+    color: var(--text-color);
+    font-weight: 400;
 }
 
 /* Range input */
@@ -275,23 +179,21 @@ input[type="range"] {
 .range-values {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 10px;
+
+    @media (min-width: 768px) and (max-width: 900px) {
+        margin-bottom: unset;
+    }
 }
 
 .range-values .min-value,
 .range-values .max-value {
-    color: #3b3b3b;
-    font-size: 14px;
+    color: var(--color-black);
+    font-size: var(--body-font-size-s);
+    font-weight: 300;
 }
 
-/* Error message */
-.error-message {
-    color: red;
-    display: none;
-}
-
-/* Breakup section */
 .breakup {
-    flex: 1 1 300px;
     border-radius: 8px;
     display: flex;
     justify-content: space-between;
@@ -302,18 +204,11 @@ input[type="range"] {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .canvasDetail {
     position: relative;
-}
-
-.loan-details-upper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
 }
 
 .loan-details {
@@ -321,17 +216,15 @@ input[type="range"] {
 }
 
 #apply-btn-le {
-    background-color: #3CB8FF;
-    color: white;
-    border: none;
-    padding: 10px 20px;
+    padding: 12px 20px 12px 20px;
+    background: var(--color-sky);
+    font-weight: 500;
+    color: var(--color-white);
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
-    margin-top: 20px;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 2px;
     transition: background-color 0.3s ease;
 }
 
@@ -345,32 +238,413 @@ input[type="range"] {
         flex-direction: column;
         gap: 10px;
     }
-    .view, .breakup {
+
+    .view,
+    .breakup {
         flex: 1 1 100%;
     }
 }
+
 .loan-details {
-    max-width: 540px; 
+    max-width: 540px;
     height: auto;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     gap: 10px;
     background: rgba(244, 244, 244, 1);
-    padding: 20px 20px;
+    padding: 18px 18px;
     font-size: 16px;
     color: rgba(0, 0, 0, 1);
     border-radius: 4px;
-  }
-
-  .loan-eligiblity-details{
-    width: 100%;
-    background:  #8cb133;
-    color: #fff;
 }
+
+.loan-eligiblity-details {
+    width: 100%;
+    background: #8cb133;
+    color: #fff;
+    padding: 20px 0;
+}
+
 .loan-eligiblity-details .chart-details {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+}
+
+/* Custom Select Style */
+select {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px 15px;
+    border: 1px solid var(--color-dark-grey);
+    border-radius: 4px;
+    background-color: var(--color-white);
+    font-weight: 400;
+    font-size: var(--body-font-size-default);
+    color: var(--color-charcoal-black);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('/icons/dropdown.svg');
+    background-repeat: no-repeat;
+    background-position: calc(100% - 76px) center;
+    background-size: 9px 9px;
+    cursor: pointer;
+    text-align: center;
+    text-align-last: center;
+}
+
+select option {
+    background-color: var(--color-white);
+    color: var(--color-charcoal-black);
+    padding: 10px;
+    border-bottom: 1px solid var(--color-dark-grey);
+}
+
+select:hover,
+select:focus {
+    border-color: var(--color-ruby);
+    outline: none;
+}
+
+#loan-amount-text {
+    padding-right: 10px;
+}
+
+#exisiting-emi-text {
+    padding-right: 10px;
+}
+
+#linterest_Rate_Text {
+    padding-right: 10px;
+}
+
+#loanPeriodText {
+    padding-right: 10px;
+}
+
+#loanPeriodMonthText {
+    padding-right: 10px;
+}
+
+.view {
+    max-width: 772px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--color-silver);
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.breakup {
+    max-width: 540px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.sub-container {
+    display: flex;
+    gap: 20px;
+}
+
+/* ------------- */
+.mobile-loaneligible {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+
+    .mobile-tenure-apply {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
+
+    #apply-btn {
+        background: var(--color-sky-dark);
+        border-radius: 2px;
+        box-sizing: border-box;
+        padding: 7px 16px;
+        font-size: 14px;
+        display: block !important;
+        color: var(--color-white);
+        font-weight: 500;
+    }
+
+    .mobile-tenure-monthYear {
+        font-size: 12px;
+        font-weight: 400;
+        color: #757575;
+    }
+
+    .mobile-tenure-amount-detail {
+        font-size: 12px;
+        font-weight: 400;
+        color: #757575;
+    }
+
+    .mobile-tenure-amount-label {
+        font-size: 14px;
+        font-weight: 500;
+        color: #111111;
+    }
+
+    .mobile-tenure-interest-label {
+        font-size: 14px;
+        font-weight: 500;
+        color: #111111;
+    }
+
+    .mobile-tenure-interest-rate {
+        font-size: 12px;
+        color: #000000;
+        font-weight: 300;
+    }
+
+    .mobile-tenure-emi-label {
+        font-size: 18px;
+        color: #282828;
+        font-weight: 400;
+    }
+
+    .mobile-tenure-emi {
+        display: flex;
+        justify-content: center;
+    }
+
+    .mobile-tenure-emi-details {
+        color: #9fc355;
+        font-size: 32px;
+        font-weight: 700;
+    }
+
+    .mobile-breakup-left {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .mobile-breakup-left>div {
+        width: 100%;
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .mobile-tenure-monthYear {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .mobile-tenure-monthYear span {
+        margin: 0 5px;
+    }
+
+    @media (min-width: 768px) and (max-width: 900px) {
+        display: block;
+        max-width: 273px;
+        width: 100%;
+        box-sizing: border-box;
+        background-color: var(--color-silver);
+        padding: 20px;
+        border-radius: 4px;
+    }
+
+    @media(width >=901px) {
+        display: none;
+    }
+}
+
+#apply-btn {
+    background: var(--color-sky-dark);
+    border-radius: 2px;
+    box-sizing: border-box;
+    padding: 7px 16px;
+    font-size: 14px;
+    display: block !important;
+    color: var(--color-white);
+    font-weight: 500;
+}
+
+.mobile-tenure-right {
+    justify-content: space-around;
+    display: flex;
+    flex-direction: column;
+}
+
+
+@media (min-width: 769px) and (max-width: 900px) {
+    .mobile-breakup-left {
+        text-align: center;
+    }
+
+    .mobile-tenure-right {
+        text-align: center;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 900px) {
+    .mobile-tenure-apply {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
+
+    #apply-btn {
+        background: var(--color-sky-dark);
+        border-radius: 2px;
+        box-sizing: border-box;
+        padding: 7px 16px;
+        font-size: 14px;
+        display: block !important;
+        color: var(--color-white);
+        font-weight: 500;
+    }
+
+    .mobile-tenure-monthYear {
+        font-size: 12px;
+        font-weight: 400;
+        color: #757575;
+    }
+
+    .mobile-tenure-amount-detail {
+        font-size: 12px;
+        font-weight: 400;
+        color: #757575;
+    }
+
+    .mobile-tenure-amount-label {
+        font-size: 14px;
+        font-weight: 500;
+        color: #111111;
+    }
+
+    .mobile-tenure-interest-label {
+        font-size: 14px;
+        font-weight: 500;
+        color: #111111;
+    }
+
+    .mobile-tenure-interest-rate {
+        font-size: 12px;
+        color: #000000;
+        font-weight: 300;
+    }
+
+    .mobile-tenure-emi-label {
+        font-size: 18px;
+        color: #282828;
+        font-weight: 400;
+    }
+
+    .mobile-tenure-emi {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .mobile-tenure-emi-details {
+        color: #9fc355;
+        font-size: 32px;
+        font-weight: 700;
+    }
+
+    .mobile-breakup-left {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .mobile-breakup-left>div {
+        width: 100%;
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .mobile-tenure-monthYear {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .mobile-tenure-monthYear span {
+        margin: 0 5px;
+    }
+
+}
+
+
+.breakupdesktop {
+    @media(width <=900px) {
+        display: none;
+    }
+
+    @media(width >=901px) {
+        display: block;
+    }
+}
+
+@media(width <=900px) {
+    .breakup.breadup-loaneli {
+        display: none;
+    }
+}
+
+#apply-btn-loan {
+    background: var(--color-sky-dark);
+    border-radius: 2px;
+    box-sizing: border-box;
+    padding: 7px 16px;
+    font-size: 14px;
+    display: block !important;
+    color: var(--color-white);
+    font-weight: 500;
+}
+
+.mobile-loaneligibale {
+    background-color: #8cb133;
+    color: #fff;
+}
+
+input[type="range"] {
+    appearance: none;
+    width: 100%;
+}
+
+input[type="range"]:focus {
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    box-shadow: 2px 2px 5px var(--color-dark-grey-secondary), -1px -1px 3px grey;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: var(--color-citrus);
+    cursor: pointer;
+    margin-top: -6px;
+    appearance: none;
+}
+
+input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    background: var(--color-citrus);
+    border-color: transparent;
+    border-width: 16px 0;
+    color: transparent;
+    border-radius: 4px;
 }
