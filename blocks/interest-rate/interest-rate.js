@@ -274,8 +274,7 @@ async function decorate(block) {
     button.setAttribute('aria-selected', i === 0);
     button.setAttribute('role', 'tab');
     button.setAttribute('type', 'button');
-    button.addEventListener('click', (event) =>
-      handleTabClick(event, data, tablist, tabpanel, dropdown));
+    button.addEventListener('click', (event) => handleTabClick(event, data, tablist, tabpanel, dropdown));
     tablist.append(button);
   });
 
