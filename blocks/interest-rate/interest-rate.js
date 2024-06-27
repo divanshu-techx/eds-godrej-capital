@@ -17,7 +17,7 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
   }
 
   const filteredData = data.filter(
-    (item) => item.parent === selectedTab && item.category === selectedOption
+    item => item.parent === selectedTab && item.category === selectedOption
   );
   if (filteredData.length === 0) {
     return;
@@ -25,7 +25,7 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
 
   // Clear previous data
   tabpanel.innerHTML = '';
-  // Display the filtered data
+
   filteredData.forEach((item) => {
     let sectionIndex = 1;
 
@@ -331,7 +331,6 @@ async function decorate(block) {
   window.addEventListener('resize', () =>
     handleViewportChange(tablist, tabsListDropdown)
   );
-
   handleViewportChange(tablist, tabsListDropdown);
 }
 
