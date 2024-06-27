@@ -113,7 +113,7 @@ function handleTabClick(event, data, tablist, tabpanel, dropdown) {
   tablist.querySelectorAll('.tabs-tab').forEach((btn) => {
     btn.setAttribute('aria-selected', 'false');
     btn.style.backgroundColor = 'white';
-    btn.style.color = 'black'; // Fix: Removed extra closing parenthesis
+    btn.style.color = 'black';
   });
   event.target.setAttribute('aria-selected', 'true');
   event.target.style.backgroundColor = 'var(--background-color)';
@@ -272,97 +272,38 @@ async function decorate(block) {
 
   const data = await fetchData(dataUrl);
 
-    data.forEach((item) => {
-      const interestCard = document.createElement('div');
-      interestCard.classList.add('interest-card');
-
-      const titleElement = document.createElement('div');
-      titleElement.textContent = item.title;
-      titleElement.classList.add('interest-title');
-      interestCard.appendChild(titleElement);
-
-      const descriptionElement = document.createElement('div');
-      descriptionElement.textContent = item.description;
-      descriptionElement.classList.add('interest-description');
-      interestCard.appendChild(descriptionElement);
-
-      const bulletPointsElement = document.createElement('ul');
-      bulletPointsElement.classList.add('interest-bullets');
-      item.bullet_points.forEach((bullet) => {
-        const bulletPoint = document.createElement('li');
-        bulletPoint.textContent = bullet;
-        bulletPointsElement.appendChild(bulletPoint);
-      });
-      interestCard.appendChild(bulletPointsElement);
-
-      allCards.appendChild(interestCard);
-    });
-
-    // Handle tab click event
-    function handleTabClick(event) {
-      const selectedTab = event.target.dataset.tab;
-      const selectedOption = dropdown.value;
-      renderData(data, selectedTab, selectedOption, tabpanel);
+  data.forEach((item) => {
+    const optionElement = document.createElement('option');
+    optionElement.value = item.category;
+    optionElement.text = item.category;
+    if (selectedOption === item.category) {
+      optionElement.selected = true;
     }
-
-    // Add event listeners to tab buttons
-    tablist.querySelectorAll('.tabs-tab').forEach((tab) => {
-      tab.addEventListener('click', handleTabClick);
-    });
-
-    // Handle dropdown change event
-    dropdown.addEventListener('change', () => {
-      const selectedTab = tablist.querySelector('.tabs-tab[aria-selected="true"]').dataset.tab;
-      const selectedOption = dropdown.value;
-      renderData(data, selectedTab, selectedOption, tabpanel);
-    });
-
-    // Initially render data for the default tab and dropdown value
-    const initialTab = tablist.querySelector('.tabs-tab').dataset.tab;
-    const initialOption = dropdown.value;
-    renderData(data, initialTab, initialOption, tabpanel);
-
-    // Handle viewport changes
-    function handleViewportChange() {
-      if (window.innerWidth <= 968) {
-        tablist.style.display = 'none';
-        tabsListDropdown.style.display = 'block';
-        tabsListLabel.style.display = 'block';
-        allCards.forEach((card) => {
-          if (card.id === selectedOption) {
-            card.style.display = 'block';
-            mobileCardContainer.innerHTML = '';
-            mobileCardContainer.appendChild(card.cloneNode(true));
-          } else {
-            card.style.display = 'none';
-          }
-        });
-      } else {
-        tablist.style.display = 'flex';
-        tabsListDropdown.style.display = 'none';
-        tabsListLabel.style.display = 'block';
-        allCards.forEach((card) => {
-          card.style.display = 'flex';
-        });
-        mobileCardContainer.innerHTML = '';
-      }
-    }
-
-    // Event listener for viewport changes
-    window.addEventListener('resize', handleViewportChange);
-    handleViewportChange(); // Initial call to set initial state
-
-    // Append interestRateBlock to the DOM
-    block.appendChild(interestRateBlock);
-  }
-
-  // Initialize decoration on DOMContentLoaded
-  document.addEventListener('DOMContentLoaded', () => {
-    const blocks = document.querySelectorAll('.block');
-    blocks.forEach((block) => {
-      if (block.classList.contains('decorate')) {
-        decorate(block);
-      }
-    });
+    dropdown.add(optionElement);
   });
 
+  tablist.addEventListener('click', (event) => {
+    if (event.target && event.target.nodeName === 'BUTTON') {
+      handleTabClick(event, data, tablist, tabpanel, dropdown);
+    }
+  });
+
+  dropdown.addEventListener('change', () =>
+    handleDropdownChange(data, tablist, tabpanel, dropdown)
+  );
+
+  handleViewportChange(tablist, tablist.querySelector('.tabs-list-dropdown'));
+
+  window.addEventListener('resize', () =>
+    handleViewportChange(tablist, tablist.querySelector('.tabs-list-dropdown'))
+  );
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const blocks = document.querySelectorAll('.block');
+  blocks.forEach((block) => {
+    if (block.classList.contains('interest-rate')) {
+      decorate(block);
+    }
+  });
+});
