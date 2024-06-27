@@ -23,8 +23,9 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
 
   const filteredData = data.filter(
     (item) => item.parent === selectedTab && item.category === selectedOption);
-  if (filteredData.length === 0) {
-    return; }
+
+  if (filteredData.length === 0) {return; }
+
   tabpanel.innerHTML = '';
 
   filteredData.forEach((item) => {
@@ -257,8 +258,7 @@ async function decorate(block) {
   documentsWrapper.appendChild(tabListLabel);
   documentsWrapper.appendChild(tablist);
   documentsWrapper.appendChild(
-    createDropdownForTabs(['Tab1', 'Tab2'], tablist, [], tabpanel, dropdown) // Replace with actual tab names and data
-  );
+    createDropdownForTabs(['Tab1', 'Tab2'], tablist, [], tabpanel, dropdown));
 
   tabListWrapper.appendChild(categoryWrapper);
   tabListWrapper.appendChild(tabpanel);
@@ -291,8 +291,7 @@ async function decorate(block) {
   handleViewportChange(tablist, tablist.querySelector('.tabs-list-dropdown'));
 
   window.addEventListener('resize', () =>
-    handleViewportChange(tablist, tablist.querySelector('.tabs-list-dropdown'))
-  );
+    handleViewportChange(tablist, tablist.querySelector('.tabs-list-dropdown')));
 }
 
 document.addEventListener('DOMContentLoaded', () => {
