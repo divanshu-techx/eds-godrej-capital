@@ -138,6 +138,10 @@
   cursor: pointer;
   width: 100%;
 }
+
+.tooltip-trigger p{
+  text-align: center;
+}
  
 .dropdown-content p {
   margin-bottom: 12px;
