@@ -287,8 +287,7 @@ async function decorate(block) {
   });
 
   dropdown.addEventListener('change', () =>
-    handleDropdownChange(data, tablist, tabpanel, dropdown)
-  );
+    handleDropdownChange(data, tablist, tabpanel, dropdown));
 
   handleViewportChange(tablist, tablist.querySelector('.tabs-list-dropdown'));
   window.addEventListener('resize', () =>
