@@ -198,7 +198,6 @@ async function decorate(block) {
   const title = document.createElement("div");
   title.textContent = mainTitle;
   title.classList.add("main-title");
-
   const allCards = document.createElement("div");
   allCards.classList.add("allCards");
   const documentsDiv = document.createElement("div");
