@@ -22,13 +22,9 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
   }
 
   const filteredData = data.filter(
-    (item) => item.parent === selectedTab && item.category === selectedOption
-  );
+    (item) => item.parent === selectedTab && item.category === selectedOption);
   if (filteredData.length === 0) {
-    return;
-  }
-
-  // Clear previous data
+    return; }
   tabpanel.innerHTML = '';
 
   filteredData.forEach((item) => {
