@@ -193,20 +193,16 @@ export default async function decorate(block) {
 
   // Function to render news items
   function getResponseData(filteredData) {
-
     const ul = document.createElement('ul');
-
     filteredData.forEach((item) => {
-
       const li = document.createElement('li');
       li.className = 'listElement';
-
       const a = document.createElement('a');
       a.href = "#.html";
       a.textContent = item.HeadingName;
       a.setAttribute('data-path', item.ChildPageUrl);
       a.setAttribute('data-depth', item.depth);
-      a.setAttribute('data-navItem', item.HeadingName);
+      a.setAttribute('data-navItem', item.HeadingName)
       const apiClass = item.HeadingName.replace(/\s+/g, '-');
       const customClass = 'anchorClass';
       a.classList.add(apiClass, customClass);
@@ -215,42 +211,32 @@ export default async function decorate(block) {
     });
 
     topNav.appendChild(ul);
-
     const navItems = ul.querySelectorAll('a.anchorClass');
     const belowNavMainContainer = document.querySelector('.belowNavMainContainer');
 
     navItems.forEach((navItem) => {
-      navItem.addEventListener('mouseover', function (event) {
+      navItem.addEventListener('click', function (event) {
         event.preventDefault();
         const parentLi = this.parentElement;
+        const isAlreadySelected = parentLi.classList.contains('selected');
+
         ul.querySelectorAll('li').forEach(li => li.classList.remove('selected'));
-        parentLi.classList.add('selected');
-        navItems.forEach(link => link.classList.remove('rotate'));
-        this.classList.add('rotate');
-        belowNavMainContainer.classList.add('show');
+
+        if (isAlreadySelected) {
+          this.classList.remove('rotate');
+          belowNavMainContainer.classList.remove('show');
+        } else {
+          parentLi.classList.add('selected');
+          navItems.forEach(link => link.classList.remove('rotate'));
+          this.classList.add('rotate');
+          belowNavMainContainer.classList.add('show');
+        }
+
         let depth = this.getAttribute('data-depth'),
           navElement = this.getAttribute('data-navItem'),
           childPath = this.getAttribute('data-path');
         getChildApiResponse(childPath, navElement, depth);
       });
-    });
-
-    document.addEventListener('mouseleave', (event) => {
-      if (!belowNavMainContainer.contains(event.target) && !ul.contains(event.target)) {
-        belowNavMainContainer.classList.remove('show');
-        ul.querySelectorAll('li').forEach(li => li.classList.remove('selected'));
-        navItems.forEach(link => link.classList.remove('rotate'));
-      }
-    });
-
-    belowNavMainContainer.addEventListener('mouseover', () => {
-      belowNavMainContainer.classList.add('show');
-    });
-
-    belowNavMainContainer.addEventListener('mouseleave', () => {
-      belowNavMainContainer.classList.remove('show');
-      ul.querySelectorAll('li').forEach(li => li.classList.remove('selected'));
-      navItems.forEach(link => link.classList.remove('rotate'));
     });
   }
 
@@ -274,7 +260,6 @@ export default async function decorate(block) {
     secondElementDiv.innerHTML = '';
     let depth;
     const ul = document.createElement('ul');
-
     if (typeof childResponseData === 'object' && childResponseData !== null) {
       for (const key in childResponseData) {
         if (childResponseData.hasOwnProperty(key)) {
@@ -288,16 +273,15 @@ export default async function decorate(block) {
             item.forEach((subItem) => {
               subUl.appendChild(createListElement(subItem.title, subItem.path));
               depth = subItem.depth;
-              if (depth < 2) {
+              if (depth < 2)
                 displayURLContent(subItem.path);
-              }
             });
             secondElementDiv.appendChild(subUl);
           }
         }
       }
     } else {
-     // console.error("childResponseData is not an array or object.");
+      console.error("childResponseData is not an array or object.");
     }
 
     if (depth === '2') {
@@ -308,7 +292,6 @@ export default async function decorate(block) {
     if (depth == '1' || depth == '2') {
       parentContainerDiv.appendChild(secondElementDiv);
     }
-
     parentContainerDiv.appendChild(thirdElementDiv);
 
     const subLists = secondElementDiv.querySelectorAll('.subList');
@@ -322,7 +305,7 @@ export default async function decorate(block) {
     }
 
     mainItems.forEach((item, index) => {
-      item.addEventListener('mouseover', () => {
+      item.addEventListener('click', () => {
         mainItems.forEach(mainItem => mainItem.classList.remove('active'));
         item.classList.add('active');
         thirdElementDiv.innerHTML = '';
@@ -340,7 +323,7 @@ export default async function decorate(block) {
 
     const anchorTags = secondElementDiv.querySelectorAll('.anchorPath');
     anchorTags.forEach(anchor => {
-      anchor.addEventListener('mouseover', function () {
+      anchor.addEventListener('click', function () {
         anchorTags.forEach(anchor => anchor.classList.remove('anchor_active'));
         this.classList.add('anchor_active');
         let imagePath = this.getAttribute('href');
@@ -352,8 +335,80 @@ export default async function decorate(block) {
 
     if (mainItems.length > 0) {
       const firstMainItem = mainItems[0];
-      firstMainItem.dispatchEvent(new Event('mouseover'));
+      firstMainItem.click();
     }
+  }
+
+  // function to render nav elements div for child depth is zero
+  function getChildResponseDataForDepthZero(responseData) {
+      parentContainerDiv.innerHTML = '';
+      firstElementChildDiv.innerHTML = '';
+      secondElementDiv.innerHTML = '';
+      thirdElementDiv.innerHTML = '';
+  
+      console.log(responseData.branchlocater);
+  
+      firstElementChildDiv.innerHTML = `
+          <div class="customersupport">
+              <a href="${responseData.customersupportlink}" class="customer-support-anchor">
+                ${responseData.customersupport}
+              </a>      
+          </div>
+    
+          <div class="selfservice">
+                    <h4 class="self-service-heading">${responseData.selfservices}</h4>
+              <ul class="self-service-ul">
+                  <li class="self-service-li">
+                     <a href="${responseData.branchlocaterlink}">${responseData.branchlocater}</a>
+                  </li>
+                   <li class="self-service-li">
+                     <a href="${responseData.trackstatuslink}">${responseData.trackstatus}</a>
+                  </li>
+                   <li class="self-service-li">
+                     <a href="${responseData.faqlink}">${responseData.faq}</a>
+                  </li>
+              </ul>
+          </div>
+    
+          <div class="grievancecontainer">
+               <h4 class="grievance-heading">${responseData.grievanceredressal}</h4>
+              <ul class="grievance-ul">
+                   <li class="self-service-li">
+                     <a href="${responseData.godrejhousingfinancelink}">${responseData.godrejhousingfinance}</a>
+                  <li class="self-service-li">
+                     <a href="${responseData.godrejfinancelink}">${responseData.godrejfinance}</a>
+                  </li>
+              </ul>      
+          </div>
+    
+          <div class="contactuscontainer">
+              <h4 class="contact-heading">${responseData.contactus}</h4>
+              <p class="contact-mobile-number">${responseData.mobilenumber}</p>
+              <p class="contact-mail">${responseData.mail}</p>          
+          </div>
+           `;
+      parentContainerDiv.appendChild(firstElementChildDiv);
+  
+      secondElementDiv.innerHTML = `
+              <div class="free-credit-container">
+                  <img src="${responseData.freecrediticon}" class="free-credit-icon"><a class="free-credit-heading" href="${responseData.freecreditscorelink}">${responseData.freecreditscore}</a>
+                  <p class="free-credit-description">${responseData.freecreditscoredescription}</p>
+                  <a class="free-credit-score" href="${responseData.checkcreditscorelink}">${responseData.checkcreditscore}</a>
+              </div>
+              <div class="whatsUp-container">
+                  <h3 class="whatsUp-heading">${responseData.whatsupsupport}</h3>
+                  <p class="whatsUp-desciption">${responseData.whatsupdescription}</p>
+                  <img src="${responseData.whatsupicon}" alt="QR Code" class="whatsUp-icon">
+              </div>
+          `;
+      parentContainerDiv.appendChild(secondElementDiv);
+  
+      thirdElementDiv.innerHTML = `
+              <img src="${responseData.mainimage}" alt="Main Image" class="main-image">
+          `;
+      parentContainerDiv.appendChild(thirdElementDiv);
+  
+      belowNavMainContainer.appendChild(parentContainerDiv);
   }
 
   function getApiResponse(api) {
@@ -419,7 +474,11 @@ export default async function decorate(block) {
         let childResponseData = response.data;
         childResponseData.depth = depth;
         const transformedData = transformResponseData(childResponseData);
+        if (depth == '1' || depth == '2') {
         getChildResponseData(transformedData);
+        } else {
+          getChildResponseDataForDepthZero(response.data[0]);
+        }
       })
       .catch((error) => {
         console.error(error);
