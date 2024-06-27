@@ -648,3 +648,9 @@ input[type="range"]::-moz-range-track {
 	color: transparent;
 	border-radius: 4px;
 }
+
+@media (width <= 767px) {
+	input[type="range"] {
+		background-color: #F4F4F4;
+	}
+}
