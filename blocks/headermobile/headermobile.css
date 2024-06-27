@@ -196,3 +196,8 @@
         font-family: var(--body-font-family-primary);
     }
 }
+
+.headermobile.block{
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
