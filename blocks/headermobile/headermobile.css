@@ -55,7 +55,7 @@
 }
 
 .headermobile details[open] .header-accordion-item-body {
-    background-color: var(--color-light-gray-v2);
+    background-color: var(--color-silver);
     margin-top: -21px;
 }
 
