@@ -8,27 +8,41 @@ indices:
         select: head > meta[name="category"]
         value: |
           attribute(el, 'content')
-        detailPageUrl:
-          select: head > meta[name="detailpageurl"]
-          value: |
-            attribute(el, 'content')
-        description:
-          select: head > meta[name="description"]
-          value: |
-            attribute(el, 'content')
-        image:
-          select: head > meta[property="og:image"]
-          value: |
-            match(attribute(el, 'content'), 'https:\/\/[^/]+(\/.*)')
-        imageAlt:
-          select: head > meta[property="imagealt"]
-          value: |
-            attribute(el, 'content')
-        articlePublishDate:
-          select: head > meta[name="articlepublishdate"]
-          value: |
-            attribute(el, 'content')
-        readtime:
-          select: head > meta[name="readtime"]
-          value: |
-            attribute(el, 'content')
+      detailpageurl:
+        select: head > meta[name="detailpageurl"]
+        value: |
+          attribute(el, 'content')
+      description:
+        select: head > meta[name="description"]
+        value: |
+          attribute(el, 'content')
+      image:
+        select: head > meta[property="og:image"]
+        value: |
+          match(attribute(el, 'content'), 'https:\/\/[^/]+(\/.*)')
+      imagealt:
+        select: head > meta[property="imagealt"]
+        value: |
+          attribute(el, 'content')
+      articlepublishdate:
+        select: head > meta[name="articlepublishdate"]
+        value: |
+          attribute(el, 'content')
+      readtime:
+        select: head > meta[name="readtime"]
+        value: |
+          attribute(el, 'content')
+
+  information_and_policies:
+    include:
+      - /information_and_policies/**
+    target: /information_and_policies/query-index.json
+    properties:
+      tabname:
+        select: head > meta[name="tabname"]
+        value: |
+          attribute(el, 'content')
+      filter:
+        select: head > meta[name="filter"]
+        value: |
+          attribute(el, 'content')
