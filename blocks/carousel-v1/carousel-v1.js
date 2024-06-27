@@ -5,7 +5,6 @@
  * @returns {Object}  teaser elements.
  */
 function groupTeasersByTargetId(mainSelector) {
-  console.log("groupTeasersByTargetId");
   // Select the main element
   const mainElement = document.querySelector(mainSelector);
 
@@ -145,7 +144,6 @@ async function createCarousel(block, rows){
   nextButton.setAttribute('aria-label', placeholders.nextSlide || 'Next Slide');
 
   // Append navigation buttons to the slideIndicators
- console.log(block);
  let styleType = carouselContainer.getAttribute('data-teaser-target-id');
  if(styleType == 'homepage-carousel-secondary'){
   slideIndicators.appendChild(prevButton);
@@ -209,7 +207,6 @@ function createSlide(row, slideIndex, carouselId) {
   slide.classList.add('carousel-v1-slide');
 
   row.querySelectorAll(':scope > div').forEach((column, colIdx) => {
-    //console.log("column", column);
     column.classList.add(`carousel-slide-v1-${colIdx === 0 ? 'image' : 'content'}`);
     slide.append(column);
   });
@@ -231,7 +228,6 @@ function bindEvents(block) {
 
   slideIndicators.forEach((button) => {
     button.addEventListener('click', (e) => {
-      console.log("button clicked");
       const slideIndicator = e.currentTarget;
       showSlide(block, parseInt(slideIndicator.dataset.targetSlide, 10));
     });
