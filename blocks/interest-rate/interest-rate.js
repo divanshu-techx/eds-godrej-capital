@@ -284,7 +284,7 @@ async function decorate(block) {
     dropdown.add(optionElement);
   });
 
-  dropdown.addEventListener('change', () => handleDropdownChange(data, tablist, tabpanel, dropdown),);
+  dropdown.addEventListener('change', () => handleDropdownChange(data, tablist, tabpanel, dropdown));
   // Append label and dropdown to documentsWrapper
   documentsWrapper.appendChild(tabListLabel);
   documentsWrapper.appendChild(tablist);
@@ -319,8 +319,7 @@ async function decorate(block) {
   dropdown.value = selectedOptionDefault; // Set dropdown to default value
 
   // Event listeners
-  window.addEventListener('resize', () =>
-    handleViewportChange(tablist, tabsListDropdown));
+  window.addEventListener('resize', () => handleViewportChange(tablist, tabsListDropdown));
   dropdown.addEventListener('change', () => {
     const selectedTabLocal = tablist.querySelector(
       'button[aria-selected="true"]',
