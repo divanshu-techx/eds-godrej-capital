@@ -521,7 +521,7 @@ select:focus {
 
     .mobile-tenure-emi {
         display: flex;
-        justify-content: center;
+        /* justify-content: center; */
     }
 
     .mobile-tenure-emi-details {
