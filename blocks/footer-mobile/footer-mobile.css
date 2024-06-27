@@ -46,13 +46,17 @@
   margin: 0;
 }
  
-.dropdown-content ol>li {
-  padding: 5px;
+.dropdown-content>ol>li {
+  padding: 10px 12px;
   cursor: pointer;
   position: relative;
   font-size: 18px;
   color: #3b3b3b;
   margin-bottom: 10px;
+}
+ 
+.dropdown-content>ol>li:first-of-type {
+  margin-top: 12px;
 }
  
 .dropdown-content ol>li span {
@@ -68,29 +72,31 @@
   display: block;
 }
  
-@media (width >=901px) {
+@media (width >= 901px) {
   .footer-mobile {
-    display: none;
+    display: none!important;
   }
 }
- 
-@media (width <=900px) {
+
   .footer-mobile {
     display: flex;
     justify-content: space-evenly;
-    max-width: 398px;
     align-items: center;
     margin: auto;
-    width: 100%;
     padding: 15px 20px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   }
- 
+
+  @media (width >= 768px) and (width <= 900px) {
+    .footer-mobile {
+      max-width: 398px;
+      width: 100%; 
+    }
+  }
   .footer-element {
     width: auto;
   }
-}
- 
+
 .footer-element .button-container a {
   display: block;
   color: #7D7D7D;
@@ -129,17 +135,49 @@
 }
  
 .dropdown-content p {
-  font-size: 20px !important;
+  margin-bottom: 12px;
+}
+ 
+.dropdown-content p>strong {
+  font-size: 20px;
   font-weight: 500;
-  color: #000 !important;
+  color: #000;
   font-family: 'Work Sans';
-  margin-bottom: 12px !important;
+}
+ 
+.dropdown-content ol>li>strong {
+  font-family: 'Work Sans';
+  font-weight: 400;
+  font-size: 18px;
+  width: 100%;
+  position: relative;
+  line-height: 21px;
+  color: var(--color-charcoal-black);
+}
+ 
+.dropdown-content ol>li:not(.open-list)>strong::after {
+  content: '+';
+  display: inline-block;
+  position: absolute;
+  color: #3B3B3B;
+  right: 16px;
+  font-size: 18px;
+  font-family: 'Work Sans';
+}
+ 
+.dropdown-content ol>li.open-list>strong::after {
+  content: '-';
+  display: inline-block;
+  position: absolute;
+  top: 4px;
+  right: 16px;
 }
  
 .dropdown-content li {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: start;
+  flex-direction: column;
   padding: 5px 0;
   background: #F4F4F4;
   border-radius: 4px;
@@ -169,6 +207,10 @@
  
 .overlay.open {
   display: block;
+}
+ 
+.footer-element.active-el p>picture>img {
+  background-color: #00A2FF;
 }
  
 .footer-element .dropdown-content {

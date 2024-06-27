@@ -1,9 +1,3 @@
-.tabs-container{
-    /* display: flex;
-    flex-direction: column; */
-    /* align-items: center; */
-    /* margin-bottom: 20px; */
-}
 
 /* Style the container that holds the buttons */
 .tabs-container .button-container {
@@ -75,8 +69,8 @@
 }
 #canvasItems-loanele{
     position: absolute;
-    top: 102px;
-    left: 140px;
+    top: 106px;
+    left: 121px;
     font-size: var(--body-font-size-default);
     text-align: center;
 }
@@ -90,20 +84,28 @@ select{
     margin: 10px auto;
 }
 /* Hide dropdown by default */
-.tab-dropdown {
+.tabs-container .tab-dropdown {
     display: none;
     width: 100%;
     margin-bottom: 1rem;
 }
  
 /* Mobile view styles */
-@media (max-width: 768px) {
-    .button-container {
-        display: none!important;
-    }
- 
-    .tab-dropdown {
+@media (max-width: 600px) {
+    .tabs-container .tab-dropdown {
         display: block!important;
+        margin:0 auto;
+    }
+}
+
+
+.tabs-container .buttonWrapper {
+    display:none;
+    @media(width >= 601px){
+        display: flex;
+        padding: 10px;
+        gap: 10px;
+        background: #F4F4F4;
     }
 }
 
