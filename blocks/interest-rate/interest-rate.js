@@ -291,8 +291,7 @@ async function decorate(block) {
 
   handleViewportChange(tablist, tablist.querySelector('.tabs-list-dropdown'));
   window.addEventListener('resize', () =>
-    handleViewportChange(tablist, tablist.querySelector('.tabs-list-dropdown')));
-}
+    handleViewportChange(tablist, tablist.querySelector('.tabs-list-dropdown')));}
 
 document.addEventListener('DOMContentLoaded', () => {
   const blocks = document.querySelectorAll('.block');
