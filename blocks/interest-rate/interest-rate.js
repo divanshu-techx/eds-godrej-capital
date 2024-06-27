@@ -1,3 +1,8 @@
+function getDataAttributeValueByName(name) {
+  const element = document.querySelector(`[data-${name}]`);
+  return element ? element.getAttribute(`data-${name}`) : null;
+}
+
 const dataUrl = getDataAttributeValueByName('queryindexurl');
 const mainTitle = getDataAttributeValueByName('title');
 
@@ -17,7 +22,7 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
   }
 
   const filteredData = data.filter(
-    item => item.parent === selectedTab && item.category === selectedOption
+    (item) => item.parent === selectedTab && item.category === selectedOption
   );
   if (filteredData.length === 0) {
     return;
@@ -247,89 +252,57 @@ async function decorate(block) {
   const tabpanel = document.createElement('div');
   tabpanel.className = 'tabs-panel';
   tabpanel.id = 'tabpanel-tab';
-  tabpanel.setAttribute('aria-labelledby', 'tab-1');
-  tabpanel.setAttribute('role', 'tabpanel');
+  tabpanel.setAttribute('aria-labelledby', 'tabpanel-tab');
 
-  let data = [];
-  data = await fetchData(dataUrl);
+  const mobileCardContainer = document.createElement('div');
+  mobileCardContainer.className = 'mobile-card-container';
 
-  if (!data) {
-    return;
-  }
+  tabListWrapper.appendChild(documentsWrapper);
+  documentsWrapper.appendChild(tabListLabel);
+  documentsWrapper.appendChild(tablist);
+  documentsWrapper.appendChild(
+    createDropdownForTabs(['Tab1', 'Tab2'], tablist, [], tabpanel, dropdown) // Replace with actual tab names and data
+  );
 
-  // Extract unique categories from the data
-  const categories = [
-    ...new Set(data.map((item) => item.category).filter((cat) => cat)),
-  ];
+  tabListWrapper.appendChild(categoryWrapper);
+  tabListWrapper.appendChild(tabpanel);
+  tabListWrapper.appendChild(mobileCardContainer);
 
-  categories.forEach((category, i) => {
+  interestRateBlock.appendChild(tabListWrapper);
+
+  const data = await fetchData(dataUrl);
+
+  data.forEach((item) => {
     const optionElement = document.createElement('option');
-    optionElement.value = category;
-    optionElement.text = category;
-    if (i === 0) {
+    optionElement.value = item.category;
+    optionElement.text = item.category;
+    if (selectedOption === item.category) {
       optionElement.selected = true;
     }
     dropdown.add(optionElement);
+  });
+
+  tablist.addEventListener('click', (event) => {
+    if (event.target && event.target.nodeName === 'BUTTON') {
+      handleTabClick(event, data, tablist, tabpanel, dropdown);
+    }
   });
 
   dropdown.addEventListener('change', () =>
     handleDropdownChange(data, tablist, tabpanel, dropdown)
   );
 
-  // Extract unique parent values from the data
-  const parentValues = [
-    ...new Set(data.map((item) => item.parent).filter((parent) => parent)),
-  ];
-
-  parentValues.forEach((tabName, i) => {
-    const tabButton = document.createElement('button');
-    tabButton.className = 'tabs-tab';
-    tabButton.setAttribute('role', 'tab');
-    tabButton.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
-    tabButton.id = `tab-${i + 1}`;
-    tabButton.innerHTML = tabName;
-    if (i === 0) {
-      tabButton.style.backgroundColor = 'var(--background-color)';
-      tabButton.style.color = 'white';
-    }
-
-    tabButton.addEventListener('click', (event) =>
-      handleTabClick(event, data, tablist, tabpanel, dropdown));
-    tablist.appendChild(tabButton);
-  });
-
-  const mobileCardContainer = document.createElement('div');
-  mobileCardContainer.classList.add('mobile-card-container');
-  documentsDiv.appendChild(mobileCardContainer);
-
-  const tabsListDropdown = createDropdownForTabs(
-    parentValues,tablist,data, tabpanel, dropdown);
-  // Append elements to the DOM
-  tabListWrapper.appendChild(documentsWrapper);
-  tabListWrapper.appendChild(categoryWrapper);
-  documentsWrapper.appendChild(tabListLabel);
-  documentsWrapper.appendChild(tablist);
-  documentsWrapper.appendChild(tabsListDropdown);
-  tabsListDropdown.style.display = 'none';
-
-  interestRateBlock.appendChild(tabListWrapper);
-  interestRateBlock.appendChild(tabpanel);
-
-  const selectedTabButton = tablist.querySelector('button[aria-selected="true"]');
-  const selectedTab = selectedTabButton ? selectedTabButton.innerHTML : '';
-  const selectedOption = dropdown.value;
-
-  renderData(data, selectedTab, selectedOption, tabpanel);
+  handleViewportChange(tablist, tablist.querySelector('.tabs-list-dropdown'));
 
   window.addEventListener('resize', () =>
-    handleViewportChange(tablist, tabsListDropdown));
-  handleViewportChange(tablist, tabsListDropdown);
+    handleViewportChange(tablist, tablist.querySelector('.tabs-list-dropdown'))
+  );
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   const blocks = document.querySelectorAll('.block');
   blocks.forEach((block) => {
-    if (block.classList.contains('decorate')) {
+    if (block.classList.contains('interest-rate')) {
       decorate(block);
     }
   });
