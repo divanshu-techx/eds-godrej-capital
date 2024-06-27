@@ -22,7 +22,7 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
   }
 
   const filteredData = data.filter(
-    (item) => item.parent === selectedTab && item.category === selectedOption
+    (item) => item.parent === selectedTab && item.category === selectedOption,
   );
 
   if (filteredData.length === 0) {
@@ -128,7 +128,7 @@ function handleTabClick(event, data, tablist, tabpanel, dropdown) {
 let selectedOption = 'Indian Resident Salaried';
 function handleDropdownChange(data, tablist, tabpanel, dropdown) {
   const selectedTabButton = tablist.querySelector(
-    'button[aria-selected="true"]'
+    'button[aria-selected="true"]',
   );
   const selectedTab = selectedTabButton
     ? selectedTabButton.innerHTML
@@ -275,8 +275,7 @@ async function decorate(block) {
     button.setAttribute('role', 'tab');
     button.setAttribute('type', 'button');
     button.addEventListener('click', (event) =>
-      handleTabClick(event, data, tablist, tabpanel, dropdown)
-    );
+      handleTabClick(event, data, tablist, tabpanel, dropdown));
     tablist.append(button);
   });
 
@@ -287,9 +286,7 @@ async function decorate(block) {
   });
 
   dropdown.addEventListener('change', () =>
-    handleDropdownChange(data, tablist, tabpanel, dropdown)
-  );
-
+    handleDropdownChange(data, tablist, tabpanel, dropdown),);
   // Append label and dropdown to documentsWrapper
   documentsWrapper.appendChild(tabListLabel);
   documentsWrapper.appendChild(tablist);
@@ -332,10 +329,10 @@ async function decorate(block) {
   );
   dropdown.addEventListener('change', () => {
     const selectedTabLocal = tablist.querySelector(
-      'button[aria-selected="true"]'
+      'button[aria-selected="true"]',
     ).innerHTML;
     const selectedOptionLocal = dropdown.value;
-    handleViewportChange(tablist, tabsListDropdown);
+    handleViewportChange(tablist, tabsListDropdown),
     renderData(data, selectedTabLocal, selectedOptionLocal, tabpanel);
   });
 
