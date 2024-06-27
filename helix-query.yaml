@@ -8,7 +8,7 @@ indices:
         select: head > meta[name="category"]
         value: |
           attribute(el, 'content')
-      detailpageurl:
+      detailPageUrl:
         select: head > meta[name="detailpageurl"]
         value: |
           attribute(el, 'content')
@@ -20,15 +20,15 @@ indices:
         select: head > meta[property="og:image"]
         value: |
           match(attribute(el, 'content'), 'https:\/\/[^/]+(\/.*)')
-      imagealt:
+      imageAlt:
         select: head > meta[property="imagealt"]
         value: |
           attribute(el, 'content')
-      articlepublishdate:
+      articlePublishDate:
         select: head > meta[name="articlepublishdate"]
         value: |
-          attribute(el, 'content')
-      readtime:
+          dateValue(attribute(el, 'content'), 'DD MM YYYY')
+      readTime:
         select: head > meta[name="readtime"]
         value: |
           attribute(el, 'content')
