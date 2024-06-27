@@ -194,7 +194,7 @@ function handleViewportChange(tablist, tabsListDropdown) {
   tabsDropdownLabel.style.display = 'block'; // Always show "Select Category" label
 }
 
-async function decorate(block) {
+async function decorate() {
   const interestRateBlock = document.querySelector('.interest-rate.block');
 
   // Create title element
