@@ -231,4 +231,4 @@ const accordions = document.querySelectorAll('.accordion > div');
         content.classList.toggle('active');
       });
     });
-  });
+  // });
