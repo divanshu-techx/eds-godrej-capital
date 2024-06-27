@@ -229,7 +229,6 @@ async function decorate(block) {
   const dropdownLabel = document.createElement("label");
   dropdownLabel.textContent = "Select Category:";
   dropdownLabel.className = "tabs-dropdown-label";
-
   const dropdown = document.createElement("select");
   dropdown.className = "tabs-dropdown";
 
