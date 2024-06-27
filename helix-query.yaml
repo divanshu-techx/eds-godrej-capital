@@ -27,7 +27,7 @@ indices:
       articlepublishdate:
         select: head > meta[name="articlepublishdate"]
         value: |
-          dateValue(attribute(el, 'content'), 'DD MM YYYY')
+          attribute(el, 'content')
       readtime:
         select: head > meta[name="readtime"]
         value: |
