@@ -63,8 +63,9 @@ function groupTeasersByTargetId(mainSelector) {
 
   // Clean up the helper property
   delete groupedTeasers._processed;
-
+ 
   return groupedTeasers;
+
 }
 
 
@@ -78,12 +79,12 @@ export default async function decorate(block) {
 // Select the main element
   let teaser = groupTeasersByTargetId('main'); 
 
-  createCarousel(block, teaser[targetId]);
+  createCarousel(block, teaser[targetId],targetId);
 
 }
 
 
-async function createCarousel(block, rows){
+async function createCarousel(block, rows,targetId){
   carouselId += 1;
   const placeholders = await fetchPlaceholders();
   const carouselContainer = block.closest('.carousel-v1-container');
@@ -192,6 +193,13 @@ async function createCarousel(block, rows){
     bindEvents(block);
     startAutoSlide(block);
   }
+
+  const teaserContainers = document.querySelectorAll(`[data-teaser-target-id=${targetId}]`);
+  teaserContainers.forEach(container => {
+    if (container.innerHTML.trim() === '') {
+      container.remove();
+    }
+  });
 
 }
 
