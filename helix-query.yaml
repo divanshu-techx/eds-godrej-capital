@@ -1,0 +1,34 @@
+indices:
+  Blogs:
+    include:
+      - /Blogs/**
+    target: /Blogs/query-index.json
+    properties:
+      category:
+        select: head > meta[name="category"]
+        value: |
+          attribute(el, 'content')
+        detailPageUrl:
+          select: head > meta[name="detailpageurl"]
+          value: |
+            attribute(el, 'content')
+        description:
+          select: head > meta[name="description"]
+          value: |
+            attribute(el, 'content')
+        image:
+          select: head > meta[property="og:image"]
+          value: |
+            match(attribute(el, 'content'), 'https:\/\/[^/]+(\/.*)')
+        imageAlt:
+          select: head > meta[property="imagealt"]
+          value: |
+            attribute(el, 'content')
+        articlePublishDate:
+          select: head > meta[name="articlepublishdate"]
+          value: |
+            attribute(el, 'content')
+        readtime:
+          select: head > meta[name="readtime"]
+          value: |
+            attribute(el, 'content')
