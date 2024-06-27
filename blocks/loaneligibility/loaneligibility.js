@@ -146,7 +146,7 @@ function displayDetails(P, R, N, M, E, line, pie, block) {
   pie.data.datasets[0].data[0] = P;
   pie.data.datasets[0].data[1] = payableInterest;
   pie.update();
-  line.update();
+  // line.update();
 }
  
 // Decorate Function
@@ -243,7 +243,7 @@ function initialize(block) {
     createElement(
       'div',
       { class: 'detail' },
-      createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, laonamountTitle),
+      createElement('div', { style: 'color: #3b3b3b; font-size:14px;font-weight:400' }, laonamountTitle),
       createElement(
         'div',
         { class: 'inputDetail' },
@@ -270,7 +270,7 @@ function initialize(block) {
     createElement(
       'div',
       { class: 'detail' },
-      createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, existingEmiTitle),
+      createElement('div', { style: 'color: #3b3b3b; font-size:14px;font-weight:400' }, existingEmiTitle),
       createElement(
         'div',
         { class: 'inputDetail' },
@@ -297,7 +297,7 @@ function initialize(block) {
     createElement(
       'div',
       { class: 'detail' },
-      createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, interestrateTitle),
+      createElement('div', { style: 'color: #3b3b3b; font-size:14px;font-weight:400' }, interestrateTitle),
       createElement(
         'div',
         { class: 'inputDetail' },
@@ -324,7 +324,7 @@ function initialize(block) {
     createElement(
       'div',
       { class: 'detail' },
-      createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, tenureTitleYear),
+      createElement('div', { style: 'color: #3b3b3b; font-size:14px;font-weight:400' }, tenureTitleYear),
       createElement(
         'div',
         { class: 'inputDetail' },
@@ -351,7 +351,7 @@ function initialize(block) {
     createElement(
       'div',
       { class: 'detail' },
-      createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, tenureTitleMonths),
+      createElement('div', { style: 'color: #3b3b3b; font-size:14px;font-weight:400' }, tenureTitleMonths),
       createElement(
         'div',
         { class: 'inputDetail' },
@@ -405,15 +405,20 @@ function initialize(block) {
     createElement(
       'div',
       { class: 'chart-details chart-details-loaneli' },
+      createElement('div', { class: 'chart-detail-adjust' },
       createElement('span', { class: 'details-span-principal' }, ' '),
       createElement('div', { class: 'detailsloan', style: 'color: #000000; font-size: 16px; font-weight:400;margin-left:10px;;' }, principalamountlabel),
+      ),
       createElement('div', { id: 'CP', style: 'color: #3B3B3B; font-size: 24px; font-weight:400;' }),
+    
     ),
     createElement(
       'div',
       { class: 'chart-details chart-details-loaneli' },
+      createElement('div', { class: 'chart-detail-adjust' },
       createElement('span', { class: 'details-span-interest' }, ''),
       createElement('div', { class: 'detailsloan', style: 'color: #000000; font-size: 16px; font-weight:400;margin-left:10px;' }, interestpayablelabel),
+      ),
       createElement('div', { id: 'CI', style: 'color: #3B3B3B; font-size: 24px; font-weight:400;' }),
     ),
   )

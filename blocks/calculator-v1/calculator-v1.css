@@ -62,15 +62,15 @@
 
 #canvasItems {
     position: absolute;
-    top: 102px;
-    left: 102px;
+    top: 108px;
+    left: 108px;
     font-size: var(--body-font-size-default);
     text-align: center;
 }
 #canvasItems-loanele{
     position: absolute;
-    top: 106px;
-    left: 121px;
+    top: 110px;
+    left: 125px;
     font-size: var(--body-font-size-default);
     text-align: center;
 }
@@ -108,4 +108,6 @@ select{
         background: #F4F4F4;
     }
 }
+
+
 

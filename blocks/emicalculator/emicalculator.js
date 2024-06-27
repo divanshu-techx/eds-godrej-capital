@@ -156,7 +156,7 @@ function displayDetails(P,R,N,M,line,pie,block) {
     pie.data.datasets[0].data[0] = P;
     pie.data.datasets[0].data[1] = payableInterest;
     pie.update();
-    line.update();
+    // line.update();
 }
  
 function initialize(block) {
@@ -472,7 +472,7 @@ function initialize(block) {
             this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`;
           });
      
-          loan_period_slider_month.addEventListener("input", function() {
+          loan_period_text_month.addEventListener("input", function() {
             const value = this.value;
             const percentage = ((value - tenure_min_monthvalue) / (tenure_max_monthvalue - tenure_min_monthvalue)) * 100;
             // Update the background gradient with the calculated percentage
