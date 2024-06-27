@@ -349,9 +349,7 @@ function initialize(block) {
  
     var P, R, N, M, pie, line;
     var loan_amt_slider = block.querySelector("#loan-amount");
-  //   console.log(loan_amt_slider);
     var loan_amt_text = block.querySelector("#loan-amt-text");
-    console.log(loan_amt_text);
     var int_rate_slider = block.querySelector("#interest-rate");
     var int_rate_text = block.querySelector("#interest-rate-text");
     var loan_period_slider = block.querySelector("#loan-period");
