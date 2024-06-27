@@ -294,8 +294,7 @@ async function decorate(block) {
     }
 
     tabButton.addEventListener('click', (event) =>
-      handleTabClick(event, data, tablist, tabpanel, dropdown)
-    );
+      handleTabClick(event, data, tablist, tabpanel, dropdown) );
     tablist.appendChild(tabButton);
   });
 
@@ -329,8 +328,7 @@ async function decorate(block) {
   renderData(data, selectedTab, selectedOption, tabpanel);
 
   window.addEventListener('resize', () =>
-    handleViewportChange(tablist, tabsListDropdown)
-  );
+    handleViewportChange(tablist, tabsListDropdown));
   handleViewportChange(tablist, tabsListDropdown);
 }
 
