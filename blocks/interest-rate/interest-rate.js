@@ -294,7 +294,7 @@ async function decorate(block) {
     }
 
     tabButton.addEventListener('click', (event) =>
-      handleTabClick(event, data, tablist, tabpanel, dropdown) );
+      handleTabClick(event, data, tablist, tabpanel, dropdown));
     tablist.appendChild(tabButton);
   });
 
@@ -303,13 +303,7 @@ async function decorate(block) {
   documentsDiv.appendChild(mobileCardContainer);
 
   const tabsListDropdown = createDropdownForTabs(
-    parentValues,
-    tablist,
-    data,
-    tabpanel,
-    dropdown
-  );
-
+    parentValues,tablist,data, tabpanel, dropdown);
   // Append elements to the DOM
   tabListWrapper.appendChild(documentsWrapper);
   tabListWrapper.appendChild(categoryWrapper);
