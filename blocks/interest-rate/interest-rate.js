@@ -284,8 +284,7 @@ async function decorate(block) {
     dropdown.add(optionElement);
   });
 
-  dropdown.addEventListener('change', () =>
-    handleDropdownChange(data, tablist, tabpanel, dropdown),);
+  dropdown.addEventListener('change', () => handleDropdownChange(data, tablist, tabpanel, dropdown),);
   // Append label and dropdown to documentsWrapper
   documentsWrapper.appendChild(tabListLabel);
   documentsWrapper.appendChild(tablist);
@@ -300,7 +299,7 @@ async function decorate(block) {
   tabListWrapper.insertBefore(mobileCardContainer, documentsWrapper);
 
   const selectedTabButton = tablist.querySelector(
-    'button[aria-selected="true"]'
+    'button[aria-selected="true"]',
   );
   const selectedTab = selectedTabButton
     ? selectedTabButton.innerHTML
@@ -309,11 +308,8 @@ async function decorate(block) {
 
   renderData(data, selectedTab, selectedOptionDefault, tabpanel);
 
-  const tabsListDropdown = createDropdownForTabs(
-    tabNames, tablist, data, tabpanel, dropdown
-  );
+  const tabsListDropdown = createDropdownForTabs(tabNames, tablist, data, tabpanel, dropdown);
   documentsWrapper.appendChild(tabsListDropdown);
-
   // Set default selections
   if (selectedTabButton) {
     selectedTabButton.click(); // Simulate click on the first tab button
@@ -324,11 +320,11 @@ async function decorate(block) {
 
   // Event listeners
   window.addEventListener('resize', () =>
-    handleViewportChange(tablist, tabsListDropdown),);
+    handleViewportChange(tablist, tabsListDropdown));
   dropdown.addEventListener('change', () => {
     const selectedTabLocal = tablist.querySelector(
-      'button[aria-selected="true"]'
-      ).innerHTML;
+      'button[aria-selected="true"]',
+    ).innerHTML;
     const selectedOptionLocal = dropdown.value;
     handleViewportChange(tablist, tabsListDropdown);
     renderData(data, selectedTabLocal, selectedOptionLocal, tabpanel);
