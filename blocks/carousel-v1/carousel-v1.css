@@ -613,7 +613,7 @@ margin-bottom: 20px;
   height: 0.75rem;
   width: 0.75rem;
   position: absolute;
-  top: 50%;
+  top: 53%;
   left: calc(50% - 0px);
   transform: translate(-50%, -50%) rotate(180deg);
 }
@@ -627,7 +627,7 @@ margin-bottom: 20px;
   height: 0.75rem;
   width: 0.75rem;
   position: absolute;
-  top: 50%;
+  top: 47%;
   left: calc(50% + 0px);
   transform: translate(-50%, -50%) rotate(360deg);
 }
@@ -674,6 +674,7 @@ margin-bottom: 20px;
   font-size: 24px;
   font-weight: 300;
   color:#3b3b3b;
+  text-decoration: underline;
 }
 
 .hero-carousel-secondary .carousel-v1 .carousel-v1-slide-indicator button:disabled,
