@@ -328,10 +328,9 @@ async function decorate(block) {
   );
   dropdown.addEventListener('change', () => {
     const selectedTabLocal = tablist.querySelector(
-      'button[aria-selected="true"]',
-    ).innerHTML;
+      'button[aria-selected="true"]').innerHTML;
     const selectedOptionLocal = dropdown.value;
-    handleViewportChange(tablist, tabsListDropdown),
+    handleViewportChange(tablist, tabsListDropdown);
     renderData(data, selectedTabLocal, selectedOptionLocal, tabpanel);
   });
 
