@@ -27,13 +27,12 @@
 
 .detail {
 	font-size: 12px;
-	/* align-items: center; */
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 
 	@media (min-width: 768px) {
-		/* display: flex;
-		justify-content: space-between; */
+		display: flex;
+		justify-content: space-between;
 	}
 }
 
@@ -291,6 +290,7 @@ input[type="range"] {
 	justify-content: space-around;
 	align-items: center;
 	margin-bottom: 20px;
+	width:100%;
 }
 
 .canvasDetail {
@@ -354,6 +354,8 @@ input[type="range"] {
 	display: flex;
 	/* justify-content: space-around; */
 	justify-content: space-between;
+	box-shadow: 0px 2px 4px 0px #00000014;
+    padding:20px;
 
 	.mobile-tenure-apply {
 		align-items: center;
@@ -430,27 +432,30 @@ input[type="range"] {
 	}
 
 	.mobile-tenure-emi-details .mobile-tenure-emi-price {
-		text-align: left;
+		text-align: start;
+		@media(min-width: 768px) and (max-width: 900px){
+		text-align: center;
+		}
 	}
 
 	.mobile-breakup-left {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		@media(max-width:768px){
+		@media(max-width:767px){
 			text-align: left;
 		}
 	}
 
 	.mobile-breakup-left>div {
 		width: 100%;
-		text-align: center;
+		text-align: start;
 		margin: 10px 0;
 	}
 
 	.mobile-tenure-monthYear {
 		display: flex;
-		justify-content: center;
+		/* justify-content: center; */
 		align-items: center;
 		
 	}
@@ -474,7 +479,7 @@ input[type="range"] {
 	}
 
 	@media (max-width:768px) {
-		justify-content: start;
+		/* justify-content: start; */
 	}
 }
 
@@ -599,7 +604,9 @@ input[type="range"] {
 	}
 
 	@media (width >=901px) {
-		display: block;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 	}
 }
 
