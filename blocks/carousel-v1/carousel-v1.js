@@ -175,6 +175,9 @@ async function createCarousel(block, rows){
       }else{
       slideIndicators.append(indicator); 
       }
+      const span = indicator.querySelector('span');
+      const formattedIndex = String(idx + 1).padStart(2, '0'); // Formats index as 01, 02, etc.
+      span.textContent = formattedIndex;
     }
     row.remove();
   });
@@ -184,6 +187,8 @@ async function createCarousel(block, rows){
 
   // Prepend container to block
   block.prepend(container);
+
+
 
   if (rows.length >= 2) {
     bindEvents(block);
