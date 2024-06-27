@@ -352,6 +352,28 @@ input[type="range"] {
 
 .mobile-breakup {
 	display: flex;
+	flex-wrap: wrap;
+  }
+
+  .mobile-breakup-left, .mobile-breakup-right {
+	flex: 1;
+  }
+
+  .mobile-tenure-right {
+	display: flex;
+	flex-direction: column;
+  }
+
+  /* Media query for mobile view */
+  @media (max-width: 600px) {
+	.mobile-breakup {
+	  gap: 10px; 
+	}
+  }
+
+
+.mobile-breakup {
+	display: flex;
 	/* justify-content: space-around; */
 	justify-content: space-between;
 	box-shadow: 0px 2px 4px 0px #00000014;
@@ -417,7 +439,7 @@ input[type="range"] {
 
 	.mobile-tenure-emi {
 		display: flex;
-		justify-content: center;
+		/* justify-content: center; */
 		align-items: center;
 	}
 
@@ -433,8 +455,10 @@ input[type="range"] {
 
 	.mobile-tenure-emi-details .mobile-tenure-emi-price {
 		text-align: start;
+		font-size: 32px;
 		@media(min-width: 768px) and (max-width: 900px){
 		text-align: center;
+		
 		}
 	}
 

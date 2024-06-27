@@ -255,6 +255,10 @@ main .section .default-content-wrapper h1,h2,h3,h4,h5,h6{
 main .section.padding-none{
   padding:0px;
 }
+ /* no padding top and bottom  */
+main .section.padding-left-right-only{
+  padding:0px 26px;
+}
 
 .section.different-types-v1 {
   @media(width <=600px) {
@@ -262,5 +266,7 @@ main .section.padding-none{
     position: relative;
     bottom: 30px;
     background-color: #fff;
+    padding-bottom:0px;
   }
 }
+
