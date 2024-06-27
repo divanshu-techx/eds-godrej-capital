@@ -290,7 +290,7 @@ button {
 .play-button {
     position: relative;
     z-index: 1;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: inherit;
     color: #fff;
     border: none;
     padding: 10px 20px;

@@ -77,10 +77,14 @@
 }
 
 .loan-image {
-  width: 100%;
-  height: 100%;
+  width: 288px;
+  height: 120px;
   object-fit: cover;
   border-radius: 4px;
+}
+
+.loan-content{
+  padding-top:10px;
 }
 
 .loanTitle {
@@ -140,7 +144,7 @@
   }
   .loan-card {
     .loan-content {
-      padding: 10px 10px 0px 10px!important;
+      padding: 10px 10px 10px 10px!important;
     }
   }
 

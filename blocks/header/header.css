@@ -26,7 +26,7 @@ header nav {
   margin: auto;
   max-width: 1264px;
   height: var(--nav-height);
-  padding: 0 1rem;
+  padding: 0 1.5rem;
   font-family: var(--body-font-family);
 }
 
@@ -157,8 +157,8 @@ header .nav-brand {
 }
 
 header nav .nav-brand img {
-  width: 128px;
-  height: auto;
+  width: 152px;
+  height: 50px;
 }
 
 /* sections */

@@ -26,9 +26,9 @@
 }
 
 .detail {
-	font-size: 14px;
-	align-items: center;
+	font-size: 12px;
 	display: flex;
+	justify-content: space-between;
 
 	@media (min-width: 768px) {
 		display: flex;
@@ -55,7 +55,7 @@
 
 .details input[type="number"],
 .details input[type='text'] {
-	max-width: 120px;
+	max-width: 100px;
 	width: 100%;
 	border: none;
 	min-height: 40px;
@@ -63,6 +63,12 @@
 	border-radius: 4px;
 	text-align: end;
 	padding: 0;
+	background:#fff;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	@media(width <= 767px){
+		background:var(--color-silver)
+	}
 }
 
 input::-webkit-outer-spin-button,
@@ -88,7 +94,7 @@ input[type="number"] {
 }
 
 .inputDetail {
-	max-width: 300px;
+	/* max-width: 300px; */
 	width: 100%;
 	justify-content: end;
 	display: flex;
@@ -103,9 +109,15 @@ input[type="number"] {
 	display: flex;
 	align-items: center;
 	font-size: var(--body-font-size-s);
-	width: 50px;
+	/* width: 50px; */
+	width:40px;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
 	justify-content: center;
 	border-radius: 4px;
+	@media(width < 767px){
+		background:var(--color-silver);
+	}
 }
 
 
@@ -184,7 +196,8 @@ input[type="number"] {
 		max-width: 772px;
 		width: 100%;
 		box-sizing: border-box;
-		background-color: var(--color-silver);
+		/* background-color: var(--color-silver); */
+		background-color: var(--color-white);
 		padding: 20px;
 		border-radius: 4px;
 	}
@@ -261,6 +274,9 @@ input[type="range"] {
 	color: var(--color-black);
 	font-size: var(--body-font-size-s);
 	font-weight: 300;
+	@media(min-width: 768px ){
+		font-size: var(--body-font-size-xs);
+	}
 }
 
 /* Error message */
@@ -274,6 +290,7 @@ input[type="range"] {
 	justify-content: space-around;
 	align-items: center;
 	margin-bottom: 20px;
+	width:100%;
 }
 
 .canvasDetail {
@@ -335,7 +352,10 @@ input[type="range"] {
 
 .mobile-breakup {
 	display: flex;
-	justify-content: space-around;
+	/* justify-content: space-around; */
+	justify-content: space-between;
+	box-shadow: 0px 2px 4px 0px #00000014;
+    padding:20px;
 
 	.mobile-tenure-apply {
 		align-items: center;
@@ -412,25 +432,32 @@ input[type="range"] {
 	}
 
 	.mobile-tenure-emi-details .mobile-tenure-emi-price {
-		text-align: left;
+		text-align: start;
+		@media(min-width: 768px) and (max-width: 900px){
+		text-align: center;
+		}
 	}
 
 	.mobile-breakup-left {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		@media(max-width:767px){
+			text-align: left;
+		}
 	}
 
 	.mobile-breakup-left>div {
 		width: 100%;
-		text-align: center;
+		text-align: start;
 		margin: 10px 0;
 	}
 
 	.mobile-tenure-monthYear {
 		display: flex;
-		justify-content: center;
+		/* justify-content: center; */
 		align-items: center;
+		
 	}
 
 	.mobile-tenure-monthYear span {
@@ -449,6 +476,10 @@ input[type="range"] {
 
 	@media (width >=901px) {
 		display: none;
+	}
+
+	@media (max-width:768px) {
+		/* justify-content: start; */
 	}
 }
 
@@ -563,7 +594,7 @@ input[type="range"] {
 	}
 
 	.mobile-tenure-monthYear span {
-		margin: 0 5px;
+		margin: 0 5px 0px 0px;
 	}
 }
 
@@ -573,7 +604,9 @@ input[type="range"] {
 	}
 
 	@media (width >=901px) {
-		display: block;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 	}
 }
 

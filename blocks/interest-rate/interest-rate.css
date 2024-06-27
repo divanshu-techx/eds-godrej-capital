@@ -32,7 +32,7 @@
 }
 
 .allCards .interest-card,
-.allCards .other-card {
+.allCards .interest-rates {
   flex: 0 0 250px;
   padding: 10px;
   text-align: center;
@@ -40,12 +40,12 @@
 }
 
 .allCards .interest-card h2,
-.allCards .other-card h3 {
+.allCards .interest-rates h3 {
   margin: 10px 0;
 }
 
 .allCards .interest-card p,
-.allCards .other-card p {
+.allCards .interest-rates p {
   margin: 5px 0;
 }
 
@@ -60,7 +60,7 @@
   font-weight: 300;
 }
 
-.other-card{
+.interest-rates{
   width: 232px;
   height: 100px;
   font-size:14px;

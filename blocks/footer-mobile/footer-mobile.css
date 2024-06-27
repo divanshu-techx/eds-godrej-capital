@@ -33,6 +33,11 @@
   display: block !important;
   color: var(--color-white);
   font-weight: 500;
+  @media(width <= 600px){
+    font-weight: 300;
+    padding: 6px 10px;
+    font-size: 12px;
+  }
 }
  
 .footer-element img {
@@ -132,6 +137,10 @@
 .tooltip-trigger {
   cursor: pointer;
   width: 100%;
+}
+
+.tooltip-trigger p{
+  text-align: center;
 }
  
 .dropdown-content p {
