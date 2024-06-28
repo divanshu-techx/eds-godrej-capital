@@ -81,7 +81,7 @@
 
   /* links  */
   --link-color: #58B7E5;
-  --link-hover-color: #136ff6;
+  --link-hover-color: #3c;
   --light-color: #eee;
   --dark-color: #ccc;
   --text-color: #000000;
@@ -189,7 +189,7 @@ button {
 }
 
 a.button:hover, a.button:focus, button:hover, button:focus  {
-  background-color: var(--link-hover-color);
+  background-color: #3CB8FF;
   cursor: pointer;
 }
 
@@ -255,3 +255,24 @@ main .section .default-content-wrapper h1,h2,h3,h4,h5,h6{
 main .section.padding-none{
   padding:0px;
 }
+ /* no padding top and bottom  */
+main .section.padding-left-right-only{
+  padding:0px 26px;
+}
+
+main .section.padding-v1{
+  @media(width < 600px){
+    background-color: #F4F4F4;
+  }
+}
+
+.section.different-types-v1 {
+  @media(width <=600px) {
+    border-radius: 20px 20px 0px 0px;
+    position: relative;
+    bottom: 30px;
+    background-color: #fff;
+    padding-bottom:0px;
+  }
+}
+

@@ -21,22 +21,24 @@
     display: flex;
     align-items: center;
     background-color: #FFFFFF;
-    margin: 10px;
-    padding: 10px;
+    padding: 12px;
     border-radius: 4px;
     transition: background-color 0.3s ease, color 0.3s ease;
+    box-sizing: border-box;
+    @media( width >= 900px){
+      margin-left: 15px;
+    }
   }
 
 @media (min-width: 901px) {
   .cards:hover {
       background-color: #3CB8FF;
-      color: white;
+      color: #fff;
   }
 }
 
   @media (max-width: 900px) {
     .cards {
-        /* flex:1; */
         box-sizing: border-box;
         box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.12);
     }
@@ -113,5 +115,11 @@
 
 .customer-support-v1 .cards-container .cards{
   cursor: pointer;
+}
+
+.hide-on-mobile a{
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
 }
 

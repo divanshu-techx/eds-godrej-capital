@@ -73,82 +73,82 @@ function constructHtmlCode({
     <div class="calculator-container">
       <div class="inputs">
         <div class="inputBox">
-          <div class="input-details">
-            <label for="loanamount">${loanAmountTitle}</label>
+          <div class="input_details_apr">
+            <label for="loanamountApr">${loanAmountTitle}</label>
             <span id="amountlabel">Rs</span>
-            <span id="loanamount" class="inputspan" contenteditable="true" data-min="${loanAmountMin}" data-max="${loanAmountMax}" onblur="updateDisplay()">${formatNumberToIndianCommas(loanAmountMin)}</span>
+            <span id="loanamountApr" class="inputspan" contenteditable="true" data-min="${loanAmountMin}" data-max="${loanAmountMax}" onblur="updateDisplay()">${formatNumberToIndianCommas(loanAmountMin)}</span>
           </div>
-          <input type="range" id="loanamountRange" min=${loanAmountMin} max=${loanAmountMax} value=${loanAmountMin} step="5000" oninput="updateRange('loanamount')">
+          <input type="range" id="loanamountAprRange" min=${loanAmountMin} max=${loanAmountMax} value=${loanAmountMin}  oninput="updateRange('loanamountApr')">
           <div class="input-bottom-details">
             <span>${numberToWords(loanAmountMin)}</span>
             <span>${numberToWords(loanAmountMax)}</span>
           </div>
           <div class="errorMsg">
-            <p id="loanamountError" class="error" style="display: none;">Value must be between ${formatNumberToIndianCommas(loanAmountMin)} and ${formatNumberToIndianCommas(loanAmountMax)}</p>
+            <p id="loanamountErrorApr" class="error" style="display: none;">Value must be between ${formatNumberToIndianCommas(loanAmountMin)} and ${formatNumberToIndianCommas(loanAmountMax)}</p>
           </div>
         </div>
 
         <div class="inputBox">
-          <div class="input-details">
+          <div class="input_details_apr">
             <label for="interest">${interestTitle}</label>
             <span id="interestlabel">%</span>
             <span id="interest" class="inputspan" contenteditable="true" data-min="${interestMin}" data-max="${interestMax}" onblur="updateDisplay()">${interestMin}</span>
           </div>
-          <input type="range" id="interestRange" min=${interestMin} max=${interestMax} value=${interestMin} step="2" oninput="updateRange('interest')">
+          <input type="range" id="interestRange" min=${interestMin} max=${interestMax} value=${interestMin}  oninput="updateRange('interest')">
           <div class="input-bottom-details">
             <span>${interestMin}%</span>
             <span>${interestMax}%</span>
           </div>
           <div class="errorMsg">
-            <p id="interestError" class="error" style="display: none;">Value must be between ${interestMin} and ${interestMax}</p>
+            <p id="interestErrorApr" class="error" style="display: none;">Value must be between ${interestMin}% and ${interestMax}%</p>
           </div>
         </div>
 
         <div class="inputBox">
-          <div class="input-details">
+          <div class="input_details_apr">
             <label for="year">${yearTitle}</label>
             <span id="yearlabel">Year</span>
             <span id="year" class="inputspan" contenteditable="true" data-min="${yearMin}" data-max="${yearMax}" onblur="updateDisplay()">${yearMin}</span>
           </div>
-          <input type="range" id="yearRange" min=${yearMin} max=${yearMax} value=${yearMin} step="2" oninput="updateRange('year')">
+          <input type="range" id="yearRange" min=${yearMin} max=${yearMax} value=${yearMin}  oninput="updateRange('year')">
           <div class="input-bottom-details">
             <span>${yearMin}</span>
             <span>${yearMax}Year</span>
           </div>
           <div class="errorMsg">
-            <p id="yearError" class="error" style="display: none;">Value must be between ${yearMin} and ${yearMax}</p>
+            <p id="yearErrorApr" class="error" style="display: none;">Value must be between ${yearMin}Yrs and ${yearMax}Yrs</p>
           </div>
         </div>
 
         <div class="inputBox">
-          <div class="input-details">
+          <div class="input_details_apr">
             <label for="month">${monthTitle}</label>
             <span id="monthlabel">Mos</span>
             <span id="month" class="inputspan" contenteditable="true" data-min="${monthMin}" data-max="${monthMax}" onblur="updateDisplay()">${monthMin}</span>
           </div>
-          <input type="range" id="monthRange" min=${monthMin} max=${monthMax} value=${monthMin} step="1" oninput="updateRange('month')">
+          <input type="range" id="monthRange" min=${monthMin} max=${monthMax} value=${monthMin}  oninput="updateRange('month')">
           <div class="input-bottom-details">
             <span>${monthMin}</span>
             <span>${monthMax}</span>
           </div>
           <div class="errorMsg">
-            <p id="monthError" class="error" style="display: none;">Value must be between ${monthMin} and ${monthMax}</p>
+            <p id="monthErrorApr" class="error" style="display: none;">Value must be between ${monthMin}Mos and ${monthMax}Mos</p>
           </div>
         </div>
 
         <div class="inputBox">
-          <div class="input-details">
+          <div class="input_details_apr">
             <label for="originationcharges">${originationChargesTitle}</label>
             <span id="originationchargeslabel">Rs</span>
             <span id="originationcharges" class="inputspan" contenteditable="true" data-min="${originationChargesMin}" data-max="${originationChargesMax}" onblur="updateDisplay()">${originationChargesMin}</span>
           </div>
-          <input type="range" id="originationchargesRange" min=${originationChargesMin} max=${originationChargesMax} value=${originationChargesMin} step="10000" oninput="updateRange('originationcharges')">
+          <input type="range" id="originationchargesRange" min=${originationChargesMin} max=${originationChargesMax} value=${originationChargesMin}  oninput="updateRange('originationcharges')">
           <div class="input-bottom-details">
             <span>${numberToWords(originationChargesMin)}</span>
             <span>${numberToWords(originationChargesMax)}</span>
           </div>
           <div class="errorMsg">
-            <p id="originationchargesError" class="error" style="display: none;">Value must be between ${originationChargesMin} and ${originationChargesMax}</p>
+            <p id="originationchargesError" class="error" style="display: none;">Value must be between ${formatNumberToIndianCommas(originationChargesMin)} and ${formatNumberToIndianCommas(originationChargesMax)}</p>
           </div>
         </div>
 
@@ -158,7 +158,7 @@ function constructHtmlCode({
           <div>Annual Percentage Rate (APR):</div>
           <div id="aprDisplay">%</div>
         </div>
-        <button id="apply-btn">Apply Now</button>
+        <button id="apply-btn-apr">Apply Now</button>
       </div>
     </div>`;
 }
@@ -180,52 +180,73 @@ function setFontSize(size) {
 function initializeEventListeners(block) {
   // Add event listeners for input and range elements
 
-  document.getElementById('loanamount').addEventListener('input', function updateInput() {
+  document.getElementById('loanamountApr').addEventListener('blur', function updateLoanAmount() {
     const value = parseFloat(this.textContent.replace(/\D/g, ''));
-    const loanAmountRangeElement = document.getElementById('loanamountRange');
-    const numericValue = Number(value);
-    loanAmountRangeElement.value = Number.isNaN(numericValue)
-      ? loanAmountRangeElement.min : numericValue;
-
+    const loanAmountRangeElement = document.getElementById('loanamountAprRange');
+    loanAmountRangeElement.value = isNaN(value) ? loanAmountRangeElement.min : Math.min(Math.max(value, loanAmountRangeElement.min), loanAmountRangeElement.max);
+    const percentage = ((loanAmountRangeElement.value - loanAmountRangeElement.min) / (loanAmountRangeElement.max - loanAmountRangeElement.min)) * 100;
+    loanAmountRangeElement.style.setProperty('--value', `${percentage}%`);
+    this.textContent=formatNumberToIndianCommas(loanAmountRangeElement.value);
     updateDisplay();
   });
+  
 
-  document.getElementById('interest').addEventListener('input', function updateInput() {
-    const value = parseFloat(this.textContent.replace(/\D/g, ''));
+  document.getElementById('interest').addEventListener('blur', function updateInterest() {
+    const value = parseFloat(this.textContent.replace(/[^\d.]/g, ''));
     const interestRangeElement = document.getElementById('interestRange');
-    const numericValue = Number(value);
-    interestRangeElement.value = Number.isNaN(numericValue)
-      ? interestRangeElement.min : numericValue;
+    interestRangeElement.value = isNaN(value) ? interestRangeElement.min : Math.min(Math.max(value, interestRangeElement.min), interestRangeElement.max);
+    const percentage = ((interestRangeElement.value - interestRangeElement.min) / (interestRangeElement.max - interestRangeElement.min)) * 100;
+    interestRangeElement.style.setProperty('--value', `${percentage}%`);
+    this.textContent = formatNumberToIndianCommas(interestRangeElement.value);
     updateDisplay();
   });
+  
 
-  document.getElementById('year').addEventListener('input', function updateInput() {
+  document.getElementById('year').addEventListener('blur', function updateYear() {
     const value = parseFloat(this.textContent.replace(/\D/g, ''));
     const yearRangeElement = document.getElementById('yearRange');
-    const numericValue = Number(value);
-    yearRangeElement.value = Number.isNaN(numericValue) ? yearRangeElement.min : numericValue;
+    yearRangeElement.value = isNaN(value) ? yearRangeElement.min : Math.min(Math.max(value, yearRangeElement.min), yearRangeElement.max);
+    const percentage = ((yearRangeElement.value - yearRangeElement.min) / (yearRangeElement.max - yearRangeElement.min)) * 100;
+    yearRangeElement.style.setProperty('--value', `${percentage}%`);
+    this.textContent=formatNumberToIndianCommas(yearRangeElement.value);
     updateDisplay();
   });
+  
 
-  document.getElementById('month').addEventListener('input', function updateInput() {
+  document.getElementById('month').addEventListener('blur', function updateInput() {
     const value = parseFloat(this.textContent.replace(/\D/g, ''));
     const monthRangeElement = document.getElementById('monthRange');
     const numericValue = Number(value);
     monthRangeElement.value = Number.isNaN(numericValue) ? monthRangeElement.min : numericValue;
+    const percentage = (monthRangeElement.value / monthRangeElement.max) * 100;
+    monthRangeElement.style.setProperty('--value', `${percentage}%`);
     updateDisplay();
   });
 
-  document.getElementById('originationcharges').addEventListener('input', function updateInput() {
+  document.getElementById('originationcharges').addEventListener('blur', function updateOriginationCharges() {
     const value = parseFloat(this.textContent.replace(/\D/g, ''));
     const originationChargesRangeElement = document.getElementById('originationchargesRange');
-    const numericValue = Number(value);
-    originationChargesRangeElement.value = Number.isNaN(numericValue)
-      ? originationChargesRangeElement.min : numericValue;
+    originationChargesRangeElement.value = isNaN(value) ? originationChargesRangeElement.min : Math.min(Math.max(value, originationChargesRangeElement.min), originationChargesRangeElement.max);
+    const percentage = ((originationChargesRangeElement.value - originationChargesRangeElement.min) / (originationChargesRangeElement.max - originationChargesRangeElement.min)) * 100;
+    originationChargesRangeElement.style.setProperty('--value', `${percentage}%`);
+    this.textContent=formatNumberToIndianCommas(originationChargesRangeElement.value);
     updateDisplay();
   });
+  
+
+  document.getElementById('month').addEventListener('blur', function updateMonth() {
+    const value = parseFloat(this.textContent.replace(/\D/g, ''));
+    const monthRangeElement = document.getElementById('monthRange');
+    monthRangeElement.value = isNaN(value) ? monthRangeElement.min : Math.min(Math.max(value, monthRangeElement.min), monthRangeElement.max);
+    const percentage = ((monthRangeElement.value - monthRangeElement.min) / (monthRangeElement.max - monthRangeElement.min)) * 100;
+    monthRangeElement.style.setProperty('--value', `${percentage}%`);
+    this.textContent=formatNumberToIndianCommas(monthRangeElement.value);
+    updateDisplay();
+  });
+  
 
   // Add event listeners to enforce numeric input for spans
-  document.querySelectorAll('.input-details span').forEach((span) => {
+  document.querySelectorAll('.input_details_apr span').forEach((span) => {
     span.addEventListener('input', function updateSpan() {
       const value = this.textContent.trim();
       const numericValue = parseFloat(value.replace(/\D/g, ''));
@@ -244,20 +265,28 @@ function initializeEventListeners(block) {
       } else {
         this.textContent = ''; // Clear span content if input is not numeric
       }
+
+      // Update the corresponding range input's value and background
+      const id = span.id;
+      const rangeElement = document.getElementById(`${id}Range`);
+      rangeElement.value = numericValue;
+      const percentage = (rangeElement.value / rangeElement.max) * 100;
+      rangeElement.style.setProperty('--value', `${percentage}%`);
+      updateDisplay();
     });
   });
 }
 
 // Function to update display
 function updateDisplay() {
-  const loanAmount = parseFloat(document.getElementById('loanamount').textContent.replace(/\D/g, ''));
+  const loanAmount = parseFloat(document.getElementById('loanamountApr').textContent.replace(/\D/g, ''));
   const interestRate = parseFloat(document.getElementById('interest').textContent.replace(/\D/g, ''));
   const loanTenureYears = parseFloat(document.getElementById('year').textContent.replace(/\D/g, ''));
   const loanTenureMonths = parseFloat(document.getElementById('month').textContent.replace(/\D/g, ''));
   const originationCharges = parseFloat(document.getElementById('originationcharges').textContent.replace(/\D/g, ''));
 
-  const loanAmountMin = parseFloat(document.getElementById('loanamount').dataset.min);
-  const loanAmountMax = parseFloat(document.getElementById('loanamount').dataset.max);
+  const loanAmountMin = parseFloat(document.getElementById('loanamountApr').dataset.min);
+  const loanAmountMax = parseFloat(document.getElementById('loanamountApr').dataset.max);
   const interestMin = parseFloat(document.getElementById('interest').dataset.min);
   const interestMax = parseFloat(document.getElementById('interest').dataset.max);
   const yearMin = parseFloat(document.getElementById('year').dataset.min);
@@ -275,10 +304,10 @@ function updateDisplay() {
     }
   };
 
-  validateAndShowError(loanAmount, loanAmountMin, loanAmountMax, document.getElementById('loanamountError'));
-  validateAndShowError(interestRate, interestMin, interestMax, document.getElementById('interestError'));
-  validateAndShowError(loanTenureYears, yearMin, yearMax, document.getElementById('yearError'));
-  validateAndShowError(loanTenureMonths, monthMin, monthMax, document.getElementById('monthError'));
+  validateAndShowError(loanAmount, loanAmountMin, loanAmountMax, document.getElementById('loanamountErrorApr'));
+  validateAndShowError(interestRate, interestMin, interestMax, document.getElementById('interestErrorApr'));
+  validateAndShowError(loanTenureYears, yearMin, yearMax, document.getElementById('yearErrorApr'));
+  validateAndShowError(loanTenureMonths, monthMin, monthMax, document.getElementById('monthErrorApr'));
   validateAndShowError(originationCharges, originationChargesMin, originationChargesMax, document.getElementById('originationchargesError'));
 
   const totalLoanTenure = loanTenureYears * 12 + loanTenureMonths;
@@ -306,7 +335,7 @@ function updateDisplay() {
 
 // Function to setup Apply Now button
 function setupApplyNowButton() {
-  const applyBtn = document.getElementById('apply-btn');
+  const applyBtn = document.getElementById('apply-btn-apr');
   applyBtn.addEventListener('click', () => {
     window.location.href = '/applynow';
   });
@@ -315,10 +344,13 @@ function setupApplyNowButton() {
 // Function to update range input and corresponding span
 function updateRange(id) {
   const element = document.getElementById(`${id}Range`);
-  const { value } = element;
+  const { value, max, min } = element;
+  const percentage = ((value - min) / (max - min)) * 100;
+  element.style.setProperty('--value', `${percentage}%`);
   document.getElementById(id).textContent = formatNumberToIndianCommas(value);
   updateDisplay();
 }
+
 
 // Initial setup
 export default async function decorate(block) {
