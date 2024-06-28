@@ -99,9 +99,15 @@ const applyTextAlignmentAndPlacement = (container) => {
     'data-desktop-text-placement'
   );
 
+  const contentColour = container.getAttribute(
+    'data-text-color'
+  );
+ 
   const wrapper = container.querySelector('.teaser-wrapper .carousel-slide-content');
 
   wrapper.style.textAlign = desktopTextAlignment;
+  if(contentColour != null)
+  wrapper.style.color = contentColour;
 
   switch (desktopTextPlacement) {
     case 'left':

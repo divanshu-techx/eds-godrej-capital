@@ -349,9 +349,7 @@ function initialize(block) {
  
     var P, R, N, M, pie, line;
     var loan_amt_slider = block.querySelector("#loan-amount");
-  //   console.log(loan_amt_slider);
     var loan_amt_text = block.querySelector("#loan-amt-text");
-    console.log(loan_amt_text);
     var int_rate_slider = block.querySelector("#interest-rate");
     var int_rate_text = block.querySelector("#interest-rate-text");
     var loan_period_slider = block.querySelector("#loan-period");
@@ -424,60 +422,99 @@ function initialize(block) {
             const value = this.value;
             const maxValue = this.max; // Get the maximum value of the range input
             const percentage = (value / maxValue) * 100;
-            this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`
-          })
-     
+       
+            if (window.innerWidth <= 768) {
+              this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+            } else {
+              this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+            }
+          });
+         
           loan_amt_text.addEventListener('input', function() {
             const value = this.value;
-            const maxValue = this.max; // Get the maximum value of the range input
+            const maxValue = this.max;
             const percentage = (value / maxValue) * 100;
-            // console.log(value);
-            loan_amt_slider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`
-          })
+           
+            if (window.innerWidth <= 768) {
+              loan_amt_slider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+            } else {
+              loan_amt_slider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+            }
+          });
+         
      
      
           int_rate_slider.addEventListener('input', function() {
             const value = this.value;
             const percentage = ((value - interestrate_minvalue) / (interestrate_maxvalue - interestrate_minvalue)) * 100;
-             
-            // Update the background gradient with the calculated percentage
-            this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`
-          });
+            if (window.innerWidth <= 768) {
+                this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+              } else {
+                this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+              }
+       
+        });
          
           int_rate_text.addEventListener('input', function() {
             const value = this.value;
             const percentage = ((value - interestrate_minvalue) / (interestrate_maxvalue - interestrate_minvalue)) * 100;
-            // Update the background gradient with the calculated percentage
-            int_rate_slider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`
-          });
+ 
+            if (window.innerWidth <= 768) {
+                int_rate_slider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+                } else {
+                     int_rate_slider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+                    }
+       
+       
+        });
      
           loan_period_slider.addEventListener("input", function() {
             const value = this.value;
             const percentage = ((value - tenure_min_yearvalue) / (tenure_max_yearvalue - tenure_min_yearvalue)) * 100;  
-            // Update the background gradient with the calculated percentage
-            this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`;
-          });
+         if (window.innerWidth <= 768) {
+        this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+         } else {
+        this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+         }      
+       
+       
+        });
      
           loan_period_text.addEventListener("input", function() {
             const value = this.value;
             const percentage = ((value - tenure_min_yearvalue) / (tenure_max_yearvalue - tenure_min_yearvalue)) * 100;
-            // Update the background gradient with the calculated percentage
-            loan_period_slider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`;
-          });
+         if (window.innerWidth <= 768) {
+            loan_period_slider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+          } else {
+            loan_period_slider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+          }
+        });
      
+ 
           loan_period_slider_month.addEventListener("input", function() {
             const value = this.value;
             const percentage = ((value - tenure_min_monthvalue) / (tenure_max_monthvalue - tenure_min_monthvalue)) * 100;  
-            // Update the background gradient with the calculated percentage
-            this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`;
-          });
+     if (window.innerWidth <= 768) {
+        this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+      } else {
+        this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+      }      
+       
+       
+        });
      
           loan_period_text_month.addEventListener("input", function() {
             const value = this.value;
             const percentage = ((value - tenure_min_monthvalue) / (tenure_max_monthvalue - tenure_min_monthvalue)) * 100;
-            // Update the background gradient with the calculated percentage
-            loan_period_slider_month.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`;
-          });
+   
+             if (window.innerWidth <= 768) {
+                loan_period_slider_month.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+              } else {
+                loan_period_slider_month.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+              }
+       
+       
+        });
      
     // Error message spans
     const loanAmtError = createErrorSpan("Value should be between " + formatNumberToIndianCommas(loanAmountMinValue) + " and " + formatNumberToIndianCommas(loanAmountMaxValue));

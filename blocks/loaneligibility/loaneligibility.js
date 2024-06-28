@@ -611,7 +611,11 @@ function initialize(block) {
     const value = this.value;
     const maxValue = this.max; // Get the maximum value of the range input
     const percentage = (value / maxValue) * 100;
-    this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`
+    if (window.innerWidth <= 768) {
+      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+    } else {
+      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+    }
   })
  
   loanAmtText.addEventListener('input', function () {
@@ -619,7 +623,11 @@ function initialize(block) {
     const maxValue = this.max; // Get the maximum value of the range input
     const percentage = (value / maxValue) * 100;
     // console.log(value);
-    loanAmtSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`
+    if (window.innerWidth <= 768) {
+      loanAmtSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+    } else {
+      loanAmtSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+    }
   })
  
  
@@ -628,42 +636,89 @@ function initialize(block) {
     const percentage = ((value - interestRateMinValue) / (interestRateMaxValue - interestRateMinValue)) * 100;
  
     // Update the background gradient with the calculated percentage
-    this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`
+    if (window.innerWidth <= 768) {
+      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+    } else {
+      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+    }
   });
  
   intRateText.addEventListener('input', function () {
     const value = this.value;
     const percentage = ((value - interestRateMinValue) / (interestRateMaxValue - interestRateMinValue)) * 100;
     // Update the background gradient with the calculated percentage
-    intRateSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`
+    if (window.innerWidth <= 768) {
+      intRateSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+    } else {
+      intRateSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+    }
   });
  
   loanPeriodSlider.addEventListener("input", function () {
     const value = this.value;
     const percentage = ((value - tenureMinYearValue) / (tenureMaxYearValue - tenureMinYearValue)) * 100;
     // Update the background gradient with the calculated percentage
-    this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`;
+    if (window.innerWidth <= 768) {
+      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+    } else {
+      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+    }
   });
  
   loanPeriodText.addEventListener("input", function () {
     const value = this.value;
     const percentage = ((value - tenureMinYearValue) / (tenureMaxYearValue - tenureMinYearValue)) * 100;
     // Update the background gradient with the calculated percentage
-    loanPeriodSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`;
+    if (window.innerWidth <= 768) {
+      loanPeriodSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+    } else {
+      loanPeriodSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+    }
   });
  
   loanPeriodSliderMonth.addEventListener("input", function () {
     const value = this.value;
     const percentage = ((value - tenureMinMonthValue) / (tenureMaxMonthValue - tenureMinMonthValue)) * 100;
     // Update the background gradient with the calculated percentage
-    this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`;
+    if (window.innerWidth <= 768) {
+      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+    } else {
+      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+    }
   });
  
   loanPeriodTextMonth.addEventListener("input", function () {
     const value = this.value;
     const percentage = ((value - tenureMinMonthValue) / (tenureMaxMonthValue - tenureMinMonthValue)) * 100;
     // Update the background gradient with the calculated percentage
-    loanPeriodSliderMonth.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`;
+    if (window.innerWidth <= 768) {
+      loanPeriodSliderMonth.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+    } else {
+      loanPeriodSliderMonth.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+    }
+  });
+ 
+ 
+  exisitingEmiAmountSlider.addEventListener("input", function () {
+    const value = this.value;
+    const percentage = ((value - existingEmiMin) / (existingEmiMax - existingEmiMin)) * 100;
+    // Update the background gradient with the calculated percentage
+    if (window.innerWidth <= 768) {
+      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+    } else {
+      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+    }
+  });
+ 
+  exisitingEmiText.addEventListener("input", function () {
+    const value = this.value;
+    const percentage = ((value - existingEmiMin) / (existingEmiMax - existingEmiMin)) * 100;
+    // Update the background gradient with the calculated percentage
+    if (window.innerWidth <= 768) {
+      exisitingEmiAmountSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+    } else {
+      exisitingEmiAmountSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+    }
   });
  
  
