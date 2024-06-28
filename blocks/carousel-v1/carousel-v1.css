@@ -509,16 +509,17 @@ margin-bottom: 20px;
   @media(width <=600px){
     margin:unset;
     color:#000;
+    padding: 10px 10px 20px;
+    position: relative;
   }
   color:#fff;
   z-index: 1;
   margin: 4rem;
-  
 }
 
 .hero-carousel-secondary .carousel-slide-content.carousel-slide-v1-content  .button-container a.button{
   display:inline;
-  background: var(--color-sky-dark);
+  background: #3CB8FF;
     border-radius: 2px;
     box-sizing: border-box;
     padding: 10px 20px;
@@ -545,6 +546,7 @@ margin-bottom: 20px;
   font-weight: 400;
   @media(width <=600px){
     color:#000;
+    font-size: 11px;
   }
 }
 
@@ -590,6 +592,7 @@ margin-bottom: 20px;
   margin:0;
   @media(width <=600px){
     color:#000;
+    font-size: 11px;
   }
 }
 
@@ -722,6 +725,12 @@ margin-bottom: 20px;
     top:-36px;
     width: 100%;
     display: flex;
+    gap:1.5rem;
+  }
+  .hero-carousel-secondary{
+    background-color: #f4f4f4;
   }
 }
+
+
 
