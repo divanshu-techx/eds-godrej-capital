@@ -358,7 +358,7 @@ export default async function decorate(block) {
     secondElementDiv.innerHTML = '';
     thirdElementDiv.innerHTML = '';
 
-    const customerSupportDiv = document.createElement('div');
+    const customerSupportDiv = document.createElement('ul');
     customerSupportDiv.className = 'customerSupportDiv'; 
 
     const freeCreditDiv = document.createElement('div');
@@ -370,13 +370,13 @@ export default async function decorate(block) {
     console.log(responseData.branchlocater);
 
     customerSupportDiv.innerHTML = `
-        <div class="customersupport">
+        <li class="customersupport">
             <a href="${responseData.customersupportlink}" class="customer-support-anchor">
               ${responseData.customersupport}
             </a>      
-        </div>
+        </li>
   
-        <div class="selfservice">
+        <li class="selfservice">
                   <h4 class="self-service-heading">${responseData.selfservices}</h4>
             <ul class="self-service-ul">
                 <li class="self-service-li">
@@ -389,9 +389,9 @@ export default async function decorate(block) {
                    <a href="${responseData.faqlink}">${responseData.faq}</a>
                 </li>
             </ul>
-        </div>
+        </li>
   
-        <div class="grievancecontainer">
+        <li class="grievancecontainer">
              <h4 class="grievance-heading">${responseData.grievanceredressal}</h4>
             <ul class="grievance-ul">
                  <li class="self-service-li">
@@ -400,20 +400,21 @@ export default async function decorate(block) {
                    <a href="${responseData.godrejfinancelink}">${responseData.godrejfinance}</a>
                 </li>
             </ul>      
-        </div>
+        </li>
   
-        <div class="contactuscontainer">
+        <li class="contactuscontainer">
             <h4 class="contact-heading">${responseData.contactus}</h4>
             <p class="contact-mobile-number">${responseData.mobilenumber}</p>
             <p class="contact-mail">${responseData.mail}</p>          
-        </div>
+        </li>
          `;
     firstElementChildDiv.appendChild(customerSupportDiv);
     parentContainerDiv.appendChild(firstElementChildDiv);
 
     freeCreditDiv.innerHTML = `
             <div class="free-credit-container">
-                <img src="${responseData.freecrediticon}" class="free-credit-icon"><a class="free-credit-heading" href="${responseData.freecreditscorelink}">${responseData.freecreditscore}</a>
+                <div class="free-credit-internaldiv">
+                <img src="${responseData.freecrediticon}" class="free-credit-icon"><a class="free-credit-heading" href="${responseData.freecreditscorelink}">${responseData.freecreditscore}</a></div>
                 <p class="free-credit-description">${responseData.freecreditscoredescription}</p>
                 <a class="free-credit-score" href="${responseData.checkcreditscorelink}">${responseData.checkcreditscore}</a>
             </div>
