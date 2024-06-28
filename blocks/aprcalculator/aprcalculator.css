@@ -1,0 +1,141 @@
+.aprcalculator{
+    .calculator-container {
+        width: 80%;
+        margin: 20px auto;
+        padding: 20px;
+        background: white;
+        box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+    }
+    
+    .inputs label, .inputs span {
+        display: block;
+        margin: 10px 0;
+    }
+    
+    .inputs input[type="range"] {
+        width: 100%;
+    }
+    
+    .outputs {
+        margin-top: 20px;
+    }
+    
+    .result {
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+    
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        color: white;
+        background-color: #007BFF;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .input_details_apr {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .input-span-desc {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .input_details_apr .inputspan {
+        border: 1px solid grey;
+        padding: 5px;
+        width: 120px;
+    }
+
+    .input-bottom-details{
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .error{
+        color: red;
+    }
+
+
+
+
+    /* manoj css start */
+    /* CSS to apply gradient to range sliders */
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 8px;
+      background: #d3d3d3; /* Default grey color */
+      outline: none;
+      /* transition: background 0.15s ease-in-out; */
+    }
+  
+    input[type="range"]::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 8px;
+      background: linear-gradient(to right, #8cb133 0%, #8cb133 var(--value), #d3d3d3 var(--value), #d3d3d3 100%);
+      border-radius: 5px;
+    }
+  
+    input[type="range"]::-webkit-slider-thumb {
+        box-shadow: 2px 2px 5px var(--color-dark-grey-secondary), -1px -1px 3px grey;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        background: var(--color-citrus);
+        cursor: pointer;
+        margin-top: -6px;
+        appearance: none;
+      }
+  
+    input[type="range"]::-moz-range-track {
+      width: 100%;
+      height: 8px;
+      background: linear-gradient(to right, #8cb133 0%, #8cb133 var(--value), #d3d3d3 var(--value), #d3d3d3 100%);
+      border-radius: 5px;
+    }
+  
+    input[type="range"]::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      background: #8cb133;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+  
+    input[type="range"]::-ms-track {
+      width: 100%;
+      height: 8px;
+      background: transparent; /* Hides the default track so the custom one shows */
+      border-color: transparent;
+      color: transparent;
+    }
+  
+    input[type="range"]::-ms-fill-lower {
+      background: #8cb133;
+      border-radius: 5px;
+    }
+  
+    input[type="range"]::-ms-fill-upper {
+      background: #d3d3d3;
+      border-radius: 5px;
+    }
+  
+    input[type="range"]::-ms-thumb {
+      width: 25px;
+      height: 25px;
+      background: #8cb133;
+      cursor: pointer;
+      border-radius: 50%;
+      margin-top: 0; /* Adjust based on the height of the slider */
+    }
+  
+    input[type="range"]:focus {
+      outline: none;
+    }
+   
+}

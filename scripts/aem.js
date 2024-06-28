@@ -705,6 +705,43 @@ async function loadHeader(header) {
   return loadBlock(headerBlock);
 }
 
+// /**
+//  * Loads a block named 'headermobile' into header
+//  * @param {Element} header headermobile element
+//  * @returns {Promise}
+//  */
+// async function loadheaderMobile(header) {
+//   const loadheaderMobileBlock = buildBlock('headerMobile', '');
+//   header.append(loadheaderMobileBlock);
+//   decorateBlock(loadheaderMobileBlock);
+//   return loadBlock(loadheaderMobileBlock);
+// }
+
+/**
+ * Loads a block named 'subHeader' into subHeader
+ * @param header subHeader element
+ * @returns {Promise}
+ */
+async function loadSubHeader(header) {
+  const subHeaderBlock = buildBlock('subheader', '');
+  header.append(subHeaderBlock);
+  decorateBlock(subHeaderBlock);
+  return loadBlock(subHeaderBlock);
+}
+
+/**
+ * Loads a block named 'footer' into footer
+ * @param footer subfooter element
+ * @returns {Promise}
+ */
+
+async function loadSecFooter(footer) {
+  const secFooterBlock = buildBlock('secfooter', '');
+  footer.append(secFooterBlock);
+  decorateBlock(secFooterBlock);
+  return loadBlock(secFooterBlock);
+}
+
 /**
  * Loads a block named 'footer' into footer
  * @param footer footer element
@@ -767,4 +804,7 @@ export {
   updateSectionsStatus,
   waitForLCP,
   wrapTextNodes,
+  loadSubHeader,
+  loadSecFooter,
+  // loadheaderMobile,
 };

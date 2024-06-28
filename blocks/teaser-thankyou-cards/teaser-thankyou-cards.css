@@ -1,0 +1,226 @@
+.block.teaser-thankyou-cards.center {
+    text-align: center;
+}
+
+/* mobile */
+
+/* first row div */
+.block.teaser-thankyou-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.block.teaser-thankyou-cards>div {
+    display: flex;
+    gap: 30px;
+    flex-flow: column;
+}
+
+/* each teaser div in the row */
+.block.teaser-thankyou-cards .teaser {
+    box-sizing: border-box;
+    flex: 0 1 auto;
+}
+
+/* teaser image */
+.block.teaser-thankyou-cards p.image {
+    display: block;
+    margin: 0 0 1em;
+}
+
+.block.teaser-thankyou-cards img {
+    max-width: 100%;
+    object-fit: cover;
+}
+
+
+/* teaser title */
+.block.teaser-thankyou-cards :is(h2, h3, h4) {
+    margin: 0 0 10px;
+    letter-spacing: -.1px;
+    line-height: 1.3333em;
+}
+
+.block.teaser-thankyou-cards h2 {
+    letter-spacing: 3.6px;
+
+    /* font-family: ; */
+    font-size: 14px;
+    line-height: 1em;
+}
+
+/* teaser text */
+.teaser-thankyou-cards p.text {
+    font-size: 14px;
+    margin: 0 0 8px;
+    letter-spacing: -.1px;
+}
+
+/* cta's (maybe remove button container completely) */
+.teaser-thankyou-cards .button-container {
+    margin: 0;
+}
+
+/* single teaser */
+.teaser-thankyou-cards-wrapper.teaser-cards-1 {
+    padding: 0;
+}
+
+.teaser-cards-1 .block.teaser-thankyou-cards .teaser {
+    width: 100%;
+    padding: 0 0 24px;
+    background-color: lightgray;
+    text-align: center;
+}
+
+.teaser-cards-1 .block.teaser-thankyou-cards :is(h2, h3) {
+    margin: 30px 0 16px;
+    font-size: 48px;
+}
+
+.teaser-cards-1 .block.teaser-thankyou-cards p.text {
+    display: none;
+}
+
+.block.teaser-thankyou-cards a {
+    background-color: transparent;
+}
+
+.block.teaser-thankyou-cards a:hover {
+    border-color: #303033;
+    color: #303033;
+}
+
+.block.teaser-thankyou-cards.teaser.with-cta-list :is(h2, h3, h4) a::after {
+    display: none;
+}
+
+.block.teaser-thankyou-cards .teaser.with-cta-list .cta-list {
+    margin-top: 20px;
+}
+
+/* center */
+.block.teaser-thankyou-cards.center .teaser {
+    text-align: center;
+}
+
+/* link list on mobile */
+.block.teaser-thankyou-cards.link-list-on-mobile>div {
+    flex-flow: column;
+}
+
+.block.teaser-thankyou-cards.link-list-on-mobile p.image {
+    display: none;
+}
+
+.block.teaser-thankyou-cards .link-with-video p.image {
+    display: block;
+}
+
+@media(width >= 768px) {
+    .block.teaser-thankyou-cards>div,
+    .block.teaser-cards.link-list-on-mobile>div {
+        flex-flow: row;
+    }
+
+    /* each teaser div in the row */
+    .block.teaser-thankyou-cards .teaser {
+        width: 50%;
+    }
+
+    .block.teaser-thankyou-cards :is(h2, h3) {
+        margin: 24px 0 10px;
+    }
+
+    /* image */
+    .block.teaser-thankyou-cards.link-list-on-mobile p.image {
+        display: block;
+    }
+
+    /* single teaser */
+    .teaser-cards-1 .block.teaser-thankyou-cards .teaser {
+        padding: 8px 0;
+        min-height: 250px;
+        position: relative;
+        background: none;
+        color: black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .teaser-cards-1 .block.teaser-thankyou-cards.dark .teaser {
+        color: var(--text-color);
+    }
+
+    .teaser-cards-1 .block.teaser-thankyou-cards :is(h2, h3, p.text, p.special-paragraph) {
+        display: block;
+        max-width: 350px;
+    }
+
+    .teaser-cards-1 .block.teaser-cards :is(h2, h3) {
+        margin-block-start: 0;
+    }
+
+    .teaser-cards-1 .block.teaser-thankyou-cards p.image {
+        margin: 0;
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+    }
+
+    .teaser-cards-1 .block.teaser-thankyou-cards p.image::after {
+        display: block;
+        position: absolute;
+        inset: 0;
+        background-color: inherit;
+        content: "";
+        opacity: .15;
+    }
+
+    .teaser-cards-1 .block.teaser-thankyou-cards p.image img {
+        height: 100%;
+        width: 100%;
+    }
+
+    .teaser-cards-1 .block.teaser-thankyou-cards a {
+        background-color: rgb(255 255 255 / 80%);
+        border-color: #fff;
+    }
+
+    .teaser-cards-1 .block.teaser-thankyou-cards a:hover {
+        background-color: rgb(255 255 255 / 80%);
+        border-color: #fff;
+    }
+
+    .teaser-cards-1 .block.teaser-thankyou-cards.dark a {
+        background-color: rgb(83 86 90 / 80%);
+        border-color: rgb(83 86 90 / 80%);
+        color: #fff;
+    }
+
+    .teaser-cards-1 .block.teaser-thankyou-cards.dark a:hover {
+        background-color: rgb(255 255 255 / 80%);
+        color: #e1dfdd;
+    }
+}
+
+@media(width = 992px) {
+    .block.teaser-thankyou-cards :is(h2, h3) {
+        margin-bottom: 16px;
+    }
+
+    /* single teaser */
+    .teaser-cards-1 .block.teaser-thankyou-cards .teaser {
+        min-height: 402px;
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+    }
+
+    .teaser-cards-1 .block.teaser-thankyou-cards p.text {
+        display: block;
+        max-width: 870px;
+    }
+}
