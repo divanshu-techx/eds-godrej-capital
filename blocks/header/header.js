@@ -358,9 +358,18 @@ export default async function decorate(block) {
     secondElementDiv.innerHTML = '';
     thirdElementDiv.innerHTML = '';
 
+    const customerSupportDiv = document.createElement('div');
+    customerSupportDiv.className = 'customerSupportDiv'; 
+
+    const freeCreditDiv = document.createElement('div');
+    freeCreditDiv.className = 'freeCreditDiv';
+
+    const imageContainerDiv = document.createElement('div');
+    imageContainerDiv.className = 'imageContainerDiv';
+
     console.log(responseData.branchlocater);
 
-    firstElementChildDiv.innerHTML = `
+    customerSupportDiv.innerHTML = `
         <div class="customersupport">
             <a href="${responseData.customersupportlink}" class="customer-support-anchor">
               ${responseData.customersupport}
@@ -399,9 +408,10 @@ export default async function decorate(block) {
             <p class="contact-mail">${responseData.mail}</p>          
         </div>
          `;
+    firstElementChildDiv.appendChild(customerSupportDiv);
     parentContainerDiv.appendChild(firstElementChildDiv);
 
-    secondElementDiv.innerHTML = `
+    freeCreditDiv.innerHTML = `
             <div class="free-credit-container">
                 <img src="${responseData.freecrediticon}" class="free-credit-icon"><a class="free-credit-heading" href="${responseData.freecreditscorelink}">${responseData.freecreditscore}</a>
                 <p class="free-credit-description">${responseData.freecreditscoredescription}</p>
@@ -413,11 +423,13 @@ export default async function decorate(block) {
                 <img src="${responseData.whatsupicon}" alt="QR Code" class="whatsUp-icon">
             </div>
         `;
+    secondElementDiv.appendChild(freeCreditDiv);
     parentContainerDiv.appendChild(secondElementDiv);
 
-    thirdElementDiv.innerHTML = `
+    imageContainerDiv.innerHTML = `
             <img src="${responseData.mainimage}" alt="Main Image" class="main-image">
         `;
+    thirdElementDiv.appendChild(imageContainerDiv);
     parentContainerDiv.appendChild(thirdElementDiv);
 
     belowNavMainContainer.appendChild(parentContainerDiv);
