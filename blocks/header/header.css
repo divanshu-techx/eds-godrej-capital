@@ -808,6 +808,7 @@ font-weight: 400;
 .contactuscontainer .contact-heading{
   text-align: start;
   padding:unset;
+  margin-bottom: 5px;
   font-size: 14px;
   font-weight: 500;
   color:#3b3b3b;
@@ -815,13 +816,13 @@ font-weight: 400;
 
 .contactuscontainer p{
   font-size: 14px;
-font-weight: 400;
+  font-weight: 400;
   color:#3b3b3b;
+  margin-bottom: 5px;
 }
 
 .thirdElementDiv .imageContainerDiv {
   width: 100%; 
-  /* height: 100%; */
   overflow: hidden; 
   position: relative; 
 }
