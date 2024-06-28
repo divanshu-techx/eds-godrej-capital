@@ -675,9 +675,19 @@ color:var(--color-charcoal-black);
   display: flex;
 }
 
-.belowNavMainContainer.show .firstElementChildDiv{}
+.belowNavMainContainer.show .firstElementChildDiv{
 
-.belowNavMainContainer.show .thirdElementDiv img{
+}
+
+.belowNavMainContainer.show .firstElementChildDiv .secondElementDiv .free-credit-container{
+width: 240px;
+}
+
+.belowNavMainContainer.show .firstElementChildDiv .secondElementDiv .whatsUp-container{
+width: 240px;
+}
+
+.belowNavMainContainer.show .thirdElementDiv .imageContainerDiv{
 
 }
 
