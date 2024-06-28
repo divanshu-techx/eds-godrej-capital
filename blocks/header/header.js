@@ -513,17 +513,21 @@ export default async function decorate(block) {
     topNav.appendChild(ul);
 
     const navItems = document.querySelectorAll('a.anchorClass');
+    const listElements = document.querySelectorAll('li.listElement');
 
     navItems.forEach((navItem) => {
       navItem.addEventListener('click', (event) => {
         event.preventDefault();
-
+    
         const depth = navItem.getAttribute('data-depth');
-        const navListItem = navItem.getAttribute('data-navItem');
+        const navListItem = navItem.getAttribute('data-navitem');
         const childPath = navItem.getAttribute('data-path');
-
+    
         getChildApiResponse(childPath, navListItem, depth);
-
+    
+        const parentListItem = navItem.closest('li');
+    
+        // Handle rotation and showing belowNavMainContainer
         if (navItem.classList.contains('rotate')) {
           navItem.classList.remove('rotate');
           belowNavMainContainer.classList.remove('show');
@@ -531,6 +535,15 @@ export default async function decorate(block) {
           navItems.forEach((item) => item.classList.remove('rotate'));
           navItem.classList.add('rotate');
           belowNavMainContainer.classList.add('show');
+        }
+    
+        // Check if the parent list item is already selected
+        if (parentListItem.classList.contains('selected')) {
+          parentListItem.classList.remove('selected');
+        } else {
+          // Remove 'selected' class from all list items and add to the clicked one
+          listElements.forEach((listElement) => listElement.classList.remove('selected'));
+          parentListItem.classList.add('selected');
         }
       });
     });
