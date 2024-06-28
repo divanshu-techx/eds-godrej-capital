@@ -322,38 +322,46 @@ export default async function decorate(block) {
     let overallIndex = 0;
 
     for (const key in response) {
-      if (response.hasOwnProperty(key)) {
-        response[key].forEach((item) => {
-          const li = document.createElement('li');
-          li.classList.add('listElement');
-          if (overallIndex === 0) li.classList.add('active');
-          const anchor = document.createElement('a');
-          anchor.textContent = item.title;
-          anchor.href = '#';
-          anchor.classList.add('anchorPath');
-          anchor.setAttribute('data-path', item.path);
-          li.appendChild(anchor);
-          mainUl.appendChild(li);
-          anchor.addEventListener('click', (event) => {
-            event.preventDefault();
-            const allListItems = mainUl.querySelectorAll('li');
-            allListItems.forEach((item) => item.classList.remove('active'));
-            li.classList.add('active');
-            displayURLContent(item.path);
-          });
-          if (!defaultPathSet) {
-            displayURLContent(item.path);
-            defaultPathSet = true;
-          }
-          overallIndex++;
-        });
-      }
+        if (response.hasOwnProperty(key)) {
+            response[key].forEach((item) => {
+                const li = document.createElement('li');
+                li.classList.add('listElement');
+                if (overallIndex === 0) li.classList.add('active');
+                const anchor = document.createElement('a');
+                anchor.textContent = item.title;
+                anchor.href = '#';
+                anchor.classList.add('anchorPath');
+                anchor.setAttribute('data-path', item.path);
+
+                li.appendChild(anchor);
+                mainUl.appendChild(li);
+
+                anchor.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const allListItems = mainUl.querySelectorAll('li');
+                    allListItems.forEach(item => item.classList.remove('active'));
+                    li.classList.add('active');
+                    displayURLContent(item.path);
+                });
+
+                if (!defaultPathSet) {
+                    displayURLContent(item.path);
+                    defaultPathSet = true;
+                }
+
+                overallIndex++;
+            });
+        }
     }
-    secondElementDiv.appendChild(mainUl);
-    parentContainerDiv.appendChild(secondElementDiv);
+
+    if (itemCount != 0) {
+        secondElementDiv.appendChild(mainUl);
+        parentContainerDiv.appendChild(secondElementDiv);
+    }
+
     parentContainerDiv.appendChild(thirdElementDiv);
     belowNavMainContainer.appendChild(parentContainerDiv);
-  }
+}
 
   // function to render nav elements div for child depth is zero
   function getChildResponseDataForDepthZero(responseData) {
