@@ -836,4 +836,20 @@ font-weight: 400;
   object-fit: cover; 
 }
 
+.listElement.active .anchorPath {
+  position: relative;
+}
+
+.listElement.active .anchorPath::after {
+  content: ""; 
+  background-image: url('/icons/navarrow.svg'); 
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute; 
+  right: -40px; 
+  top: 65%;
+  width: 16px; 
+  height: 16px; 
+  transform: translateY(-50%);
+}
 
