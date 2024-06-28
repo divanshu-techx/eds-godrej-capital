@@ -1,14 +1,14 @@
 /* Style for accordion */
-.upperContainer{
-   display:flex;
-  }
+.upperContainer {
+  display: flex;
+}
 
-  .lowerContainer{
-    display:flex;
-   }
+.lowerContainer {
+  display: flex;
+}
 
 
-   /* Style the buttons that are used to open and close the accordion panel */
+/* Style the buttons that are used to open and close the accordion panel */
 .accordion {
   background-color: #eee;
   color: #444;
@@ -22,8 +22,9 @@
   transition: 0.4s;
 }
 
-.accordion.active, .accordion:hover {
-  background-color: #ccc; 
+.accordion.active,
+.accordion:hover {
+  background-color: #ccc;
 }
 
 /* Style the accordion panel. Note: hidden by default */
@@ -36,41 +37,41 @@
 
 
 
-/* Style the buttons that are used to open and close the accordion panel */
-.qa-item h4 {
-  background-color: #eee;
-  color: #444;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
-  transition: 0.4s;
-  margin: 0;
+
+.faq-wrapper .middleContainer .tags-button {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-.qa-item h4.active, .qa-item h4:hover {
-  background-color: #ccc; 
+.faq-wrapper .middleContainer .tags-button .tab-button {
+  color: #3B3B3B;
+  background-color: #F4F4F4;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16.42px;
+
 }
 
-/* Style the accordion panel. Note: hidden by default */
-.qa-item p {
-  padding: 0 18px;
-  background-color: white;
-  display: none;
-  overflow: hidden;
-  margin: 0;
+.faq-wrapper .middleContainer .tags-button .tab-button.active-tab {
+  color: #FFFFFF;
+  background: #3CB8FF;
 }
 
-.qa-item p.show {
-  display: block;
+.faq-wrapper .middleContainer #faq-not-found,
+.faq-wrapper .middleContainer .tags-button {
+  margin-bottom: 25px;
 }
-.faq-wrapper .lowerContainer{
+
+.faq-wrapper .lowerContainer {
+  border-top: 1px solid #E8E8E8;
+  padding-top: 25px;
   display: flex;
   flex-direction: row;
   gap: 20px;
+
 }
 
 .faq-wrapper .product-page .banner-container {
@@ -78,51 +79,85 @@
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 29.74%, #000 49.78%);
 }
 
-.faq-wrapper .product-page .banner-container .content-container{
+.faq-wrapper .product-page .banner-container .content-container {
   padding-left: 40px;
   padding-bottom: 42px;
-  padding-top: 40%;
+  padding-top: 30%;
   color: #FFFFFF;
   font-family: "Work Sans";
 }
 
-.faq-wrapper .product-page .banner-container .content-container .description-container{
-font-size: 16px;
-font-weight: 300;
-text-transform: capitalize;
+.faq-wrapper .product-page .banner-container .content-container .heading-container h3 {
+  text-align: left;
+  font-family: Work Sans;
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 43.2px;
+  text-align: left;
 }
-.faq-wrapper .product-page .banner-container .content-container .details-container{
+
+.faq-wrapper .product-page .banner-container .content-container .description-container {
+  font-size: 16px;
+  font-weight: 300;
+  text-transform: capitalize;
+}
+
+.faq-wrapper .product-page .banner-container .content-container .details-container {
   padding-left: 20px;
 }
-.faq-wrapper .product-page .banner-container .content-container .details-container ul{
+
+.faq-wrapper .product-page .banner-container .content-container .details-container ul {
   padding-left: 0;
 }
 
-.faq-wrapper .product-page .banner-container .content-container .details-container ul>li{
+.faq-wrapper .product-page .banner-container .content-container .details-container ul>li {
   position: relative;
- list-style-type: none;
- font-weight: 400;
- font-size: 14px;
+  list-style-type: none;
+  font-weight: 400;
+  font-size: 14px;
 
 }
 
-.faq-wrapper .product-page .banner-container .content-container .details-container ul>li::before{
+.faq-wrapper .product-page .banner-container .content-container .details-container ul>li::before {
   content: '';
   position: absolute;
   left: -20px;
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background-color:#8CB133 ;
+  background-color: #8CB133;
   top: calc(50% - 6px);
 }
-.faq-wrapper .product-page{
- max-width: 656px;
- width: 100%;
- border-radius: 8px;
+
+.faq-wrapper .product-page .banner-container .content-container .btn-container {
+  display: inline-block;
+  gap: 30px;
 }
 
-.faq-wrapper .product-page .banner-image{
+.faq-wrapper .product-page .banner-container .content-container .btn-container .btn-details {
+  font-family: Work Sans;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16.42px;
+  text-align: center;
+  color: #FFFFFF;
+  text-decoration: none;
+  border-radius: 4px;
+  padding: 12px 20px;
+}
+
+.faq-wrapper .product-page .banner-container .content-container .btn-container .apply-now {
+  background-color: #3CB8FF;
+
+}
+
+.faq-wrapper .product-page {
+  max-width: 656px;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.faq-wrapper .product-page .banner-image {
   border-radius: 8px;
   position: absolute;
   z-index: -1;
@@ -130,4 +165,91 @@ text-transform: capitalize;
   top: 0;
   right: 0;
   left: 0;
+}
+
+
+.lowerContainer .ques-ans {
+  width: 100%;
+}
+
+.lowerContainer .qa-item {
+  margin-bottom: 10px;
+  border-radius: 4px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+}
+
+
+/* Style the buttons that are used to open and close the accordion panel */
+.lowerContainer .qa-item h4 {
+  background-color: #E8E8E8;
+  color: #3B3B3B;
+  cursor: pointer;
+  padding: 8px 6px;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 16px;
+  transition: 0.4s;
+  margin: 0;
+  position: relative;
+  font-family: Work Sans;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 28px;
+  text-align: left;
+}
+
+.lowerContainer .qa-item .faq-heading::after,
+.lowerContainer .qa-item .faq-heading.active::after {
+
+  position: absolute;
+
+  right: 0;
+  font-weight: 500;
+  font-size: 22px;
+  margin-right: 6px;
+  width: 30px;
+  text-align: center;
+  height: 30px;
+
+  border-radius: 4px;
+}
+
+.lowerContainer .qa-item .faq-heading::after {
+  content: '+';
+  color: #3CB8FF;
+  background-color: #FFFFFF;
+}
+
+.lowerContainer .qa-item .faq-heading.active::after {
+  content: '-';
+  color: #FFFFFF;
+  background-color: #3CB8FF;
+}
+
+.lowerContainer .qa-item h4.active,
+.lowerContainer .qa-item h4:hover {
+  background-color: #E8E8E8;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.lowerContainer .qa-item p {
+  padding: 0 6px;
+  background-color: #E8E8E8;
+  display: none;
+  overflow: hidden;
+  margin: 0;
+  padding-bottom: 8px;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 16.42px;
+  text-align: left;
+}
+
+.lowerContainer .qa-item p.show {
+  display: block;
+
 }
