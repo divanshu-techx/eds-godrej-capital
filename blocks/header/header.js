@@ -227,26 +227,19 @@ export default async function decorate(block) {
       if (response.hasOwnProperty(key)) {
         const li = document.createElement('li');
         li.className = 'listElement';
-        if (index === 0) li.classList.add('active'); // Add active class to the first item by default
-
+        if (index === 0) li.classList.add('active');
         const a = document.createElement('a');
         a.textContent = key;
         a.className = 'anchorPath';
         a.addEventListener('click', (event) => {
           event.preventDefault();
-
-          // Remove active class from all items in firstElementChildDiv
           const allListItems = mainUl.querySelectorAll('li');
           allListItems.forEach((item) => item.classList.remove('active'));
-
-          // Add active class to the clicked item
           li.classList.add('active');
-
           updateSecondElementDiv(response[key]);
         });
 
         li.appendChild(a);
-        // Append the main category li to the main ul
         mainUl.appendChild(li);
       }
     });
@@ -264,37 +257,26 @@ export default async function decorate(block) {
       secondElementDiv.innerHTML = '';
       thirdElementDiv.innerHTML = '';
 
-      // Create a nested ul for the items
       const nestedUl = document.createElement('ul');
+      nestedUl.classList.add('subList', 'active');
 
-      // Iterate over the items and create the elements
       Object.keys(items).forEach((key, index) => {
         const item = items[key];
-
-        // Create a nested li for each item
         const nestedLi = document.createElement('li');
         nestedLi.className = 'listElement';
-        if (index === 0) nestedLi.classList.add('active');
-
-        // Create an anchor element for each item
         const anchor = document.createElement('a');
         anchor.textContent = item.title;
         anchor.href = '#';
-        anchor.classList.add('anchorClass');
+        anchor.classList.add('anchorPath');
+        if (index === 0) anchor.classList.add('anchor_active');
         anchor.setAttribute('data-path', item.path);
 
-        // Add click event to update the thirdElementDiv content
         anchor.addEventListener('click', (event) => {
-          event.preventDefault();
-
-          // Remove active class from all items in nestedUl
-          const allListItems = nestedUl.querySelectorAll('li');
-          allListItems.forEach((item) => item.classList.remove('active'));
-
-          // Add active class to the clicked item
-          nestedLi.classList.add('active');
-
-          displayURLContent(item.path);
+        event.preventDefault();
+        const allAnchors = nestedUl.querySelectorAll('a.anchorPath');
+        allAnchors.forEach((anchorItem) => anchorItem.classList.remove('anchor_active'));
+        anchor.classList.add('anchor_active');
+        displayURLContent(item.path);
         });
 
         nestedLi.appendChild(anchor);
@@ -318,6 +300,7 @@ export default async function decorate(block) {
     thirdElementDiv.innerHTML = '';
 
     const mainUl = document.createElement('ul');
+    mainUl.classList.add('subList', 'active');
     let defaultPathSet = false;
     let overallIndex = 0;
 
@@ -326,11 +309,12 @@ export default async function decorate(block) {
             response[key].forEach((item) => {
                 const li = document.createElement('li');
                 li.classList.add('listElement');
-                if (overallIndex === 0) li.classList.add('active');
+
                 const anchor = document.createElement('a');
                 anchor.textContent = item.title;
                 anchor.href = '#';
                 anchor.classList.add('anchorPath');
+                if (overallIndex === 0) anchor.classList.add('anchor_active');
                 anchor.setAttribute('data-path', item.path);
 
                 li.appendChild(anchor);
@@ -338,9 +322,9 @@ export default async function decorate(block) {
 
                 anchor.addEventListener('click', (event) => {
                     event.preventDefault();
-                    const allListItems = mainUl.querySelectorAll('li');
-                    allListItems.forEach(item => item.classList.remove('active'));
-                    li.classList.add('active');
+                    const allAnchors = mainUl.querySelectorAll('a.anchorPath');
+                    allAnchors.forEach((anchorItem) => anchorItem.classList.remove('anchor_active'));
+                    anchor.classList.add('anchor_active');
                     displayURLContent(item.path);
                 });
 
@@ -518,16 +502,12 @@ export default async function decorate(block) {
     navItems.forEach((navItem) => {
       navItem.addEventListener('click', (event) => {
         event.preventDefault();
-    
         const depth = navItem.getAttribute('data-depth');
         const navListItem = navItem.getAttribute('data-navitem');
         const childPath = navItem.getAttribute('data-path');
-    
-        getChildApiResponse(childPath, navListItem, depth);
-    
+        getChildApiResponse(childPath, navListItem, depth);   
         const parentListItem = navItem.closest('li');
-    
-        // Handle rotation and showing belowNavMainContainer
+
         if (navItem.classList.contains('rotate')) {
           navItem.classList.remove('rotate');
           belowNavMainContainer.classList.remove('show');
@@ -537,11 +517,9 @@ export default async function decorate(block) {
           belowNavMainContainer.classList.add('show');
         }
     
-        // Check if the parent list item is already selected
         if (parentListItem.classList.contains('selected')) {
           parentListItem.classList.remove('selected');
         } else {
-          // Remove 'selected' class from all list items and add to the clicked one
           listElements.forEach((listElement) => listElement.classList.remove('selected'));
           parentListItem.classList.add('selected');
         }
