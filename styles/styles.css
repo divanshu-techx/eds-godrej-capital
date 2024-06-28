@@ -1,16 +1,10 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body header,
+/* body header,
 body main,
 body footer {
   margin: 0 auto;
   max-width: 105pc;
   width: 100%;
-}
+} */
 
 :root {
 --slide-content-width: 35%;
