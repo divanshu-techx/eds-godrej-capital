@@ -14,12 +14,12 @@ header .nav-wrapper {
 header{
   z-index: 1000;
   position: fixed;
-  /* max-width: 105pc;
-  width:100%; */
+  /* max-width: 105pc; */
+   width:100%;
   top:0;
   order:2;
-  /* left: 0;
-  right: 0; */
+   /* left: 0; */
+  /* right: 0;  */
 }
 
 header nav {
