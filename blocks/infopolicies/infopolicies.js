@@ -1,21 +1,17 @@
 var indexUrl=getDataAttributeValueByName('queryindexurl');
 console.log(indexUrl);
 
+function isMobileView() {
+  return window.matchMedia("(max-width: 767px)").matches;
+}
 
-export default async function decorate(block) {
+export default async function decorate() {
   console.log('hii');
   var data,dropdown;
-  //   path;
 
   try {
     // Fetch the data asynchronously
     data = await fetchData();
-
-//   // Get distinct parents and paths from the data
-  //   parent = getDistinctParents(data);
-  //   path = getAllPaths(data);
-  //   console.log(path);
-  //   console.log(parent);
 
   const infopoliciesEle = document.getElementsByClassName('infopolicies');
   var firstChildElement;
@@ -45,11 +41,11 @@ export default async function decorate(block) {
 }
 
 
-
 function getDataAttributeValueByName(name) {
   const element = document.querySelector(`[data-${name}]`);
   return element ? element.getAttribute(`data-${name}`) : null;
 }
+
 // Fetch data from the provided URL
 async function fetchData() {
   const responseData = await fetch(indexUrl);
@@ -57,21 +53,6 @@ async function fetchData() {
   console.log('new object is', dataObj);
   return dataObj.data;
 }
-
-// Get distinct parents from the data
-function getDistinctParents(data) {
-  const uniqueParents = new Set();
-  data.forEach((item) => {
-    uniqueParents.add(item.parent);
-  });
-  return Array.from(uniqueParents);
-}
-
-// Get all paths from the data
-function getAllPaths(data) {
-  return data.map((item) => item.path);
-}
-
 
 // Create and return the tabs and tab contents containers
 function createTabsAndContentsContainers(infoPoliciesEle) {
@@ -119,6 +100,17 @@ function fetchSelectedOptionData(dataPath) {
       console.log(mainContent);
       const tabContentsDiv = document.getElementById('tab-contents');
       tabContentsDiv.innerHTML = mainContent;
+
+          // Add accordion functionality to elements with class "accordion"
+          const accordions = tabContentsDiv.querySelectorAll('.accordion > div > div:first-child');
+          accordions.forEach(header => {
+            header.classList.add('accordion-header');
+            header.nextElementSibling.classList.add('accordion-content');
+            header.addEventListener('click', () => {
+              header.classList.toggle('active');
+              header.nextElementSibling.classList.toggle('active');
+            });
+      });
     })
     .catch((error) => {
       console.error('Error fetching data:', error);
@@ -134,24 +126,46 @@ function updateDropdownOptionsOnTabs(parent, data, dropdown) {
   dropdown.innerHTML = '';
 
   // Add new options based on the selected tab
-  data.filter((item) => item.parent === parent).forEach((item) => {
-    const option = document.createElement('option');
-    option.value = item.selector;
-    option.innerText = item.selector;
-    option.setAttribute('data-path', item.path);
-    dropdown.appendChild(option);
+  if (isMobileView()) {
+    data.filter((item) => item.selector === parent).forEach((item) => {
+      const option = document.createElement('option');
+      option.value = item.parent;
+      option.innerText = item.parent;
+      option.setAttribute('data-path', item.path);
+      dropdown.appendChild(option);
+  
+      if (option.value === selectedValue) {
+        option.selected = true;
+        fetchSelectedOptionData(option.getAttribute('data-path'));
+      }
+    });
+  } else {
+    data.filter((item) => item.parent === parent).forEach((item) => {
+      const option = document.createElement('option');
+      option.value = item.selector;
+      option.innerText = item.selector;
+      option.setAttribute('data-path', item.path);
+      dropdown.appendChild(option);
 
-    // If the option matches the previously selected value, select it and fetch its data
-    if (option.value === selectedValue) {
-      option.selected = true;
-      fetchSelectedOptionData(option.getAttribute('data-path'));
-    }
-  });
+      if (option.value === selectedValue) {
+        option.selected = true;
+        fetchSelectedOptionData(option.getAttribute('data-path'));
+      }
+    });
+  }
+
 }
+
 
 // Populate the tabs and their corresponding contents
 function populateTabsAndContents(data, tabsContainer, tabContentsContainer, dropdown) {
-  const parents = [...new Set(data.map((item) => item.parent))];
+  let parents;
+  if (isMobileView()) {
+    parents = [...new Set(data.map((item) => item.selector))];
+  } else {
+     parents = [...new Set(data.map((item) => item.parent))];
+  }
+  //const parents = [...new Set(data.map((item) => item.parent))];
 
   parents.forEach((parent) => {
     // Create and append the tab element
@@ -204,31 +218,3 @@ function updateDropdownOptions(dropdown) {
     fetchSelectedOptionData(selectedOption.getAttribute('data-path'));
   }
 }
-
-const accordions = document.querySelectorAll('.accordion > div');
-
-    accordions.forEach(item => {
-      const header = item.querySelector(':scope > div:nth-child(1)');
-      const content = item.querySelector(':scope > div:nth-child(2)');
-
-      header.style.cursor = 'pointer';
-      header.style.fontWeight = 'bold';
-      header.style.backgroundColor = '#f1f1f1';
-      header.style.padding = '10px';
-      header.style.border = '1px solid #ccc';
-
-      content.classList.add('accordion-content');
-
-      header.addEventListener('click', function () {
-        // Close all accordion contents
-        accordions.forEach(i => {
-          if (i !== item) {
-            i.querySelector(':scope > div:nth-child(2)').classList.remove('active');
-          }
-        });
-
-        // Toggle the current accordion content
-        content.classList.toggle('active');
-      });
-    });
-  // });
