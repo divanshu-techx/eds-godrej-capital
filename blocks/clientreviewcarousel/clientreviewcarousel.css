@@ -1,3 +1,6 @@
+.section.clientreviewcarousel-container {
+  margin-top: 110px;
+}
 .swiper-container {
     height: 310px;
     width: 100%;
@@ -12,10 +15,12 @@
     margin-right: 40px;
     display: flex;
     align-items: center; 
+    justify-content: center;
+    flex-direction: column;
   }
   
   .swiper-slide:nth-child(2) {
-    width: 372px;
+    width: 810px;
     height: 310px;
     margin-right: 40px;
   }
@@ -33,13 +38,17 @@
     margin-right: 40px; 
   }
  
-  .picture-container {
-    width: 80px;
-    height: 80px;
+  .picture-nameplace-container {
     margin-right: 10px; 
+    display: flex;
+  }
+
+  .picture-nameplace-container img{
+    width: 120px;
+    height: 120px;
   }
   
-  .picture-container img {
+  .picture-nameplace-container img {
     width: 100%;
     height: 100%;
     object-fit: cover; 
