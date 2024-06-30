@@ -2,12 +2,13 @@
 main .section.quick-tools-component {
     padding: 0 !important;
 }
- 
-.quick-tools-component {
+ .quick-tools-component {
     position: fixed;
     top: 145px;
     z-index: 9999;
     right: 0;
+    /* max-width: 105pc;
+    margin: 0 auto;  */
 }
  
 @media (max-width: 767px) {

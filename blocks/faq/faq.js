@@ -94,13 +94,20 @@ export default async function decorate(block) {
 function quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv) {
   const buttons = Array.from(tagsContainer.children);
   console.log(buttons);
-  buttons.forEach(button => {
+
+  buttons.forEach((button, index) => {
+    if (index === 0) {
+      button.classList.add('active-tab')
+    }
+
     button.addEventListener('click', function (event) {
-      // Get the clicked button element
+      buttons.forEach(btn => btn.classList.remove('active-tab'));
+      this.classList.add('active-tab')
       const clickedButton = event.target;
       console.log(clickedButton.innerHTML);
       renderQA(quesAnsData, '', clickedButton.innerHTML, quesAnsDiv);
     });
+
   });
 }
 
@@ -183,7 +190,7 @@ function renderTabs(data, selectedCategory, inputValue, tagsContainer) {
       filteredData = [...new Set([...tagFilteredData, ...categoryFilteredData])];
       notFoundEle.style.display = 'none';
       faqLoanCategoryDropdown.style.display = 'block';
-      tagsContainer.style.display = 'block';
+      tagsContainer.style.display = 'flex';
     } else {
       filteredData = tagFilteredData;
       notFoundEle.style.display = 'block';
@@ -194,7 +201,7 @@ function renderTabs(data, selectedCategory, inputValue, tagsContainer) {
     filteredData = data.filter(item => normalizeCategory(item.category) === selectedCategory.toLowerCase());
     notFoundEle.style.display = 'none';
     faqLoanCategoryDropdown.style.display = 'block';
-    tagsContainer.style.display = 'block';
+    tagsContainer.style.display = 'flex';
   }
 
 
@@ -270,10 +277,12 @@ function renderQA(data, selectedCategory, tagsName, containerSelector) {
     qaItem.className = 'qa-item';
 
     const question = document.createElement('h4');
+    question.classList.add('faq-heading')
     question.textContent = item.question;
     qaItem.appendChild(question);
 
     const answer = document.createElement('p');
+    answer.classList.add('faq-description')
     answer.textContent = item.answer;
     qaItem.appendChild(answer);
 
