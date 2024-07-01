@@ -3,7 +3,8 @@ console.log(quesAnsUrl);
 var productPageUrl = getDataAttributeValueByName('productpageurl');
 console.log(productPageUrl);
 
-
+var searchIcon = getDataAttributeValueByName('searchicon');
+console.log(searchIcon)
 export default async function decorate(block) {
   console.log(block);
   //   let bannerDataArray;
@@ -31,7 +32,9 @@ export default async function decorate(block) {
 
   const notFoundDiv = document.createElement('div');
   notFoundDiv.id = 'faq-not-found';
-  notFoundDiv.innerHTML = 'Sorry, Couldn’t find what you’re looking for.';
+  const warningText = document.createElement('p')
+  warningText.innerHTML = 'Sorry, Couldn’t find what you’re looking for.'
+  notFoundDiv.appendChild(warningText)
   notFoundDiv.style.display = 'none';
   middleContainer.appendChild(notFoundDiv);
 
@@ -48,6 +51,11 @@ export default async function decorate(block) {
   inputField.type = 'text';
   inputField.className = 'input-field';
   inputField.placeholder = 'What are you looking for?';
+  const searchIconContainer = document.createElement('div');
+  searchIconContainer.classList.add('icon-container');
+  searchIconContainer.innerHTML = `<img src=${searchIcon} alt="search-icon" class="icon">`
+
+  searchContainer.append(searchIconContainer)
   searchContainer.appendChild(inputField);
 
 
@@ -149,6 +157,7 @@ function renderCategoryDropdown(data, containerSelector) {
 
   categories.forEach(category => {
     const option = document.createElement('option');
+    option.classList.add('category-dropdown-option')
     option.value = normalizeCategory(category);
     option.textContent = category;
     dropdown.appendChild(option);
@@ -193,7 +202,7 @@ function renderTabs(data, selectedCategory, inputValue, tagsContainer) {
       tagsContainer.style.display = 'flex';
     } else {
       filteredData = tagFilteredData;
-      notFoundEle.style.display = 'block';
+      notFoundEle.style.display = 'flex';
       faqLoanCategoryDropdown.style.display = 'none';
       tagsContainer.style.display = 'none';
     }
