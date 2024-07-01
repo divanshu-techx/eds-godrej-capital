@@ -3,8 +3,9 @@ function getDataAttributeValueByName(name) {
   return element ? element.getAttribute(`data-${name}`) : null;
 }
 
-const dataUrl = getDataAttributeValueByName('queryindexurl');
+const dataUrl = getDataAttributeValueByName('queryIndexUrl');
 const mainTitle = getDataAttributeValueByName('title');
+const viewCompleteLabel = getDataAttributeValueByName('viewCompleteLabel');
 
 async function fetchData(apiUrl) {
   try {
@@ -84,7 +85,7 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
           // Add "Read More" button if there are more than 3 bullet points
           if (bulletPointsList.length > 3) {
             const readMoreButton = document.createElement('button');
-            readMoreButton.textContent = 'View Complete Lists of Documents';
+            readMoreButton.textContent = viewCompleteLabel;
             readMoreButton.className = 'read-more-button';
 
             readMoreButton.addEventListener('click', () => {
@@ -258,7 +259,7 @@ async function decorate() {
 
   let data = [];
   data = await fetchData(dataUrl);
-
+console.log(data)
   if (!data) {
     return;
   }
