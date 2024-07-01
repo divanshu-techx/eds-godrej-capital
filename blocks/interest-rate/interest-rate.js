@@ -4,9 +4,8 @@ function getDataAttributeValueByName(name) {
 }
 
 const dataUrl = getDataAttributeValueByName('queryIndexUrl');
-const mainTitle = getDataAttributeValueByName('title');
+const mainTitle = getDataAttributeValueByName('interestRateTitle');
 const viewCompleteLabel = getDataAttributeValueByName('viewCompleteLabel');
-
 async function fetchData(apiUrl) {
   try {
     const response = await fetch(apiUrl);
