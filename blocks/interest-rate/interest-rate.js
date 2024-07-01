@@ -4,8 +4,6 @@ function getDataAttributeValueByName(name) {
 }
 
 const dataUrl = getDataAttributeValueByName('queryIndexUrl');
-
-console.log(dataUrl)
 const mainTitle = getDataAttributeValueByName('title');
 const viewCompleteLabel = getDataAttributeValueByName('viewCompleteLabel');
 
