@@ -1,457 +1,126 @@
 var quesAnsUrl = getDataAttributeValueByName('quesansurl');
-console.log(quesAnsUrl);
-var productPageUrl = getDataAttributeValueByName('productpageurl');
-console.log(productPageUrl);
 
+var productPageUrl = getDataAttributeValueByName('productpageurl');
+
+
+var searchIcon = getDataAttributeValueByName('searchicon');
 
 export default async function decorate(block) {
-  let bannerDataArray;
-  const mainContainer = document.createElement('div');
-  mainContainer.className = 'container';
-  block.appendChild(mainContainer);
+
+  //   let bannerDataArray;
+  const upperContainer = document.createElement('div');
+  upperContainer.className = 'upperContainer';
+  block.appendChild(upperContainer);
+
+  const middleContainer = document.createElement('div');
+  middleContainer.className = 'middleContainer';
+  block.appendChild(middleContainer);
+
+  const lowerContainer = document.createElement('div');
+  lowerContainer.className = 'lowerContainer';
+  block.appendChild(lowerContainer);
+
 
   // Create search container div
   const searchContainer = document.createElement('div');
   searchContainer.className = 'search-container';
-  mainContainer.appendChild(searchContainer);
+  upperContainer.appendChild(searchContainer);
+
+  const tagsContainer = document.createElement('div');
+  tagsContainer.className = 'tags-button';
+  middleContainer.appendChild(tagsContainer);
+
+  const notFoundDiv = document.createElement('div');
+  notFoundDiv.id = 'faq-not-found';
+  const warningText = document.createElement('p')
+  warningText.innerHTML = 'Sorry, Couldn’t find what you’re looking for.'
+  notFoundDiv.appendChild(warningText)
+  notFoundDiv.style.display = 'none';
+  middleContainer.appendChild(notFoundDiv);
+
+  const productPageDiv = document.createElement('div');
+  productPageDiv.className = 'product-page';
+  lowerContainer.appendChild(productPageDiv);
+
+  const quesAnsDiv = document.createElement('div');
+  quesAnsDiv.className = 'ques-ans';
+  lowerContainer.appendChild(quesAnsDiv);
 
   // Create input field
   const inputField = document.createElement('input');
   inputField.type = 'text';
   inputField.className = 'input-field';
   inputField.placeholder = 'What are you looking for?';
+  const searchIconContainer = document.createElement('div');
+  searchIconContainer.classList.add('icon-container');
+  searchIconContainer.innerHTML = `<img src=${searchIcon} alt="search-icon" class="icon">`
+
+  searchContainer.append(searchIconContainer)
   searchContainer.appendChild(inputField);
 
+
+
   try {
-    const responseData = await fetch(quesAnsUrl
-    );
-    const dataObj = await responseData.json();
-    const originalData = dataObj.data;
+    const quesAnsData = await fetchData(quesAnsUrl);
 
-    // Event listener for input field
-    inputField.addEventListener('input', (event) => {
-      const searchTerm = event.target.value.trim().toLowerCase();
-      const categoryItem = document.querySelector('.product_dropdown').value.trim().toLowerCase();
-      const searcharay = [searchTerm, categoryItem];
-      const categorytagsSearched = getTagsBySearchTerm(originalData, categoryItem);
-      if (searchTerm.length <= 3) {
-        const tagsSerched = getTagsBySearchTerm(originalData, categoryItem);
-        createTagsButtons('.faq.block .container', tagsSerched);
-        const filteredData = originalData.filter((item) =>
-          // Check if the question or answer contains the search ter
-          (
-            item.question.toLowerCase().includes(categoryItem.toLowerCase())
-            || item.answer.toLowerCase().includes(categoryItem.toLowerCase())
-          ));
-        if (tagsSerched.length > 1) {
-          renderQA('', '', categoryItem, filteredData);
-          // Render the filtered question-answer pairs
-        } else {
-          renderNotFound();
-        }
-      }
-      if (searchTerm.length >= 3) {
-        const tagsSearched = getTagsBySearchTerm(originalData, searchTerm);
-        if (JSON.stringify(categorytagsSearched) !== JSON.stringify(tagsSearched)){
-        const combinedArray = categorytagsSearched.concat(tagsSearched);
-        createTagsButtons('.faq.block .container', combinedArray);
-        const filteredData = originalData.filter((item) => {
-          // Check if the question or answer contains the search term
-          const matchesSearchTerm = searcharay.some((searchTerm) =>
-            item.question.toLowerCase().includes(searchTerm.toLowerCase())
-            || item.answer.toLowerCase().includes(searchTerm.toLowerCase()));
-          return (
-            matchesSearchTerm
-          );
-        });
+    const productPageData = await fetchData(productPageUrl);
 
-        if (tagsSearched.length > 1) {
-          renderarrayQA('', '', searcharay, filteredData);
-          // Render the filtered question-answer pairs
-        } else {
-          renderNotFound();
-        }
-      } else {
-        // Clear the rendered question-answer pairs if the search term is less than 3 characters
-        const notFoundContainer = document.querySelector(
-          '.not-found-container',
-        );
-        if (notFoundContainer) {
-          notFoundContainer.remove();
-          document.querySelector('.tabs-container').classList.remove('d-none');
-        } else {
-          const category = document.querySelector('.product_dropdown').value;
-          const tags = getTagsByCategory(category, originalData);
-          createTagsButtons('.faq.block .container', tags);
-        }
-      }
-      }
+
+    const dropdown = renderCategoryDropdown(quesAnsData, upperContainer);
+
+    // Initial render of tabs based on the initial category
+    renderTabs(quesAnsData, dropdown.value, '', tagsContainer);
+    renderCategoryDetails(productPageData, dropdown.value, productPageDiv);
+    renderQA(quesAnsData, dropdown.value, '', quesAnsDiv);
+
+
+    quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
+
+    dropdown.addEventListener('change', () => {
+      renderTabs(quesAnsData, dropdown.value, '', tagsContainer);
+      renderCategoryDetails(productPageData, dropdown.value, productPageDiv);
+      renderQA(quesAnsData, dropdown.value, '', quesAnsDiv);
+      quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
+
     });
 
-    // Function to render no matches found screen
-    function renderNotFound() {
-      let notFoundContainer = document.querySelector('.not-found-container');
+    inputField.addEventListener('input', function (event) {
+      const inputValue = event.target.value.trim();
 
-      if (!notFoundContainer) {
-        notFoundContainer = document.createElement('div');
-        notFoundContainer.className = 'not-found-container';
-        searchContainer.insertAdjacentElement('afterend', notFoundContainer);
-      }
-
-      notFoundContainer.innerHTML = '';
-
-      // Create and append no matches found message
-      const message = document.createElement('p');
-      message.textContent = 'Sorry, Couldn’t find what you’re looking for';
-
-      // Append the message to the container
-      notFoundContainer.appendChild(message);
-      document.querySelector('.not-found-container').classList.remove('d-none');
-    //  document.querySelector(".tabs-container").classList.add("d-none");
-    } // Example usage:
-
-    const category = getValueFromURL('category');
-    const categoryDropdown = document.createElement('select');
-    const tags = getTagsByCategory(category, originalData);
-    // getCategoryObject(category,bannerDataArray)
-
-    createTagsButtons('.faq.block .container', tags);
-
-    const faqBannerContainer = document.createElement('div');
-    faqBannerContainer.className = 'faq-banner-container';
-    mainContainer.appendChild(faqBannerContainer);
-
-    categoryDropdown.className = 'product_dropdown';
-
-    const placeholderOption = document.createElement('option');
-    placeholderOption.textContent = 'Select category';
-    placeholderOption.disabled = true;
-    placeholderOption.selected = true;
-    categoryDropdown.appendChild(placeholderOption);
-
-    const uniqueCategories = [
-      ...new Set(originalData.map((item) => item.category)),
-    ];
-    uniqueCategories.forEach((optionData) => {
-      const option = document.createElement('option');
-      option.value = optionData;
-
-      option.textContent = optionData;
-      categoryDropdown.appendChild(option);
+      renderTabs(quesAnsData, dropdown.value, inputValue, tagsContainer);
+      quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
     });
 
-    // Append dropdown to main container
-    searchContainer.appendChild(categoryDropdown);
-    // categroy dropdown end
 
-    const cardContainer = document.createElement('div');
-    cardContainer.className = 'card-container';
-    faqBannerContainer.appendChild(cardContainer);
-    renderQA(category, '', '', originalData);
 
-    const categoryDropdownList = document.querySelector('.product_dropdown');
-    categoryDropdownList.addEventListener('change', (event) => {
-      const selectedCategory = event.target.value;
-      const selectedTags = getTagsByCategory(selectedCategory, originalData);
-      createTagsButtons('.faq.block .container', selectedTags);
-      renderQA(selectedCategory, '', '', originalData);
-
-      const result = filterDataByCategory(bannerDataArray, selectedCategory);
-
-      // Check if filtered-card-container exists
-      let newContainer = document.querySelector('.filtered-card-container');
-      if (newContainer) {
-        newContainer.innerHTML = ''; // Empty the existing container
-      } else {
-        newContainer = document.createElement('div');
-        newContainer.className = 'filtered-card-container';
-      }
-
-      // Append new cards
-      result.forEach((item) => {
-        const card = renderBannerValue(item);
-        newContainer.appendChild(card);
-      });
-
-      const cardContainer = document.querySelector('.card-container');
-      const parent = cardContainer.parentNode;
-
-      // Remove any existing filtered-card-container
-      const existingContainers = parent.querySelectorAll(
-        '.filtered-card-container',
-      );
-      existingContainers.forEach((container) => container.remove());
-
-      // Insert the newContainer before cardContainer
-      parent.insertBefore(newContainer, cardContainer);
-    });
-
-    fetchCarsoulData().then((data) => {
-      if (data) {
-
-        // Add conditional access here based on inspected structure
-
-        if (Array.isArray(data)) {
-          bannerDataArray = data;
-        } else if (data && data.data) {
-          bannerDataArray = data.data;
-        } else if (data && data.faqItems) {
-          bannerDataArray = data.faqItems;
-        } else {
-          bannerDataArray = [];
-        }
-
-        const result = filterDataByCategory(bannerDataArray, category);
-        const newContainer = document.createElement('div');
-        newContainer.className = 'filtered-card-container';
-
-        result.forEach((item) => {
-          const card = renderBannerValue(item);
-          newContainer.appendChild(card);
-        });
-
-        const cardContainer = document.querySelector('.card-container');
-        cardContainer.parentNode.insertBefore(newContainer, cardContainer);
-      } else {
-        console.log('Failed to retrieve FAQ data.');
-      }
-    });
-
-    // Get the category value from the URL
-    const categoryValue = getValueFromURL('category');
-    if (categoryValue !== null) {
-      selectDropdownOption('.product_dropdown', categoryValue);
-    }
-
-    // Assuming .tabs-container is a static parent element that contains the dynamically created tabs
-    const tabsContainer = document.querySelector('.tabs-container');
-
-    tabsContainer.addEventListener('click', (event) => {
-      const targetTab = event.target.closest('.tab');
-      if (!targetTab) return;
-
-      renderQA('', targetTab.textContent, '', originalData);
-    });
   } catch (error) {
     console.error('Error fetching data:', error);
   }
 }
 
-// function of making tabs intially
-function createTagsButtons(selector, stringsArray) {
-  const container = document.querySelector(selector);
-  let tabContainer = container.querySelector('.tabs-container');
-  if (!tabContainer) {
-    tabContainer = document.createElement('div');
-    tabContainer.className = 'tabs-container';
-    container.appendChild(tabContainer);
-  } else {
-    tabContainer.innerHTML = '';
-  }
-  if (stringsArray.length > 0) {
-    document.querySelector('.tabs-container').classList.remove('d-none');
-    const notFoundContainer = document.querySelector('.not-found-container');
-    if (notFoundContainer) {
-      document.querySelector('.not-found-container').classList.add('d-none');
+function quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv) {
+  const buttons = Array.from(tagsContainer.children);
+
+
+  buttons.forEach((button, index) => {
+    if (index === 0) {
+      button.classList.add('active-tab')
     }
-    stringsArray.forEach((string) => {
-      const tab = document.createElement('div');
-      tab.textContent = string;
-      tab.className = 'tab';
-      tabContainer.appendChild(tab);
-    });
-  }
-}
 
-// method for getting tag by category
-function getTagsByCategory(selectedCategory, data) {
-  const filteredData = data.filter(
-    (item) => item.category === selectedCategory,
-  );
-  const tagsArray = filteredData.map((item) => item.tags.split(','));
-  const flattenedTagsArray = tagsArray.flat();
-  return [...new Set(flattenedTagsArray)];
-}
+    button.addEventListener('click', function (event) {
+      buttons.forEach(btn => btn.classList.remove('active-tab'));
+      this.classList.add('active-tab')
+      const clickedButton = event.target;
 
-function getTagsBySearchTerm(data, searchTerm) {
-  // Filter the data to include only items that contain the search term in any relevant field
-  const filteredData = data.filter((item) => (
-    item.category.toLowerCase().includes(searchTerm)
-      || item.tags.toLowerCase().includes(searchTerm)
-  ));
-  const tagsArray = filteredData.map((item) => item.tags.split(','));
-  const flattenedTagsArray = tagsArray.flat();
-
-  // Remove duplicates by converting to a Set and then back to an array
-  return [...new Set(flattenedTagsArray)];
-}
-
-// method for getting value by param name
-function getValueFromURL(paramName) {
-  const currentURL = new URL(window.location.href);
-  const paramValue = currentURL.searchParams.get(paramName);
-  if (paramValue !== null) {
-    const processedValue = paramValue.replace(/_/g, ' ');
-    return processedValue;
-  }
-  return null;
-}
-
-// Function to select an option in the dropdown based on its value
-function selectDropdownOption(dropdownSelector, optionValue) {
-  const dropdown = document.querySelector(dropdownSelector);
-  for (let i = 0; i < dropdown.options.length; i++) {
-    if (dropdown.options[i].value === optionValue) {
-      dropdown.options[i].selected = true;
-      break;
-    }
-  }
-}
-
-// function to render the question answer
-function renderarrayQA(category, tags, searchText, data) {
-  const filteredData = data.filter((item) => {
-    const matchesCategory = category ? item.category === category : true;
-    const matchesTags = tags ? item.tags.split(',').includes(tags) : true;
-    const matchesText = searchText.length > 0
-      ? searchText.some((searchTexts) => item.question.toLowerCase().includes(searchTexts.toLowerCase())
-          || item.answer.toLowerCase().includes(searchTexts.toLowerCase()))
-      : true;
-    return matchesCategory && matchesTags && matchesText;
-  });
-
-  const cardContainer = document.querySelector('.card-container');
-  cardContainer.innerHTML = '';
-  filteredData.forEach((item) => {
-    const accordion = document.createElement('div');
-    accordion.className = 'accordion';
-
-    const question = document.createElement('button');
-    question.className = 'accordion-header';
-    question.textContent = item.question;
-
-    const answer = document.createElement('div');
-    answer.className = 'accordion-content';
-    answer.textContent = item.answer;
-
-    accordion.appendChild(question);
-    accordion.appendChild(answer);
-    question.addEventListener('click', () => {
-      answer.classList.toggle('active');
+      renderQA(quesAnsData, '', clickedButton.innerHTML, quesAnsDiv);
     });
 
-    cardContainer.appendChild(accordion);
   });
 }
 
-// function to render the question answer
-function renderQA(category, tags, searchText, data) {
-  const filteredData = data.filter((item) => {
-    const matchesCategory = category ? item.category === category : true;
-    const matchesTags = tags ? item.tags.split(',').includes(tags) : true;
-    const matchesText = searchText
-      ? item.question.toLowerCase().includes(searchText.toLowerCase())
-        || item.answer.toLowerCase().includes(searchText.toLowerCase())
-      : true;
-    return matchesCategory && matchesTags && matchesText;
-  });
 
-  const cardContainer = document.querySelector('.card-container');
-  cardContainer.innerHTML = '';
-  filteredData.forEach((item) => {
-    const accordion = document.createElement('div');
-    accordion.className = 'accordion';
 
-    const question = document.createElement('button');
-    question.className = 'accordion-header';
-    question.textContent = item.question;
 
-    const answer = document.createElement('div');
-    answer.className = 'accordion-content';
-    answer.textContent = item.answer;
-
-    accordion.appendChild(question);
-    accordion.appendChild(answer);
-    question.addEventListener('click', () => {
-      answer.classList.toggle('active');
-    });
-
-    cardContainer.appendChild(accordion);
-  });
-}
-
-// function to render carsoul value on the basic of category
-function renderBannerValue(item) {
-  const card = document.createElement('div');
-  card.className = 'banner-category';
-
-  const imgDiv = document.createElement('div');
-  imgDiv.className = 'banner-image';
-  imgDiv.style.backgroundImage = `url(${item.Image})`;
-  card.appendChild(imgDiv);
-
-  const categoryDiv = document.createElement('div');
-  categoryDiv.className = 'category';
-  categoryDiv.innerText = item.category;
-  card.appendChild(categoryDiv);
-
-  const descriptionDiv = document.createElement('div');
-  descriptionDiv.className = 'description';
-  descriptionDiv.innerText = item.description;
-  card.appendChild(descriptionDiv);
-
-  const bulletsList = document.createElement('ul');
-  bulletsList.className = 'bullets';
-  item.BulletsPoint.split('\n').forEach((point) => {
-    const li = document.createElement('li');
-    li.innerText = point;
-    bulletsList.appendChild(li);
-  });
-  card.appendChild(bulletsList);
-
-  const applyNowAnchor = document.createElement('a');
-  applyNowAnchor.className = 'apply-now';
-  applyNowAnchor.href = item.ApplyNowLink;
-  applyNowAnchor.innerText = item.ApplyNow;
-  applyNowAnchor.target = '_blank'; // Open link in new tab
-  card.appendChild(applyNowAnchor);
-
-  const knowMoreAnchor = document.createElement('a');
-  knowMoreAnchor.className = 'know-more';
-  knowMoreAnchor.href = item.KnowMoreLink;
-  knowMoreAnchor.innerText = item.KnowMore;
-  knowMoreAnchor.target = '_blank'; // Open link in new tab
-  card.appendChild(knowMoreAnchor);
-
-  return card;
-}
-
-// fetching carsoul data from second json
-async function fetchCarsoulData() {
-  const url = productPageUrl;
-
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json();
-    console.log('Fetched data:', data); // Log the fetched data to inspect its structure
-    return data;
-  } catch (error) {
-    console.error(`Error fetching data: ${error}`);
-    return null;
-  }
-}
-
-// function for filter the data on the basis of category
-function filterDataByCategory(data, category) {
-  if (Array.isArray(data)) {
-    return data.filter((item) => item.category === category);
-  }
-  console.error('Data is not an array:', data);
-  return [];
-}
 
 // Retrieve the value of a data attribute by name
 function getDataAttributeValueByName(name) {
@@ -459,4 +128,201 @@ function getDataAttributeValueByName(name) {
   return element ? element.getAttribute(`data-${name}`) : '';
 }
 
+async function fetchData(apiUrl) {
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    return data.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
+}
 
+function normalizeCategory(category) {
+  return category.toLowerCase().replace(/\s+/g, '_');
+}
+
+function normalizeTags(tags) {
+  return tags.split(',').map(tag => tag.trim().toLowerCase());
+}
+
+
+function renderCategoryDropdown(data, containerSelector) {
+  const categories = [...new Set(data.map(item => item.category))];
+  const dropdown = document.createElement('select');
+  dropdown.className = 'category-dropdown';
+  dropdown.id = "faq-loan-category-dropdown";
+
+  categories.forEach(category => {
+    const option = document.createElement('option');
+    option.classList.add('category-dropdown-option')
+    option.value = normalizeCategory(category);
+    option.textContent = category;
+    dropdown.appendChild(option);
+  });
+
+  containerSelector.appendChild(dropdown);
+
+  // Get the category from query params and set the selected option
+  const urlParams = new URLSearchParams(window.location.search);
+  const selectedCategory = urlParams.get('category');
+  if (selectedCategory) {
+    const categoryOption = Array.from(dropdown.options).find(
+      option => option.value === normalizeCategory(selectedCategory)
+    );
+    if (categoryOption) {
+      categoryOption.selected = true;
+    } else {
+      dropdown.options[0].selected = true;
+    }
+  } else {
+    dropdown.options[0].selected = true;
+  }
+  return dropdown;
+
+}
+
+
+
+// Function to render tabs based on selected category
+function renderTabs(data, selectedCategory, inputValue, tagsContainer) {
+  tagsContainer.innerHTML = '';
+  var filteredData;
+  const notFoundEle = document.getElementById('faq-not-found');
+  const faqLoanCategoryDropdown = document.getElementById("faq-loan-category-dropdown");
+  if (inputValue.length >= 3) {
+    const tagFilteredData = data.filter(item => normalizeTags(item.tags).some(tag => tag.includes(inputValue.toLowerCase())));
+    if (tagFilteredData.length > 0) {
+      const categoryFilteredData = data.filter(item => normalizeCategory(item.category).includes(selectedCategory.toLowerCase()));
+      filteredData = [...new Set([...tagFilteredData, ...categoryFilteredData])];
+      notFoundEle.style.display = 'none';
+      faqLoanCategoryDropdown.style.display = 'block';
+      tagsContainer.style.display = 'flex';
+    } else {
+      filteredData = tagFilteredData;
+      notFoundEle.style.display = 'flex';
+      faqLoanCategoryDropdown.style.display = 'none';
+      tagsContainer.style.display = 'none';
+    }
+  } else {
+    filteredData = data.filter(item => normalizeCategory(item.category) === selectedCategory.toLowerCase());
+    notFoundEle.style.display = 'none';
+    faqLoanCategoryDropdown.style.display = 'block';
+    tagsContainer.style.display = 'flex';
+  }
+
+
+
+  const tags = [...new Set(filteredData.flatMap(item => item.tags.split(',').map(tag => tag.trim())))];
+  tags.forEach(tag => {
+    const button = document.createElement('button');
+    button.className = 'tab-button';
+    button.textContent = tag.trim();
+    tagsContainer.appendChild(button);
+  });
+}
+
+
+// Function to render category details
+function renderCategoryDetails(data, selectedCategory, containerSelector) {
+  containerSelector.innerHTML = '';
+
+  const categoryData = data.find(item => normalizeCategory(item.category) === selectedCategory);
+
+  if (categoryData) {
+    const detailsHTML = `
+    <div class="banner-container">
+
+
+    <div class="img-container">
+    <img src="${categoryData.Image}" class="banner-image" alt="${categoryData.category}">
+    </div>
+
+    <div class="content-container">
+            <div class="heading-container">
+              <h3>${categoryData.category}</h3>
+            </div>
+            <div class="description-container">
+             <p>${categoryData.description}</p>
+            </div>
+            <div class="details-container">
+               <ul>${categoryData.BulletsPoint.split('\n').map(point => `<li>${point}</li>`).join('')}</ul>
+               </div>
+            <div class="btn-container"> 
+            <a href="${categoryData.ApplyNowLink}" target="_blank" class="apply-now btn-details">${categoryData.ApplyNow}</a>
+            <a href="${categoryData.KnowMoreLink}" target="_blank"  class="know-more btn-details">${categoryData.KnowMore}</a>
+      
+              </div>
+             
+             
+            
+              
+    </div>
+    </div>
+    
+      
+            `;
+
+    containerSelector.innerHTML = detailsHTML;
+  }
+}
+
+
+function renderQA(data, selectedCategory, tagsName, containerSelector) {
+  containerSelector.innerHTML = '';
+
+  var filteredData;
+  if (!tagsName) {
+    filteredData = data.filter(item => normalizeCategory(item.category) === selectedCategory);
+  } else {
+    filteredData = data.filter(item => normalizeTags(item.tags).includes(tagsName.toLowerCase()));
+  }
+
+
+  filteredData.forEach(item => {
+    const qaItem = document.createElement('div');
+    qaItem.className = 'qa-item';
+
+    const question = document.createElement('h4');
+    question.classList.add('faq-heading')
+    question.textContent = item.question;
+    qaItem.appendChild(question);
+
+    const answer = document.createElement('p');
+    answer.classList.add('faq-description')
+    answer.textContent = item.answer;
+    qaItem.appendChild(answer);
+
+    qaItem.addEventListener('click', () => {
+      qaItem.classList.toggle('active');
+    });
+
+    containerSelector.appendChild(qaItem);
+  });
+  const accordionHeaders = containerSelector.querySelectorAll('.qa-item h4');
+
+  accordionHeaders.forEach((question, index) => {
+    // Initially open the first question
+    if (index === 0) {
+      question.classList.add('active');
+      question.nextElementSibling.style.display = 'block';
+    }
+
+    question.addEventListener('click', function () {
+      const isActive = this.classList.contains('active');
+
+      // Close all panels
+      accordionHeaders.forEach(header => {
+        header.classList.remove('active');
+        header.nextElementSibling.style.display = 'none';
+      });
+
+      // If the clicked panel was not active, open it
+      if (!isActive) {
+        this.classList.add('active');
+        this.nextElementSibling.style.display = 'block';
+      }
+    });
+  });
+} 
