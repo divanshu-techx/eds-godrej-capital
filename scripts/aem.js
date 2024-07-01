@@ -482,6 +482,15 @@ function decorateIcons(element, prefix = '') {
   });
 }
 
+export function loadGoogleMaps() {
+  const script = document.createElement('script');
+  script.src = 'https://maps.googleapis.com/maps/api/js?v=3.50&key=AIzaSyCb_eIYqj93ZiAqN5AQiyWWn4RsjXjlglQ&libraries=places';
+  script.defer = true;
+  script.async = true;
+
+  document.head.appendChild(script);
+}
+
 /**
  * Decorates all sections in a container element.
  * @param {Element} main The container element

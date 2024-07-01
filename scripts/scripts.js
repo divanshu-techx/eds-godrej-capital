@@ -12,13 +12,13 @@ import {
   loadBlocks,
   loadCSS,
   loadSubHeader,
-  loadSecFooter,
+  loadSecFooter,loadGoogleMaps,
   // loadheaderMobile,
   getMetadata,
 } from './aem.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
-
+loadGoogleMaps();
 /**
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element

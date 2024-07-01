@@ -218,9 +218,9 @@ function loadGoogleMaps() {
 
 export default async function decorate() {
 // Load Google Maps API
-  loadGoogleMaps();
+//  loadGoogleMaps();
 
-  const allentries = await ffetch('/website/book.json').all();
+  const allentries = await ffetch('/testing_page/book.json').all();
 
   initialize(allentries);
 }
