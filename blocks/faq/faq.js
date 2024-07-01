@@ -1,12 +1,12 @@
 var quesAnsUrl = getDataAttributeValueByName('quesansurl');
-console.log(quesAnsUrl);
+
 var productPageUrl = getDataAttributeValueByName('productpageurl');
-console.log(productPageUrl);
+
 
 var searchIcon = getDataAttributeValueByName('searchicon');
-console.log(searchIcon)
+
 export default async function decorate(block) {
-  console.log(block);
+
   //   let bannerDataArray;
   const upperContainer = document.createElement('div');
   upperContainer.className = 'upperContainer';
@@ -62,10 +62,9 @@ export default async function decorate(block) {
 
   try {
     const quesAnsData = await fetchData(quesAnsUrl);
-    console.log(quesAnsData);
+
     const productPageData = await fetchData(productPageUrl);
-    console.log(productPageData);
-    console.log(tagsContainer);
+
 
     const dropdown = renderCategoryDropdown(quesAnsData, upperContainer);
 
@@ -87,7 +86,7 @@ export default async function decorate(block) {
 
     inputField.addEventListener('input', function (event) {
       const inputValue = event.target.value.trim();
-      console.log(inputValue);
+
       renderTabs(quesAnsData, dropdown.value, inputValue, tagsContainer);
       quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
     });
@@ -101,7 +100,7 @@ export default async function decorate(block) {
 
 function quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv) {
   const buttons = Array.from(tagsContainer.children);
-  console.log(buttons);
+
 
   buttons.forEach((button, index) => {
     if (index === 0) {
@@ -112,7 +111,7 @@ function quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv) {
       buttons.forEach(btn => btn.classList.remove('active-tab'));
       this.classList.add('active-tab')
       const clickedButton = event.target;
-      console.log(clickedButton.innerHTML);
+
       renderQA(quesAnsData, '', clickedButton.innerHTML, quesAnsDiv);
     });
 
@@ -272,7 +271,7 @@ function renderCategoryDetails(data, selectedCategory, containerSelector) {
 
 function renderQA(data, selectedCategory, tagsName, containerSelector) {
   containerSelector.innerHTML = '';
-  console.log(data);
+
   var filteredData;
   if (!tagsName) {
     filteredData = data.filter(item => normalizeCategory(item.category) === selectedCategory);
