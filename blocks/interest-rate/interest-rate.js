@@ -259,7 +259,6 @@ async function decorate() {
 
   let data = [];
   data = await fetchData(dataUrl);
-console.log(data)
   if (!data) {
     return;
   }
