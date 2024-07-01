@@ -516,7 +516,7 @@ export default async function decorate(block) {
     const listElements = document.querySelectorAll('li.listElement');
 
     navItems.forEach((navItem) => {
-      navItem.addEventListener('click', (event) => {
+      navItem.addEventListener('mouseover', (event) => {
         event.preventDefault();
         const depth = navItem.getAttribute('data-depth');
         const navListItem = navItem.getAttribute('data-navitem');
@@ -540,6 +540,22 @@ export default async function decorate(block) {
           parentListItem.classList.add('selected');
         }
       });
+    });
+
+    topNav.addEventListener('mouseleave', () => {
+      belowNavMainContainer.classList.remove('show');
+      navItems.forEach((item) => item.classList.remove('rotate'));
+      listElements.forEach((listElement) => listElement.classList.remove('selected'));
+    });
+  
+    belowNavMainContainer.addEventListener('mouseenter', () => {
+      belowNavMainContainer.classList.add('show');
+    });
+  
+    belowNavMainContainer.addEventListener('mouseleave', () => {
+      belowNavMainContainer.classList.remove('show');
+      navItems.forEach((item) => item.classList.remove('rotate'));
+      listElements.forEach((listElement) => listElement.classList.remove('selected'));
     });
   }
 
