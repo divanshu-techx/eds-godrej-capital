@@ -1,11 +1,12 @@
 var quesAnsUrl = getDataAttributeValueByName('quesansurl');
-console.log(quesAnsUrl);
-var productPageUrl = getDataAttributeValueByName('productpageurl');
-console.log(productPageUrl);
 
+var productPageUrl = getDataAttributeValueByName('productpageurl');
+
+
+var searchIcon = getDataAttributeValueByName('searchicon');
 
 export default async function decorate(block) {
-  console.log(block);
+
   //   let bannerDataArray;
   const upperContainer = document.createElement('div');
   upperContainer.className = 'upperContainer';
@@ -31,7 +32,9 @@ export default async function decorate(block) {
 
   const notFoundDiv = document.createElement('div');
   notFoundDiv.id = 'faq-not-found';
-  notFoundDiv.innerHTML = 'Sorry, Couldn’t find what you’re looking for.';
+  const warningText = document.createElement('p')
+  warningText.innerHTML = 'Sorry, Couldn’t find what you’re looking for.'
+  notFoundDiv.appendChild(warningText)
   notFoundDiv.style.display = 'none';
   middleContainer.appendChild(notFoundDiv);
 
@@ -48,16 +51,20 @@ export default async function decorate(block) {
   inputField.type = 'text';
   inputField.className = 'input-field';
   inputField.placeholder = 'What are you looking for?';
+  const searchIconContainer = document.createElement('div');
+  searchIconContainer.classList.add('icon-container');
+  searchIconContainer.innerHTML = `<img src=${searchIcon} alt="search-icon" class="icon">`
+
+  searchContainer.append(searchIconContainer)
   searchContainer.appendChild(inputField);
 
 
 
   try {
     const quesAnsData = await fetchData(quesAnsUrl);
-    console.log(quesAnsData);
+
     const productPageData = await fetchData(productPageUrl);
-    console.log(productPageData);
-    console.log(tagsContainer);
+
 
     const dropdown = renderCategoryDropdown(quesAnsData, upperContainer);
 
@@ -79,7 +86,7 @@ export default async function decorate(block) {
 
     inputField.addEventListener('input', function (event) {
       const inputValue = event.target.value.trim();
-      console.log(inputValue);
+
       renderTabs(quesAnsData, dropdown.value, inputValue, tagsContainer);
       quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
     });
@@ -93,14 +100,21 @@ export default async function decorate(block) {
 
 function quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv) {
   const buttons = Array.from(tagsContainer.children);
-  console.log(buttons);
-  buttons.forEach(button => {
+
+
+  buttons.forEach((button, index) => {
+    if (index === 0) {
+      button.classList.add('active-tab')
+    }
+
     button.addEventListener('click', function (event) {
-      // Get the clicked button element
+      buttons.forEach(btn => btn.classList.remove('active-tab'));
+      this.classList.add('active-tab')
       const clickedButton = event.target;
-      console.log(clickedButton.innerHTML);
+
       renderQA(quesAnsData, '', clickedButton.innerHTML, quesAnsDiv);
     });
+
   });
 }
 
@@ -142,6 +156,7 @@ function renderCategoryDropdown(data, containerSelector) {
 
   categories.forEach(category => {
     const option = document.createElement('option');
+    option.classList.add('category-dropdown-option')
     option.value = normalizeCategory(category);
     option.textContent = category;
     dropdown.appendChild(option);
@@ -183,10 +198,10 @@ function renderTabs(data, selectedCategory, inputValue, tagsContainer) {
       filteredData = [...new Set([...tagFilteredData, ...categoryFilteredData])];
       notFoundEle.style.display = 'none';
       faqLoanCategoryDropdown.style.display = 'block';
-      tagsContainer.style.display = 'block';
+      tagsContainer.style.display = 'flex';
     } else {
       filteredData = tagFilteredData;
-      notFoundEle.style.display = 'block';
+      notFoundEle.style.display = 'flex';
       faqLoanCategoryDropdown.style.display = 'none';
       tagsContainer.style.display = 'none';
     }
@@ -194,7 +209,7 @@ function renderTabs(data, selectedCategory, inputValue, tagsContainer) {
     filteredData = data.filter(item => normalizeCategory(item.category) === selectedCategory.toLowerCase());
     notFoundEle.style.display = 'none';
     faqLoanCategoryDropdown.style.display = 'block';
-    tagsContainer.style.display = 'block';
+    tagsContainer.style.display = 'flex';
   }
 
 
@@ -256,7 +271,7 @@ function renderCategoryDetails(data, selectedCategory, containerSelector) {
 
 function renderQA(data, selectedCategory, tagsName, containerSelector) {
   containerSelector.innerHTML = '';
-  console.log(data);
+
   var filteredData;
   if (!tagsName) {
     filteredData = data.filter(item => normalizeCategory(item.category) === selectedCategory);
@@ -270,10 +285,12 @@ function renderQA(data, selectedCategory, tagsName, containerSelector) {
     qaItem.className = 'qa-item';
 
     const question = document.createElement('h4');
+    question.classList.add('faq-heading')
     question.textContent = item.question;
     qaItem.appendChild(question);
 
     const answer = document.createElement('p');
+    answer.classList.add('faq-description')
     answer.textContent = item.answer;
     qaItem.appendChild(answer);
 
