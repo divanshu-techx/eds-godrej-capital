@@ -310,6 +310,7 @@ input[type="range"] {
 @media (max-width: 900px) {
     .detail-select {
         flex-direction: column;
+        display: none;
     }
     
     .detail-select-child, select {
@@ -775,6 +776,6 @@ input[type="range"]::-moz-range-track {
     flex-direction: column;
 }
 
-.detail-select{
+/* .detail-select{
     display: none;
-}
+} */

@@ -152,7 +152,6 @@ function initializetabs() {
  
             // Create tabs and corresponding buttons dynamically
             calSections.forEach((section, index) => {
-           
                 // Get the data-tab-title attribute value
                 const tabTitle = section.getAttribute('data-tab-title') || `Tab ${index + 1}`;
            
@@ -181,6 +180,13 @@ function initializetabs() {
            
                     // Get data attribute value and split it into an array
                     const productList = productListData.split(',');
+
+                    // Add default "Select Product" option
+                    const defaultOption = document.createElement('option');
+                    defaultOption.textContent = 'Select Product';
+                    defaultOption.value = '';
+                    secDropdownContainer.appendChild(defaultOption);
+
            
                     // Append product list options to secondary dropdown
                     productList.forEach((product, index) => {

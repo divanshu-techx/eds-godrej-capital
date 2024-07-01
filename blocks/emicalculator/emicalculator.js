@@ -13,8 +13,6 @@ function formatNumberToIndianCommas(number) {
     // If there's a decimal part, add it back
     return decimalPart ? `${formattedNumber}.${decimalPart}` : formattedNumber;
 }
-
-
 function removeCommaAndConvertToInt(numberString) {
     // Remove commas from the number string
     let cleanedString = numberString.replace(/,/g, '');
@@ -24,7 +22,6 @@ function removeCommaAndConvertToInt(numberString) {
 
     return numberInt;
 }
-
 
 function numberToWords(num) {
     if (num < 1000) {
@@ -178,7 +175,9 @@ function initialize(block) {
     const interest_rate_label  =  getDataAttributeValueByName('interest-rate-label');
     const total_tenure_label   =  getDataAttributeValueByName('total-tenure-label');
     const apply_now_label    =  getDataAttributeValueByName('apply-now-label');
-    const monthly_emi_label     =  getDataAttributeValueByName('monthly-emi-label')
+    const monthly_emi_label     =  getDataAttributeValueByName('monthly-emi-label');
+    const redirectionPath   =   getDataAttributeValueByName('redirection-path-emi');
+    console.log(redirectionPath);
     const amountDetail = createElement('div', {},
         createElement('div', { class: 'detail' },
             //createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, laonamount_title),
@@ -337,7 +336,7 @@ function initialize(block) {
                 )
             ),
             createElement('div',{class:'mobile-tenure-apply'},
-                createElement('button',{id:'apply-btn'},apply_now_label)
+                createElement('button',{id:'apply-btn-mobile'},apply_now_label)
             )
         )
     );
@@ -356,6 +355,9 @@ function initialize(block) {
     var loan_period_text = block.querySelector("#loan-period-text");
     var loan_period_slider_month = block.querySelector("#loan-period-month");
     var loan_period_text_month = block.querySelector("#loan-period-month-text");
+
+    const desktopApply=block.querySelector('#apply-btn');
+    const mobileApply=block.querySelector('#apply-btn-mobile');
  
  
     loan_amt_slider.addEventListener("change", (self) => {
@@ -566,6 +568,25 @@ function initialize(block) {
             loanPeriodMonthError.style.display = "none";
         }
     });
+
+
+    desktopApply.addEventListener('click',function(){
+        console.log("clicked");
+        if(redirectionPath){
+            window.location.href=redirectionPath;
+        }else{
+            window.location.href=window.location.href;
+        }
+    })
+    mobileApply.addEventListener('click',function(){
+        if(redirectionPath){
+            window.location.href=redirectionPath;
+        }else{
+            window.location.href=window.location.href;
+        }
+    })
+
+
 
     loan_amt_slider.value = removeCommaAndConvertToInt(loanAmountMinValue);
     // console.log(formatNumberToIndianCommas(loanAmountMinValue))

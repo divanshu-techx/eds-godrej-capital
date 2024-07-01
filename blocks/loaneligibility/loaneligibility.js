@@ -188,6 +188,8 @@ function initialize(block) {
   const tenureMinMonthValue = getDataAttributeValueByName('tenure-min-month-value');
   const tenureMaxMonthValue = getDataAttributeValueByName('tenure-max-month-value');
   const redirectionPath = getDataAttributeValueByName('redirection-path');
+  const mobileredirection =getDataAttributeValueByName('redirection-path-mobile');
+  console.log(mobileredirection);
   const productList = getDataAttributeValueByName('product-list');
   const selectProductLabel = getDataAttributeValueByName('Select-product-label');
   const interestratelabel = getDataAttributeValueByName('Interest-rate-label');
@@ -208,6 +210,8 @@ function initialize(block) {
  
   //  Create a select element
   const selectProduct = document.createElement('select');
+  const mobileSelect=document.querySelector('.sec-tab-dropdown');
+  console.log(mobileSelect);
  
   //   Loop through the array and create option elements
   option = document.createElement('option');
@@ -746,6 +750,7 @@ function initialize(block) {
   const exisitingEmiError = createErrorSpan(`Value should be between ${formatNumberToIndianCommas(existingEmiMin)} and ${formatNumberToIndianCommas(existingEmiMax)}`);
   const loanPeriodError = createErrorSpan(`Value should be between ${tenureMinYearValue} and ${tenureMaxYearValue}`);
   const loanPeriodMonthError = createErrorSpan(`Value should be between ${tenureMinMonthValue} and ${tenureMaxMonthValue}`);
+  const selectError =createErrorSpan('Select Product');
  
   //   Append error message spans to their respective input containers
   amountDetail.appendChild(loanAmtError);
@@ -753,6 +758,7 @@ function initialize(block) {
   tenureYearsDetail.appendChild(loanPeriodError);
   tenureMonthsDetail.appendChild(loanPeriodMonthError);
   existingEmi.appendChild(exisitingEmiError);
+  product.append(selectError)
  
   //   Event listeners for input elements to validate input values
  
@@ -811,23 +817,51 @@ function initialize(block) {
     const selectedValue = this.value;
     const applyButton = document.getElementById('apply-btn-le');
     applyButton.setAttribute('data-product', selectedValue);
+
+    if(selectError){
+      selectError.style.display='none';
+    }
   });
+
+
+  mobileSelect.addEventListener('input',function(){
+    const selectedText = mobileSelect.options[mobileSelect.selectedIndex].text;
+
+    const applyMobile=document.getElementById('apply-btn-loan');
+    applyMobile.setAttribute('data-product',selectedText);
+
+    if(selectedText){
+      selectError.style.display='none';
+    }
+
+  })
  
-  //  Handle button click event to redirect with query parameter
+  //  Handle button click event to redirect with query parameter 
   document.getElementById('apply-btn-le').addEventListener('click', function () {
     const productValue = this.getAttribute('data-product');
     if (productValue) {
       url = `${redirectionPath}?product=${encodeURIComponent(productValue)}`;
       window.location.href = url;
+      selectError.style.display ='none';
     } else {
-      url = redirectionPath;
-      window.location.href = url;
+      selectError.style.display = 'block';
     }
   });
- 
- 
- 
-  ///
+
+
+   //  Handle button click event to redirect with query parameter for mobile apply now
+   document.getElementById('apply-btn-loan').addEventListener('click', function () {
+    const productValue = this.getAttribute('data-product');
+    if (productValue) {
+      const formattedProductValue = productValue.toLowerCase().replace(/\s+/g, '-');
+      url = `${mobileredirection}?product=${encodeURIComponent(formattedProductValue)}`;
+      window.location.href = url;
+      selectError.style.display='none';
+    } else {
+      console.log("select product first");
+      selectError.style.display='block';
+    }
+  });
  
  
   //  Set input values to their minimum values
