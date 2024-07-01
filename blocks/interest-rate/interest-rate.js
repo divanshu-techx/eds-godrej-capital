@@ -6,7 +6,7 @@ function getDataAttributeValueByName(name) {
 const dataUrl = getDataAttributeValueByName('queryIndexUrl');
 const mainTitle = getDataAttributeValueByName('interestRateTitle');
 const viewCompleteLabel = getDataAttributeValueByName('viewCompleteLabel');
-
+console.log(mainTitle)
 async function fetchData(apiUrl) {
   try {
     const response = await fetch(apiUrl);
@@ -200,6 +200,8 @@ async function decorate() {
 
   // Create title element
   const title = document.createElement('div');
+  const maindiv = document.createElement('div');
+  maindiv.classList.add('main-div');
   title.textContent = mainTitle;
   title.classList.add('main-title');
   const allCards = document.createElement('div');
@@ -208,17 +210,23 @@ async function decorate() {
   documentsDiv.classList.add('documentDiv');
 
   if (interestRateBlock) {
-    const divs = interestRateBlock.querySelectorAll(':scope > div');
+      const divs = interestRateBlock.querySelectorAll(':scope > div');
 
-    divs.forEach((div) => {
-      const name = div.querySelector('div p').innerHTML;
-      div.id = name;
-      div.classList.add('interest-card');
-      allCards.appendChild(div);
-    });
-  }
+      divs.forEach((div, index) => {
+        if (index == 0) {
+          div.classList.add('other-card');
+          allCards.appendChild(div);
+        } else {
+          const name = div.querySelector('div p').innerHTML;
+          div.id = name
+          div.classList.add('interest-card');
+          maindiv.appendChild(div);
 
-  interestRateBlock.appendChild(title); // Append mainTitle before allCards
+        }
+      });
+    }
+   allCards.appendChild(maindiv);
+  interestRateBlock.appendChild(title);
   interestRateBlock.appendChild(allCards);
   interestRateBlock.appendChild(documentsDiv);
 
