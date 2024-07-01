@@ -191,194 +191,254 @@ export default async function decorate(block) {
   navSections.appendChild(topNav);
   navSections.appendChild(belowNavMainContainer);
 
-  // Function to render news items
-  function getResponseData(filteredData) {
+  function displayURLContent(url) {
+    const mainUrl = url;
+    fetch(mainUrl)
+      .then((response) => response.text())
+      .then((data) => {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = data;
 
-    const ul = document.createElement('ul');
+        const mainContent = tempDiv.querySelector('main');
 
-    filteredData.forEach((item) => {
-
-      const li = document.createElement('li');
-      li.className = 'listElement';
-
-      const a = document.createElement('a');
-      a.href = "#.html";
-      a.textContent = item.HeadingName;
-      a.setAttribute('data-path', item.ChildPageUrl);
-      a.setAttribute('data-depth', item.depth);
-      a.setAttribute('data-navItem', item.HeadingName);
-      const apiClass = item.HeadingName.replace(/\s+/g, '-');
-      const customClass = 'anchorClass';
-      a.classList.add(apiClass, customClass);
-      li.appendChild(a);
-      ul.appendChild(li);
-    });
-
-    topNav.appendChild(ul);
-
-    const navItems = ul.querySelectorAll('a.anchorClass');
-    const belowNavMainContainer = document.querySelector('.belowNavMainContainer');
-
-    navItems.forEach((navItem) => {
-      navItem.addEventListener('mouseover', function (event) {
-        event.preventDefault();
-        const parentLi = this.parentElement;
-        ul.querySelectorAll('li').forEach(li => li.classList.remove('selected'));
-        parentLi.classList.add('selected');
-        navItems.forEach(link => link.classList.remove('rotate'));
-        this.classList.add('rotate');
-        belowNavMainContainer.classList.add('show');
-        let depth = this.getAttribute('data-depth'),
-          navElement = this.getAttribute('data-navItem'),
-          childPath = this.getAttribute('data-path');
-        getChildApiResponse(childPath, navElement, depth);
+        if (mainContent) {
+          thirdElementDiv.innerHTML = '';
+          thirdElementDiv.appendChild(mainContent);
+          parentContainerDiv.appendChild(thirdElementDiv);
+        } else {
+          console.error('Main tag not found in fetched content.');
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching URL content:', error);
       });
-    });
-
-    document.addEventListener('mouseleave', (event) => {
-      if (!belowNavMainContainer.contains(event.target) && !ul.contains(event.target)) {
-        belowNavMainContainer.classList.remove('show');
-        ul.querySelectorAll('li').forEach(li => li.classList.remove('selected'));
-        navItems.forEach(link => link.classList.remove('rotate'));
-      }
-    });
-
-    belowNavMainContainer.addEventListener('mouseover', () => {
-      belowNavMainContainer.classList.add('show');
-    });
-
-    belowNavMainContainer.addEventListener('mouseleave', () => {
-      belowNavMainContainer.classList.remove('show');
-      ul.querySelectorAll('li').forEach(li => li.classList.remove('selected'));
-      navItems.forEach(link => link.classList.remove('rotate'));
-    });
   }
 
-  function createListElement(textContent, href = "#.html") {
-    const li = document.createElement('li');
-    li.className = 'listElement';
-    const a = document.createElement('a');
-    a.href = href;
-    a.textContent = textContent;
-    a.className = 'anchorPath';
-    a.addEventListener('click', function (event) {
-      event.preventDefault();
-    });
-    li.appendChild(a);
-    return li;
-  }
+  // function to render nav elements div for child depth is 2
+  function getChildResponseDataForDepthTwo(response, itemCount) {
+    console.log(response);
+    console.log(itemCount);
 
-  function getChildResponseData(childResponseData) {
+    // Clear previous content
     parentContainerDiv.innerHTML = '';
     firstElementChildDiv.innerHTML = '';
     secondElementDiv.innerHTML = '';
-    let depth;
-    const ul = document.createElement('ul');
+    thirdElementDiv.innerHTML = '';
 
-    if (typeof childResponseData === 'object' && childResponseData !== null) {
-      for (const key in childResponseData) {
-        if (childResponseData.hasOwnProperty(key)) {
-          const item = childResponseData[key];
-          const li = createListElement(key);
-          ul.appendChild(li);
+    // Create the main ul element
+    const mainUl = document.createElement('ul');
 
-          if (Array.isArray(item)) {
-            const subUl = document.createElement('ul');
-            subUl.className = 'subList';
-            item.forEach((subItem) => {
-              subUl.appendChild(createListElement(subItem.title, subItem.path));
-              depth = subItem.depth;
-              if (depth < 2) {
-                displayURLContent(subItem.path);
-              }
-            });
-            secondElementDiv.appendChild(subUl);
-          }
-        }
+    // Iterate over the keys in the response object
+    Object.keys(response).forEach((key, index) => {
+      if (response.hasOwnProperty(key)) {
+        const li = document.createElement('li');
+        li.className = 'listElement';
+        if (index === 0) li.classList.add('active');
+        const a = document.createElement('a');
+        a.textContent = key;
+        a.className = 'anchorPath';
+        a.addEventListener('click', (event) => {
+          event.preventDefault();
+          const allListItems = mainUl.querySelectorAll('li');
+          allListItems.forEach((item) => item.classList.remove('active'));
+          li.classList.add('active');
+          updateSecondElementDiv(response[key]);
+        });
+
+        li.appendChild(a);
+        mainUl.appendChild(li);
       }
-    } else {
-     // console.error("childResponseData is not an array or object.");
+    });
+
+    const firstKey = Object.keys(response)[0];
+    updateSecondElementDiv(response[firstKey]);
+    firstElementChildDiv.appendChild(mainUl);
+    parentContainerDiv.appendChild(firstElementChildDiv);
+    parentContainerDiv.appendChild(secondElementDiv);
+    parentContainerDiv.appendChild(thirdElementDiv);
+    belowNavMainContainer.appendChild(parentContainerDiv);
+
+    // Function to update secondElementDiv with items
+    function updateSecondElementDiv(items) {
+      secondElementDiv.innerHTML = '';
+      thirdElementDiv.innerHTML = '';
+
+      const nestedUl = document.createElement('ul');
+      nestedUl.classList.add('subList', 'active');
+
+      Object.keys(items).forEach((key, index) => {
+        const item = items[key];
+        const nestedLi = document.createElement('li');
+        nestedLi.className = 'listElement';
+        const anchor = document.createElement('a');
+        anchor.textContent = item.title;
+        anchor.href = '#';
+        anchor.classList.add('anchorPath');
+        if (index === 0) anchor.classList.add('anchor_active');
+        anchor.setAttribute('data-path', item.path);
+
+        anchor.addEventListener('click', (event) => {
+        event.preventDefault();
+        const allAnchors = nestedUl.querySelectorAll('a.anchorPath');
+        allAnchors.forEach((anchorItem) => anchorItem.classList.remove('anchor_active'));
+        anchor.classList.add('anchor_active');
+        displayURLContent(item.path);
+        });
+
+        nestedLi.appendChild(anchor);
+        nestedUl.appendChild(nestedLi);
+
+        if (index === 0) {
+          displayURLContent(item.path);
+        }
+      });
+      secondElementDiv.appendChild(nestedUl);
+    }
+  }
+
+  // function to render nav elements div for child depth is 1
+  function getChildResponseDataForDepthOne(response, itemCount) {
+    parentContainerDiv.innerHTML = '';
+    firstElementChildDiv.innerHTML = '';
+    secondElementDiv.innerHTML = '';
+    thirdElementDiv.innerHTML = '';
+
+    const mainUl = document.createElement('ul');
+    mainUl.classList.add('subList', 'active');
+    let defaultPathSet = false;
+    let overallIndex = 0;
+
+    for (const key in response) {
+        if (response.hasOwnProperty(key)) {
+            response[key].forEach((item) => {
+                const li = document.createElement('li');
+                li.classList.add('listElement');
+
+                const anchor = document.createElement('a');
+                anchor.textContent = item.title;
+                anchor.href = '#';
+                anchor.classList.add('anchorPath');
+                if (overallIndex === 0) anchor.classList.add('anchor_active');
+                anchor.setAttribute('data-path', item.path);
+
+                li.appendChild(anchor);
+                mainUl.appendChild(li);
+
+                anchor.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const allAnchors = mainUl.querySelectorAll('a.anchorPath');
+                    allAnchors.forEach((anchorItem) => anchorItem.classList.remove('anchor_active'));
+                    anchor.classList.add('anchor_active');
+                    displayURLContent(item.path);
+                });
+
+                if (!defaultPathSet) {
+                    displayURLContent(item.path);
+                    defaultPathSet = true;
+                }
+
+                overallIndex++;
+            });
+        }
     }
 
-    if (depth === '2') {
-      firstElementChildDiv.appendChild(ul);
-      parentContainerDiv.appendChild(firstElementChildDiv);
-    }
-
-    if (depth == '1' || depth == '2') {
-      parentContainerDiv.appendChild(secondElementDiv);
+    if (itemCount != 0) {
+        secondElementDiv.appendChild(mainUl);
+        parentContainerDiv.appendChild(secondElementDiv);
     }
 
     parentContainerDiv.appendChild(thirdElementDiv);
+    belowNavMainContainer.appendChild(parentContainerDiv);
+}
 
-    const subLists = secondElementDiv.querySelectorAll('.subList');
-    if (subLists.length > 0) {
-      subLists[0].classList.add('active');
-    }
+  // function to render nav elements div for child depth is zero
+  function getChildResponseDataForDepthZero(responseData) {
+    parentContainerDiv.innerHTML = '';
+    firstElementChildDiv.innerHTML = '';
+    secondElementDiv.innerHTML = '';
+    thirdElementDiv.innerHTML = '';
 
-    const mainItems = firstElementChildDiv.querySelectorAll('.listElement');
-    if (mainItems.length > 0) {
-      mainItems[0].classList.add('active');
-    }
+    const customerSupportDiv = document.createElement('ul');
+    customerSupportDiv.className = 'customerSupportDiv'; 
 
-    mainItems.forEach((item, index) => {
-      item.addEventListener('mouseover', () => {
-        mainItems.forEach(mainItem => mainItem.classList.remove('active'));
-        item.classList.add('active');
-        thirdElementDiv.innerHTML = '';
-        subLists.forEach(subList => subList.classList.remove('active'));
-        if (index < subLists.length) {
-          subLists[index].classList.add('active');
-          const firstSubItem = subLists[index].querySelector('.anchorPath');
-          if (firstSubItem) {
-            displayURLContent(firstSubItem.getAttribute('href'));
-            firstSubItem.classList.add('anchor_active');
-          }
-        }
-      });
-    });
+    const freeCreditDiv = document.createElement('div');
+    freeCreditDiv.className = 'freeCreditDiv';
 
-    const anchorTags = secondElementDiv.querySelectorAll('.anchorPath');
-    anchorTags.forEach(anchor => {
-      anchor.addEventListener('mouseover', function () {
-        anchorTags.forEach(anchor => anchor.classList.remove('anchor_active'));
-        this.classList.add('anchor_active');
-        let imagePath = this.getAttribute('href');
-        displayURLContent(imagePath);
-      });
-    });
+    const imageContainerDiv = document.createElement('div');
+    imageContainerDiv.className = 'imageContainerDiv';
+
+    console.log(responseData.branchlocater);
+
+    customerSupportDiv.innerHTML = `
+        <li class="customersupport">
+            <a href="${responseData.customersupportlink}" class="customer-support-anchor">
+              ${responseData.customersupport}
+            </a>      
+        </li>
+  
+        <li class="selfservice">
+                  <h4 class="self-service-heading">${responseData.selfservices}</h4>
+            <ul class="self-service-ul">
+                <li class="self-service-li">
+                   <a href="${responseData.branchlocaterlink}">${responseData.branchlocater}</a>
+                </li>
+                 <li class="self-service-li">
+                   <a href="${responseData.trackstatuslink}">${responseData.trackstatus}</a>
+                </li>
+                 <li class="self-service-li">
+                   <a href="${responseData.faqlink}">${responseData.faq}</a>
+                </li>
+            </ul>
+        </li>
+  
+        <li class="grievancecontainer">
+             <h4 class="grievance-heading">${responseData.grievanceredressal}</h4>
+            <ul class="grievance-ul">
+                 <li class="self-service-li">
+                   <a href="${responseData.godrejhousingfinancelink}">${responseData.godrejhousingfinance}</a>
+                <li class="self-service-li">
+                   <a href="${responseData.godrejfinancelink}">${responseData.godrejfinance}</a>
+                </li>
+            </ul>      
+        </li>
+  
+        <li class="contactuscontainer">
+            <h4 class="contact-heading">${responseData.contactus}</h4>
+            <p class="contact-mobile-number">${responseData.mobilenumber}</p>
+            <p class="contact-mail">${responseData.mail}</p>          
+        </li>
+         `;
+    firstElementChildDiv.appendChild(customerSupportDiv);
+    parentContainerDiv.appendChild(firstElementChildDiv);
+
+    freeCreditDiv.innerHTML = `
+            <div class="free-credit-container">
+                <div class="free-credit-internaldiv">
+                <img src="${responseData.freecrediticon}" class="free-credit-icon"><a class="free-credit-heading" href="${responseData.freecreditscorelink}">${responseData.freecreditscore}</a></div>
+                <p class="free-credit-description">${responseData.freecreditscoredescription}</p>
+                <a class="free-credit-score" href="${responseData.checkcreditscorelink}">${responseData.checkcreditscore}</a>
+            </div>
+            <div class="whatsUp-container">
+                <h3 class="whatsUp-heading">${responseData.whatsupsupport}</h3>
+                <p class="whatsUp-desciption">${responseData.whatsupdescription}</p>
+                <img src="${responseData.whatsupicon}" alt="QR Code" class="whatsUp-icon">
+            </div>
+        `;
+    secondElementDiv.appendChild(freeCreditDiv);
+    parentContainerDiv.appendChild(secondElementDiv);
+
+    imageContainerDiv.innerHTML = `
+            <img src="${responseData.mainimage}" alt="Main Image" class="main-image">
+        `;
+    thirdElementDiv.appendChild(imageContainerDiv);
+    parentContainerDiv.appendChild(thirdElementDiv);
 
     belowNavMainContainer.appendChild(parentContainerDiv);
-
-    if (mainItems.length > 0) {
-      const firstMainItem = mainItems[0];
-      firstMainItem.dispatchEvent(new Event('mouseover'));
-    }
-  }
-
-  function getApiResponse(api) {
-    fetch(api, {
-      method: 'GET',
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(response.statusText);
-        }
-        return response.json();
-      })
-      .then((response) => {
-        responseData = response.data;
-        getResponseData(responseData);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
   }
 
   function transformResponseData(data) {
-    let depth = data.depth;
     const transformedData = {};
-    data.forEach(item => {
+    data.forEach((item) => {
       if (item.parent) {
         if (!transformedData[item.parent]) {
           transformedData[item.parent] = [];
@@ -386,27 +446,22 @@ export default async function decorate(block) {
         transformedData[item.parent].push({
           title: item.title,
           path: item.path,
-          depth: depth
         });
-      } else {
-        if (item.title) {
-          if (!transformedData[item.title]) {
-            transformedData[item.title] = [];
-          }
-          transformedData[item.title].push({
-            title: item.title,
-            path: item.path,
-            depth: depth
-          });
+      } else if (item.title) {
+        if (!transformedData[item.title]) {
+          transformedData[item.title] = [];
         }
-
+        transformedData[item.title].push({
+          title: item.title,
+          path: item.path,
+        });
       }
     });
     return transformedData;
   }
 
-  function getChildApiResponse(api, navElement, depth) {
-    fetch(api, {
+  function getChildApiResponse(childApi, navListItem, depth) {
+    fetch(childApi, {
       method: 'GET',
     })
       .then((response) => {
@@ -416,34 +471,95 @@ export default async function decorate(block) {
         return response.json();
       })
       .then((response) => {
-        let childResponseData = response.data;
-        childResponseData.depth = depth;
+        const itemCount = parseInt(depth);
+        const childResponseData = response.data;
         const transformedData = transformResponseData(childResponseData);
-        getChildResponseData(transformedData);
+        if (itemCount === 2) {
+          getChildResponseDataForDepthTwo(transformedData, itemCount);
+        } else if (itemCount === 1) {
+          getChildResponseDataForDepthOne(transformedData, itemCount);
+        } else {
+          getChildResponseDataForDepthZero(childResponseData[0]);
+        }
       })
       .catch((error) => {
         console.error(error);
       });
   }
 
-  function displayURLContent(url) {
-    let mainUrl = url;
-    fetch(mainUrl)
-      .then(response => response.text())
-      .then(data => {
-        let tempDiv = document.createElement('div');
-        tempDiv.innerHTML = data;
-        let mainContent = tempDiv.querySelector('main');
-        if (mainContent) {
-          thirdElementDiv.innerHTML = '';
-          thirdElementDiv.appendChild(mainContent);
-          parentContainerDiv.appendChild(thirdElementDiv);
+  // Function to render nav items
+  function getResponseData(filteredData) {
+    const ul = document.createElement('ul');
+
+    filteredData.forEach((item) => {
+      const li = document.createElement('li');
+      li.className = 'listElement';
+
+      const a = document.createElement('a');
+      a.href = '#.html';
+      a.textContent = item.HeadingName;
+      a.setAttribute('data-path', item.ChildPageUrl);
+      a.setAttribute('data-depth', item.depth);
+      a.setAttribute('data-navItem', item.HeadingName);
+
+      const apiClass = item.HeadingName.replace(/\s+/g, '-');
+      const customClass = 'anchorClass';
+      a.classList.add(apiClass, customClass);
+
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+
+    topNav.appendChild(ul);
+
+    const navItems = document.querySelectorAll('a.anchorClass');
+    const listElements = document.querySelectorAll('li.listElement');
+
+    navItems.forEach((navItem) => {
+      navItem.addEventListener('click', (event) => {
+        event.preventDefault();
+        const depth = navItem.getAttribute('data-depth');
+        const navListItem = navItem.getAttribute('data-navitem');
+        const childPath = navItem.getAttribute('data-path');
+        getChildApiResponse(childPath, navListItem, depth);   
+        const parentListItem = navItem.closest('li');
+
+        if (navItem.classList.contains('rotate')) {
+          navItem.classList.remove('rotate');
+          belowNavMainContainer.classList.remove('show');
         } else {
-        //  console.error('Main tag not found in fetched content.');
+          navItems.forEach((item) => item.classList.remove('rotate'));
+          navItem.classList.add('rotate');
+          belowNavMainContainer.classList.add('show');
         }
+    
+        if (parentListItem.classList.contains('selected')) {
+          parentListItem.classList.remove('selected');
+        } else {
+          listElements.forEach((listElement) => listElement.classList.remove('selected'));
+          parentListItem.classList.add('selected');
+        }
+      });
+    });
+  }
+
+  function getApiResponse(navListapi) {
+    fetch(navListapi, {
+      method: 'GET',
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        return response.json();
       })
-      .catch(error => {
-       // console.error('Error fetching URL content:', error);
+      .then((response) => {
+        console.log(response.data);
+        responseData = response.data;
+        getResponseData(responseData);
+      })
+      .catch((error) => {
+        console.error(error);
       });
   }
 

@@ -5,7 +5,6 @@
  * @returns {Object}  teaser elements.
  */
 function groupTeasersByTargetId(mainSelector) {
-  console.log("groupTeasersByTargetId");
   // Select the main element
   const mainElement = document.querySelector(mainSelector);
 
@@ -64,8 +63,9 @@ function groupTeasersByTargetId(mainSelector) {
 
   // Clean up the helper property
   delete groupedTeasers._processed;
-
+ 
   return groupedTeasers;
+
 }
 
 
@@ -79,12 +79,12 @@ export default async function decorate(block) {
 // Select the main element
   let teaser = groupTeasersByTargetId('main'); 
 
-  createCarousel(block, teaser[targetId]);
+  createCarousel(block, teaser[targetId],targetId);
 
 }
 
 
-async function createCarousel(block, rows){
+async function createCarousel(block, rows,targetId){
   carouselId += 1;
   const placeholders = await fetchPlaceholders();
   const carouselContainer = block.closest('.carousel-v1-container');
@@ -145,7 +145,6 @@ async function createCarousel(block, rows){
   nextButton.setAttribute('aria-label', placeholders.nextSlide || 'Next Slide');
 
   // Append navigation buttons to the slideIndicators
- console.log(block);
  let styleType = carouselContainer.getAttribute('data-teaser-target-id');
  if(styleType == 'homepage-carousel-secondary'){
   slideIndicators.appendChild(prevButton);
@@ -195,6 +194,13 @@ async function createCarousel(block, rows){
     startAutoSlide(block);
   }
 
+  const teaserContainers = document.querySelectorAll(`[data-teaser-target-id=${targetId}]`);
+  teaserContainers.forEach(container => {
+    if (container.innerHTML.trim() === '') {
+      container.remove();
+    }
+  });
+
 }
 
 let carouselId = 0;
@@ -209,7 +215,6 @@ function createSlide(row, slideIndex, carouselId) {
   slide.classList.add('carousel-v1-slide');
 
   row.querySelectorAll(':scope > div').forEach((column, colIdx) => {
-    //console.log("column", column);
     column.classList.add(`carousel-slide-v1-${colIdx === 0 ? 'image' : 'content'}`);
     slide.append(column);
   });
@@ -231,7 +236,6 @@ function bindEvents(block) {
 
   slideIndicators.forEach((button) => {
     button.addEventListener('click', (e) => {
-      console.log("button clicked");
       const slideIndicator = e.currentTarget;
       showSlide(block, parseInt(slideIndicator.dataset.targetSlide, 10));
     });

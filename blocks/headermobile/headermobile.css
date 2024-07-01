@@ -55,7 +55,7 @@
 }
 
 .headermobile details[open] .header-accordion-item-body {
-    background-color: var(--color-light-gray-v2);
+    background-color: var(--color-silver);
     margin-top: -21px;
 }
 
@@ -95,7 +95,7 @@
     padding: 0;
     padding-left: 10px;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
 }
 
 .accordion-item-label.accordian-item-label-pictuire p {
@@ -125,7 +125,12 @@
 
 .header-accordion-item-body ol li.has-children ol {
     display: none;
+    margin:0;
     /* Initially hide the children */
+}
+
+.header-accordion-item-body ol li.has-children ol li{
+font-size: 12px;
 }
 
 .headermobile details ul li,
@@ -143,7 +148,7 @@
 
 .header-accordion-item-body ul li:first-of-type,
 .header-accordion-item-body ol li:first-of-type {
-    padding-top: 10px;
+    /* padding-top: 10px; */
     margin-bottom: 10px;
 }
 
@@ -172,7 +177,7 @@
 .headermobile details ul li.has-children.active::after,
 .headermobile details ol li.has-children.active::after {
     content: "-";
-    font-size: var(--body-font-size-defaul);
+    font-size: var(--body-font-size-default);
     font-weight: 300;
     line-height: 18px;
 }
@@ -196,3 +201,4 @@
         font-family: var(--body-font-family-primary);
     }
 }
+

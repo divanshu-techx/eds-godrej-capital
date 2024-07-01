@@ -1,13 +1,9 @@
+
 export default async function decorate(block) {
   const allDivs = block.querySelectorAll(":scope > div");
-
+ 
   allDivs.forEach((div, index) => {
-    if (index === allDivs.length - 1) {
-      div.classList.add("quick-apply");
-    } else {
-      div.classList.add("quicktool-item");
-    }
-
+    div.classList.add('quicktool-item')
     const quickToolItem = div.querySelectorAll(":scope > div");
     quickToolItem.forEach((item, index) => {
       if (index === 0) {
@@ -33,7 +29,5 @@ export default async function decorate(block) {
     });
   });
 }
-
-
 
 
