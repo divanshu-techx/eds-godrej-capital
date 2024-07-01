@@ -1,8 +1,9 @@
 const quesAnsUrl = getDataAttributeValueByName('quesansurl');
-const title = getDataAttributeValueByName('title');
+const faqTitle = getDataAttributeValueByName('title');
 const cannotFindLabel = getDataAttributeValueByName('cannotfindlabel');
 const viewAllLabel = getDataAttributeValueByName('viewallbuttonlabel');
 const viewAllRedirection = getDataAttributeValueByName('viewallbuttonredirection');
+const mobileTitle = 'FAQs'
 
 
 
@@ -16,31 +17,30 @@ export default async function decorate(block) {
   faqTabs.className = 'faq-tabs';
   faqContainer.appendChild(faqTabs);
 
+  const titleContainer = document.createElement('div');
+  titleContainer.className = 'main-title';
+  const title = document.createElement('h2');
+  title.classList.add('title');
+  changeTiltleWithScreens(title);
+  window.addEventListener('resize', () => { changeTiltleWithScreens(title) });
 
-  const mainTitle = document.createElement('div');
-  mainTitle.className = 'main-title';
-  mainTitle.textContent = title;
-  faqTabs.appendChild(mainTitle);
 
-  const cannotFindDiv = document.createElement('div');
-  cannotFindDiv.className = 'cannot-find-label';
-  cannotFindDiv.textContent = cannotFindLabel;
-  faqTabs.appendChild(cannotFindDiv);
 
-  const viewAllDiv = document.createElement('div');
-  viewAllDiv.className = 'view-all-label';
-  viewAllDiv.textContent = viewAllLabel;
-  viewAllDiv.onclick = () => {
-    window.location.href = viewAllRedirection;
-  };
-  faqTabs.appendChild(viewAllDiv);
 
+  titleContainer.append(title)
+  faqTabs.append(titleContainer);
+
+
+
+
+
+  const cantFindEl1 = createCantFindEl();
+
+  faqTabs.append(cantFindEl1);
 
   const faqAccordion = document.createElement('div');
   faqAccordion.className = 'faq-accordion';
   faqContainer.appendChild(faqAccordion);
-
-
 
   try {
     const quesAnsData = await fetchData(quesAnsUrl);
@@ -70,12 +70,16 @@ function quesAnsChangeOnTags(faqTabs, quesAnsData, faqAccordion) {
   if (selectedCategory) {
     filteredData = quesAnsData.filter(item => normalizeCategory(item.category) === selectedCategory);
   }
-  const buttons = Array.from(faqTabs.children);
-  buttons.forEach(button => {
+  console.log(faqTabs)
+  const buttons = faqTabs.querySelectorAll('.tags-btn-container .tag-button')
+  buttons.forEach(function (button, index) {
+    if (index === 0) button.classList.add('active-tag')
     button.addEventListener('click', function (event) {
+      buttons.forEach(btn => btn.classList.remove('active-tag'));
+      this.classList.add('active-tag')
       // Get the clicked button element
       const clickedButton = event.target;
-      renderQA(filteredData, '', clickedButton.innerHTML, faqAccordion);
+      renderQA(filteredData, '', clickedButton.innerHTML, faqAccordion, cannotFindDiv);
     });
   });
 }
@@ -116,19 +120,26 @@ function normalizeTags(tags) {
 
 function renderTags(tags, containerSelector) {
   //containerSelector.innerHTML = '';
-  tags.forEach(tag => {
+  const tagBtnContainer = document.createElement('div');
+  tagBtnContainer.classList.add('tags-btn-container');
+
+  tags.forEach((tag, index) => {
     const button = document.createElement('button');
     button.className = 'tag-button';
-    button.textContent = tag;
 
-    containerSelector.appendChild(button);
+    button.textContent = tag;
+    tagBtnContainer.appendChild(button)
+
   });
+  containerSelector.insertBefore(tagBtnContainer, containerSelector.children[1]);
 }
 
 
 
 
-function renderQA(data, selectedCategory, selectedtags, containerSelector) {
+
+
+function renderQA(data, selectedCategory, selectedtags, containerSelector, cannotFindDiv) {
   containerSelector.innerHTML = '';
   let filteredData;
   if (selectedCategory) {
@@ -145,6 +156,7 @@ function renderQA(data, selectedCategory, selectedtags, containerSelector) {
     qaItem.className = 'qa-item';
 
     const question = document.createElement('h4');
+    question.classList.add('faq-heading')
     question.textContent = item.question;
     qaItem.appendChild(question);
 
@@ -158,6 +170,8 @@ function renderQA(data, selectedCategory, selectedtags, containerSelector) {
 
     containerSelector.appendChild(qaItem);
   });
+  const cantFindDivEl2 = createCantFindEl();
+  containerSelector.append(cantFindDivEl2)
   const accordionHeaders = containerSelector.querySelectorAll('.qa-item h4');
 
   accordionHeaders.forEach((question, index) => {
@@ -183,4 +197,37 @@ function renderQA(data, selectedCategory, selectedtags, containerSelector) {
       }
     });
   });
-} 
+}
+
+function createCantFindEl() {
+  let cannotFindDiv = document.createElement('div');
+  cannotFindDiv.className = 'cannot-find-container';
+  const cannotFindText = document.createElement('p');
+  cannotFindText.classList.add('cannot-find-text');
+  cannotFindText.textContent = cannotFindLabel;
+  cannotFindDiv.append(cannotFindText)
+  // cannotFindDiv.textContent = cannotFindLabel;
+
+
+  const viewAllDiv = document.createElement('div');
+  viewAllDiv.className = 'view-all-label';
+  viewAllDiv.textContent = viewAllLabel;
+  viewAllDiv.onclick = () => {
+    window.location.href = viewAllRedirection;
+  };
+  cannotFindDiv.appendChild(viewAllDiv);
+
+  return cannotFindDiv;
+}
+
+
+function changeTiltleWithScreens(title) {
+  if (window.matchMedia('(max-width: 600px)').matches) {
+    console.log('mobile vew run')
+    // Screen width is 600px or less
+    title.textContent = mobileTitle;
+  } else {
+    // Screen width is more than 600px
+    title.textContent = faqTitle
+  }
+}
