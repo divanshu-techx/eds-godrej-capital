@@ -207,4 +207,10 @@
     background-repeat: no-repeat;
     background-position: calc(100% - 10px) center;
   }
+
+  .navigation{
+    background-image: url('/icons/nextarrow.png'); 
+    background-repeat: no-repeat;
+    background-position: calc(100% - 10px) center;
+  }
   
