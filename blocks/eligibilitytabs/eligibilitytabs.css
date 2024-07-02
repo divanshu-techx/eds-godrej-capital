@@ -1,0 +1,81 @@
+.eligibilitytabs .tabs-list {
+	display: flex;
+	gap: 8px;
+	max-width: 100%;
+	overflow-x: auto;
+  }
+  
+  .eligibilitytabs .tabs-list button {
+	flex: 0 0 max-content;
+	margin: 0;
+	border: 1px solid var(--dark-color);
+	border-radius: 0;
+	padding: 8px 16px;
+	background-color: var(--light-color);
+	color: initial;
+	font-size: unset;
+	font-weight: bold;
+	line-height: unset;
+	text-align: initial;
+	text-overflow: unset;
+	overflow: unset;
+	white-space: unset;
+	transition: background-color 0.2s;
+  }
+  
+  .eligibilitytabs .tabs-list button[aria-selected="true"] {
+	border-bottom: 1px solid var(--background-color);
+	background-color: var(--background-color);
+	cursor: initial;
+  }
+  
+  .eligibilitytabs .tabs-list button[aria-selected="false"]:hover,
+  .eligibilitytabs .tabs-list button[aria-selected="false"]:focus {
+	background-color: var(--dark-color);
+  }
+  
+  .eligibilitytabs .tabs-panel {
+	margin-top: -1px;
+	padding: 0 16px;
+	border: 1px solid var(--dark-color);
+	overflow: auto;
+  }
+  
+  .eligibilitytabs .tabs-panel[aria-hidden="true"] {
+	display: none;
+  }
+
+  /* Mobile specific styles */
+  .eligibilitytabs .tabs-dropdown {
+	display: none;
+	width: 100%;
+	padding: 8px;
+	font-size: 16px;
+	border: 1px solid var(--dark-color);
+	border-radius: 4px;
+	margin-bottom: 16px;
+	background-color: var(--light-color);
+	color: initial;
+  }
+
+  @media (max-width: 768px) {
+	.eligibilitytabs .tabs-list {
+	  display: none;
+	}
+  
+	.eligibilitytabs .tabs-dropdown {
+	  display: block;
+	}
+  }
+  
+  /* Optional: Styling for a more modern dropdown */
+  .eligibilitytabs .tabs-dropdown {
+	appearance: none;
+	background-color: #fff;
+	background-repeat: no-repeat;
+	background-position: right 8px center;
+	background-size: 12px;
+	padding-right: 32px;
+  }
+
+ 

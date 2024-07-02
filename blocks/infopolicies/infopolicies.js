@@ -205,8 +205,10 @@ function populateTabsAndContents(data, tabsContainer, tabContentsContainer, drop
     tabContentsContainer.appendChild(tabContent);
 
     tab.addEventListener('click', () => {
-      document.querySelectorAll('.tab-content').forEach((content) => content.classList.remove('active'));
-      tabContent.classList.add('active');
+      // document.querySelectorAll('.tab-content').forEach((content) => content.classList.remove('active'));
+      // tabContent.classList.add('active');
+      document.querySelectorAll('.tab').forEach((tab) => tab.classList.remove('active'));
+      tab.classList.add('active');
       updateDropdownOptionsOnTabs(parent, data, dropdown);
     });
   });

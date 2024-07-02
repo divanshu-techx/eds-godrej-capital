@@ -283,6 +283,15 @@ function initializeEventListeners(block) {
       updateDisplay();
     });
   });
+     // Add an event listener for the change event to each range input
+     block.querySelectorAll('input[type="range"]').forEach(input => {
+      input.addEventListener('change', function() {
+          const id = this.id.replace('Range', ''); // Get the ID of the associated span
+          document.getElementById(id).textContent = formatNumberToIndianCommas(this.value);
+          updateDisplay(); // Call updateDisplay function after the value is changed
+          
+      });
+  });
 }
 
 // Function to update display
@@ -356,7 +365,7 @@ function updateRange(id) {
   const percentage = ((value - min) / (max - min)) * 100;
   element.style.setProperty('--value', `${percentage}%`);
   document.getElementById(id).textContent = formatNumberToIndianCommas(value);
-  updateDisplay();
+  // updateDisplay();
 }
 
 
