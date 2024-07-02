@@ -197,13 +197,13 @@
   }
 
   .accordion-header {
-    background-image: url('/icons/+.png');
+    background-image: url('/icons/addiconacc.png');
     background-repeat: no-repeat;
     background-position: calc(100% - 10px) center;
   }
   
   .accordion-header.active {
-    background-image: url('/icons/-.png'); 
+    background-image: url('/icons/subiconacc.png'); 
     background-repeat: no-repeat;
     background-position: calc(100% - 10px) center;
   }

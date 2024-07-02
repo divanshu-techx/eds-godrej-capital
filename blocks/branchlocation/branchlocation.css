@@ -69,17 +69,17 @@
 
 
 
-.section.branchlocator-container {
+.section.branchlocation-container {
     margin-top: 65px;
     padding: 32px 40px;
 }
 
 /* 
-.branchlocator-container .branchlocator-wrapper {
+.branchlocation-container .branchlocation-wrapper {
     max-width: -webkit-fill-available;
 } */
 
-.branchlocator-wrapper .branchlocator .filters-dropdown .filters {
+.branchlocation-wrapper .branchlocation .filters-dropdown .filters {
     display: flex;
     flex-direction: row;
     background-color: #F0F6E4;
@@ -90,7 +90,7 @@
     align-items: center;
 }
 
-.branchlocator-wrapper .branchlocator .filters-dropdown .filters .heading-container .heading {
+.branchlocation-wrapper .branchlocation .filters-dropdown .filters .heading-container .heading {
     font-family: Work Sans;
     font-size: 24px;
     font-weight: 400;
@@ -99,25 +99,25 @@
     color: #3B3B3B;
 }
 
-.branchlocator-wrapper .branchlocator .filters-dropdown .filters .inputs-container {
+.branchlocation-wrapper .branchlocation .filters-dropdown .filters .inputs-container {
     display: flex;
     gap: 10px;
 }
 
-.branchlocator-wrapper .branchlocator .filters-dropdown .filters .inputs-container label {
+.branchlocation-wrapper .branchlocation .filters-dropdown .filters .inputs-container label {
     display: none;
 }
 
 
-.branchlocator-wrapper .branchlocator .filters-dropdown .filters .inputs-container .state-container,
-.branchlocator-wrapper .branchlocator .filters-dropdown .filters .inputs-container .city-container,
-.branchlocator-wrapper .branchlocator .filters-dropdown .filters .inputs-container .pincode-container {
+.branchlocation-wrapper .branchlocation .filters-dropdown .filters .inputs-container .state-container,
+.branchlocation-wrapper .branchlocation .filters-dropdown .filters .inputs-container .city-container,
+.branchlocation-wrapper .branchlocation .filters-dropdown .filters .inputs-container .pincode-container {
     width: 100%;
     max-width: 220px;
 }
 
-.branchlocator-wrapper .branchlocator .filters-dropdown .filters select,
-.branchlocator-wrapper .branchlocator .filters-dropdown .filters input {
+.branchlocation-wrapper .branchlocation .filters-dropdown .filters select,
+.branchlocation-wrapper .branchlocation .filters-dropdown .filters input {
 
     background-color: #FFFFFF;
     font-family: Work Sans;
@@ -131,12 +131,12 @@
     padding: 8px 24px;
 }
 
-.branchlocator-container .branchlocator-wrapper .google-map #map-canvas {
+.branchlocation-container .branchlocation-wrapper .google-map #map-canvas {
     max-height: 400px;
     height: 100%;
 }
 
-.branchlocator-container .branchlocator .google-map #map-card {
+.branchlocation-container .branchlocation .google-map #map-card {
     position: absolute;
     top: 20px;
     right: 20px;
@@ -152,7 +152,7 @@
     z-index: 99;
 }
 
-.branchlocator-container .branchlocator .google-map #map-card #mapCardTitle {
+.branchlocation-container .branchlocation .google-map #map-card #mapCardTitle {
     font-family: Work Sans;
     font-size: 24px;
     font-weight: 500;
@@ -160,9 +160,9 @@
     text-align: left;
 }
 
-.branchlocator-container .branchlocator .google-map #map-card #mapCardAddress,
-.branchlocator-container .branchlocator .google-map #map-card #mapCardPhone,
-.branchlocator-container .branchlocator .google-map #map-card #mapCardHours {
+.branchlocation-container .branchlocation .google-map #map-card #mapCardAddress,
+.branchlocation-container .branchlocation .google-map #map-card #mapCardPhone,
+.branchlocation-container .branchlocation .google-map #map-card #mapCardHours {
     font-family: Work Sans;
     font-size: 14px;
     font-weight: 400;
@@ -172,7 +172,7 @@
     margin-top: 8px;
 }
 
-.branchlocator-container .branchlocator .google-map #map-card #getDirections {
+.branchlocation-container .branchlocation .google-map #map-card #getDirections {
     font-family: Work Sans;
     font-size: 12px;
     font-weight: 400;
@@ -187,12 +187,12 @@
     align-items: center;
 }
 
-.branchlocator-container .branchlocator .google-map #map-card #mapCardPhone .phone-phone-no {
+.branchlocation-container .branchlocation .google-map #map-card #mapCardPhone .phone-phone-no {
     margin-left: 10px;
     color: #3CB8FF;
 }
 
-.branchlocator-container .branchlocator .branch-locator .address-cards {
+.branchlocation-container .branchlocation .branch-locator .address-cards {
     display: flex;
     margin-top: 25px;
     gap: 10px;
@@ -201,7 +201,7 @@
 
 }
 
-.branchlocator-container .branchlocator .branch-locator .address-cards .card {
+.branchlocation-container .branchlocation .branch-locator .address-cards .card {
     max-width: 308px;
     padding: 16px;
     width: 100%;
@@ -212,7 +212,7 @@
     background-color: #ffffff;
 }
 
-.branchlocator-container .branchlocator .branch-locator .address-cards .card .location-title {
+.branchlocation-container .branchlocation .branch-locator .address-cards .card .location-title {
     font-family: Work Sans;
     font-size: 24px;
     font-weight: 500;
@@ -223,7 +223,7 @@
     margin-bottom: 10px;
 }
 
-.branchlocator-container .branchlocator .branch-locator .address-cards .card .phone {
+.branchlocation-container .branchlocation .branch-locator .address-cards .card .phone {
     font-family: Work Sans;
     font-size: 14px;
     font-weight: 500;
@@ -233,12 +233,12 @@
     margin-top: 0;
 }
 
-.branchlocator-container .branchlocator .branch-locator .address-cards .card .phone .phone-phone-no {
+.branchlocation-container .branchlocation .branch-locator .address-cards .card .phone .phone-phone-no {
     font-weight: 400;
 }
 
-.branchlocator-container .branchlocator .branch-locator .address-cards .card .location-address,
-.branchlocator-container .branchlocator .branch-locator .address-cards .card .hours {
+.branchlocation-container .branchlocation .branch-locator .address-cards .card .location-address,
+.branchlocation-container .branchlocation .branch-locator .address-cards .card .hours {
     font-family: Work Sans;
     font-size: 14px;
     font-weight: 400;
@@ -248,44 +248,44 @@
     margin-top: 0;
 }
 
-.branchlocator-container .branchlocator .branch-locator .address-cards .card:hover {
+.branchlocation-container .branchlocation .branch-locator .address-cards .card:hover {
     background-color: #8CB133;
 }
 
-.branchlocator-container .branchlocator .branch-locator .address-cards .card:hover .hours,
-.branchlocator-container .branchlocator .branch-locator .address-cards .card:hover .location-address,
-.branchlocator-container .branchlocator .branch-locator .address-cards .card:hover .phone,
-.branchlocator-container .branchlocator .branch-locator .address-cards .card:hover .location-title {
+.branchlocation-container .branchlocation .branch-locator .address-cards .card:hover .hours,
+.branchlocation-container .branchlocation .branch-locator .address-cards .card:hover .location-address,
+.branchlocation-container .branchlocation .branch-locator .address-cards .card:hover .phone,
+.branchlocation-container .branchlocation .branch-locator .address-cards .card:hover .location-title {
 
     color: #ffffff;
 
 }
 
 @media(max-width:900px) {
-    .branchlocator-wrapper .branchlocator .filters-dropdown .filters {
+    .branchlocation-wrapper .branchlocation .filters-dropdown .filters {
         flex-direction: column;
         background-color: #FFFFFF;
         padding: 0px;
         margin-top: 16px;
     }
 
-    .branchlocator-wrapper .branchlocator .filters-dropdown .filters .heading-container .heading {
+    .branchlocation-wrapper .branchlocation .filters-dropdown .filters .heading-container .heading {
         font-size: 12px;
         line-height: 14.08px;
     }
 
-    .branchlocator-wrapper .branchlocator .filters-dropdown .filters .inputs-container {
+    .branchlocation-wrapper .branchlocation .filters-dropdown .filters .inputs-container {
         margin-top: 20px;
         width: 100%;
         justify-content: center;
     }
 
-    .branchlocator-wrapper .branchlocator .filters-dropdown .filters .inputs-container .city-container {
+    .branchlocation-wrapper .branchlocation .filters-dropdown .filters .inputs-container .city-container {
         display: none;
     }
 
-    .branchlocator-wrapper .branchlocator .filters-dropdown .filters select,
-    .branchlocator-wrapper .branchlocator .filters-dropdown .filters input {
+    .branchlocation-wrapper .branchlocation .filters-dropdown .filters select,
+    .branchlocation-wrapper .branchlocation .filters-dropdown .filters input {
         background-color: #F4F4F4;
 
         font-size: 10px;
@@ -293,70 +293,70 @@
 
     }
 
-    .branchlocator-container .branchlocator .google-map #map-card {
+    .branchlocation-container .branchlocation .google-map #map-card {
         max-width: 185px;
         left: 10px;
     }
 
-    .branchlocator-container .branchlocator .google-map #map-card #mapCardAddress,
-    .branchlocator-container .branchlocator .google-map #map-card #mapCardPhone,
-    .branchlocator-container .branchlocator .google-map #map-card #mapCardHours {
+    .branchlocation-container .branchlocation .google-map #map-card #mapCardAddress,
+    .branchlocation-container .branchlocation .google-map #map-card #mapCardPhone,
+    .branchlocation-container .branchlocation .google-map #map-card #mapCardHours {
         font-size: 10px;
         line-height: 12px;
     }
 
-    .branchlocator-container .branchlocator .google-map #map-card #mapCardTitle {
+    .branchlocation-container .branchlocation .google-map #map-card #mapCardTitle {
         font-size: 14px;
         line-height: 16.42px;
     }
 
-    .branchlocator-container .branchlocator .google-map #map-card {
+    .branchlocation-container .branchlocation .google-map #map-card {
         padding: 10px 8px;
     }
 
-    .branchlocator-container .branchlocator .google-map #map-card #getDirections {
+    .branchlocation-container .branchlocation .google-map #map-card #getDirections {
         background-color: unset;
         margin-top: 10px;
         padding-left: 0;
         padding-top: 8px;
     }
 
-    .branchlocator-container .branchlocator .branch-locator .address-cards .card {
+    .branchlocation-container .branchlocation .branch-locator .address-cards .card {
         max-width: 182px;
         padding: 10px;
         background-color: #F4F4F4;
         margin-bottom: 16px;
     }
 
-    .branchlocator-container .branchlocator .branch-locator .address-cards .card .location-title {
+    .branchlocation-container .branchlocation .branch-locator .address-cards .card .location-title {
         font-size: 14px;
         line-height: 16.42px;
 
     }
 
-    .branchlocator-container .branchlocator .branch-locator .address-cards .card .phone {
+    .branchlocation-container .branchlocation .branch-locator .address-cards .card .phone {
         font-size: 12px;
         line-height: 14.08px;
         margin-bottom: 6px;
     }
 
-    .branchlocator-container .branchlocator .branch-locator .address-cards .card .location-address,
-    .branchlocator-container .branchlocator .branch-locator .address-cards .card .hours {
+    .branchlocation-container .branchlocation .branch-locator .address-cards .card .location-address,
+    .branchlocation-container .branchlocation .branch-locator .address-cards .card .hours {
         font-size: 10px;
         line-height: 14.08px;
         margin-bottom: 6px;
     }
 
-    .branchlocator-container .branchlocator .branch-locator .address-cards .card .phone .phone-phone-no {
+    .branchlocation-container .branchlocation .branch-locator .address-cards .card .phone .phone-phone-no {
         color: #3CB8FF;
     }
 
-    .branchlocator-container .branchlocator-wrapper .google-map #map-canvas {
+    .branchlocation-container .branchlocation-wrapper .google-map #map-canvas {
         height: 300px !important;
     }
 
-    .branchlocator-container .branchlocator-wrapper .google-map #map-canvas .branchlocator-wrapper .branchlocator .filters-dropdown .filters select,
-    .branchlocator-wrapper .branchlocator .filters-dropdown .filters input {
+    .branchlocation-container .branchlocation-wrapper .google-map #map-canvas .branchlocation-wrapper .branchlocation .filters-dropdown .filters select,
+    .branchlocation-wrapper .branchlocation .filters-dropdown .filters input {
         width: -webkit-fill-available;
         /* For Chrome, Safari, Opera */
         width: -moz-available;
@@ -364,7 +364,7 @@
         width: fill-available;
     }
 
-    .branchlocator-container .default-content-wrapper h2 {
+    .branchlocation-container .default-content-wrapper h2 {
         font-size: 24px;
         line-height: 28.15px;
     }
@@ -373,23 +373,23 @@
 }
 
 @media(max-width:600px) {
-    .branchlocator-container .branchlocator-wrapper .google-map #map-canvas {
+    .branchlocation-container .branchlocation-wrapper .google-map #map-canvas {
         height: 230px !important;
     }
 }
 
 @media(min-width:600px) and (max-width:900px) {
-    .branchlocator-container .branchlocator .google-map #map-card {
+    .branchlocation-container .branchlocation .google-map #map-card {
         top: 54px;
         bottom: 54px;
     }
 
-    .branchlocator-wrapper .branchlocator .filters-dropdown .filters .heading-container .heading {
+    .branchlocation-wrapper .branchlocation .filters-dropdown .filters .heading-container .heading {
         font-size: 14px;
         line-height: 16.42px;
     }
 
-    .branchlocator-container .branchlocator .branch-locator .address-cards .card {
+    .branchlocation-container .branchlocation .branch-locator .address-cards .card {
         padding: 10px 8px;
     }
 }
