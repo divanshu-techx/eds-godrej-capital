@@ -1,5 +1,4 @@
 .section.interest-rate-container {
-
   background-color: #F0F6E4;
   padding: 20px;
   box-sizing: border-box;
@@ -8,7 +7,6 @@
 .interest-rate-wrapper {
   display: flex;
   justify-content: center;
-
   background-color: #F0F6E4;
 }
 
@@ -27,25 +25,31 @@
 
 .allCards {
   display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.main-div {
+  display: flex;
   gap: 15px;
   justify-content: space-around;
 }
 
-.allCards .interest-card,
-.allCards .interest-rates {
+.other-card,
+.interest-card {
   flex: 0 0 250px;
   padding: 10px;
   text-align: center;
   box-sizing: border-box;
 }
 
-.allCards .interest-card h2,
-.allCards .interest-rates h3 {
+.other-card h2,
+.interest-card h2 {
   margin: 10px 0;
 }
 
-.allCards .interest-card p,
-.allCards .interest-rates p {
+.other-card p,
+.interest-card p {
   margin: 5px 0;
 }
 
@@ -55,42 +59,78 @@
   width: 192px !important;
 }
 
-.interest-card h2{
+.interest-card h2 {
   font-size: 40px;
   font-weight: 300;
-}
-
-.interest-rates{
-  width: 232px;
-  height: 100px;
-  font-size:14px;
 }
 
 .documentDiv {
   display: flex;
   flex-direction: column;
   align-items: center;
-
 }
 
 .tabs-panel {
   width: 100%;
   background-color: #fff;
-  max-width: 1200px; /* Adjust as necessary */
+  max-width: 1200px;
   margin-bottom: 20px;
   padding: 10px;
   border: 1px solid #ccc;
 }
 
-.tabs-list-wrapper{
+.tabs-list-wrapper {
   display: flex;
-}
-.tabs-dropdown-label{
-  display: none !important;
+  flex-wrap: wrap;
+  gap: 15px;
+  width: 100%;
 }
 
-.tabs-list-label{
-  display: none !important;
+.category-wrapper {
+  flex: 1 1 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tabs-dropdown-label {
+  margin-bottom: 5px;
+}
+
+.documents-wrapper {
+  flex: 1 1 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tabs-list {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.tabs-tab {
+  background: white;
+  color: black;
+  border: 1px solid #ccc;
+  padding: 10px;
+  cursor: pointer;
+  flex: 1;
+  text-align: center;
+}
+
+.tabs-tab[aria-selected="true"] {
+  background: var(--background-color);
+  color: white;
+}
+
+.tabs-list-dropdown {
+  display: none;
+}
+
+.tabs-list-label,
+.tabs-dropdown-label {
+  display: block;
+  font-size: small;
 }
 
 @media (max-width: 968px) {
@@ -99,14 +139,13 @@
   }
 
   .tabs-list-wrapper {
-    /* flex-direction: row; Ensure the items stay in a row */
-    justify-content: space-between; /* Keep space between items */
+    justify-content: space-between;
     align-items: flex-start;
   }
 
   .mobile-card-container {
-    width: 48%;
-    margin-right: 2%; /* Add some space between the columns */
+    width: 100%;
+    margin-bottom: 20px;
   }
 
   .tabs-list-wrapper .documents-wrapper,
@@ -115,6 +154,7 @@
   }
 
   .tabs-list-wrapper .tabs-list-dropdown {
+    display: block;
     width: 100%;
     margin-bottom: 10px;
   }
@@ -122,19 +162,14 @@
   .tabs-dropdown {
     width: 100%;
   }
-  .tabs-list-label {
-    display: block !important;
-    font-size: small;
+
+  .tabs-list {
+    display: none;
   }
-  .tabs-dropdown-label{
-    display : block !important;
+
+  .tabs-list-label,
+  .tabs-dropdown-label {
+    display: block;
     font-size: small;
   }
 }
-for(int i=0;i<m;i++)
-{
-}
-
-
-
-
