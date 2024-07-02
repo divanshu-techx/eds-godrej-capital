@@ -110,7 +110,6 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
     tabpanel.appendChild(sectionsContainer);
   });
 }
-
 function handleTabClick(event, data, tablist, tabpanel, dropdown) {
   tablist.querySelectorAll('.tabs-tab').forEach((btn) => {
     btn.setAttribute('aria-selected', 'false');
