@@ -29,7 +29,7 @@ export default async function decorate(block) {
 
 function createNoResultDiv(block) {
 	const notFoundContainer = document.createElement('div');
-	notFoundContainer.id = "articles-not-found-container";
+	notFoundContainer.id = "blogs-not-found-container";
 	notFoundContainer.innerHTML = notFoundMsg;
 	block.appendChild(notFoundContainer);
 }
