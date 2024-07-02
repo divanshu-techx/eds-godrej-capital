@@ -187,9 +187,9 @@ button {
     transition: opacity 1s ease;
 }
 
-.button-container a.button {
+/* .button-container a.button {
     display: none;
-  }
+  } */
 
 .teaser-wrapper {
     /* padding: 20px; */

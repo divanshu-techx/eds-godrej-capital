@@ -224,11 +224,11 @@
 
   .section.hero-carousel-v1.carousel-v1-container {
     padding: 0;
-    margin-top: var(--nav-height);
+    /* margin-top: var(--nav-height);
     overflow: hidden;
     @media(width >= 901px){
       margin-top: var(--combined-height);
-    }
+    } */
 }
 
 .carousel-v1-container ul li::marker{
