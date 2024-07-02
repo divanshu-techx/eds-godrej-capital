@@ -191,7 +191,12 @@ function populateTabsAndContents(data, tabsContainer, tabContentsContainer, drop
     tabsContainer.appendChild(tab);
 
     // Append the dropdown to the tabs container
-    dropDownContainer.appendChild(dropdown);
+    if(isMobileView()){
+      dropDownContainer.appendChild(dropdown);
+    } else {
+      dropDownContainer.appendChild(dropdown);
+      tabsContainer.appendChild(dropDownContainer);
+    }
 
     // Create and append the tab content element
     const tabContent = document.createElement('div');
