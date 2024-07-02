@@ -48,7 +48,6 @@
 }
 
 .faqpp-container .faq-container .cannot-find-container .view-all-label {
-  font-family: Work Sans;
   font-size: 16px;
   font-weight: 400;
   line-height: 18px;
@@ -72,7 +71,6 @@
   position: relative;
   background-color: #E8E8E8;
   color: #3B3B3B;
-  font-family: Work Sans;
   font-size: 16px;
   font-weight: 400;
   line-height: 28px;
@@ -95,7 +93,6 @@
 
 .faqpp .faq-container .faq-accordion .qa-item p {
   background-color: #E8E8E8;
-  font-family: Work Sans;
   font-size: 14px;
   font-weight: 400;
   line-height: 16.42px;
@@ -107,9 +104,7 @@
 
 .faqpp .faq-container .faq-accordion .qa-item .faq-heading::after,
 .faqpp .faq-container .faq-accordion .qa-item .faq-heading.active::after {
-
   position: absolute;
-
   right: 0;
   font-weight: 500;
   font-size: 22px;
@@ -152,7 +147,6 @@
 }
 
 .faqpp .faq-container .tags-btn-container .tag-button {
-  font-family: Work Sans;
   font-size: 14px;
   font-weight: 500;
   line-height: 16.42px;
@@ -179,25 +173,27 @@
   }
 
   .faqpp-container .faq-container .faq-tabs {
-    overflow: hidden;
+    overflow-x: auto;
   }
 
   .faqpp .faq-container .tags-btn-container {
     flex-wrap: nowrap;
-    overflow-x: scroll;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     width: fit-content;
-    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+
   }
 
-  .faqpp .faq-container .tags-btn-container::-webkit-scrollbar {
+  /* .faqpp .faq-container .tags-btn-container::-webkit-scrollbar {
     display: none;
-  }
+  } */
 
   .faq-container .faq-tabs .main-title .title {
     text-align: center;
     margin-bottom: 18px;
     font-size: 20px;
-
     line-height: 23.46px;
     text-align: center;
   }
@@ -251,8 +247,8 @@
   .faqpp .faq-container .faq-accordion .qa-item .faq-heading::after,
   .faqpp .faq-container .faq-accordion .qa-item .faq-heading.active::after {
     font-size: 18px;
-    width: 22px;
-    height: 22px;
+    /* width: 22px;
+    height: 22px; */
     margin-right: 10px;
   }
 

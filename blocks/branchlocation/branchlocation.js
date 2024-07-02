@@ -20,7 +20,8 @@ const pincodeInput = input({
   type: 'text',
   placeholder: 'Enter Pincode',
 });
-const btnMapIcon = getDataAttributeValueByName("mapbuttonicon")
+const btnMapIcon = getDataAttributeValueByName("mapbuttonicon");
+const locationUrl = getDataAttributeValueByName("locationUrl");
 
 function updateMapCard(item) {
   document.getElementById('mapCardTitle').textContent = item.location;
@@ -239,7 +240,7 @@ function loadGoogleMaps(callback) {
 export default async function decorate(block) {
   // Load Google Maps API
   loadGoogleMaps(async () => {
-    const allentries = await ffetch('/book.json').all();
+    const allentries = await ffetch(locationUrl).all();
     initialize(allentries, block);
   });
 
