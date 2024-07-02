@@ -1,11 +1,14 @@
 // eslint-disable-next-line import/no-unresolved
 import { toClassName } from '../../scripts/aem.js';
+
 function hasWrapper(el) {
   return !!el.firstElementChild && window.getComputedStyle(el.firstElementChild).display === 'block';
 }
+
 function isMobileView() {
   return window.innerWidth <= 768; // Adjust breakpoint as needed
 }
+
 function createDropdown(tabs, tabpanels, block) {
   const select = document.createElement('select');
   select.className = 'tabs-dropdown';
@@ -27,12 +30,21 @@ function createDropdown(tabs, tabpanels, block) {
     panel.setAttribute('aria-hidden', i !== 0);
   });
 }
+
 export default async function decorate(block) {
+  const parentTabPanel = document.createElement('div');
+  parentTabPanel.className = 'parent-tab-panel';
+
+  const parentTabList = document.createElement('div');
+  parentTabList.className = 'parent-tab-list';
+  
   const tablist = document.createElement('div');
   tablist.className = 'tabs-list';
   tablist.setAttribute('role', 'tablist');
+  
   const tabs = [...block.children].map((child) => child.firstElementChild);
   const tabpanels = [...block.children];
+  
   tabs.forEach((tab, i) => {
     const id = toClassName(tab.textContent);
     const tabpanel = tabpanels[i];
@@ -41,9 +53,11 @@ export default async function decorate(block) {
     tabpanel.setAttribute('aria-hidden', !!i);
     tabpanel.setAttribute('aria-labelledby', `tab-${id}`);
     tabpanel.setAttribute('role', 'tabpanel');
+    
     if (!hasWrapper(tabpanel.lastElementChild)) {
       tabpanel.lastElementChild.innerHTML = `<p>${tabpanel.lastElementChild.innerHTML}</p>`;
     }
+    
     const button = document.createElement('button');
     button.className = 'tabs-tab';
     button.id = `tab-${id}`;
@@ -52,6 +66,7 @@ export default async function decorate(block) {
     button.setAttribute('aria-selected', !i);
     button.setAttribute('role', 'tab');
     button.setAttribute('type', 'button');
+    
     button.addEventListener('click', () => {
       block.querySelectorAll('[role=tabpanel]').forEach((panel) => {
         panel.setAttribute('aria-hidden', true);
@@ -62,28 +77,38 @@ export default async function decorate(block) {
       tabpanel.setAttribute('aria-hidden', false);
       button.setAttribute('aria-selected', true);
     });
+    
     tablist.append(button);
     tab.remove();
   });
+  
+  parentTabList.append(tablist);
+  parentTabPanel.append(parentTabList);
+
+  tabpanels.forEach((tabpanel) => {
+    parentTabPanel.append(tabpanel);
+  });
+  
   if (isMobileView()) {
     createDropdown(tabs, tabpanels, block);
   } else {
-    block.prepend(tablist);
+    block.prepend(parentTabPanel);
     tabpanels.forEach((panel, i) => {
       panel.setAttribute('aria-hidden', i !== 0); // Ensure only the first tabpanel is shown by default
     });
   }
+  
   window.addEventListener('resize', () => {
     if (isMobileView()) {
       if (!block.querySelector('.tabs-dropdown')) {
-        tablist.remove();
+        parentTabPanel.remove();
         createDropdown(tabs, tabpanels, block);
       }
     } else {
       const dropdown = block.querySelector('.tabs-dropdown');
       if (dropdown) {
         dropdown.remove();
-        block.prepend(tablist);
+        block.prepend(parentTabPanel);
         tabpanels.forEach((panel, i) => {
           panel.setAttribute('aria-hidden', i !== 0); // Ensure only the first tabpanel is shown by default
         });
