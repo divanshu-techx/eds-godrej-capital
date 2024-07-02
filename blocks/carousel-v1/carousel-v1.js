@@ -157,6 +157,7 @@ async function createCarousel(block, rows,targetId){
   // Append slideIndicatorsNav to block
   block.append(progressBar)
   block.append(summaryWrapper);
+  if (rows.length > 1)
   block.append(slideIndicatorsNav);
 
   rows.forEach((row, idx) => {

@@ -40,8 +40,8 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
     // Iterate through sections until no more titles are found
     while (item[`title_${sectionIndex}`]) {
       const title = item[`title_${sectionIndex}`].trim();
-      const description = item[`description_${sectionIndex}`] || ""; // Default to empty string if description is not present
-      const bulletPoints = item[`bullet_points_${sectionIndex}`] || ""; // Default to empty string if bullet points are not present
+      const description = item[`description_${sectionIndex}`] || ""; 
+      const bulletPoints = item[`bullet_points_${sectionIndex}`] || ""; 
 
       // Create section element
       const sectionElement = document.createElement("div");
@@ -179,11 +179,11 @@ function handleViewportChange(tablist, tabsListDropdown) {
       }
     });
   } else {
-    tablist.style.display = "flex";
+    tablist.style.display = "block";
     tabsListDropdown.style.display = "none";
     tabsListLabel.style.display = "block"; // Show "Select Documents" label
     allCards.forEach((card) => {
-      card.style.display = "flex";
+      card.style.display = "block";
     });
     mobileCardContainer.innerHTML = ""; // Clear mobile card container
   }
