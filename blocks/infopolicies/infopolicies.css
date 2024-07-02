@@ -172,7 +172,7 @@
     align-items: center;
     box-sizing: border-box;
     padding: 10px;
-    height: 60px;
+    /* height: 60px; */
     font-size: 16px;
     font-weight: 400;
   }
@@ -195,10 +195,16 @@
   .accordion-content.active {
     display: block;
   }
-  .accordion-header::after {
-    content: "\002B";
-    font-size: 20px;
+
+  .accordion-header {
+    background-image: url('/icons/+.png');
+    background-repeat: no-repeat;
+    background-position: calc(100% - 10px) center;
   }
-  .accordion-header.active::after {
-    content: "\2212";
+  
+  .accordion-header.active {
+    background-image: url('/icons/-.png'); 
+    background-repeat: no-repeat;
+    background-position: calc(100% - 10px) center;
   }
+  
