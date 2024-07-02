@@ -29,15 +29,12 @@
 
 .contentdetails {
     position: absolute;
-    /* text-align: center; */
     color: #fff;
     padding: 10px;
     bottom: 0;
     left: 0;
-    /* width: 100%; */
     z-index: 1;
     line-height: 40px;
-    /* margin-bottom: 10px; */
 }
 }
 
