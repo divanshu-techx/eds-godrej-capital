@@ -34,6 +34,7 @@ function createNoResultDiv(block) {
 function renderCards(block, data) {
 	const blogsContainer = document.createElement('div');
 	blogsContainer.id = "blogs-container";
+	blogsContainer.classList.add("blogs-container");
 	block.appendChild(blogsContainer);
 
 	data.forEach(blog => {
@@ -43,7 +44,7 @@ function renderCards(block, data) {
 			<a href="#"><img src="${blog.image}" alt="${blog.imagealt}">
 				<div class="blog-content">
 					<p class="article-date">${formatDate(blog.articlepublishdate)}</p>
-					<h3>${blog.description}</h3>
+					<p class="article-description">${blog.description}</p>
 					<a href="#" class="read-more">${readMoreLabel}</a>
 				</div>
 			</a>
