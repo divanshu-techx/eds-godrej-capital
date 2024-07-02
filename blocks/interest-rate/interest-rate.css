@@ -1,126 +1,10 @@
 .section.interest-rate-container {
-  background-color: #F0F6E4;
-  padding: 20px;
+
   box-sizing: border-box;
 }
 
-.interest-rate-wrapper {
-  display: flex;
-  justify-content: center;
+.interest-rate-container .interest-rate-wrapper {
   background-color: #F0F6E4;
-}
-
-.interest-rate.block {
-  display: flex;
-  flex-direction: column;
-  width: 1200px;
-  justify-content: center;
-}
-
-.header-div {
-  display: block;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.allCards {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.main-div {
-  display: flex;
-  gap: 15px;
-  justify-content: space-around;
-}
-
-.other-card,
-.interest-card {
-  flex: 0 0 250px;
-  padding: 10px;
-  text-align: center;
-  box-sizing: border-box;
-}
-
-.other-card h2,
-.interest-card h2 {
-  margin: 10px 0;
-}
-
-.other-card p,
-.interest-card p {
-  margin: 5px 0;
-}
-
-.interest-card {
-  background: #8CB133;
-  color: white;
-  width: 192px !important;
-}
-
-.interest-card h2 {
-  font-size: 40px;
-  font-weight: 300;
-}
-
-.documentDiv {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.tabs-panel {
-  width: 100%;
-  background-color: #fff;
-  max-width: 1200px;
-  margin-bottom: 20px;
-  padding: 10px;
-  border: 1px solid #ccc;
-}
-
-.tabs-list-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  width: 100%;
-}
-
-.category-wrapper {
-  flex: 1 1 200px;
-  display: flex;
-  flex-direction: column;
-}
-
-.tabs-dropdown-label {
-  margin-bottom: 5px;
-}
-
-.documents-wrapper {
-  flex: 1 1 200px;
-  display: flex;
-  flex-direction: column;
-}
-
-.tabs-list {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.tabs-tab {
-  background: white;
-  color: black;
-  border: 1px solid #ccc;
-  padding: 10px;
-  cursor: pointer;
-  flex: 1;
-  text-align: center;
-}
-
-.tabs-tab[aria-selected="true"] {
-  background: var(--background-color);
-  color: white;
 }
 
 .tabs-list-dropdown {
@@ -148,10 +32,10 @@
     margin-bottom: 20px;
   }
 
-  .tabs-list-wrapper .documents-wrapper,
+  /* .tabs-list-wrapper .documents-wrapper,
   .tabs-list-wrapper .category-wrapper {
     width: 48%;
-  }
+  } */
 
   .tabs-list-wrapper .tabs-list-dropdown {
     display: block;
@@ -172,4 +56,249 @@
     display: block;
     font-size: small;
   }
+}
+
+.interest-rate-container .interest-rate-wrapper .interest-rate .main-title {
+  font-family: Work Sans;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 28.15px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.interest-rate-container .interest-rate-wrapper .interest-rate .allCards .other-card {
+  display: none;
+}
+
+.interest-rate-container .interest-rate-wrapper .interest-rate .allCards {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.interest-rate-container .interest-rate-wrapper .interest-rate .allCards .main-div {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+
+}
+
+.interest-rate-container .interest-rate-wrapper .interest-rate .allCards .other-card div h3 {
+  font-family: Work Sans;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 48px;
+  text-align: left;
+  color: #242424;
+}
+
+.interest-rate-container .interest-rate-wrapper .interest-rate .tabs-list-wrapper {
+  display: flex;
+  margin: 14px;
+  padding: 8px;
+  align-items: center;
+  background-color: #F0F6E4;
+  border-radius: 4px;
+  justify-content: space-between;
+}
+
+.interest-rate-container .interest-rate-wrapper .interest-rate .tabs-list-wrapper .category-wrapper select {
+  border-radius: 4px;
+  padding: 8px 24px;
+  margin: 0;
+  outline: none;
+  border: unset;
+  box-shadow: 0px 4px 4px 0px #00000040;
+
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18.77px;
+
+}
+
+.interest-rate-container .interest-rate-wrapper .interest-rate .tabs-list-wrapper .tabs-list {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.interest-rate-container .interest-rate-wrapper .interest-rate .allCards .other-card div p {
+  font-family: Work Sans;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.42px;
+  text-align: left;
+  color: #242424;
+}
+
+.interest-rate-container .interest-rate-wrapper .interest-rate .interest-card {
+  max-width: 192px;
+  background-color: #8CB133;
+  color: #ffffff;
+  border-radius: 4px;
+  width: 100%;
+  padding: 27.5px;
+}
+
+.interest-rate-container .interest-rate-wrapper .interest-rate .interest-card .title-container .title,
+.interest-rate-container .interest-rate-wrapper .interest-rate .interest-card .time-period-container .time-period {
+  font-family: Work Sans;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.08px;
+  text-align: left;
+}
+
+.interest-rate-container .interest-rate-wrapper .interest-rate .interest-card .intrest-container .intrest {
+  font-size: 40px;
+  font-weight: 300;
+  line-height: 46.92px;
+  text-align: center;
+}
+
+.interest-rate-container .interest-rate-wrapper .interest-rate .documentDiv {
+  background-color: #FFFFFF;
+  border-radius: 4px;
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+.interest-rate-container .interest-rate-wrapper .interest-rate .documentDiv .read-more-button {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16.42px;
+  text-align: center;
+  padding: 12px 20px;
+  border-radius: 2px;
+  border: 1px solid #3CB8FF;
+  background-color: #FFFFFF;
+  margin-top: 16px;
+}
+
+.interest-rate-container .interest-rate-wrapper .interest-rate .documentDiv .sections-container {
+  margin-inline: 30px;
+  margin-bottom: 10px;
+}
+
+.interest-rate-container .interest-rate-wrapper .interest-rate .documentDiv .sections-container .sections-title {
+  margin-top: 0;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 28.15px;
+  text-align: left;
+}
+
+.interest-rate-container .interest-rate-wrapper .interest-rate .documentDiv .sections-container .sections-description {
+  font-family: Work Sans;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18.77px;
+  text-align: left;
+  margin-top: 0;
+}
+
+.interest-rate-container .interest-rate-wrapper .interest-rate .documentDiv ul {
+  margin: 0;
+}
+
+.interest-rate-container .interest-rate-wrapper .interest-rate .documentDiv ul>li {
+  font-family: Work Sans;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 18.77px;
+  text-align: left;
+  list-style-type: none;
+  position: relative;
+  margin: 0;
+  margin-bottom: 8px;
+}
+
+.interest-rate-container .interest-rate-wrapper .interest-rate .documentDiv ul>li:last-of-type {
+  margin-bottom: 20px;
+}
+
+.interest-rate-container .interest-rate-wrapper .interest-rate .documentDiv ul>li::before {
+  position: absolute;
+  content: '';
+  width: 8px;
+  height: 8px;
+  background-color: #8CB133;
+  border-radius: 4px;
+  top: calc(50% - 4px);
+  left: -12px;
+}
+
+.interest-rate-container .interest-rate-wrapper .interest-rate .tabs-tab {
+  font-family: Work Sans;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.08px;
+  text-align: center;
+  border-radius: 4px;
+  padding: 10px 7px;
+  color: #3B3B3B;
+  background-color: #ffffff;
+}
+
+.interest-rate-container .interest-rate-wrapper .interest-rate .tabs-tab.active-tab {
+  background: #3CB8FF;
+  color: #ffffff;
+}
+
+/* for mobile */
+@media(max-width:600px) {
+  .interest-rate-container .interest-rate-wrapper .interest-rate .allCards {
+    display: none;
+  }
+
+  .interest-rate-container .interest-rate-wrapper .interest-rate .main-title {
+    font-size: 24px;
+    line-height: 28.15px;
+  }
+}
+
+/* for mobile and tablet */
+@media(max-width:900px) {
+
+
+  .interest-rate-container .interest-rate-wrapper .interest-rate .interest-card {
+    padding: 23px 20px;
+  }
+}
+
+/* for tablet only */
+@media(min-width:600px) and (max-width:900px) {
+  .interest-rate-container .interest-rate-wrapper .interest-rate .main-title {
+    font-size: 20px;
+    line-height: 23.46px;
+  }
+
+  .interest-rate-container .interest-rate-wrapper .interest-rate .interest-card .intrest-container .intrest {
+    font-size: 32px;
+    line-height: 27.54px;
+  }
+}
+
+/* after mobile only */
+@media(min-width:600px) {
+  .interest-rate-container .interest-rate-wrapper .interest-rate .documentDiv .mobile-card-container {
+    display: none;
+  }
+
+  .interest-rate-container .interest-rate-wrapper .interest-rate .tabs-dropdown-label,
+  .interest-rate-container .interest-rate-wrapper .interest-rate .tabs-list-label {
+    display: none;
+  }
+}
+
+@media(min-width:900px) {
+  .interest-rate-container .interest-rate-wrapper .interest-rate .allCards .other-card {
+
+    display: block;
+    max-width: 232px;
+    margin-right: 40px;
+  }
+
+
 }
