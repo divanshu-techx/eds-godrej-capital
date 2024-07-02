@@ -110,6 +110,12 @@
   }
 }
 
+@media( width <= 600px){
+  .section.differentloans-container{
+    padding-top:0px;
+  }
+}
+
 @media screen and (width <= 768px) {
   .differentloans-container {
     border-radius: 20px 20px 0px 0px;
@@ -144,7 +150,7 @@
   }
   .loan-card {
     .loan-content {
-      padding: 10px 10px 0px 10px!important;
+      padding: 10px 10px 10px 10px!important;
     }
   }
 
@@ -204,3 +210,4 @@
     background-image: url("/icons/arrowsvg.svg");
   }
 }
+

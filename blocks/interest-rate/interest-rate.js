@@ -182,11 +182,13 @@ function handleViewportChange(tablist, tabsListDropdown) {
       }
     });
   } else {
-    tablist.style.display = 'flex';
-    tabsListDropdown.style.display = 'none';
-    tabsListLabel.style.display = 'block'; // Show "Select Documents" label
+
+    tablist.style.display = "block";
+    tabsListDropdown.style.display = "none";
+    tabsListLabel.style.display = "block"; // Show "Select Documents" label
     allCards.forEach((card) => {
-      card.style.display = 'flex';
+      card.style.display = "block";
+
     });
     mobileCardContainer.innerHTML = ''; // Clear mobile card container
   }
