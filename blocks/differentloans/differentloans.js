@@ -26,7 +26,6 @@ export default async function decorate(block) {
     const responseData = await fetchData();
     const tabsNameArray = getTabNamesFromMetadata();
     var tabsContainer;
-    console.log(tabsNameArray);
     if(tabsNameArray.length > 0){
       tabsContainer = createTabs(block, tabsNameArray);
     } else {
@@ -46,7 +45,6 @@ export default async function decorate(block) {
 // Fetch data from the API
 async function fetchData() {
   const responseData = await ffetch(API_URL.Different_Home_Loan_Url).all();
-  console.log(responseData);
   if (!responseData.ok) {
     console.log('API is not getting response');
   }

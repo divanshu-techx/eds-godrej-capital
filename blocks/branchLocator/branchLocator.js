@@ -10,8 +10,7 @@ import createMap from '../utils/google-map.js';
  */
 
 const stateToCities = {};
-const filterContainer = document.querySelector('.filters-dropdown');
-const mapContainer = document.querySelector('.google-map');
+
 const stateSelect = select({ id: 'stateSelect' });
 const citySelect = select({ id: 'citySelect' });
 const pincodeInput = input({
@@ -38,7 +37,7 @@ function updateMapCard(item) {
  * Each object should include properties like 'location', 'address', 'phone', and 'hours'.
  */
 function displayResults(filteredLocations) {
-  const container = document.querySelector('.branchlocator');
+  const container = document.querySelector('.branch-locator');
   const cardContainer = div({ class: 'address-cards' });
   if (!container) {
     console.error('Container with class "branchlocator" not found');
@@ -139,7 +138,7 @@ function debounce(func, wait) {
  *
  * @param {Array} locations - Array of location objects.
  */
-function renderFilters(locations) {
+function renderFilters(locations,filterContainer) {
   // Create filter dropdown
 
   filterContainer.appendChild(
@@ -178,10 +177,16 @@ function renderFilters(locations) {
  * Initialize the Google Maps API and setup event listeners for filter inputs.
  * @param {Array} entries - All location entries.
  */
-function initialize(entries) {
-  mapContainer.appendChild(div({ id: 'map-canvas', style: 'height: 500px;' }));
-
-  renderFilters(entries);
+function initialize(entries,block) {
+  const mapContainer = div({class: "google-map"},
+    div({ id: 'map-canvas', style: 'height: 500px;'})
+  )
+  const filterContainer = div({class: "filters-dropdown"});
+  const branchlocator = div({class: "branch-locator"})
+  block.append(filterContainer);
+  block.append(mapContainer);
+  block.append(branchlocator);
+  renderFilters(entries,filterContainer);
 
   stateSelect.addEventListener('change', () => handleStateChange(entries));
   citySelect.addEventListener('change', () => filterResults(entries));
@@ -207,20 +212,21 @@ function initialize(entries) {
 /**
  * Load the Google Maps API script and execute a callback once loaded.
  */
-function loadGoogleMaps() {
+function loadGoogleMaps(callback) {
   const script = document.createElement('script');
-  script.src = 'https://maps.googleapis.com/maps/api/js?v=3.50&key=AIzaSyCb_eIYqj93ZiAqN5AQiyWWn4RsjXjlglQ&libraries=places';
+  script.src = 'https://maps.googleapis.com/maps/api/js?v=3.50&key=AIzaSyCb_eIYqj93ZiAqN5AQiyWWn4RsjXjlglQ&libraries=places&loading=async';
   script.defer = true;
   script.async = true;
+  script.onload = callback;
 
   document.head.appendChild(script);
 }
 
-export default async function decorate() {
+export default async function decorate(block) {
 // Load Google Maps API
-  loadGoogleMaps();
+loadGoogleMaps(async () => {
+  const allentries = await ffetch('/book.json').all();
+  initialize(allentries, block);
+});
 
-  const allentries = await ffetch('/website/book.json').all();
-
-  initialize(allentries);
 }

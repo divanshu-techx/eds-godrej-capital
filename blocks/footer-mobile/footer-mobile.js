@@ -9,7 +9,6 @@ export default async function decorate(block) {
   // Constants for header and footer height
   const headerHeight = 70;
   const footerHeight = 100;
- 
   // Function to hide all dropdowns except the specified one
   function hideAllDropdowns(exceptDropdown) {
     const dropdowns = block.querySelectorAll('.dropdown-content');
@@ -80,27 +79,20 @@ export default async function decorate(block) {
           // li.classList = 'open-list'
           const innerOl = li.querySelector('ol');
           innerOl.style.display = 'none';
-          // const toggleSign = document.createElement('span');
-          // toggleSign.textContent = ' +';
-          // li.appendChild(toggleSign);
           li.addEventListener('click', function (event) {
             event.stopPropagation();
- 
- 
             const isExpanded = innerOl.style.display === 'block';
             innerOl.style.display = isExpanded ? 'none' : 'block';
             this.classList.add('open-list');
             if (isExpanded) {
               this.classList.remove('open-list')
             }
-            // toggleSign.textContent = isExpanded ? ' +' : ' -';
           });
         }
       });
     }
   });
  
-  // Hide dropdowns when clicking outside
   document.addEventListener('click', function (event) {
     if (!event.target.closest('.tooltip-trigger')) {
       hideAllDropdowns();

@@ -22,7 +22,14 @@ function extractDataAttributes() {
     originationChargesTitle: getDataAttributeValueByName('origination-charges-title'),
     originationChargesMin: parseFloat(getDataAttributeValueByName('origination-charges-min')),
     originationChargesMax: parseFloat(getDataAttributeValueByName('origination-charges-max')),
-    textSize: parseFloat(getDataAttributeValueByName('font-size'))
+    textSize: parseFloat(getDataAttributeValueByName('font-size')),
+    rupeeSymbol :getDataAttributeValueByName('rupee-symbol'),
+    monthSymbol : getDataAttributeValueByName('month-symbol'),
+    percentSymbol : getDataAttributeValueByName('percent-symbol'),
+    yearSymbol  : getDataAttributeValueByName('year-symbol'),
+    applyNowLabel : getDataAttributeValueByName('apply-now-label'),
+    annualPercentLabel  : getDataAttributeValueByName('annual-percent-label'),
+
   };
 }
 
@@ -67,7 +74,8 @@ function constructHtmlCode({
   interestTitle, interestMin, interestMax,
   yearTitle, yearMin, yearMax,
   monthTitle, monthMin, monthMax,
-  originationChargesTitle, originationChargesMin, originationChargesMax
+  originationChargesTitle, originationChargesMin, originationChargesMax,
+  rupeeSymbol,monthSymbol,yearSymbol,percentSymbol,applyNowLabel,annualPercentLabel,
 }) {
   return `
     <div class="calculator-container">
@@ -75,7 +83,7 @@ function constructHtmlCode({
         <div class="inputBox">
           <div class="input_details_apr">
             <label for="loanamountApr">${loanAmountTitle}</label>
-            <span id="amountlabel">Rs</span>
+            <span id="amountlabel">${rupeeSymbol}</span>
             <span id="loanamountApr" class="inputspan" contenteditable="true" data-min="${loanAmountMin}" data-max="${loanAmountMax}" onblur="updateDisplay()">${formatNumberToIndianCommas(loanAmountMin)}</span>
           </div>
           <input type="range" id="loanamountAprRange" min=${loanAmountMin} max=${loanAmountMax} value=${loanAmountMin}  oninput="updateRange('loanamountApr')">
@@ -91,23 +99,23 @@ function constructHtmlCode({
         <div class="inputBox">
           <div class="input_details_apr">
             <label for="interest">${interestTitle}</label>
-            <span id="interestlabel">%</span>
+            <span id="interestlabel">${percentSymbol}</span>
             <span id="interest" class="inputspan" contenteditable="true" data-min="${interestMin}" data-max="${interestMax}" onblur="updateDisplay()">${interestMin}</span>
           </div>
           <input type="range" id="interestRange" min=${interestMin} max=${interestMax} value=${interestMin}  oninput="updateRange('interest')">
           <div class="input-bottom-details">
-            <span>${interestMin}%</span>
-            <span>${interestMax}%</span>
+            <span>${interestMin}${percentSymbol}</span>
+            <span>${interestMax}${percentSymbol}</span>
           </div>
           <div class="errorMsg">
-            <p id="interestErrorApr" class="error" style="display: none;">Value must be between ${interestMin}% and ${interestMax}%</p>
+            <p id="interestErrorApr" class="error" style="display: none;">Value must be between ${interestMin}${percentSymbol} and ${interestMax}${percentSymbol}</p>
           </div>
         </div>
 
         <div class="inputBox">
           <div class="input_details_apr">
             <label for="year">${yearTitle}</label>
-            <span id="yearlabel">Year</span>
+            <span id="yearlabel">${yearSymbol}</span>
             <span id="year" class="inputspan" contenteditable="true" data-min="${yearMin}" data-max="${yearMax}" onblur="updateDisplay()">${yearMin}</span>
           </div>
           <input type="range" id="yearRange" min=${yearMin} max=${yearMax} value=${yearMin}  oninput="updateRange('year')">
@@ -116,14 +124,14 @@ function constructHtmlCode({
             <span>${yearMax}Year</span>
           </div>
           <div class="errorMsg">
-            <p id="yearErrorApr" class="error" style="display: none;">Value must be between ${yearMin}Yrs and ${yearMax}Yrs</p>
+            <p id="yearErrorApr" class="error" style="display: none;">Value must be between ${yearMin}${yearSymbol} and ${yearMax}${yearSymbol}</p>
           </div>
         </div>
 
         <div class="inputBox">
           <div class="input_details_apr">
             <label for="month">${monthTitle}</label>
-            <span id="monthlabel">Mos</span>
+            <span id="monthlabel">${monthSymbol}</span>
             <span id="month" class="inputspan" contenteditable="true" data-min="${monthMin}" data-max="${monthMax}" onblur="updateDisplay()">${monthMin}</span>
           </div>
           <input type="range" id="monthRange" min=${monthMin} max=${monthMax} value=${monthMin}  oninput="updateRange('month')">
@@ -132,14 +140,14 @@ function constructHtmlCode({
             <span>${monthMax}</span>
           </div>
           <div class="errorMsg">
-            <p id="monthErrorApr" class="error" style="display: none;">Value must be between ${monthMin}Mos and ${monthMax}Mos</p>
+            <p id="monthErrorApr" class="error" style="display: none;">Value must be between ${monthMin}${monthSymbol} and ${monthMax}${monthSymbol}</p>
           </div>
         </div>
 
         <div class="inputBox">
           <div class="input_details_apr">
             <label for="originationcharges">${originationChargesTitle}</label>
-            <span id="originationchargeslabel">Rs</span>
+            <span id="originationchargeslabel">${rupeeSymbol}</span>
             <span id="originationcharges" class="inputspan" contenteditable="true" data-min="${originationChargesMin}" data-max="${originationChargesMax}" onblur="updateDisplay()">${originationChargesMin}</span>
           </div>
           <input type="range" id="originationchargesRange" min=${originationChargesMin} max=${originationChargesMax} value=${originationChargesMin}  oninput="updateRange('originationcharges')">
@@ -155,10 +163,10 @@ function constructHtmlCode({
       </div>
       <div class="outputs">
         <div class="result">
-          <div>Annual Percentage Rate (APR):</div>
-          <div id="aprDisplay">%</div>
+          <div>${annualPercentLabel}</div>
+          <div id="aprDisplay">${percentSymbol}</div>
         </div>
-        <button id="apply-btn-apr">Apply Now</button>
+        <button id="apply-btn-apr">${applyNowLabel}</button>
       </div>
     </div>`;
 }
