@@ -2,18 +2,23 @@
 const queryIndexApiUrl = getDataAttributeValueByName('blogs-apiUrl');
 const readMoreLabel = getDataAttributeValueByName('read-more-label');
 const pdpType = getDataAttributeValueByName('pdp-name');
+const notFoundMsg = getDataAttributeValueByName('not-found-msg');
 
 // Main function to decorate the block
 export default async function decorate(block) {
-	// Render search section and initial elements
-	createNoResultDiv(block);
-
 	try {
 		const responseData = await fetchData(queryIndexApiUrl);
 		console.log(responseData);
 		if (responseData) {
-			// Render initial cards
-			renderCards(block, responseData);
+			let category = getCategory();
+			if (category) {
+				let filteredData = filterArticlesByCategory(responseData, category);
+				// Render initial cards
+				renderCards(block, filteredData);
+			} else {
+				createNoResultDiv(block);
+			}
+
 		} else {
 			console.error('No data fetched from API.');
 		}
@@ -24,10 +29,22 @@ export default async function decorate(block) {
 
 function createNoResultDiv(block) {
 	const notFoundContainer = document.createElement('div');
-	notFoundContainer.id = "articles-not-found-container";
-	notFoundContainer.style.display = 'none';
-	notFoundContainer.innerHTML = 'Sorry, Couldn’t find what you’re looking for.';
+	notFoundContainer.id = "blogs-not-found-container";
+	notFoundContainer.innerHTML = notFoundMsg;
 	block.appendChild(notFoundContainer);
+}
+
+function getCategory() {
+	const urlParams = getURLParameters();
+	let category = urlParams['category'];
+	if (category) {
+		category = category.replace(/_/g, ' ').toLowerCase();
+	} else if (pdpType) {
+		category = pdpType.toLowerCase();
+	} else {
+		category = '';
+	}
+	return category;
 }
 
 // Render article cards
@@ -62,6 +79,21 @@ async function fetchData(apiUrl) {
 		console.error("Error fetching data:", error);
 		return [];
 	}
+}
+
+// Filter articles by category
+function filterArticlesByCategory(data, selectedCategory) {
+	return data.filter(article => article.category.toLowerCase() === selectedCategory.toLowerCase());
+}
+
+// Function to get URL parameters
+function getURLParameters() {
+	const params = new URLSearchParams(window.location.search);
+	const paramObject = {};
+	params.forEach((value, key) => {
+		paramObject[key] = value;
+	});
+	return paramObject;
 }
 
 // Format date
