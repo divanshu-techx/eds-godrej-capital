@@ -1,78 +1,177 @@
-.section.clientreviewcarousel-container {
-  margin-top: 110px;
+.clientreviewcarousel-container {
+  margin-top: 200px;
+  /* height: 100%; */
+  overflow-x: hidden;
+  height: 610px;
+  display: flex;
+  align-items: center;
+  position: relative;
 }
-.swiper-container {
-    height: 310px;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-  }
-  
-  .swiper-slide {
-    width: 540px;
-    height: 248px;
-    margin-right: 40px;
-    display: flex;
-    align-items: center; 
-    justify-content: center;
-    flex-direction: column;
-  }
-  
-  .swiper-slide:nth-child(2) {
-    width: 810px;
-    height: 310px;
-    margin-right: 40px;
-  }
-  
-  .swiper-slide:nth-child(3) {
-    width: 86px;
-    height: 248px;
-    margin-right: 0; 
-  }
-  
-
-  .swiper-slide:nth-child(n+4) {
-    width: 540px; 
-    height: 248px; 
-    margin-right: 40px; 
-  }
+ 
+.clientreviewcarousel-container:before{
+  content: '';
+  position: absolute;
+  top: -170px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* max-width: 1130px; */
+  background: url('/icons/background-grey.png') right no-repeat;
+  z-index: 2;
+}
+ 
+.clientreviewcarousel-container:after{
+  content: '';
+  position: absolute;
+  top: -160px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* max-width: 1151px; */
+  background: url('/icons/background-green.png') right no-repeat;
+  z-index: 1;
+}
+ 
+.section.clientreviewcarousel-container>div{
+  max-width: unset;
+  margin:unset;
+}
  
   .picture-nameplace-container {
-    margin-right: 10px; 
     display: flex;
+    align-items: flex-start;
+    gap:15px;
   }
-
+ 
+  .picture-nameplace-container div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+ 
   .picture-nameplace-container img{
     width: 120px;
     height: 120px;
   }
-  
-  .picture-nameplace-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; 
+ 
+  .picture-nameplace-container div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
-  
+ 
+  .picture-nameplace-container p:first-child {
+    font-size: 24px;
+    font-weight: 800;
+    margin: 0;
+    color:#8cb133;
+  }
+ 
+  .picture-nameplace-container p:last-child {
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0;
+    color:#808080;
+  }
+ 
+  .swiper-slide:not(.swiper-slide-active) .picture-nameplace-container p:first-child {
+    font-size: 36px;
+  }
+ 
   .info-container {
-    flex-grow: 1; 
+    flex-grow: 1;
   }
-  
+ 
   .swiper-pagination {
     position: absolute;
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 10; 
+    z-index: 10;
   }
-  
-  .swiper-wrapper {
-    height: 310px; 
-    overflow: hidden; 
-  }
-  
+ 
   .swiper-slide {
-    width: 100%; 
+    width: 100%;
     height: 100%;
   }
-  
+ 
+  .clientreviewcarousel {
+    position: relative;
+  }
+ 
+  .swiper-wrapper {
+    display: flex;
+    z-index: 3;
+    justify-content: center;
+    align-items: center;
+  }
+ 
+  .swiper-slide {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #fff;
+    border-radius: 4px;
+    opacity: 1;
+    padding: 40px!important;
+    gap: 24px;
+    max-width: 540px!important;
+    width:100%;
+    padding: 30px;
+    box-shadow: 0px 0px 30px 0px #0000000D;
+    box-sizing: border-box;
+    margin-right: 40px!important;
+  }
+ 
+  .swiper-navigation {
+    position: absolute;
+    top: 120px;
+    left: 72%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: space-between;
+    width: 100px;
+    z-index: 11;
+  }
+ 
+  .swiper-slide.active-dimension {
+    max-width: 810px !important;
+    width:100%;
+    height: 372px !important;
+    padding: 60px!important;
+    gap: 30px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 30px 0px #0000000D;
+    margin-right: 40px!important;
+  }
+ 
+  .swiper-slide .info-container p {
+    font-size: 12px;
+    font-weight: 300;
+    text-align: left;
+    margin:0;
+  }
+ 
+  .swiper-slide.active-dimension .info-container p {
+    font-size: 16px;
+    font-weight: 400;
+    margin:0;
+  }
+ 
+  .swiper-button-next,
+  .swiper-button-prev {
+   background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+    z-index: 10;
+  }
+ 
+  .swiper-button-next {
+    right: 10px;
+  }
+ 
+  .swiper-button-prev {
+    left: 10px;
+  }

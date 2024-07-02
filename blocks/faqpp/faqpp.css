@@ -35,9 +35,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
   gap: 20px;
-
 }
 
 .faqpp-container .faq-container .cannot-find-container .cannot-find-text {
@@ -163,6 +161,7 @@
   background-color: #FFFFFF;
   padding: 10px;
   border-radius: 4px;
+  text-transform: capitalize;
 }
 
 .faqpp .faq-container .tags-btn-container .tag-button.active-tag {

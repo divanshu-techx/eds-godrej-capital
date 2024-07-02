@@ -1,5 +1,7 @@
 const indexUrl = getDataAttributeValueByName('queryindexurl');
 const title = getDataAttributeValueByName('title');
+let dropdown;
+let dropDownContainer;
 
 // For check the view is mobile or desktop
 function isMobileView() {
@@ -8,7 +10,6 @@ function isMobileView() {
 
 export default async function decorate() {
   let data;
-  let dropdown;
 
   try {
     // Fetch the data asynchronously
@@ -20,11 +21,12 @@ export default async function decorate() {
     if (infopoliciesEle.length > 0) {
       firstChildElement = infopoliciesEle[0];
     }
-    // Create the tabs and tab contents containers
-    const { tabsContainer, tabContentsContainer } = createTabsAndContentsContainers(firstChildElement);
 
     // Create the dropdown element once
     dropdown = createDropdown();
+
+    // Create the tabs and tab contents containers
+    const { tabsContainer, tabContentsContainer } = createTabsAndContentsContainers(firstChildElement);
 
     // Populate tabs and their contents
     populateTabsAndContents(data, tabsContainer, tabContentsContainer, dropdown);
@@ -64,6 +66,17 @@ function createTabsAndContentsContainers(infoPoliciesEle) {
     titleEle.className = 'title-name';
     titleContainer.appendChild(titleEle);
     infoPoliciesEle.appendChild(titleContainer);
+  }
+
+  if(dropdown) {
+      dropDownContainer = document.createElement('div');
+      if(isMobileView()){
+        dropDownContainer.className = 'dropdown-container-for-mobile';
+      } else {
+        dropDownContainer.className = 'dropdown-container-for-desktop';
+      }
+      dropDownContainer.appendChild(dropdown);
+      infoPoliciesEle.appendChild(dropDownContainer);
   }
 
   let tabsContainer = document.getElementById('tabs');
@@ -178,7 +191,12 @@ function populateTabsAndContents(data, tabsContainer, tabContentsContainer, drop
     tabsContainer.appendChild(tab);
 
     // Append the dropdown to the tabs container
-    tabsContainer.appendChild(dropdown);
+    if(isMobileView()){
+      dropDownContainer.appendChild(dropdown);
+    } else {
+      dropDownContainer.appendChild(dropdown);
+      tabsContainer.appendChild(dropDownContainer);
+    }
 
     // Create and append the tab content element
     const tabContent = document.createElement('div');
