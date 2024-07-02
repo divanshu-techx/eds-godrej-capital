@@ -6,7 +6,7 @@ export default async function decorate(block) {
     createTeaser(teaserContainer);
     //applyInitialStyles(teaserContainer);
     applyTextAlignmentAndPlacement(teaserContainer);
-   // convertAnchorsToButtons(block);
+  //  convertAnchorsToButtons(block);
     hideSpecifiedButtons(teaserContainer);
 
     handleBackgroundStyle(teaserContainer, block);
@@ -106,8 +106,11 @@ const applyTextAlignmentAndPlacement = (container) => {
   const wrapper = container.querySelector('.teaser-wrapper .carousel-slide-content');
 
   wrapper.style.textAlign = desktopTextAlignment;
-  if(contentColour != null)
-  wrapper.style.color = contentColour;
+  if(contentColour != null){
+    wrapper.classList.add(contentColour);
+    wrapper.style.color = contentColour; 
+  }
+  wrapper.classList.add(contentColour);
 
   switch (desktopTextPlacement) {
     case 'left':
