@@ -1,17 +1,265 @@
 .accordion {
-    background-color: #eee;
-    color: #444;
-    cursor: pointer;
-    padding: 18px;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 15px;
-    transition: 0.4s;
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+}
+
+.accordion.active,
+.accordion:hover {
+  background-color: #ccc;
+}
+
+
+.section.faqpp-container {
+  background-color: #F4F4F4;
+}
+
+.faqpp-container .faq-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.faqpp .faq-container .faq-accordion {
+  width: 100%;
+}
+
+.faqpp-container .faq-container .cannot-find-container {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.faqpp-container .faq-container .cannot-find-container .cannot-find-text {
+  font-size: 16px;
+  line-height: 18px;
+  font-family: Work Sans;
+  font-weight: 400;
+  text-align: left;
+  color: #242424;
+}
+
+.faqpp-container .faq-container .cannot-find-container .view-all-label {
+  font-family: Work Sans;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: left;
+  color: #3B3B3B;
+}
+
+
+
+
+.faqpp .faq-container .faq-accordion .qa-item {
+  margin-bottom: 16px;
+}
+
+.faqpp .faq-container .faq-accordion .qa-item p {
+  display: none;
+}
+
+.faqpp .faq-container .faq-accordion .qa-item h4 {
+  padding: 20px 10px;
+  position: relative;
+  background-color: #E8E8E8;
+  color: #3B3B3B;
+  font-family: Work Sans;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 28px;
+  text-align: left;
+  border-radius: 4px;
+}
+
+.faqpp .faq-container .faq-accordion .qa-item p {
+  border-radius: 0px 0px 4px 4px;
+}
+
+.faqpp .faq-container .faq-accordion .qa-item .faq-heading.active {
+  border-radius: 4px 4px 0px 0px;
+}
+
+.faqpp .faq-container .faq-accordion .qa-item h4.active,
+.faqpp .faq-container .faq-accordion .qa-item h4:hover {
+  background-color: #E8E8E8;
+}
+
+.faqpp .faq-container .faq-accordion .qa-item p {
+  background-color: #E8E8E8;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.42px;
+  margin-top: 0;
+  text-align: left;
+  padding-inline: 10px;
+  padding-bottom: 20px;
+}
+
+.faqpp .faq-container .faq-accordion .qa-item .faq-heading::after,
+.faqpp .faq-container .faq-accordion .qa-item .faq-heading.active::after {
+
+  position: absolute;
+
+  right: 0;
+  font-weight: 500;
+  font-size: 22px;
+  margin-right: 10px;
+  width: 30px;
+  text-align: center;
+  height: 30px;
+
+  border-radius: 4px;
+}
+
+.faqpp .faq-container .faq-accordion .qa-item .faq-heading::after {
+  content: '+';
+  color: #3CB8FF;
+  background-color: #FFFFFF;
+}
+
+.faqpp .faq-container .faq-accordion .qa-item .faq-heading.active::after {
+  content: '-';
+  color: #FFFFFF;
+  background-color: #3CB8FF;
+}
+
+
+.faq-container .faq-tabs .main-title .title {
+  font-family: Work Sans;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 54px;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.faqpp .faq-container .tags-btn-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.faqpp .faq-container .tags-btn-container .tag-button {
+  font-family: Work Sans;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16.42px;
+  text-align: center;
+  color: #3B3B3B;
+  background-color: #FFFFFF;
+  padding: 10px;
+  border-radius: 4px;
+  text-transform: capitalize;
+}
+
+.faqpp .faq-container .tags-btn-container .tag-button.active-tag {
+  background: #3CB8FF;
+  color: #ffffff;
+}
+
+@media (max-width:600px) {
+  .section.faqpp-container {
+    background-color: #FFFFFF;
   }
-  
-  .accordion.active, .accordion:hover {
-    background-color: #ccc; 
+
+  .faqpp-container .faq-container {
+    flex-direction: column;
   }
-  
+
+  .faqpp-container .faq-container .faq-tabs {
+    overflow: hidden;
+  }
+
+  .faqpp .faq-container .tags-btn-container {
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    width: fit-content;
+    scroll-behavior: smooth;
+  }
+
+  .faqpp .faq-container .tags-btn-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .faq-container .faq-tabs .main-title .title {
+    text-align: center;
+    margin-bottom: 18px;
+    font-size: 20px;
+
+    line-height: 23.46px;
+    text-align: center;
+  }
+
+  .faqpp-container .faq-container .cannot-find-container {
+    gap: 10px;
+    justify-content: left;
+  }
+
+  .faqpp-container .faq-container .cannot-find-container .cannot-find-text {
+    font-size: 10px;
+    line-height: 11.73px;
+
+  }
+
+  .faqpp-container .faq-container .cannot-find-container .view-all-label {
+
+    font-size: 10px;
+    line-height: 11.73px;
+  }
+
+  .faqpp .faq-container .tags-btn-container .tag-button {
+    padding: 10px 7px;
+    font-size: 12px;
+    line-height: 14px;
+    background-color: #F4F4F4;
+  }
+
+  .faqpp .faq-container .faq-tabs .cannot-find-container {
+    display: none;
+  }
+
+  .faqpp .faq-container .faq-accordion .qa-item h4.active,
+  .faqpp .faq-container .faq-accordion .qa-item h4:hover {
+    background-color: #F4F4F4;
+  }
+
+  .faqpp .faq-container .faq-accordion .qa-item h4 {
+    padding: 8px 6px;
+    font-size: 12px;
+    color: #242424;
+    background-color: #F4F4F4;
+  }
+
+  .faqpp .faq-container .faq-accordion .qa-item p {
+    color: #696969;
+    font-size: 10px;
+    background-color: #F4F4F4;
+  }
+
+  .faqpp .faq-container .faq-accordion .qa-item .faq-heading::after,
+  .faqpp .faq-container .faq-accordion .qa-item .faq-heading.active::after {
+    font-size: 18px;
+    width: 22px;
+    height: 22px;
+    margin-right: 10px;
+  }
+
+}
+
+@media (min-width:600px) {
+  .faqpp .faq-container .faq-accordion .cannot-find-container {
+    display: none;
+  }
+}

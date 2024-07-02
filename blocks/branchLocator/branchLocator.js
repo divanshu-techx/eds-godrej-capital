@@ -1,6 +1,8 @@
 import ffetch from '../utils/ffetch.js';
 import {
   div, p, h2, select, option, label, input, button,
+  span,
+  img,
 } from '../utils/dom-helper.js';
 import createMap from '../utils/google-map.js';
 
@@ -10,8 +12,7 @@ import createMap from '../utils/google-map.js';
  */
 
 const stateToCities = {};
-const filterContainer = document.querySelector('.filters-dropdown');
-const mapContainer = document.querySelector('.google-map');
+
 const stateSelect = select({ id: 'stateSelect' });
 const citySelect = select({ id: 'citySelect' });
 const pincodeInput = input({
@@ -19,6 +20,7 @@ const pincodeInput = input({
   type: 'text',
   placeholder: 'Enter Pincode',
 });
+const btnMapIcon = getDataAttributeValueByName("mapbuttonicon")
 
 function updateMapCard(item) {
   document.getElementById('mapCardTitle').textContent = item.location;
@@ -38,7 +40,7 @@ function updateMapCard(item) {
  * Each object should include properties like 'location', 'address', 'phone', and 'hours'.
  */
 function displayResults(filteredLocations) {
-  const container = document.querySelector('.branchlocator');
+  const container = document.querySelector('.branch-locator');
   const cardContainer = div({ class: 'address-cards' });
   if (!container) {
     console.error('Container with class "branchlocator" not found');
@@ -54,9 +56,9 @@ function displayResults(filteredLocations) {
 
     const card = div(
       { class: 'card' },
-      h2(item.location),
-      p(item.address),
-      p({ class: 'phone' }, `Phone No.: ${item.phone}`),
+      h2({ class: 'location-title' }, item.location),
+      p({ class: 'location-address' }, item.address),
+      p({ class: 'phone' }, `Phone No.:`, span({ class: 'phone-phone-no' }, item.phone)),
       p({ class: 'hours' }, item.hours),
     );
     // Add click listener to the card to create a map on click
@@ -139,18 +141,29 @@ function debounce(func, wait) {
  *
  * @param {Array} locations - Array of location objects.
  */
-function renderFilters(locations) {
+function renderFilters(locations, filterContainer) {
   // Create filter dropdown
 
   filterContainer.appendChild(
     div(
       { class: 'filters' },
-      label({ for: 'stateSelect' }, 'Select State:'),
-      stateSelect,
-      label({ for: 'citySelect' }, 'Select City:'),
-      citySelect,
-      label({ for: 'pincodeInput' }, 'Select Pincode:'),
-      pincodeInput,
+      div({ class: 'heading-container' }, h2({ class: 'heading' }, 'Find the nearest Godrej Capital branch')),
+      div({
+        class: 'inputs-container'
+      },
+        div({ class: 'state-container' }, label({ for: 'stateSelect' }, 'Select State:'),
+          stateSelect,),
+        div({ class: 'city-container' }, label({ for: 'citySelect' }, 'Select City:'),
+          citySelect,),
+        div({ class: 'pincode-container' }, label({ for: 'pincodeInput' }, 'Select Pincode:'),
+          pincodeInput,),
+
+
+
+
+
+      )
+
     ),
   );
 
@@ -178,10 +191,16 @@ function renderFilters(locations) {
  * Initialize the Google Maps API and setup event listeners for filter inputs.
  * @param {Array} entries - All location entries.
  */
-function initialize(entries) {
-  mapContainer.appendChild(div({ id: 'map-canvas', style: 'height: 500px;' }));
-
-  renderFilters(entries);
+function initialize(entries, block) {
+  const mapContainer = div({ class: "google-map" },
+    div({ id: 'map-canvas', style: 'height: 400px;' })
+  )
+  const filterContainer = div({ class: "filters-dropdown" });
+  const branchlocator = div({ class: "branch-locator" })
+  block.append(filterContainer);
+  block.append(mapContainer);
+  block.append(branchlocator);
+  renderFilters(entries, filterContainer);
 
   stateSelect.addEventListener('change', () => handleStateChange(entries));
   citySelect.addEventListener('change', () => filterResults(entries));
@@ -196,9 +215,9 @@ function initialize(entries) {
       { id: 'map-card' },
       h2({ id: 'mapCardTitle' }, entries[0].location),
       p({ id: 'mapCardAddress' }, entries[0].address),
-      p({ id: 'mapCardPhone' }, `Phone No.: ${entries[0].phone}`),
+      p({ id: 'mapCardPhone' }, `Phone No.:`, span({ class: 'phone-phone-no' }, entries[0].phone)),
       p({ id: 'mapCardHours' }, entries[0].hours),
-      button({ id: 'getDirections' }, 'Get Directions'),
+      button({ id: 'getDirections' }, img({ class: 'btn-icon', src: btnMapIcon }), 'Get Directions'),
     ),
   );
   createMap(defaultLat, defaultLong, 'map-canvas');
@@ -207,20 +226,28 @@ function initialize(entries) {
 /**
  * Load the Google Maps API script and execute a callback once loaded.
  */
-function loadGoogleMaps() {
+function loadGoogleMaps(callback) {
   const script = document.createElement('script');
-  script.src = 'https://maps.googleapis.com/maps/api/js?v=3.50&key=AIzaSyCb_eIYqj93ZiAqN5AQiyWWn4RsjXjlglQ&libraries=places';
+  script.src = 'https://maps.googleapis.com/maps/api/js?v=3.50&key=AIzaSyCb_eIYqj93ZiAqN5AQiyWWn4RsjXjlglQ&libraries=places&loading=async';
   script.defer = true;
   script.async = true;
+  script.onload = callback;
 
   document.head.appendChild(script);
 }
 
-export default async function decorate() {
-// Load Google Maps API
-  loadGoogleMaps();
+export default async function decorate(block) {
+  // Load Google Maps API
+  loadGoogleMaps(async () => {
+    const allentries = await ffetch('/book.json').all();
+    initialize(allentries, block);
+  });
 
-  const allentries = await ffetch('/website/book.json').all();
+}
 
-  initialize(allentries);
+
+// Retrieve the value of a data attribute by name
+function getDataAttributeValueByName(name) {
+  const element = document.querySelector(`[data-${name}]`);
+  return element ? element.getAttribute(`data-${name}`) : '';
 }
