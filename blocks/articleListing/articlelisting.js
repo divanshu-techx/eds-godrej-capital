@@ -181,7 +181,6 @@ function renderFiltersAndCategoriesDropdown(block, categories, responseData) {
 
 // Handle dropdown change
 function handleDropdownChange(block, filtersDropdown, categoriesDropdown, responseData) {
-	console.log(responseData);
   const selectedFilter = filtersDropdown.value;
   const selectedCategory = categoriesDropdown.value;
 
