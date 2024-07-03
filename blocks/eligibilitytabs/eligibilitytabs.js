@@ -1,14 +1,14 @@
 // eslint-disable-next-line import/no-unresolved
 import { toClassName } from '../../scripts/aem.js';
-
+import { p } from '../utils/dom-helper.js';
+const mobileTitle=getDataAttributeValueByName('mobileTitle');
+const selectDocument=getDataAttributeValueByName('selectDocument');
 function hasWrapper(el) {
   return !!el.firstElementChild && window.getComputedStyle(el.firstElementChild).display === 'block';
 }
-
 function isMobileView() {
   return window.innerWidth <= 768; // Adjust breakpoint as needed
 }
-
 function createDropdown(tabs, tabpanels, block) {
   const select = document.createElement('select');
   select.className = 'tabs-dropdown';
@@ -90,6 +90,37 @@ export default async function decorate(block) {
   block.prepend(tabpanelParent);
   tabpanelParent.prepend(tablistParent);
 
+  // Append <p>Select Documents</p> under parent-tab-list and hide it from its original position
+//   const selectDocuments = document.querySelector(' .eligibilitytabs-container .default-content-wrapper p:last-child');
+//   if (selectDocuments) {
+//     const selectDocumentsCopy = selectDocuments.cloneNode(true);
+//     selectDocumentsCopy.classList.add('select-class');
+//     block.querySelector('.parent-tab-list').appendChild(selectDocumentsCopy);
+//     selectDocuments.style.display = 'none';
+//   }
+  const defaultContentWrapper = document.querySelector('.eligibilitytabs-container .default-content-wrapper');
+  if (defaultContentWrapper) {
+    const firstChild = defaultContentWrapper.children[0];
+ //   const secondChild = defaultContentWrapper.children[1];
+    if (firstChild && firstChild.tagName === 'P') {
+      firstChild.classList.add('eligibility-class');
+    }
+    const H2tag = document.createElement('H2');
+    H2tag.className = 'mobile-title';
+    if(mobileTitle){
+    H2tag.textContent = mobileTitle;
+    defaultContentWrapper.appendChild(H2tag);
+    }
+   
+  }
+  const ptag = document.createElement('P');
+  ptag.className = 'document-title';
+  if(selectDocument){
+  ptag.textContent = selectDocument;
+  block.querySelector(' .parent-tab-list').appendChild(ptag);
+  }
+
+
   if (isMobileView()) {
     createDropdown(tabs, tabpanels, block);
   } else {
@@ -116,3 +147,9 @@ export default async function decorate(block) {
     }
   });
 }
+
+// Retrieve the value of a data attribute by name
+function getDataAttributeValueByName(name) {
+    const element = document.querySelector(`[data-${name}]`);
+    return element ? element.getAttribute(`data-${name}`) : '';
+  }
