@@ -64,6 +64,7 @@ const createPlaintext = (fd) => {
 };
 
 const createSelect = async (fd) => {
+    console.log(fd)
     const select = document.createElement('select');
     setCommonAttributes(select, fd);
     const addOption = ({ text, value }) => {
@@ -83,10 +84,14 @@ const createSelect = async (fd) => {
     }
 
     if (fd.Options) {
+        const optionsUrl = fd.Options;
+        // console.log(optionsUrl)
+        // const el = await fetch('/apply-now-form/applynowform.json?sheet=countrycode');
+        // console.log(el)
         let options = [];
-        if (fd.Options.startsWith('https://')) {
-            const optionsUrl = new URL(fd.Options);
-            const resp = await fetch(`${optionsUrl.pathname}${optionsUrl.search}`);
+        if (optionsUrl) {
+            // const optionsUrl = new URL(fd.Options);
+            const resp = await fetch(optionsUrl);
             const json = await resp.json();
             json.data.forEach((opt) => {
                 options.push({
