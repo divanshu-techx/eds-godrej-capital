@@ -397,3 +397,12 @@ button {
   .section.teaser-container{
     display:none;
   }
+
+.carousel-slide-content a{
+ color: inherit;
+}
+
+.carousel-slide-content button{
+    color: inherit;
+}
+   

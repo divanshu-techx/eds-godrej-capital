@@ -1,4 +1,5 @@
 export default function decorate(block) {
+  console.log(block);
   const cols = block.firstElementChild.children.length;
   block.parentElement.classList.add(`teaser-cards-${cols}`);
   // go through all teasers
