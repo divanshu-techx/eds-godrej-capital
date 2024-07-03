@@ -1,15 +1,21 @@
 .section.interest-rate-container {
 
-  box-sizing: border-box;
+  background-color: #F0F6E4;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+  border-radius: 4px;
+  padding-inline: 0;
 }
 
 .interest-rate-container .interest-rate-wrapper {
   background-color: #F0F6E4;
-  border-radius: 4px
+  border-radius: 4px;
+  margin-inline: 20px;
 }
 
 .interest-rate-container .interest-rate-wrapper .interest-rate {
-  padding: 24px 40px;
+  /* padding: 24px 40px; */
 }
 
 .interest-rate-container .interest-rate-wrapper .interest-rate .disclaimer {
@@ -77,6 +83,7 @@
 }
 
 .interest-rate-container .interest-rate-wrapper .interest-rate .main-title {
+  display: none;
   font-family: Work Sans;
   font-size: 24px;
   font-weight: 500;
