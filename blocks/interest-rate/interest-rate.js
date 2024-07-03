@@ -7,6 +7,7 @@ const dataUrl = getDataAttributeValueByName('queryIndexUrl');
 const mainTitle = getDataAttributeValueByName('interestRateTitle');
 const viewCompleteLabel = getDataAttributeValueByName('viewCompleteLabel');
 const disclaimerContent = getDataAttributeValueByName('disclaimer');
+
 async function fetchData(apiUrl) {
 
   try {
