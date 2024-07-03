@@ -5,6 +5,24 @@
 
 .interest-rate-container .interest-rate-wrapper {
   background-color: #F0F6E4;
+  border-radius: 4px
+}
+
+.interest-rate-container .interest-rate-wrapper .interest-rate {
+  padding: 24px 40px;
+}
+
+.interest-rate-container .interest-rate-wrapper .interest-rate .disclaimer {
+  margin-top: 10px;
+  font-size: 10px;
+  font-weight: 300;
+  line-height: 11.73px;
+  text-align: center;
+}
+
+.interest-rate-container .interest-rate-wrapper .interest-rate .disclaimer::first-letter {
+  color: #F50076;
+  ;
 }
 
 .tabs-list-dropdown {
@@ -51,11 +69,11 @@
     display: none;
   }
 
-  .tabs-list-label,
+  /* .tabs-list-label,
   .tabs-dropdown-label {
     display: block;
     font-size: small;
-  }
+  } */
 }
 
 .interest-rate-container .interest-rate-wrapper .interest-rate .main-title {
@@ -102,6 +120,14 @@
   border-radius: 4px;
   justify-content: space-between;
 }
+
+.interest-rate-container .interest-rate-wrapper .interest-rate .tabs-list-wrapper .category-document-wrapper {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
 
 .interest-rate-container .interest-rate-wrapper .interest-rate .tabs-list-wrapper .category-wrapper select {
   border-radius: 4px;
@@ -256,6 +282,60 @@
     font-size: 24px;
     line-height: 28.15px;
   }
+
+  .interest-rate-container .interest-rate-wrapper .interest-rate .tabs-list-wrapper {
+    gap: 40px;
+  }
+
+  .interest-rate-container .interest-rate-wrapper .interest-rate .tabs-list-wrapper .category-document-wrapper {
+    flex-direction: column-reverse;
+    align-items: start;
+  }
+
+  .tabs-list-label,
+  .tabs-dropdown-label,
+  .interest-rate-container .interest-rate-wrapper .interest-rate .tabs-list-wrapper .category-wrapper select,
+  .interest-rate-container .interest-rate-wrapper .interest-rate .tabs-list-wrapper .documents-wrapper select {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 11.72px;
+    color: #000000;
+  }
+
+  .interest-rate-container .interest-rate-wrapper .interest-rate .tabs-list-wrapper .category-wrapper select,
+  .interest-rate-container .interest-rate-wrapper .interest-rate .tabs-list-wrapper .documents-wrapper select {
+    color: #3B3B3B;
+    width: 100%;
+    font-size: 10px;
+    line-height: 11.73px;
+    font-family: 'Work Sans';
+    padding: 8px 10px;
+    text-align: center;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    box-shadow: none;
+  }
+
+  .interest-rate-container .interest-rate-wrapper .interest-rate .documentDiv .sections-container .sections-title {
+    font-size: 14px;
+    line-height: 16.42px;
+  }
+
+  .interest-rate-container .interest-rate-wrapper .interest-rate .documentDiv .sections-container .sections-description {
+    font-weight: 300;
+    font-size: 11px;
+    line-height: 12.9px;
+  }
+
+  .interest-rate-container .interest-rate-wrapper .interest-rate .documentDiv ul {
+    padding-left: 10px;
+  }
+
+  .interest-rate-container .interest-rate-wrapper .interest-rate .documentDiv ul>li {
+    font-size: 12px;
+    line-height: 14.08px;
+  }
 }
 
 /* for mobile and tablet */
@@ -279,6 +359,8 @@
     line-height: 27.54px;
   }
 }
+
+
 
 /* after mobile only */
 @media(min-width:600px) {

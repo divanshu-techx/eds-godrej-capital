@@ -179,7 +179,7 @@ function handleViewportChange(tablist, tabsListDropdown) {
   if (window.innerWidth <= 600) {
     tablist.style.display = 'none';
     tabsListDropdown.style.display = 'block';
-    tabsListLabel.style.display = 'block'; // Show "Select Documents" label
+    // tabsListLabel.style.display = 'block'; // Show "Select Documents" label
     allCards.forEach((card) => {
       if (card.id === selectedOption) {
         card.style.display = 'block';
@@ -219,7 +219,7 @@ async function decorate() {
   documentsDiv.classList.add('documentDiv');
   const disclaimer = document.createElement('div');
   disclaimer.classList.add('disclaimer')
-  disclaimer.textContent=disclaimerContent;
+  disclaimer.textContent = disclaimerContent;
 
   if (interestRateBlock) {
     const divs = interestRateBlock.querySelectorAll(':scope > div');
@@ -258,7 +258,7 @@ async function decorate() {
   interestRateBlock.appendChild(title);
   interestRateBlock.appendChild(allCards);
   interestRateBlock.appendChild(documentsDiv);
-   interestRateBlock.appendChild(disclaimer);
+  interestRateBlock.appendChild(disclaimer);
 
   const tabListWrapper = document.createElement('div');
   tabListWrapper.className = 'tabs-list-wrapper';
@@ -327,10 +327,10 @@ async function decorate() {
   // Append label and dropdown to documentsWrapper
   documentsWrapper.appendChild(tabListLabel);
   documentsWrapper.appendChild(tablist);
-   const categoryDocWrapper = document.createElement('div');
-   categoryDocWrapper.classList.add('category-document-wrapper');
-   categoryDocWrapper.appendChild(documentsWrapper);
-   categoryDocWrapper.appendChild(categoryWrapper)
+  const categoryDocWrapper = document.createElement('div');
+  categoryDocWrapper.classList.add('category-document-wrapper');
+  categoryDocWrapper.appendChild(documentsWrapper);
+  categoryDocWrapper.appendChild(categoryWrapper)
   //tabListWrapper.appendChild(documentsWrapper);
   tabListWrapper.appendChild(categoryDocWrapper); // Append documentsWrapper to tabListWrapper
   documentsDiv.appendChild(tabListWrapper);
