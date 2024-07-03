@@ -1,12 +1,10 @@
 export default async function decorate(block) {
 // console.log('js called');
-// console.log(block);
 
 getIndexedChildNames('support-landing-cards');
 
 
   let element = document.querySelectorAll('.support-landing-cards-child')[1];
-  // console.log(element);
   let pictureElement = element.querySelector('picture');
   let img = pictureElement.querySelector('img').src;
   let ImgEle=  element.querySelectorAll('div')[1];
@@ -62,11 +60,6 @@ faqDiv.appendChild(forFaqElem);
 containerDivForInvestor.appendChild(faqDiv);
 
 
-
-// let parentEle= document.getElementsByClassName('support-landing-cards')[0];
-// parentEle.appendChild(containerDivForInvestor);
-// console.log(sixthDiv.querySelectorAll('div')[0]);
-// let finalDiv= document.createElement('div');
 let newFifth=fifthDiv.querySelectorAll('div')[0];
 let newSixth= sixthDiv.querySelectorAll('div')[0];
 let newDiv=document.createElement('div');
@@ -78,7 +71,7 @@ fifthDiv.appendChild(newDiv);
 let newSeventh=seventhDiv.querySelectorAll('div')[0];
 let newEigth= eigthDiv.querySelectorAll('div')[0];
 let customDiv=document.createElement('div');
-customDiv.classList.add("customDiv")
+customDiv.classList.add("customDiv");
 customDiv.appendChild(newSeventh);
 customDiv.appendChild(newEigth);
 fifthDiv.appendChild(customDiv);
@@ -87,16 +80,10 @@ sixthDiv.remove('support-landing-cards-child');
 seventhDiv.remove('support-landing-cards-child');
 eigthDiv.remove('support-landing-cards-child');
 
-
-
 containerDivForInvestor.append(fifthDiv);
 
 parentEle.appendChild(containerDivForCustomer);
 parentEle.appendChild(containerDivForInvestor);
-// custom code
-let data= document.querySelectorAll('.containerDivForInvestor')[0].lastElementChild;
-
-
 
 
 }
