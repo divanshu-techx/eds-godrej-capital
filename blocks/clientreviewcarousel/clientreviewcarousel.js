@@ -53,27 +53,37 @@ export default async function decorate(block) {
     // Append swiperSlide to swiperWrapper
     swiperWrapper.appendChild(swiperSlide);
   });
-
+ 
   // Clear the original container and append the swiperWrapper
   carouselContainer.innerHTML = '';
   carouselContainer.appendChild(swiperWrapper);
  
- 
+  // Create navigation buttons container
   const navigationContainer = document.createElement('div');
   navigationContainer.classList.add('swiper-navigation');
   navigationContainer.innerHTML = `
-    <button class="swiper-button-prev" tabindex="0" aria-label="Previous slide">Previous</button>
-    <button class="swiper-button-next" tabindex="0" aria-label="Next slide">Next</button>
+  <div class="buttonControls">
+    <button class="swiper-button-prev" tabindex="0" aria-label="Previous slide">
+    
+    </button>
+    <span class="swiper-pagination"></span> <!-- Container for pagination -->
+    <button class="swiper-button-next" tabindex="0" aria-label="Next slide">
+    
+    </button>
+  </div>
   `;
   carouselContainer.appendChild(navigationContainer);
  
   // Initialize Swiper after modifying the HTML structure
   const swiper = new Swiper('.clientreviewcarousel', {
-    slidesPerView: 9,
-    loop: true,
+    slidesPerView: 9, // Show one slide at a time
+    loop: true, // Enable continuous loop
     pagination: {
       el: '.swiper-pagination',
-      clickable: true,
+      type: 'custom', // Use custom type for pagination
+      renderCustom: function (swiper, current, total) {
+        return `<span>${current}</span> / <span>${total}</span>`; // Custom rendering of current / total
+      },
     },
     navigation: {
       nextEl: '.swiper-button-next',
@@ -101,4 +111,3 @@ export default async function decorate(block) {
     });
   }
 }
- 
