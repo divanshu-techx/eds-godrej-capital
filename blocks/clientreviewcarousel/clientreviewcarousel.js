@@ -62,52 +62,34 @@ export default async function decorate(block) {
   const navigationContainer = document.createElement('div');
   navigationContainer.classList.add('swiper-navigation');
   navigationContainer.innerHTML = `
+  <div class="swiper-pagination"></div> 
   <div class="buttonControls">
     <button class="swiper-button-prev" tabindex="0" aria-label="Previous slide">
-    
     </button>
-    <span class="swiper-pagination"></span> <!-- Container for pagination -->
     <button class="swiper-button-next" tabindex="0" aria-label="Next slide">
-    
     </button>
   </div>
   `;
   carouselContainer.appendChild(navigationContainer);
- 
+
   // Initialize Swiper after modifying the HTML structure
   const swiper = new Swiper('.clientreviewcarousel', {
-    slidesPerView: 9, // Show one slide at a time
-    loop: true, // Enable continuous loop
+    slidesPerView: 1,
+    spaceBetween: 10,
     pagination: {
       el: '.swiper-pagination',
-      type: 'custom', // Use custom type for pagination
-      renderCustom: function (swiper, current, total) {
-        return `<span>${current}</span> / <span>${total}</span>`; // Custom rendering of current / total
-      },
+      type: "fraction",
     },
     navigation: {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev',
     },
-    on: {
-      init: function () {
-        updateSlideDimensions(this);
-      },
-      slideChange: function () {
-        updateSlideDimensions(this);
-      },
-    },
-  });
- 
-  // Function to update slide dimensions
-  function updateSlideDimensions(swiper) {
-    const slides = document.querySelectorAll('.swiper-slide');
-    slides.forEach((slide, index) => {
-      if (index === swiper.activeIndex + 1) {
-        slide.classList.add('active-dimension');
-      } else {
-        slide.classList.remove('active-dimension');
+    breakpoints: {
+      768: {
+        slidesPerView: 2.5,
+        spaceBetween: 120, // for desktop
       }
-    });
-  }
+    }
+  })
+
 }
