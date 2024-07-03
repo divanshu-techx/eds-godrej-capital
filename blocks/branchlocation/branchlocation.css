@@ -1,83 +1,62 @@
 .card {
-
-    /* Light gray border */
-
-
-
-    /* Fixed height to make the card square */
-    box-shadow: 0 2px 5px rgb(0 0 0 / 10%);
-    /* Subtle shadow for a 3D effect */
-
-    /* White background */
+    flex: 1 0 calc(25% - 20px);
+    width: calc(25% - 20px) !important;
+    margin: 10px;
+    background-color: #f1f1f1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
-    /* Smooth transition for hover effects */
-    display: flex;
-    /* Flex layout to center content */
-    flex-direction: column;
-    /* Vertical alignment */
-    justify-content: space-between;
-    /* Distribute space between elements */
-    overflow: hidden;
-    /* Ensure content stays within the card */
-    text-overflow: ellipsis;
-    /* Handle overflowed text with ellipsis */
     box-sizing: border-box;
-    /* Include padding and border in dimensions */
-    cursor: pointer;
-    /* Pointer cursor for hover effect */
-    flex-grow: 1;
+    padding: 10px;
+}
+
+.card:nth-child(4n + 1) {
+    margin-left: 0;
+}
+
+.card:nth-child(4n) {
+    margin-right: 0;
+}
+
+@media (max-width: 600px) {
+    .card {
+        flex: 1 0 calc(50% - 20px) !important;
+        width: calc(50% - 20px) !important;
+    }
+
+    .card:nth-child(2n + 1) {
+        margin-left: 0;
+    }
+
+    .card:nth-child(2n) {
+        margin-right: 0;
+    }
 }
 
 .card:hover {
     transform: translateY(-5px);
-    /* Slight lift effect on hover */
     box-shadow: 0 4px 10px rgb(0 0 0 / 15%);
-    /* More pronounced shadow on hover */
     background-color: #b9dc79;
-    /* Light green background on hover */
     color: #fff;
-    /* White text on hover */
 }
-
-
-
-
-
-/* Responsive design */
-/*  */
-
 
 .card.active {
     background-color: #b9dc79;
-    /* Light green background when active */
     color: #fff;
-    /* White text when active */
     box-shadow: 0 4px 10px rgba(0 0 0 / 15%);
-    /* Consistent shadow on active */
 }
 
 .filters-dropdown-wrapper {
     padding: 15px;
 }
 
-
-
-
 .google-map {
     position: relative;
 }
-
-
 
 .section.branchlocation-container {
     margin-top: 65px;
     padding: 32px 40px;
 }
-
-/* 
-.branchlocation-container .branchlocation-wrapper {
-    max-width: -webkit-fill-available;
-} */
 
 .branchlocation-wrapper .branchlocation .filters-dropdown .filters {
     display: flex;
@@ -91,7 +70,6 @@
 }
 
 .branchlocation-wrapper .branchlocation .filters-dropdown .filters .heading-container .heading {
-    font-family: Work Sans;
     font-size: 24px;
     font-weight: 400;
     line-height: 28.15px;
@@ -118,9 +96,7 @@
 
 .branchlocation-wrapper .branchlocation .filters-dropdown .filters select,
 .branchlocation-wrapper .branchlocation .filters-dropdown .filters input {
-
     background-color: #FFFFFF;
-    font-family: Work Sans;
     font-size: 16px;
     font-weight: 400;
     line-height: 18.77px;
@@ -153,7 +129,6 @@
 }
 
 .branchlocation-container .branchlocation .google-map #map-card #mapCardTitle {
-    font-family: Work Sans;
     font-size: 24px;
     font-weight: 500;
     line-height: 28.15px;
@@ -163,7 +138,6 @@
 .branchlocation-container .branchlocation .google-map #map-card #mapCardAddress,
 .branchlocation-container .branchlocation .google-map #map-card #mapCardPhone,
 .branchlocation-container .branchlocation .google-map #map-card #mapCardHours {
-    font-family: Work Sans;
     font-size: 14px;
     font-weight: 400;
     line-height: 16.42px;
@@ -173,7 +147,6 @@
 }
 
 .branchlocation-container .branchlocation .google-map #map-card #getDirections {
-    font-family: Work Sans;
     font-size: 12px;
     font-weight: 400;
     line-height: 14.08px;
@@ -195,25 +168,12 @@
 .branchlocation-container .branchlocation .branch-locator .address-cards {
     display: flex;
     margin-top: 25px;
-    gap: 10px;
-    flex-direction: row;
     flex-wrap: wrap;
-
-}
-
-.branchlocation-container .branchlocation .branch-locator .address-cards .card {
-    max-width: 308px;
-    padding: 16px;
-    width: 100%;
     display: flex;
-    flex-direction: column;
-    border-radius: 4px;
-    box-shadow: 2px 2px 4px 0px #0000000D;
-    background-color: #ffffff;
 }
+
 
 .branchlocation-container .branchlocation .branch-locator .address-cards .card .location-title {
-    font-family: Work Sans;
     font-size: 24px;
     font-weight: 500;
     line-height: 28.15px;
@@ -224,7 +184,6 @@
 }
 
 .branchlocation-container .branchlocation .branch-locator .address-cards .card .phone {
-    font-family: Work Sans;
     font-size: 14px;
     font-weight: 500;
     line-height: 16.42px;
@@ -235,11 +194,12 @@
 
 .branchlocation-container .branchlocation .branch-locator .address-cards .card .phone .phone-phone-no {
     font-weight: 400;
+    color: #3CB8FF;
+    font-size: 12px;
 }
 
 .branchlocation-container .branchlocation .branch-locator .address-cards .card .location-address,
 .branchlocation-container .branchlocation .branch-locator .address-cards .card .hours {
-    font-family: Work Sans;
     font-size: 14px;
     font-weight: 400;
     line-height: 16.42px;
@@ -321,13 +281,6 @@
         padding-top: 8px;
     }
 
-    .branchlocation-container .branchlocation .branch-locator .address-cards .card {
-        max-width: 182px;
-        padding: 10px;
-        background-color: #F4F4F4;
-        margin-bottom: 16px;
-    }
-
     .branchlocation-container .branchlocation .branch-locator .address-cards .card .location-title {
         font-size: 14px;
         line-height: 16.42px;
@@ -358,9 +311,7 @@
     .branchlocation-container .branchlocation-wrapper .google-map #map-canvas .branchlocation-wrapper .branchlocation .filters-dropdown .filters select,
     .branchlocation-wrapper .branchlocation .filters-dropdown .filters input {
         width: -webkit-fill-available;
-        /* For Chrome, Safari, Opera */
         width: -moz-available;
-        /* For Firefox */
         width: fill-available;
     }
 
@@ -374,7 +325,7 @@
 
 @media(max-width:600px) {
     .branchlocation-container .branchlocation-wrapper .google-map #map-canvas {
-        height: 230px !important;
+        /* height: 230px !important; */
     }
 }
 

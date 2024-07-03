@@ -252,3 +252,4 @@ function getDataAttributeValueByName(name) {
   const element = document.querySelector(`[data-${name}]`);
   return element ? element.getAttribute(`data-${name}`) : '';
 }
+
