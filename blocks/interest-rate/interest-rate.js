@@ -6,8 +6,10 @@ function getDataAttributeValueByName(name) {
 const dataUrl = getDataAttributeValueByName('queryIndexUrl');
 const mainTitle = getDataAttributeValueByName('interestRateTitle');
 const viewCompleteLabel = getDataAttributeValueByName('viewCompleteLabel');
-console.log(mainTitle)
+const disclaimerContent = getDataAttributeValueByName('disclaimer');
+
 async function fetchData(apiUrl) {
+
   try {
     const response = await fetch(apiUrl);
     const data = await response.json();
@@ -41,23 +43,25 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
     sectionsContainer.className = 'sections-container';
 
     // Iterate through sections until no more titles are found
-    while (item[`title_${sectionIndex}`]) {
-      const title = item[`title_${sectionIndex}`].trim();
+    while (item[`requirements_${sectionIndex}`]) {
+      const title = item[`requirements_${sectionIndex}`].trim();
       const description = item[`description_${sectionIndex}`] || ''; // Default to empty string if description is not present
-      const bulletPoints = item[`bullet_points_${sectionIndex}`] || ''; // Default to empty string if bullet points are not present
+      const bulletPoints = item[`documentsNeeded_${sectionIndex}`] || ''; // Default to empty string if bullet points are not present
 
       // Create section element
       const sectionElement = document.createElement('div');
-      sectionElement.className = `section section-${sectionIndex}`;
+      sectionElement.className = `section-container section-${sectionIndex}`;
 
       // Create paragraph element for title with bold styling
       const titleElement = document.createElement('p');
       titleElement.textContent = title;
-      titleElement.style.fontWeight = 'bold'; // Set bold font weight
+      titleElement.classList.add('sections-title')
+
       sectionElement.appendChild(titleElement);
 
       // Create paragraph element for description
       const descriptionElement = document.createElement('p');
+      descriptionElement.classList.add('sections-description')
       descriptionElement.textContent = description.trim();
       sectionElement.appendChild(descriptionElement);
 
@@ -70,7 +74,7 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
 
         if (bulletPointsList.length > 0) {
           const listElement = document.createElement('ul');
-          listElement.style.listStyleType = 'disc'; // Set list style to bullet points
+
 
           // Show only the first 3 bullet points initially
           const initialBulletPoints = bulletPointsList.slice(0, 3);
@@ -111,14 +115,18 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
   });
 }
 function handleTabClick(event, data, tablist, tabpanel, dropdown) {
-  tablist.querySelectorAll('.tabs-tab').forEach((btn) => {
+  const tabsBtn = tablist.querySelectorAll('.tabs-tab');
+
+  tabsBtn.forEach((btn) => {
+    btn.classList.remove('active-tab')
     btn.setAttribute('aria-selected', 'false');
-    btn.style.backgroundColor = 'white';
-    btn.style.color = 'black';
+    // btn.style.backgroundColor = 'white';
+    // btn.style.color = 'black';
   });
+  event.target.classList.add('active-tab');
   event.target.setAttribute('aria-selected', 'true');
-  event.target.style.backgroundColor = 'var(--background-color)';
-  event.target.style.color = 'white';
+  // event.target.style.backgroundColor = 'var(--background-color)';
+  // event.target.style.color = 'white';
   const selectedTab = event.target.innerHTML;
   const selectedOption = dropdown.value;
 
@@ -168,10 +176,10 @@ function handleViewportChange(tablist, tabsListDropdown) {
   const allCards = document.querySelectorAll('.interest-card');
   const mobileCardContainer = document.querySelector('.mobile-card-container');
 
-  if (window.innerWidth <= 968) {
+  if (window.innerWidth <= 600) {
     tablist.style.display = 'none';
     tabsListDropdown.style.display = 'block';
-    tabsListLabel.style.display = 'block'; // Show "Select Documents" label
+    // tabsListLabel.style.display = 'block'; // Show "Select Documents" label
     allCards.forEach((card) => {
       if (card.id === selectedOption) {
         card.style.display = 'block';
@@ -183,9 +191,9 @@ function handleViewportChange(tablist, tabsListDropdown) {
     });
   } else {
 
-    tablist.style.display = "block";
+    tablist.style.display = "flex";
     tabsListDropdown.style.display = "none";
-    tabsListLabel.style.display = "block"; // Show "Select Documents" label
+    // tabsListLabel.style.display = "block"; // Show "Select Documents" label
     allCards.forEach((card) => {
       card.style.display = "block";
 
@@ -193,7 +201,7 @@ function handleViewportChange(tablist, tabsListDropdown) {
     mobileCardContainer.innerHTML = ''; // Clear mobile card container
   }
 
-  tabsDropdownLabel.style.display = 'block'; // Always show "Select Category" label
+  // tabsDropdownLabel.style.display = 'block'; // Always show "Select Category" label
 }
 
 async function decorate() {
@@ -209,27 +217,48 @@ async function decorate() {
   allCards.classList.add('allCards');
   const documentsDiv = document.createElement('div');
   documentsDiv.classList.add('documentDiv');
+  const disclaimer = document.createElement('div');
+  disclaimer.classList.add('disclaimer')
+  disclaimer.textContent = disclaimerContent;
 
   if (interestRateBlock) {
-      const divs = interestRateBlock.querySelectorAll(':scope > div');
+    const divs = interestRateBlock.querySelectorAll(':scope > div');
 
-      divs.forEach((div, index) => {
-        if (index == 0) {
-          div.classList.add('other-card');
-          allCards.appendChild(div);
-        } else {
-          const name = div.querySelector('div p').innerHTML;
-          div.id = name
-          div.classList.add('interest-card');
-          maindiv.appendChild(div);
+    divs.forEach((div, index) => {
+      if (index == 0) {
+        div.classList.add('other-card');
+        allCards.appendChild(div);
+      } else {
+        const name = div.querySelector('div p').innerHTML;
+        div.id = name;
 
-        }
-      });
-    }
-   allCards.appendChild(maindiv);
+        div.classList.add('interest-card');
+        maindiv.appendChild(div);
+        const inrestCardsChildrens = div.querySelectorAll('div');
+        inrestCardsChildrens.forEach((el, index) => {
+          if (index === 0) {
+            el.classList.add('title-container')
+            el.childNodes[0].classList.add('title')
+          }
+          if (index === 1) {
+            el.classList.add('intrest-container')
+            el.children[0].classList.add('intrest');
+          }
+
+          if (index === 2) {
+            el.classList.add('time-period-container')
+            el.children[0].classList.add('time-period');
+          }
+        })
+
+      }
+    });
+  }
+  allCards.appendChild(maindiv);
   interestRateBlock.appendChild(title);
   interestRateBlock.appendChild(allCards);
   interestRateBlock.appendChild(documentsDiv);
+  interestRateBlock.appendChild(disclaimer);
 
   const tabListWrapper = document.createElement('div');
   tabListWrapper.className = 'tabs-list-wrapper';
@@ -249,6 +278,7 @@ async function decorate() {
   categoryWrapper.appendChild(dropdown);
 
   // Create a wrapper for "Select Documents" label and dropdown
+  const mergeWrapper = document.createElement('div');
   const documentsWrapper = document.createElement('div');
   documentsWrapper.className = 'documents-wrapper';
 
@@ -297,15 +327,19 @@ async function decorate() {
   // Append label and dropdown to documentsWrapper
   documentsWrapper.appendChild(tabListLabel);
   documentsWrapper.appendChild(tablist);
-  tabListWrapper.appendChild(documentsWrapper);
-  tabListWrapper.appendChild(categoryWrapper); // Append documentsWrapper to tabListWrapper
+  const categoryDocWrapper = document.createElement('div');
+  categoryDocWrapper.classList.add('category-document-wrapper');
+  categoryDocWrapper.appendChild(documentsWrapper);
+  categoryDocWrapper.appendChild(categoryWrapper)
+  //tabListWrapper.appendChild(documentsWrapper);
+  tabListWrapper.appendChild(categoryDocWrapper); // Append documentsWrapper to tabListWrapper
   documentsDiv.appendChild(tabListWrapper);
   documentsDiv.appendChild(tabpanel);
 
   // Create a container for the mobile card
   const mobileCardContainer = document.createElement('div');
   mobileCardContainer.className = 'mobile-card-container';
-  tabListWrapper.insertBefore(mobileCardContainer, documentsWrapper);
+  tabListWrapper.insertBefore(mobileCardContainer, categoryDocWrapper);
 
   const selectedTabButton = tablist.querySelector(
     'button[aria-selected="true"]',
