@@ -136,8 +136,8 @@ function handleSearching(block, searchInputField, responseData) {
 }
 
 function getFilteredDataBasedOnDropdown(data, filterValue, categoryValue) {
-	let filteredData = data;
-	
+	let filteredData = data.slice();
+
 	switch (true) {
 		case (filterValue !== '' && categoryValue !== ''):
 			const filteredDataByCategory = filterArticlesByCategory(filteredData, categoryValue);
@@ -157,34 +157,34 @@ function getFilteredDataBasedOnDropdown(data, filterValue, categoryValue) {
 
 // Render filters and categories dropdown
 function renderFiltersAndCategoriesDropdown(block, categories, responseData) {
-  const filters = getFiltersArrayFromString();
-  const filtersDropdown = block.querySelector('#filter-dropdown');
-  const categoriesDropdown = block.querySelector('#category-dropdown');
+	const filters = getFiltersArrayFromString();
+	const filtersDropdown = block.querySelector('#filter-dropdown');
+	const categoriesDropdown = block.querySelector('#category-dropdown');
 
-  filters.forEach(filter => {
-    const option = document.createElement('option');
-    option.value = filter;
-    option.text = formatFilterText(filter);
-    filtersDropdown.appendChild(option);
-  });
+	filters.forEach(filter => {
+		const option = document.createElement('option');
+		option.value = filter;
+		option.text = formatFilterText(filter);
+		filtersDropdown.appendChild(option);
+	});
 
-  categories.forEach(category => {
-    const option = document.createElement('option');
-    option.value = category;
-    option.text = formatCategoryText(category);
-    categoriesDropdown.appendChild(option);
-  });
+	categories.forEach(category => {
+		const option = document.createElement('option');
+		option.value = category;
+		option.text = formatCategoryText(category);
+		categoriesDropdown.appendChild(option);
+	});
 
-  filtersDropdown.addEventListener('change', () => handleDropdownChange(block, filtersDropdown, categoriesDropdown, responseData));
-  categoriesDropdown.addEventListener('change', () => handleDropdownChange(block, filtersDropdown, categoriesDropdown, responseData));
+	filtersDropdown.addEventListener('change', () => handleDropdownChange(block, filtersDropdown, categoriesDropdown, responseData));
+	categoriesDropdown.addEventListener('change', () => handleDropdownChange(block, filtersDropdown, categoriesDropdown, responseData));
 }
 
 // Handle dropdown change
 function handleDropdownChange(block, filtersDropdown, categoriesDropdown, responseData) {
-  const selectedFilter = filtersDropdown.value;
-  const selectedCategory = categoriesDropdown.value;
+	const selectedFilter = filtersDropdown.value;
+	const selectedCategory = categoriesDropdown.value;
 
-  const filteredAndSortedData = getFilteredDataBasedOnDropdown(responseData, selectedFilter, selectedCategory);
+	const filteredAndSortedData = getFilteredDataBasedOnDropdown(responseData, selectedFilter, selectedCategory);
 	renderCards(block, filteredAndSortedData);
 	renderPagination(block, filteredAndSortedData);
 }
