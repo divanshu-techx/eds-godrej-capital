@@ -57,8 +57,13 @@
   overflow-x: hidden;
   display: flex;
   align-items: center;
+  flex-direction: column;
   position: relative;
   height: 600px;
+}
+.clientreviewcarousel-container .default-content-wrapper{
+  text-align: start!important;
+  margin:unset;
 }
 
 .clientreviewcarousel-container:before{
@@ -169,10 +174,68 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+  position: absolute;
+  top:-120px;
+  left:81%;
+  transform: translateX(-50%);
+}
+
+.clientreviewcarousel-wrapper{
+  position: relative;
+}
+.buttonControls{
+  position: relative;
+}
+
+.buttonControls button.swiper-button-next{
+    border-radius: 8px;
+    margin: 0;
+    padding: 0;
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+}
+
+.buttonControls button.swiper-button-prev{
+    border-radius: 8px;
+    margin: 0;
+    padding: 0;
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+}
+
+.swiper-navigation button.swiper-button-prev::after,
+.swiper-navigation button.swiper-button-next::after {
+  display: inline-block;
+  content: ' ';
+  border-bottom: 0;
+  border-left: 0;
+  height: 0.75rem;
+  width: 0.75rem;
+  position: absolute;
+  top: 50%;
+  /* left: calc(50% + 0px); */
+  transform: translate(-50%, -50%) rotate(360deg);
+  -webkit-mask: url(/icons/arrow-carousel.svg) no-repeat center;
+  background-color: #B8B8B8;
+  z-index: 9;
+  mask: url(/icons/arrow-carousel.svg) no-repeat center;
+}
+
+.swiper-navigation button.swiper-button-next::after {
+  left: calc(50% - 0px);
+  transform: translate(-50%, -50%) rotate(180deg);
+}
+
+.swiper-navigation button:hover.swiper-button-prev::after,
+.swiper-navigation button:hover.swiper-button-next::after {
+  -webkit-mask: url(/icons/arrow-carousel.svg) no-repeat center;
+  background-color: white;
+  mask: url(/icons/arrow-carousel.svg) no-repeat center;
 }
 
 .swiper-pagination {
-  margin-bottom: 10px; /* Add some space between pagination and buttons */
   text-align: center;
 }
 
@@ -180,16 +243,6 @@
   display: flex;
   justify-content: center;
   gap: 10px; /* Add some space between the buttons */
-}
-
-.swiper-button-prev,
-.swiper-button-next {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 10px;
-  font-size: 16px;
-  position: unset;
 }
 
 .swiper-button-prev:disabled,
@@ -214,4 +267,5 @@
 .swiper-pagination{
   position:unset;
 }
+
 
