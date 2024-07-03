@@ -1,14 +1,32 @@
 // import {getIndexedChildNames} from '../CommonUtils/CommonUtils.js';
 // getIndexedChildNames('ghflsupporttable');
 
-export function getIndex(n) {
-    const s = ['th', 'st', 'nd', 'rd'];
-    const v = n % 100;
-    return n + (s[(v - 20) % 10] || s[v] || s[0]);
-  }
+const tableTitle = getDataAttributeValueByName('support-table-title');
+const tabTitle = getDataAttributeValueByName('support-tab-title');
+
+console.log(tableTitle + tabTitle);
+let titleButton = document.createElement('button');
+titleButton.textContent=tabTitle;
+
+let tableTitleHeading = document.createElement('h2');
+tableTitleHeading.textContent = tableTitle;
+
+const tabTitleDiv = document.createElement('div');
+tabTitleDiv.className ='supoort-table-title';
+tabTitleDiv.appendChild(tableTitleHeading);
+tabTitleDiv.appendChild(titleButton);
+document.querySelector('.support-table-ui').prepend(tabTitleDiv);
+
+
+
+function getDataAttributeValueByName(name) {
+    const element = document.querySelector(`[data-${name}]`);
+    return element ? element.getAttribute(`data-${name}`) : null;
+}
+
    
   // Function to get indexed child names and set class with numbering
-  export function getIndexedChildNames(parentId) {
+function getChildNames(parentId) {
     const newParentId = `.${parentId}`;
     const parentElement = document.querySelector(newParentId);
    
@@ -19,9 +37,8 @@ export function getIndex(n) {
     const childDivs = parentElement.querySelectorAll(`${newParentId} > div`);
    
     childDivs.forEach((div, index) => {
-      const lastIndexed = getIndex(index + 1);
-      div.className = `${parentId}-child-${lastIndexed}`;
+      div.className = `${parentId}-child`;
     });
-  }
+}
 
-   getIndexedChildNames('ghflsupporttable');
+getChildNames('ghflsupporttable');
