@@ -18,13 +18,15 @@ function createDropdown(tabs, tabpanels, block) {
     option.textContent = tab.textContent;
     select.append(option);
   });
+
   select.addEventListener('change', () => {
     const selectedIndex = select.selectedIndex;
     tabpanels.forEach((panel, i) => {
       panel.setAttribute('aria-hidden', i !== selectedIndex);
     });
   });
-  block.prepend(select);
+
+  block.querySelector('.parent-tab-list').prepend(select);
   select.selectedIndex = 0; // Select the first option by default
   tabpanels.forEach((panel, i) => {
     panel.setAttribute('aria-hidden', i !== 0);
@@ -32,32 +34,33 @@ function createDropdown(tabs, tabpanels, block) {
 }
 
 export default async function decorate(block) {
-  const parentTabPanel = document.createElement('div');
-  parentTabPanel.className = 'parent-tab-panel';
+  const tabpanelParent = document.createElement('div');
+  tabpanelParent.className = 'parent-tab-panel';
 
-  const parentTabList = document.createElement('div');
-  parentTabList.className = 'parent-tab-list';
-  
+  const tablistParent = document.createElement('div');
+  tablistParent.className = 'parent-tab-list';
+
   const tablist = document.createElement('div');
   tablist.className = 'tabs-list';
   tablist.setAttribute('role', 'tablist');
-  
+  tablistParent.append(tablist);
+
   const tabs = [...block.children].map((child) => child.firstElementChild);
   const tabpanels = [...block.children];
-  
+
   tabs.forEach((tab, i) => {
     const id = toClassName(tab.textContent);
+
     const tabpanel = tabpanels[i];
     tabpanel.className = 'tabs-panel';
     tabpanel.id = `tabpanel-${id}`;
     tabpanel.setAttribute('aria-hidden', !!i);
     tabpanel.setAttribute('aria-labelledby', `tab-${id}`);
     tabpanel.setAttribute('role', 'tabpanel');
-    
     if (!hasWrapper(tabpanel.lastElementChild)) {
       tabpanel.lastElementChild.innerHTML = `<p>${tabpanel.lastElementChild.innerHTML}</p>`;
     }
-    
+
     const button = document.createElement('button');
     button.className = 'tabs-tab';
     button.id = `tab-${id}`;
@@ -66,7 +69,6 @@ export default async function decorate(block) {
     button.setAttribute('aria-selected', !i);
     button.setAttribute('role', 'tab');
     button.setAttribute('type', 'button');
-    
     button.addEventListener('click', () => {
       block.querySelectorAll('[role=tabpanel]').forEach((panel) => {
         panel.setAttribute('aria-hidden', true);
@@ -77,38 +79,36 @@ export default async function decorate(block) {
       tabpanel.setAttribute('aria-hidden', false);
       button.setAttribute('aria-selected', true);
     });
-    
     tablist.append(button);
     tab.remove();
   });
-  
-  parentTabList.append(tablist);
-  parentTabPanel.append(parentTabList);
 
-  tabpanels.forEach((tabpanel) => {
-    parentTabPanel.append(tabpanel);
+  tabpanels.forEach((panel) => {
+    tabpanelParent.append(panel);
   });
-  
+
+  block.prepend(tabpanelParent);
+  tabpanelParent.prepend(tablistParent);
+
   if (isMobileView()) {
     createDropdown(tabs, tabpanels, block);
   } else {
-    block.prepend(parentTabPanel);
     tabpanels.forEach((panel, i) => {
       panel.setAttribute('aria-hidden', i !== 0); // Ensure only the first tabpanel is shown by default
     });
   }
-  
+
   window.addEventListener('resize', () => {
     if (isMobileView()) {
       if (!block.querySelector('.tabs-dropdown')) {
-        parentTabPanel.remove();
+        tablist.remove();
         createDropdown(tabs, tabpanels, block);
       }
     } else {
       const dropdown = block.querySelector('.tabs-dropdown');
       if (dropdown) {
         dropdown.remove();
-        block.prepend(parentTabPanel);
+        tablistParent.prepend(tablist);
         tabpanels.forEach((panel, i) => {
           panel.setAttribute('aria-hidden', i !== 0); // Ensure only the first tabpanel is shown by default
         });
