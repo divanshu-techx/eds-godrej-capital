@@ -273,6 +273,7 @@ async function decorate() {
   categoryWrapper.appendChild(dropdown);
 
   // Create a wrapper for "Select Documents" label and dropdown
+  const mergeWrapper = document.createElement('div');
   const documentsWrapper = document.createElement('div');
   documentsWrapper.className = 'documents-wrapper';
 
@@ -321,19 +322,19 @@ async function decorate() {
   // Append label and dropdown to documentsWrapper
   documentsWrapper.appendChild(tabListLabel);
   documentsWrapper.appendChild(tablist);
-  // const categoryDocWrapper = document.createElement('div');
-  // categoryDocWrapper.classList.add('category-document-wrapper');
-  // categoryDocWrapper.appendChild(documentsWrapper);
-  // categoryDocWrapper.appendChild(categoryDocWrapper)
-  tabListWrapper.appendChild(documentsWrapper);
-  tabListWrapper.appendChild(categoryWrapper); // Append documentsWrapper to tabListWrapper
+   const categoryDocWrapper = document.createElement('div');
+   categoryDocWrapper.classList.add('category-document-wrapper');
+   categoryDocWrapper.appendChild(documentsWrapper);
+   categoryDocWrapper.appendChild(categoryWrapper)
+  //tabListWrapper.appendChild(documentsWrapper);
+  tabListWrapper.appendChild(categoryDocWrapper); // Append documentsWrapper to tabListWrapper
   documentsDiv.appendChild(tabListWrapper);
   documentsDiv.appendChild(tabpanel);
 
   // Create a container for the mobile card
   const mobileCardContainer = document.createElement('div');
   mobileCardContainer.className = 'mobile-card-container';
-  tabListWrapper.insertBefore(mobileCardContainer, documentsWrapper);
+  tabListWrapper.insertBefore(mobileCardContainer, categoryDocWrapper);
 
   const selectedTabButton = tablist.querySelector(
     'button[aria-selected="true"]',
