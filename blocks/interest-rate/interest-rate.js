@@ -6,7 +6,7 @@ function getDataAttributeValueByName(name) {
 const dataUrl = getDataAttributeValueByName('queryIndexUrl');
 const mainTitle = getDataAttributeValueByName('interestRateTitle');
 const viewCompleteLabel = getDataAttributeValueByName('viewCompleteLabel');
-console.log(mainTitle)
+const disclaimerContent = getDataAttributeValueByName('disclaimer');
 async function fetchData(apiUrl) {
 
   try {
@@ -42,10 +42,10 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
     sectionsContainer.className = 'sections-container';
 
     // Iterate through sections until no more titles are found
-    while (item[`title_${sectionIndex}`]) {
-      const title = item[`title_${sectionIndex}`].trim();
+    while (item[`requirements_${sectionIndex}`]) {
+      const title = item[`requirements_${sectionIndex}`].trim();
       const description = item[`description_${sectionIndex}`] || ''; // Default to empty string if description is not present
-      const bulletPoints = item[`bullet_points_${sectionIndex}`] || ''; // Default to empty string if bullet points are not present
+      const bulletPoints = item[`documentsNeeded_${sectionIndex}`] || ''; // Default to empty string if bullet points are not present
 
       // Create section element
       const sectionElement = document.createElement('div');
@@ -216,6 +216,9 @@ async function decorate() {
   allCards.classList.add('allCards');
   const documentsDiv = document.createElement('div');
   documentsDiv.classList.add('documentDiv');
+  const disclaimer = document.createElement('div');
+  disclaimer.classList.add('disclaimer')
+  disclaimer.textContent=disclaimerContent;
 
   if (interestRateBlock) {
     const divs = interestRateBlock.querySelectorAll(':scope > div');
@@ -254,6 +257,7 @@ async function decorate() {
   interestRateBlock.appendChild(title);
   interestRateBlock.appendChild(allCards);
   interestRateBlock.appendChild(documentsDiv);
+   interestRateBlock.appendChild(disclaimer);
 
   const tabListWrapper = document.createElement('div');
   tabListWrapper.className = 'tabs-list-wrapper';
