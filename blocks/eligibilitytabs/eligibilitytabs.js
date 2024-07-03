@@ -81,7 +81,6 @@ export default async function decorate(block) {
   const defaultContentWrapper = document.querySelector('.eligibilitytabs-container .default-content-wrapper');
   if (defaultContentWrapper) {
     const firstChild = defaultContentWrapper.children[0];
-    //   const secondChild = defaultContentWrapper.children[1];
     if (firstChild && firstChild.tagName === 'P') {
       firstChild.classList.add('eligibility-class');
     }
