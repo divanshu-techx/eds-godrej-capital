@@ -6,7 +6,7 @@ export default async function decorate(block) {
     createTeaser(teaserContainer);
     //applyInitialStyles(teaserContainer);
     applyTextAlignmentAndPlacement(teaserContainer);
-  //  convertAnchorsToButtons(block);
+    convertAnchorsToButtons(block,teaserContainer);
     hideSpecifiedButtons(teaserContainer);
 
     handleBackgroundStyle(teaserContainer, block);
@@ -129,13 +129,18 @@ const applyTextAlignmentAndPlacement = (container) => {
   }
 };
 
-const convertAnchorsToButtons = (block) => {
+const convertAnchorsToButtons = (block,container) => {
+  const contentColour = container.getAttribute(
+    'data-text-color'
+  );
   const paragraphs = block.querySelectorAll('p');
 
   paragraphs.forEach((paragraph) => {
     convertAnchorToButton(paragraph, 'strong a', 'primary-button');
-    convertAnchorToButton(paragraph, 'a', 'primary-button');
-    convertAnchorToButton(paragraph, 'em a', 'secondary-button');
+    const element = paragraph.querySelector("a");
+   console.log(element);
+    //convertAnchorToButton(paragraph, 'a', 'primary-button');
+    //convertAnchorToButton(paragraph, 'em a', 'secondary-button');
   });
 };
 
