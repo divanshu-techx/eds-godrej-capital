@@ -4,6 +4,7 @@
 	font-size: 10px;
 	color: #696969;
 	padding-left: 50px;
+	padding-bottom: 40px;
 }
 
 @media (max-width: 600px) {
@@ -26,13 +27,8 @@
 	margin: 0;
 	font-size: 10px;
 	color: #696969;
-}
-
-.section.eligibilitytabs-container .default-content-wrapper {
-	background: #F0F6E4;
-	margin: 0;
-	font-size: 10px;
-	color: #696969;
+	max-width: 1200px;
+    margin: auto;
 }
 
 .section.eligibilitytabs-container .default-content-wrapper .eligibility-class {
@@ -183,7 +179,7 @@ th:last-child {
 }
 
 .eligibilitytabs-container .eligibilitytabs-wrapper .eligibilitytabs .parent-tab-panel {
-	padding: 10px;
+	padding: 15px;
 	background-color: #fff;
 
 	@media(width <=600px) {
@@ -192,7 +188,7 @@ th:last-child {
 }
 
 .eligibilitytabs-container .eligibilitytabs-wrapper .eligibilitytabs.block {
-	padding: 20px;
+	padding: 20px 45px;
 	background-color: #f0f6e4;
 
 	@media(width <=600px) {
