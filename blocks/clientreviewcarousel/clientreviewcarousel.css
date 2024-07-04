@@ -81,6 +81,76 @@
   }
 }
 
+.clientreviewcarousel-container .default-content-wrapper {
+  text-align: start !important;
+  margin: unset;
+  position: absolute;
+  width: 200px;
+  left: 0;
+  top: 100px;
+}
+
+.clientreviewcarousel-container .default-content-wrapper * {
+  position: relative;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 37.54px;
+  text-align: left;
+}
+
+.clientreviewcarousel-container .default-content-wrapper>*::before {
+  position: absolute;
+  content: "";
+  display: block;
+  width: 100px;
+  height: 100px;
+  z-index: -1;
+  background-image: url('/icons/left-quote-icon.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+@media (max-width: 600px) {
+  .clientreviewcarousel-container .default-content-wrapper {
+    text-align: start !important;
+    margin: unset;
+    position: unset;
+    width: 100%;
+    padding-bottom: 40px;
+    margin-bottom: 40px;
+  }
+
+  .clientreviewcarousel-container .default-content-wrapper * {
+
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 30px;
+
+  }
+}
+
+@media (min-width: 1024px) {
+  .clientreviewcarousel-container .default-content-wrapper {
+    text-align: start !important;
+    margin: unset;
+    position: absolute;
+    width: 300px;
+    left: 6%;
+    top: 10px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .clientreviewcarousel-container .default-content-wrapper {
+    text-align: start !important;
+    margin: unset;
+    position: absolute;
+    width: 300px;
+    left: 18%;
+    top: 20px;
+  }
+}
+
 .clientreviewcarousel-container .default-content-wrapper{
   text-align: start!important;
   margin:unset;
