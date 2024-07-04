@@ -1,0 +1,114 @@
+.calculator-container-balance-tansfer {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    margin: auto;
+    background-color: #f8f8f8;
+  }
+   
+  .inputsBoxBalance {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 60%;
+  }
+   
+  .inputBalance {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+   
+  .inputBoxBalanceLabel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+   
+  .inputBoxBalanceLabel label {
+    font-size: 14px;
+    color: #333;
+  }
+   
+  .inputBoxBalanceLabel input {
+    width: 80px;
+    text-align: right;
+    font-size: 14px;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+  }
+   
+  
+input[type=range] {
+    -webkit-appearance: none!important;
+    appearance: none;
+    width: 100%;
+    height: 10px;
+    /* background: #ccc; */
+    outline: none;
+    opacity: 0.7;
+    /* transition: background 0.2s ease-in-out; */
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 10px;
+    border-radius: 5px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background:   #8CB133;
+    border-radius: 50%;
+    cursor: pointer;
+    top: -120px;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]:active::-webkit-slider-thumb {
+    background:   #8CB133;
+} 
+  .balance-bottom {
+    display: flex;
+    justify-content: space-between;
+  }
+   
+  .balance-bottom span {
+    font-size: 12px;
+    color: #666;
+  }
+   
+  .error-span {
+    color: red;
+    font-size: 12px;
+  }
+   
+  .outputs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 35%;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
+   
+  .outputs p {
+    font-size: 16px;
+    color: #333;
+  }
+   
+  .outputs span {
+    font-weight: bold;
+    color: #4CAF50;
+  }
+  
