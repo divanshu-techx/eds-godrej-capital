@@ -72,13 +72,20 @@ export default async function decorate(block) {
   `;
   carouselContainer.appendChild(navigationContainer);
 
+  function addLeadingZero(num) {
+    return num.toString().padStart(2, '0');
+  }
+
   // Initialize Swiper after modifying the HTML structure
   const swiper = new Swiper('.clientreviewcarousel', {
     slidesPerView: 1,
     spaceBetween: 10,
     pagination: {
       el: '.swiper-pagination',
-      type: "fraction",
+      type: "custom",
+      renderCustom: function (swiper, current, total) {
+        return `<span class="swiper-pagination-current">${addLeadingZero(current)}</span> / <span class="swiper-pagination-total">${addLeadingZero(total)}</span>`;
+      }
     },
     navigation: {
       nextEl: '.swiper-button-next',
@@ -91,5 +98,12 @@ export default async function decorate(block) {
       }
     }
   })
+  swiper.on('slideChange', function () {
+    document.querySelector('.swiper-button-prev').setAttribute('aria-disabled', swiper.isBeginning ? 'true' : 'false');
+    document.querySelector('.swiper-button-next').setAttribute('aria-disabled', swiper.isEnd ? 'true' : 'false');
+  });
 
+  // Initial button state update
+  document.querySelector('.swiper-button-prev').setAttribute('aria-disabled', swiper.isBeginning ? 'true' : 'false');
+  document.querySelector('.swiper-button-next').setAttribute('aria-disabled', swiper.isEnd ? 'true' : 'false');
 }

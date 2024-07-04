@@ -29,6 +29,7 @@ function extractDataAttributes() {
     yearSymbol  : getDataAttributeValueByName('year-symbol'),
     applyNowLabel : getDataAttributeValueByName('apply-now-label'),
     annualPercentLabel  : getDataAttributeValueByName('annual-percent-label'),
+    redirectionPath : getDataAttributeValueByName('redirection-path-apr'),
 
   };
 }
@@ -188,9 +189,9 @@ function setFontSize(size) {
 function initializeEventListeners(block) {
   // Add event listeners for input and range elements
 
-  document.getElementById('loanamountApr').addEventListener('blur', function updateLoanAmount() {
+  block.querySelector('#loanamountApr').addEventListener('blur', function updateLoanAmount() {
     const value = parseFloat(this.textContent.replace(/\D/g, ''));
-    const loanAmountRangeElement = document.getElementById('loanamountAprRange');
+    const loanAmountRangeElement = block.querySelector('#loanamountAprRange');
     loanAmountRangeElement.value = isNaN(value) ? loanAmountRangeElement.min : Math.min(Math.max(value, loanAmountRangeElement.min), loanAmountRangeElement.max);
     const percentage = ((loanAmountRangeElement.value - loanAmountRangeElement.min) / (loanAmountRangeElement.max - loanAmountRangeElement.min)) * 100;
     loanAmountRangeElement.style.setProperty('--value', `${percentage}%`);
@@ -199,9 +200,9 @@ function initializeEventListeners(block) {
   });
   
 
-  document.getElementById('interest').addEventListener('blur', function updateInterest() {
+  block.querySelector('#interest').addEventListener('blur', function updateInterest() {
     const value = parseFloat(this.textContent.replace(/[^\d.]/g, ''));
-    const interestRangeElement = document.getElementById('interestRange');
+    const interestRangeElement = block.querySelector('#interestRange');
     interestRangeElement.value = isNaN(value) ? interestRangeElement.min : Math.min(Math.max(value, interestRangeElement.min), interestRangeElement.max);
     const percentage = ((interestRangeElement.value - interestRangeElement.min) / (interestRangeElement.max - interestRangeElement.min)) * 100;
     interestRangeElement.style.setProperty('--value', `${percentage}%`);
@@ -210,9 +211,9 @@ function initializeEventListeners(block) {
   });
   
 
-  document.getElementById('year').addEventListener('blur', function updateYear() {
+  block.querySelector('#year').addEventListener('blur', function updateYear() {
     const value = parseFloat(this.textContent.replace(/\D/g, ''));
-    const yearRangeElement = document.getElementById('yearRange');
+    const yearRangeElement = block.querySelector('#yearRange');
     yearRangeElement.value = isNaN(value) ? yearRangeElement.min : Math.min(Math.max(value, yearRangeElement.min), yearRangeElement.max);
     const percentage = ((yearRangeElement.value - yearRangeElement.min) / (yearRangeElement.max - yearRangeElement.min)) * 100;
     yearRangeElement.style.setProperty('--value', `${percentage}%`);
@@ -221,9 +222,9 @@ function initializeEventListeners(block) {
   });
   
 
-  document.getElementById('month').addEventListener('blur', function updateInput() {
+  block.querySelector('#month').addEventListener('blur', function updateInput() {
     const value = parseFloat(this.textContent.replace(/\D/g, ''));
-    const monthRangeElement = document.getElementById('monthRange');
+    const monthRangeElement = block.querySelector('#monthRange');
     const numericValue = Number(value);
     monthRangeElement.value = Number.isNaN(numericValue) ? monthRangeElement.min : numericValue;
     const percentage = (monthRangeElement.value / monthRangeElement.max) * 100;
@@ -231,9 +232,9 @@ function initializeEventListeners(block) {
     updateDisplay();
   });
 
-  document.getElementById('originationcharges').addEventListener('blur', function updateOriginationCharges() {
+  block.querySelector('#originationcharges').addEventListener('blur', function updateOriginationCharges() {
     const value = parseFloat(this.textContent.replace(/\D/g, ''));
-    const originationChargesRangeElement = document.getElementById('originationchargesRange');
+    const originationChargesRangeElement = block.querySelector('#originationchargesRange');
     originationChargesRangeElement.value = isNaN(value) ? originationChargesRangeElement.min : Math.min(Math.max(value, originationChargesRangeElement.min), originationChargesRangeElement.max);
     const percentage = ((originationChargesRangeElement.value - originationChargesRangeElement.min) / (originationChargesRangeElement.max - originationChargesRangeElement.min)) * 100;
     originationChargesRangeElement.style.setProperty('--value', `${percentage}%`);
@@ -242,9 +243,9 @@ function initializeEventListeners(block) {
   });
   
 
-  document.getElementById('month').addEventListener('blur', function updateMonth() {
+  block.querySelector('#month').addEventListener('blur', function updateMonth() {
     const value = parseFloat(this.textContent.replace(/\D/g, ''));
-    const monthRangeElement = document.getElementById('monthRange');
+    const monthRangeElement = block.querySelector('#monthRange');
     monthRangeElement.value = isNaN(value) ? monthRangeElement.min : Math.min(Math.max(value, monthRangeElement.min), monthRangeElement.max);
     const percentage = ((monthRangeElement.value - monthRangeElement.min) / (monthRangeElement.max - monthRangeElement.min)) * 100;
     monthRangeElement.style.setProperty('--value', `${percentage}%`);
@@ -254,7 +255,7 @@ function initializeEventListeners(block) {
   
 
   // Add event listeners to enforce numeric input for spans
-  document.querySelectorAll('.input_details_apr span').forEach((span) => {
+  block.querySelectorAll('.input_details_apr span').forEach((span) => {
     span.addEventListener('input', function updateSpan() {
       const value = this.textContent.trim();
       const numericValue = parseFloat(value.replace(/\D/g, ''));
@@ -264,7 +265,7 @@ function initializeEventListeners(block) {
         this.textContent = formattedValue; // Update span content with formatted numeric value
 
         // Set cursor position to the end of the span
-        const range = document.createRange();
+        const range = block.createRange();
         const selection = window.getSelection();
         range.setStart(this.childNodes[0], formattedValue.length);
         range.collapse(true);
@@ -287,7 +288,7 @@ function initializeEventListeners(block) {
      block.querySelectorAll('input[type="range"]').forEach(input => {
       input.addEventListener('change', function() {
           const id = this.id.replace('Range', ''); // Get the ID of the associated span
-          document.getElementById(id).textContent = formatNumberToIndianCommas(this.value);
+          block.querySelector(`#${id}`).textContent = formatNumberToIndianCommas(this.value);
           updateDisplay(); // Call updateDisplay function after the value is changed
           
       });
@@ -351,10 +352,10 @@ function updateDisplay() {
 }
 
 // Function to setup Apply Now button
-function setupApplyNowButton() {
-  const applyBtn = document.getElementById('apply-btn-apr');
+function setupApplyNowButton(block,dataAttributes) {
+  const applyBtn = block.querySelector('#apply-btn-apr');
   applyBtn.addEventListener('click', () => {
-    window.location.href = '/applynow';
+    window.location.href = dataAttributes.redirectionPath;
   });
 }
 
@@ -377,7 +378,7 @@ export default async function decorate(block) {
   setFontSize(dataAttributes.textSize);
   initializeEventListeners(block);
   updateDisplay();
-  setupApplyNowButton();
+  setupApplyNowButton(block,dataAttributes);
 }
 
 // Make updateDisplay and updateRange functions globally accessible

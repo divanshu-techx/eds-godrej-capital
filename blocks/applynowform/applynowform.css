@@ -140,6 +140,8 @@
 /* custom css */
 .section.applynowform-container {
     background-color: #f2f2f2;
+    max-width: 734px;
+    width: 100%;
 }
 
 .radio-wrapper input[type="checkbox"] {

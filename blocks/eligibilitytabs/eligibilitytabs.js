@@ -1,8 +1,8 @@
 // eslint-disable-next-line import/no-unresolved
 import { toClassName } from '../../scripts/aem.js';
 import { p } from '../utils/dom-helper.js';
-const mobileTitle=getDataAttributeValueByName('mobileTitle');
-const selectDocument=getDataAttributeValueByName('selectDocument');
+const mobileTitle = getDataAttributeValueByName('mobileTitle');
+const selectDocument = getDataAttributeValueByName('selectDocument');
 function hasWrapper(el) {
   return !!el.firstElementChild && window.getComputedStyle(el.firstElementChild).display === 'block';
 }
@@ -18,39 +18,31 @@ function createDropdown(tabs, tabpanels, block) {
     option.textContent = tab.textContent;
     select.append(option);
   });
-
   select.addEventListener('change', () => {
     const selectedIndex = select.selectedIndex;
     tabpanels.forEach((panel, i) => {
       panel.setAttribute('aria-hidden', i !== selectedIndex);
     });
   });
-
   block.querySelector('.parent-tab-list').prepend(select);
   select.selectedIndex = 0; // Select the first option by default
   tabpanels.forEach((panel, i) => {
     panel.setAttribute('aria-hidden', i !== 0);
   });
 }
-
 export default async function decorate(block) {
   const tabpanelParent = document.createElement('div');
   tabpanelParent.className = 'parent-tab-panel';
-
   const tablistParent = document.createElement('div');
   tablistParent.className = 'parent-tab-list';
-
   const tablist = document.createElement('div');
   tablist.className = 'tabs-list';
   tablist.setAttribute('role', 'tablist');
   tablistParent.append(tablist);
-
   const tabs = [...block.children].map((child) => child.firstElementChild);
   const tabpanels = [...block.children];
-
   tabs.forEach((tab, i) => {
     const id = toClassName(tab.textContent);
-
     const tabpanel = tabpanels[i];
     tabpanel.className = 'tabs-panel';
     tabpanel.id = `tabpanel-${id}`;
@@ -60,7 +52,6 @@ export default async function decorate(block) {
     if (!hasWrapper(tabpanel.lastElementChild)) {
       tabpanel.lastElementChild.innerHTML = `<p>${tabpanel.lastElementChild.innerHTML}</p>`;
     }
-
     const button = document.createElement('button');
     button.className = 'tabs-tab';
     button.id = `tab-${id}`;
@@ -82,45 +73,30 @@ export default async function decorate(block) {
     tablist.append(button);
     tab.remove();
   });
-
   tabpanels.forEach((panel) => {
     tabpanelParent.append(panel);
   });
-
   block.prepend(tabpanelParent);
   tabpanelParent.prepend(tablistParent);
-
-  // Append <p>Select Documents</p> under parent-tab-list and hide it from its original position
-//   const selectDocuments = document.querySelector(' .eligibilitytabs-container .default-content-wrapper p:last-child');
-//   if (selectDocuments) {
-//     const selectDocumentsCopy = selectDocuments.cloneNode(true);
-//     selectDocumentsCopy.classList.add('select-class');
-//     block.querySelector('.parent-tab-list').appendChild(selectDocumentsCopy);
-//     selectDocuments.style.display = 'none';
-//   }
   const defaultContentWrapper = document.querySelector('.eligibilitytabs-container .default-content-wrapper');
   if (defaultContentWrapper) {
     const firstChild = defaultContentWrapper.children[0];
- //   const secondChild = defaultContentWrapper.children[1];
     if (firstChild && firstChild.tagName === 'P') {
       firstChild.classList.add('eligibility-class');
     }
     const H2tag = document.createElement('H2');
     H2tag.className = 'mobile-title';
-    if(mobileTitle){
-    H2tag.textContent = mobileTitle;
-    defaultContentWrapper.appendChild(H2tag);
+    if (mobileTitle) {
+      H2tag.textContent = mobileTitle;
+      defaultContentWrapper.appendChild(H2tag);
     }
-   
   }
   const ptag = document.createElement('P');
   ptag.className = 'document-title';
-  if(selectDocument){
-  ptag.textContent = selectDocument;
-  block.querySelector(' .parent-tab-list').appendChild(ptag);
+  if (selectDocument) {
+    ptag.textContent = selectDocument;
+    block.querySelector(' .parent-tab-list').appendChild(ptag);
   }
-
-
   if (isMobileView()) {
     createDropdown(tabs, tabpanels, block);
   } else {
@@ -128,7 +104,6 @@ export default async function decorate(block) {
       panel.setAttribute('aria-hidden', i !== 0); // Ensure only the first tabpanel is shown by default
     });
   }
-
   window.addEventListener('resize', () => {
     if (isMobileView()) {
       if (!block.querySelector('.tabs-dropdown')) {
@@ -147,9 +122,8 @@ export default async function decorate(block) {
     }
   });
 }
-
 // Retrieve the value of a data attribute by name
 function getDataAttributeValueByName(name) {
-    const element = document.querySelector(`[data-${name}]`);
-    return element ? element.getAttribute(`data-${name}`) : '';
-  }
+  const element = document.querySelector(`[data-${name}]`);
+  return element ? element.getAttribute(`data-${name}`) : '';
+}
