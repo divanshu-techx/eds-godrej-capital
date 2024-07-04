@@ -30,6 +30,23 @@
 	max-width: 1200px;
     margin: auto;
 }
+@media(width <=600px){
+	.section.eligibilitytabs-container .default-content-wrapper {
+		background: #F4F4F4;
+		margin: 0;
+		font-size: 10px;
+		color: #696969;
+		max-width: 1200px;
+		margin: auto;
+	}
+	.section.eligibilitytabs-container .default-content-wrapper h2 {
+        display: none;
+    }
+    
+    .section.eligibilitytabs-container .default-content-wrapper .mobile-title {
+        display: block;
+    }
+}
 
 .section.eligibilitytabs-container .default-content-wrapper .eligibility-class {
 	display: block;
