@@ -29,6 +29,7 @@
 	color: #696969;
 	max-width: 1200px;
     margin: auto;
+	padding-top: 20px;
 }
 @media(width <=600px){
 	.section.eligibilitytabs-container .default-content-wrapper {
@@ -38,6 +39,7 @@
 		color: #696969;
 		max-width: 1200px;
 		margin: auto;
+		padding:none;
 	}
 	.section.eligibilitytabs-container .default-content-wrapper h2 {
         display: none;

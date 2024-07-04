@@ -53,10 +53,8 @@
   line-height: 18px;
   text-align: left;
   color: #3B3B3B;
+  cursor: pointer;
 }
-
-
-
 
 .faqpp .faq-container .faq-accordion .qa-item {
   margin-bottom: 16px;
