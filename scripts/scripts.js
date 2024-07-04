@@ -16,13 +16,7 @@ import {
   // loadheaderMobile,
   getMetadata,
 } from './aem.js';
-import loadContentFromURL from '../blocks/fragmentcards/fragmentcards.js';
-import loadBoardContentFromURL from '../blocks/boardmembers/boardmembers.js';
-import customtabs from '../blocks/tabsblock/tabsblock.js';
-import fragmentcustomtabs from '../blocks/fragmenttabsblock/fragmenttabsblock.js';
-loadContentFromURL();
-loadBoardContentFromURL();
-fragmentcustomtabs();
+
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 
 /**
@@ -143,6 +137,5 @@ async function loadPage() {
   await loadLazy(document);
   loadDelayed();
 }
- customtabs();
 
 loadPage();
