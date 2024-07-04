@@ -24,12 +24,12 @@ export default async function decorate(block) {
 		console.log(responseData);
 		if (responseData) {
 			// Extract and render distinct categories and filters
+			let searchInput = block.querySelector('#search-input');
 			const categories = getDistinctCategories(responseData);
-			renderFiltersAndCategoriesDropdown(block, categories, responseData);
+			renderFiltersAndCategoriesDropdown(block, categories, responseData, searchInput);
 			// Render initial cards
 			renderCards(block, responseData);
 			// Handle searching functionality
-			let searchInput = block.querySelector('#search-input');
 			handleSearching(block, searchInput, responseData);
 
 			renderPagination(block, responseData);
@@ -116,9 +116,9 @@ function handleSearching(block, searchInputField, responseData) {
 		let filteredData = [];
 		if (inputValue.length > 0) {
 			const filteredArticlesByUserInput = filterArticlesByDescription(responseData, inputValue);
-			filteredData = filteredArticlesByUserInput;
+			filteredData = getFilteredDataBasedOnDropdown(filteredArticlesByUserInput, filterDropdown.value, categoryDropdown.value);
 
-			if (filteredArticlesByUserInput.length === 0) {
+			if (filteredData.length === 0) {
 				noResultDiv.style.display = 'block';
 				articlesContainer.style.display = 'none';
 			} else {
@@ -136,8 +136,8 @@ function handleSearching(block, searchInputField, responseData) {
 }
 
 function getFilteredDataBasedOnDropdown(data, filterValue, categoryValue) {
-	let filteredData = data;
-	
+	let filteredData = data.slice();
+
 	switch (true) {
 		case (filterValue !== '' && categoryValue !== ''):
 			const filteredDataByCategory = filterArticlesByCategory(filteredData, categoryValue);
@@ -156,35 +156,53 @@ function getFilteredDataBasedOnDropdown(data, filterValue, categoryValue) {
 }
 
 // Render filters and categories dropdown
-function renderFiltersAndCategoriesDropdown(block, categories, responseData) {
-  const filters = getFiltersArrayFromString();
-  const filtersDropdown = block.querySelector('#filter-dropdown');
-  const categoriesDropdown = block.querySelector('#category-dropdown');
+function renderFiltersAndCategoriesDropdown(block, categories, responseData, searchInputField) {
+	const filters = getFiltersArrayFromString();
+	const filtersDropdown = block.querySelector('#filter-dropdown');
+	const categoriesDropdown = block.querySelector('#category-dropdown');
 
-  filters.forEach(filter => {
-    const option = document.createElement('option');
-    option.value = filter;
-    option.text = formatFilterText(filter);
-    filtersDropdown.appendChild(option);
-  });
+	filters.forEach(filter => {
+		const option = document.createElement('option');
+		option.value = filter;
+		option.text = formatFilterText(filter);
+		filtersDropdown.appendChild(option);
+	});
 
-  categories.forEach(category => {
-    const option = document.createElement('option');
-    option.value = category;
-    option.text = formatCategoryText(category);
-    categoriesDropdown.appendChild(option);
-  });
+	categories.forEach(category => {
+		const option = document.createElement('option');
+		option.value = category;
+		option.text = formatCategoryText(category);
+		categoriesDropdown.appendChild(option);
+	});
 
-  filtersDropdown.addEventListener('change', () => handleDropdownChange(block, filtersDropdown, categoriesDropdown, responseData));
-  categoriesDropdown.addEventListener('change', () => handleDropdownChange(block, filtersDropdown, categoriesDropdown, responseData));
+	filtersDropdown.addEventListener('change', () => handleDropdownChange(block, filtersDropdown, categoriesDropdown, searchInputField, responseData));
+	categoriesDropdown.addEventListener('change', () => handleDropdownChange(block, filtersDropdown, categoriesDropdown, searchInputField, responseData));
 }
 
 // Handle dropdown change
-function handleDropdownChange(block, filtersDropdown, categoriesDropdown, responseData) {
-  const selectedFilter = filtersDropdown.value;
-  const selectedCategory = categoriesDropdown.value;
+function handleDropdownChange(block, filtersDropdown, categoriesDropdown, searchInputField, responseData) {
+	const selectedFilter = filtersDropdown.value;
+	const selectedCategory = categoriesDropdown.value;
+	const inputValue = searchInputField.value.trim().toLowerCase();
+	let noResultDiv = block.querySelector('#articles-not-found-container');
+	let articlesContainer = block.querySelector('#articles-container');
 
-  const filteredAndSortedData = getFilteredDataBasedOnDropdown(responseData, selectedFilter, selectedCategory);
+	let filteredAndSortedData = getFilteredDataBasedOnDropdown(responseData, selectedFilter, selectedCategory);
+	if (inputValue.length > 0) {
+		let filterDataBasedOnInput = filterArticlesByDescription(responseData, inputValue);
+		filteredAndSortedData = getFilteredDataBasedOnDropdown(filterDataBasedOnInput, selectedFilter, selectedCategory);
+		if (filteredAndSortedData.length === 0) {
+			noResultDiv.style.display = 'block';
+			articlesContainer.style.display = 'none';
+		} else {
+			noResultDiv.style.display = 'none';
+			articlesContainer.style.display = 'block';
+		}
+	} else {
+		noResultDiv.style.display = 'none';
+		articlesContainer.style.display = 'block';
+	}
+
 	renderCards(block, filteredAndSortedData);
 	renderPagination(block, filteredAndSortedData);
 }
