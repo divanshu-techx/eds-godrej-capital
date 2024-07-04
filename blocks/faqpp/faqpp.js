@@ -8,6 +8,11 @@ const viewAllRedirection = getDataAttributeValueByName('viewallbuttonredirection
 // Main function to decorate the FAQ block
 export default async function decorate(block) {
   // Create FAQ container and append to the block
+  const faqmobileTitlediv = document.createElement('div');
+  faqmobileTitlediv.className = 'faq-container-titleMobile';
+  faqmobileTitlediv.textContent = faqMobileTitle;
+  block.appendChild(faqmobileTitlediv);
+  
   const faqContainer = document.createElement('div');
   faqContainer.className = 'faq-container';
   block.appendChild(faqContainer);
