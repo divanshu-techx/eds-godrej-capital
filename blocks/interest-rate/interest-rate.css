@@ -1,11 +1,11 @@
 .section.interest-rate-container {
-
   background-color: #F0F6E4;
   margin: 0 auto;
   width: 100%;
   max-width: 1200px;
   border-radius: 4px;
-  padding-inline: 0;
+  margin-bottom: 32px;
+  /* padding-inline: 0; */
 }
 
 .interest-rate-container .interest-rate-wrapper {
