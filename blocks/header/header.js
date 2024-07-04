@@ -15,7 +15,7 @@ function closeOnEscape(e) {
       navSectionExpanded.focus();
     } else if (!isDesktop.matches) {
       // eslint-disable-next-line no-use-before-define
-      toggleMenu(nav, navSections,navMobile);
+      toggleMenu(nav, navSections, navMobile);
       nav.querySelector('button').focus();
     }
   }
@@ -57,7 +57,7 @@ function toggleAllNavSections(sections, expanded = false) {
 function toggleMenu(nav, navSections, navMobile, forceExpanded = null) {
   const expanded = forceExpanded !== null ? !forceExpanded : nav.getAttribute('aria-expanded') === 'true';
   const button = nav.querySelector('.nav-hamburger button');
-  
+
   // Toggle body scroll based on the menu state
   document.body.style.overflowY = (expanded || isDesktop.matches) ? '' : 'hidden';
   nav.setAttribute('aria-expanded', expanded ? 'false' : 'true');
@@ -111,10 +111,8 @@ export default async function decorate(block) {
   const classes = ['brand', 'sections', 'mobile', 'tools'];
   classes.forEach((c, i) => {
     const section = nav.children[i];
-    // console.log(`Section ${i}:`, section);
     if (section) {
       section.classList.add(`nav-${c}`);
-      // console.log(`Content of nav-${c}:`, section.innerHTML);
     } else {
       console.warn(`No element found for nav-${c}`);
     }
@@ -142,306 +140,444 @@ export default async function decorate(block) {
     });
   }
 
-      // hamburger for mobile
-      const hamburger = document.createElement('div');
-      hamburger.classList.add('nav-hamburger');
-      hamburger.innerHTML = `<button type="button" aria-controls="nav" aria-label="Open navigation">
+  // hamburger for mobile
+  const hamburger = document.createElement('div');
+  hamburger.classList.add('nav-hamburger');
+  hamburger.innerHTML = `<button type="button" aria-controls="nav" aria-label="Open navigation">
           <span class="nav-hamburger-icon"></span>
         </button>`;
-      hamburger.addEventListener('click', () => toggleMenu(nav, navSections,navMobile));
-      nav.prepend(hamburger);
-      nav.setAttribute('aria-expanded', 'false');
-      // prevent mobile nav behavior on window resize
-      toggleMenu(nav, navSections,navMobile, isDesktop.matches);
-      isDesktop.addEventListener('change', () => toggleMenu(nav, navSections,navMobile, isDesktop.matches));
+  hamburger.addEventListener('click', () => toggleMenu(nav, navSections, navMobile));
+  nav.prepend(hamburger);
+  nav.setAttribute('aria-expanded', 'false');
+  // prevent mobile nav behavior on window resize
+  toggleMenu(nav, navSections, navMobile, isDesktop.matches);
+  isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, navMobile, isDesktop.matches));
 
-      const navWrapper = document.createElement('div');
-      navWrapper.className = 'nav-wrapper';
-      navWrapper.append(nav);
-      block.append(navWrapper);
+  const navWrapper = document.createElement('div');
+  navWrapper.className = 'nav-wrapper';
+  navWrapper.append(nav);
+  block.append(navWrapper);
 
-      var navElement = document.getElementById("nav");
+  var navElement = document.getElementById("nav");
 
-      const api = getDataAttributeValueByName('globalnavigationapiurl');
+  const api = getDataAttributeValueByName('globalnavigationapiurl');
 
-      function getDataAttributeValueByName(name) {
-        const element = document.querySelector(`[data-${name}]`);
-        return element ? element.getAttribute(`data-${name}`) : null;
-      }
+  function getDataAttributeValueByName(name) {
+    const element = document.querySelector(`[data-${name}]`);
+    return element ? element.getAttribute(`data-${name}`) : null;
+  }
 
-      let responseData = [];
+  let responseData = [];
 
-      // Create the topnav div
-      const topNav = document.createElement('div');
-      topNav.className = 'topnav';
+  // Create the topnav div
+  const topNav = document.createElement('div');
+  topNav.className = 'topnav';
 
-      // create main container div
-      const belowNavMainContainer = document.createElement('div');
-      belowNavMainContainer.className = 'belowNavMainContainer';
+  // create main container div
+  const belowNavMainContainer = document.createElement('div');
+  belowNavMainContainer.className = 'belowNavMainContainer';
 
-      const parentContainerDiv = document.createElement('div');
-      parentContainerDiv.className = 'parentContainerdiv';
-      const firstElementChildDiv = document.createElement('div');
-      firstElementChildDiv.className = 'firstElementChildDiv';
-     
-      const secondElementDiv = document.createElement('div');
-      secondElementDiv.className = 'secondElementDiv';
-     
-      const thirdElementDiv = document.createElement('div');
-      thirdElementDiv.className = 'thirdElementDiv';
+  const parentContainerDiv = document.createElement('div');
+  parentContainerDiv.className = 'parentContainerdiv';
+  const firstElementChildDiv = document.createElement('div');
+  firstElementChildDiv.className = 'firstElementChildDiv';
 
-      navSections.appendChild(topNav);
-      navSections.appendChild(belowNavMainContainer);
+  const secondElementDiv = document.createElement('div');
+  secondElementDiv.className = 'secondElementDiv';
 
-  // Function to render news items
-        function getResponseData(filteredData) {
-              // Create the ul element
-              const ul = document.createElement('ul');
+  const thirdElementDiv = document.createElement('div');
+  thirdElementDiv.className = 'thirdElementDiv';
 
-              filteredData.forEach((item) => {
-                  // Create the li element
-                  const li = document.createElement('li');
-                  li.className = 'listElement';
+  navSections.appendChild(topNav);
+  navSections.appendChild(belowNavMainContainer);
 
-                  // Create the a element
-                  const a = document.createElement('a');
-                  a.href = "#.html";
-                  a.textContent = item.HeadingName;
-                  a.setAttribute('data-path', item.ChildPageUrl);
-                  a.setAttribute('data-depth',item.depth);
-                  a.setAttribute('data-navItem',item.HeadingName)
+  function displayURLContent(url) {
+    const mainUrl = url;
+    fetch(mainUrl)
+      .then((response) => response.text())
+      .then((data) => {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = data;
 
-                  // Replace spaces with hyphens and add custom class
-                  const apiClass = item.HeadingName.replace(/\s+/g, '-');
-                  const customClass = 'anchorClass';
-                  a.classList.add(apiClass, customClass);
-                  // Append the a element to the li
-                  li.appendChild(a);
-                  // Append the li element to the ul
-                  ul.appendChild(li);
-              });
+        const mainContent = tempDiv.querySelector('main');
 
-              // Append the ul to the topNav
-              topNav.appendChild(ul);
-                  // Add event listeners to show/hide the belowNavMainContainer
-                  const navItems = ul.querySelectorAll('a.anchorClass');
-                  const belowNavMainContainer = document.querySelector('.belowNavMainContainer');
-
-                  navItems.forEach((navItem) => {
-                      navItem.addEventListener('click', () => {
-                          let depth = navItem.getAttribute('data-depth'),
-                              navElement = navItem.getAttribute('data-navItem') ,
-                              childPath =  navItem.getAttribute('data-path');
-                              getChildApiResponse(childPath, navElement, depth);
-                          belowNavMainContainer.classList.toggle('show');
-                      });
-                  });
-                //  rotation behave of nav bar 
-                  const navLinks = document.querySelectorAll('.anchorClass');
-                  navLinks.forEach(link => {
-                    link.addEventListener('click', function(event) {
-                      event.preventDefault();
-                      if (this.classList.contains('rotate')) {
-                        this.classList.remove('rotate');
-                        belowNavMainContainer.classList.remove('show');
-                      } else {
-                        navLinks.forEach(link => link.classList.remove('rotate'));
-                        this.classList.add('rotate');
-                        belowNavMainContainer.classList.add('show');
-                      }
-                    });
-                  });
-        }
-
-        function createListElement(textContent, href = "#.html") {
-          const li = document.createElement('li');
-          li.className = 'listElement';
-          const a = document.createElement('a');
-          a.href = href;
-          a.textContent = textContent;
-          a.className = 'anchorPath';
-          a.addEventListener('click', function(event) {
-            event.preventDefault();
-        });
-          li.appendChild(a);
-          return li;
-        }
-
-        function getChildResponseData(childResponseData) {
-          parentContainerDiv.innerHTML = '';
-          firstElementChildDiv.innerHTML = '';
-          secondElementDiv.innerHTML = '';
-          let depth;
-          const ul = document.createElement('ul');
-          if (typeof childResponseData === 'object' && childResponseData !== null) {
-              for (const key in childResponseData) {
-                  if (childResponseData.hasOwnProperty(key)) {
-                      const item = childResponseData[key];
-                      const li = createListElement(key);
-                      ul.appendChild(li);
-     
-                      if (Array.isArray(item)) {
-                          const subUl = document.createElement('ul');
-                          subUl.className = 'subList';
-                          item.forEach((subItem) => {
-                              subUl.appendChild(createListElement(subItem.title, subItem.path));
-                              depth = subItem.depth;
-                              if (depth < 2)
-                                displayURLContent(subItem.path);
-                          });
-                          secondElementDiv.appendChild(subUl);
-                      }
-                  }
-              }
-          } else {
-              console.error("childResponseData is not an array or object.");
-          }
-   
-          if (depth === '2') {
-            firstElementChildDiv.appendChild(ul);
-            parentContainerDiv.appendChild(firstElementChildDiv);
-        }
-     
-        if (depth == '1' || depth == '2') {
-          parentContainerDiv.appendChild(secondElementDiv);
-      }
+        if (mainContent) {
+          thirdElementDiv.innerHTML = '';
+          thirdElementDiv.appendChild(mainContent);
           parentContainerDiv.appendChild(thirdElementDiv);
-   
-          const subLists = secondElementDiv.querySelectorAll('.subList');
-          if (subLists.length > 0) {
-              subLists[0].classList.add('active');
-          }
-     
-          const mainItems = firstElementChildDiv.querySelectorAll('.listElement');
-          if (mainItems.length > 0) {
-              mainItems[0].classList.add('active');
-          }
-     
-          mainItems.forEach((item, index) => {
-              item.addEventListener('click', () => {
-                  mainItems.forEach(mainItem => mainItem.classList.remove('active'));
-                  item.classList.add('active');
-                  thirdElementDiv.innerHTML = '';
-                  subLists.forEach(subList => subList.classList.remove('active'));
-                  if (index < subLists.length) {
-                      subLists[index].classList.add('active');
-                      const firstSubItem = subLists[index].querySelector('.anchorPath');
-                      if (firstSubItem) {
-                          displayURLContent(firstSubItem.getAttribute('href'));
-                          firstSubItem.classList.add('anchor_active');
-                      }
-                  }
-              });
-          });
-     
-          const anchorTags = secondElementDiv.querySelectorAll('.anchorPath');
-          anchorTags.forEach(anchor => {
-              anchor.addEventListener('click', function () {
-                  anchorTags.forEach(anchor => anchor.classList.remove('anchor_active'));
-                  this.classList.add('anchor_active');
-                  let imagePath = this.getAttribute('href');
-                  displayURLContent(imagePath);
-              });
-          });
-     
-          belowNavMainContainer.appendChild(parentContainerDiv);
-     
-          if (mainItems.length > 0) {
-              const firstMainItem = mainItems[0];
-              firstMainItem.click(); // Simulate a click on the first main item
-          }
-      }
+        } else {
+          console.error('Main tag not found in fetched content.');
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching URL content:', error);
+      });
+  }
 
-        function getApiResponse(api) {
-            fetch(api, {
-                method: 'GET',
-            })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(response.statusText);
+  // function to render nav elements div for child depth is 2
+  function getChildResponseDataForDepthTwo(response, itemCount) {
+    console.log(response);
+    console.log(itemCount);
+
+    // Clear previous content
+    parentContainerDiv.innerHTML = '';
+    firstElementChildDiv.innerHTML = '';
+    secondElementDiv.innerHTML = '';
+    thirdElementDiv.innerHTML = '';
+
+    // Create the main ul element
+    const mainUl = document.createElement('ul');
+
+    // Iterate over the keys in the response object
+    Object.keys(response).forEach((key, index) => {
+      if (response.hasOwnProperty(key)) {
+        const li = document.createElement('li');
+        li.className = 'listElement';
+        if (index === 0) li.classList.add('active');
+        const a = document.createElement('a');
+        a.textContent = key;
+        a.className = 'anchorPath';
+        a.addEventListener('click', (event) => {
+          event.preventDefault();
+          const allListItems = mainUl.querySelectorAll('li');
+          allListItems.forEach((item) => item.classList.remove('active'));
+          li.classList.add('active');
+          updateSecondElementDiv(response[key]);
+        });
+
+        li.appendChild(a);
+        mainUl.appendChild(li);
+      }
+    });
+
+    const firstKey = Object.keys(response)[0];
+    updateSecondElementDiv(response[firstKey]);
+    firstElementChildDiv.appendChild(mainUl);
+    parentContainerDiv.appendChild(firstElementChildDiv);
+    parentContainerDiv.appendChild(secondElementDiv);
+    parentContainerDiv.appendChild(thirdElementDiv);
+    belowNavMainContainer.appendChild(parentContainerDiv);
+
+    // Function to update secondElementDiv with items
+    function updateSecondElementDiv(items) {
+      secondElementDiv.innerHTML = '';
+      thirdElementDiv.innerHTML = '';
+
+      const nestedUl = document.createElement('ul');
+      nestedUl.classList.add('subList', 'active');
+
+      Object.keys(items).forEach((key, index) => {
+        const item = items[key];
+        const nestedLi = document.createElement('li');
+        nestedLi.className = 'listElement';
+        const anchor = document.createElement('a');
+        anchor.textContent = item.title;
+        anchor.href = '#';
+        anchor.classList.add('anchorPath');
+        if (index === 0) anchor.classList.add('anchor_active');
+        anchor.setAttribute('data-path', item.path);
+
+        anchor.addEventListener('click', (event) => {
+        event.preventDefault();
+        const allAnchors = nestedUl.querySelectorAll('a.anchorPath');
+        allAnchors.forEach((anchorItem) => anchorItem.classList.remove('anchor_active'));
+        anchor.classList.add('anchor_active');
+        displayURLContent(item.path);
+        });
+
+        nestedLi.appendChild(anchor);
+        nestedUl.appendChild(nestedLi);
+
+        if (index === 0) {
+          displayURLContent(item.path);
+        }
+      });
+      secondElementDiv.appendChild(nestedUl);
+    }
+  }
+
+  // function to render nav elements div for child depth is 1
+  function getChildResponseDataForDepthOne(response, itemCount) {
+    parentContainerDiv.innerHTML = '';
+    firstElementChildDiv.innerHTML = '';
+    secondElementDiv.innerHTML = '';
+    thirdElementDiv.innerHTML = '';
+
+    const mainUl = document.createElement('ul');
+    mainUl.classList.add('subList', 'active');
+    let defaultPathSet = false;
+    let overallIndex = 0;
+
+    for (const key in response) {
+        if (response.hasOwnProperty(key)) {
+            response[key].forEach((item) => {
+                const li = document.createElement('li');
+                li.classList.add('listElement');
+
+                const anchor = document.createElement('a');
+                anchor.textContent = item.title;
+                anchor.href = '#';
+                anchor.classList.add('anchorPath');
+                if (overallIndex === 0) anchor.classList.add('anchor_active');
+                anchor.setAttribute('data-path', item.path);
+
+                li.appendChild(anchor);
+                mainUl.appendChild(li);
+
+                anchor.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const allAnchors = mainUl.querySelectorAll('a.anchorPath');
+                    allAnchors.forEach((anchorItem) => anchorItem.classList.remove('anchor_active'));
+                    anchor.classList.add('anchor_active');
+                    displayURLContent(item.path);
+                });
+
+                if (!defaultPathSet) {
+                    displayURLContent(item.path);
+                    defaultPathSet = true;
                 }
-                return response.json();
-            })
-            .then((response) => {
-                responseData = response.data;
-                getResponseData(responseData);
-            })
-            .catch((error) => {
-                console.error(error);
+
+                overallIndex++;
             });
         }
+    }
 
-        function transformResponseData(data) {
-          let depth = data.depth;
-          const transformedData = {};
-          data.forEach(item => {
-            if(item.parent){
-              if (!transformedData[item.parent]) {
-                  transformedData[item.parent] = [];
-              }
-              transformedData[item.parent].push({
-                title: item.title,
-                path: item.path,
-                depth: depth
-            });
-            } else {
-              if(item.title){
-                if (!transformedData[item.title]) {
-                    transformedData[item.title] = [];
-                }
-                transformedData[item.title].push({
-                  title:item.title,
-                  path: item.path,
-                  depth:depth
-              });
-              }
+    if (itemCount != 0) {
+        secondElementDiv.appendChild(mainUl);
+        parentContainerDiv.appendChild(secondElementDiv);
+    }
 
-            }
-          });
+    parentContainerDiv.appendChild(thirdElementDiv);
+    belowNavMainContainer.appendChild(parentContainerDiv);
+}
 
-          return transformedData;
+  // function to render nav elements div for child depth is zero
+  function getChildResponseDataForDepthZero(responseData) {
+    parentContainerDiv.innerHTML = '';
+    firstElementChildDiv.innerHTML = '';
+    secondElementDiv.innerHTML = '';
+    thirdElementDiv.innerHTML = '';
+
+    const customerSupportDiv = document.createElement('ul');
+    customerSupportDiv.className = 'customerSupportDiv'; 
+
+    const freeCreditDiv = document.createElement('div');
+    freeCreditDiv.className = 'freeCreditDiv';
+
+    const imageContainerDiv = document.createElement('div');
+    imageContainerDiv.className = 'imageContainerDiv';
+
+    console.log(responseData.branchlocater);
+
+    customerSupportDiv.innerHTML = `
+        <li class="customersupport">
+            <a href="${responseData.customersupportlink}" class="customer-support-anchor">
+              ${responseData.customersupport}
+            </a>      
+        </li>
+  
+        <li class="selfservice">
+                  <h4 class="self-service-heading">${responseData.selfservices}</h4>
+            <ul class="self-service-ul">
+                <li class="self-service-li">
+                   <a href="${responseData.branchlocaterlink}">${responseData.branchlocater}</a>
+                </li>
+                 <li class="self-service-li">
+                   <a href="${responseData.trackstatuslink}">${responseData.trackstatus}</a>
+                </li>
+                 <li class="self-service-li">
+                   <a href="${responseData.faqlink}">${responseData.faq}</a>
+                </li>
+            </ul>
+        </li>
+  
+        <li class="grievancecontainer">
+             <h4 class="grievance-heading">${responseData.grievanceredressal}</h4>
+            <ul class="grievance-ul">
+                 <li class="self-service-li">
+                   <a href="${responseData.godrejhousingfinancelink}">${responseData.godrejhousingfinance}</a>
+                <li class="self-service-li">
+                   <a href="${responseData.godrejfinancelink}">${responseData.godrejfinance}</a>
+                </li>
+            </ul>      
+        </li>
+  
+        <li class="contactuscontainer">
+            <h4 class="contact-heading">${responseData.contactus}</h4>
+            <p class="contact-mobile-number">${responseData.mobilenumber}</p>
+            <p class="contact-mail">${responseData.mail}</p>          
+        </li>
+         `;
+    firstElementChildDiv.appendChild(customerSupportDiv);
+    parentContainerDiv.appendChild(firstElementChildDiv);
+
+    freeCreditDiv.innerHTML = `
+            <div class="free-credit-container">
+                <div class="free-credit-internaldiv">
+                <img src="${responseData.freecrediticon}" class="free-credit-icon"><a class="free-credit-heading" href="${responseData.freecreditscorelink}">${responseData.freecreditscore}</a></div>
+                <p class="free-credit-description">${responseData.freecreditscoredescription}</p>
+                <a class="free-credit-score" href="${responseData.checkcreditscorelink}">${responseData.checkcreditscore}</a>
+            </div>
+            <div class="whatsUp-container">
+                <h3 class="whatsUp-heading">${responseData.whatsupsupport}</h3>
+                <p class="whatsUp-desciption">${responseData.whatsupdescription}</p>
+                <img src="${responseData.whatsupicon}" alt="QR Code" class="whatsUp-icon">
+            </div>
+        `;
+    secondElementDiv.appendChild(freeCreditDiv);
+    parentContainerDiv.appendChild(secondElementDiv);
+
+    imageContainerDiv.innerHTML = `
+            <img src="${responseData.mainimage}" alt="Main Image" class="main-image">
+        `;
+    thirdElementDiv.appendChild(imageContainerDiv);
+    parentContainerDiv.appendChild(thirdElementDiv);
+
+    belowNavMainContainer.appendChild(parentContainerDiv);
+  }
+
+  function transformResponseData(data) {
+    const transformedData = {};
+    data.forEach((item) => {
+      if (item.parent) {
+        if (!transformedData[item.parent]) {
+          transformedData[item.parent] = [];
         }
-        function getChildApiResponse(api, navElement, depth) {
-          fetch(api, {
-              method: 'GET',
-          })
-          .then((response) => {
-              if (!response.ok) {
-                  throw new Error(response.statusText);
-              }
-              return response.json();
-          })
-          .then((response) => {
-              let childResponseData = response.data;
-              childResponseData.depth = depth;
-              const transformedData = transformResponseData(childResponseData);
-              getChildResponseData(transformedData);
-          })
-          .catch((error) => {
-              console.error(error);
-          });
+        transformedData[item.parent].push({
+          title: item.title,
+          path: item.path,
+        });
+      } else if (item.title) {
+        if (!transformedData[item.title]) {
+          transformedData[item.title] = [];
         }
-
-        function displayURLContent(url) {
-          let mainUrl = url;
-          fetch(mainUrl)
-              .then(response => response.text())
-              .then(data => {
-                  let tempDiv = document.createElement('div');
-                  tempDiv.innerHTML = data;
-                  let mainContent = tempDiv.querySelector('main');
-                  if (mainContent) {
-                      thirdElementDiv.innerHTML = '';
-                      thirdElementDiv.appendChild(mainContent);
-                      parentContainerDiv.appendChild(thirdElementDiv);
-                  } else {
-                      console.error('Main tag not found in fetched content.');
-                  }
-              })
-              .catch(error => {
-                  console.error('Error fetching URL content:', error);
-              });
+        transformedData[item.title].push({
+          title: item.title,
+          path: item.path,
+        });
       }
+    });
+    return transformedData;
+  }
+
+  function getChildApiResponse(childApi, navListItem, depth) {
+    fetch(childApi, {
+      method: 'GET',
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        return response.json();
+      })
+      .then((response) => {
+        const itemCount = parseInt(depth);
+        const childResponseData = response.data;
+        const transformedData = transformResponseData(childResponseData);
+        if (itemCount === 2) {
+          getChildResponseDataForDepthTwo(transformedData, itemCount);
+        } else if (itemCount === 1) {
+          getChildResponseDataForDepthOne(transformedData, itemCount);
+        } else {
+          getChildResponseDataForDepthZero(childResponseData[0]);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  // Function to render nav items
+  function getResponseData(filteredData) {
+    const ul = document.createElement('ul');
+
+    filteredData.forEach((item) => {
+      const li = document.createElement('li');
+      li.className = 'listElement';
+
+      const a = document.createElement('a');
+      a.href = '#.html';
+      a.textContent = item.HeadingName;
+      a.setAttribute('data-path', item.ChildPageUrl);
+      a.setAttribute('data-depth', item.depth);
+      a.setAttribute('data-navItem', item.HeadingName);
+
+      const apiClass = item.HeadingName.replace(/\s+/g, '-');
+      const customClass = 'anchorClass';
+      a.classList.add(apiClass, customClass);
+
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+
+    topNav.appendChild(ul);
+
+    const navItems = document.querySelectorAll('a.anchorClass');
+    const listElements = document.querySelectorAll('li.listElement');
+
+    navItems.forEach((navItem) => {
+      navItem.addEventListener('mouseover', (event) => {
+        event.preventDefault();
+        const depth = navItem.getAttribute('data-depth');
+        const navListItem = navItem.getAttribute('data-navitem');
+        const childPath = navItem.getAttribute('data-path');
+        getChildApiResponse(childPath, navListItem, depth);   
+        const parentListItem = navItem.closest('li');
+
+        if (navItem.classList.contains('rotate')) {
+          navItem.classList.remove('rotate');
+          belowNavMainContainer.classList.remove('show');
+        } else {
+          navItems.forEach((item) => item.classList.remove('rotate'));
+          navItem.classList.add('rotate');
+          belowNavMainContainer.classList.add('show');
+        }
+    
+        if (parentListItem.classList.contains('selected')) {
+          parentListItem.classList.remove('selected');
+        } else {
+          listElements.forEach((listElement) => listElement.classList.remove('selected'));
+          parentListItem.classList.add('selected');
+        }
+      });
+    });
+
+    topNav.addEventListener('mouseleave', () => {
+      belowNavMainContainer.classList.remove('show');
+      navItems.forEach((item) => item.classList.remove('rotate'));
+      listElements.forEach((listElement) => listElement.classList.remove('selected'));
+    });
+  
+    belowNavMainContainer.addEventListener('mouseenter', () => {
+      belowNavMainContainer.classList.add('show');
+    });
+  
+    belowNavMainContainer.addEventListener('mouseleave', () => {
+      belowNavMainContainer.classList.remove('show');
+      navItems.forEach((item) => item.classList.remove('rotate'));
+      listElements.forEach((listElement) => listElement.classList.remove('selected'));
+    });
+  }
+
+  function getApiResponse(navListapi) {
+    fetch(navListapi, {
+      method: 'GET',
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        return response.json();
+      })
+      .then((response) => {
+        console.log(response.data);
+        responseData = response.data;
+        getResponseData(responseData);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 
   getApiResponse(api);
 }

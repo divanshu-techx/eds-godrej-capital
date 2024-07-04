@@ -1,0 +1,360 @@
+.section.eligibilitytabs-container .default-content-wrapper>p {
+	background: #F0F6E4;
+	margin: 0;
+	font-size: 10px;
+	color: #696969;
+	padding-left: 50px;
+	padding-bottom: 40px;
+}
+
+@media (max-width: 600px) {
+	.section.eligibilitytabs-container .default-content-wrapper>p {
+		font-size: 8px;
+		font-weight: 400;
+		line-height: 9.38px;
+		margin-top: 5px;
+		background: #F4F4F4;
+		padding:unset;
+	}
+
+	.section.eligibilitytabs-container {
+		background: #F4F4F4;
+	}
+}
+
+.section.eligibilitytabs-container .default-content-wrapper {
+	background: #F0F6E4;
+	margin: 0;
+	font-size: 10px;
+	color: #696969;
+	max-width: 1200px;
+    margin: auto;
+}
+
+.section.eligibilitytabs-container .default-content-wrapper .eligibility-class {
+	display: block;
+	padding-top: 20px;
+	text-align: center;
+	font-size: 36px;
+	font-weight: 500;
+	line-height: 42.23px;
+	color: #3B3B3B;
+
+}
+
+.section.eligibilitytabs-container .default-content-wrapper .mobile-title {
+	display: none;
+}
+
+@media (max-width: 600px) {
+	.section.eligibilitytabs-container .default-content-wrapper .eligibility-class {
+		display: none;
+	}
+
+	.section.eligibilitytabs-container .default-content-wrapper .mobile-title {
+		display: block;
+		background: #F4F4F4;
+		font-size: 20px;
+		font-weight: 500;
+		line-height: 23.46px;
+	}
+}
+
+.eligibilitytabs .parent-tab-panel .document-title {
+	display: none;
+}
+
+.eligibilitytabs .parent-tab-panel .parent-tab-list {
+	display: flex;
+	flex-direction: column;
+}
+
+@media (max-width: 600px) {
+	.eligibilitytabs .parent-tab-panel .parent-tab-list {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+}
+
+.eligibilitytabs .parent-tab-panel .parent-tab-list .document-title {
+	order: 1;
+	margin: 0;
+	font-size: 10px;
+	font-weight: 400;
+	line-height: 11.73px;
+	text-align: center;
+}
+
+.eligibilitytabs .parent-tab-panel .parent-tab-list .tabs-dropdown {
+	order: 2;
+}
+
+@media (max-width: 600px) {
+	.eligibilitytabs .parent-tab-panel .document-title {
+		display: block;
+		order: 1;
+	}
+}
+
+
+.tabs-panel table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.tabs-panel table td,
+.tabs-panel th {
+	border: 1px solid #000;
+	padding: 8px;
+	text-align: left;
+}
+
+.tabs-panel table tbody tr:first-child td {
+	font-size: 16px;
+	color: #3b3b3b;
+	font-weight: 500 !important;
+}
+
+.tabs-panel tbody tr:not(:first-child) td {
+	font-size: 16px;
+	color: #000000;
+	font-weight: 300;
+}
+
+@media (max-width: 600px) {
+
+	.tabs-panel table {
+		border: 1px solid #3b3b3b;
+		border-radius: 4px;
+	}
+
+	.tabs-panel table tbody tr:first-child td,
+	.tabs-panel tbody tr:not(:first-child) td {
+		font-size: 11px;
+		font-weight: 300;
+		line-height: 12.9px;
+	}
+}
+
+.tabs-panel table tr:nth-child(even) {
+	background-color: #f9f9f9;
+}
+
+.tabs-panel table tr:hover {
+	background-color: #f1f1f1;
+}
+
+.tabs-panel table th {
+	background-color: #4CAF50;
+	color: white;
+}
+
+.tabs-panel table td:first-child,
+th:first-child {
+	width: 30%;
+}
+
+.tabs-panel table td:last-child,
+th:last-child {
+	width: 70%;
+}
+
+
+@media (max-width: 600px) {
+
+	.tabs-panel table td:first-child,
+	.tabs-panel table th:first-child {
+		width: 40%;
+	}
+
+	.tabs-panel table td:last-child,
+	.tabs-panel table th:last-child {
+		width: 60%;
+	}
+}
+
+.eligibilitytabs-container .eligibilitytabs-wrapper {
+	background: #fff;
+}
+
+.eligibilitytabs-container .eligibilitytabs-wrapper .eligibilitytabs .parent-tab-panel {
+	padding: 15px;
+	background-color: #fff;
+
+	@media(width <=600px) {
+		padding: 0;
+	}
+}
+
+.eligibilitytabs-container .eligibilitytabs-wrapper .eligibilitytabs.block {
+	padding: 20px 45px;
+	background-color: #f0f6e4;
+
+	@media(width <=600px) {
+		background-color: #fff;
+		padding: 0;
+	}
+}
+
+.eligibilitytabs-container .eligibilitytabs-wrapper .eligibilitytabs.block .parent-tab-list {
+	padding: 10px;
+	background-color: #f0f6e4;
+	border-radius: 4px;
+}
+
+@media (max-width: 600px) {
+	.eligibilitytabs-container .eligibilitytabs-wrapper .eligibilitytabs.block .parent-tab-list {
+		background: #F4F4F4;
+	}
+}
+
+.eligibilitytabs-container .eligibilitytabs-wrapper .eligibilitytabs.block .parent-tab-panel .tabs-panel>div>p {
+	font-size: 16px;
+	font-weight: 400;
+	color: #3b3b3b;
+}
+
+@media (max-width: 600px) {
+	.eligibilitytabs-container .eligibilitytabs-wrapper .eligibilitytabs.block .parent-tab-panel .tabs-panel>div>p {
+		display: none;
+	}
+}
+
+.eligibilitytabs .tabs-list {
+	display: flex;
+	gap: 10px;
+	max-width: 100%;
+	overflow-x: auto;
+}
+
+.eligibilitytabs .tabs-list button p {
+	margin: 0;
+}
+
+.eligibilitytabs .tabs-list .tabs-tab[aria-selected="true"] {
+	background: #3CB8FF;
+	color: #fff;
+	font-size: 14px;
+	font-weight: 500;
+}
+
+.eligibilitytabs .tabs-list .tabs-tab[aria-selected="false"] {
+	color: #3b3b3b;
+	font-size: 14px;
+	font-weight: 500;
+}
+
+.eligibilitytabs .tabs-list button {
+	flex: 0 0 max-content;
+	margin: 0;
+	border-radius: 4px;
+	padding: 8px 16px;
+	background-color: #fff;
+	color: initial;
+	font-size: unset;
+	font-weight: bold;
+	line-height: unset;
+	text-align: initial;
+	text-overflow: unset;
+	overflow: unset;
+	white-space: unset;
+	transition: background-color 0.2s;
+}
+
+.eligibilitytabs .tabs-list button[aria-selected="true"] {
+	border-bottom: 1px solid var(--background-color);
+	background-color: var(--background-color);
+	cursor: initial;
+}
+
+.eligibilitytabs .tabs-list button[aria-selected="false"]:hover,
+.eligibilitytabs .tabs-list button[aria-selected="false"]:focus {
+	background-color: var(--dark-color);
+}
+
+.eligibilitytabs .tabs-panel {
+	margin-top: -1px;
+	padding: 0 16px;
+	overflow: auto;
+
+	@media(width <=600px) {
+		padding: 0;
+	}
+}
+
+.eligibilitytabs .tabs-panel[aria-hidden="true"] {
+	display: none;
+}
+
+
+.eligibilitytabs .tabs-dropdown {
+	display: none;
+	width: 100%;
+	padding: 8px;
+	font-size: 16px;
+	border: 1px solid var(--dark-color);
+	border-radius: 4px;
+	margin-bottom: 16px;
+	background-color: var(--light-color);
+	color: initial;
+}
+
+@media (max-width: 768px) {
+	.eligibilitytabs .tabs-list {
+		display: none;
+	}
+
+	.eligibilitytabs .tabs-dropdown {
+		display: block;
+	}
+}
+
+.eligibilitytabs .tabs-dropdown {
+	appearance: none;
+	background-color: #fff;
+	background-repeat: no-repeat;
+	background-position: right 8px center;
+	background-size: 12px;
+	padding-right: 32px;
+}
+
+.eligibilitytabs .tabs-dropdown {
+	width: 100%;
+	max-width: 180px;
+	padding: 10px;
+	color: #3B3B3B;
+	font-size: 10px;
+	text-align: center;
+	font-weight: 400;
+	line-height: 11.73px;
+	background-color: #fff;
+	border: none;
+	border-radius: 4px;
+	box-shadow: 0px 4px 4px 0px #00000040;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	position: relative;
+	background-image: url('/icons/dropdown.svg');
+	background-repeat: no-repeat;
+	background-position: right 32px top 50%;
+	background-size: 12px;
+	margin-bottom: 20px;
+}
+
+.eligibilitytabs .tabs-dropdown option {
+	padding: 10px;
+	font-size: 16px;
+	color: #333;
+}
+
+.eligibilitytabs .tabs-dropdown:hover,
+.eligibilitytabs .tabs-dropdown:focus {
+	border-color: #999;
+}
+
+.eligibilitytabs .tabs-dropdown:disabled {
+	background-color: #f9f9f9;
+	color: #999;
+}

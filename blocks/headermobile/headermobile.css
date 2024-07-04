@@ -19,12 +19,12 @@
 }
 
 .headermobile-wrapper {
-    background-color: #F2F2F2;
+    background-color: var(--color-light-gray-v2);
     padding: 20px;
 }
 
 .headermobile details {
-    background: #ffffff;
+    background: var(--color-white);
     border-radius: 4px;
 }
 
@@ -32,12 +32,16 @@
     margin-bottom: 1rem;
 }
 
+.header-accordion-item[open]:has(.header-accordion-item-body.no-children-inside) {
+    padding-bottom: 21px;
+}
+
 
 .headermobile details summary {
     position: relative;
     padding: 0 16px;
     padding-right: 48px;
-    font-size: 18px;
+    font-size: var(--body-1);
     font-weight: 300;
     display: flex;
     line-height: 21px;
@@ -51,7 +55,7 @@
 }
 
 .headermobile details[open] .header-accordion-item-body {
-    background-color: #F2F2F2;
+    background-color: var(--color-silver);
     margin-top: -21px;
 }
 
@@ -62,19 +66,53 @@
 }
 
 .headermobile details summary::after {
-    content: "\02795";
+    content: "+";
     position: absolute;
     top: 30%;
     right: 33px;
-    color: black;
-    font-size: 16px;
+    color: var(--color-black);
+    font-size: 19px;
     width: 9px;
     height: 9px;
 }
 
 .headermobile details[open] summary::after {
-    content: "\2796";
-    color: black;
+    content: "-";
+    color: var(--color-black);
+}
+
+.header-accordion-item:has(.header-accordion-item-body.no-children-inside) summary.accordion-item-label::after {
+    content: none;
+}
+
+.headermobile details summary.accordian-item-label-pictuire::after {
+    content: none;
+}
+
+
+.accordion-item-label.accordian-item-label-pictuire {
+    gap: 10px;
+    padding: 0;
+    padding-left: 10px;
+    align-items: center;
+    /* justify-content: center; */
+}
+
+.accordion-item-label.accordian-item-label-pictuire p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Poppins;
+    font-size: var(--body-1);
+    font-weight: 400;
+    line-height: 27px;
+    text-align: left;
+}
+
+.accordion-item-label.accordian-item-label-pictuire p picture img {
+    width: 24px;
+    height: 24px;
+    margin-right: 4px;
 }
 
 .headermobile details .header-accordion-item-body {
@@ -87,12 +125,17 @@
 
 .header-accordion-item-body ol li.has-children ol {
     display: none;
+    margin:0;
     /* Initially hide the children */
+}
+
+.header-accordion-item-body ol li.has-children ol li{
+font-size: 12px;
 }
 
 .headermobile details ul li,
 .headermobile details ol li {
-    font-size: 1rem;
+    font-size: var(--body-1);
     line-height: 18.77px;
     font-weight: 300;
     list-style-type: none;
@@ -105,7 +148,7 @@
 
 .header-accordion-item-body ul li:first-of-type,
 .header-accordion-item-body ol li:first-of-type {
-    padding-top: 10px;
+    /* padding-top: 10px; */
     margin-bottom: 10px;
 }
 
@@ -118,14 +161,14 @@
 
 .headermobile details ul li.has-children::after,
 .headermobile details ol li.has-children::after {
-    content: "\02795";
+    content: "+";
     position: absolute;
     top: 10%;
     font-weight: 300;
     right: 18px;
-    font-size: 16px;
+    font-size: var(--body-1);
     line-height: 18px;
-    color: black;
+    color: var(--color-black);
     font-size: 16px;
     width: 10px;
     height: 19px;
@@ -133,8 +176,8 @@
 
 .headermobile details ul li.has-children.active::after,
 .headermobile details ol li.has-children.active::after {
-    content: "\02796";
-    font-size: 16px;
+    content: "-";
+    font-size: var(--body-font-size-default);
     font-weight: 300;
     line-height: 18px;
 }
@@ -143,3 +186,19 @@
 .header-accordion-item-body ol {
     padding-left: 0;
 }
+
+@media(width >= 600px){
+    .section.headermobile-container.nav-mobile .accordion-item-label{
+        font-family: var(--body-font-family-primary);
+        font-weight: 300;
+        font-size: 18px;
+        color:var(--color-black);
+    }
+
+    .headermobile details ol li {
+        font-size: 16px;
+        font-weight: 300;
+        font-family: var(--body-font-family-primary);
+    }
+}
+

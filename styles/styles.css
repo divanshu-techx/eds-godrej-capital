@@ -1,46 +1,103 @@
-/*
- * Copyright 2020 Adobe. All rights reserved.
- * This file is licensed to you under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License. You may obtain a copy
- * of the License at http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under
- * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
- * OF ANY KIND, either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
- */
+/* body header,
+body main,
+body footer {
+  margin: 0 auto;
+  max-width: 105pc;
+  width: 100%;
+} */
 
 :root {
+--slide-content-width: 35%;
+  --background-color: #FFFFFF;
   /* colors */
-  --link-color: #035fe6;
-  --link-hover-color: #136ff6;
-  --background-color: white;
-  --light-color: #eee;
-  --dark-color: #ccc;
-  --text-color: black;
+  /* Citrus */
+  --color-citrus: #8CB133;
+  --color-citrus-light: #F0F6E4;
+  /* Black */
+  --color-black: #000000;
+  --color-black-fadded:#1d1d1d;
+  --color-black-secondary:#111111;
+  --color-black-primary:#4E4E4E;
+  --color-black-grey:#7d7d7d;
+  --color-black-grey-primary:#757575;
+  /* Sky */
+  --color-sky: #3CB8FF;
+  --color-sky-dark: #00A2FF;
+  --color-sky-light: #E8F4F9;
+  /* Charcoal Black */
+  --color-charcoal-black: #3B3B3B;
+  /* Ruby */
+  --color-ruby: #F50076;
+  --color-ruby-light: #FFECF4;
+  /* Dark Grey */
+  --color-dark-grey: #B8B8B8;
+  /* White */
+  --color-white: #FFFFFF;
+  /* Light Grey */
+  --color-light-grey: #E8E8E8;
+  /* Silver */
+  --color-silver: #F4F4F4;
+
+  --color-dark-grey-secondary: #b3b3b3;
+
+  --color-white-secondary: #F2F2F2;
 
   /* fonts */
-  /* --body-font-family: roboto, roboto-fallback; */
   --body-font-family: 'Work Sans', sans-serif;
+  --body-font-family-primary:'Poppins';
   --heading-font-family: var(--body-font-family);
-  /* --fixed-font-family: 'Roboto Mono', menlo, consolas, 'Liberation Mono', monospace; */
+  --heading-font-family-primary:var(--body-font-family-primary);
+  --body-font-size-s: 14px;
+  --body-font-size-default: 16px;
+  --body-font-size-xs:12px;
 
-  /* body sizes */
-  --body-font-size-m: 22px;
-  --body-font-size-s: 18px;
-  --body-font-size-xs: 16px;
+  /* mobile  */
+  --heading-1: 32px;
+  --customize-heading:32px;
+  --heading-2: 20px;
+  --title: 20px;
+  --body-1: 18px;
+  --body-2: 14px;
+  --paragraph-1: 12px;
+  --paragraph-2: 11px;
+  --paragraph-3: 10px;
 
-  /* heading sizes */
-  --heading-font-size-xxl: 48px;
-  --heading-font-size-xl: 40px;
-  --heading-font-size-l: 32px;
-  --heading-font-size-m: 24px;
-  --heading-font-size-s: 20px;
-  --heading-font-size-xs: 18px;
+  @media (width >=901px) {
+    --heading-1: 54px;
+    --customize-heading:54px;
+    --heading-2: 36px;
+    --title: 24px;
+    --body-1: 16px;
+    --body-2: 14px;
+    --body-3: 12px;
+  }
+  @media (min-width: 600px) and (max-width: 900px){
+    --customize-heading:36px;
+  }
+
+
+/* media query  */
+--breakpoint-mobile: 768px;
+--breakpoint-tablet: 900px;
+--breakpoint-desktop: 1200px;
 
   /* nav height */
-  --nav-height: 64px;
+
+  --nav-height: 70px;
+  --nav-height-subheader:40px;
+  --combined-height:110px;
+
+  /* links  */
+  --link-color: #58B7E5;
+  --link-hover-color: #3c;
+  --light-color: #eee;
+  --dark-color: #ccc;
+  --text-color: #000000;
+  --pure-white:#ffffff;
 }
+
+
+
 
 @font-face {
   font-family: roboto-fallback;
@@ -49,24 +106,14 @@
   src: local('Arial');
 }
 
-@media (width >= 900px) {
-  :root {
-    --heading-font-size-xxl: 60px;
-    --heading-font-size-xl: 48px;
-    --heading-font-size-l: 36px;
-    --heading-font-size-m: 30px;
-    --heading-font-size-s: 24px;
-    --heading-font-size-xs: 22px;
-  }
-}
+
 
 body {
-  font-size: var(--body-font-size-m);
+  font-size: var(--body-font-size-default);
   margin: 0;
   font-family: var(--body-font-family);
   line-height: 1.6;
-  color: var(--text-color);
-  background-color: var(--background-color);
+  background-color: var(--color-white);
   display: none;
 }
 
@@ -88,19 +135,20 @@ h4, h5, h6 {
   scroll-margin: calc(var(--nav-height) + 1em);
 }
 
-h1 { font-size: var(--heading-font-size-xxl) }
-h2 { font-size: var(--heading-font-size-xl) }
-h3 { font-size: var(--heading-font-size-l) }
-h4 { font-size: var(--heading-font-size-m) }
-h5 { font-size: var(--heading-font-size-s) }
-h6 { font-size: var(--heading-font-size-xs) }
+h1 { font-size: var(--customize-heading); } 
+h2 { font-size: var(--heading-2); }
+h3 { font-size: var(--title); }
+h4 { font-size: var(--body-1); }
+h5 { font-size: var(--body-2); }
+h6 { font-size: var(--body-3); }
 
 p, dl, ol, ul, pre, blockquote {
   margin-top: 1em;
   margin-bottom: 1em;
 }
 
-code, pre {
+code,
+pre {
   font-family: var(--fixed-font-family);
   font-size: var(--body-font-size-s);
 }
@@ -133,7 +181,8 @@ a:hover {
 }
 
 /* buttons */
-a.button:any-link, button {
+a.button:any-link,
+button {
   font-family: var(--body-font-family);
   box-sizing: border-box;
   text-decoration: none;
@@ -148,7 +197,7 @@ a.button:any-link, button {
 }
 
 a.button:hover, a.button:focus, button:hover, button:focus  {
-  background-color: var(--link-hover-color);
+  background-color: #3CB8FF;
   cursor: pointer;
 }
 
@@ -182,17 +231,17 @@ main img {
 
 /* sections */
 main .section {
-  padding: 64px 16px;
+  padding: 16px 26px;
 }
 
 @media (width >= 600px) {
   main .section {
-    padding: 64px 32px;
+    padding: 32px 16px;
   }
 }
 
-@media (width >= 900px) {
-  .section > div {
+@media (width >=900px) {
+  .section>div {
     max-width: 1200px;
     margin: auto;
   }
@@ -204,6 +253,43 @@ main .section.highlight {
   background-color: var(--light-color);
 }
 
-/* *:focus {
-  outline: none;
-} */
+main .section .default-content-wrapper h1,h2,h3,h4,h5,h6{
+  text-align: center;
+  margin:0;
+  font-weight: 500;
+}
+
+/* padding variation  */
+main .section.padding-none{
+  padding:0px;
+}
+ /* no padding top and bottom  */
+main .section.padding-left-right-only{
+  padding:0px 26px;
+}
+
+main .section.padding-v1{
+  @media(width < 600px){
+    background-color: #F4F4F4;
+  }
+}
+
+main{
+  padding: 0;
+  margin-top: var(--nav-height);
+  overflow: hidden;
+  @media(width >= 901px){
+    margin-top: var(--combined-height);
+  }
+}
+
+.section.different-types-v1 {
+  @media(width <=600px) {
+    border-radius: 20px 20px 0px 0px;
+    position: relative;
+    bottom: 30px;
+    background-color: #fff;
+    padding-bottom:0px;
+  }
+}
+
