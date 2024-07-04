@@ -1,21 +1,14 @@
-.section.pploancards-container .default-content-wrapper {
+.section.pploancards-container .default-content-wrapper{
     text-align: center;
     font-size: 16px;
     font-weight: 300;
-    color: #3b3b3b;
-    padding: 0;
-
-    @media(width <=900px) {
+    color:#3b3b3b;
+    padding:0;
+    @media(width <= 600px){
+        text-align: center;
         font-size: 12px;
         font-weight: 400;
-        line-height: 14.08px;
-    }
-
-    @media(width <=600px) {
-        text-align: center;
-        font-size: 10px;
-        font-weight: 400;
-        color: #242424;
+        color:#242424;
     }
 }
 
@@ -34,80 +27,77 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 30px;
-    justify-items: center;
+    justify-items: center; 
 }
 
 .contentandpictureparent {
     display: grid;
-    grid-template-rows: auto 1fr;
-    justify-items: center;
-    align-items: start;
+    grid-template-rows: auto 1fr; 
+    justify-items: center; 
+    align-items: start; 
     position: relative;
     border-radius: 5px;
-    overflow: hidden;
+    overflow: hidden; 
 
 
-    .picturedetails {
-        position: relative;
-        width: 100%;
-    }
+.picturedetails{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
 
+
+.picturedetails picture img {
+    width: 100%;
+    height: 100%;
+    gap: 0px;
+    border-radius: 4px 0px 0px 0px;
+    opacity: 0px;
+}
+@media(width <= 600px){
     .picturedetails picture img {
-        display: block;
-        width: 100%;
-        /* height: auto;  */
-    }
-
-    .contentdetails {
-        position: absolute;
-        color: #fff;
-        padding: 10px;
-        bottom: 10px;
-        left: 10px;
-        z-index: 1;
+        width: 183px;
+        height: 100%;
+        gap: 0px;
+        border-radius: 4px 0px 0px 0px;
+        opacity: 0px;
     }
 }
 
-.contentdetails>div:first-child {
-    font-size: 40px;
+.contentdetails {
+    position: absolute;
+    color: #fff;
+    bottom: 15px;
+    left: 15px;
+    z-index: 1;
+}
+}
+
+.contentdetails > div:first-child {
+    font-size: 48px;
     font-weight: 600;
-    margin: 0;
-    text-align: start;
-    margin-bottom: -14px;
+    line-height: 56.3px;
+    text-align: left;
 }
 
-.contentdetails>div:nth-child(2) {
+.contentdetails > div:nth-child(2) {
     font-size: 20px;
     font-weight: 500;
-    margin: 0;
-    text-align: start;
-}
-
-@media(min-width:600px) and (max-width:900px) {
-    .contentdetails>div:first-child {
-        font-size: 32px;
-        line-height: 37.54px;
-        margin-bottom: 0;
-    }
-
-    .contentdetails>div:nth-child(2) {
-        font-size: 12px;
-        line-height: 14.08px;
-        text-align: left;
-    }
+    line-height: 23.46px;
 }
 
 @media (max-width: 600px) {
-    .contentdetails>div:first-child {
-        margin: 0;
+    .contentdetails > div:first-child {
         font-size: 32px;
+        font-weight: 600;
         line-height: 37.54px;
-        text-align: left;
+        margin: 0;
+
     }
 
-    .contentdetails>div:nth-child(2) {
-        margin: 0;
+    .contentdetails > div:nth-child(2) {
         font-size: 12px;
+        font-weight: 500;
         line-height: 14.08px;
         text-align: left;
     }
@@ -116,44 +106,25 @@
 /* Media query for mobile devices */
 @media (max-width: 600px) {
     .pploancards {
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
+        grid-template-columns: 1fr 1fr; 
+        gap: 10px;
     }
-
+    
     .contentandpictureparent {
         /* margin-bottom: 20px; */
-        max-height: 80px;
     }
 
-    .contentandpictureparent .contentdetails {
-        position: absolute;
+    .contentdetails {
+        position: relative; 
         background: none;
-        padding: 0;
-        text-align: center;
-        bottom: none;
+        padding: 0; 
+        text-align: center; 
+        bottom: auto; 
     }
 
-    .contentdetails>div {
-        font-size: 16px;
+    .contentdetails > div {
+        font-size: 16px; 
     }
 }
 
-@media(min-width:600px)and (max-width:900px) {
-    .section.pploancards-container {
-        padding: 0;
-        margin-bottom: 0;
-    }
 
-    .contentandpictureparent .contentdetails {
-        padding: 0;
-    }
-
-    .pploancards {
-        gap: 8px;
-    }
-
-    .contentandpictureparent {
-        max-height: 80px;
-        height: 100%;
-    }
-}
