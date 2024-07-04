@@ -12,6 +12,17 @@
     }
 }
 
+
+    @media (width <= 600px) {
+        .section.pploancards-container{
+            border-radius: 20px 20px 0px 0px;
+            position: relative;
+            bottom: 30px;
+            background-color: #fff;
+            padding-bottom: 0px;
+    }
+}
+
 .pploancards {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
