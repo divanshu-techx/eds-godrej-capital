@@ -1,0 +1,30 @@
+.tabs-container {
+    display: flex;
+    flex-direction: column;
+}
+.tabs-wrapper {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+}
+.tab {
+    flex: 1;
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+.tab.active {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+.tabs-content {
+    flex-grow: 1;
+}
+.tab-content {
+    display: none;
+}
+.tab-content:first-of-type {
+    display: block;
+}
