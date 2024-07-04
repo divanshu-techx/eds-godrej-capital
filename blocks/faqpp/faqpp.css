@@ -130,12 +130,29 @@
 
 
 .faq-container .faq-tabs .main-title .title {
-  font-family: Work Sans;
   font-size: 36px;
   font-weight: 500;
   line-height: 54px;
   text-align: left;
   margin-bottom: 10px;
+}
+@media(width <=599px){
+  .faq-container .faq-tabs .main-title{
+    display: none;
+  }
+
+  .faqpp .faq-container-titleMobile{
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 23.46px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+}
+@media(width >=600px){
+  .faqpp .faq-container-titleMobile{
+    display: none;
+  }
 }
 
 .faqpp .faq-container .tags-btn-container {
