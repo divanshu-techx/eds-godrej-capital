@@ -1,10 +1,10 @@
-export default function loadContentFromURL() {
+export default async function decorate() {
   document.addEventListener('DOMContentLoaded', () => {
     if (!document.querySelector('.fragmentcards')) {
       return;
     }
     // Get the anchor tag
-    const anchor = document.querySelector('.fragmentcards .button.primary');
+    const anchor = document.querySelector('.fragmentcards .button');
 
     // Get the URL from the href attribute
     const url = anchor.getAttribute('href');
