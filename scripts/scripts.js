@@ -16,7 +16,7 @@ import {
   // loadheaderMobile,
   getMetadata,
 } from './aem.js';
-
+import customtabs from '../blocks/tabsblock/tabsblock.js';
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 
 /**
@@ -137,5 +137,6 @@ async function loadPage() {
   await loadLazy(document);
   loadDelayed();
 }
+ customtabs();
 
 loadPage();
