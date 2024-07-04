@@ -1,14 +1,21 @@
-.section.pploancards-container .default-content-wrapper{
+.section.pploancards-container .default-content-wrapper {
     text-align: center;
-    font-family: 16px;
+    font-size: 16px;
     font-weight: 300;
-    color:#3b3b3b;
-    padding:0;
-    @media(width <= 600px){
-        text-align: center;
-        font-family: 10px;
+    color: #3b3b3b;
+    padding: 0;
+
+    @media(width <=900px) {
+        font-size: 12px;
         font-weight: 400;
-        color:#242424;
+        line-height: 14.08px;
+    }
+
+    @media(width <=600px) {
+        text-align: center;
+        font-size: 10px;
+        font-weight: 400;
+        color: #242424;
     }
 }
 
@@ -16,92 +23,103 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 30px;
-    justify-items: center; 
+    justify-items: center;
 }
 
 .contentandpictureparent {
     display: grid;
-    grid-template-rows: auto 1fr; 
-    justify-items: center; 
-    align-items: start; 
+    grid-template-rows: auto 1fr;
+    justify-items: center;
+    align-items: start;
     position: relative;
     border-radius: 5px;
-    overflow: hidden; 
+    overflow: hidden;
 
 
-.picturedetails {
-    position: relative;
-    width: 100%;
+    .picturedetails {
+        position: relative;
+        width: 100%;
+    }
+
+    .picturedetails picture img {
+        display: block;
+        width: 100%;
+        /* height: auto;  */
+    }
+
+    .contentdetails {
+        position: absolute;
+        color: #fff;
+        padding: 10px;
+        bottom: 10px;
+        left: 10px;
+        z-index: 1;
+    }
 }
 
-.picturedetails picture img {
-    display: block;
-    width: 100%;
-    /* height: auto;  */
-}
-
-.contentdetails {
-    position: absolute;
-    color: #fff;
-    padding: 10px;
-    bottom: 10px;
-    left: 10px;
-    z-index: 1;
-}
-}
-
-.contentdetails > div:first-child {
-    font-size: 24px; 
+.contentdetails>div:first-child {
+    font-size: 40px;
     font-weight: 600;
     margin: 0;
     text-align: start;
 }
 
-.contentdetails > div:nth-child(2) {
-    font-size: 12px; 
+.contentdetails>div:nth-child(2) {
+    font-size: 20px;
     font-weight: 500;
     margin: 0;
     text-align: start;
 }
 
-@media (max-width: 600px) {
-    .contentdetails > div:first-child {
-        font-size: 20px; 
-        font-weight: 500;
-        margin: 0;
-        text-align: start;
+@media(min-width:600px) and (max-width:900px) {
+    .contentdetails>div:first-child {
+        font-size: 32px;
+        line-height: 37.54px;
     }
 
-    .contentdetails > div:nth-child(2) {
-        font-size: 10px; 
-        font-weight: 500;
+    .contentdetails>div:nth-child(2) {
+        font-size: 12px;
+        line-height: 14.08px;
+        text-align: left;
+    }
+}
+
+@media (max-width: 600px) {
+    .contentdetails>div:first-child {
         margin: 0;
-        text-align: start;
+        font-size: 32px;
+        line-height: 37.54px;
+        text-align: left;
+    }
+
+    .contentdetails>div:nth-child(2) {
+        margin: 0;
+        font-size: 12px;
+        line-height: 14.08px;
+        text-align: left;
     }
 }
 
 /* Media query for mobile devices */
 @media (max-width: 600px) {
     .pploancards {
-        grid-template-columns: 1fr 1fr; 
+        grid-template-columns: 1fr 1fr;
         gap: 20px;
     }
-    
+
     .contentandpictureparent {
         /* margin-bottom: 20px; */
     }
 
     .contentdetails {
-        position: relative; 
+        position: relative;
         background: none;
-        padding: 0; 
-        text-align: center; 
-        bottom: auto; 
+        padding: 0;
+        text-align: center;
+        bottom: auto;
     }
 
-    .contentdetails > div {
-        font-size: 16px; 
+    .contentdetails>div {
+        font-size: 16px;
     }
 }
-
-

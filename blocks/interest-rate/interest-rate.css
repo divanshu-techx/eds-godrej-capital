@@ -283,15 +283,31 @@
   color: #ffffff;
 }
 
+/* for mobile and tablet */
+@media(max-width:900px) {
+
+
+  .interest-rate-container .interest-rate-wrapper .interest-rate .interest-card {
+    padding: 23px 20px;
+    max-width: fit-content;
+  }
+
+  .interest-rate-container .interest-rate-wrapper .interest-rate {
+    padding: 20px 20px;
+  }
+}
+
 /* for mobile */
 @media(max-width:600px) {
 
-  .interest-rate-container .interest-rate-wrapper {
+  .section.interest-rate-container,
+  .interest-rate-container .interest-rate-wrapper,
+  .interest-rate-container .interest-rate-wrapper .interest-rate .tabs-list-wrapper {
     background-color: #F4F4F4;
   }
 
-  .interest-rate-container .interest-rate-wrapper .interest-rate .tabs-list-wrapper {
-    background-color: #F4F4F4;
+  .interest-rate-container .interest-rate-wrapper .interest-rate {
+    padding: 0px 0px;
   }
 
   .interest-rate-container .interest-rate-wrapper .interest-rate .tabs-list-wrapper {
@@ -394,19 +410,7 @@
   }
 }
 
-/* for mobile and tablet */
-@media(max-width:900px) {
 
-
-  .interest-rate-container .interest-rate-wrapper .interest-rate .interest-card {
-    padding: 23px 20px;
-    max-width: fit-content;
-  }
-
-  .interest-rate-container .interest-rate-wrapper .interest-rate {
-    padding: 20px 20px;
-  }
-}
 
 /* for tablet only */
 @media(min-width:600px) and (max-width:900px) {
@@ -447,6 +451,19 @@
     font-weight: 300;
     line-height: 14.08px;
 
+  }
+
+  .interest-rate-container .default-content-wrapper h1,
+  .interest-rate-container .default-content-wrapper h4,
+  .interest-rate-container .default-content-wrapper h2,
+  .interest-rate-container .default-content-wrapper h3,
+  .interest-rate-container .default-content-wrapper h5,
+  .interest-rate-container .default-content-wrapper h6 {
+
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 28.15px;
+    text-align: center;
   }
 
 
