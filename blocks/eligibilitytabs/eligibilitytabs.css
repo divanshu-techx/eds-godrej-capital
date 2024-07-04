@@ -26,13 +26,8 @@
 	margin: 0;
 	font-size: 10px;
 	color: #696969;
-}
-
-.section.eligibilitytabs-container .default-content-wrapper {
-	background: #F0F6E4;
-	margin: 0;
-	font-size: 10px;
-	color: #696969;
+	max-width: 1200px;
+    margin: auto;
 }
 
 .section.eligibilitytabs-container .default-content-wrapper .eligibility-class {
