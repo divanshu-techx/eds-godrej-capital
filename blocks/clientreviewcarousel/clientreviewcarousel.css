@@ -103,6 +103,7 @@
   display: block;
   width: 100px;
   height: 100px;
+  z-index: -1;
   background-image: url('/icons/left-quote-icon.svg');
   background-size: cover;
   background-repeat: no-repeat;
