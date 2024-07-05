@@ -4,8 +4,10 @@
   width: 100%;
   max-width: 1200px;
   border-radius: 4px;
-  margin-bottom: 32px;
-  /* padding-inline: 0; */
+  @media(width >=901px){
+    margin-bottom: 32px;
+  }
+
 }
 
 .interest-rate-container .interest-rate-wrapper {
