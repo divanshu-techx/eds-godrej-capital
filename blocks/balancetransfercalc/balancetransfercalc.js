@@ -3,16 +3,51 @@
 function calculateEMI(principal, annualRate, tenureMonths) {
     const monthlyRate = annualRate / 12 / 100;
     return (principal * monthlyRate * Math.pow((1 + monthlyRate), tenureMonths)) /
-           (Math.pow((1 + monthlyRate), tenureMonths) - 1);
+        (Math.pow((1 + monthlyRate), tenureMonths) - 1);
+}
+
+function formatNumberToIndianCommas(number) {
+    // Convert the number to a string
+    const numStr = number.toString();
+    // Split the number into integer and decimal parts
+    const [integerPart, decimalPart] = numStr.split('.');
+
+    // Format the integer part with Indian commas
+    const lastThreeDigits = integerPart.slice(-3);
+    const otherDigits = integerPart.slice(0, -3);
+
+    const formattedNumber = otherDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + (otherDigits ? "," : "") + lastThreeDigits;
+
+    // If there's a decimal part, add it back
+    return decimalPart ? `${formattedNumber}.${decimalPart}` : formattedNumber;
+}
+
+function numberToWords(num) {
+    if (num < 1000) {
+        return num.toString();
+    }
+
+    const suffixes = [
+        [1e7, 'Crores'],
+        [1e5, 'Lakhs'],
+        [1e3, 'Thousands']
+    ];
+
+    for (let i = 0; i < suffixes.length; i++) {
+        const [divisor, suffix] = suffixes[i];
+        if (num >= divisor) {
+            return `${Math.floor(num / divisor)} ${suffix}`;
+        }
+    }
 }
 // Function to update calculations
-function updateCalculations() {
-    const principalOutstanding = parseFloat(document.getElementById('principalOutstanding').value);
-    const existingInterestRate = parseFloat(document.getElementById('existingInterestRate').value);
-    const balanceTenureYears = parseFloat(document.getElementById('balanceTenureYears').value);
-    const newInterestRate = parseFloat(document.getElementById('newInterestRate').value);
-    const newLoanTenureYears = parseFloat(document.getElementById('newLoanTenure').value);
-    const newLoanTenureMonths = parseFloat(document.getElementById('newLoanTenureMonths').value);
+function updateCalculations(block) {
+    const principalOutstanding = parseFloat(block.querySelector('#principalOutstanding').value);
+    const existingInterestRate = parseFloat(block.querySelector('#existingInterestRate').value);
+    const balanceTenureYears = parseFloat(block.querySelector('#balanceTenureYears').value);
+    const newInterestRate = parseFloat(block.querySelector('#newInterestRate').value);
+    const newLoanTenureYears = parseFloat(block.querySelector('#newLoanTenure').value);
+    const newLoanTenureMonths = parseFloat(block.querySelector('#newLoanTenureMonths').value);
     const newLoanTenureTotalMonths = (newLoanTenureYears * 12) + newLoanTenureMonths;
 
     // Calculate existing EMI per month for remaining tenure
@@ -28,17 +63,17 @@ function updateCalculations() {
     const totalSavingMonths = savingsInEMIMonthly * newLoanTenureTotalMonths;
 
     // Update the display values
-    document.getElementById('principalOutstandingDisplay').textContent = `₹ ${principalOutstanding.toLocaleString()}`;
-    document.getElementById('balanceTenureYearsDisplay').textContent = `${balanceTenureYears}`;
-    document.getElementById('existingInterestRateDisplay').textContent = `${existingInterestRate.toFixed(2)}`;
-    document.getElementById('newInterestRateDisplay').textContent = `${newInterestRate.toFixed(2)}`;
-    document.getElementById('newLoanTenureDisplay').textContent = `${newLoanTenureYears}`;
-    document.getElementById('newLoanTenureMonthsDisplay').textContent = `${newLoanTenureMonths}`;
+    block.querySelector('#principalOutstandingDisplay').textContent = `₹ ${principalOutstanding.toLocaleString('en-IN')}`;
+    block.querySelector('#balanceTenureYearsDisplay').textContent = `${balanceTenureYears}`;
+    block.querySelector('#existingInterestRateDisplay').textContent = `${existingInterestRate.toFixed(2)}`;
+    block.querySelector('#newInterestRateDisplay').textContent = `${newInterestRate.toFixed(2)}`;
+    block.querySelector('#newLoanTenureDisplay').textContent = `${newLoanTenureYears}`;
+    block.querySelector('#newLoanTenureMonthsDisplay').textContent = `${newLoanTenureMonths}`;
 
-    document.getElementById('totalSaving').textContent = `₹ ${totalSavingMonths.toLocaleString()}`;
-    document.getElementById('savingsInEMI').textContent = `₹ ${savingsInEMIMonthly.toLocaleString()}`;
-    document.getElementById('existingEMI').textContent = `₹ ${existingEMIMonthly.toLocaleString()}`;
-    document.getElementById('proposedEMI').textContent = `₹ ${proposedEMIMonthly.toLocaleString()}`;
+    block.querySelector('#totalSaving').textContent = `₹ ${totalSavingMonths.toLocaleString('en-IN')}`;
+    block.querySelector('#savingsInEMI').textContent = `₹ ${savingsInEMIMonthly.toLocaleString('en-IN')}`;
+    block.querySelector('#existingEMI').textContent = `₹ ${existingEMIMonthly.toLocaleString('en-IN')}`;
+    block.querySelector('#proposedEMI').textContent = `₹ ${proposedEMIMonthly.toLocaleString('en-IN')}`;
 }
 function getDataAttributeValueByName(name) {
     const element = document.querySelector(`[data-${name}]`);
@@ -51,14 +86,14 @@ function allowOnlyNumericAndDecimal(input) {
         if (nonNumericPattern.test(this.value)) {
             this.value = this.value.replace(nonNumericPattern, '');
         }
-        
+
         const parts = this.value.split('.');
         if (parts.length > 2) {
             this.value = parts[0] + '.' + parts.slice(1).join('');
         }
     });
 }
-function getCalcAttribute(){
+function getCalcAttribute() {
     const calculatorAttributes = {
         principalOutstanding: {
             label: getDataAttributeValueByName('principal-outstanding-label'),
@@ -102,12 +137,12 @@ function getCalcAttribute(){
         percentSymbol: getDataAttributeValueByName('percent-symbol'),
         monthSymbol: getDataAttributeValueByName('month-symbol'),
         yearSymbol: getDataAttributeValueByName('year-symbol'),
-        redirectionPath : getDataAttributeValueByName('redirection-balance-path')
+        redirectionPath: getDataAttributeValueByName('redirection-balance-path')
     };
-return calculatorAttributes;    
+    return calculatorAttributes;
 }
 function getHTML(calculatorAttributes) {
-        const htmlCode = `
+    const htmlCode = `
         <div class="calculator-container-balance-tansfer">
             <div class="inputsBoxBalance">
                 <div class="inputBalance">
@@ -115,13 +150,13 @@ function getHTML(calculatorAttributes) {
                         <label for="principalOutstanding">${calculatorAttributes.principalOutstanding.label}</label>
                         <div class="balanceSpanInput">
                             <span id="balanceprincipalLabel">${calculatorAttributes.rupeeSymbols.english}</span>
-                            <input type="text" id="principalOutstandingDisplay" value="${calculatorAttributes.principalOutstanding.min}">
+                            <input type="text" id="principalOutstandingDisplay" value="${calculatorAttributes.principalOutstanding.min}"/>
                         </div>
                     </div>
                     <input type="range" id="principalOutstanding" min="${calculatorAttributes.principalOutstanding.min}" max="${calculatorAttributes.principalOutstanding.max}" value="${calculatorAttributes.principalOutstanding.min}">
                     <div class="balance-bottom">
-                        <span>${calculatorAttributes.principalOutstanding.min}</span>
-                        <span>${calculatorAttributes.principalOutstanding.max}</span>
+                        <span>${numberToWords(calculatorAttributes.principalOutstanding.min)}</span>
+                        <span>${numberToWords(calculatorAttributes.principalOutstanding.max)}</span>
                     </div>
                     <span id="principalOutstandingError" class="error-span"></span>
                 </div>
@@ -136,8 +171,8 @@ function getHTML(calculatorAttributes) {
                     </div>
                     <input type="range" id="balanceTenureYears" min="${calculatorAttributes.balanceTenureYear.min}" max="${calculatorAttributes.balanceTenureYear.max}" value="${calculatorAttributes.balanceTenureYear.min}">
                     <div class="balance-bottom">
-                        <span>${calculatorAttributes.balanceTenureYear.min}</span>
-                        <span>${calculatorAttributes.balanceTenureYear.max}</span>
+                        <span>${calculatorAttributes.balanceTenureYear.min}Year</span>
+                        <span>${calculatorAttributes.balanceTenureYear.max}Years</span>
                     </div>
                     <span id="balanceTenureYearsError" class="error-span"></span>
                 </div>
@@ -152,8 +187,8 @@ function getHTML(calculatorAttributes) {
                     </div>
                     <input type="range" id="existingInterestRate" min="${calculatorAttributes.existingInterest.min}" max="${calculatorAttributes.existingInterest.max}" value="${calculatorAttributes.existingInterest.min}" step="0.1">
                     <div class="balance-bottom">
-                        <span>${calculatorAttributes.existingInterest.min}</span>
-                        <span>${calculatorAttributes.existingInterest.max}</span>
+                        <span>${calculatorAttributes.existingInterest.min}${calculatorAttributes.percentSymbol}</span>
+                        <span>${calculatorAttributes.existingInterest.max}${calculatorAttributes.percentSymbol}</span>
                     </div>
                     <span id="existingInterestRateError" class="error-span"></span>
                 </div>
@@ -168,8 +203,8 @@ function getHTML(calculatorAttributes) {
                     </div>
                     <input type="range" id="newInterestRate" min="${calculatorAttributes.proposedInterestRate.min}" max="${calculatorAttributes.proposedInterestRate.max}" value="${calculatorAttributes.proposedInterestRate.min}">
                     <div class="balance-bottom">
-                        <span>${calculatorAttributes.proposedInterestRate.min}</span>
-                        <span>${calculatorAttributes.proposedInterestRate.max}</span>
+                        <span>${calculatorAttributes.proposedInterestRate.min}${calculatorAttributes.percentSymbol}</span>
+                        <span>${calculatorAttributes.proposedInterestRate.max}${calculatorAttributes.percentSymbol}</span>
                     </div>
                     <span id="newInterestRateError" class="error-span"></span>
                 </div>
@@ -184,8 +219,8 @@ function getHTML(calculatorAttributes) {
                     </div>
                     <input type="range" id="newLoanTenure" min="${calculatorAttributes.proposedLoanTenureYear.min}" max="${calculatorAttributes.proposedLoanTenureYear.max}" value="${calculatorAttributes.proposedLoanTenureYear.min}">
                     <div class="balance-bottom">
-                        <span>${calculatorAttributes.proposedLoanTenureYear.min}</span>
-                        <span>${calculatorAttributes.proposedLoanTenureYear.max}</span>
+                        <span>${calculatorAttributes.proposedLoanTenureYear.min}Year</span>
+                        <span>${calculatorAttributes.proposedLoanTenureYear.max}Years</span>
                     </div>
                     <span id="newLoanTenureError" class="error-span"></span>
                 </div>
@@ -201,7 +236,7 @@ function getHTML(calculatorAttributes) {
                     <input type="range" id="newLoanTenureMonths" min="${calculatorAttributes.proposedLoanTenureMonth.min}" max="${calculatorAttributes.proposedLoanTenureMonth.max}" value="${calculatorAttributes.proposedLoanTenureMonth.min}">
                     <div class="balance-bottom">
                         <span>${calculatorAttributes.proposedLoanTenureMonth.min}</span>
-                        <span>${calculatorAttributes.proposedLoanTenureMonth.max}</span>
+                        <span>${calculatorAttributes.proposedLoanTenureMonth.max}Months</span>
                     </div>
                     <span id="newLoanTenureMonthsError" class="error-span"></span>
                 </div>
@@ -220,19 +255,12 @@ function getHTML(calculatorAttributes) {
             </div>
         </div>
         `;
-    
-        return htmlCode;
-    }
 
-// Wrap your main functionality in the decorate function
-export default async function decorate(block) {
-    
-    const calculatorAttributes = getCalcAttribute();
-    const htmlCode = getHTML(calculatorAttributes);
-    block.innerHTML += htmlCode;
+    return htmlCode;
+}
 
-    // Function to update the range input colors
-    function updateRangeColors() {
+// Function to update the range input colors
+function updateRangeColors(block) {
         const rangeInputs = block.querySelectorAll('input[type=range]');
         rangeInputs.forEach(input => {
             const min = parseFloat(input.min);
@@ -244,87 +272,109 @@ export default async function decorate(block) {
         });
     }
 
-    // Attach event listeners to update calculations on input change
-    const sliders = block.querySelectorAll('input[type=range]');
+
+// Wrap your main functionality in the decorate function
+export default async function decorate(block) {
+
+    const calculatorAttributes = getCalcAttribute();
+    const htmlCode = getHTML(calculatorAttributes);
+    block.innerHTML += htmlCode;
+    
+    // Event listeners for range inputs (excluding principalOutstanding)
+    const sliders = block.querySelectorAll('input[type=range]:not(#principalOutstanding)');
     sliders.forEach(slider => {
-        slider.addEventListener('input', function () {
-            const displayId = slider.id + 'Display';
-            const displayInput = document.getElementById(displayId);
-            const errorSpanId = slider.id + 'Error';
-            const errorSpan = document.getElementById(errorSpanId);
+    slider.addEventListener('input', function () {
+        const displayId = slider.id + 'Display';
+        const displayInput = block.querySelector(`#${displayId}`);
+        const errorSpanId = slider.id + 'Error';
+        const errorSpan = block.querySelector(`#${errorSpanId}`);
 
+        const min = parseFloat(slider.min);
+        const max = parseFloat(slider.max);
 
-            const min = parseFloat(slider.min);
-            const max = parseFloat(slider.max);
-
-            const value = parseFloat(slider.value);
-            if (!isNaN(value) && value >= min && value <= max) {
-                updateCalculations();
-                updateRangeColors();
-                displayInput.value = slider.value;
-                errorSpan.textContent = '';
-            } else {
-                errorSpan.textContent = `Enter a value between ${min} and ${max}`;
-            }
-        });
+        const value = parseFloat(slider.value);
+        if (!isNaN(value) && value >= min && value <= max) {
+            updateCalculations(block);
+            updateRangeColors(block); // Uncomment if needed
+            displayInput.value = slider.value;
+            errorSpan.textContent = '';
+        } else {
+            errorSpan.textContent = `Enter a value between ${min} and ${max}`;
+        }
     });
 
-    // Attach event listeners to update calculations on text input change
-    const textInputs = block.querySelectorAll('input[type=text]');
-    textInputs.forEach(input => {
-        // allowOnlyNumericAndDecimal(input);
+    // slider.addEventListener('input', function () {
+    //     updateRangeColors();
+    // });
+});
+
+// Event listeners for text inputs (including principalOutstandingDisplay)
+const textInputs = block.querySelectorAll('input[type=text]');
+textInputs.forEach(input => {
+    if (!input.id.includes('principalOutstandingDisplay')) {
         input.addEventListener('blur', function () {
             const rangeId = input.id.replace('Display', '');
-            const rangeInput = document.getElementById(rangeId);
+            const rangeInput = block.querySelector(`#${rangeId}`);
             const errorSpanId = rangeId + 'Error';
-            const errorSpan = document.getElementById(errorSpanId);
+            const errorSpan = block.querySelector(`#${errorSpanId}`);
 
-            // Get min and max values of the range input
             const min = parseFloat(rangeInput.min);
             const max = parseFloat(rangeInput.max);
 
-            // Validate input range and update if valid
             const value = parseFloat(input.value);
             if (!isNaN(value) && value >= min && value <= max) {
                 rangeInput.value = input.value;
-                updateCalculations();
-                updateRangeColors();
+                updateCalculations(block);
+                updateRangeColors(block);
                 errorSpan.textContent = '';
             } else {
                 errorSpan.textContent = `Enter a value between ${min} and ${max}`;
             }
         });
-        // Add logic for newLoanTenureMonths
-        // Special case for newLoanTenureMonthsDisplay
-const newLoanTenureMonthsInput = document.getElementById('newLoanTenureMonths');
-const newLoanTenureMonthsDisplay = document.getElementById('newLoanTenureMonthsDisplay');
-newLoanTenureMonthsDisplay.addEventListener('blur', function () {
-    const errorSpanId = 'newLoanTenureMonthsError';
-    const errorSpan = document.getElementById(errorSpanId);
-
-    const min = parseFloat(newLoanTenureMonthsInput.min);
-    const max = parseFloat(newLoanTenureMonthsInput.max);
-    const value = parseFloat(newLoanTenureMonthsDisplay.value);
-
-    if (!isNaN(value) && value >= min && value <= max) {
-        newLoanTenureMonthsInput.value = value;
-        updateCalculations();
-        updateRangeColors(); // Pass block to updateRangeColors
-        errorSpan.textContent = '';
-    } else {
-        errorSpan.textContent = `Enter a value between ${min} and ${max}`;
     }
 });
 
-    });
+// Event listener for principalOutstandingDisplay input
+const principalOutstandingDisplay = block.querySelector('#principalOutstandingDisplay');
+const principalOutstanding = block.querySelector('#principalOutstanding');
+const principalOutstandingError = block.querySelector('#principalOutstandingError');
 
-    const applyNowButton=block.querySelector('#balnance-apply-now');
-    applyNowButton.addEventListener('click',()=>{
-        window.location.href=calculatorAttributes.redirectionPath;
+// Event listener for principalOutstandingDisplay input blur event
+principalOutstandingDisplay.addEventListener('blur', function () {
+    const min = parseFloat(principalOutstanding.min);
+    const max = parseFloat(principalOutstanding.max);
+
+    const rawValue = principalOutstandingDisplay.value.replace(/,/g, ''); // Remove existing commas
+    const value = parseFloat(rawValue);
+
+    if (!isNaN(value) && value >= min && value <= max) {
+        principalOutstanding.value = value;
+        updateCalculations(block);
+        principalOutstandingDisplay.value = formatNumberToIndianCommas(rawValue);
+        principalOutstandingError.textContent = '';
+        updateRangeColors(block);
+    } else {
+        principalOutstandingError.textContent = `Enter a value between ${min} and ${max}`;
+    }
+});
+
+// Event listener for principalOutstanding range input change event
+principalOutstanding.addEventListener('input', function () {
+    const rawValue = principalOutstanding.value;
+    principalOutstandingDisplay.value = formatNumberToIndianCommas(rawValue); 
+    updateCalculations(block);
+    updateRangeColors(block);
+});
+
+
+
+    const applyNowButton = block.querySelector('#balnance-apply-now');
+    applyNowButton.addEventListener('click', () => {
+        window.location.href = calculatorAttributes.redirectionPath;
     })
 
-    updateCalculations();
-    updateRangeColors();
+    updateCalculations(block);
+    updateRangeColors(block);
 }
 
 
