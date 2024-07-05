@@ -237,7 +237,7 @@ export default async function decorate(block) {
         const a = document.createElement('a');
         a.textContent = key;
         a.className = 'anchorPath';
-        a.addEventListener('click', (event) => {
+        a.addEventListener('mouseover', (event) => {
           event.preventDefault();
           const allListItems = mainUl.querySelectorAll('li');
           allListItems.forEach((item) => item.classList.remove('active'));
@@ -277,7 +277,7 @@ export default async function decorate(block) {
         if (index === 0) anchor.classList.add('anchor_active');
         anchor.setAttribute('data-path', item.path);
 
-        anchor.addEventListener('click', (event) => {
+        anchor.addEventListener('mouseover', (event) => {
         event.preventDefault();
         const allAnchors = nestedUl.querySelectorAll('a.anchorPath');
         allAnchors.forEach((anchorItem) => anchorItem.classList.remove('anchor_active'));
@@ -324,7 +324,7 @@ export default async function decorate(block) {
                 li.appendChild(anchor);
                 mainUl.appendChild(li);
 
-                anchor.addEventListener('click', (event) => {
+                anchor.addEventListener('mouseover', (event) => {
                     event.preventDefault();
                     const allAnchors = mainUl.querySelectorAll('a.anchorPath');
                     allAnchors.forEach((anchorItem) => anchorItem.classList.remove('anchor_active'));
