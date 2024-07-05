@@ -596,9 +596,7 @@
   }
 }
 
-.hero-carousel-secondary .carousel-slide-content p:nth-child(5) {
-  display: none;
-}
+
 
 .hero-carousel-secondary .carousel-slide-content p:nth-child(n) {
   @media(width <=600px) {
