@@ -1,0 +1,47 @@
+.calculatordetails.block > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Adds spacing between the cards */
+  }
+  
+  .calculatordetails.block .firstdata,
+  .calculatordetails.block .seconddata {
+    flex: 1 1 45%; /* Flex-grow, flex-shrink, flex-basis */
+    box-sizing: border-box;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .calculatordetails.block p {
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .calculatordetails.block ul {
+    padding-left: 20px;
+    list-style-type: disc;
+    list-style-position: inside;
+  }
+  
+  .calculatordetails.block li {
+    margin-bottom: 10px;
+    color: black; /* Keep the text color black */
+  }
+  
+  .calculatordetails.block li::marker {
+    color: green; /* Ensures the list item markers (dots) are green */
+  }
+  
+  @media (max-width: 768px) {
+    .calculatordetails.block > div {
+      display: block; /* Switches to block display on smaller screens */
+    }
+  
+    .calculatordetails.block .firstdata,
+    .calculatordetails.block .seconddata {
+      flex: 1 1 100%; /* Take full width on smaller screens */
+      border: none; /* Removes the border on smaller screens */
+      padding: 0; /* Removes the padding on smaller screens */
+    }
+  }
+  
