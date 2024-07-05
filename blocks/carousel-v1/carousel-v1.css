@@ -810,4 +810,18 @@
     width: 50%;
   }
 }
+
+@media (min-width:991px) {
+  .carousel-slide-content.straight.carousel-slide-v1-content p:nth-child(2) {
+    width: 100%;
+    max-width: 100%;
+  }
+  .carousel-slide-content.description-alignment.carousel-slide-v1-content ul {
+    display: grid;
+    width: 100%;
+    column-gap: 55px;
+    max-width: max-content;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
  
