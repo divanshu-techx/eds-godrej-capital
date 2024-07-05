@@ -23,15 +23,15 @@ display: flex;
 }
 
 .recommendedblogs-container .blogs-container .blog-card{
-    /* flex: 0 0 auto;  */
     min-width: 250px;
     margin-right: 20px; 
     white-space: normal;
+    transition: width 0.3s ease, height 0.3s ease, border-radius 0.3s ease;
 }
 
 .recommendedblogs-container .blogs-container .blog-card img{
     border-radius: 4px!important;
-    height: 207px;
+    max-height: 207px;
     @media(width <= 600px){
         border-radius: 8px;
     }
