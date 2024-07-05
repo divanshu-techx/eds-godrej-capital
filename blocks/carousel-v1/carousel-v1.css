@@ -596,9 +596,11 @@
   }
 }
 
-.hero-carousel-secondary .carousel-slide-content p:nth-child(5) {
+.carousel-slide-content p:nth-child(6) {
   display: none;
 }
+
+
 
 .hero-carousel-secondary .carousel-slide-content p:nth-child(1) {
   font-size: 36px;
