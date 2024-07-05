@@ -804,3 +804,10 @@
   top: calc(50% - 4px);
   left: -12px;
 }
+
+@media(min-width:991px) {
+  .hero-carousel-secondary .carousel-slide-content p:nth-child(n) {
+    width: 50%;
+  }
+}
+ 
