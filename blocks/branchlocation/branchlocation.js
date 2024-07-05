@@ -157,7 +157,7 @@ function renderFilters(locations, filterContainer) {
         div({ class: 'city-container' }, label({ for: 'citySelect' }, 'Select City:'),
           citySelect,),
         div({ class: 'pincode-container' }, label({ for: 'pincodeInput' }, 'Select Pincode:'),
-          pincodeInput,),
+          div({ class: 'input-img-container' }, img({ class: '-icon', src: btnMapIcon }), pincodeInput)),
 
 
 
