@@ -80,6 +80,12 @@ export default async function decorate(block) {
   const swiper = new Swiper('.clientreviewcarousel', {
     slidesPerView: 1,
     spaceBetween: 10,
+    // loop: true,
+    // centeredSlides: true,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: true
+    },
     pagination: {
       el: '.swiper-pagination',
       type: "custom",
@@ -88,13 +94,13 @@ export default async function decorate(block) {
       }
     },
     navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
+      nextEl: '.swiper-button-prev',
+      prevEl: '.swiper-button-next',
     },
     breakpoints: {
       768: {
-        slidesPerView: 2.5,
-        spaceBetween: 120, // for desktop
+        slidesPerView: 2.2,
+        spaceBetween: 10, 
       }
     }
   })

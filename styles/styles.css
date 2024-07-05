@@ -6,6 +6,7 @@ body footer {
   width: 100%;
 } */
 
+
 :root {
 --slide-content-width: 35%;
   --background-color: #FFFFFF;
@@ -94,6 +95,20 @@ body footer {
   --dark-color: #ccc;
   --text-color: #000000;
   --pure-white:#ffffff;
+
+/* width carousel  */
+
+--swiper-image-ratio: 33.3%; /* ratio 16:9 = 56.25% */
+
+--swiper-width-next: 53.57%;
+--swiper-width-other: 35.04%;
+--swiper-inactive-scale: 0.85; /* makes the other slide smaller */
+
+/* responsive settings */
+--swiper-mobile-width: 90%;
+--swiper-mobile-inactive-scale: 0.95;
+
+
 }
 
 
