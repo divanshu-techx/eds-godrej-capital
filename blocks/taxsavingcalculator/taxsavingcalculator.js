@@ -311,9 +311,9 @@ function updateDisplay() {
     // Calculate taxes
     const { taxBefore, taxAfter, taxBenefits } = calculateTax(income, principal, interest);
 
-    document.getElementById('taxBefore').textContent = `₹ ${taxBefore.toLocaleString()}`;
-    document.getElementById('taxAfter').textContent = `₹ ${taxAfter.toLocaleString()}`;
-    document.getElementById('taxBenefits').textContent = `₹ ${taxBenefits.toLocaleString()}`;
+    document.getElementById('taxBefore').textContent = `₹ ${taxBefore.toLocaleString('en-IN')}`;
+    document.getElementById('taxAfter').textContent = `₹ ${taxAfter.toLocaleString('en-IN')}`;
+    document.getElementById('taxBenefits').textContent = `₹ ${taxBenefits.toLocaleString('en-IN')}`;
 }
 
 function setupApplyNowButton() {
