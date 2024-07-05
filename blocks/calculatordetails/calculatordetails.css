@@ -13,7 +13,9 @@
   }
   
   .calculatordetails.block p {
-    text-align: center;
+    margin-left: 20px; /* Adds margin to the left for alignment */
+  margin-top: 0; 
+    text-align: left;
     font-weight: bold;
   }
   
