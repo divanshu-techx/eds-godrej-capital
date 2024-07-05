@@ -814,7 +814,7 @@
     width: 100%;
     max-width: 100%;
   }
-  .carousel-slide-content.description-alignment.carousel-slide-v1-content ul {
+  .carousel-slide-content.by-row-wise.carousel-slide-v1-content ul {
     display: grid;
     width: 100%;
     column-gap: 55px;
