@@ -822,4 +822,8 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+.carousel-slide-content .button-container button.primary-button:first-of-type {
+  background: #3CB8FF;
+}
  
