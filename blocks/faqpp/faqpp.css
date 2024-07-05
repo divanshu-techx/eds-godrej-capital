@@ -81,7 +81,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    max-width: 424px;
+    /* max-width: 424px; */
   }
 
   .tag-button {
@@ -214,6 +214,7 @@
   background-color: #FFFFFF;
   padding: 10px;
   border-radius: 4px;
+  max-width: fit-content;
   text-transform: capitalize;
 }
 
@@ -365,7 +366,7 @@
     background-color: #F4F4F4;
     padding: 10px 10px;
     font-size: 12px;
-    padding: 14px 10px;
+
     line-height: 28px;
     color: #242424;
   }
