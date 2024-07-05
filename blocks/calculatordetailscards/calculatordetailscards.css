@@ -1,0 +1,50 @@
+/* Main container for the cards */
+.calculatordetailscards {
+    display: flex;
+  justify-content: space-between;
+  }
+  
+  /* Each card */
+  .calculatordetailscards .contentpicparent {
+    flex: 1 1 calc(50% - 2rem); /* Two cards per row */
+    margin: 1rem; /* Adjust the spacing as needed */
+    box-sizing: border-box;
+  }
+  
+  /* Center-align text inside the cards */
+  .calculatordetailscards .contentdata {
+    text-align: center;
+  }
+  
+  /* Ensure images don't overflow their containers */
+  .calculatordetailscards .imagedata img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Responsive visibility for mobile */
+  @media screen and (max-width: 768px) {
+    .responsive-visibility {
+      display: block !important;
+    }
+  
+    /* Adjust layout for smaller screens */
+    .calculatordetailscards .contentpicparent {
+      flex: 1 1 calc(100% - 2rem); /* One card per row */
+    }
+  }
+  
+  @media screen and (min-width: 769px) and (max-width: 1024px) {
+    /* Adjust layout for tablets */
+    .calculatordetailscards .contentpicparent {
+      flex: 1 1 calc(50% - 2rem); /* Two cards per row */
+    }
+  }
+  
+  @media screen and (min-width: 1025px) {
+    /* Adjust layout for larger screens */
+    .calculatordetailscards .contentpicparent {
+      flex: 1 1 calc(33.333% - 2rem); /* Three cards per row */
+    }
+  }
+  
