@@ -1,5 +1,5 @@
 export default async function decorate() {
-  document.addEventListener('DOMContentLoaded', () => {
+
     if (!document.querySelector('.fragmentcards')) {
       return;
     }
@@ -48,5 +48,5 @@ export default async function decorate() {
       .catch((error) => {
         console.error('Error fetching the HTML:', error);
       });
-  });
+
 }
