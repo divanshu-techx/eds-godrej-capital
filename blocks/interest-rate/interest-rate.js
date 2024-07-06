@@ -1,3 +1,5 @@
+import { initializeCustomSelect } from '../utils/drop-down.js';
+
 function getDataAttributeValueByName(name) {
   const element = document.querySelector(`[data-${name}]`);
   return element ? element.getAttribute(`data-${name}`) : null;
@@ -373,6 +375,8 @@ async function decorate() {
   });
 
   handleViewportChange(tablist, tabsListDropdown); // Initial setup
+
+  // initializeCustomSelect(".tabs-dropdown");
 }
 
 export default decorate;
