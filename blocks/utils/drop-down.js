@@ -1,5 +1,5 @@
 // Function to initialize custom select dropdowns
-function initializeCustomSelect(selector) {
+export function initializeCustomSelect(selector) {
   var elements = document.querySelectorAll(selector);
   elements.forEach(function (el) {
     var selElmnt = el;
