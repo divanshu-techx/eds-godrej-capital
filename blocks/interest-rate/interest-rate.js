@@ -283,7 +283,6 @@ async function decorate() {
   const mergeWrapper = document.createElement('div');
   const documentsWrapper = document.createElement('div');
   documentsWrapper.className = 'documents-wrapper';
-
   const tabListLabel = document.createElement('label');
   tabListLabel.textContent = 'Select Documents:';
   tabListLabel.className = 'tabs-list-label';
