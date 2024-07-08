@@ -302,7 +302,6 @@ async function decorate() {
   if (!data) {
     return;
   }
-
   const tabNames = Array.from(new Set(data.map((item) => item.DocumentType)));
   const dropdownOptions = Array.from(new Set(data.map((item) => item.ProfessionType)));
 
