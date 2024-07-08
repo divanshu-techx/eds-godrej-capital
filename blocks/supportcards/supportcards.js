@@ -104,7 +104,6 @@ export default async function decorate(block) {
 
   Array.from(accordionWrappers).forEach((wrapper) => {
     const accordions = wrapper.querySelectorAll('.accordion-support > div');
-   console.log(accordions)
     accordions.forEach((accordion) => {
       const header = accordion.children[0];
       const content = accordion.children[1];
@@ -113,11 +112,19 @@ export default async function decorate(block) {
       content.classList.add('accordion-content');
 
       header.addEventListener('click', () => {
-        header.classList.toggle('active-show');
-        content.classList.toggle('active-show');
+        const isActive = header.classList.contains('active-show');
+        accordions.forEach((acc) => {
+          acc.children[0].classList.remove('active-show');
+          acc.children[1].classList.remove('active-show');
+        });
+       if (!isActive) {
+         header.classList.add('active-show');
+         content.classList.add('active-show');
+       }
       });
     });
   });
+
 }
 
 // change screen ui accordingly desktop and mobile view
