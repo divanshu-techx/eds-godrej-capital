@@ -1,12 +1,12 @@
-.tabs-container {
+.custom-tabs-container {
     display: flex;
     flex-direction: column;
 }
-.tabs-wrapper {
+.custom-tabs-wrapper {
     display: flex;
     border-bottom: 1px solid #ccc;
 }
-.tab {
+.custom-tab {
     flex: 1;
     padding: 10px;
     cursor: pointer;
@@ -15,16 +15,16 @@
     text-align: center;
     transition: background-color 0.3s ease;
 }
-.tab.active {
+.custom-tab.active {
     background-color: #f0f0f0;
     font-weight: bold;
 }
-.tabs-content {
+.custom-tabs-content {
     flex-grow: 1;
 }
-.tab-content {
+.custom-tab-content {
     display: none;
 }
-.tab-content:first-of-type {
+.custom-tab-content:first-of-type {
     display: block;
 }
