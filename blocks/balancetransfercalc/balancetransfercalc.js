@@ -244,10 +244,37 @@ function getHTML(calculatorAttributes) {
     
             <div class="outputs">
                 <div class="balance-output">
-                    <p>${calculatorAttributes.totalSavingCashOutflowOutput}<span id="totalSaving">${calculatorAttributes.rupeeSymbols.hindi}0</span></p>
-                    <p>${calculatorAttributes.savingsInEmiOutput} <span id="savingsInEMI">${calculatorAttributes.rupeeSymbols.hindi}0</span></p>
-                    <p>${calculatorAttributes.existingEmiOutput} <span id="existingEMI">${calculatorAttributes.rupeeSymbols.hindi}0</span></p>
-                    <p>${calculatorAttributes.proposedEmiOutput} <span id="proposedEMI">${calculatorAttributes.rupeeSymbols.hindi}0</span></p>
+                <div class="balance-output-taxoutflow">
+                    <p>${calculatorAttributes.totalSavingCashOutflowOutput}</p>
+                    <h2 id="totalSaving">${calculatorAttributes.rupeeSymbols.hindi}0</h2>
+                </div> 
+                <div class="balance-output-bottom-result">  
+                <div class="balance-output-list">
+                    <div class="balance-output-span-list">
+                    <span class="savingEmiSpan"></span>
+                    <p>${calculatorAttributes.savingsInEmiOutput}</p> 
+                    </div>
+                    <h3 id="savingsInEMI">${calculatorAttributes.rupeeSymbols.hindi}0</h3>
+                </div>
+                
+                <div class="balance-output-list">
+                <div class="balance-output-span-list">
+                <span class="EMISpan"></span>
+                <p>${calculatorAttributes.existingEmiOutput}</p>
+                </div>
+                 <h3 id="existingEMI">${calculatorAttributes.rupeeSymbols.hindi}0</h3>
+                </div>
+                
+                <div class="balance-output-list">
+                <div class="balance-output-span-list">
+                <span class="EMISpan"></span>
+                <p>${calculatorAttributes.proposedEmiOutput}</p>
+                </div>
+                 <h3 id="proposedEMI">${calculatorAttributes.rupeeSymbols.hindi}0</h3>
+                </div>
+
+
+                </div>    
                 </div>
                 <div class="balance-output-apply">
                     <button id="balnance-apply-now">${calculatorAttributes.applyNowLabel}</button>
@@ -258,7 +285,6 @@ function getHTML(calculatorAttributes) {
 
     return htmlCode;
 }
-
 // Function to update the range input colors
 function updateRangeColors(block) {
         const rangeInputs = block.querySelectorAll('input[type=range]');
@@ -283,7 +309,7 @@ export default async function decorate(block) {
     // Event listeners for range inputs (excluding principalOutstanding)
     const sliders = block.querySelectorAll('input[type=range]:not(#principalOutstanding)');
     sliders.forEach(slider => {
-    slider.addEventListener('input', function () {
+    slider.addEventListener('change', function () {
         const displayId = slider.id + 'Display';
         const displayInput = block.querySelector(`#${displayId}`);
         const errorSpanId = slider.id + 'Error';
@@ -295,7 +321,7 @@ export default async function decorate(block) {
         const value = parseFloat(slider.value);
         if (!isNaN(value) && value >= min && value <= max) {
             updateCalculations(block);
-            updateRangeColors(block); // Uncomment if needed
+            // updateRangeColors(block); // Uncomment if needed
             displayInput.value = slider.value;
             errorSpan.textContent = '';
         } else {
@@ -303,9 +329,9 @@ export default async function decorate(block) {
         }
     });
 
-    // slider.addEventListener('input', function () {
-    //     updateRangeColors();
-    // });
+    slider.addEventListener('input', function () {
+        updateRangeColors(block);
+    });
 });
 
 // Event listeners for text inputs (including principalOutstandingDisplay)
@@ -359,12 +385,15 @@ principalOutstandingDisplay.addEventListener('blur', function () {
 });
 
 // Event listener for principalOutstanding range input change event
-principalOutstanding.addEventListener('input', function () {
+principalOutstanding.addEventListener('change', function () {
     const rawValue = principalOutstanding.value;
     principalOutstandingDisplay.value = formatNumberToIndianCommas(rawValue); 
     updateCalculations(block);
-    updateRangeColors(block);
+    // updateRangeColors(block);
 });
+principalOutstanding.addEventListener('input',()=>{
+    updateRangeColors(block);
+})
 
 
 
