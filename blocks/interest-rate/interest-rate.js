@@ -297,7 +297,6 @@ async function decorate() {
   tabpanel.id = 'tabpanel-tab';
   tabpanel.setAttribute('aria-labelledby', 'tab-1');
   tabpanel.setAttribute('role', 'tabpanel');
-
   let data = [];
   data = await fetchData(dataUrl);
   if (!data) {
