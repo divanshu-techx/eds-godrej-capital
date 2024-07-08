@@ -62,11 +62,6 @@ export default async function decorate(block) {
     tablist.prepend(tabDiv);
   block.prepend(tablist);
   
-const blockDiv = document.createElement('div');
-le('class');
-console.log(blockClass);
-let blockList  = document.querySelectorAll(block);
-// console.log(blockList)
 
 }
 function getDataAttributeValueByName(name) {
