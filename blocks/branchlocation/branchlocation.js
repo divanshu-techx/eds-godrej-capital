@@ -142,26 +142,23 @@ function debounce(func, wait) {
  *
  * @param {Array} locations - Array of location objects.
  */
-function renderFilters(locations, filterContainer) {
+function renderFilters(locations, filterContainer,attributeObj) {
+  console.log(attributeObj.pincodelabel);
   // Create filter dropdown
 
   filterContainer.appendChild(
     div(
       { class: 'filters' },
-      div({ class: 'heading-container' }, h2({ class: 'heading' }, 'Find the nearest Godrej Capital branch')),
+      div({ class: 'heading-container' }, h2({ class: 'heading' }, attributeObj.findthenearestlabel)),
       div({
         class: 'inputs-container'
       },
-        div({ class: 'state-container' }, label({ for: 'stateSelect' }, 'Select State:'),
+        div({ class: 'state-container' }, label({ for: 'stateSelect' }, attributeObj.selectstatelabel),
           stateSelect,),
-        div({ class: 'city-container' }, label({ for: 'citySelect' }, 'Select City:'),
+        div({ class: 'city-container' }, label({ for: 'citySelect' }, attributeObj.selectcitylabel),
           citySelect,),
-        div({ class: 'pincode-container' }, label({ for: 'pincodeInput' }, 'Select Pincode:'),
+        div({ class: 'pincode-container' }, label({ for: 'pincodeInput' }, attributeObj.pincodelabel),
           div({ class: 'input-img-container' }, img({ class: '-icon', src: btnMapIcon }), pincodeInput)),
-
-
-
-
 
       )
 
@@ -193,6 +190,12 @@ function renderFilters(locations, filterContainer) {
  * @param {Array} entries - All location entries.
  */
 function initialize(entries, block) {
+  const container = block.closest(".branchlocation-container");
+
+  const attributeObj = getDataAttributes(container);
+
+  console.log(attributeObj);
+  
   const mapContainer = div({ class: "google-map" },
     div({ id: 'map-canvas', style: 'height: 400px;' })
   )
@@ -201,7 +204,7 @@ function initialize(entries, block) {
   block.append(filterContainer);
   block.append(mapContainer);
   block.append(branchlocator);
-  renderFilters(entries, filterContainer);
+  renderFilters(entries, filterContainer, attributeObj);
 
   stateSelect.addEventListener('change', () => handleStateChange(entries));
   citySelect.addEventListener('change', () => filterResults(entries));
@@ -216,9 +219,9 @@ function initialize(entries, block) {
       { id: 'map-card' },
       h2({ id: 'mapCardTitle' }, entries[0].location),
       p({ id: 'mapCardAddress' }, entries[0].address),
-      p({ id: 'mapCardPhone' }, `Phone No.:`, span({ class: 'phone-phone-no' }, entries[0].phone)),
+      p({ id: 'mapCardPhone' }, `${attributeObj.phonenumberlabel}:`, span({ class: 'phone-phone-no' }, entries[0].phone)),
       p({ id: 'mapCardHours' }, entries[0].hours),
-      button({ id: 'getDirections' }, img({ class: 'btn-icon', src: btnMapIcon }), 'Get Directions'),
+      button({ id: 'getDirections' }, img({ class: 'btn-icon', src: btnMapIcon }), attributeObj.getdistancelabel),
     ),
   );
   createMap(defaultLat, defaultLong, 'map-canvas');
@@ -253,3 +256,18 @@ function getDataAttributeValueByName(name) {
   return element ? element.getAttribute(`data-${name}`) : '';
 }
 
+function getDataAttributes(element) {
+  if (!(element instanceof HTMLElement)) {
+      throw new Error("Provided element is not a valid HTMLElement.");
+  }
+  let attributes = element.attributes;
+  let dataAttributesObject = {};
+  for (let i = 0; i < attributes.length; i++) {
+      if (attributes[i].name.startsWith('data-')) {
+          let key = attributes[i].name.slice(5); // Remove 'data-' prefix
+          dataAttributesObject[key] = attributes[i].value;
+      }
+  }
+
+  return dataAttributesObject;
+}
