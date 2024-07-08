@@ -1,31 +1,154 @@
+.grievance-tabs {
+  background-color: #F2F2F2;
+  padding: 30px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px 0px #00000040;
+}
+
 .grievance-tabs .grievance-tabs-list {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   max-width: 100%;
   overflow-x: auto;
 }
 
-.grievance-tabs .grievance-tabs-list button {
+.grievance-tabs .grievance-tabs-list {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.grievance-tabs .grievance-tabs-list .grievance-title {
+  font-weight: 500;
+  line-height: 37.54px;
+  text-align: left;
+}
+
+.grievance-tabs .grievance-tabs-list .grievance-tab-btn {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.grievance-tabs .grievance-tabs-panel>div {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.grievance-tabs .grievance-tabs-panel>div p {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24.24px;
+  text-align: left;
+  color: #333333;
+  margin-left: 30px;
+}
+
+.grievance-tabs .grievance-tabs-panel table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid #BCBCBC;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.grievance-tabs .grievance-tabs-panel table tr {
+  border-bottom: 1px solid #BCBCBC;
+}
+
+.grievance-tabs .grievance-tabs-panel table tr td p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24.24px;
+  text-align: left;
+  color: #696969;
+}
+
+.grievance-tabs .grievance-tabs-panel table tr:last-child {
+  border-bottom: none;
+}
+
+.grievance-tabs .grievance-tabs-panel table tr:last-child {
+  border-bottom: none;
+}
+
+.grievance-tabs .grievance-tabs-panel table tr:last-child td:first-child p {
+  border-bottom: none;
+  font-size: 10px;
+  color: #242424;
+  line-height: 15.15px;
+  font-weight: 500;
+  margin-left: 20px;
+}
+
+.grievance-tabs .grievance-tabs-panel table tr:last-child td {
+  border-bottom: none;
+}
+
+.grievance-tabs .grievance-tabs-panel table td,
+table th {
+  padding: 12px;
+  border-right: 1px solid #BCBCBC;
+  border-bottom: 1px solid #BCBCBC;
+}
+
+.grievance-tabs .grievance-tabs-panel table td:last-child,
+table th:last-child {
+  border-right: none;
+}
+
+.grievance-tabs .grievance-tabs-panel table tr td:first-child h4 {
+  text-align: start;
+  margin-left: 20px;
+}
+
+.grievance-tabs .grievance-tabs-panel table tr td:first-child {
+  width: 25%;
+}
+
+.grievance-tabs .grievance-tabs-panel table tr td:last-child {
+  width: 75%;
+}
+
+.grievance-tabs .grievance-tabs-panel table tr td:last-child p {
+  margin-left: 20px;
+}
+
+.grievance-tabs .grievance-tabs-list .grievance-tab-btn button {
   flex: 0 0 max-content;
   margin: 0;
-  border: 1px solid var(--dark-color);
-  border-radius: 0;
-  padding: 8px 16px;
-  background-color: var(--light-color);
-  color: initial;
-  font-size: unset;
-  font-weight: bold;
-  line-height: unset;
-  text-align: initial;
+  border-radius: 4px;
+  padding: 10px 10px;
+  background-color: #fff;
   text-overflow: unset;
   overflow: unset;
   white-space: unset;
   transition: background-color 0.2s;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16.42px;
+  text-align: center;
+  max-height: 40px;
+}
+
+.grievance-tabs .grievance-tabs-list button p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16.42px;
+  text-align: center;
 }
 
 .grievance-tabs .grievance-tabs-list button[aria-selected="true"] {
-  border-bottom: 1px solid var(--background-color);
-  background-color: var(--background-color);
+  border-bottom: 1px solid #3cb8ff;
+  background-color: #3cb8ff;
+  color: #fff;
   cursor: initial;
 }
 
@@ -36,8 +159,6 @@
 
 .grievance-tabs .grievance-tabs-panel {
   margin-top: -1px;
-  padding: 0 16px;
-  border: 1px solid var(--dark-color);
   overflow: auto;
 }
 

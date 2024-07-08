@@ -1,7 +1,7 @@
 .accordion-content {
     display: none;
   }
-  .accordion-content.active {
+  .accordion-content.active-show{
     display: block;
   }
   .accordion-header {
@@ -39,74 +39,116 @@
 }
 
 
-
-/* for deskop view */
-
-.customer-support-information {
+.supportcards {
   display: flex;
   justify-content: space-between;
+  gap:10px; 
 }
 
-/* Flex container for cards */
-.support-landing-cards {
+.containerDivForCustomer, 
+.containerDivForInvestor, 
+.faqDiv, 
+.customerPortal-branchLocator {
+  flex: 1; 
+  box-sizing: border-box; 
+}
+
+.supportcards .containerDivForCustomer .imageDiv {
+  display: flex;
+  gap:10px;
+}
+
+.supportcards .containerDivForCustomer .support-landing-cards-child{
   display: flex;
 }
 
-/* Flex container for support cards */
-.ghflsupportcards {
-  display: flex;
-  gap: 20px;
+.supportcards .containerDivForCustomer .support-landing-cards-child:first-child div{
+font-size: 14px;
+font-weight: 400;
+line-height: 16.42px;
+text-align: left;
+
 }
 
-/* Styling for individual support cards */
-.support-landing-cards-child {
-  border-style: inset;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  width: 300px;
-  height: 250px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 20px;
-  box-sizing: border-box;
-  background-color: #fff;
+.supportcards .containerDivForCustomer .support-landing-cards-child div:nth-child(2) img{
+  height: 100px;
+  width: 100px;
 }
 
-/* Styling for content inside support cards */
-.support-landing-cards div {
-  line-height: 100%;
+.supportcards .containerDivForCustomer .support-landing-cards-child p{
+ margin:0;
 }
 
-/* Styling for h3 headings */
-h3 {
-  font-family: Work Sans;
-  font-size: 24px;
-  font-weight: 500;
-  line-height: 28.15px;
-  text-align: left;
+.supportcards .containerDivForInvestor .faqDiv  .support-landing-cards-child:first-child{
+  box-shadow: 2px 2px 8px 0px #0000001A;
+
 }
 
-/* Styling for paragraphs */
-p {
-  font-family: Work Sans;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 18.77px;
-  text-align: left;
-  margin-top: 2px;
-  margin-bottom: 2px;
+.supportcards .containerDivForInvestor .faqDiv {
+ display: flex;
 }
 
-/* Styling for h4 headings */
-h4 {
-  font-size: medium;
-  margin-left: 10px;
+.supportcards .containerDivForInvestor .faqDiv div:first-child p{
+margin:0;
 }
-.imageDiv{
-  display: flex;
+
+.supportcards .containerDivForInvestor .faqDiv div:last-child{
+
 }
-.faqDiv{
+
+.supportcards .containerDivForInvestor .support-landing-cards-child{
   display: flex;
 }
 
+.supportcards .containerDivForInvestor .support-landing-cards-child .gia-info-policy,
+.supportcards .containerDivForInvestor .support-landing-cards-child .customerPortal-branchLocator {
+  flex: 1;
+  gap: 16px; 
+  max-width: 310px;
+}
 
+.supportcards .containerDivForInvestor .support-landing-cards-child .gia-info-policy p{
+margin:0;
+}
 
+.supportcards .containerDivForInvestor .support-landing-cards-child .gia-info-policy div:first-child{
+ display: flex;
+ height: 30px;
+}
+
+.supportcards .containerDivForInvestor .support-landing-cards-child .gia-info-policy div:first-child img{
+ width:20px;
+ height: 20px;
+}
+
+.supportcards .containerDivForInvestor .support-landing-cards-child .gia-info-policy div:last-child{
+ display: flex;
+}
+
+.supportcards .containerDivForInvestor .support-landing-cards-child .gia-info-policy div:last-child img{
+ width:20px;
+ height: 20px;
+}
+
+.supportcards .containerDivForInvestor .support-landing-cards-child .customerPortal-branchLocator p{
+margin:0;
+}
+
+.supportcards .containerDivForInvestor .support-landing-cards-child .customerPortal-branchLocator {
+}
+
+.supportcards .containerDivForInvestor .support-landing-cards-child .customerPortal-branchLocator div:first-child{
+display: flex;
+}
+
+.supportcards .containerDivForInvestor .support-landing-cards-child .customerPortal-branchLocator div:last-child{
+display: flex;
+}
+
+.section.customer-support-information-container{
+    border-radius: 20px 20px 0px 0px;
+    position: relative;
+    bottom: 30px;
+    background-color: #fff;
+    padding-bottom: 0px;
+}

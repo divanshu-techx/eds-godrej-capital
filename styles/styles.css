@@ -90,6 +90,7 @@ body footer {
 
   /* links  */
   --link-color: #58B7E5;
+  --link-color-secondary: #3CB8FF;
   --link-hover-color: #3c;
   --light-color: #eee;
   --dark-color: #ccc;
@@ -186,7 +187,7 @@ main pre {
 
 /* links */
 a:any-link {
-  color: var(--link-color);
+  color: var(--link-color-secondary);
   text-decoration: none;
 }
 
@@ -246,7 +247,7 @@ main img {
 
 /* sections */
 main .section {
-  padding: 16px 26px;
+  padding: 16px 13px;
 }
 
 @media (width >= 600px) {

@@ -8,15 +8,15 @@ export default async function decorate(block) {
   const img = pictureElement.querySelector('img').src;
   const ImgEle = element.querySelectorAll('div')[1];
   ImgEle.style.backgroundImage = `url(${img})`;
-  ImgEle.style.width = '317px';
+  ImgEle.style.width = '310px';
   ImgEle.style.height = '281px';
   ImgEle.style.backgroundSize = 'cover';
-  ImgEle.style.marginLeft = '-25px';
-  ImgEle.style.marginTop = '-35px';
-  ImgEle.style.borderRadius = '10px';
+  // ImgEle.style.marginLeft = '-25px';
+  // ImgEle.style.marginTop = '-35px';
+  // ImgEle.style.borderRadius = '10px';
   ImgEle.style.backgroundRepeat = 'no-repeat';
   ImgEle.style.backgroundPosition = 'center center';
-  ImgEle.parentElement.style.overflow = 'hidden';
+  // ImgEle.parentElement.style.overflow = 'hidden';
   element.removeChild(element.firstElementChild);
 
   // get all the child elements divs
@@ -78,7 +78,7 @@ export default async function decorate(block) {
   parentEle.appendChild(containerDivForInvestor);
 
   // for mobile view
-  const accordionWrappers = document.getElementsByClassName('accordion-wrapper');
+  const accordionWrappers = document.getElementsByClassName('accordion-support-wrapper');
 
   const titleContentEle = document.getElementsByClassName('mobilegrievancetab-wrapper');
 
@@ -86,7 +86,7 @@ export default async function decorate(block) {
     const supportContainerDiv = document.createElement('div');
     supportContainerDiv.className = 'table-content-container';
     supportContainerDiv.appendChild(titleContentEle[0]);
-    const parentElement = document.querySelector('.accordion.support-table-name.block > div');
+    const parentElement = document.querySelector('.accordion-support.support-table-name.block > div');
 
     if (parentElement) {
       parentElement.appendChild(supportContainerDiv);
@@ -98,8 +98,8 @@ export default async function decorate(block) {
   }
 
   Array.from(accordionWrappers).forEach((wrapper) => {
-    const accordions = wrapper.querySelectorAll('.accordion > div');
-
+    const accordions = wrapper.querySelectorAll('.accordion-support > div');
+   console.log(accordions)
     accordions.forEach((accordion) => {
       const header = accordion.children[0];
       const content = accordion.children[1];
@@ -108,8 +108,8 @@ export default async function decorate(block) {
       content.classList.add('accordion-content');
 
       header.addEventListener('click', () => {
-        header.classList.toggle('active');
-        content.classList.toggle('active');
+        header.classList.toggle('active-show');
+        content.classList.toggle('active-show');
       });
     });
   });

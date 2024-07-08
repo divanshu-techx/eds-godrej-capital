@@ -1,0 +1,32 @@
+.customer-support-information{
+    display: flex;
+    gap:10px;
+    justify-content: center;
+}
+
+.customer-support-information img {
+    width: 24px;
+    height: 24px;
+}
+
+.customer-support-information .custom-title-icon{
+    max-width: 177px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.customer-support-information .custom-title-icon div:first-child{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 4px 0px #00000014;
+    max-height: 84px;
+    height: 60px;
+}
+
+.customer-support-information .custom-title-icon div:last-child{
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14.08px;
+    text-align: center;
+}
