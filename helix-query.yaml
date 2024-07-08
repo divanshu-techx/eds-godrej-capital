@@ -46,3 +46,53 @@ indices:
         select: head > meta[name="filter"]
         value: |
           attribute(el, 'content')
+
+  interest_rate_document:
+    include:
+      - /interest_rate_document/**
+    target: /interest_rate_document/query-index.json
+    properties:
+      documenttype:
+        select: head > meta[name="documenttype"]
+        value: |
+          attribute(el, 'content')
+      professiontype:
+        select: head > meta[name="professiontype"]
+        value: |
+          attribute(el, 'content')
+      title_2:
+        select: head > meta[name="title_2"]
+        value: |
+          attribute(el, 'content')
+      bullet_points_2:
+        select: head > meta[name="bullet_points_2"]
+        value: |
+          attribute(el, 'content')
+      description_2:
+        select: head > meta[name="description_2"]
+        value: |
+          attribute(el, 'content')
+      title_3:
+        select: head > meta[name="title_3"]
+        value: |
+          attribute(el, 'content')
+      bullet_points_3:
+        select: head > meta[name="bullet_points_3"]
+        value: |
+          attribute(el, 'content')
+      description_3:
+        select: head > meta[name="description_3"]
+        value: |
+          attribute(el, 'content')
+      title_1:
+        select: head > meta[name="title_1"]
+        value: |
+          attribute(el, 'content')
+      bullet_points_1:
+        select: head > meta[name="bullet_points_1"]
+        value: |
+          attribute(el, 'content')
+      description_1:
+        select: head > meta[name="description_1"]
+        value: |
+          attribute(el, 'content')
