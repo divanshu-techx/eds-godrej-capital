@@ -1,4 +1,3 @@
-
 export default async function tabsblock(block) {
     const mainElement = document.querySelector('main');
     const tabsheading = mainElement.querySelector('.tabsheading');
@@ -136,7 +135,6 @@ export default async function tabsblock(block) {
         }
     }
     waitForSections();
-
     // Wait for DOMContentLoaded event
   //  document.addEventListener("DOMContentLoaded", waitForSections);
 }
