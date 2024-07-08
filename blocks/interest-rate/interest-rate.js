@@ -290,7 +290,6 @@ async function decorate() {
   const tablist = document.createElement('div');
   tablist.className = 'tabs-list';
   tablist.setAttribute('role', 'tablist');
-
   const tabpanel = document.createElement('div');
   tabpanel.className = 'tabs-panel';
   tabpanel.id = 'tabpanel-tab';
