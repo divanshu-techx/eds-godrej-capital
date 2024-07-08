@@ -58,6 +58,7 @@ function getMetaData(metadata) {
     metadata.incomeTaxAfterLabel    =   getDataAttributeValueByName('income-tax-after-label');
     metadata.incomeTaxBeforeLabel   =   getDataAttributeValueByName('income-tax-before-label');
     metadata.cessTaxRate   =   getDataAttributeValueByName('cess-rate');
+    metadata.redirectionPath    =   getDataAttributeValueByName('redirection-path-tax-saving');
     // Optionally, return the metadata object
     return metadata;
 }
@@ -83,8 +84,8 @@ function getHtmlData(newMetaData) {
             </div>
             <input type="range" id="ageRange" min="${newMetaData.ageMin}" max="${newMetaData.ageMax}" value="${newMetaData.ageMin}" oninput="updateRange('age')">
             <div class="input-bottom-details-tax-saving">
-                <span>${newMetaData.ageMin}</span>
-                <span>${newMetaData.ageMax}</span>
+                <span>${newMetaData.ageMin}Year</span>
+                <span>${newMetaData.ageMax}Years</span>
             </div>
             <div class="errorMsg_tax_saving">
                 <p id="ageError" class="error_text" style="display: none;">Value must be between ${newMetaData.ageMin} and ${newMetaData.ageMax}</p>
@@ -232,7 +233,7 @@ function initializeEventListeners(block) {
             const numericValue = parseFloat(value.replace(/\D/g, '')); // Extract numeric value
 
             if (!isNaN(numericValue)) {
-                const formattedValue = numericValue.toLocaleString(); // Format numeric value
+                const formattedValue = numericValue.toString(); // Format numeric value
                 this.textContent = formattedValue; // Update span content with formatted numeric value
                 // Set cursor position to the end of the span
                 const range = document.createRange();
@@ -269,16 +270,41 @@ function initializeEventListeners(block) {
 
 }
 function calculateTax(income, principal, interest) {
-    const cess_rate=getDataAttributeValueByName('cess-rate');
-    const taxRate = income > 2500000 ? 0.30 : 0.20;
-    const taxBeforeBasic = income * taxRate;
-    const taxAfterBasic = (income - principal - interest) * taxRate;
-
-    const cessRate = parseFloat(cess_rate)/100;
-    const taxBefore = Math.round(taxBeforeBasic * (1 + cessRate));
-    const taxAfter = Math.round(taxAfterBasic * (1 + cessRate));
+    const cessRate = parseFloat(getDataAttributeValueByName('cess-rate')) / 100;
+    
+    // Function to calculate tax based on income slabs
+    function calculateBasicTax(income) {
+        let tax = 0;
+        if (income > 1000000) {
+            tax += (income - 1000000) * 0.30;
+            income = 1000000;
+        }
+        if (income > 500000) {
+            tax += (income - 500000) * 0.20;
+            income = 500000;
+        }
+        if (income > 250000) {
+            tax += (income - 250000) * 0.05;
+        }
+        return tax;
+    }
+    
+    // Calculate tax before loan deductions
+    const basicTaxBefore = calculateBasicTax(income);
+    const cessBefore = basicTaxBefore * cessRate;
+    const taxBefore = Math.round(basicTaxBefore + cessBefore);
+    
+    // Calculate taxable income after loan deductions
+    const taxableIncomeAfter = Math.max(0, income - principal - interest);
+    
+    // Calculate tax after loan deductions
+    const basicTaxAfter = calculateBasicTax(taxableIncomeAfter);
+    const cessAfter = basicTaxAfter * cessRate;
+    const taxAfter = Math.round(basicTaxAfter + cessAfter);
+    
+    // Calculate tax benefits
     const taxBenefits = Math.round(taxBefore - taxAfter);
-
+    
     return {
         taxBefore: taxBefore,
         taxAfter: taxAfter,
@@ -311,16 +337,15 @@ function updateDisplay() {
     // Calculate taxes
     const { taxBefore, taxAfter, taxBenefits } = calculateTax(income, principal, interest);
 
-    document.getElementById('taxBefore').textContent = `₹ ${taxBefore.toLocaleString()}`;
-    document.getElementById('taxAfter').textContent = `₹ ${taxAfter.toLocaleString()}`;
-    document.getElementById('taxBenefits').textContent = `₹ ${taxBenefits.toLocaleString()}`;
+    document.getElementById('taxBefore').textContent = `₹ ${formatNumberToIndianCommas(taxBefore)}`;
+    document.getElementById('taxAfter').textContent = `₹ ${formatNumberToIndianCommas(taxAfter)}`;
+    document.getElementById('taxBenefits').textContent = `₹ ${formatNumberToIndianCommas(taxBenefits)}`;
 }
 
-function setupApplyNowButton() {
-    const applyBtn = document.getElementById('apply-btn');
+function setupApplyNowButton(newMetaData) {
+    const applyBtn = document.getElementById('apply-btn-tax');
     applyBtn.addEventListener('click', () => {
-        console.log("clicked");
-        window.location.href = '/applynow';
+        window.location.href = newMetaData.redirectionPath;
     })
 }
 // Function to update range input and corresponding span
@@ -355,7 +380,7 @@ export default async function decorate(block) {
 
     initializeEventListeners(block);
     updateDisplay();
-    setupApplyNowButton();
+    setupApplyNowButton(newMetaData);
 }
 
 window.updateRange = updateRange;

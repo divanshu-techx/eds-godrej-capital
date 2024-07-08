@@ -1,10 +1,10 @@
-export default function loadContentFromURL() {
-  document.addEventListener('DOMContentLoaded', () => {
+export default async function decorate() {
+
     if (!document.querySelector('.fragmentcards')) {
       return;
     }
     // Get the anchor tag
-    const anchor = document.querySelector('.fragmentcards .button.primary');
+    const anchor = document.querySelector('.fragmentcards .button');
 
     // Get the URL from the href attribute
     const url = anchor.getAttribute('href');
@@ -48,5 +48,5 @@ export default function loadContentFromURL() {
       .catch((error) => {
         console.error('Error fetching the HTML:', error);
       });
-  });
+
 }
