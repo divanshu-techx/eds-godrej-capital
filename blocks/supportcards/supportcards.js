@@ -10,7 +10,7 @@ export default async function decorate(block) {
   ImgEle.style.backgroundImage = `url(${img})`;
   ImgEle.style.width = '310px';
   ImgEle.style.height = '281px';
-  ImgEle.style.backgroundSize = 'cover';
+  // ImgEle.style.backgroundSize = 'cover';
   // ImgEle.style.marginLeft = '-25px';
   // ImgEle.style.marginTop = '-35px';
   // ImgEle.style.borderRadius = '10px';
@@ -20,26 +20,28 @@ export default async function decorate(block) {
   element.removeChild(element.firstElementChild);
 
   // get all the child elements divs
-  const zerothDiv = document.querySelectorAll('.support-landing-cards-child')[0];
-  const firstDiv = document.querySelectorAll('.support-landing-cards-child')[1];
-  const secondDiv = document.querySelectorAll('.support-landing-cards-child')[2];
-  const thirdDiv = document.querySelectorAll('.support-landing-cards-child')[3];
-  const fourthDiv = document.querySelectorAll('.support-landing-cards-child')[4];
-  const fifthDiv = document.querySelectorAll('.support-landing-cards-child')[5];
-  const sixthDiv = document.querySelectorAll('.support-landing-cards-child')[6];
-  const seventhDiv = document.querySelectorAll('.support-landing-cards-child')[7];
-  const eigthDiv = document.querySelectorAll('.support-landing-cards-child')[8];
+  const CustomerDiv = document.querySelectorAll('.support-landing-cards-child')[0];
+  const registeredDiv = document.querySelectorAll('.support-landing-cards-child')[1];
+  const investorDiv = document.querySelectorAll('.support-landing-cards-child')[2];
+  const faqContainer = document.querySelectorAll('.support-landing-cards-child')[3];
+  const trackstatus = document.querySelectorAll('.support-landing-cards-child')[4];
+  const freecredit = document.querySelectorAll('.support-landing-cards-child')[5];
+  const whatsappDiv = document.querySelectorAll('.support-landing-cards-child')[6];
+  const giachatDiv = document.querySelectorAll('.support-landing-cards-child')[7];
+  const portalDiv = document.querySelectorAll('.support-landing-cards-child')[8];
+  const policiesDiv = document.querySelectorAll('.support-landing-cards-child')[9];
+  const branchDiv = document.querySelectorAll('.support-landing-cards-child')[10];
   const parentEle = document.getElementsByClassName('support-landing-cards')[0];
 
   // get first partition div which contain customerquery, image, whats-up div
   const containerDivForCustomer = createDivElement('containerDivForCustomer');
   const imageDiv = createDivElement('imageDiv');
-  const forCustomerDivEle = zerothDiv;
-  const imageDivEle = firstDiv;
+  const forCustomerDivEle = CustomerDiv;
+  const imageDivEle = registeredDiv;
   imageDiv.appendChild(forCustomerDivEle);
   imageDiv.appendChild(imageDivEle);
   containerDivForCustomer.appendChild(imageDiv);
-  const whatupDivEle = fourthDiv;
+  const whatupDivEle = whatsappDiv;
   containerDivForCustomer.appendChild(whatupDivEle);
 
   // get second partition div which contain investor query, faq, gia chatbot
@@ -47,31 +49,34 @@ export default async function decorate(block) {
 
   // append investor query and faq
   const faqDiv = createDivElement('faqDiv');
-  const forInvestQuery = secondDiv;
-  const forFaqElem = thirdDiv;
+  const forInvestQuery = investorDiv;
+  const forFaqElem = document.createElement('div');
+  forFaqElem.append(faqContainer);
+  forFaqElem.append(trackstatus);
+  forFaqElem.append(freecredit);
   faqDiv.appendChild(forInvestQuery);
   faqDiv.appendChild(forFaqElem);
   containerDivForInvestor.appendChild(faqDiv);
 
   // append gia chatbot , info policy in one div and customer portal and branch locator in one div
-  const newFifth = fifthDiv.querySelectorAll('div')[0];
-  const newSixth = sixthDiv.querySelectorAll('div')[0];
+  const newFifth = giachatDiv.querySelectorAll('div')[0];
+  const newSixth = portalDiv.querySelectorAll('div')[0];
   const GiaInfoDiv = createDivElement('gia-info-policy');
   GiaInfoDiv.appendChild(newFifth);
   GiaInfoDiv.appendChild(newSixth);
-  fifthDiv.appendChild(GiaInfoDiv);
+  giachatDiv.appendChild(GiaInfoDiv);
 
-  const newSeventh = seventhDiv.querySelectorAll('div')[0];
-  const newEigth = eigthDiv.querySelectorAll('div')[0];
+  const newSeventh = policiesDiv.querySelectorAll('div')[0];
+  const newEigth = branchDiv.querySelectorAll('div')[0];
   const customerPortalBranchLocDiv = createDivElement('customerPortal-branchLocator');
   customerPortalBranchLocDiv.appendChild(newSeventh);
   customerPortalBranchLocDiv.appendChild(newEigth);
-  fifthDiv.appendChild(customerPortalBranchLocDiv);
-  sixthDiv.remove('support-landing-cards-child');
-  seventhDiv.remove('support-landing-cards-child');
-  eigthDiv.remove('support-landing-cards-child');
+  giachatDiv.appendChild(customerPortalBranchLocDiv);
+  portalDiv.remove('support-landing-cards-child');
+  policiesDiv.remove('support-landing-cards-child');
+  branchDiv.remove('support-landing-cards-child');
 
-  containerDivForInvestor.append(fifthDiv);
+  containerDivForInvestor.append(giachatDiv);
 
   // Add both div's in one container parentEle
   parentEle.appendChild(containerDivForCustomer);

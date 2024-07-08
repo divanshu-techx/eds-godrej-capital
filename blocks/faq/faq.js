@@ -1,9 +1,11 @@
-import {getDataAttributes} from '../utils/common.js'
+var quesAnsUrl = getDataAttributeValueByName('quesansurl');
+
+var productPageUrl = getDataAttributeValueByName('productpageurl');
+
+
+var searchIcon = getDataAttributeValueByName('searchicon');
 
 export default async function decorate(block) {
-  const container = block.closest(".faq-container");
-  const attributeObj=getDataAttributes(container); 
-
 
   //   let bannerDataArray;
   const upperContainer = document.createElement('div');
@@ -51,17 +53,16 @@ export default async function decorate(block) {
   inputField.placeholder = 'What are you looking for?';
   const searchIconContainer = document.createElement('div');
   searchIconContainer.classList.add('icon-container');
-  searchIconContainer.innerHTML = `<img src=${attributeObj.searchicon} alt=${"attributeObj.seachiconalttext"} class="icon">`
+  searchIconContainer.innerHTML = `<img src=${searchIcon} alt="search-icon" class="icon">`
 
   searchContainer.append(searchIconContainer)
   searchContainer.appendChild(inputField);
 
- 
+
+
   try {
-    
-    const quesAnsUrl=attributeObj.quesansurl;
     const quesAnsData = await fetchData(quesAnsUrl);
-    const productPageUrl=attributeObj.productpageurl;
+
     const productPageData = await fetchData(productPageUrl);
 
 
@@ -117,6 +118,15 @@ function quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv) {
   });
 }
 
+
+
+
+
+// Retrieve the value of a data attribute by name
+function getDataAttributeValueByName(name) {
+  const element = document.querySelector(`[data-${name}]`);
+  return element ? element.getAttribute(`data-${name}`) : '';
+}
 
 async function fetchData(apiUrl) {
   try {
