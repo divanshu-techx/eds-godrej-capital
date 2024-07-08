@@ -301,8 +301,8 @@ async function decorate() {
   if (!data) {
     return;
   }
-  const tabNames = Array.from(new Set(data.map((item) => item.DocumentType)));
-  const dropdownOptions = Array.from(new Set(data.map((item) => item.ProfessionType)));
+  const tabNames = Array.from(new Set(data.map((item) => item.document_type)));
+  const dropdownOptions = Array.from(new Set(data.map((item) => item.profession_type)));
 
   tabNames.forEach((tabName, i) => {
     const button = document.createElement('button');
