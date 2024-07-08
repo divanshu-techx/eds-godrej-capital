@@ -102,6 +102,14 @@ const applyTextAlignmentAndPlacement = (container) => {
   const contentColour = container.getAttribute(
     'data-text-color'
   );
+
+  const headingStyle = container.getAttribute(
+    'data-heading-style'
+  );
+
+  const descriptionAlignment = container.getAttribute(
+    'data-description-alignment '
+  );
  
   const wrapper = container.querySelector('.teaser-wrapper .carousel-slide-content');
 
@@ -110,6 +118,15 @@ const applyTextAlignmentAndPlacement = (container) => {
     wrapper.classList.add(contentColour);
     wrapper.style.color = contentColour; 
   }
+
+ if(headingStyle){
+  wrapper.classList.add(headingStyle);
+ }
+
+ if(descriptionAlignment){
+  wrapper.classList.add(descriptionAlignment);
+ }
+
   wrapper.classList.add(contentColour);
 
   switch (desktopTextPlacement) {
@@ -130,15 +147,10 @@ const applyTextAlignmentAndPlacement = (container) => {
 };
 
 const convertAnchorsToButtons = (block,container) => {
-  const contentColour = container.getAttribute(
-    'data-text-color'
-  );
   const paragraphs = block.querySelectorAll('p');
-
   paragraphs.forEach((paragraph) => {
     convertAnchorToButton(paragraph, 'strong a', 'primary-button');
-    const element = paragraph.querySelector("a");
-   console.log(element);
+    //const element = paragraph.querySelector("a");
     //convertAnchorToButton(paragraph, 'a', 'primary-button');
     //convertAnchorToButton(paragraph, 'em a', 'secondary-button');
   });
@@ -221,10 +233,11 @@ const handleBackgroundStyle = (container, block) => {
     }
   });
   if (backgroundStyle === "video") {
-   
+    
     createInlineVideoPlayer(container, mp4VideoUrl);
   } else if (videoUrl) {
-   
+    let hideButton =  container.querySelector('.button');
+    hideButton.style.display = 'none';
     createVideoPopup(container, videoUrl, false);
   }
 
@@ -239,6 +252,7 @@ const handleBackgroundStyle = (container, block) => {
 };
 
 const createVideoPopup = (container, videoUrl, isMp4) => {
+  const slideContent = container.querySelector('.carousel-slide-content');
   const playButton = document.createElement('button');
   playButton.className = 'play-button';
   playButton.innerText = 'Play Video';
@@ -263,6 +277,8 @@ const createVideoPopup = (container, videoUrl, isMp4) => {
       iframe.setAttribute('allowfullscreen', 'true');
       popup.appendChild(iframe);
     }
+
+
 
     const closeButton = document.createElement('button');
     closeButton.className = 'close-button';
@@ -326,6 +342,9 @@ const createInlineVideoPlayer = (container, videoUrl) => {
   slideContent.appendChild(playButton);
   container.querySelector('.button-container').appendChild(playButtonInLine);
 
+  let hideButton =  slideContent.querySelector('.button');
+  hideButton.style.display = 'none';
+  
   // Create the video element
   const video = document.createElement('video');
   video.setAttribute('controls', true);
