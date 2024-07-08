@@ -76,7 +76,7 @@ import { fetchPlaceholders } from '../../scripts/aem.js';
 export default async function decorate(block) {
   const carouselContainer = block.closest('.carousel-v1-container');
   const targetId = carouselContainer.getAttribute('data-teaser-target-id');
-// Select the main element
+  // Select the main element
   let teaser = groupTeasersByTargetId('main'); 
 
   createCarousel(block, teaser[targetId],targetId);
