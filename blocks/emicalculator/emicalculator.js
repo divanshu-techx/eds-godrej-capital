@@ -46,7 +46,7 @@ function numberToWords(num) {
 }
 function getDataAttributeValueByName(name) {
     const element = document.querySelector(`[data-${name}]`);
-    return element ? element.getAttribute(`data-${name}`) : null;
+    return element ? element.getAttribute(`data-${name}`) : '';
 }
  
 function createElement(type, attributes = {}, ...children) {
@@ -178,7 +178,8 @@ function initialize(block) {
     const interest_rate_label  =  getDataAttributeValueByName('interest-rate-label');
     const total_tenure_label   =  getDataAttributeValueByName('total-tenure-label');
     const apply_now_label    =  getDataAttributeValueByName('apply-now-label');
-    const monthly_emi_label     =  getDataAttributeValueByName('monthly-emi-label')
+    const monthly_emi_label     =  getDataAttributeValueByName('monthly-emi-label');
+    const redirectionApplyPath  =   getDataAttributeValueByName('redirection-path-emi');
     const amountDetail = createElement('div', {},
         createElement('div', { class: 'detail' },
             //createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, laonamount_title),
@@ -337,7 +338,7 @@ function initialize(block) {
                 )
             ),
             createElement('div',{class:'mobile-tenure-apply'},
-                createElement('button',{id:'apply-btn'},apply_now_label)
+                createElement('button',{id:'apply-btn-mobile'},apply_now_label)
             )
         )
     );
@@ -356,6 +357,15 @@ function initialize(block) {
     var loan_period_text = block.querySelector("#loan-period-text");
     var loan_period_slider_month = block.querySelector("#loan-period-month");
     var loan_period_text_month = block.querySelector("#loan-period-month-text");
+    var desktopApplyButton  =block.querySelector('#apply-btn');
+    var mobileApplyButton   =   block.querySelector('#apply-btn-mobile');
+    
+    desktopApplyButton.addEventListener('click',()=>{
+        window.location.href=redirectionApplyPath;
+    })
+    mobileApplyButton.addEventListener('click',()=>{
+        window.location.href=redirectionApplyPath;
+    })
  
  
     loan_amt_slider.addEventListener("change", (self) => {
@@ -374,7 +384,7 @@ function initialize(block) {
     });
 
         // Event listener to allow only numeric input
-        loan_amt_text.addEventListener('input', function(event) {
+    loan_amt_text.addEventListener('input', function(event) {
             let value = this.value;
             value = value.replace(/[^\d.]/g, ''); // Remove non-numeric characters except '.'
             this.value = value;

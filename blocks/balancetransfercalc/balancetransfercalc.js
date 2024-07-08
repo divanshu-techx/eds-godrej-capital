@@ -77,7 +77,7 @@ function updateCalculations(block) {
 }
 function getDataAttributeValueByName(name) {
     const element = document.querySelector(`[data-${name}]`);
-    return element ? element.getAttribute(`data-${name}`) : null;
+    return element ? element.getAttribute(`data-${name}`) : '';
 }
 // Function to allow only numeric and decimal input
 function allowOnlyNumericAndDecimal(input) {
@@ -372,6 +372,10 @@ principalOutstanding.addEventListener('input', function () {
     applyNowButton.addEventListener('click', () => {
         window.location.href = calculatorAttributes.redirectionPath;
     })
+
+// Allow only numeric and decimal input
+        const inputs = block.querySelectorAll('input[type="text"]');
+        inputs.forEach(input => allowOnlyNumericAndDecimal(input));
 
     updateCalculations(block);
     updateRangeColors(block);
