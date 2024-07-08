@@ -373,6 +373,10 @@ principalOutstanding.addEventListener('input', function () {
         window.location.href = calculatorAttributes.redirectionPath;
     })
 
+// Allow only numeric and decimal input
+        const inputs = block.querySelectorAll('input[type="text"]');
+        inputs.forEach(input => allowOnlyNumericAndDecimal(input));
+
     updateCalculations(block);
     updateRangeColors(block);
 }
