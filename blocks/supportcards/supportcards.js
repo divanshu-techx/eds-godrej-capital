@@ -8,9 +8,9 @@ export default async function decorate(block) {
   const img = pictureElement.querySelector('img').src;
   const ImgEle = element.querySelectorAll('div')[1];
   ImgEle.style.backgroundImage = `url(${img})`;
-  ImgEle.style.width = '317px';
+  ImgEle.style.width = '310px';
   ImgEle.style.height = '281px';
-  // ImgEle.style.backgroundSize = 'cover';
+  ImgEle.style.backgroundSize = 'cover';
   // ImgEle.style.marginLeft = '-25px';
   // ImgEle.style.marginTop = '-35px';
   // ImgEle.style.borderRadius = '10px';
@@ -86,7 +86,7 @@ export default async function decorate(block) {
     const supportContainerDiv = document.createElement('div');
     supportContainerDiv.className = 'table-content-container';
     supportContainerDiv.appendChild(titleContentEle[0]);
-    const parentElement = document.querySelector('.accordion.support-table-name.block > div');
+    const parentElement = document.querySelector('.accordion-support.support-table-name.block > div');
 
     if (parentElement) {
       parentElement.appendChild(supportContainerDiv);
