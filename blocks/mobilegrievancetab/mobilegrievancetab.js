@@ -7,6 +7,8 @@ function hasWrapper(el) {
 
 export default async function decorate(block) {
   // build tablist
+  const mobileBtnDiv = document.createElement('div');
+  mobileBtnDiv.classList.add('mobile-btn');
   const tablist = document.createElement('div');
   tablist.className = 'mobile-grievance-tabs-list'; // Updated class name here
   tablist.setAttribute('role', 'tablist');
@@ -46,7 +48,8 @@ export default async function decorate(block) {
       tabpanel.setAttribute('aria-hidden', false);
       button.setAttribute('aria-selected', true);
     });
-    tablist.append(button);
+    mobileBtnDiv.append(button);
+    tablist.append(mobileBtnDiv);
     tab.remove();
   });
 
