@@ -54,7 +54,7 @@ function createElement(type, attributes = {}, ...children) {
  
 function getDataAttributeValueByName(name) {
   const element = document.querySelector(`[data-${name}]`);
-  return element ? element.getAttribute(`data-${name}`) : null;
+  return element ? element.getAttribute(`data-${name}`) : '';
 }
 function calculateLoanDetails(p, r, n, m, pie, line) {
   let i;

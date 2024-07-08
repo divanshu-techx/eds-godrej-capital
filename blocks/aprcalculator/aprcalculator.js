@@ -1,7 +1,7 @@
 // Function to get data attribute value by name
 function getDataAttributeValueByName(name) {
     const element = document.querySelector(`[data-${name}]`);
-    return element ? element.getAttribute(`data-${name}`) : null;
+    return element ? element.getAttribute(`data-${name}`) : '';
 }
 
 // Function to convert numbers to words

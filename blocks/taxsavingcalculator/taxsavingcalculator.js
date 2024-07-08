@@ -33,7 +33,7 @@ function formatNumberToIndianCommas(number) {
 }
 function getDataAttributeValueByName(name) {
     const element = document.querySelector(`[data-${name}]`);
-    return element ? element.getAttribute(`data-${name}`) : null;
+    return element ? element.getAttribute(`data-${name}`) : '';
 }
 function getMetaData(metadata) {
     // Extract the values using the function getDataAttributeValueByName

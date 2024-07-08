@@ -77,7 +77,7 @@ function updateCalculations(block) {
 }
 function getDataAttributeValueByName(name) {
     const element = document.querySelector(`[data-${name}]`);
-    return element ? element.getAttribute(`data-${name}`) : null;
+    return element ? element.getAttribute(`data-${name}`) : '';
 }
 // Function to allow only numeric and decimal input
 function allowOnlyNumericAndDecimal(input) {
