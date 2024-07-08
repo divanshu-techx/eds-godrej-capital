@@ -78,7 +78,7 @@ export default async function decorate(block) {
   parentEle.appendChild(containerDivForInvestor);
 
   // for mobile view
-  const accordionWrappers = document.getElementsByClassName('accordion-wrapper');
+  const accordionWrappers = document.getElementsByClassName('accordion-support-wrapper');
 
   const titleContentEle = document.getElementsByClassName('mobilegrievancetab-wrapper');
 
@@ -98,8 +98,8 @@ export default async function decorate(block) {
   }
 
   Array.from(accordionWrappers).forEach((wrapper) => {
-    const accordions = wrapper.querySelectorAll('.accordion > div');
-
+    const accordions = wrapper.querySelectorAll('.accordion-support > div');
+   console.log(accordions)
     accordions.forEach((accordion) => {
       const header = accordion.children[0];
       const content = accordion.children[1];
