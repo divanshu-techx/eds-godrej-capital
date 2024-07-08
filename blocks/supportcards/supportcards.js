@@ -10,13 +10,13 @@ export default async function decorate(block) {
   ImgEle.style.backgroundImage = `url(${img})`;
   ImgEle.style.width = '317px';
   ImgEle.style.height = '281px';
-  ImgEle.style.backgroundSize = 'cover';
-  ImgEle.style.marginLeft = '-25px';
-  ImgEle.style.marginTop = '-35px';
-  ImgEle.style.borderRadius = '10px';
+  // ImgEle.style.backgroundSize = 'cover';
+  // ImgEle.style.marginLeft = '-25px';
+  // ImgEle.style.marginTop = '-35px';
+  // ImgEle.style.borderRadius = '10px';
   ImgEle.style.backgroundRepeat = 'no-repeat';
   ImgEle.style.backgroundPosition = 'center center';
-  ImgEle.parentElement.style.overflow = 'hidden';
+  // ImgEle.parentElement.style.overflow = 'hidden';
   element.removeChild(element.firstElementChild);
 
   // get all the child elements divs
@@ -108,8 +108,8 @@ export default async function decorate(block) {
       content.classList.add('accordion-content');
 
       header.addEventListener('click', () => {
-        header.classList.toggle('active');
-        content.classList.toggle('active');
+        header.classList.toggle('active-show');
+        content.classList.toggle('active-show');
       });
     });
   });
