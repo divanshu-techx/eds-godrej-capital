@@ -86,7 +86,7 @@ export default async function decorate(block) {
     const supportContainerDiv = document.createElement('div');
     supportContainerDiv.className = 'table-content-container';
     supportContainerDiv.appendChild(titleContentEle[0]);
-    const parentElement = document.querySelector('.accordion.support-table-name.block > div');
+    const parentElement = document.querySelector('.accordion-support.support-table-name.block > div');
 
     if (parentElement) {
       parentElement.appendChild(supportContainerDiv);
