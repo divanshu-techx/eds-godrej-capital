@@ -41,7 +41,6 @@
 
 .supportcards {
   display: flex;
-  /* flex-wrap: wrap;  */
   justify-content: space-between;
   gap:10px; 
 }
@@ -54,13 +53,21 @@
   box-sizing: border-box; 
 }
 
-.supportcards .containerDivForCustomer .imageDiv{
+.supportcards .containerDivForCustomer .imageDiv {
   display: flex;
   gap:10px;
 }
 
 .supportcards .containerDivForCustomer .support-landing-cards-child{
   display: flex;
+}
+
+.supportcards .containerDivForCustomer .support-landing-cards-child:first-child div{
+font-size: 14px;
+font-weight: 400;
+line-height: 16.42px;
+text-align: left;
+
 }
 
 .supportcards .containerDivForCustomer .support-landing-cards-child div:nth-child(2) img{
@@ -70,6 +77,11 @@
 
 .supportcards .containerDivForCustomer .support-landing-cards-child p{
  margin:0;
+}
+
+.supportcards .containerDivForInvestor .faqDiv  .support-landing-cards-child:first-child{
+  box-shadow: 2px 2px 8px 0px #0000001A;
+
 }
 
 .supportcards .containerDivForInvestor .faqDiv {
@@ -92,12 +104,51 @@ margin:0;
 .supportcards .containerDivForInvestor .support-landing-cards-child .customerPortal-branchLocator {
   flex: 1;
   gap: 16px; 
+  max-width: 310px;
 }
 
 .supportcards .containerDivForInvestor .support-landing-cards-child .gia-info-policy p{
 margin:0;
 }
 
+.supportcards .containerDivForInvestor .support-landing-cards-child .gia-info-policy div:first-child{
+ display: flex;
+ height: 30px;
+}
+
+.supportcards .containerDivForInvestor .support-landing-cards-child .gia-info-policy div:first-child img{
+ width:20px;
+ height: 20px;
+}
+
+.supportcards .containerDivForInvestor .support-landing-cards-child .gia-info-policy div:last-child{
+ display: flex;
+}
+
+.supportcards .containerDivForInvestor .support-landing-cards-child .gia-info-policy div:last-child img{
+ width:20px;
+ height: 20px;
+}
+
 .supportcards .containerDivForInvestor .support-landing-cards-child .customerPortal-branchLocator p{
 margin:0;
+}
+
+.supportcards .containerDivForInvestor .support-landing-cards-child .customerPortal-branchLocator {
+}
+
+.supportcards .containerDivForInvestor .support-landing-cards-child .customerPortal-branchLocator div:first-child{
+display: flex;
+}
+
+.supportcards .containerDivForInvestor .support-landing-cards-child .customerPortal-branchLocator div:last-child{
+display: flex;
+}
+
+.section.customer-support-information-container{
+    border-radius: 20px 20px 0px 0px;
+    position: relative;
+    bottom: 30px;
+    background-color: #fff;
+    padding-bottom: 0px;
 }
