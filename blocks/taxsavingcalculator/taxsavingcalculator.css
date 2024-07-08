@@ -1,0 +1,199 @@
+.taxsavingcalculator{
+    .calculator-container-tax-saving{
+        display: flex;
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+    }
+
+    .inputBox_tax_saving {
+        flex: 1;
+        padding-right: 20px;
+        padding: 10px 30px;
+        background: #F4F4F4;
+        border-radius: 4px;
+
+    }
+
+    .input_tax_saving, .inputs_tax_saving {
+        margin-bottom: 20px;
+    }
+
+    .input-details-tax-saving {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .tax_saving_input_label {
+        display: flex;
+        align-items: center;
+    }
+
+    .inputLabel_tax_saving {
+        margin-right: 10px;
+    }
+
+    .inputSpan_tax_saving {
+        border: 1px solid #d9d9d9;
+        padding: 5px 10px;
+        border-radius: 4px;
+        outline: none;
+        cursor: text;
+        background-color: #fff;
+    }
+
+    .inputSpan_tax_saving[contenteditable="true"] {
+        min-width: 80px;
+        text-align: right;
+    }
+
+    .input-bottom-details-tax-saving {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        color: #666;
+    }
+
+    input[type="range"] {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .errorMsg_tax_saving .error_text{
+        color: red;
+        font-size: 12px;
+    }
+
+    .outputs_tax_saving {
+        flex: 1;
+        padding-left: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 30px;
+    }
+
+    .result_tax_saving {
+        background-color: #8BC34A;
+        color: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .result_text_saving {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+
+
+
+    
+    /* manoj css start */
+    /* CSS to apply gradient to range sliders */
+    input[type="range"] {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 8px;
+        background: #d3d3d3; /* Default grey color */
+        outline: none;
+        /* transition: background 0.15s ease-in-out; */
+      }
+    
+      input[type="range"]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 8px;
+        background: linear-gradient(to right, #8cb133 0%, #8cb133 var(--value), #d3d3d3 var(--value), #d3d3d3 100%);
+        border-radius: 5px;
+      }
+    
+      input[type="range"]::-webkit-slider-thumb {
+          box-shadow: 2px 2px 5px var(--color-dark-grey-secondary), -1px -1px 3px grey;
+          height: 20px;
+          width: 20px;
+          border-radius: 50%;
+          background: #8cb133;
+          cursor: pointer;
+          margin-top: -6px;
+          appearance: none;
+        }
+    
+      input[type="range"]::-moz-range-track {
+        width: 100%;
+        height: 8px;
+        background: linear-gradient(to right, #8cb133 0%, #8cb133 var(--value), #d3d3d3 var(--value), #d3d3d3 100%);
+        border-radius: 5px;
+      }
+    
+      input[type="range"]::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        background: #8cb133;
+        cursor: pointer;
+        border-radius: 50%;
+      }
+    
+      input[type="range"]::-ms-track {
+        width: 100%;
+        height: 8px;
+        background: transparent; /* Hides the default track so the custom one shows */
+        border-color: transparent;
+        color: transparent;
+      }
+    
+      input[type="range"]::-ms-fill-lower {
+        background: #8cb133;
+        border-radius: 5px;
+      }
+    
+      input[type="range"]::-ms-fill-upper {
+        background: #d3d3d3;
+        border-radius: 5px;
+      }
+    
+      input[type="range"]::-ms-thumb {
+        width: 25px;
+        height: 25px;
+        background: #8cb133;
+        cursor: pointer;
+        border-radius: 50%;
+        margin-top: 0; /* Adjust based on the height of the slider */
+      }
+    
+      input[type="range"]:focus {
+        outline: none;
+      }
+}
+
+.outputs_tax_saving .result_tax_saving_next{
+  display: flex;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .outputs_tax_saving .result_tax_saving_next{
+    display: block;
+    padding: 5px 0px;
+  }
+}
+#apply-btn-tax{
+  background: #03A9F4;
+  color: white;
+  border: none;
+  padding: 5px 30px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+}
+

@@ -279,6 +279,7 @@ header nav .nav-sections .belowNavMainContainer .secondElementDiv ul {
 
 header nav .nav-sections .belowNavMainContainer .thirdElementDiv main {
   width: 100%;
+  margin-top:unset!important;
 }
 
 header nav .nav-sections .belowNavMainContainer .thirdElementDiv {

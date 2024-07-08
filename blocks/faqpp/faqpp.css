@@ -24,6 +24,20 @@
 .faqpp-container .faq-container {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+}
+
+@media(min-width:900px) {
+  .faqpp-container .faq-container {
+    width: 100%;
+    gap: 90px;
+    justify-content: unset;
+  }
+
+  .faqpp-container .faq-container .cannot-find-container .view-all-label {
+    width: 100%;
+    max-width: 63px;
+  }
 }
 
 .faqpp .faq-container .faq-accordion {
@@ -34,13 +48,12 @@
   margin-top: 30px;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  /* align-items: center; */
   gap: 20px;
-
 }
 
 .faqpp-container .faq-container .cannot-find-container .cannot-find-text {
+  margin-top: 0;
   font-size: 16px;
   line-height: 18px;
   font-family: Work Sans;
@@ -50,16 +63,40 @@
 }
 
 .faqpp-container .faq-container .cannot-find-container .view-all-label {
-  font-family: Work Sans;
   font-size: 16px;
   font-weight: 400;
   line-height: 18px;
   text-align: left;
   color: #3B3B3B;
+  cursor: pointer;
 }
 
+@media (min-width: 601px) {
+  .faqpp .faq-container .faq-tabs {
+    max-width: 424px;
+    max-height: 308px;
+  }
 
+  .tags-btn-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    /* max-width: 424px; */
+  }
 
+  .tag-button {
+    flex: 1 1 auto;
+    box-sizing: border-box;
+    padding: 8px 16px;
+    text-align: center;
+    /* max-width: calc(50% - 8px); */
+    margin-bottom: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
 
 .faqpp .faq-container .faq-accordion .qa-item {
   margin-bottom: 16px;
@@ -74,7 +111,6 @@
   position: relative;
   background-color: #E8E8E8;
   color: #3B3B3B;
-  font-family: Work Sans;
   font-size: 16px;
   font-weight: 400;
   line-height: 28px;
@@ -97,7 +133,6 @@
 
 .faqpp .faq-container .faq-accordion .qa-item p {
   background-color: #E8E8E8;
-  font-family: Work Sans;
   font-size: 14px;
   font-weight: 400;
   line-height: 16.42px;
@@ -109,9 +144,7 @@
 
 .faqpp .faq-container .faq-accordion .qa-item .faq-heading::after,
 .faqpp .faq-container .faq-accordion .qa-item .faq-heading.active::after {
-
   position: absolute;
-
   right: 0;
   font-weight: 500;
   font-size: 22px;
@@ -137,12 +170,31 @@
 
 
 .faq-container .faq-tabs .main-title .title {
-  font-family: Work Sans;
   font-size: 36px;
   font-weight: 500;
   line-height: 54px;
   text-align: left;
   margin-bottom: 10px;
+}
+
+@media(width <=599px) {
+  .faq-container .faq-tabs .main-title {
+    display: none;
+  }
+
+  .faqpp .faq-container-titleMobile {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 23.46px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+}
+
+@media(width >=600px) {
+  .faqpp .faq-container-titleMobile {
+    display: none;
+  }
 }
 
 .faqpp .faq-container .tags-btn-container {
@@ -154,7 +206,6 @@
 }
 
 .faqpp .faq-container .tags-btn-container .tag-button {
-  font-family: Work Sans;
   font-size: 14px;
   font-weight: 500;
   line-height: 16.42px;
@@ -163,6 +214,8 @@
   background-color: #FFFFFF;
   padding: 10px;
   border-radius: 4px;
+  max-width: fit-content;
+  text-transform: capitalize;
 }
 
 .faqpp .faq-container .tags-btn-container .tag-button.active-tag {
@@ -180,25 +233,27 @@
   }
 
   .faqpp-container .faq-container .faq-tabs {
-    overflow: hidden;
+    overflow-x: auto;
   }
 
   .faqpp .faq-container .tags-btn-container {
     flex-wrap: nowrap;
-    overflow-x: scroll;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     width: fit-content;
-    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+
   }
 
-  .faqpp .faq-container .tags-btn-container::-webkit-scrollbar {
+  /* .faqpp .faq-container .tags-btn-container::-webkit-scrollbar {
     display: none;
-  }
+  } */
 
   .faq-container .faq-tabs .main-title .title {
     text-align: center;
     margin-bottom: 18px;
     font-size: 20px;
-
     line-height: 23.46px;
     text-align: center;
   }
@@ -231,6 +286,7 @@
     display: none;
   }
 
+
   .faqpp .faq-container .faq-accordion .qa-item h4.active,
   .faqpp .faq-container .faq-accordion .qa-item h4:hover {
     background-color: #F4F4F4;
@@ -252,8 +308,8 @@
   .faqpp .faq-container .faq-accordion .qa-item .faq-heading::after,
   .faqpp .faq-container .faq-accordion .qa-item .faq-heading.active::after {
     font-size: 18px;
-    width: 22px;
-    height: 22px;
+    /* width: 22px;
+    height: 22px; */
     margin-right: 10px;
   }
 
@@ -262,5 +318,70 @@
 @media (min-width:600px) {
   .faqpp .faq-container .faq-accordion .cannot-find-container {
     display: none;
+  }
+}
+
+
+@media(min-width:600px) and (max-width:900px) {
+  .faqpp-container .faq-container {
+    gap: 20px;
+  }
+
+  .faqpp .faq-container-titleMobile {
+    display: block;
+    text-align: center;
+    margin-bottom: 16px;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 28.15px;
+
+  }
+
+  .faqpp-container .faq-container .cannot-find-container .cannot-find-text,
+  .faqpp-container .faq-container .cannot-find-container .view-all-label {
+
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 11.73px;
+    color: #242424;
+  }
+
+  .faq-container .faq-tabs .main-title .title {
+    display: none;
+  }
+
+  .faqpp .faq-container .tags-btn-container .tag-button {
+    background-color: #f4f4f4;
+    font-size: 12px;
+
+    line-height: 14.08px;
+    text-align: center;
+  }
+
+  .section.faqpp-container {
+    background-color: unset;
+  }
+
+  .faqpp .faq-container .faq-accordion .qa-item h4 {
+    background-color: #F4F4F4;
+    padding: 10px 10px;
+    font-size: 12px;
+
+    line-height: 28px;
+    color: #242424;
+  }
+
+  .faqpp .faq-container .faq-accordion .qa-item h4.active {
+    background-color: #F4F4F4;
+  }
+
+  .faqpp .faq-container .faq-accordion .qa-item p {
+    font-family: Work Sans;
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 11.73px;
+    text-align: left;
+    background-color: #F4F4F4;
+    color: #696969;
   }
 }

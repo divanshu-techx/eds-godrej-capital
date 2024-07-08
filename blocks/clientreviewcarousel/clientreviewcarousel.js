@@ -53,52 +53,63 @@ export default async function decorate(block) {
     // Append swiperSlide to swiperWrapper
     swiperWrapper.appendChild(swiperSlide);
   });
-
+ 
   // Clear the original container and append the swiperWrapper
   carouselContainer.innerHTML = '';
   carouselContainer.appendChild(swiperWrapper);
  
- 
+  // Create navigation buttons container
   const navigationContainer = document.createElement('div');
   navigationContainer.classList.add('swiper-navigation');
   navigationContainer.innerHTML = `
-    <button class="swiper-button-prev" tabindex="0" aria-label="Previous slide">Previous</button>
-    <button class="swiper-button-next" tabindex="0" aria-label="Next slide">Next</button>
+  <div class="swiper-pagination"></div> 
+  <div class="buttonControls">
+    <button class="swiper-button-prev" tabindex="0" aria-label="Previous slide">
+    </button>
+    <button class="swiper-button-next" tabindex="0" aria-label="Next slide">
+    </button>
+  </div>
   `;
   carouselContainer.appendChild(navigationContainer);
- 
+
+  function addLeadingZero(num) {
+    return num.toString().padStart(2, '0');
+  }
+
   // Initialize Swiper after modifying the HTML structure
   const swiper = new Swiper('.clientreviewcarousel', {
-    slidesPerView: 9,
-    loop: true,
+    slidesPerView: 1,
+    spaceBetween: 10,
+    // loop: true,
+    // centeredSlides: true,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: true
+    },
     pagination: {
       el: '.swiper-pagination',
-      clickable: true,
+      type: "custom",
+      renderCustom: function (swiper, current, total) {
+        return `<span class="swiper-pagination-current">${addLeadingZero(current)}</span> / <span class="swiper-pagination-total">${addLeadingZero(total)}</span>`;
+      }
     },
     navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
+      nextEl: '.swiper-button-prev',
+      prevEl: '.swiper-button-next',
     },
-    on: {
-      init: function () {
-        updateSlideDimensions(this);
-      },
-      slideChange: function () {
-        updateSlideDimensions(this);
-      },
-    },
-  });
- 
-  // Function to update slide dimensions
-  function updateSlideDimensions(swiper) {
-    const slides = document.querySelectorAll('.swiper-slide');
-    slides.forEach((slide, index) => {
-      if (index === swiper.activeIndex + 1) {
-        slide.classList.add('active-dimension');
-      } else {
-        slide.classList.remove('active-dimension');
+    breakpoints: {
+      768: {
+        slidesPerView: 2.2,
+        spaceBetween: 10, 
       }
-    });
-  }
+    }
+  })
+  swiper.on('slideChange', function () {
+    document.querySelector('.swiper-button-prev').setAttribute('aria-disabled', swiper.isBeginning ? 'true' : 'false');
+    document.querySelector('.swiper-button-next').setAttribute('aria-disabled', swiper.isEnd ? 'true' : 'false');
+  });
+
+  // Initial button state update
+  document.querySelector('.swiper-button-prev').setAttribute('aria-disabled', swiper.isBeginning ? 'true' : 'false');
+  document.querySelector('.swiper-button-next').setAttribute('aria-disabled', swiper.isEnd ? 'true' : 'false');
 }
- 

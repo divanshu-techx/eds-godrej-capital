@@ -191,7 +191,12 @@ function populateTabsAndContents(data, tabsContainer, tabContentsContainer, drop
     tabsContainer.appendChild(tab);
 
     // Append the dropdown to the tabs container
-    dropDownContainer.appendChild(dropdown);
+    if(isMobileView()){
+      dropDownContainer.appendChild(dropdown);
+    } else {
+      dropDownContainer.appendChild(dropdown);
+      tabsContainer.appendChild(dropDownContainer);
+    }
 
     // Create and append the tab content element
     const tabContent = document.createElement('div');
@@ -200,8 +205,10 @@ function populateTabsAndContents(data, tabsContainer, tabContentsContainer, drop
     tabContentsContainer.appendChild(tabContent);
 
     tab.addEventListener('click', () => {
-      document.querySelectorAll('.tab-content').forEach((content) => content.classList.remove('active'));
-      tabContent.classList.add('active');
+      // document.querySelectorAll('.tab-content').forEach((content) => content.classList.remove('active'));
+      // tabContent.classList.add('active');
+      document.querySelectorAll('.tab').forEach((tab) => tab.classList.remove('active'));
+      tab.classList.add('active');
       updateDropdownOptionsOnTabs(parent, data, dropdown);
     });
   });
