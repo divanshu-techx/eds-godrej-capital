@@ -41,6 +41,7 @@ export default async function decorate() {
   dropdown.addEventListener('change', () => {
     updateDropdownOptions(dropdown);
   });
+  
 }
 
 // Get authoring values

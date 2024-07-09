@@ -145,7 +145,9 @@ function renderHTML(attributes) {
                     <div>${attributes.annualPercentLabel}</div>
                     <div id="aprDisplay">${attributes.percentSymbol}</div>
                 </div>
-                <button id="apply-btn-apr">${attributes.applyNowLabel}</button>
+                <div class="apply-btn-apr-result">
+                    <button id="apply-btn-apr">${attributes.applyNowLabel}</button>
+                </div>
             </div>
         </div>`;
 }
@@ -158,7 +160,7 @@ function updateRangeColors(block) {
         const max = parseFloat(input.max);
         const val = parseFloat(input.value);
         const normalizedValue = (val - min) / (max - min) * 100;
-        input.style.background = `linear-gradient(to right, #8CB133 ${normalizedValue}%, #ccc ${normalizedValue}%)`;
+        input.style.background = `linear-gradient(to right, #8CB133 ${normalizedValue}%, #fff ${normalizedValue}%)`;
     });
 }
 
