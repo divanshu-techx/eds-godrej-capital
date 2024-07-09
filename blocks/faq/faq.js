@@ -7,6 +7,7 @@ var searchIcon = getDataAttributeValueByName('searchicon');
 
 export default async function decorate(block) {
 
+
   //   let bannerDataArray;
   const upperContainer = document.createElement('div');
   upperContainer.className = 'upperContainer';
