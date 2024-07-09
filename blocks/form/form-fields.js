@@ -21,10 +21,13 @@ function generateFieldId(fd, suffix = '') {
 
 // Function to create a label for a form field
 function createLabel(fd) {
-    const label = document.createElement('label');
-    label.id = generateFieldId(fd, '-label');
-    label.textContent = fd.Label || fd.Name;
-    label.setAttribute('for', fd.Id);
+    let label = '';
+    if (fd.Label) {
+        label = document.createElement('label');
+        label.id = generateFieldId(fd, '-label');
+        label.textContent = fd.Label;
+        label.setAttribute('for', fd.Id);
+    }
     return label;
 }
 
@@ -124,10 +127,12 @@ const createTextArea = (fd) => {
 
     const fieldWrapper = createFieldWrapper(fd);
     const label = createLabel(fd);
-    field.setAttribute('aria-labelledby', label.id);
+    if (label) {
+        field.setAttribute('aria-labelledby', label.id);
+        fieldWrapper.append(label);
+    }
     fieldWrapper.append(field);
-    fieldWrapper.append(label);
-
+    
     return { field, fieldWrapper };
 };
 
@@ -139,9 +144,11 @@ const createInput = (fd) => {
 
     const fieldWrapper = createFieldWrapper(fd);
     const label = createLabel(fd);
-    field.setAttribute('aria-labelledby', label.id);
+    if (label) {
+        field.setAttribute('aria-labelledby', label.id);
+        fieldWrapper.append(label);
+    }
     fieldWrapper.append(field);
-    fieldWrapper.append(label);
 
     return { field, fieldWrapper };
 };
