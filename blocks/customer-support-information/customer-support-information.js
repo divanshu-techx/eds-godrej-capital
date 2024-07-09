@@ -36,13 +36,20 @@ export default async function decorate(block) {
   
         header.addEventListener('click', () => {
           const isActive = header.classList.contains('active-show');
+          const forTableClass = header.parentElement.parentElement.classList.contains('support-table-name');
           accordions.forEach((acc) => {
             acc.children[0].classList.remove('active-show');
             acc.children[1].classList.remove('active-show');
+            if (forTableClass) {
+              header.parentElement.parentElement.classList.remove('active-support-table');
+            } 
           });
          if (!isActive) {
            header.classList.add('active-show');
            content.classList.add('active-show');
+           if (forTableClass) {
+            header.parentElement.parentElement.classList.add('active-support-table');
+           }
          }
         });
       });
