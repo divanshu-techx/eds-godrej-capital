@@ -95,8 +95,13 @@
   height: 166px;
 }
 
-
-
+.faq-wrapper .middleContainer #faq-not-found p{
+font-size: 14px;
+font-weight: 400;
+line-height: 24px;
+text-align: left;
+color:#5D5D5D;
+}
 
 .faq-wrapper .middleContainer .tags-button {
   display: flex;
@@ -139,6 +144,8 @@
 .faq-wrapper .product-page .banner-container {
   position: relative;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 29.74%, #000 49.78%);
+  max-height: 602px;
+  border-radius: 8px;
 }
 
 .faq-wrapper .product-page .banner-container .content-container {
