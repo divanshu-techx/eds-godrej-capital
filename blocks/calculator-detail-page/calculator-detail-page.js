@@ -1,16 +1,34 @@
+// export default decorate;
+export default async function decorate(block) {
+const calculatorDetailPageWrapper=block.parentElement;
+const defaultWrapper=calculatorDetailPageWrapper.parentElement;
+
+
+   const mobileViewContainer = document.createElement('div');
+   mobileViewContainer.classList.add('mobileViewContainer');
+   calculatorDetailPageWrapper.append(mobileViewContainer)
+
+  const linksDiv = document.createElement('div');
+  linksDiv.classList.add('links-div'); 
+  defaultWrapper.append(linksDiv);
+  let links = getDataAttributeValueByName('calculatorsLinks'); // Use let to allow reassignment
+  displayLinks(links,linksDiv);
+  calculatorDetailPageWrapper.insertBefore(linksDiv, block);
+ handleMobileView(mobileViewContainer,block,linksDiv)
+ window.addEventListener('resize', () => {
+
+    handleMobileView(mobileViewContainer, block, linksDiv);
+  
+});
+
+}
+
 function getDataAttributeValueByName(name) {
   const element = document.querySelector(`[data-${name}]`);
   return element ? element.getAttribute(`data-${name}`) : null;
 }
 
-async function decorate(block) {
-  const calculatorDetailPageWrapper = document.querySelector('.calculator-detail-page-wrapper');
-  const calculatorDetailPage = document.querySelector('.calculator-detail-page');
-
-  const linksDiv = document.createElement('div');
-  linksDiv.classList.add('links-div'); // Add class for styling
-  let links = getDataAttributeValueByName('calculatorsLinks'); // Use let to allow reassignment
-
+function displayLinks(links, linksDiv) {
   if (links) {
     linksDiv.style.display = 'block'; // Initially show links div
 
@@ -29,45 +47,40 @@ async function decorate(block) {
   } else {
     linksDiv.style.display = 'none'; // Hide links div if no links are found
   }
-
-  calculatorDetailPageWrapper.insertBefore(linksDiv, calculatorDetailPage);
-
-  const mobileViewContainer = document.createElement('div');
-  mobileViewContainer.classList.add('mobileViewContainer');
-
-  function handleMobileView() {
-       const isMobile = window.innerWidth <= 768;
-       if (isMobile) {
-         mobileViewContainer.innerHTML = ''; // Clear previous content
-         Array.from(calculatorDetailPage.children).forEach(child => {
-           const childDivs = child.children;
-           if (childDivs.length >= 3) {
-             const thirdDiv = childDivs[2].cloneNode(true);
-             const linkElement = document.createElement('a');
-             linkElement.href = '#'; // Set the href attribute to make it clickable, change this to the actual URL if available
-             linkElement.classList.add('mobile-link-element'); // Add class for styling
-             linkElement.appendChild(thirdDiv);
-             mobileViewContainer.appendChild(linkElement);
-           }
-         });
-         calculatorDetailPage.style.display = 'none'; // Hide the calculator detail page
-         linksDiv.style.display = 'none'; // Hide the links div
-       } else {
-         mobileViewContainer.innerHTML = '';
-         calculatorDetailPage.style.display = 'block'; // Show the calculator detail page
-         if (links) {
-           linksDiv.style.display = 'block'; // Show the links div if links are present
-         }
-       }
-     }
-
-  calculatorDetailPageWrapper.appendChild(mobileViewContainer);
-
-  // Initial call
-  handleMobileView();
-
-  // Add resize event listener
-  window.addEventListener('resize', handleMobileView);
 }
 
-export default decorate;
+function handleMobileView(mobileViewContainer, block, linksDiv) {
+  // Determine if the current view is mobile
+  const isMobile = window.innerWidth <= 768;
+
+  if (isMobile) {
+    // Clear previous content
+    mobileViewContainer.innerHTML = '';
+
+    // Loop through the block's children and create links
+    Array.from(block.children).forEach(child => {
+      const childDivs = child.children;
+      if (childDivs.length >= 3) {
+        const thirdDiv = childDivs[2].cloneNode(true);
+        const linkElement = document.createElement('a');
+        linkElement.href = '#'; // Set the href attribute to make it clickable, change this to the actual URL if available
+        linkElement.classList.add('mobile-link-element'); // Add class for styling
+        linkElement.appendChild(thirdDiv);
+        mobileViewContainer.appendChild(linkElement);
+      }
+    });
+
+    // Hide the calculator detail page and links div
+    block.style.display = 'none';
+    linksDiv.style.display = 'none';
+  } else {
+    // Clear previous content in the mobile view container
+    mobileViewContainer.innerHTML = '';
+
+    // Show the calculator detail page and links div if links are present
+    block.style.display = 'block';
+    if (linksDiv) {
+      linksDiv.style.display = 'block';
+    }
+  }
+}
