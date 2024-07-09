@@ -9,24 +9,39 @@ const mxRefferalType = getDataAttributeValueByName('mxrefferaltype');
 const authKey = getDataAttributeValueByName('authkey');
 
 export default async function decorate(block) {
+
     const formLink = block.querySelector('a[href$=".json"]');
     if (!formLink) return;
 
     const form = await createForm(formLink.href);
     block.replaceChildren(form);
 
+    addChangeEventOnCheckboxes(block);
+    addChangeEventOnRadioButtons(block);
+
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-        const valid = form.checkValidity();
-        if (valid) {
-            //   handleSubmit(form);
-            console.log("form is valid");
-            toggleFormVisibility('.form1', '.form2', block);
-        } else {
-            const firstInvalidEl = form.querySelector(':invalid:not(fieldset)');
-            if (firstInvalidEl) {
-                firstInvalidEl.focus();
-                firstInvalidEl.scrollIntoView({ behavior: 'smooth' });
+        const submitTypeBtn = e.submitter; // Get the button that was clicked to submit the form
+
+        // Determine which button was clicked
+        if (submitTypeBtn.id === 'submit-btn') {
+            // Handle submit action for first button
+            const checkboxValidation = validateInputs(block, "#firstset", 'Please select at least one product.', 'checkbox');
+            const radioButtonValidation = validateInputs(block, "#secondset", 'Please select a location.', 'radio');
+
+            if (checkboxValidation && radioButtonValidation && form.checkValidity()) {
+                console.log("Form is valid. Submitting...");
+                // handleSubmit(form);
+                toggleFormVisibility('.form1', '.form2', block);
+            } else {
+                focusOnFirstInvalidElement(form);
+            }
+        } else if (submitTypeBtn.id === 'verify-btn') {
+            if (form.checkValidity()) {
+                // Handle submit action for second button
+                console.log("verify button clicked.");
+            } else {
+                focusOnFirstInvalidElement(form);
             }
         }
     });
@@ -50,6 +65,90 @@ export default async function decorate(block) {
         mx_Refferral_URL: mxRefferralUrl,
         mx_Refferal_Type: mxRefferalType,
     };
+}
+
+function handleSubmitBtn() {
+
+}
+
+function handleVerifyBtn() {
+
+}
+
+function focusOnFirstInvalidElement(form) {
+    const firstInvalidEl = form.querySelector(':invalid:not(fieldset)');
+    if (firstInvalidEl) {
+        firstInvalidEl.focus();
+        firstInvalidEl.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+function addChangeEventOnCheckboxes(block) {
+    const checkboxes = block.querySelectorAll('.form1.field-wrapper.checkbox-wrapper.selection-wrapper input[type="checkbox"]');
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', (e) => {
+            const parentWrapper = checkbox.closest('.form1.field-wrapper.checkbox-wrapper.selection-wrapper');
+            // const label = parentWrapper.querySelector('label').textContent;
+
+            if (checkbox.checked) {
+                parentWrapper.classList.add('checked');
+                // checkbox.value = label;
+            } else {
+                parentWrapper.classList.remove('checked');
+                // checkbox.value = ''; // or set it back to the default value if needed
+            }
+        });
+    });
+}
+
+function addChangeEventOnRadioButtons(block) {
+    const radioButtons = block.querySelectorAll('.form1.field-wrapper.radio-wrapper.selection-wrapper input[type="radio"]');
+
+    radioButtons.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            // Remove the 'selected' class from all radio buttons in the group
+            const name = radio.getAttribute('name');
+
+            radioButtons.forEach(r => {
+                if (r.getAttribute('name') === name) {
+                    const parentWrapper = r.closest('.form1.field-wrapper.radio-wrapper.selection-wrapper');
+                    parentWrapper.classList.remove('selected');
+                }
+            });
+
+            // Add the 'selected' class to the checked radio button
+            const parentWrapper = radio.closest('.form1.field-wrapper.radio-wrapper.selection-wrapper');
+            // const label = parentWrapper.querySelector('label').textContent;
+            parentWrapper.classList.add('selected');
+            // radio.value = label;
+        });
+    });
+}
+
+// Consolidated validation function
+function validateInputs(block, fieldsetId, errorMessageText, inputType) {
+    const fieldset = block.querySelector(fieldsetId);
+    const selectedInputs = fieldset.querySelectorAll(`.form1.field-wrapper.${inputType}-wrapper.selection-wrapper.selected, .form1.field-wrapper.${inputType}-wrapper.selection-wrapper.checked`);
+    return handleErrorMessages(selectedInputs.length > 0, fieldset, errorMessageText);
+}
+
+function handleErrorMessages(condition, fieldset, errorMessageText) {
+    let errorMessage = fieldset.nextElementSibling;
+    if (!condition) {
+        if (!errorMessage || !errorMessage.classList.contains('error-message')) {
+            errorMessage = document.createElement('div');
+            errorMessage.textContent = errorMessageText;
+            errorMessage.classList.add('error-message');
+            fieldset.insertAdjacentElement('afterend', errorMessage);
+        }
+        return false;
+    } else {
+        if (errorMessage && errorMessage.classList.contains('error-message')) {
+            errorMessage.remove();
+        }
+        return true;
+    }
 }
 
 function toggleFormVisibility(hideSelector, showSelector, block) {

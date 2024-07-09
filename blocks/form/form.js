@@ -146,44 +146,6 @@ export default async function decorate(block) {
     form.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        // Check for errors related to checkboxes
-        const formerror = document.getElementById('firstset');
-        const checkboxes = formerror.querySelectorAll('.form1.field-wrapper.checkbox-wrapper.selection-wrapper.checked');
-        if (checkboxes.length === 0) {
-            const errorMessage = document.createElement('div');
-            errorMessage.textContent = 'Please select products.';
-            errorMessage.classList.add('error-message');
-            formerror.insertAdjacentElement('afterend', errorMessage);
-            errorCount++; // Increment error count
-        } else {
-            const errorMessage = document.querySelector('.error-message');
-            if (errorMessage) {
-                errorMessage.remove();
-                errorCount--; // Decrement error count
-            }
-        }
-
-        // Check for errors related to radio buttons
-        const secondsetFieldset = document.getElementById('secondset');
-        const selectedRadioButtons = secondsetFieldset.querySelectorAll('.form1.field-wrapper.radio-wrapper.selection-wrapper.selected');
-        if (selectedRadioButtons.length === 0) {
-            const errorMessage = document.createElement('div');
-            errorMessage.textContent = 'Please select location.';
-            errorMessage.classList.add('error-message');
-            secondsetFieldset.insertAdjacentElement('afterend', errorMessage);
-            errorCount++; // Increment error count
-        } else {
-            const errorMessage = document.querySelector('.error-message');
-            if (errorMessage) {
-                errorMessage.remove();
-                errorCount--; // Decrement error count
-            }
-        }
-
-        // If any errors exist, prevent form submission
-        if (errorCount > 0) {
-            return;
-        }
 
         // Proceed with form submission if there are no errors
         const valid = form.checkValidity();
