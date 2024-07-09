@@ -1,3 +1,13 @@
+@media (max-width: 767px) {
+  .section.aprcalculator-container{
+    border-radius: 20px 20px 0px 0px;
+    position: relative;
+    bottom: 30px;
+    background-color: #fff;
+    padding-bottom: 0px;
+  }
+}
+
 .calculatordetailscards-container .default-content-wrapper{
   background: #F4F4F4;
   padding-top: 15px;
