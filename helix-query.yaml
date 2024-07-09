@@ -35,8 +35,8 @@ indices:
 
   information_and_policies:
     include:
-      - /information_and_policies/**
-    target: /information_and_policies/query-index.json
+      - /information_and_policies/pages/**
+    target: /information_and_policies/pages/query-index.json
     properties:
       tabname:
         select: head > meta[name="tabname"]
