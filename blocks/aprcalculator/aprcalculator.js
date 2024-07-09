@@ -160,7 +160,7 @@ function updateRangeColors(block) {
         const max = parseFloat(input.max);
         const val = parseFloat(input.value);
         const normalizedValue = (val - min) / (max - min) * 100;
-        input.style.background = `linear-gradient(to right, #8CB133 ${normalizedValue}%, #ccc ${normalizedValue}%)`;
+        input.style.background = `linear-gradient(to right, #8CB133 ${normalizedValue}%, #fff ${normalizedValue}%)`;
     });
 }
 
