@@ -1,4 +1,6 @@
-export default async function tabsblock() {
+export default async function tabsblock(block) {
+    const mainElement = document.querySelector('main');
+    const tabsheading = mainElement.querySelector('.tabsheading');
     // Ensure tabs are created only once
     let tabsCreated = false;
 
@@ -14,15 +16,15 @@ export default async function tabsblock() {
 
         // Create a tab container
         const tabContainer = document.createElement('div');
-        tabContainer.classList.add('tabs-container');
+        tabContainer.classList.add('custom-tabs-container');
 
         // Create a tabs wrapper
         const tabsWrapper = document.createElement('div');
-        tabsWrapper.classList.add('tabs-wrapper');
+        tabsWrapper.classList.add('custom-tabs-wrapper');
 
         // Create a content container
         const contentContainer = document.createElement('div');
-        contentContainer.classList.add('tabs-content');
+        contentContainer.classList.add('custom-tabs-content');
 
         // Track active tab index
         let activeTabIndex = 0;
@@ -35,16 +37,16 @@ export default async function tabsblock() {
             // Create tab element
             const tabTitle = section.dataset.tabTitle;
             const tab = document.createElement('button');
-            tab.classList.add('tab');
+            tab.classList.add('custom-tab');
             tab.textContent = tabTitle;
             tab.dataset.index = index;
 
             // Create content element
             const content = document.createElement('div');
-            content.classList.add('tab-content');
+            content.classList.add('custom-tab-content');
 
             // Append section content to tab content
-            content.appendChild(section.cloneNode(true)); // Clone section to preserve original structure
+            content.appendChild(section); // Clone section to preserve original structure
 
             // Hide all contents except the first one
             if (index !== activeTabIndex) {
@@ -70,24 +72,28 @@ export default async function tabsblock() {
         });
 
         // Append tab container to main element
-        main.appendChild(tabContainer);
+        if(tabsheading){
+        tabsheading.insertAdjacentElement('afterend',tabContainer);
+        }else{
+            main.appendChild(tabContainer);
+        }
 
         // Add click event listener to tabs
         tabsWrapper.addEventListener('click', (event) => {
-            if (event.target.classList.contains('tab')) {
+            if (event.target.classList.contains('custom-tab')) {
                 const tabIndex = event.target.dataset.index;
 
                 // Hide all contents and remove active class from tabs
-                tabsWrapper.querySelectorAll('.tab').forEach(tab => {
+                tabsWrapper.querySelectorAll('.custom-tab').forEach(tab => {
                     tab.classList.remove('active');
                 });
-                contentContainer.querySelectorAll('.tab-content').forEach(content => {
+                contentContainer.querySelectorAll('.custom-tab-content').forEach(content => {
                     content.style.display = 'none';
                 });
 
                 // Show the selected tab content and mark the tab as active
                 event.target.classList.add('active');
-                contentContainer.querySelectorAll('.tab-content')[tabIndex].style.display = 'block';
+                contentContainer.querySelectorAll('.custom-tab-content')[tabIndex].style.display = 'block';
             }
         });
     }
@@ -128,9 +134,9 @@ export default async function tabsblock() {
             });
         }
     }
-
+    waitForSections();
     // Wait for DOMContentLoaded event
-    document.addEventListener("DOMContentLoaded", waitForSections);
+  //  document.addEventListener("DOMContentLoaded", waitForSections);
 }
 
 

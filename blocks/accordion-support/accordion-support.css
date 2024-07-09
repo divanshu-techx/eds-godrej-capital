@@ -28,34 +28,3 @@
   .accordion-support-container .accordion-support-wrapper .accordion-support.block .accordion-header.active-show::after {
     transform: rotate(180deg); 
   }
-
-  .accordion-support-container .accordion-support-wrapper .accordion-support.block .accordion-content.active-show{
-    background-color: #E8E8E8;
-  }
-
-  .accordion-support-container .accordion-support-wrapper .accordion-support.block .accordion-content.active-show p{
-    font-size: 12px;
-    font-weight: 300;
-    line-height: 14.08px;
-    text-align: left;
-  }
-
-  .accordion-support-container .accordion-support-wrapper .accordion-support.block .accordion-content.active-show p:first-child{
-    margin-top:0;
-  }
-
-  .accordion-support-container .accordion-support-wrapper .accordion-support.block .accordion-content.active-show p a{
-   padding:0px;
-   text-decoration: none;
-   color:#3b3b3b;
-  }
-
-  .accordion-support-container .accordion-support-wrapper .accordion-support.block .accordion-content.active-show p img{
-    width: 14.74px;
-    height: 16px; 
-  }
-
-  .accordion-support-container .accordion-support-wrapper .accordion-support.block .accordion-content.active-show .mobile-grievance-tabs-panel p:last-child{
-    padding-bottom: 10px;
-  }
-

@@ -1,0 +1,50 @@
+/* Apply Flexbox to the main wrapper */
+.calculator-detail-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Adds space between rows */
+}
+
+.calculator-detail-page > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px; /* Adds space between columns */
+}
+
+/* Ensures images are responsive */
+.calculator-detail-page .columns-img-col img {
+  max-width: 100%;
+  height: auto;
+}
+.title-div {
+  font-weight: bold;
+}
+
+.links-div {
+  margin-top: 10px;
+}
+
+.link-element {
+  color: blue;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.mobileViewContainer {
+  margin-top: 20px;
+}
+
+/* Hide the calculator detail page by default */
+.calculator-detail-page {
+  display: none;
+}
+
+/* Show the calculator detail page when not in mobile view */
+@media (min-width: 769px) {
+  .calculator-detail-page {
+    display: block;
+  }
+}

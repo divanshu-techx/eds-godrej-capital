@@ -7,6 +7,7 @@ var searchIcon = getDataAttributeValueByName('searchicon');
 
 export default async function decorate(block) {
 
+
   //   let bannerDataArray;
   const upperContainer = document.createElement('div');
   upperContainer.className = 'upperContainer';
@@ -247,7 +248,7 @@ function renderCategoryDetails(data, selectedCategory, containerSelector) {
              <p>${categoryData.description}</p>
             </div>
             <div class="details-container">
-               <ul>${categoryData.BulletsPoint.split('\n').map(point => `<li>${point}</li>`).join('')}</ul>
+               <ul>${categoryData.FaqBulletsPoint.split('\n').map(point => `<li>${point}</li>`).join('')}</ul>
                </div>
             <div class="btn-container"> 
             <a href="${categoryData.ApplyNowLink}" target="_blank" class="apply-now btn-details">${categoryData.ApplyNow}</a>
