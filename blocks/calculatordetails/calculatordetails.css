@@ -1,49 +1,83 @@
 .calculatordetails.block > div {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px; /* Adds spacing between the cards */
+    gap: 20px;
   }
   
   .calculatordetails.block .firstdata,
   .calculatordetails.block .seconddata {
-    flex: 1 1 45%; /* Flex-grow, flex-shrink, flex-basis */
+    flex: 1 1 45%;
     box-sizing: border-box;
-    padding: 20px;
+    /* padding: 20px; */
     border-radius: 8px;
   }
   
   .calculatordetails.block p {
-    margin-left: 20px; /* Adds margin to the left for alignment */
-  margin-top: 0; 
+    margin-left: 0;
+    margin-top: 0; 
     text-align: left;
     font-weight: bold;
   }
   
+  @media (max-width: 767px) {
+    .calculatordetails.block p{
+      margin-left: 0px;
+    }
+  }
+  
   .calculatordetails.block ul {
-    padding-left: 20px;
+    padding-left: 0px;
     list-style-type: disc;
     list-style-position: inside;
+  }
+
+  @media (max-width: 767px) {
+    .calculatordetails.block ul{
+      padding-left: 0px;
+    }
   }
   
   .calculatordetails.block li {
     margin-bottom: 10px;
-    color: black; /* Keep the text color black */
+    color: black; 
   }
   
-  .calculatordetails.block li::marker {
-    color: green; /* Ensures the list item markers (dots) are green */
+  .calculatordetails li {
+    list-style-type: none; 
+    padding-left: 20px; 
+    position: relative; 
   }
+  @media (max-width: 767px) {
+    .calculatordetails li{
+      font-size: 10px;
+      font-weight: 400;
+      line-height: 11.73px;
+    }
+  }
+
+.calculatordetails li::before {
+    content: "";
+    background-image: url('/icons/lidot.svg'); 
+    background-size: contain; 
+    width: 8px; 
+    height: 8px; 
+    display: inline-block;
+    position: absolute;
+    left: 0; 
+    top: 50%; 
+    transform: translateY(-50%);
+}
   
   @media (max-width: 768px) {
     .calculatordetails.block > div {
-      display: block; /* Switches to block display on smaller screens */
+      display: block; 
     }
   
     .calculatordetails.block .firstdata,
     .calculatordetails.block .seconddata {
-      flex: 1 1 100%; /* Take full width on smaller screens */
-      border: none; /* Removes the border on smaller screens */
-      padding: 0; /* Removes the padding on smaller screens */
+      flex: 1 1 100%; 
+      border: none; 
+      padding: 0; 
     }
   }
   
