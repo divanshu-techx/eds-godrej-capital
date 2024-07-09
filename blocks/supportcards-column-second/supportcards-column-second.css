@@ -45,7 +45,7 @@
   gap:10px; 
 }
 
-.containerDivForCustomer, 
+/* .containerDivForCustomer, 
 .containerDivForInvestor, 
 .faqDiv, 
 .customerPortal-branchLocator {
@@ -151,4 +151,55 @@ display: flex;
     bottom: 30px;
     background-color: #fff;
     padding-bottom: 0px;
+} */
+
+.supportcards-column-second{
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+}
+.supportcards-column-second .col-second:first-child{
+  box-shadow: 2px 2px 8px 0px #0000001A;
+background-color: #fff;
+padding:30px;
+}
+
+.supportcards-column-second .col-second:nth-child(2){
+  background: #F4F4F4;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.supportcards-column-second .col-second:nth-child(2) img{
+  width: 20px;
+  height: 20px;
+}
+.supportcards-column-second .col-second:last-child{
+  background: #F4F4F4;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.supportcards-column-second .col-second:last-child img{
+ width: 20px;
+ height: 20px;
+}
+
+.supportcards-column-second .col-second:first-child p{
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.42px;
+  text-align: left;
+}
+
+.supportcards-column-second .col-second:first-child img{
+  width: 20px;
+  height: 16px;
+}
+
+.supportcards-column-second .col-second:first-child p a{
+ padding:0;
+ text-decoration: none;
+ color:inherit;
 }
