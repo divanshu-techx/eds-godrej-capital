@@ -1,0 +1,205 @@
+.accordion-content {
+    display: none;
+  }
+  .accordion-content.active-show{
+    display: block;
+  }
+  .accordion-header {
+    cursor: pointer;
+    border: 2px;
+  }
+
+/* Default: Hide mobile UI */
+.customer-support-information-container {
+  display: none;
+}
+
+/* Mobile view: Show mobile UI, hide desktop UI */
+@media (max-width: 768px) {
+  .supportcards-container,
+  .support-table-ui {
+    display: none;
+  }
+  
+  .customer-support-information-container {
+    display: block;
+  }
+}
+
+/* Desktop view: Show desktop UI */
+@media (min-width: 769px) {
+  .supportcards-container,
+  .support-table-ui {
+    display: block;
+  }
+
+  .customer-support-information-container {
+    display: none;
+  }
+}
+
+
+.supportcards {
+  display: flex;
+  justify-content: space-between;
+  gap:10px; 
+}
+
+/* .containerDivForCustomer, 
+.containerDivForInvestor, 
+.faqDiv, 
+.customerPortal-branchLocator {
+  flex: 1; 
+  box-sizing: border-box; 
+}
+
+.supportcards .containerDivForCustomer .imageDiv {
+  display: flex;
+  gap:10px;
+}
+
+.supportcards .containerDivForCustomer .support-landing-cards-child{
+  display: flex;
+}
+
+.supportcards .containerDivForCustomer .support-landing-cards-child:first-child div{
+font-size: 14px;
+font-weight: 400;
+line-height: 16.42px;
+text-align: left;
+
+}
+
+.supportcards .containerDivForCustomer .support-landing-cards-child div:nth-child(2) img{
+  height: 100px;
+  width: 100px;
+}
+
+.supportcards .containerDivForCustomer .support-landing-cards-child p{
+ margin:0;
+}
+
+.supportcards .containerDivForInvestor .faqDiv  .support-landing-cards-child:first-child{
+  box-shadow: 2px 2px 8px 0px #0000001A;
+
+}
+
+.supportcards .containerDivForInvestor .faqDiv {
+ display: flex;
+}
+
+.supportcards .containerDivForInvestor .faqDiv div:first-child p{
+margin:0;
+}
+
+.supportcards .containerDivForInvestor .faqDiv div:last-child{
+
+}
+
+.supportcards .containerDivForInvestor .support-landing-cards-child{
+  display: flex;
+}
+
+.supportcards .containerDivForInvestor .support-landing-cards-child .gia-info-policy,
+.supportcards .containerDivForInvestor .support-landing-cards-child .customerPortal-branchLocator {
+  flex: 1;
+  gap: 16px; 
+  max-width: 310px;
+}
+
+.supportcards .containerDivForInvestor .support-landing-cards-child .gia-info-policy p{
+margin:0;
+}
+
+.supportcards .containerDivForInvestor .support-landing-cards-child .gia-info-policy div:first-child{
+ display: flex;
+ height: 30px;
+}
+
+.supportcards .containerDivForInvestor .support-landing-cards-child .gia-info-policy div:first-child img{
+ width:20px;
+ height: 20px;
+}
+
+.supportcards .containerDivForInvestor .support-landing-cards-child .gia-info-policy div:last-child{
+ display: flex;
+}
+
+.supportcards .containerDivForInvestor .support-landing-cards-child .gia-info-policy div:last-child img{
+ width:20px;
+ height: 20px;
+}
+
+.supportcards .containerDivForInvestor .support-landing-cards-child .customerPortal-branchLocator p{
+margin:0;
+}
+
+.supportcards .containerDivForInvestor .support-landing-cards-child .customerPortal-branchLocator {
+}
+
+.supportcards .containerDivForInvestor .support-landing-cards-child .customerPortal-branchLocator div:first-child{
+display: flex;
+}
+
+.supportcards .containerDivForInvestor .support-landing-cards-child .customerPortal-branchLocator div:last-child{
+display: flex;
+}
+
+.section.customer-support-information-container{
+    border-radius: 20px 20px 0px 0px;
+    position: relative;
+    bottom: 30px;
+    background-color: #fff;
+    padding-bottom: 0px;
+} */
+
+.supportcards-column-second{
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+}
+.supportcards-column-second .col-second:first-child{
+  box-shadow: 2px 2px 8px 0px #0000001A;
+background-color: #fff;
+padding:30px;
+}
+
+.supportcards-column-second .col-second:nth-child(2){
+  background: #F4F4F4;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.supportcards-column-second .col-second:nth-child(2) img{
+  width: 20px;
+  height: 20px;
+}
+.supportcards-column-second .col-second:last-child{
+  background: #F4F4F4;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.supportcards-column-second .col-second:last-child img{
+ width: 20px;
+ height: 20px;
+}
+
+.supportcards-column-second .col-second:first-child p{
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.42px;
+  text-align: left;
+}
+
+.supportcards-column-second .col-second:first-child img{
+  width: 20px;
+  height: 16px;
+}
+
+.supportcards-column-second .col-second:first-child p a{
+ padding:0;
+ text-decoration: none;
+ color:inherit;
+}

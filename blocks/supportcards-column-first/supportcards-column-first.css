@@ -1,0 +1,101 @@
+.section.supportcards-column-first-container.supportcards-column-second-container.supportcards-column-third-container>div{
+    /* display: flex;
+    max-width: 1200px; */
+    margin: 0;
+}
+
+.supportcards-column-first-container.supportcards-column-second-container.supportcards-column-third-container{
+    display: flex;
+    justify-content: center;
+    gap:20px;
+}
+
+.supportcards-column-first .col-wrapper{
+    display: flex;
+    gap:20px;
+}
+
+.supportcards-column-first .col-wrapper .col-wrapper-child-1{
+flex:1;
+box-shadow: 2px 2px 8px 0px #0000001A;
+padding:20px;
+box-sizing: border-box;
+}
+
+.supportcards-column-first .col-wrapper .col-wrapper-child-1 .col-wrapper-child-1-child-1{
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 16.42px;
+    text-align: left;
+}
+
+.supportcards-column-first .col-wrapper .col-wrapper-child-1 .col-wrapper-child-1-child-1 img{
+    width: 16px;
+    height: 16px;
+}
+
+.supportcards-column-first .col-wrapper .col-wrapper-child-2{
+    position: relative;
+  }
+  
+  .supportcards-column-first .col-wrapper .col-wrapper-child-2 .col-wrapper-child-2-child-2{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    font-size: 14px;
+    line-height: 1.2;
+    max-width: 300px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+  }
+
+  .supportcards-column-first .col-wrapper .col-wrapper-child-2 .col-wrapper-child-2-child-2 p{
+   margin:0;
+  }
+
+  .supportcards-column-first .col-wrapper .col-wrapper-child-2 .col-wrapper-child-2-child-2 img{
+    width: 16px;
+    height: 16px;
+  }
+
+  .supportcards-column-first .col-first{
+    display: flex;
+    box-shadow: 2px 2px 8px 0px #0000001A;
+    justify-content: space-between;
+    padding:20px;
+    box-sizing: border-box;
+  }
+
+  .supportcards-column-first .col-first .col-first-child-2 img{
+    width:100px;
+    height:100px;
+  }
+
+  .supportcards-column-first .col-first .col-first-child-1 img{
+    width:16px;
+    height:16px;
+  }
+
+  .supportcards-column-first .col-first .col-first-child-2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .supportcards-column-first .col-first .col-first-child-1 {
+    max-width: 400px;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 16.42px;
+    text-align: left;
+    
+  }
+
