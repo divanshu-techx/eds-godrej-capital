@@ -80,9 +80,6 @@
   display: flex;
 }
 
-
-
-
 .faq-wrapper .middleContainer #faq-not-found {
   display: flex;
   align-items: center;
@@ -93,6 +90,7 @@
   max-width: 1004px;
   background: #F1F1F1;
   height: 166px;
+  transition: height 0.5s ease; 
 }
 
 .faq-wrapper .middleContainer #faq-not-found p{
