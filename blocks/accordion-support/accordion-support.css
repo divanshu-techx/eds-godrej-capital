@@ -32,3 +32,10 @@
   .accordion-support-container .accordion-support-wrapper .accordion-support.block .accordion-header.active-show{
     background: #E8E8E8;
   }
+
+  .accordion-support.for-accordion.block {
+    padding: 0 26px;
+}
+.navigation-support.block{
+  padding: 0 26px;
+}
