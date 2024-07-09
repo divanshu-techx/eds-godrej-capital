@@ -283,7 +283,6 @@ async function decorate() {
   const mergeWrapper = document.createElement('div');
   const documentsWrapper = document.createElement('div');
   documentsWrapper.className = 'documents-wrapper';
-
   const tabListLabel = document.createElement('label');
   tabListLabel.textContent = 'Select Documents:';
   tabListLabel.className = 'tabs-list-label';
@@ -291,22 +290,18 @@ async function decorate() {
   const tablist = document.createElement('div');
   tablist.className = 'tabs-list';
   tablist.setAttribute('role', 'tablist');
-
   const tabpanel = document.createElement('div');
   tabpanel.className = 'tabs-panel';
   tabpanel.id = 'tabpanel-tab';
   tabpanel.setAttribute('aria-labelledby', 'tab-1');
   tabpanel.setAttribute('role', 'tabpanel');
-
   let data = [];
   data = await fetchData(dataUrl);
   if (!data) {
     return;
   }
-
-  const tabNames = Array.from(new Set(data.map((item) => item.parent)));
-  const dropdownOptions = Array.from(new Set(data.map((item) => item.category)));
-
+  const tabNames = Array.from(new Set(data.map((item) => item.document_type)));
+  const dropdownOptions = Array.from(new Set(data.map((item) => item.profession_type)));
   tabNames.forEach((tabName, i) => {
     const button = document.createElement('button');
     button.className = 'tabs-tab';
