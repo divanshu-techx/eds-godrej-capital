@@ -32,6 +32,25 @@ export default async function decorate(block) {
           return;
         }
 
+        const profileContainers = profileDiv.children;
+        console.log(profileContainers);
+        Array.from(profileContainers).forEach((profile) => {
+          console.log(profileContainers);
+          const profileInnerDivs = profile.children;
+          const descDiv = profileDiv;
+          if (profileDiv){
+            profileDiv.children[0].classList.add('profile-details');
+          }
+          const pictureElement = profileInnerDivs[0]?.querySelector('picture');
+          if (pictureElement) {
+            pictureElement.parentElement.classList.add('profile-picture');
+          }
+          
+          if (descDiv) {
+            descDiv.children[1].classList.add('profile-description');
+          }
+        });
+
         // Insert the .profiles div into the button container
         const buttonContainer = anchor.parentElement;
         buttonContainer.innerHTML = '';
@@ -107,3 +126,5 @@ export default async function decorate(block) {
       });
   });
 }
+
+
