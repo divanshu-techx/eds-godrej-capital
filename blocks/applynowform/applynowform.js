@@ -1,7 +1,7 @@
 import createField from './form-fields.js';
 import { sampleRUM } from '../../scripts/aem.js';
+import { getDataAttributes } from '../utils/common.js';
 
-Const
 
 export function ApiCall(METHOD, url, data) {
     // Return a promise
@@ -128,8 +128,8 @@ export async function handleVerify(payload, userMobileNumber) {
                 `https://h9qipagt5.godrejfinance.com/v1/ehf/outsources/validateotp/${userMobileNumber}/${retrieveOTP()}`,
                 payload,
             );
-            if (response.ok) {
-                window.location.href = 'https://your-redirect-url.com/success-page';
+            if (response.status) {
+                window.location.href = '/apply-now-form/thankyou';
             } else {
                 // Handle unsuccessful validation
                 console.error('OTP validation failed:', response);
@@ -148,13 +148,18 @@ export function autoFocusEl(form) {
     inputs.forEach((input, index) => {
         input.addEventListener('input', () => {
             if (input.value.length === 1 && index < inputs.length - 1) {
+                input.parentNode.classList.add('filled')
                 inputs[index + 1].focus();
+
+
             }
         });
 
         input.addEventListener('keydown', (e) => {
             if (e.key === 'Backspace' && input.value === '' && index > 0) {
+                input.parentNode.classList.remove('filled')
                 inputs[index - 1].focus();
+
             }
         });
     });
@@ -169,7 +174,7 @@ export function changeNumberFunctinality(block) {
         });
         const registrationFormEl = block.querySelectorAll('.step1');
         registrationFormEl.forEach((el) => {
-            el.style.display = 'block';
+            el.style.display = 'flex';
         });
 
         const submitBtnRegistration = block.querySelector(
@@ -332,9 +337,31 @@ async function handleSubmit(form) {
     }
 }
 
+function createRedirection(attributesObj) {
+    const termsAndConditionRedirection = document.createElement('a');
+    termsAndConditionRedirection.classList.add('terms-and-condition-re');
+    termsAndConditionRedirection.setAttribute('href', attributesObj.termsandconditionsurl);
+    termsAndConditionRedirection.innerText = attributesObj.termsandconditionslabel;
+    return termsAndConditionRedirection;
+}
+
+function changesScreenChange(el, dataAttrObj, initialContent) {
+    if (window.innerWidth <= 900) {
+        el.innerText = dataAttrObj.editnumberlabelmobileandtablet;
+    } else {
+        el.innerText = initialContent;
+    }
+}
+
 export default async function decorate(block) {
+
+    const container = block.closest(".applynowform-container");
+    const attributesObj = getDataAttributes(container);
+    console.log(attributesObj)
     const formLink = block.querySelector('a[href$=".json"]');
     if (!formLink) return;
+
+
 
     const form = await createForm(formLink.href);
     autoFocusEl(form);
@@ -345,10 +372,19 @@ export default async function decorate(block) {
         el.style.display = 'none';
     });
 
-    changeNumberFunctinality(block);
+    const ChangeNoEl = block.querySelector('#change-number');
+    const initialContent = ChangeNoEl.innerText;
+    console.log(initialContent);
+    changesScreenChange(ChangeNoEl, attributesObj, initialContent);
+    window.addEventListener('resize', () => changesScreenChange(ChangeNoEl, attributesObj, initialContent));
+    const tAndCredirectionStepFirst = createRedirection(attributesObj)
+    const tAndCredirectionStepSecond = createRedirection(attributesObj)
 
+
+    block.querySelector('#form-description').append(tAndCredirectionStepFirst)
+    block.querySelector('#form-message4').append(tAndCredirectionStepSecond)
+    changeNumberFunctinality(block);
     form.addEventListener('submit', (e) => {
-        console.log('clicked');
         e.preventDefault();
         const valid = form.checkValidity();
         if (valid) {
@@ -358,7 +394,7 @@ export default async function decorate(block) {
                 el.style.display = 'none';
             });
             verifyFormEl.forEach((el) => {
-                el.style.display = 'block';
+                el.style.display = 'flex';
             });
         } else {
             const firstInvalidEl = form.querySelector(':invalid:not(fieldset)');

@@ -3,8 +3,11 @@ import { toClassName } from '../../scripts/aem.js';
 function createFieldWrapper(fd) {
     const fieldWrapper = document.createElement('div');
     if (fd.Style) fieldWrapper.className = fd.Style;
-    fieldWrapper.classList.add('field-wrapper', `${fd.Type}-wrapper`);
-
+    if (fd.type == 'text' || fd.type == 'email' || fd.type == "number") {
+        fieldWrapper.classList.add('field-wrapper', `${fd.Type}-wrapper  field-input-type`);
+    } else {
+        fieldWrapper.classList.add('field-wrapper', `${fd.Type}-wrapper`);
+    }
     fieldWrapper.dataset.fieldset = fd.Fieldset;
 
     return fieldWrapper;
@@ -199,12 +202,22 @@ const createToggle = (fd) => {
 };
 
 const createCheckbox = (fd) => {
+    const currentUrl = new URL(window.location.href);
+    let categoryParam = currentUrl.searchParams.get('category');
+    categoryParam = categoryParam.replace(/_/g, ' ');
     const { field, fieldWrapper } = createInput(fd);
     if (!field.value) field.value = 'checked';
     fieldWrapper.classList.add('selection-wrapper');
     const label = fieldWrapper.querySelector('label');
-
+    if (categoryParam) {
+        if (field.getAttribute('value').toLowerCase() === categoryParam.toLowerCase()) {
+            field.checked = true;
+        }
+    }
     fieldWrapper.classList.add('selection-wrapper');
+    if (field.checked) {
+        fieldWrapper.classList.add('checked');
+    }
     field.addEventListener('change', () => {
         if (field.checked) {
             fieldWrapper.classList.add('checked');
