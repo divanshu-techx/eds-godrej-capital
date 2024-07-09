@@ -145,7 +145,9 @@ function renderHTML(attributes) {
                     <div>${attributes.annualPercentLabel}</div>
                     <div id="aprDisplay">${attributes.percentSymbol}</div>
                 </div>
-                <button id="apply-btn-apr">${attributes.applyNowLabel}</button>
+                <div class="apply-btn-apr-result">
+                    <button id="apply-btn-apr">${attributes.applyNowLabel}</button>
+                </div>
             </div>
         </div>`;
 }

@@ -1,4 +1,4 @@
-.aprcalculator{
+/* .aprcalculator{
   .calculator-container {
       width: 80%;
       margin: 20px auto;
@@ -64,16 +64,15 @@
       background: white;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       justify-content: space-around;
-      /* align-items: center; */
   }
-}
+} */
 
 
 .error-message {
   color: red;
   font-size: 0.9em;
   margin-top: 5px;
-  display: none; /* Hide initially */
+  display: none;
 }
 
 
@@ -135,3 +134,208 @@ input[type=range]:active::-webkit-slider-thumb {
   justify-content: center;
   align-items: center;
 }
+
+/* -------------------------------------- */
+
+.calculator-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 100%;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+.inputs, .outputs {
+  box-sizing: border-box;
+  width: calc(50% - 10px); /* Adjusted to 50% width with 10px gap */
+  max-width: 100%;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  background: #F4F4F4;
+  padding:40px;
+  border-radius:4px;
+}
+
+.inputBoxApr {
+  margin-bottom: 20px;
+}
+
+.inputBoxAprLabel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.inputAprLabelInput {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.inputAprLabelInput input {
+  background: #fff;
+  padding: 5px;
+  border: none;
+  box-sizing: border-box;
+  height: 40px;
+  line-height: 30px;
+}
+.inputAprLabelInput span {
+  background: #fff;
+  padding: 5px;
+  /* border: 1px solid #ccc; */
+  box-sizing: border-box;
+  height: 40px;
+  line-height: 30px;
+}
+
+.inputAprLabelInput span {
+  border-right: none; 
+  border-radius: 4px 0 0 4px; 
+}
+
+.inputAprLabelInput input {
+  border-left: none; 
+  border-radius: 0 4px 4px 0;
+  margin-left: -1px;
+  text-align: end;
+}
+
+
+.inputBoxAprRange {
+  margin-top: 10px;
+}
+
+.inputBoxAprRange input[type="range"] {
+  width: 100%;
+  background: linear-gradient(to right, rgb(140, 177, 51) 0%, rgb(204, 204, 204) 0%);
+}
+
+.inputBoxAprBottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+.outputs {
+  max-width: 100%;
+}
+
+.result {
+  background: #8CB133;
+  border-radius: 4px;
+  height: 66px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white; 
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.result > div:first-child {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18.77px;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+.result > div:last-child {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 42.23px;
+  text-align: left;
+}
+
+.apply-btn-apr-result{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 2px 4px 0px #00000014;
+  padding:20px 20px;
+}
+
+.apply-btn-apr-result button{
+  background: #3CB8FF;
+  color:#fff;
+}
+
+.aprcalculator .inputs label {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18.77px;
+  text-align: left;
+  color:#3b3b3b;
+}
+
+.aprcalculator .inputBoxApr .inputBoxAprBottom{
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 16.42px;
+    text-align: left;
+    color:#000;
+}
+
+
+/* Desktop */
+@media (min-width: 1351px) {
+  .inputs {
+      max-width: 772px; 
+      width:100%;
+  }
+  .outputs {
+      max-width: calc(100% - 772px - 30px); 
+      width:100%;
+  }
+  .calculator-container {
+      flex-direction: row;
+  }
+}
+
+/* Calculate proportion for 1200px screen */
+@media (min-width: 1200px) and (max-width: 1350px) {
+  .inputs {
+      max-width: calc(772px / 1351 * 1200); 
+      width:100%;
+  }
+  .outputs {
+      max-width: calc(100% - (772px / 1351 * 1200) - 30px); 
+  }
+  .calculator-container {
+      flex-direction: row;
+  }
+}
+
+/* iPad */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .inputs {
+      max-width: calc(100% - 303px - 30px); 
+      width:100%;
+  }
+  .outputs {
+      max-width: 273px;
+  }
+  .calculator-container {
+      flex-direction: row;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .inputs, .outputs {
+      max-width: 100%;
+      width:100%;
+  }
+  .calculator-container {
+      flex-direction: column;
+  }
+}
+

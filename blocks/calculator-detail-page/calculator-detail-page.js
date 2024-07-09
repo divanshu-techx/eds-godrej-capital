@@ -17,7 +17,7 @@ export default async function decorate(block) {
 
   // Add class to calculator detail page children and their descendants
   Array.from(block.children).forEach(child => {
-    addClassToElementAndDescendants(child, 'calculator-child'); // Adding 'calculator-child' class
+    addClassToElementAndDescendants(child, 'calculator-detail-page_v1'); // Adding 'calculator-child' class
   });
 
   handleMobileView(mobileViewContainer, block, linksDiv);
@@ -31,7 +31,7 @@ function addClassToElementAndDescendants(element, className) {
   element.classList.add(className);
   // Recursively add the class to all descendant div elements
   Array.from(element.getElementsByTagName('div')).forEach(div => {
-    div.classList.add(className + '-child'); // Adding 'calculator-child' class to divs inside 'calculator-child'
+    div.classList.add(className + '-internal'); // Adding 'calculator-child' class to divs inside 'calculator-child'
   });
 }
 
