@@ -8,6 +8,7 @@ function getDataAttributeValueByName(name) {
 const dataUrl = getDataAttributeValueByName('queryIndexUrl');
 const mainTitle = getDataAttributeValueByName('interestRateTitle');
 const viewCompleteLabel = getDataAttributeValueByName('viewCompleteLabel');
+console.log(viewCompleteLabel)
 const disclaimerContent = getDataAttributeValueByName('disclaimer');
 
 async function fetchData(apiUrl) {
@@ -27,7 +28,7 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
   }
 
   const filteredData = data.filter(
-    (item) => item.parent === selectedTab && item.category === selectedOption,
+    (item) => item.document_type === selectedTab && item.profession_type === selectedOption,
   );
 
   if (filteredData.length === 0) {
@@ -45,10 +46,10 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
     sectionsContainer.className = 'sections-container';
 
     // Iterate through sections until no more titles are found
-    while (item[`requirements_${sectionIndex}`]) {
-      const title = item[`requirements_${sectionIndex}`].trim();
+    while (item[`title_${sectionIndex}`]) {
+      const title = item[`title_${sectionIndex}`].trim();
       const description = item[`description_${sectionIndex}`] || ''; // Default to empty string if description is not present
-      const bulletPoints = item[`documentsNeeded_${sectionIndex}`] || ''; // Default to empty string if bullet points are not present
+      const bulletPoints = item[`bullet_points_${sectionIndex}`] || ''; // Default to empty string if bullet points are not present
 
       // Create section element
       const sectionElement = document.createElement('div');
@@ -70,7 +71,7 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
       // Render bullet points if available
       if (bulletPoints.trim() !== '') {
         const bulletPointsList = bulletPoints
-          .split('\n')
+          .split(',')
           .map((bp) => bp.trim())
           .filter((bp) => bp !== '');
 
