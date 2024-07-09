@@ -8,6 +8,7 @@ import createMap from '../utils/google-map.js';
 
 import {getDataAttributes} from '../utils/common.js'
 
+
 /**
  * loads and decorates the header, mainly the nav
  * @param {Element} block The header block element

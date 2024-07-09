@@ -2,6 +2,7 @@ export function getDataAttributes(element) {
     if (!(element instanceof HTMLElement)) {
         throw new Error("Provided element is not a valid HTMLElement.");
     }
+
     let attributes = element.attributes;
     let dataAttributesObject = {};
     for (let i = 0; i < attributes.length; i++) {

@@ -5,6 +5,7 @@ export default async function decorate(block) {
   const attributeObj=getDataAttributes(container); 
 
 
+
   //   let bannerDataArray;
   const upperContainer = document.createElement('div');
   upperContainer.className = 'upperContainer';
