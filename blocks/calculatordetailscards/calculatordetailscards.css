@@ -40,6 +40,7 @@
   height: 209px;
   margin: 0 10px; 
   scroll-snap-align: start;
+  background: #fff;
 }
 
 .calculatordetailscards .imagedata img{
