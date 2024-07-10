@@ -26,7 +26,6 @@ export default async function decorate(block) {
     handleMobileView(mobileViewContainer, block, linksDiv);
   });
 }
-
 function addClassToElementAndDescendants(element, className) {
   element.classList.add(className);
 
