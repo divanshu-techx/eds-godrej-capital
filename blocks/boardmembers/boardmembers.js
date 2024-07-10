@@ -26,9 +26,7 @@ export default async function decorate(block) {
         // Find the .profiles div in the fetched HTML
         const profileDiv = tempContainer.querySelector('.profiles');
         const profileContainers = profileDiv.children;
-        console.log(profileContainers);
         Array.from(profileContainers).forEach((profile) => {
-          console.log(profileContainers);
           const profileInnerDivs = profile.children;
           const descDiv = profileDiv;
           if (profileDiv){
@@ -74,6 +72,7 @@ export default async function decorate(block) {
 
         // Create overlay and popup elements for each anchor
         const overlay = document.createElement('div');
+        overlay.classList.add('overlay-div');
         overlay.style.display = 'none';
         overlay.style.position = 'fixed';
         overlay.style.top = 0;
@@ -85,6 +84,7 @@ export default async function decorate(block) {
         document.body.appendChild(overlay);
 
         const popup = document.createElement('div');
+        popup.classList.add('popup-div');
         popup.style.display = 'none';
         popup.style.position = 'fixed';
         popup.style.top = '50%';
@@ -101,6 +101,7 @@ export default async function decorate(block) {
 
         const popupContent = document.createElement('div');
         popupContent.innerHTML = popcontenta;
+        popupContent.classList.add('popup-content');
         popup.appendChild(popupContent);
 
         // Function to show the popup
