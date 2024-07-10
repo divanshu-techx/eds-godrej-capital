@@ -74,53 +74,59 @@ function getHtmlData(newMetaData) {
     const htmlCode = `
     <div class="calculator-container-tax-saving">
         <div class="inputBox_tax_saving">
-        <div class="inputs_tax_saving">
-            <div class="input-details-tax-saving">
+        <div class="inputTaxSaving">
+            <div class="inputBoxTaxSavingLabel">
                 <label for="age">${newMetaData.ageTitle}</label>
                 <div class="tax_saving_input_label">
                 <span id="inputLabel_tax_saving">${newMetaData.yearSymbol}</span>
                 <span id="age"  class="inputSpan_tax_saving" contenteditable="true" data-min="${newMetaData.ageMin}" data-max="${newMetaData.ageMax}" onblur="updateDisplay()">${(newMetaData.ageMin)}</span>
                 </div>
             </div>
+            <div class="inputBoxTaxSavingRange">
             <input type="range" id="ageRange" min="${newMetaData.ageMin}" max="${newMetaData.ageMax}" value="${newMetaData.ageMin}" oninput="updateRange('age')">
-            <div class="input-bottom-details-tax-saving">
+            <div class="inputBoxTaxSavingBottom">
                 <span>${newMetaData.ageMin}Year</span>
                 <span>${newMetaData.ageMax}Years</span>
+            </div>
             </div>
             <div class="errorMsg_tax_saving">
                 <p id="ageError" class="error_text" style="display: none;">Value must be between ${newMetaData.ageMin} and ${newMetaData.ageMax}</p>
             </div>
          </div>
 
-         <div class="input_tax_saving">
-            <div class="input-details-tax-saving">
+         <div class="inputTaxSaving">
+            <div class="inputBoxTaxSavingLabel">
                 <label for="income">${newMetaData.totalTextTitle}</label>
                 <div class="tax_saving_input_label">
                 <span id="total_tax_label">${newMetaData.rupeeSymbolEng}</span>
                 <span id="income" class="inputSpan_tax_saving" contenteditable="true" data-min="${newMetaData.totalTaxMin}" data-max="${newMetaData.totalTaxMax}" onblur="updateDisplay()">${formatNumberToIndianCommas(newMetaData.totalTaxMin)}</span>
             </div>
             </div>
+            <div class="inputBoxTaxSavingRange">
             <input type="range" id="incomeRange" min="${newMetaData.totalTaxMin}" max="${newMetaData.totalTaxMax}" value="${newMetaData.totalTaxMin}"  oninput="updateRange('income')">
-            <div class="input-bottom-details-tax-saving">
+            <div class="inputBoxTaxSavingBottom">
                 <span>${numberToWords(newMetaData.totalTaxMin)}</span>
                 <span>${numberToWords(newMetaData.totalTaxMax)}</span>
+            </div>
             </div>
             <div class="errorMsg_tax_saving">
                 <p id="incomeError" class="error_text" style="display: none;">Value must be between ${newMetaData.totalTaxMin} and ${newMetaData.totalTaxMax}</p>
             </div>
             </div>
-            <div class="input_tax_saving">
-            <div class="input-details-tax-saving">
+            <div class="inputTaxSaving">
+            <div class="inputBoxTaxSavingLabel">
                 <label for="principal">${newMetaData.principalTitleAnnual}</label>
                 <div class="tax_saving_input_label">
                 <span id="tax_saving_principal_label">${newMetaData.rupeeSymbolEng}</span>
                 <span id="principal" class="inputSpan_tax_saving" contenteditable="true" data-min="${newMetaData.principalMinAnnual}" data-max="${newMetaData.principalMaxAnnual}" onblur="updateDisplay()">${formatNumberToIndianCommas(newMetaData.principalMinAnnual)}</span>
                 </div>
             </div>
+            <div class="inputBoxTaxSavingRange">
             <input type="range" id="principalRange" min="${newMetaData.principalMinAnnual}" max="${newMetaData.principalMaxAnnual}" value="${newMetaData.principalMinAnnual}"  oninput="updateRange('principal')">
             <div class="input-bottom-details-tax-saving">
                 <span>${numberToWords(newMetaData.principalMinAnnual)}</span>
                 <span>${numberToWords(newMetaData.principalMaxAnnual)}</span>
+            </div>
             </div>
             <div class="errorMsg_tax_saving">
                 <p id="principalError" class="error_text" style="display: none;">Value must be between ${newMetaData.principalMinAnnual} and ${newMetaData.principalMaxAnnual}</p>
@@ -128,18 +134,20 @@ function getHtmlData(newMetaData) {
 
             </div>
 
-            <div class="input_tax_saving">
-            <div class="input-details-tax-saving">
+            <div class="inputTaxSaving">
+            <div class="inputBoxTaxSavingLabel">
                 <label for="interest">${newMetaData.interestTitleAnnual}</label>
                 <div class="tax_saving_input_label">
                  <span id="interest_tax_label">${newMetaData.yearSymbol}</span>
                 <span id="interest" class="inputSpan_tax_saving" contenteditable="true" data-min="${newMetaData.interestMinAnnual}" data-max="${newMetaData.interestMaxAnnual}" onblur="updateDisplay()">${formatNumberToIndianCommas(newMetaData.interestMinAnnual)}</span>
             </div>
             </div>
+            <div class="inputBoxTaxSavingRange">
             <input type="range" id="interestRange" min="${newMetaData.interestMinAnnual}" max="${newMetaData.interestMaxAnnual}" value="${newMetaData.interestMinAnnual}"  oninput="updateRange('interest')">
             <div class="input-bottom-details-tax-saving">
                 <span>${numberToWords(newMetaData.interestMinAnnual)}</span>
                 <span>${numberToWords(newMetaData.interestMaxAnnual)}</span>
+            </div>
             </div>
             <div class="errorMsg_tax_saving">
                 <p id="interestError" class="error_text" style="display: none;">Value must be between ${newMetaData.interestMinAnnual} and ${newMetaData.interestMaxAnnual}</p>
@@ -147,18 +155,20 @@ function getHtmlData(newMetaData) {
 
             </div>
 
-            <div class="input_tax_saving">
-            <div class="input-details-tax-saving">
+            <div class="inputTaxSaving">
+            <div class="inputBoxTaxSavingLabel">
                 <label for="month">Loan Tenures (In Months)</label>
                 <div class="tax_saving_input_label">
                  <span id="month_tax_label">Mos.</span>
                 <span id="month" class="inputSpan_tax_saving" contenteditable="true" data-min="1" data-max="11" onblur="updateDisplay()">1</span>
             </div>
             </div>
+            <div class="inputBoxTaxSavingRange">
             <input type="range" id="monthRange" min="1" max="11" value="1"  oninput="updateRange('month')">
             <div class="input-bottom-details-tax-saving">
                 <span>1</span>
                 <span>11</span>
+            </div>
             </div>
             <div class="errorMsg_tax_saving">
                 <p id="monthError" class="error_text" style="display: none;">Value must be between 1 and 11</p>
@@ -392,7 +402,14 @@ function updateRange(id) {
     const percentage = ((value - min) / (max - min)) * 100;
     element.style.setProperty('--value', `${percentage}%`);
     document.getElementById(id).textContent = formatNumberToIndianCommas(value);
-    // updateDisplay();
+}
+function updateRangeColor() {
+    const rangeElements = document.querySelectorAll('input[type="range"]');
+    const unselectedColor = window.innerWidth <= 768 ? 'grey' : '#fff';
+
+    rangeElements.forEach(element => {
+        element.style.setProperty('--unselected-color', unselectedColor);
+    });
 }
 
 
@@ -418,10 +435,12 @@ export default async function decorate(block) {
     initializeEventListeners(block);
     updateDisplay();
     setupApplyNowButton(newMetaData);
+    updateRangeColor();
 }
 
 window.updateRange = updateRange;
 window.updateDisplay = updateDisplay;
+window.addEventListener('resize', updateRangeColor);
 
 
 
