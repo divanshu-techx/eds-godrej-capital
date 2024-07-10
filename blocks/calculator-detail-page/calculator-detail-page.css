@@ -43,8 +43,4 @@
 }
 
 /* Show the calculator detail page when not in mobile view */
-@media (min-width: 769px) {
-  .calculator-detail-page {
-    display: block;
-  }
-}
+
