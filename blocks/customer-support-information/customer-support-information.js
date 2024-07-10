@@ -39,12 +39,12 @@ export default async function decorate(block) {
           accordions.forEach((acc) => {
             acc.children[0].classList.remove('active-show');
             acc.children[1].classList.remove('active-show');
-            header.parentElement.parentElement.classList.remove('active-support-table');
+            // header.parentElement.parentElement.classList.remove('active-support-table');
           });
          if (!isActive) {
            header.classList.add('active-show');
            content.classList.add('active-show');
-           header.parentElement.parentElement.classList.add('active-support-table');
+          //  header.parentElement.parentElement.classList.add('active-support-table');
          }
         });
       });
@@ -62,7 +62,7 @@ function setDisplaySingle(className, displayValue) {
   }
   
 function handleResize() {
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth <= 1198) {
       setDisplaySingle('supportcards-column-first-wrapper', 'none');
       setDisplaySingle('supportcards-column-second-wrapper', 'none');
       setDisplaySingle('supportcards-column-third-wrapper', 'none');
