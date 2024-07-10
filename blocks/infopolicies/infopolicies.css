@@ -40,9 +40,37 @@
   align-items: center;
   box-sizing: border-box;
   padding: 10px;
-  height: 60px;
+  height: 50px;
   font-size: 16px;
   font-weight: 400;
+}
+.infopolicies-container .infopolicies-wrapper .tabs-content .navigation ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.infopolicies-container .infopolicies-wrapper .tabs-content .navigation ul li {
+  position: relative;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18.77px;
+  text-align: left;
+}
+
+.infopolicies-container .infopolicies-wrapper .tabs-content .navigation ul li a{
+  color:inherit;
+  text-decoration: none;
+}
+
+.infopolicies-container .infopolicies-wrapper .tabs-content .navigation ul li::before {
+  content: url('/icons/lidot.svg');
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px; 
+  height: 8px;
+  margin-right:10px;
 }
 
 .infopolicies-container .infopolicies-wrapper .tabs-content .navigate{
@@ -57,37 +85,57 @@
   align-items: center;
   box-sizing: border-box;
   padding: 10px;
-  height: 60px;
+  height: 50px;
   font-size: 16px;
   font-weight: 400;
 }
-
-.infopolicies-container .infopolicies-wrapper .tabs-content .navigation ul{
-  color:#8cb133;
-  font-size: 1.5em;
-  padding-left: 20px;
-  /* padding:0; */
+.infopolicies-container .infopolicies-wrapper .tabs-content .navigate ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.infopolicies-container .infopolicies-wrapper .tabs-content .navigate ul{
-  color:#8cb133;
-  font-size: 1.5em;
-  padding-left: 20px;
-  /* padding:0; */
+.infopolicies-container .infopolicies-wrapper .tabs-content .navigate ul li {
+  position: relative;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18.77px;
+  text-align: left;
 }
 
-.infopolicies-container .infopolicies-wrapper .tabs-content .navigation ul a{
+.infopolicies-container .infopolicies-wrapper .tabs-content .navigate ul li a{
+  color:inherit;
   text-decoration: none;
-  color:#000;
-  font-size: 16px;
-  font-weight: 400;
 }
 
-.infopolicies-container .infopolicies-wrapper .tabs-content .navigate ul a{
-  text-decoration: none;
-  color:#000;
+.infopolicies-container .infopolicies-wrapper .tabs-content .navigate ul li::before {
+  content: url('/icons/lidot.svg');
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px; 
+  height: 8px;
+  margin-right:10px;
+}
+
+.infopolicies-container .infopolicies-wrapper .tabs-content .accordion .accordion-header{
+  position: relative;
+  padding-left: 30px;
+  font-family: 'Work Sans', sans-serif;
   font-size: 16px;
   font-weight: 400;
+  line-height: 18.77px;
+  text-align: left;
+  margin-bottom: 10px;
+}
+.infopolicies-container .infopolicies-wrapper .tabs-content .accordion .accordion-header::before {
+  content: url('/icons/lidot.svg');
+  left: 10px;
+  position: absolute;
+  transform: translateY(-50%);
+  width: 8px; 
+  height: 8px;
+  margin-right:10px;
 }
 
 .infopolicies-container .tabs-container{
@@ -246,7 +294,7 @@
     align-items: center;
     box-sizing: border-box;
     padding: 10px;
-    /* height: 60px; */
+    height: 50px;
     font-size: 16px;
     font-weight: 400;
   }
