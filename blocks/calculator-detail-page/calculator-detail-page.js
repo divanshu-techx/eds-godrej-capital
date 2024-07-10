@@ -1,27 +1,41 @@
 // export default decorate;
 export default async function decorate(block) {
-const calculatorDetailPageWrapper=block.parentElement;
-const defaultWrapper=calculatorDetailPageWrapper.parentElement;
+  const calculatorDetailPageWrapper = block.parentElement;
+  const defaultWrapper = calculatorDetailPageWrapper.parentElement;
 
-
-   const mobileViewContainer = document.createElement('div');
-   mobileViewContainer.classList.add('mobileViewContainer');
-   calculatorDetailPageWrapper.append(mobileViewContainer)
+  const mobileViewContainer = document.createElement('div');
+  mobileViewContainer.classList.add('mobileViewContainer');
+  calculatorDetailPageWrapper.append(mobileViewContainer);
 
   const linksDiv = document.createElement('div');
-  linksDiv.classList.add('links-div'); 
+  linksDiv.classList.add('links-div');
   defaultWrapper.append(linksDiv);
+
   let links = getDataAttributeValueByName('calculatorsLinks'); // Use let to allow reassignment
-  displayLinks(links,linksDiv);
+  displayLinks(links, linksDiv);
   calculatorDetailPageWrapper.insertBefore(linksDiv, block);
- handleMobileView(mobileViewContainer,block,linksDiv)
- window.addEventListener('resize', () => {
 
+  // Add class to calculator detail page children and their descendants
+  Array.from(block.children).forEach(child => {
+    addClassToElementAndDescendants(child, 'calculator-detail-page_v1'); // Adding 'calculator-child' class
+  });
+
+  handleMobileView(mobileViewContainer, block, linksDiv);
+
+  window.addEventListener('resize', () => {
     handleMobileView(mobileViewContainer, block, linksDiv);
-  
-});
-
+  });
 }
+
+function addClassToElementAndDescendants(element, className) {
+  element.classList.add(className);
+  // Recursively add the class to all descendant div elements
+  Array.from(element.getElementsByTagName('div')).forEach(div => {
+    div.classList.add(className + '-internal'); // Adding 'calculator-child' class to divs inside 'calculator-child'
+  });
+}
+
+
 
 function getDataAttributeValueByName(name) {
   const element = document.querySelector(`[data-${name}]`);

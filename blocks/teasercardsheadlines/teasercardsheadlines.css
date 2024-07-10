@@ -35,6 +35,7 @@
         max-height: 180px;
         position: relative;
     }
+
 }
 
 @media (max-width: 599px) {
@@ -67,6 +68,10 @@
 
     .mobile-picture {
         display: none;
+    }
+
+    .our-leadership .teasercardsheadlines.block .desktop-picture img{
+        max-height: 400px;
     }
 }
 
