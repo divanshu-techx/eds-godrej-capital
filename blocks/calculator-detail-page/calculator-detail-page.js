@@ -29,9 +29,42 @@ export default async function decorate(block) {
 
 function addClassToElementAndDescendants(element, className) {
   element.classList.add(className);
+
+  // Check if the element is a calculator-child
+  if (element.classList.contains('calculator-detail-page_v1')) {
+    // Ensure there are at least two child elements to wrap
+    if (element.children.length >= 2) {
+      // Create a new div to wrap the last two children
+      const newDiv = document.createElement('div');
+      newDiv.classList.add('last-two-divs'); // Add class to the new div
+
+      // Move the last two children into the new div
+      const lastTwoChildren = Array.from(element.children).slice(-2); // Get the last two children
+      lastTwoChildren.forEach((child, index) => {
+        const lastTwoDiv = document.createElement('div');
+        if (index === 0) {
+          lastTwoDiv.classList.add('first-last-two-child'); // Class for first div in last two
+        } else {
+          lastTwoDiv.classList.add('second-last-two-child'); // Class for second div in last two
+        }
+
+        // Change class of div elements inside last two children div
+        Array.from(child.getElementsByTagName('div')).forEach(div => {
+          div.classList.add('new-class'); // Add new class to divs inside last two children div
+        });
+
+        lastTwoDiv.appendChild(child);
+        newDiv.appendChild(lastTwoDiv);
+      });
+
+      // Append the new div at the end of the calculator-child
+      element.appendChild(newDiv);
+    }
+  }
+
   // Recursively add the class to all descendant div elements
   Array.from(element.getElementsByTagName('div')).forEach(div => {
-    div.classList.add(className + '-internal'); // Adding 'calculator-child' class to divs inside 'calculator-child'
+    div.classList.add(className + '-child'); // Adding '-child' class to all divs inside 'calculator-child'
   });
 }
 
