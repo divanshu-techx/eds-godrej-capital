@@ -1,6 +1,6 @@
 import createField from './form-fields.js';
 import { sampleRUM } from '../../scripts/aem.js';
-import { makeAjaxRequest, generateOtpPayload, generateVerifyOtpPayload, startTimer, handleVerify } from '../becomepartnerform/becomepartnerform.js';
+import { makeAjaxRequest, generateVerifyOtpPayload, startTimer, handleVerify } from '../becomepartnerform/becomepartnerform.js';
 
 export async function createForm(formHref) {
     const { pathname } = new URL(formHref);
@@ -111,7 +111,7 @@ async function handleSubmit(form) {
         //   },
         // });
         // if (response.ok) {
-        makeAjaxRequest('POST', 'https://h9qipagt5.godrejfinance.com/v1/ehf/outsources/generateotp', generateOtpPayload(payload))
+        makeAjaxRequest('POST', 'https://h9qipagt5.godrejfinance.com/v1/ehf/outsources/generateotp', '', '')
         sampleRUM('form:submit', { source: '.form', target: form.dataset.action });
         //   if (form.dataset.confirmation) {
         //     window.location.href = form.dataset.confirmation;
@@ -201,60 +201,4 @@ export default async function decorate(block) {
 }
 
 
-document.addEventListener('DOMContentLoaded', () => {
-    const jsonUrl = 'https://main--eds-godrej-capital--divanshu-techx.hlx.page/become-a-partner/become-a-partner-form-sheet.json';
-    console.log(jsonUrl);
-
-    fetch(jsonUrl)
-        .then(response => response.json())
-        .then(data => {
-            const dropdown = document.getElementById('categoryDropdown');
-            const tabsContainer = document.getElementById('tabs-container');
-            const contentContainer = document.getElementById('content-container');
-
-            // Populate dropdown
-            data.data.forEach((item, index) => {
-                const option = document.createElement('option');
-                option.value = index;
-                option.innerText = item.category;
-                dropdown.appendChild(option);
-            });
-
-            // Update tabs and content based on selected category
-            const updateTabsAndContent = () => {
-                const selectedIndex = dropdown.value;
-                const selectedCategory = data.data[selectedIndex];
-                tabsContainer.innerHTML = '';
-                contentContainer.innerHTML = '';
-
-                selectedCategory.documentCateory.forEach((doc, index) => {
-                    const tabDiv = document.createElement('div');
-                    tabDiv.className = `tab${index === 0 ? ' active' : ''}`;
-                    tabDiv.dataset.tab = index;
-                    tabDiv.innerText = doc.documentType;
-                    tabsContainer.appendChild(tabDiv);
-
-                    const contentDiv = document.createElement('div');
-                    contentDiv.className = 'content';
-                    contentDiv.style.display = index === 0 ? 'block' : 'none';
-                    contentDiv.innerHTML = `<h3>${doc.title}</h3><p>${doc.description}</p><ul>${doc.documents.map(d => `<li>${d}</li>`).join('')}</ul>`;
-                    contentContainer.appendChild(contentDiv);
-
-                    tabDiv.addEventListener('click', function () {
-                        document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-                        this.classList.add('active');
-                        document.querySelectorAll('.content').forEach((content, contentIndex) => {
-                            content.style.display = contentIndex == index ? 'block' : 'none';
-                        });
-                    });
-                });
-            };
-
-            dropdown.addEventListener('change', updateTabsAndContent);
-            updateTabsAndContent();
-
-
-        })
-        .catch(error => console.error('Error fetching data:', error));
-});
 

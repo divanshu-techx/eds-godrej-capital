@@ -178,11 +178,11 @@ function updateAPR(block) {
     const loanTenureMonths = parseFloat(block.querySelector('#loanTenureMonthsAprRange').value);
     const originationCharges = parseFloat(block.querySelector('#loanOriginationChargesAprRange').value);
 
-    block.querySelector('#loanAmountApr').value = loanAmount.toLocaleString();
+    block.querySelector('#loanAmountApr').value = loanAmount.toLocaleString('en-IN');
     block.querySelector('#interestRateApr').value = interestRate;
     block.querySelector('#loanTenureYearsApr').value = loanTenureYears;
     block.querySelector('#loanTenureMonthsApr').value = loanTenureMonths;
-    block.querySelector('#loanOriginationChargesApr').value = originationCharges.toLocaleString();
+    block.querySelector('#loanOriginationChargesApr').value = originationCharges.toLocaleString('en-IN');
 
     const totalLoanTenure = loanTenureYears * 12 + loanTenureMonths;
     const monthlyInterestRate = interestRate / 100 / 12;
