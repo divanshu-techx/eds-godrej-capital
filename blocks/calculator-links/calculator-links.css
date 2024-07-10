@@ -4,6 +4,11 @@
     color: inherit;
 }
 
+.calculator-links .calculator-button a:hover {
+    background-color: transparent; 
+    color: inherit;
+}
+
 @media (max-width: 768px) {
     .calculator-links .calculator-links-child-child {
         display: grid;
