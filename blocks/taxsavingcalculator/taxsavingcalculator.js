@@ -146,6 +146,26 @@ function getHtmlData(newMetaData) {
             </div>
 
             </div>
+
+            <div class="input_tax_saving">
+            <div class="input-details-tax-saving">
+                <label for="month">Loan Tenures (In Months)</label>
+                <div class="tax_saving_input_label">
+                 <span id="month_tax_label">Mos.</span>
+                <span id="month" class="inputSpan_tax_saving" contenteditable="true" data-min="1" data-max="11" onblur="updateDisplay()">1</span>
+            </div>
+            </div>
+            <input type="range" id="monthRange" min="1" max="11" value="1"  oninput="updateRange('month')">
+            <div class="input-bottom-details-tax-saving">
+                <span>1</span>
+                <span>11</span>
+            </div>
+            <div class="errorMsg_tax_saving">
+                <p id="monthError" class="error_text" style="display: none;">Value must be between 1 and 11</p>
+            </div>
+
+            </div>
+
         </div>
 
         <div class="outputs_tax_saving">
@@ -226,6 +246,17 @@ function initializeEventListeners(block) {
         updateDisplay();
     });
 
+    block.querySelector('#month').addEventListener('blur', function () {
+        const value = parseFloat(this.textContent);
+        const monthRange = block.querySelector('#monthRange');
+        monthRange.value = isNaN(value) ? monthRange.min : Math.min(Math.max(value, monthRange.min), monthRange.max);
+        const percentage = ((monthRange.value - monthRange.min) / (monthRange.max - monthRange.min)) * 100;
+        monthRange.style.setProperty('--value', `${percentage}%`);
+        this.textContent = formatNumberToIndianCommas(monthRange.value);
+        updateDisplay();
+
+    });
+
     // Add event listeners to spans to enforce numeric input
     document.querySelectorAll('.input-details-tax-saving span').forEach(span => {
         span.addEventListener('input', function () {
@@ -269,7 +300,7 @@ function initializeEventListeners(block) {
 
 
 }
-function calculateTax(income, principal, interest) {
+function calculateTax(income, principal, interest, month) {
     const cessRate = parseFloat(getDataAttributeValueByName('cess-rate')) / 100;
     
     // Function to calculate tax based on income slabs
@@ -290,12 +321,12 @@ function calculateTax(income, principal, interest) {
     }
     
     // Calculate tax before loan deductions
-    const basicTaxBefore = calculateBasicTax(income);
+    const basicTaxBefore = calculateBasicTax(income * month);
     const cessBefore = basicTaxBefore * cessRate;
     const taxBefore = Math.round(basicTaxBefore + cessBefore);
     
     // Calculate taxable income after loan deductions
-    const taxableIncomeAfter = Math.max(0, income - principal - interest);
+    const taxableIncomeAfter = Math.max(0, (income - principal - interest) * month);
     
     // Calculate tax after loan deductions
     const basicTaxAfter = calculateBasicTax(taxableIncomeAfter);
@@ -311,11 +342,14 @@ function calculateTax(income, principal, interest) {
         taxBenefits: taxBenefits
     };
 }
+
 function updateDisplay() {
     const age = parseFloat(document.getElementById('age').textContent);
     const income = parseFloat(document.getElementById('income').textContent.replace(/\D/g, ''));
     const principal = parseFloat(document.getElementById('principal').textContent.replace(/\D/g, ''));
     const interest = parseFloat(document.getElementById('interest').textContent.replace(/\D/g, ''));
+
+    const month = parseFloat(document.getElementById('month').textContent.replace(/\D/g, ''));
 
     // Validation
     const ageMin = parseFloat(document.getElementById('age').dataset.min);
@@ -327,15 +361,18 @@ function updateDisplay() {
     const interestMin = parseFloat(document.getElementById('interest').dataset.min);
     const interestMax = parseFloat(document.getElementById('interest').dataset.max);
 
+    const monthMin = parseFloat(document.getElementById('month').dataset.min);
+    const monthMax = parseFloat(document.getElementById('month').dataset.max);
+
 
     validateAndShowError(age, ageMin, ageMax, document.getElementById('ageError'));
     validateAndShowError(income, incomeMin, incomeMax, document.getElementById('incomeError'));
     validateAndShowError(principal, principalMin, principalMax, document.getElementById('principalError'));
     validateAndShowError(interest, interestMin, interestMax, document.getElementById('interestError'));
-
+    validateAndShowError(month, monthMin, monthMax, document.getElementById('monthError'));
  
     // Calculate taxes
-    const { taxBefore, taxAfter, taxBenefits } = calculateTax(income, principal, interest);
+    const { taxBefore, taxAfter, taxBenefits } = calculateTax(income, principal, interest,month);
 
     document.getElementById('taxBefore').textContent = `₹ ${formatNumberToIndianCommas(taxBefore)}`;
     document.getElementById('taxAfter').textContent = `₹ ${formatNumberToIndianCommas(taxAfter)}`;
