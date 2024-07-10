@@ -75,7 +75,6 @@ function addClassToElementAndDescendants(element, className) {
     if (index === 0) div.classList.add('inner-div');
   });
 }
-
 function handleMobileView(block) {
   const isMobile = window.innerWidth <= 768;
 
