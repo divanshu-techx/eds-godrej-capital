@@ -70,10 +70,10 @@ function updateCalculations(block) {
     block.querySelector('#newLoanTenureDisplay').textContent = `${newLoanTenureYears}`;
     block.querySelector('#newLoanTenureMonthsDisplay').textContent = `${newLoanTenureMonths}`;
 
-    block.querySelector('#totalSaving').textContent = `₹ ${totalSavingMonths.toLocaleString('en-IN')}`;
-    block.querySelector('#savingsInEMI').textContent = `₹ ${savingsInEMIMonthly.toLocaleString('en-IN')}`;
-    block.querySelector('#existingEMI').textContent = `₹ ${existingEMIMonthly.toLocaleString('en-IN')}`;
-    block.querySelector('#proposedEMI').textContent = `₹ ${proposedEMIMonthly.toLocaleString('en-IN')}`;
+    block.querySelector('#totalSaving').textContent = `₹ ${Math.floor(totalSavingMonths).toLocaleString('en-IN')}`;
+    block.querySelector('#savingsInEMI').textContent = `₹ ${Math.floor(savingsInEMIMonthly).toLocaleString('en-IN')}`;
+    block.querySelector('#existingEMI').textContent = `₹ ${Math.floor(existingEMIMonthly).toLocaleString('en-IN')}`;
+    block.querySelector('#proposedEMI').textContent = `₹ ${Math.floor(proposedEMIMonthly).toLocaleString('en-IN')}`;
 }
 function getDataAttributeValueByName(name) {
     const element = document.querySelector(`[data-${name}]`);
@@ -153,14 +153,16 @@ function getHTML(calculatorAttributes) {
                             <input type="text" id="principalOutstandingDisplay" value="${calculatorAttributes.principalOutstanding.min}"/>
                         </div>
                     </div>
+                    <div class="inputBoxBalanceRange">
                     <input type="range" id="principalOutstanding" min="${calculatorAttributes.principalOutstanding.min}" max="${calculatorAttributes.principalOutstanding.max}" value="${calculatorAttributes.principalOutstanding.min}">
-                    <div class="balance-bottom">
+                    <div class="inputBoxBalanceBottom">
                         <span>${numberToWords(calculatorAttributes.principalOutstanding.min)}</span>
                         <span>${numberToWords(calculatorAttributes.principalOutstanding.max)}</span>
                     </div>
+                    </div>
                     <span id="principalOutstandingError" class="error-span"></span>
                 </div>
-    
+   
                 <div class="inputBalance">
                     <div class="inputBoxBalanceLabel">
                         <label for="balanceTenureYears">${calculatorAttributes.balanceTenureYear.label}</label>
@@ -169,14 +171,16 @@ function getHTML(calculatorAttributes) {
                             <input type="text" id="balanceTenureYearsDisplay" value="${calculatorAttributes.balanceTenureYear.min}">
                         </div>
                     </div>
+                    <div class="inputBoxBalanceRange">
                     <input type="range" id="balanceTenureYears" min="${calculatorAttributes.balanceTenureYear.min}" max="${calculatorAttributes.balanceTenureYear.max}" value="${calculatorAttributes.balanceTenureYear.min}">
-                    <div class="balance-bottom">
-                        <span>${calculatorAttributes.balanceTenureYear.min}Year</span>
-                        <span>${calculatorAttributes.balanceTenureYear.max}Years</span>
+                    <div class="inputBoxBalanceBottom">
+                        <span>${calculatorAttributes.balanceTenureYear.min} Year</span>
+                        <span>${calculatorAttributes.balanceTenureYear.max} Years</span>
+                    </div>
                     </div>
                     <span id="balanceTenureYearsError" class="error-span"></span>
                 </div>
-    
+   
                 <div class="inputBalance">
                     <div class="inputBoxBalanceLabel">
                         <label for="existingInterestRate">${calculatorAttributes.existingInterest.label}</label>
@@ -185,14 +189,16 @@ function getHTML(calculatorAttributes) {
                             <input type="text" id="existingInterestRateDisplay" value="${calculatorAttributes.existingInterest.min}">
                         </div>
                     </div>
+                     <div class="inputBoxBalanceRange">
                     <input type="range" id="existingInterestRate" min="${calculatorAttributes.existingInterest.min}" max="${calculatorAttributes.existingInterest.max}" value="${calculatorAttributes.existingInterest.min}" step="0.1">
-                    <div class="balance-bottom">
+                    <div class="inputBoxBalanceBottom">
                         <span>${calculatorAttributes.existingInterest.min}${calculatorAttributes.percentSymbol}</span>
                         <span>${calculatorAttributes.existingInterest.max}${calculatorAttributes.percentSymbol}</span>
                     </div>
+                    </div>
                     <span id="existingInterestRateError" class="error-span"></span>
                 </div>
-    
+   
                 <div class="inputBalance">
                     <div class="inputBoxBalanceLabel">
                         <label for="newInterestRate">${calculatorAttributes.proposedInterestRate.label}</label>
@@ -201,14 +207,16 @@ function getHTML(calculatorAttributes) {
                             <input type="text" id="newInterestRateDisplay" value="${calculatorAttributes.proposedInterestRate.min}">
                         </div>
                     </div>
+                <div class="inputBoxBalanceRange">
                     <input type="range" id="newInterestRate" min="${calculatorAttributes.proposedInterestRate.min}" max="${calculatorAttributes.proposedInterestRate.max}" value="${calculatorAttributes.proposedInterestRate.min}">
-                    <div class="balance-bottom">
+                    <div class="inputBoxBalanceBottom">
                         <span>${calculatorAttributes.proposedInterestRate.min}${calculatorAttributes.percentSymbol}</span>
                         <span>${calculatorAttributes.proposedInterestRate.max}${calculatorAttributes.percentSymbol}</span>
                     </div>
+                </div>
                     <span id="newInterestRateError" class="error-span"></span>
                 </div>
-    
+   
                 <div class="inputBalance">
                     <div class="inputBoxBalanceLabel">
                         <label for="newLoanTenure">${calculatorAttributes.proposedLoanTenureYear.label}</label>
@@ -217,14 +225,16 @@ function getHTML(calculatorAttributes) {
                             <input type="text" id="newLoanTenureDisplay" value="${calculatorAttributes.proposedLoanTenureYear.min}">
                         </div>
                     </div>
+                <div class="inputBoxBalanceRange">
                     <input type="range" id="newLoanTenure" min="${calculatorAttributes.proposedLoanTenureYear.min}" max="${calculatorAttributes.proposedLoanTenureYear.max}" value="${calculatorAttributes.proposedLoanTenureYear.min}">
-                    <div class="balance-bottom">
-                        <span>${calculatorAttributes.proposedLoanTenureYear.min}Year</span>
-                        <span>${calculatorAttributes.proposedLoanTenureYear.max}Years</span>
+                    <div class="inputBoxBalanceBottom">
+                        <span>${calculatorAttributes.proposedLoanTenureYear.min} Year</span>
+                        <span>${calculatorAttributes.proposedLoanTenureYear.max} Years</span>
                     </div>
+                </div>
                     <span id="newLoanTenureError" class="error-span"></span>
                 </div>
-    
+   
                 <div class="inputBalance">
                     <div class="inputBoxBalanceLabel">
                         <label for="newLoanTenureMonths">${calculatorAttributes.proposedLoanTenureMonth.label}</label>
@@ -233,70 +243,76 @@ function getHTML(calculatorAttributes) {
                             <input type="text" id="newLoanTenureMonthsDisplay" value="${calculatorAttributes.proposedLoanTenureMonth.min}">
                         </div>
                     </div>
+                <div class="inputBoxBalanceRange">
                     <input type="range" id="newLoanTenureMonths" min="${calculatorAttributes.proposedLoanTenureMonth.min}" max="${calculatorAttributes.proposedLoanTenureMonth.max}" value="${calculatorAttributes.proposedLoanTenureMonth.min}">
-                    <div class="balance-bottom">
+                    <div class="inputBoxBalanceBottom">
                         <span>${calculatorAttributes.proposedLoanTenureMonth.min}</span>
-                        <span>${calculatorAttributes.proposedLoanTenureMonth.max}Months</span>
+                        <span>${calculatorAttributes.proposedLoanTenureMonth.max} Months</span>
                     </div>
+                </div>
                     <span id="newLoanTenureMonthsError" class="error-span"></span>
                 </div>
             </div>
-    
-            <div class="outputs">
+   
+            <div class="outputs-balance-result">
                 <div class="balance-output">
                 <div class="balance-output-taxoutflow">
                     <p>${calculatorAttributes.totalSavingCashOutflowOutput}</p>
                     <h2 id="totalSaving">${calculatorAttributes.rupeeSymbols.hindi}0</h2>
-                </div> 
+                </div>
+                <div class="combined-tab-result-apply">
                 <div class="balance-output-bottom-result">  
                 <div class="balance-output-list">
                     <div class="balance-output-span-list">
                     <span class="savingEmiSpan"></span>
-                    <p>${calculatorAttributes.savingsInEmiOutput}</p> 
+                    <span class="text-span-list">${calculatorAttributes.savingsInEmiOutput}</span>
                     </div>
-                    <h3 id="savingsInEMI">${calculatorAttributes.rupeeSymbols.hindi}0</h3>
+                    <div class="text-span-list-rs" id="savingsInEMI">${calculatorAttributes.rupeeSymbols.hindi}0</div>
                 </div>
-                
+               
                 <div class="balance-output-list">
                 <div class="balance-output-span-list">
                 <span class="EMISpan"></span>
-                <p>${calculatorAttributes.existingEmiOutput}</p>
+                <span class="text-span-list">${calculatorAttributes.existingEmiOutput}</span>
                 </div>
-                 <h3 id="existingEMI">${calculatorAttributes.rupeeSymbols.hindi}0</h3>
+                 <div class="text-span-list-rs" id="existingEMI">${calculatorAttributes.rupeeSymbols.hindi}0</div>
                 </div>
-                
+               
                 <div class="balance-output-list">
                 <div class="balance-output-span-list">
                 <span class="EMISpan"></span>
-                <p>${calculatorAttributes.proposedEmiOutput}</p>
+                <span class="text-span-list">${calculatorAttributes.proposedEmiOutput}</span>
                 </div>
-                 <h3 id="proposedEMI">${calculatorAttributes.rupeeSymbols.hindi}0</h3>
+                 <div  class="text-span-list-rs" id="proposedEMI">${calculatorAttributes.rupeeSymbols.hindi}0</div>
                 </div>
-
-
-                </div>    
-                </div>
+                </div> 
                 <div class="balance-output-apply">
                     <button id="balnance-apply-now">${calculatorAttributes.applyNowLabel}</button>
+                </div>
+                </div>   
                 </div>
             </div>
         </div>
         `;
-
     return htmlCode;
 }
 // Function to update the range input colors
 function updateRangeColors(block) {
-        const rangeInputs = block.querySelectorAll('input[type=range]');
-        rangeInputs.forEach(input => {
-            const min = parseFloat(input.min);
-            const max = parseFloat(input.max);
-            const val = parseFloat(input.value);
-
-            const normalizedValue = (val - min) / (max - min) * 100;
-            input.style.background = `linear-gradient(to right, #8CB133 ${normalizedValue}%, #ccc ${normalizedValue}%)`;
-        });
-    }
+    const isMobileView = window.matchMedia("(max-width: 767px)").matches;
+    const mobileColor = '#f4f4f4';  //  color for mobile view
+    const desktopColor = '#fff'; // White color for desktop view
+ 
+    const rangeInputs = document.querySelectorAll('input[type=range]');
+    rangeInputs.forEach(input => {
+        const min = parseFloat(input.min);
+        const max = parseFloat(input.max);
+        const val = parseFloat(input.value);
+        const normalizedValue = (val - min) / (max - min) * 100;
+        const endColor = isMobileView ? mobileColor : desktopColor;
+        input.style.background = `linear-gradient(to right, #8CB133 ${normalizedValue}%, ${endColor} ${normalizedValue}%)`;
+    });
+}
+ 
 
 
 // Wrap your main functionality in the decorate function
@@ -409,7 +425,8 @@ principalOutstanding.addEventListener('input',()=>{
     updateCalculations(block);
     updateRangeColors(block);
 }
-
-
+window.addEventListener('resize',updateRangeColors);
+window.addEventListener('load',updateRangeColors);
+ 
 
 
