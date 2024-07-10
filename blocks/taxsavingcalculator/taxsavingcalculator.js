@@ -221,9 +221,8 @@ function initializeEventListeners(block) {
         ageRange.value = isNaN(value) ? ageRange.min : Math.min(Math.max(value, ageRange.min), ageRange.max);
         const percentage = ((ageRange.value - ageRange.min) / (ageRange.max - ageRange.min)) * 100;
         ageRange.style.setProperty('--value', `${percentage}%`);
-        this.textContent = formatNumberToIndianCommas(ageRange.value);
         updateDisplay();
-
+        this.textContent = formatNumberToIndianCommas(ageRange.value);
     });
 
     block.querySelector('#income').addEventListener('blur', function () {
@@ -232,8 +231,8 @@ function initializeEventListeners(block) {
         incomeRange.value = isNaN(value) ? incomeRange.min : Math.min(Math.max(value, incomeRange.min), incomeRange.max);
         const percentage = ((incomeRange.value - incomeRange.min) / (incomeRange.max - incomeRange.min)) * 100;
         incomeRange.style.setProperty('--value', `${percentage}%`);
-        this.textContent = formatNumberToIndianCommas(incomeRange.value);
         updateDisplay();
+        this.textContent = formatNumberToIndianCommas(incomeRange.value);
     });
 
     block.querySelector('#principal').addEventListener('blur', function () {
@@ -242,8 +241,8 @@ function initializeEventListeners(block) {
         principalRange.value = isNaN(value) ? principalRange.min : Math.min(Math.max(value, principalRange.min), principalRange.max);
         const percentage = ((principalRange.value - principalRange.min) / (principalRange.max - principalRange.min)) * 100;
         principalRange.style.setProperty('--value', `${percentage}%`);
+        updateDisplay();
         this.textContent = formatNumberToIndianCommas(principalRange.value);
-        updateDisplay()
     });
 
     block.querySelector('#interest').addEventListener('blur', function () {
@@ -252,8 +251,8 @@ function initializeEventListeners(block) {
         interestRange.value = isNaN(value) ? interestRange.min : Math.min(Math.max(value, interestRange.min), interestRange.max);
         const percentage = ((interestRange.value - interestRange.min) / (interestRange.max - interestRange.min)) * 100;
         this.textContent = formatNumberToIndianCommas(interestRange.value);
-        interestRange.style.setProperty('--value', `${percentage}%`);
         updateDisplay();
+        interestRange.style.setProperty('--value', `${percentage}%`);
     });
 
     block.querySelector('#month').addEventListener('blur', function () {
@@ -262,8 +261,8 @@ function initializeEventListeners(block) {
         monthRange.value = isNaN(value) ? monthRange.min : Math.min(Math.max(value, monthRange.min), monthRange.max);
         const percentage = ((monthRange.value - monthRange.min) / (monthRange.max - monthRange.min)) * 100;
         monthRange.style.setProperty('--value', `${percentage}%`);
-        this.textContent = formatNumberToIndianCommas(monthRange.value);
         updateDisplay();
+        this.textContent = formatNumberToIndianCommas(monthRange.value);
 
     });
 
