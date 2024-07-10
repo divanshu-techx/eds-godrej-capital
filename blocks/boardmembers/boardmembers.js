@@ -23,15 +23,8 @@ export default async function decorate(block) {
         // Create a temporary container to parse the fetched HTML
         const tempContainer = document.createElement('div');
         tempContainer.innerHTML = html;
-
         // Find the .profiles div in the fetched HTML
         const profileDiv = tempContainer.querySelector('.profiles');
-        const popcontenta = tempContainer.querySelector('.profiles').innerHTML;
-        if (!profileDiv) {
-          console.error('Profiles div not found in fetched HTML');
-          return;
-        }
-
         const profileContainers = profileDiv.children;
         console.log(profileContainers);
         Array.from(profileContainers).forEach((profile) => {
@@ -50,7 +43,14 @@ export default async function decorate(block) {
             descDiv.children[1].classList.add('profile-description');
           }
         });
+        
+        const popcontenta = profileDiv.innerHTML;
+        if (!profileDiv) {
+          console.error('Profiles div not found in fetched HTML');
+          return;
+        }
 
+       
         // Insert the .profiles div into the button container
         const buttonContainer = anchor.parentElement;
         buttonContainer.innerHTML = '';
