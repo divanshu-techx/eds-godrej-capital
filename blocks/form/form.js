@@ -1,6 +1,6 @@
 import createField from './form-fields.js';
 import { sampleRUM } from '../../scripts/aem.js';
-import { makeAjaxRequest, generateOtpPayload, generateVerifyOtpPayload, startTimer, handleVerify } from '../becomepartnerform/becomepartnerform.js';
+import { makeAjaxRequest, generateVerifyOtpPayload, startTimer, handleVerify } from '../becomepartnerform/becomepartnerform.js';
 
 export async function createForm(formHref) {
     const { pathname } = new URL(formHref);
@@ -111,7 +111,7 @@ async function handleSubmit(form) {
         //   },
         // });
         // if (response.ok) {
-        makeAjaxRequest('POST', 'https://h9qipagt5.godrejfinance.com/v1/ehf/outsources/generateotp', generateOtpPayload(payload))
+        makeAjaxRequest('POST', 'https://h9qipagt5.godrejfinance.com/v1/ehf/outsources/generateotp', '', '')
         sampleRUM('form:submit', { source: '.form', target: form.dataset.action });
         //   if (form.dataset.confirmation) {
         //     window.location.href = form.dataset.confirmation;
