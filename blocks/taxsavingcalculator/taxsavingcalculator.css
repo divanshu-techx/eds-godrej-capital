@@ -7,7 +7,7 @@
     box-sizing: border-box;
   }
   
-  .taxsavingcalculator  .inputBox_tax_saving,.aprcalculator .outputs_tax_saving {
+  .taxsavingcalculator  .inputBox_tax_saving,.taxsavingcalculator .outputs_tax_saving {
     box-sizing: border-box;
     width: calc(50% - 10px);
     max-width: 100%;
@@ -40,27 +40,29 @@
     align-items: center;
   }
   
-  .taxsavingcalculator  .inputAprLabelInput {
+  .taxsavingcalculator  .tax_saving_input_label {
     display: flex;
     align-items: center;
     gap: 3px;
   }
   
-  .taxsavingcalculator  .inputBox_tax_saving .inputAprLabelInput input {
+  .taxsavingcalculator  .inputBox_tax_saving .tax_saving_input_label .inputSpan_tax_saving {
     background: #fff;
     padding: 5px;
     border: none;
     box-sizing: border-box;
     height: 40px;
     line-height: 30px;
+    min-width: 150px;
+    text-align: end;
   }
   @media (max-width: 767px) {
-    .taxsavingcalculator  .inputBox_tax_saving .inputAprLabelInput input {
+    .taxsavingcalculator  .inputBox_tax_saving .inputBoxTaxSavingLabel input {
         height: 30px; 
     }
   }
   
-  .taxsavingcalculator  .inputBox_tax_saving .inputAprLabelInput span {
+  .taxsavingcalculator  .inputBox_tax_saving .inputBoxTaxSavingLabel span {
     background: #fff;
     padding: 5px 10px;
     box-sizing: border-box;
@@ -71,50 +73,50 @@
     line-height: 16.42px;
     color:#3b3b3b;
     display: flex;
-    justify-content: center;
+    justify-content: end;
     align-items: center;
     max-width: 35px;
   }
   
   @media (max-width: 767px) {
-    .taxsavingcalculator  .inputBox_tax_saving .inputAprLabelInput input,
-    .taxsavingcalculator  .inputBox_tax_saving .inputAprLabelInput span {
+    .taxsavingcalculator  .inputBox_tax_saving .inputBoxTaxSavingLabel input,
+    .taxsavingcalculator  .inputBox_tax_saving .inputBoxTaxSavingLabel span {
         background: #F4F4F4;
         height: 30px;
     }
   }
   
-  .taxsavingcalculator  .inputAprLabelInput span {
+  .taxsavingcalculator  .inputBoxTaxSavingLabel span {
     border-right: none; 
     border-radius: 4px 0 0 4px; 
   }
   
-  .taxsavingcalculator  .inputAprLabelInput input {
+  .taxsavingcalculator  .inputBoxTaxSavingLabel input {
     border-left: none; 
     border-radius: 0 4px 4px 0;
     margin-left: -1px;
     text-align: end;
   }
   
-  .taxsavingcalculator  .inputBoxTaxSavingRange {
+  .taxsavingcalculator .inputBoxTaxSavingRange {
     margin-top: 10px;
   }
   
-  .taxsavingcalculator  .inputBoxTaxSavingRange input[type="range"] {
+  .taxsavingcalculator .inputBoxTaxSavingRange input[type="range"] {
     width: 100%;
     background: linear-gradient(to right, rgb(140, 177, 51) 0%, rgb(204, 204, 204) 0%);
   }
   
-  .taxsavingcalculator  .inputBoxAprBottom {
+  .taxsavingcalculator .inputBoxTaxSavingBottom {
     display: flex;
     justify-content: space-between;
   }
   
-  .taxsavingcalculator  .outputs {
+  .taxsavingcalculator .outputs_tax_saving {
     max-width: 100%;
   }
   
-  .taxsavingcalculator  .result_tax_saving {
+  .taxsavingcalculator .result_tax_saving {
     background: #8CB133;
     border-radius: 4px;
     display: flex;
@@ -126,12 +128,12 @@
     margin-bottom: 20px;
   }
   
-  .taxsavingcalculator  .result_tax_saving {
+  .taxsavingcalculator .result_tax_saving {
     height: 120px;
   }
   
   @media (max-width: 1023px) and (min-width: 768px) {
-    .taxsavingcalculator  .result_tax_saving {
+    .taxsavingcalculator .result_tax_saving {
         height: 60px;
     }
   }
@@ -186,7 +188,7 @@
   }
   
   
-  .taxsavingcalculator  .inputTaxSaving .inputBoxAprBottom{
+  .taxsavingcalculator  .inputTaxSaving .inputBoxTaxSavingBottom{
       font-size: 14px;
       font-weight: 300;
       line-height: 16.42px;
@@ -291,7 +293,7 @@
         max-width: calc(100% - 772px - 30px); 
         width:100%;
     }
-    .taxsavingcalculator  .calculator-container {
+    .taxsavingcalculator  .calculator-container-tax-saving {
         flex-direction: row;
     }
   }
@@ -305,14 +307,14 @@
     .taxsavingcalculator .outputs_tax_saving {
         max-width: calc(100% - (772px / 1351 * 1200) - 30px); 
     }
-    .taxsavingcalculator .calculator-container {
+    .taxsavingcalculator .calculator-container-tax-saving {
         flex-direction: row;
     }
   }
   
   /* iPad */
   @media (min-width: 768px) and (max-width: 1199px) {
-    .taxsavingcalculator  .inputs {
+    .taxsavingcalculator  .inputBox_tax_saving {
         max-width: calc(100% - 303px - 30px); 
         width:100%;
     }
@@ -326,11 +328,11 @@
   
   /* Mobile */
   @media (max-width: 767px) {
-    .taxsavingcalculator  .inputs, .taxsavingcalculator  .outputs_tax_saving {
+    .taxsavingcalculator  .inputBox_tax_saving, .taxsavingcalculator  .outputs_tax_saving {
         max-width: 100%;
         width:100%;
     }
-    .taxsavingcalculator  .calculator-container {
+    .taxsavingcalculator  .calculator-container-tax-saving {
         flex-direction: column;
     }
   }

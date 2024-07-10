@@ -123,7 +123,7 @@ function getHtmlData(newMetaData) {
             </div>
             <div class="inputBoxTaxSavingRange">
             <input type="range" id="principalRange" min="${newMetaData.principalMinAnnual}" max="${newMetaData.principalMaxAnnual}" value="${newMetaData.principalMinAnnual}"  oninput="updateRange('principal')">
-            <div class="input-bottom-details-tax-saving">
+            <div class="inputBoxTaxSavingBottom">
                 <span>${numberToWords(newMetaData.principalMinAnnual)}</span>
                 <span>${numberToWords(newMetaData.principalMaxAnnual)}</span>
             </div>
@@ -144,7 +144,7 @@ function getHtmlData(newMetaData) {
             </div>
             <div class="inputBoxTaxSavingRange">
             <input type="range" id="interestRange" min="${newMetaData.interestMinAnnual}" max="${newMetaData.interestMaxAnnual}" value="${newMetaData.interestMinAnnual}"  oninput="updateRange('interest')">
-            <div class="input-bottom-details-tax-saving">
+            <div class="inputBoxTaxSavingBottom">
                 <span>${numberToWords(newMetaData.interestMinAnnual)}</span>
                 <span>${numberToWords(newMetaData.interestMaxAnnual)}</span>
             </div>
@@ -165,7 +165,7 @@ function getHtmlData(newMetaData) {
             </div>
             <div class="inputBoxTaxSavingRange">
             <input type="range" id="monthRange" min="1" max="11" value="1"  oninput="updateRange('month')">
-            <div class="input-bottom-details-tax-saving">
+            <div class="inputBoxTaxSavingBottom">
                 <span>1</span>
                 <span>11</span>
             </div>
