@@ -1,4 +1,5 @@
 import { createForm, generatePayload } from '../../blocks/form/form.js';
+import { restrictNameInputs, restrictPhoneNumberInputs, validateNameField, validateEmail, validateMobileNumber, handleErrorMessages } from '../becomepartnerform/inputFieldsValidation.js';
 
 const apiUrl = getDataAttributeValueByName('apiurl');
 
@@ -10,14 +11,20 @@ export default async function decorate(block) {
     const form = await createForm(formLink.href);
     block.replaceChildren(form);
 
-    const editNumberInputEle = block.querySelector('#form-mobilenumber');
-    editNumberInputEle.setAttribute('readonly', true);
+    // restrict the inputs
+    restrictNameInputs(block);
+    restrictPhoneNumberInputs(block);
 
+    // Add change event for checkboxes and radio button
     addChangeEventOnCheckboxes(block);
     addChangeEventOnRadioButtons(block);
 
+    const editNumberInputEle = block.querySelector('#form-mobilenumber');
+    editNumberInputEle.setAttribute('readonly', true);
+
     handleSubmitBtn(block, form, editNumberInputEle);
 
+    // handle edit mobile number
     block.querySelector('#form-editmobilenumber').addEventListener('click', (e) => {
         toggleFormVisibility('.form2', '.form1', block);
     })
@@ -80,25 +87,28 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => console.error('Error fetching data:', error));
 });
 
-
 function handleSubmitBtn(block, form, editNumberInputEle) {
-    block.querySelector('#submit-btn').addEventListener('click', async (e) => {
+    const submitBtnEle = block.querySelector('#submit-btn');
+    submitBtnEle.addEventListener('click', async (e) => {
 
-        if (validateForm1(block)) {
-            const form1Payload = generatePayload(form);
-            try {
-                const response = await makeAjaxRequest('POST', apiUrl, generateRequestBody(form1Payload, true, ''));
-                console.log(response);
-                if (response.status) {
-                    editNumberInputEle.value = form1Payload.userMobileNumder;
-                    toggleFormVisibility('.form1', '.form2', block);
-                    handleVerifyBtn(block, form);
-                }
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        } else {
+        if (!validateForm1(block)) {
             focusOnFirstInvalidElement(form);
+            return;
+        }
+
+        const form1Payload = generatePayload(form);
+        try {
+            const response = await makeAjaxRequest('POST', apiUrl, generateRequestBody(form1Payload, true, '', getSelectedCheckboxValues(block)));
+            console.log(response);
+            if (response.status) {
+                editNumberInputEle.value = form1Payload.userMobileNumder;
+                updateOTPMessage(block, form1Payload.userMobileNumder);
+                toggleFormVisibility('.form1', '.form2', block);
+                startTimer(block, form);
+                handleVerifyBtn(block, form);
+            }
+        } catch (error) {
+            console.error('Error:', error);
         }
     });
 }
@@ -113,6 +123,23 @@ function handleVerifyBtn(block, form) {
             focusOnFirstInvalidElement(form);
         }
     });
+}
+
+function updateOTPMessage(block, userMobNo) {
+    const mobileNoStr = userMobNo.toString();
+    const lastFourDigits = mobileNoStr.slice(-4);
+
+    const otpMsgEle = block.querySelector('#form-otpmessage');
+
+    // If the element exists
+    if (otpMsgEle) {
+        const otpMsgTextContent = otpMsgEle.textContent;
+        const otpTextWithoutDigits = otpMsgTextContent.replace(/\d{4}$/, '');
+
+        // Update the text content with the new last four digits
+        otpMsgEle.textContent = `${otpTextWithoutDigits}${lastFourDigits}`;
+    }
+
 }
 
 // Function to validate form2 inputs
@@ -134,10 +161,9 @@ async function validateOtp(block, form) {
         handleErrorMessages(false, otpFieldSetEle, 'Please enter the valid OTP.');
     } else {
         handleErrorMessages(true, otpFieldSetEle);
-        const formPayload = generatePayload(form);
-        console.log(formPayload);
+        const form2Payload = generatePayload(form);
         try {
-            const otpVerifyRes = await makeAjaxRequest('POST', apiUrl, generateRequestBody(formPayload, false, otpValue));
+            const otpVerifyRes = await makeAjaxRequest('POST', apiUrl, generateRequestBody(form2Payload, false, otpValue, getSelectedCheckboxValues(block)));
             if (otpVerifyRes.status) {
                 handleErrorMessages(true, otpFieldSetEle);
                 const thankYouTeaserContainer = document.querySelector(".teaser-thankyou-cards-container");
@@ -147,7 +173,6 @@ async function validateOtp(block, form) {
             } else {
                 handleErrorMessages(false, otpFieldSetEle, otpVerifyRes.message);
             }
-            console.log(otpVerifyRes);
         } catch (error) {
             console.error('Error:', error);
         }
@@ -208,6 +233,20 @@ function addChangeEventOnRadioButtons(block) {
     });
 }
 
+function getSelectedCheckboxValues(block) {
+    // Get all checkboxes inside the specified fieldset
+    const checkboxes = block.querySelectorAll('fieldset#firstset input[type="checkbox"]');
+    let selectedValues = [];
+
+    checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            selectedValues.push(checkbox.value);
+        }
+    });
+
+    return selectedValues;
+}
+
 // Function to validate form1 inputs
 function validateForm1(block) {
     const nameField = block.querySelector('#form-username');
@@ -230,65 +269,11 @@ function validateForm1(block) {
     return checkboxValidation && radioButtonValidation && isValid;
 }
 
-// Function to validate name
-function validateNameField(nameField) {
-    if (nameField.value.trim() === "") {
-        handleErrorMessages(false, nameField, 'Please enter your name.');
-        return false;
-    } else {
-        handleErrorMessages(true, nameField);
-        return true;
-    }
-}
-
-// Function to validate email
-function validateEmail(emailField) {
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!emailPattern.test(emailField.value)) {
-        handleErrorMessages(false, emailField, 'Please enter a valid email address.');
-        return false;
-    } else {
-        handleErrorMessages(true, emailField);
-        return true;
-    }
-}
-
-// Function to validate mobile number
-function validateMobileNumber(mobileField) {
-    const mobilePattern = /^[0-9]{10}$/;
-    if (!mobilePattern.test(mobileField.value)) {
-        handleErrorMessages(false, mobileField, 'Please enter a valid 10-digit mobile number.');
-        return false;
-    } else {
-        handleErrorMessages(true, mobileField);
-        return true;
-    }
-}
-
 // Consolidated validation function
 function validateRadioBtnAndCheckbox(block, fieldsetId, errorMessageText, inputType) {
     const fieldset = block.querySelector(fieldsetId);
     const selectedInputs = fieldset.querySelectorAll(`.form1.field-wrapper.${inputType}-wrapper.selection-wrapper.selected, .form1.field-wrapper.${inputType}-wrapper.selection-wrapper.checked`);
     return handleErrorMessages(selectedInputs.length > 0, fieldset, errorMessageText);
-}
-
-function handleErrorMessages(condition, fieldset, errorMessageText) {
-    let errorMessage = fieldset.nextElementSibling;
-
-    if (!condition) {
-        if (!errorMessage || !errorMessage.classList.contains('error-message')) {
-            errorMessage = document.createElement('div');
-            errorMessage.textContent = errorMessageText;
-            errorMessage.classList.add('error-message');
-            fieldset.insertAdjacentElement('afterend', errorMessage);
-        }
-        return false;
-    } else {
-        if (errorMessage && errorMessage.classList.contains('error-message')) {
-            errorMessage.remove();
-        }
-        return true;
-    }
 }
 
 function toggleFormVisibility(hideSelector, showSelector, block) {
@@ -298,7 +283,7 @@ function toggleFormVisibility(hideSelector, showSelector, block) {
     showElements.forEach(el => el.style.display = 'block');
 }
 
-export function makeAjaxRequest(method, url, requestBody) {
+function makeAjaxRequest(method, url, requestBody) {
     // Return a promise
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -318,60 +303,47 @@ export function makeAjaxRequest(method, url, requestBody) {
     });
 }
 
-export function generateRequestBody(formPayload, isOtpGeneration, otp) {
+function generateRequestBody(formPayload, isOtpGeneration, otp, selectedProducts) {
     const customPayload = {
         fullname: formPayload.userName,
         emailId: formPayload.userEmailId,
         mobile: formPayload.userMobileNumder,
-        location: 1,
-        "products": [
-            1
-        ],
+        location: formPayload.locationOption,
+        products: selectedProducts,
         eventType: isOtpGeneration ? "OTP_GENERATE" : "OTP_VERIFY",
         otp: otp
     };
     return customPayload;
 }
 
-// Function to start the timer and activate resend OTP option after 30 seconds
-export function startTimer() {
-    let seconds = 30;
-    const otpConfirmationParagraph = document.getElementById('form-otpconfirmation');
-    const resendOtpParagraph = document.getElementById('form-resendotp');
-    // Function to toggle the active class for resend OTP
-    function toggleResendOTPClass(active) {
-        if (active) {
-            resendOtpParagraph.classList.remove('inactive');
-            resendOtpParagraph.classList.add('active');
-            resendOtpParagraph.removeAttribute('disabled');
-        } else {
-            resendOtpParagraph.classList.remove('active');
-            resendOtpParagraph.classList.add('inactive');
-            resendOtpParagraph.setAttribute('disabled', 'disabled');
+// Function to start the timer
+function startTimer(block, form) {
+    var timerElement = block.querySelector('#form-otpconfirmation'); // Timer element
+    var resendButton = block.querySelector('#form-resendotp'); // Resend button
+
+    var count = 30; // Initial count in seconds
+    resendButton.disabled = true; // Disable resend button initially
+
+    var interval = setInterval(function () {
+        var seconds = count % 60; // Calculate remaining seconds
+        var displaySeconds = seconds < 10 ? "0" + seconds : seconds;
+
+        timerElement.innerText = "Didn't receive any OTP? " + displaySeconds + " Seconds"; // Update timer display
+
+        if (count <= 0) {
+            clearInterval(interval); // Clear interval when count reaches 0
+            resendButton.disabled = false; // Enable resend button
+            timerElement.innerText = "Didn't receive any OTP?"; // Reset timer text
         }
-    }
-    // Function to resend OTP
-    function resendOTP() {
-        // Code to resend OTP goes here
-        console.log('Resending OTP...');
-        // Reset the timer
-        seconds = 30;
-        otpConfirmationParagraph.textContent = `Didn't receive any OTP? ${seconds} Seconds`;
-        toggleResendOTPClass(false); // Remove active class
-        startTimer();
-    }
-    // Initially add inactive class
-    toggleResendOTPClass(false);
-    const intervalId = setInterval(() => {
-        seconds--;
-        otpConfirmationParagraph.textContent = `Didn't receive any OTP? ${seconds} Seconds`;
-        if (seconds === 0) {
-            clearInterval(intervalId);
-            toggleResendOTPClass(true); // Add active class
-        }
-    }, 1000);
-    // Event listener for the "Resend OTP" option
-    resendOtpParagraph.addEventListener('click', resendOTP);
+        count--; // Decrement count
+    }, 1000); // Update every second (1000 milliseconds)
+
+    resendButton.addEventListener('click', async (e) => {
+        const payload = generatePayload(form);
+        const response = await makeAjaxRequest('POST', apiUrl, generateRequestBody(payload, true, '', getSelectedCheckboxValues(block)));
+        console.log(response);
+    });
+
 }
 
 // Get data attribute value by name
