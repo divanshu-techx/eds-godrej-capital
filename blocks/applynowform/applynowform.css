@@ -81,11 +81,11 @@
 } */
 
 
-.applynowform input[required]+label::after {
+/* .applynowform input[required]+label::after {
     content: "*";
     color: firebrick;
     margin-inline-start: 1ch;
-}
+} */
 
 .applynowform .toggle-wrapper .switch {
     position: relative;
@@ -298,9 +298,15 @@
     line-height: 1rem;
     padding: 17px 50px;
     border-radius: 4px;
+    cursor: pointer;
     gap: 10px;
     width: 100%;
 
+}
+
+.applynowform-container .applynowform .step1.submit-registration button:disabled {
+    background-color: grey;
+    cursor: not-allowed;
 }
 
 .applynowform-container .applynowform #form-common legend,
@@ -369,7 +375,13 @@
 
 
 .applynowform .error-message {
-    color: red;
+    color: #F50076;
+    margin-top: -12px;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 16.42px;
+    text-align: left;
+    margin-bottom: 8px;
 }
 
 
