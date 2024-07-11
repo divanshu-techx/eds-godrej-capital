@@ -4,7 +4,7 @@ export default async function decorate(block) {
     childDivs.forEach((div) => {
         div.classList.add('slider-item');
     });
-    
+
     
     // Select all carousel items within the carousel container
     const items = block.querySelectorAll('.slider-item');
