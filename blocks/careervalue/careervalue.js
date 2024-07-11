@@ -26,17 +26,19 @@ export default async function decorate(block) {
 
         for (let i = 1; i <= slideCount; i++) {
             let countChart = document.createElement('p');
-            countChart.innerHTML = ` 0${i}`;
+            countChart.innerHTML = `0${i}`;
             countChart.style.display = 'contents';
             countChart.classList.add(`card-0${i}`);
             pTagDiv.append(countChart);
         }
-         
-       
 
-
-
-
+        // Add click event listener to each p tag
+        pTagDiv.querySelectorAll('p').forEach((element, index) => {
+            element.addEventListener('click', () => {
+                console.log(`Clicked element index: ${index}`);
+                showSlide(index); // Move slide based on the clicked p tag's index
+            });
+        });
 
         // left shift button
         let leftBtn = document.createElement('button');
@@ -45,27 +47,33 @@ export default async function decorate(block) {
         leftBtn.classList.add("prev");
         slideCards.prepend(leftBtn);
         buttonDiv.appendChild(leftBtn);
+
         // add chart list
         buttonDiv.appendChild(pTagDiv);
+
         // right shift button
         let rightBtn = document.createElement('button');
         rightBtn.innerHTML = '&#10095';
         rightBtn.style.width = '20px';
         rightBtn.classList.add("next");
         buttonDiv.appendChild(rightBtn);
+
         parentBlockDiv.prepend(buttonDiv);
 
         leftBtn.addEventListener('click', () => {
             moveSlide(-1);
         });
+
         rightBtn.addEventListener('click', () => {
             moveSlide(1);
         });
 
         let currentSlide = 0;
+
         function moveSlide(n) {
             showSlide(currentSlide + n);
         }
+
         function showSlide(index) {
             if (index >= slideCards.children.length) {
                 currentSlide = 0;
@@ -74,18 +82,27 @@ export default async function decorate(block) {
             } else {
                 currentSlide = index;
             }
+
             let parentNumber = document.querySelector('.numberChart');
+
             for (let i = 0; i < parentNumber.children.length; i++) {
                 if (parentNumber.children[i].classList.contains('currentnode')) {
                     parentNumber.children[i].classList.remove('currentnode');
                 }
+                parentNumber.children[currentSlide].classList.remove('underline');
             }
+
             parentNumber.children[currentSlide].classList.add('currentnode');
+            parentNumber.children[currentSlide].classList.add('underline');
+            console.log(parentNumber.children[currentSlide]);
+
             for (let j = 0; j < block.children.length; j++) {
                 block.children[j].classList.add('hidecards');
             }
+
             block.children[currentSlide].classList.remove('hidecards');
         }
+
         moveSlide(0);
 
         // Add touch/swipe functionality
