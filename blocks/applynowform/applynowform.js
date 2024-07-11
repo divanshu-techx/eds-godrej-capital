@@ -164,19 +164,21 @@ export function autoFocusEl(form) {
 
     inputs.forEach((input, index) => {
         input.addEventListener('input', () => {
-            if (input.value.length === 1 && index < inputs.length - 1) {
-                input.parentNode.classList.add('filled')
-                inputs[index + 1].focus();
-
-
+            // Check if the input value is a single digit
+            if (/^\d$/.test(input.value)) {
+                input.parentNode.classList.add('filled');
+                if (index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            } else {
+                input.value = ''; // Clear the input if it's not a digit
             }
         });
 
         input.addEventListener('keydown', (e) => {
             if (e.key === 'Backspace' && input.value === '' && index > 0) {
-                input.parentNode.classList.remove('filled')
+                input.parentNode.classList.remove('filled');
                 inputs[index - 1].focus();
-
             }
         });
     });
@@ -350,9 +352,6 @@ export default async function decorate(block) {
     const form = await createForm(formLink.href);
     autoFocusEl(form);
     block.replaceChildren(form);
-    addInitiallychecked(block)
-    disableSubmitUntilFillForm(block)
-    addChangeEventOnCheckboxes(block);
 
     const verifyFormEl = block.querySelectorAll('.verify-step');
     verifyFormEl.forEach((el) => {
@@ -370,12 +369,13 @@ export default async function decorate(block) {
 
     block.querySelector('#form-description').append(tAndCredirectionStepFirst)
     block.querySelector('#form-message4').append(tAndCredirectionStepSecond)
+    addInitiallychecked(block)
+    addChangeEventOnCheckboxes(block);
+    disableSubmitUntilFillForm(block)
     changeNumberFunctinality(block);
 
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-
-        // return (validateFormInput(VALIDATION_DATA, block)) ? true : false;
         const valid = form.checkValidity();
         console.log(valid)
         if (validateFormInput(VALIDATION_DATA, block)) {
@@ -518,31 +518,51 @@ function validateFormInput(rules, block) {
 function disableSubmitUntilFillForm(block) {
     const inputs = block.querySelectorAll('.step1.field-wrapper input');
     const submitButton = block.querySelector('.step1.submit-registration button');
+
     function validateForm() {
         let isInputFilled = true;
         let isCheckboxChecked = false;
 
         inputs.forEach(input => {
-            if (input.type === 'text' || input.type === 'tel' || input.type === 'email') {
-                if (input.value.trim() === '') {
+            if (input.type === 'text') {
+                if (input.value.trim() === '' || !/^[a-zA-Z\s]*$/.test(input.value)) {
                     isInputFilled = false;
                 }
-            }
-            if (input.type === 'checkbox' && input.checked) {
-                isCheckboxChecked = true;
+            } else if (input.type === 'tel') {
+                if (input.value.trim() === '' || !/^\d{10}$/.test(input.value)) {
+                    isInputFilled = false;
+                }
+            } else if (input.type === 'email') {
+                if (input.value.trim() === '' || !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(input.value)) {
+                    isInputFilled = false;
+                }
+            } else if (input.type === 'checkbox') {
+                if (input.checked) {
+                    isCheckboxChecked = true;
+                }
             }
         });
+
         submitButton.disabled = !(isInputFilled && isCheckboxChecked);
     }
 
-
     inputs.forEach(input => {
         if (input.type === 'text') {
-            input.addEventListener('input', function (event) {
-                if (!/^[a-zA-Z]*$/.test(event.data)) {
+            input.addEventListener('keydown', function (event) {
+                // Prevent leading space
+                if (event.key === ' ' && this.selectionStart === 0) {
                     event.preventDefault();
-                    input.value = input.value.replace(/[^a-zA-Z]/g, '')
                 }
+                validateForm();
+            });
+
+            input.addEventListener('input', function (event) {
+                if (!/^[a-zA-Z\s]*$/.test(event.data)) {
+                    event.preventDefault();
+                    input.value = input.value.replace(/[^a-zA-Z\s]/g, '');
+                }
+                input.value = input.value.replace(/\s{2,}/g, ' '); // Replace multiple spaces with a single space
+
                 validateForm();
             });
         } else if (input.type === 'tel') {
@@ -556,12 +576,17 @@ function disableSubmitUntilFillForm(block) {
                 }
                 validateForm();
             });
+        } else if (input.type === 'email') {
+            input.addEventListener('input', function () {
+                validateForm();
+            });
         } else if (input.type === 'checkbox') {
             input.addEventListener('change', validateForm);
         }
     });
-    validateForm()
 
+    validateForm();
 }
+
 
 
