@@ -37,11 +37,9 @@
   
 
   .btn-container{
-
+    cursor: pointer;
     justify-content: space-between;
     display: flex;
-
-   
   }
   .prev,.next{
     margin-left: 20px;
