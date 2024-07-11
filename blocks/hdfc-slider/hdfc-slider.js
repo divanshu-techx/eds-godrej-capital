@@ -12,8 +12,11 @@ export default async function decorate(block) {
     const parentDiv = document.querySelector('.hdfc-slider-section-container');
     const timer = parentDiv.getAttribute('data-slider-timer-in-second');
     console.log(timer);
-    const intervalTime = timer * 1000; 
-    
+    const intervalTime = 5000;
+    if(timer){
+        intervalTime = timer * 1000;
+    }
+
     // Function to show current item
     function showItem(index) {
         items.forEach((item, idx) => {
