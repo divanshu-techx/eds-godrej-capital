@@ -4,16 +4,15 @@ export default async function decorate(block) {
     childDivs.forEach((div) => {
         div.classList.add('slider-item');
     });
-    
-    // Select the carousel container within the block
-    const carousel = block;
-    console.log(carousel);
-    if (!carousel) return; // Return if the carousel container is not found
+
     
     // Select all carousel items within the carousel container
-    const items = carousel.querySelectorAll('.slider-item');
+    const items = block.querySelectorAll('.slider-item');
     let currentIndex = 0;
-    const intervalTime = 2000; // Interval time in milliseconds
+    const parentDiv = document.querySelector('.hdfc-slider-section-container');
+    const timer = parentDiv.getAttribute('data-slider-timer-in-second');
+    console.log(timer);
+    const intervalTime = timer * 1000; 
     
     // Function to show current item
     function showItem(index) {
