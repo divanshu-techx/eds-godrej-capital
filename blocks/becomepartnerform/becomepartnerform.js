@@ -104,7 +104,7 @@ function handleSubmitBtn(block, form, editNumberInputEle) {
                 editNumberInputEle.value = form1Payload.userMobileNumder;
                 updateOTPMessage(block, form1Payload.userMobileNumder);
                 toggleFormVisibility('.form1', '.form2', block);
-                startTimer(block);
+                startTimer(block, form);
                 handleVerifyBtn(block, form);
             }
         } catch (error) {
@@ -173,7 +173,6 @@ async function validateOtp(block, form) {
             } else {
                 handleErrorMessages(false, otpFieldSetEle, otpVerifyRes.message);
             }
-            console.log(otpVerifyRes);
         } catch (error) {
             console.error('Error:', error);
         }
@@ -318,7 +317,7 @@ function generateRequestBody(formPayload, isOtpGeneration, otp, selectedProducts
 }
 
 // Function to start the timer
-function startTimer(block) {
+function startTimer(block, form) {
     var timerElement = block.querySelector('#form-otpconfirmation'); // Timer element
     var resendButton = block.querySelector('#form-resendotp'); // Resend button
 
@@ -338,6 +337,13 @@ function startTimer(block) {
         }
         count--; // Decrement count
     }, 1000); // Update every second (1000 milliseconds)
+
+    resendButton.addEventListener('click', async (e) => {
+        const payload = generatePayload(form);
+        const response = await makeAjaxRequest('POST', apiUrl, generateRequestBody(payload, true, '', getSelectedCheckboxValues(block)));
+        console.log(response);
+    });
+
 }
 
 // Get data attribute value by name
