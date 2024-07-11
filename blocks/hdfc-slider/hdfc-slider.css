@@ -1,0 +1,16 @@
+.hdfc-slider {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: auto; /* Adjust height as needed */
+}
+
+.slider-item {
+    display: none;
+    text-align: center; /* Adjust alignment as needed */
+    /* Additional styling for the carousel items */
+}
+
+.slider-item:first-child {
+    display: block; /* Display the first item initially */
+}
