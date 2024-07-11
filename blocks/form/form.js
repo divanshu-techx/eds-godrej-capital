@@ -1,6 +1,6 @@
 import createField from './form-fields.js';
 import { sampleRUM } from '../../scripts/aem.js';
-import { makeAjaxRequest, generateVerifyOtpPayload, startTimer, handleVerify } from '../becomepartnerform/becomepartnerform.js';
+import { makeAjaxRequest, startTimer } from '../becomepartnerform/becomepartnerform.js';
 
 export async function createForm(formHref) {
     const { pathname } = new URL(formHref);
@@ -125,79 +125,6 @@ async function handleSubmit(form) {
     } finally {
         form.setAttribute('data-submitting', 'false');
     }
-}
-
-
-export default async function decorate(block) {
-    const formLink = block.querySelector('a[href$=".json"]');
-    if (!formLink) return;
-
-    const form = await createForm(formLink.href);
-    block.replaceChildren(form);
-
-    // Initially hide all elements with class form2
-    const form2Elements = block.querySelectorAll('.form2');
-    form2Elements.forEach(form2 => {
-        form2.style.display = 'none';
-    });
-
-    let errorCount = 0; // Counter to track the number of errors
-
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-
-        // Proceed with form submission if there are no errors
-        const valid = form.checkValidity();
-        if (valid) {
-            handleSubmit(form);
-            // Hide form1 elements
-            const form1Elements = block.querySelectorAll('.form1');
-            form1Elements.forEach(form1 => {
-                form1.style.display = 'none';
-            });
-            form2Elements.forEach(form2 => {
-                form2.style.display = 'block';
-            });
-        } else {
-            const firstInvalidEl = form.querySelector(':invalid:not(fieldset)');
-            if (firstInvalidEl) {
-                firstInvalidEl.focus();
-                firstInvalidEl.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-    });
-
-    // Listen for change event on checkboxes
-    const firstFieldset = document.getElementById('firstset');
-    firstFieldset.addEventListener('change', () => {
-        // Remove error message if any checkbox is checked
-        const errorMessage = document.querySelector('.error-message');
-        if (errorMessage) {
-            errorMessage.remove();
-            errorCount--; // Decrement error count
-        }
-    });
-
-    // Listen for change event on radio buttons
-    const secondFieldset = document.getElementById('secondset');
-    secondFieldset.addEventListener('change', () => {
-        // Remove error message if any radio button is selected
-        const errorMessage = document.querySelector('.error-message');
-        if (errorMessage) {
-            errorMessage.remove();
-            errorCount--; // Decrement error count
-        }
-    });
-
-
-    $('.form2.verify-btn .button').click(function (e) {
-        console.log('btn-2')
-        e.preventDefault();
-        const payload = generatePayload(form);
-        handleVerify(generateVerifyOtpPayload(payload), userMobileNumder);
-    });
-
 }
 
 
