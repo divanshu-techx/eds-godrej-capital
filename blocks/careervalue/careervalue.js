@@ -1,19 +1,6 @@
 export default async function decorate(block) {
-    // Add classes to block and its children
-    let blockDiv = block.children;
-    for (let i = 0; i < blockDiv.length; i++) {
-        let childDiv = blockDiv[i];
-        childDiv.classList.add('career-child-cards');
-
-        if (childDiv.children) {
-            let innerChildDiv = childDiv.children;
-            for (let j = 0; j < innerChildDiv.length; j++) {
-                innerChildDiv[j].classList.add('career-inner-child-cards');
-            }
-        }
-    }
-
-    if (document.documentElement.clientWidth <= 768) {
+    // Function to handle the changes for mobile view
+    function handleMobileView() {
         let slideCards = document.querySelector('.career-value-cards');
         let parentBlockDiv = document.querySelector('.careervalue-wrapper');
         const buttonDiv = document.createElement('div');
@@ -45,7 +32,6 @@ export default async function decorate(block) {
         leftBtn.innerHTML = '&#10094';
         leftBtn.style.width = '20px';
         leftBtn.classList.add("prev");
-        slideCards.prepend(leftBtn);
         buttonDiv.appendChild(leftBtn);
 
         // add chart list
@@ -86,15 +72,10 @@ export default async function decorate(block) {
             let parentNumber = document.querySelector('.numberChart');
 
             for (let i = 0; i < parentNumber.children.length; i++) {
-                if (parentNumber.children[i].classList.contains('currentnode')) {
-                    parentNumber.children[i].classList.remove('currentnode');
-                }
-                parentNumber.children[currentSlide].classList.remove('underline');
+                parentNumber.children[i].classList.remove('currentnode', 'underline');
             }
 
-            parentNumber.children[currentSlide].classList.add('currentnode');
-            parentNumber.children[currentSlide].classList.add('underline');
-            console.log(parentNumber.children[currentSlide]);
+            parentNumber.children[currentSlide].classList.add('currentnode', 'underline');
 
             for (let j = 0; j < block.children.length; j++) {
                 block.children[j].classList.add('hidecards');
@@ -125,4 +106,60 @@ export default async function decorate(block) {
             }
         });
     }
+
+    // Function to remove mobile view handlers
+    function removeMobileView() {
+        // Remove buttons and other elements added for mobile view
+        const buttonDiv = document.querySelector('.btn-container');
+        if (buttonDiv) {
+            buttonDiv.remove();
+        }
+
+        // Remove added classes and event listeners if needed
+        const slideCards = document.querySelector('.career-value-cards');
+        if (slideCards) {
+            slideCards.removeEventListener('touchstart', () => {});
+            slideCards.removeEventListener('touchmove', () => {});
+            slideCards.removeEventListener('touchend', () => {});
+        }
+
+        const blockChildren = block.querySelectorAll('.career-child-cards');
+        blockChildren.forEach((child) => {
+            child.classList.remove('hidecards');
+        });
+    }
+
+    function handleResize() {
+        if (document.documentElement.clientWidth <= 768) {
+            removeMobileView();
+            handleMobileView();
+        } else {
+            removeMobileView();
+            // Ensure all cards are visible in desktop mode
+            const blockChildren = block.querySelectorAll('.career-inner-child-cards');
+            blockChildren.forEach((child) => {
+                child.classList.remove('hidecards');
+            });
+        }
+    }
+
+    // Add classes to block and its children
+    let blockDiv = block.children;
+    for (let i = 0; i < blockDiv.length; i++) {
+        let childDiv = blockDiv[i];
+        childDiv.classList.add('career-child-cards');
+
+        if (childDiv.children) {
+            let innerChildDiv = childDiv.children;
+            for (let j = 0; j < innerChildDiv.length; j++) {
+                innerChildDiv[j].classList.add('career-inner-child-cards');
+            }
+        }
+    }
+
+    // Initial check
+    handleResize();
+
+    // Listen for resize events
+    window.addEventListener('resize', handleResize);
 }
