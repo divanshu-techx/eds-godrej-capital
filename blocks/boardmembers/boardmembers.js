@@ -23,15 +23,32 @@ export default async function decorate(block) {
         // Create a temporary container to parse the fetched HTML
         const tempContainer = document.createElement('div');
         tempContainer.innerHTML = html;
-
         // Find the .profiles div in the fetched HTML
         const profileDiv = tempContainer.querySelector('.profiles');
-        const popcontenta = tempContainer.querySelector('.profiles').innerHTML;
+        const profileContainers = profileDiv.children;
+        Array.from(profileContainers).forEach((profile) => {
+          const profileInnerDivs = profile.children;
+          const descDiv = profileDiv;
+          if (profileDiv){
+            profileDiv.children[0].classList.add('profile-details');
+          }
+          const pictureElement = profileInnerDivs[0]?.querySelector('picture');
+          if (pictureElement) {
+            pictureElement.parentElement.classList.add('profile-picture');
+          }
+          
+          if (descDiv) {
+            descDiv.children[1].classList.add('profile-description');
+          }
+        });
+        
+        const popcontenta = profileDiv.innerHTML;
         if (!profileDiv) {
           console.error('Profiles div not found in fetched HTML');
           return;
         }
 
+       
         // Insert the .profiles div into the button container
         const buttonContainer = anchor.parentElement;
         buttonContainer.innerHTML = '';
@@ -55,6 +72,7 @@ export default async function decorate(block) {
 
         // Create overlay and popup elements for each anchor
         const overlay = document.createElement('div');
+        overlay.classList.add('overlay-div');
         overlay.style.display = 'none';
         overlay.style.position = 'fixed';
         overlay.style.top = 0;
@@ -66,6 +84,7 @@ export default async function decorate(block) {
         document.body.appendChild(overlay);
 
         const popup = document.createElement('div');
+        popup.classList.add('popup-div');
         popup.style.display = 'none';
         popup.style.position = 'fixed';
         popup.style.top = '50%';
@@ -82,6 +101,7 @@ export default async function decorate(block) {
 
         const popupContent = document.createElement('div');
         popupContent.innerHTML = popcontenta;
+        popupContent.classList.add('popup-content');
         popup.appendChild(popupContent);
 
         // Function to show the popup
@@ -107,3 +127,5 @@ export default async function decorate(block) {
       });
   });
 }
+
+

@@ -11,6 +11,7 @@
     font-weight: 400;
     line-height: 16.42px;
     text-align: left;
+    transition: max-height 0.3s ease-out, background 0.3s ease-out;
   }
   
   .accordion-support-container .accordion-support-wrapper .accordion-support.block .accordion-header::after {
@@ -28,3 +29,19 @@
   .accordion-support-container .accordion-support-wrapper .accordion-support.block .accordion-header.active-show::after {
     transform: rotate(180deg); 
   }
+
+  .accordion-support-container .accordion-support-wrapper .accordion-support.block .accordion-header.active-show{
+    background: #E8E8E8;
+  }
+
+  /* .accordion-support.for-accordion.block {
+    padding: 0 26px;
+} */
+
+/* .navigation-support.block{
+  padding: 0 26px;
+} */
+
+.accordion-support.for-accordion.block.active-support-table{
+  background: #E8E8E8;
+}

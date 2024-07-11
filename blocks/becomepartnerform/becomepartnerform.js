@@ -1,12 +1,7 @@
-import { createForm } from '../../blocks/form/form.js';
+import { createForm, generatePayload } from '../../blocks/form/form.js';
+import { restrictNameInputs, restrictPhoneNumberInputs, validateNameField, validateEmail, validateMobileNumber, handleErrorMessages } from '../becomepartnerform/inputFieldsValidation.js';
 
-// Retrieve configurable values from data attributes
-const outSource = getDataAttributeValueByName('outsource');
-const pageUrl = getDataAttributeValueByName('pageurl');
-const pageTitle = getDataAttributeValueByName('pagetitle');
-const mxRefferralUrl = getDataAttributeValueByName('mxrefferralurl');
-const mxRefferalType = getDataAttributeValueByName('mxrefferaltype');
-const authKey = getDataAttributeValueByName('authkey');
+const apiUrl = getDataAttributeValueByName('apiurl');
 
 export default async function decorate(block) {
 
@@ -16,64 +11,176 @@ export default async function decorate(block) {
     const form = await createForm(formLink.href);
     block.replaceChildren(form);
 
+    // restrict the inputs
+    restrictNameInputs(block);
+    restrictPhoneNumberInputs(block);
+
+    // Add change event for checkboxes and radio button
     addChangeEventOnCheckboxes(block);
     addChangeEventOnRadioButtons(block);
 
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const submitTypeBtn = e.submitter; // Get the button that was clicked to submit the form
+    const editNumberInputEle = block.querySelector('#form-mobilenumber');
+    editNumberInputEle.setAttribute('readonly', true);
 
-        // Determine which button was clicked
-        if (submitTypeBtn.id === 'submit-btn') {
-            // Handle submit action for first button
-            const checkboxValidation = validateInputs(block, "#firstset", 'Please select at least one product.', 'checkbox');
-            const radioButtonValidation = validateInputs(block, "#secondset", 'Please select a location.', 'radio');
+    handleSubmitBtn(block, form, editNumberInputEle);
 
-            if (checkboxValidation && radioButtonValidation && form.checkValidity()) {
-                console.log("Form is valid. Submitting...");
-                // handleSubmit(form);
+    // handle edit mobile number
+    block.querySelector('#form-editmobilenumber').addEventListener('click', (e) => {
+        toggleFormVisibility('.form2', '.form1', block);
+    })
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const jsonUrl = 'https://main--eds-godrej-capital--divanshu-techx.hlx.page/become-a-partner/become-a-partner-form-sheet.json';
+    console.log(jsonUrl);
+
+    fetch(jsonUrl)
+        .then(response => response.json())
+        .then(data => {
+            const dropdown = document.getElementById('categoryDropdown');
+            const tabsContainer = document.getElementById('tabs-container');
+            const contentContainer = document.getElementById('content-container');
+
+            // Populate dropdown
+            data.data.forEach((item, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.innerText = item.category;
+                dropdown.appendChild(option);
+            });
+
+            // Update tabs and content based on selected category
+            const updateTabsAndContent = () => {
+                const selectedIndex = dropdown.value;
+                const selectedCategory = data.data[selectedIndex];
+                tabsContainer.innerHTML = '';
+                contentContainer.innerHTML = '';
+
+                selectedCategory.documentCateory.forEach((doc, index) => {
+                    const tabDiv = document.createElement('div');
+                    tabDiv.className = `tab${index === 0 ? ' active' : ''}`;
+                    tabDiv.dataset.tab = index;
+                    tabDiv.innerText = doc.documentType;
+                    tabsContainer.appendChild(tabDiv);
+
+                    const contentDiv = document.createElement('div');
+                    contentDiv.className = 'content';
+                    contentDiv.style.display = index === 0 ? 'block' : 'none';
+                    contentDiv.innerHTML = `<h3>${doc.title}</h3><p>${doc.description}</p><ul>${doc.documents.map(d => `<li>${d}</li>`).join('')}</ul>`;
+                    contentContainer.appendChild(contentDiv);
+
+                    tabDiv.addEventListener('click', function () {
+                        document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+                        this.classList.add('active');
+                        document.querySelectorAll('.content').forEach((content, contentIndex) => {
+                            content.style.display = contentIndex == index ? 'block' : 'none';
+                        });
+                    });
+                });
+            };
+
+            dropdown.addEventListener('change', updateTabsAndContent);
+            updateTabsAndContent();
+
+
+        })
+        .catch(error => console.error('Error fetching data:', error));
+});
+
+function handleSubmitBtn(block, form, editNumberInputEle) {
+    const submitBtnEle = block.querySelector('#submit-btn');
+    submitBtnEle.addEventListener('click', async (e) => {
+
+        if (!validateForm1(block)) {
+            focusOnFirstInvalidElement(form);
+            return;
+        }
+
+        const form1Payload = generatePayload(form);
+        try {
+            const response = await makeAjaxRequest('POST', apiUrl, generateRequestBody(form1Payload, true, '', getSelectedCheckboxValues(block)));
+            console.log(response);
+            if (response.status) {
+                editNumberInputEle.value = form1Payload.userMobileNumder;
+                updateOTPMessage(block, form1Payload.userMobileNumder);
                 toggleFormVisibility('.form1', '.form2', block);
-            } else {
-                focusOnFirstInvalidElement(form);
+                startTimer(block, form);
+                handleVerifyBtn(block, form);
             }
-        } else if (submitTypeBtn.id === 'verify-btn') {
-            if (form.checkValidity()) {
-                // Handle submit action for second button
-                console.log("verify button clicked.");
-            } else {
-                focusOnFirstInvalidElement(form);
-            }
+        } catch (error) {
+            console.error('Error:', error);
         }
     });
-
-    // Log the variables to verify
-    console.log("outSource:", outSource);
-    console.log("pageUrl:", pageUrl);
-    console.log("pageTitle:", pageTitle);
-    console.log("mxRefferralUrl:", mxRefferralUrl);
-    console.log("mxRefferalType:", mxRefferalType);
-    console.log("authKey:", authKey);
-    // Prepare the data payload
-    const data = {
-        product: "HomeLoan",
-        name: "jitender rawat",
-        username: "9990909468",
-        email: "j@gmail.com",
-        outSource: outSource, // corrected variable name
-        pageUrl: pageUrl,
-        pageTitle: pageTitle,
-        mx_Refferral_URL: mxRefferralUrl,
-        mx_Refferal_Type: mxRefferalType,
-    };
 }
 
-function handleSubmitBtn() {
+function handleVerifyBtn(block, form) {
+    block.querySelector('#verify-btn').addEventListener('click', (e) => {
+
+        if (validateOtp(block, form)) {
+            console.log("otp is verified");
+            // Perform any specific action needed for the verify button
+        } else {
+            focusOnFirstInvalidElement(form);
+        }
+    });
+}
+
+function updateOTPMessage(block, userMobNo) {
+    const mobileNoStr = userMobNo.toString();
+    const lastFourDigits = mobileNoStr.slice(-4);
+
+    const otpMsgEle = block.querySelector('#form-otpmessage');
+
+    // If the element exists
+    if (otpMsgEle) {
+        const otpMsgTextContent = otpMsgEle.textContent;
+        const otpTextWithoutDigits = otpMsgTextContent.replace(/\d{4}$/, '');
+
+        // Update the text content with the new last four digits
+        otpMsgEle.textContent = `${otpTextWithoutDigits}${lastFourDigits}`;
+    }
 
 }
 
-function handleVerifyBtn() {
+// Function to validate form2 inputs
+async function validateOtp(block, form) {
+    const otpFields = block.querySelectorAll("fieldset#form-otpfieldset input[type='text']");
 
+    let isValid = true;
+
+    let otpValue = '';
+    otpFields.forEach((otpField) => {
+        if (otpField.value.trim() === "") {
+            isValid = false;
+        }
+        otpValue += otpField.value;
+    });
+
+    const otpFieldSetEle = document.querySelector("fieldset#form-otpfieldset");
+    if (!isValid) {
+        handleErrorMessages(false, otpFieldSetEle, 'Please enter the valid OTP.');
+    } else {
+        handleErrorMessages(true, otpFieldSetEle);
+        const form2Payload = generatePayload(form);
+        try {
+            const otpVerifyRes = await makeAjaxRequest('POST', apiUrl, generateRequestBody(form2Payload, false, otpValue, getSelectedCheckboxValues(block)));
+            if (otpVerifyRes.status) {
+                handleErrorMessages(true, otpFieldSetEle);
+                const thankYouTeaserContainer = document.querySelector(".teaser-thankyou-cards-container");
+                const becomePartnerContainer = block.parentNode.parentNode;
+                thankYouTeaserContainer.style.display = 'block';
+                becomePartnerContainer.style.display = 'none';
+            } else {
+                handleErrorMessages(false, otpFieldSetEle, otpVerifyRes.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    return isValid;
 }
+
 
 function focusOnFirstInvalidElement(form) {
     const firstInvalidEl = form.querySelector(':invalid:not(fieldset)');
@@ -126,51 +233,66 @@ function addChangeEventOnRadioButtons(block) {
     });
 }
 
+function getSelectedCheckboxValues(block) {
+    // Get all checkboxes inside the specified fieldset
+    const checkboxes = block.querySelectorAll('fieldset#firstset input[type="checkbox"]');
+    let selectedValues = [];
+
+    checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            selectedValues.push(checkbox.value);
+        }
+    });
+
+    return selectedValues;
+}
+
+// Function to validate form1 inputs
+function validateForm1(block) {
+    const nameField = block.querySelector('#form-username');
+    const mobileField = block.querySelector('#form-usermobilenumder');
+    const emailField = block.querySelector('#form-useremailid');
+    const checkboxValidation = validateRadioBtnAndCheckbox(block, "#firstset", 'Please select at least one product.', 'checkbox');
+    const radioButtonValidation = validateRadioBtnAndCheckbox(block, "#secondset", 'Please select a location.', 'radio');
+
+    let isValid = true;
+    if (!validateNameField(nameField)) {
+        isValid = false;
+    }
+    if (!validateMobileNumber(mobileField)) {
+        isValid = false;
+    }
+    if (!validateEmail(emailField)) {
+        isValid = false;
+    }
+
+    return checkboxValidation && radioButtonValidation && isValid;
+}
+
 // Consolidated validation function
-function validateInputs(block, fieldsetId, errorMessageText, inputType) {
+function validateRadioBtnAndCheckbox(block, fieldsetId, errorMessageText, inputType) {
     const fieldset = block.querySelector(fieldsetId);
     const selectedInputs = fieldset.querySelectorAll(`.form1.field-wrapper.${inputType}-wrapper.selection-wrapper.selected, .form1.field-wrapper.${inputType}-wrapper.selection-wrapper.checked`);
     return handleErrorMessages(selectedInputs.length > 0, fieldset, errorMessageText);
 }
 
-function handleErrorMessages(condition, fieldset, errorMessageText) {
-    let errorMessage = fieldset.nextElementSibling;
-    if (!condition) {
-        if (!errorMessage || !errorMessage.classList.contains('error-message')) {
-            errorMessage = document.createElement('div');
-            errorMessage.textContent = errorMessageText;
-            errorMessage.classList.add('error-message');
-            fieldset.insertAdjacentElement('afterend', errorMessage);
-        }
-        return false;
-    } else {
-        if (errorMessage && errorMessage.classList.contains('error-message')) {
-            errorMessage.remove();
-        }
-        return true;
-    }
-}
-
 function toggleFormVisibility(hideSelector, showSelector, block) {
     const hideElements = block.querySelectorAll(hideSelector);
-    console.log(hideElements);
     const showElements = block.querySelectorAll(showSelector);
-    console.log(showElements);
     hideElements.forEach(el => el.style.display = 'none');
     showElements.forEach(el => el.style.display = 'block');
 }
 
-export function makeAjaxRequest(method, url, data) {
+function makeAjaxRequest(method, url, requestBody) {
     // Return a promise
     return new Promise((resolve, reject) => {
         $.ajax({
             type: method,
             url: url,
             headers: {
-                "Content-Type": "application/json",
-                "auth-key": "9K43LtTEGpqmhAYgN10MPzqASvRmUKLk",
+                "Content-Type": "application/json"
             },
-            data: JSON.stringify(data),
+            data: JSON.stringify(requestBody),
             success: function (response) {
                 resolve(response);
             },
@@ -181,112 +303,47 @@ export function makeAjaxRequest(method, url, data) {
     });
 }
 
-export function generateOtpPayload(formPayload) {
+function generateRequestBody(formPayload, isOtpGeneration, otp, selectedProducts) {
     const customPayload = {
-        product: formPayload.homeLoanLabel,
-        name: formPayload.userName,
-        username: formPayload.userMobileNumder,
-        email: formPayload.userEmailId,
-        outSource: "GodrejCapitalWebsite",
-        pageUrl: "https://www.godrejcapital.com/apply-now.html",
-        pageTitle: "Apply Now",
-        mx_Refferral_URL: "",
-        mx_Refferal_Type: "direct",
+        fullname: formPayload.userName,
+        emailId: formPayload.userEmailId,
+        mobile: formPayload.userMobileNumder,
+        location: formPayload.locationOption,
+        products: selectedProducts,
+        eventType: isOtpGeneration ? "OTP_GENERATE" : "OTP_VERIFY",
+        otp: otp
     };
     return customPayload;
 }
 
-export function generateVerifyOtpPayload(formPayload) {
-    const customPayload = {
-        product: 'HomeLoan',
-        name: formPayload.userName,
-        username: formPayload.userMobileNumder,
-        email: formPayload.userEmailId,
-        outSource: "GodrejCapitalWebsite",
-        pageUrl: "https://www.godrejcapital.com/apply-now.html#HomeLoan",
-        pageTitle: "Apply Now",
-        mx_Refferral_URL: "",
-        mx_Refferal_Type: "direct",
-        utmSource: null,
-        utmMedium: null,
-        utmCampaign: null,
-        utmTerm: null,
-        utmContent: null
-    };
-    return customPayload;
-}
+// Function to start the timer
+function startTimer(block, form) {
+    var timerElement = block.querySelector('#form-otpconfirmation'); // Timer element
+    var resendButton = block.querySelector('#form-resendotp'); // Resend button
 
-// Function to start the timer and activate resend OTP option after 30 seconds
-export function startTimer() {
-    let seconds = 30;
-    const otpConfirmationParagraph = document.getElementById('form-otpconfirmation');
-    const resendOtpParagraph = document.getElementById('form-resendotp');
-    // Function to toggle the active class for resend OTP
-    function toggleResendOTPClass(active) {
-        if (active) {
-            resendOtpParagraph.classList.remove('inactive');
-            resendOtpParagraph.classList.add('active');
-            resendOtpParagraph.removeAttribute('disabled');
-        } else {
-            resendOtpParagraph.classList.remove('active');
-            resendOtpParagraph.classList.add('inactive');
-            resendOtpParagraph.setAttribute('disabled', 'disabled');
+    var count = 30; // Initial count in seconds
+    resendButton.disabled = true; // Disable resend button initially
+
+    var interval = setInterval(function () {
+        var seconds = count % 60; // Calculate remaining seconds
+        var displaySeconds = seconds < 10 ? "0" + seconds : seconds;
+
+        timerElement.innerText = "Didn't receive any OTP? " + displaySeconds + " Seconds"; // Update timer display
+
+        if (count <= 0) {
+            clearInterval(interval); // Clear interval when count reaches 0
+            resendButton.disabled = false; // Enable resend button
+            timerElement.innerText = "Didn't receive any OTP?"; // Reset timer text
         }
-    }
-    // Function to resend OTP
-    function resendOTP() {
-        // Code to resend OTP goes here
-        console.log('Resending OTP...');
-        // Reset the timer
-        seconds = 30;
-        otpConfirmationParagraph.textContent = `Didn't receive any OTP? ${seconds} Seconds`;
-        toggleResendOTPClass(false); // Remove active class
-        startTimer();
-    }
-    // Initially add inactive class
-    toggleResendOTPClass(false);
-    const intervalId = setInterval(() => {
-        seconds--;
-        otpConfirmationParagraph.textContent = `Didn't receive any OTP? ${seconds} Seconds`;
-        if (seconds === 0) {
-            clearInterval(intervalId);
-            toggleResendOTPClass(true); // Add active class
-        }
-    }, 1000);
-    // Event listener for the "Resend OTP" option
-    resendOtpParagraph.addEventListener('click', resendOTP);
-}
-export function retrieveOTP() {
-    var otp = "";
-    // Loop through each input field
-    $("fieldset#form-otpfieldset input[type='text']").each(function () {
-        // Concatenate the value of each input field
-        otp += $(this).val();
+        count--; // Decrement count
+    }, 1000); // Update every second (1000 milliseconds)
+
+    resendButton.addEventListener('click', async (e) => {
+        const payload = generatePayload(form);
+        const response = await makeAjaxRequest('POST', apiUrl, generateRequestBody(payload, true, '', getSelectedCheckboxValues(block)));
+        console.log(response);
     });
-    console.log(otp);
-    // Return the concatenated OTP
-    return otp;
-}
-export async function handleVerify(payload, userMobileNumber) {
-    if (userMobileNumber) {
-        try {
-            const response = await makeAjaxRequest(
-                "POST",
-                `https://h9qipagt5.godrejfinance.com/v1/ehf/outsources/validateotp/${userMobileNumber}/${retrieveOTP()}`,
-                payload
-            );
-            if (response.ok) {
-                window.location.href = "https://your-redirect-url.com/success-page";
-            } else {
-                // Handle unsuccessful validation
-                console.error("OTP validation failed:", response);
-            }
-        } catch (error) {
-            console.error("Error during OTP validation:", error);
-        }
-    } else {
-        console.error("Mobile number not found.");
-    }
+
 }
 
 // Get data attribute value by name

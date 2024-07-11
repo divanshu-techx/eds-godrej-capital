@@ -145,36 +145,44 @@ function renderHTML(attributes) {
                     <div>${attributes.annualPercentLabel}</div>
                     <div id="aprDisplay">${attributes.percentSymbol}</div>
                 </div>
-                <button id="apply-btn-apr">${attributes.applyNowLabel}</button>
+                <div class="apply-btn-apr-result">
+                    <button id="apply-btn-apr">${attributes.applyNowLabel}</button>
+                </div>
             </div>
         </div>`;
 }
 
 // Function to update range input colors
 function updateRangeColors(block) {
-    const rangeInputs = block.querySelectorAll('input[type=range]');
+    const isMobileView = window.matchMedia("(max-width: 767px)").matches;
+    const mobileColor = '#f4f4f4';  //  color for mobile view
+    const desktopColor = '#fff'; // White color for desktop view
+ 
+    const rangeInputs = document.querySelectorAll('input[type=range]');
     rangeInputs.forEach(input => {
         const min = parseFloat(input.min);
         const max = parseFloat(input.max);
         const val = parseFloat(input.value);
         const normalizedValue = (val - min) / (max - min) * 100;
-        input.style.background = `linear-gradient(to right, #8CB133 ${normalizedValue}%, #ccc ${normalizedValue}%)`;
+        const endColor = isMobileView ? mobileColor : desktopColor;
+        input.style.background = `linear-gradient(to right, #8CB133 ${normalizedValue}%, ${endColor} ${normalizedValue}%)`;
     });
 }
+ 
 
 // Function to update APR calculations and display
 function updateAPR(block) {
     const loanAmount = parseFloat(block.querySelector('#loanAmountAprRange').value);
-    const interestRate = parseFloat(block.querySelector('#interestRateAprRange').value).toFixed(1);
+    const interestRate = parseFloat(parseFloat(block.querySelector('#interestRateAprRange').value).toFixed(1));
     const loanTenureYears = parseFloat(block.querySelector('#loanTenureYearsAprRange').value);
     const loanTenureMonths = parseFloat(block.querySelector('#loanTenureMonthsAprRange').value);
     const originationCharges = parseFloat(block.querySelector('#loanOriginationChargesAprRange').value);
 
-    block.querySelector('#loanAmountApr').value = loanAmount.toLocaleString();
+    block.querySelector('#loanAmountApr').value = loanAmount.toLocaleString('en-IN');
     block.querySelector('#interestRateApr').value = interestRate;
     block.querySelector('#loanTenureYearsApr').value = loanTenureYears;
     block.querySelector('#loanTenureMonthsApr').value = loanTenureMonths;
-    block.querySelector('#loanOriginationChargesApr').value = originationCharges.toLocaleString();
+    block.querySelector('#loanOriginationChargesApr').value = originationCharges.toLocaleString('en-IN');
 
     const totalLoanTenure = loanTenureYears * 12 + loanTenureMonths;
     const monthlyInterestRate = interestRate / 100 / 12;
@@ -252,5 +260,7 @@ export default async function decorate(block) {
     updateAPR(block);
     addRangeInputListeners(block);
     addTextInputListeners(block);
-    setApplyNowButton(block,attributes)
+    setApplyNowButton(block,attributes);
 }
+window.addEventListener('resize',updateRangeColors);
+window.addEventListener('load',updateRangeColors);
