@@ -103,12 +103,6 @@
     padding: 0.2em 0.4em;
 }
 
-.becomepartnerform .field-wrapper.selection-wrapper {
-    grid-auto-flow: column;
-    justify-content: start;
-    gap: 16px;
-}
-
 .becomepartnerform .field-wrapper>label {
     order: -1;
 }
@@ -172,6 +166,7 @@
 
 .becomepartnerform .form2 {
     display: none;
+
 }
 
 /* Input Fields Styling */
@@ -221,7 +216,6 @@
     background-color: #FFFFFF;
     color: #3B3B3B;
     border-radius: 4px;
-    font-weight: 400;
     transition: background-color 0.3s;
     font-weight: 400;
     text-align: left;
@@ -230,9 +224,8 @@
 
 .selection-wrapper.selected label,
 .selection-wrapper.checked label {
-    background-color: green;
+    background-color: #8CB133;
     color: #FFFFFF;
-
 }
 
 
@@ -242,8 +235,9 @@
 }
 
 .error-message {
-    color: red;
-    font-size: 14px;
+    color: #F50076;
+    font-size: 12px;
+    padding-inline: 8px;
 }
 
 .form2.field-wrapper.plaintext-wrapper .inactive {
@@ -270,7 +264,58 @@
     margin: 0;
 }
 
-.becomepartnerform .submit-btn.button-wrapper input[type="button"] {
+.becomepartnerform .form1.field-wrapper.fieldset-wrapper {
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+.becomepartnerform .form1.checkbox-wrapper.selection-wrapper,
+.becomepartnerform .form1.radio-wrapper.selection-wrapper {
+    padding-inline: 0;
+}
+
+.form2.field-wrapper input,
+.form2.field-wrapper select {
+
+    background-color: #ffffff;
+}
+
+.form2.field-wrapper.fieldset-wrapper fieldset {
+    width: 100%;
+}
+
+
+.form2.field-wrapper.plaintext-wrapper #form-otpmessage {
+    color: #3B3B3B;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18.77px;
+    text-align: left;
+}
+
+.form2.field-wrapper.fieldset-wrapper #form-otpconfirmationfieldset {
+    display: flex;
+}
+
+.becomepartnerform .form1.checkbox-wrapper.selection-wrapper>label,
+.becomepartnerform .form1.radio-wrapper.selection-wrapper>label {
+    padding: 10px;
+}
+
+.form2.verify-btn.field-wrapper.button-wrapper {
+    justify-content: center;
+}
+
+/* .form2.verify-btn.field-wrapper.button-wrapper, */
+.form1.submit-btn.field-wrapper.button-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.becomepartnerform .submit-btn.button-wrapper input[type="button"],
+.becomepartnerform .verify-btn.field-wrapper.button-wrapper input[type="button"] {
     background: #3CB8FF;
     font-family: Work Sans;
     font-size: 16px;
@@ -283,4 +328,44 @@
     border: unset;
     border-radius: 4px;
     cursor: pointer;
+}
+
+.becomepartnerform .submit-btn.button-wrapper input[type="button"]:disabled,
+.becomepartnerform .verify-btn.field-wrapper.button-wrapper input[type="button"]:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+}
+
+.form2.field-wrapper.fieldset-wrapper #form-otpfieldset {
+    /* background-color: #ffffff; */
+}
+
+.form2.field-wrapper.plaintext-wrapper p {
+    background-color: transparent;
+}
+
+fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper {
+    position: relative;
+}
+
+fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper input {
+    padding-left: calc(50%);
+}
+
+fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper::before {
+    position: absolute;
+    content: '';
+    width: 20px;
+    display: block;
+    height: 2px;
+    z-index: 99;
+    bottom: 15px;
+    left: calc(50% - 10px);
+    background-color: #B8B8B8;
+    transform: translateX(calc(50% - 10px));
+    border-radius: 1px;
+}
+
+fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper:has(input:not(:placeholder-shown))::before {
+    display: none;
 }
