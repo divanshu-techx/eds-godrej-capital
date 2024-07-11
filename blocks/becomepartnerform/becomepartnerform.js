@@ -1,6 +1,5 @@
 import { createForm, generatePayload } from '../../blocks/form/form.js';
 
-const authKey = getDataAttributeValueByName('authkey');
 const apiUrl = getDataAttributeValueByName('apiurl');
 
 export default async function decorate(block) {
@@ -22,9 +21,6 @@ export default async function decorate(block) {
     block.querySelector('#form-editmobilenumber').addEventListener('click', (e) => {
         toggleFormVisibility('.form2', '.form1', block);
     })
-
-    console.log("apiUrl:", apiUrl);
-    console.log("authKey:", authKey);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -86,16 +82,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 function handleSubmitBtn(block, form, editNumberInputEle) {
-    block.querySelector('#submit-btn').addEventListener('click', (e) => {
+    block.querySelector('#submit-btn').addEventListener('click', async (e) => {
 
         if (validateForm1(block)) {
             const form1Payload = generatePayload(form);
-            const response = makeAjaxRequest('POST', apiUrl, generateRequestBodyy(form1Payload, true));
-            console.log(response);
-
-            editNumberInputEle.value = form1Payload.userMobileNumder;
-            toggleFormVisibility('.form1', '.form2', block);
-            handleVerifyBtn(block, form);
+            try {
+                const response = await makeAjaxRequest('POST', apiUrl, generateRequestBody(form1Payload, true, ''));
+                console.log(response);
+                if (response.status) {
+                    editNumberInputEle.value = form1Payload.userMobileNumder;
+                    toggleFormVisibility('.form1', '.form2', block);
+                    handleVerifyBtn(block, form);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
         } else {
             focusOnFirstInvalidElement(form);
         }
@@ -105,7 +106,7 @@ function handleSubmitBtn(block, form, editNumberInputEle) {
 function handleVerifyBtn(block, form) {
     block.querySelector('#verify-btn').addEventListener('click', (e) => {
 
-        if (validateOtp(block)) {
+        if (validateOtp(block, form)) {
             console.log("otp is verified");
             // Perform any specific action needed for the verify button
         } else {
@@ -115,8 +116,8 @@ function handleVerifyBtn(block, form) {
 }
 
 // Function to validate form2 inputs
-function validateOtp(block) {
-    const otpFields = block.querySelectorAll('[id^="form-otpfield"]');
+async function validateOtp(block, form) {
+    const otpFields = block.querySelectorAll("fieldset#form-otpfieldset input[type='text']");
 
     let isValid = true;
 
@@ -128,10 +129,28 @@ function validateOtp(block) {
         otpValue += otpField.value;
     });
 
-    if (isValid) {
-        handleErrorMessages(false, otpFields, 'Please enter the valid OTP.');
+    const otpFieldSetEle = document.querySelector("fieldset#form-otpfieldset");
+    if (!isValid) {
+        handleErrorMessages(false, otpFieldSetEle, 'Please enter the valid OTP.');
     } else {
-        handleErrorMessages(true, otpFields);
+        handleErrorMessages(true, otpFieldSetEle);
+        const formPayload = generatePayload(form);
+        console.log(formPayload);
+        try {
+            const otpVerifyRes = await makeAjaxRequest('POST', apiUrl, generateRequestBody(formPayload, false, otpValue));
+            if (otpVerifyRes.status) {
+                handleErrorMessages(true, otpFieldSetEle);
+                const thankYouTeaserContainer = document.querySelector(".teaser-thankyou-cards-container");
+                const becomePartnerContainer = block.parentNode.parentNode;
+                thankYouTeaserContainer.style.display = 'block';
+                becomePartnerContainer.style.display = 'none';
+            } else {
+                handleErrorMessages(false, otpFieldSetEle, otpVerifyRes.message);
+            }
+            console.log(otpVerifyRes);
+        } catch (error) {
+            console.error('Error:', error);
+        }
     }
 
     return isValid;
@@ -255,6 +274,7 @@ function validateRadioBtnAndCheckbox(block, fieldsetId, errorMessageText, inputT
 
 function handleErrorMessages(condition, fieldset, errorMessageText) {
     let errorMessage = fieldset.nextElementSibling;
+
     if (!condition) {
         if (!errorMessage || !errorMessage.classList.contains('error-message')) {
             errorMessage = document.createElement('div');
@@ -273,9 +293,7 @@ function handleErrorMessages(condition, fieldset, errorMessageText) {
 
 function toggleFormVisibility(hideSelector, showSelector, block) {
     const hideElements = block.querySelectorAll(hideSelector);
-    console.log(hideElements);
     const showElements = block.querySelectorAll(showSelector);
-    console.log(showElements);
     hideElements.forEach(el => el.style.display = 'none');
     showElements.forEach(el => el.style.display = 'block');
 }
@@ -300,7 +318,7 @@ export function makeAjaxRequest(method, url, requestBody) {
     });
 }
 
-export function generateRequestBodyy(formPayload, isOtpGeneration) {
+export function generateRequestBody(formPayload, isOtpGeneration, otp) {
     const customPayload = {
         fullname: formPayload.userName,
         emailId: formPayload.userEmailId,
@@ -310,27 +328,7 @@ export function generateRequestBodyy(formPayload, isOtpGeneration) {
             1
         ],
         eventType: isOtpGeneration ? "OTP_GENERATE" : "OTP_VERIFY",
-        otp: ""
-    };
-    return customPayload;
-}
-
-export function generateVerifyOtpPayload(formPayload) {
-    const customPayload = {
-        product: 'HomeLoan',
-        name: formPayload.userName,
-        username: formPayload.userMobileNumder,
-        email: formPayload.userEmailId,
-        outSource: "GodrejCapitalWebsite",
-        pageUrl: "https://www.godrejcapital.com/apply-now.html#HomeLoan",
-        pageTitle: "Apply Now",
-        mx_Refferral_URL: "",
-        mx_Refferal_Type: "direct",
-        utmSource: null,
-        utmMedium: null,
-        utmCampaign: null,
-        utmTerm: null,
-        utmContent: null
+        otp: otp
     };
     return customPayload;
 }
@@ -374,38 +372,6 @@ export function startTimer() {
     }, 1000);
     // Event listener for the "Resend OTP" option
     resendOtpParagraph.addEventListener('click', resendOTP);
-}
-export function retrieveOTP() {
-    var otp = "";
-    // Loop through each input field
-    $("fieldset#form-otpfieldset input[type='text']").each(function () {
-        // Concatenate the value of each input field
-        otp += $(this).val();
-    });
-    console.log(otp);
-    // Return the concatenated OTP
-    return otp;
-}
-export async function handleVerify(payload, userMobileNumber) {
-    if (userMobileNumber) {
-        try {
-            const response = await makeAjaxRequest(
-                "POST",
-                `https://h9qipagt5.godrejfinance.com/v1/ehf/outsources/validateotp/${userMobileNumber}/${retrieveOTP()}`,
-                payload
-            );
-            if (response.ok) {
-                window.location.href = "https://your-redirect-url.com/success-page";
-            } else {
-                // Handle unsuccessful validation
-                console.error("OTP validation failed:", response);
-            }
-        } catch (error) {
-            console.error("Error during OTP validation:", error);
-        }
-    } else {
-        console.error("Mobile number not found.");
-    }
 }
 
 // Get data attribute value by name
