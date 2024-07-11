@@ -317,6 +317,9 @@
   .accordion-content.active {
     display: block;
   }
+  .accordion-content.active > ul{
+    padding:10px;
+  }
   .accordion-content.active table {
     width: 100%;
     border-collapse: collapse; 
