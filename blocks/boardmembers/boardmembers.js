@@ -1,6 +1,5 @@
 export default async function decorate(block) {
   const crossBtn=getDataAttributeValueByName('close-button');
-  console.log(crossBtn)
   const anchors = block.querySelectorAll('.button');
   if (anchors.length === 0) {
     console.error('No buttons found within the boardmembers block');
