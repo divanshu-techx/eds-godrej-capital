@@ -1,271 +1,371 @@
 /* third  */
-.becomepartnerform-container {
-    display: flex;
+.hero-container.becomepartnerform-container {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 1fr;
     max-width: 1200px;
     margin: auto;
+    background-color: #F2F2F2;
+    border-radius: 10px;
+    gap: 10px;
+}
 
-    .hero-wrapper {
-        min-width: 576px;
-    }
+.becomepartnerform-container .default-content-wrapper {
+    grid-column: span 2;
+}
 
-    .becomepartnerform-wrapper {
-        min-width: 564px;
-    }
+.becomepartnerform-container .becomepartnerhero {
+    z-index: 1;
+}
 
-    .becomepartnerform .field-wrapper {
-        /* display: grid;
+
+/* .hero-wrapper {
+    min-width: 576px;
+}
+
+.becomepartnerform-wrapper {
+    min-width: 564px;
+} */
+
+.becomepartnerform .field-wrapper {
+    /* display: grid;
         grid-auto-flow: row;
         align-items: center; */
-        padding: 8px;
-    }
+    padding: 8px;
+}
 
+.becomepartnerform fieldset {
+    display: grid;
+    grid-auto-flow: row;
+    gap: 8px;
+    border: none;
+    padding: 0;
+}
+
+@media (width >=900px) {
     .becomepartnerform fieldset {
-        display: grid;
-        grid-auto-flow: row;
-        gap: 8px;
-        border: none;
-        padding: 0;
-    }
-
-    @media (width >=900px) {
-        .becomepartnerform fieldset {
-            /* grid-template-columns: repeat(6, 1fr);
+        /* grid-template-columns: repeat(6, 1fr);
             gap: 16px; */
-            display: flex;
-        }
-    }
-
-    .becomepartnerform fieldset>legend {
-        font-weight: 700;
-        font-size: var(--heading-font-size-xs);
-    }
-
-    .becomepartnerform label {
-        font-weight: 700;
-        font-size: var(--body-font-size-xs);
-        margin-bottom: 0.25em;
-    }
-
-    .becomepartnerform input,
-    .becomepartnerform select,
-    .becomepartnerform textarea {
-        font-size: var(--body-font-size-s);
-        width: 100%;
-        max-width: 50rem;
-        display: block;
-        padding: 12px 8px;
-        border-radius: 4px;
-        box-sizing: border-box;
-        border: 1px solid var(--text-color);
-        color: var(--text-color);
-        background-color: var(--background-color);
-    }
-
-    .becomepartnerform textarea {
-        resize: vertical;
-    }
-
-    .becomepartnerform .selection-wrapper input {
-        width: 16px;
-    }
-
-    .becomepartnerform .selection-wrapper label {
-        margin-bottom: 0;
-    }
-
-    .becomepartnerform input:hover {
-        border: 1px solid var(--text-color);
-    }
-
-    .becomepartnerform .button {
-        max-width: 225px;
-        font-size: var(--body-font-size-m);
-        padding: 0.2em 0.4em;
-    }
-
-    .becomepartnerform .field-wrapper.selection-wrapper {
-        grid-auto-flow: column;
-        justify-content: start;
-        gap: 16px;
-    }
-
-    .becomepartnerform .field-wrapper>label {
-        order: -1;
-    }
-
-    .becomepartnerform .field-wrapper.selection-wrapper>label {
-        order: 1;
-    }
-
-    .becomepartnerform input[required]+label::after {
-        content: "*";
-        color: firebrick;
-        margin-inline-start: 1ch;
-    }
-
-    .becomepartnerform .toggle-wrapper .switch {
-        position: relative;
-        display: inline-block;
-        width: 48px;
-        height: 24px;
-    }
-
-    .becomepartnerform .toggle-wrapper input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
-
-    .becomepartnerform .toggle-wrapper .slider {
-        position: absolute;
-        cursor: pointer;
-        inset: 0;
-        background-color: var(--dark-color);
-        transition: 0.4s;
-        border-radius: 30px;
-    }
-
-    .becomepartnerform .toggle-wrapper .slider::before {
-        position: absolute;
-        content: "";
-        height: 20px;
-        width: 20px;
-        left: 2px;
-        bottom: 2px;
-        background-color: var(--background-color);
-        transition: 0.4s;
-        border-radius: 50%;
-    }
-
-    .becomepartnerform .toggle-wrapper input:checked+.slider {
-        background-color: var(--link-color);
-    }
-
-    .becomepartnerform .toggle-wrapper input:focus+.slider {
-        outline: 2px solid var(--link-color);
-        outline-offset: 2px;
-    }
-
-    .becomepartnerform .toggle-wrapper input:checked+.slider::before {
-        transform: translateX(24px);
-    }
-
-    .becomepartnerform .form2 {
-        display: none;
-    }
-
-    /* Input Fields Styling */
-    .becomepartnerform-input {
-        width: 100%;
-        padding: 10px;
-        margin-top: 4px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 16px;
-    }
-
-    /* Error Field Styling */
-    .error-field {
-        color: red;
-        font-size: 12px;
-        margin-top: 4px;
-    }
-
-    /* Labels for Product and Location Selection */
-    .plaintext-wrapper p,
-    .field-wrapper.plaintext-wrapper p {
-        font-weight: bold;
-        margin-bottom: 8px;
-    }
-
-    /* Product Buttons Styling */
-    .field-wrapper.checkbox-wrapper {
         display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 8px;
     }
+}
 
-    .selection-wrapper input[type="checkbox"] {
-        display: none;
-    }
+.becomepartnerform fieldset>legend {
+    font-weight: 700;
+    font-size: var(--heading-font-size-xs);
+}
 
-    .selection-wrapper label {
-        cursor: pointer;
-        padding: 5px 10px;
-        background-color: #007BFF;
-        color: white;
-        border-radius: 4px;
-        transition: background-color 0.3s;
-    }
+.becomepartnerform label {
+    font-weight: 700;
+    font-size: var(--body-font-size-xs);
+    margin-bottom: 0.25em;
+}
 
-    .selection-wrapper.checked label {
-        background-color: green;
-    }
+.becomepartnerform input,
+.becomepartnerform select,
+.becomepartnerform textarea {
+    font-size: var(--body-font-size-s);
+    width: 100%;
+    display: block;
+    padding: 12px 8px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-weight: 400;
+    border: 1px solid var(--text-color);
+    color: #585858;
+    background-color: #D4D4D499;
+    outline: none;
+    border: none;
+    font-family: 'Work Sans';
+}
 
-    .selection-wrapper label:hover {
-        background-color: #0056b3;
-    }
+.becomepartnerform textarea {
+    resize: vertical;
+}
 
-    /* Submit Button Styling */
-    .submit-wrapper .button {
-        padding: 12px 20px;
-        background-color: #007BFF;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 16px;
-        transition: background-color 0.3s;
-    }
+.becomepartnerform .selection-wrapper input {
+    width: 16px;
+}
 
-    .submit-wrapper .button:hover {
-        background-color: #0056b3;
-    }
+.becomepartnerform .selection-wrapper label {
+    margin-bottom: 0;
+}
 
-    /* for radio btns  */
-    .selection-wrapper input[type="radio"] {
-        display: none;
-    }
+/* 
+.becomepartnerform input:hover {
+    border;
+} */
 
-    .selection-wrapper label {
-        cursor: pointer;
-        padding: 5px 10px;
-        background-color: #007BFF;
-        color: white;
-        border-radius: 4px;
-        transition: background-color 0.3s;
-    }
+.becomepartnerform .button {
+    max-width: 225px;
+    font-size: var(--body-font-size-m);
+    padding: 0.2em 0.4em;
+}
 
-    .selection-wrapper.selected label {
-        background-color: green;
-    }
+.becomepartnerform .field-wrapper>label {
+    order: -1;
+}
 
-    .selection-wrapper label:hover {
-        background-color: #0056b3;
-    }
+.becomepartnerform .field-wrapper.selection-wrapper>label {
+    order: 1;
+}
 
-    .button:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
+.becomepartnerform input[required]+label::after {
+    content: "*";
+    color: firebrick;
+    margin-inline-start: 1ch;
+}
 
-    .error-message {
-        color: red;
-        font-size: 14px;
-    }
+.becomepartnerform .toggle-wrapper .switch {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 24px;
+}
 
-    .form2.field-wrapper.plaintext-wrapper .inactive {
-        color: black;
-        font-size: 14px;
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
+.becomepartnerform .toggle-wrapper input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
 
-    .form2.field-wrapper.plaintext-wrapper .active {
-        color: blue;
-        font-size: 14px;
-        cursor: pointer;
-    }
+.becomepartnerform .toggle-wrapper .slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: var(--dark-color);
+    transition: 0.4s;
+    border-radius: 30px;
+}
 
+.becomepartnerform .toggle-wrapper .slider::before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 2px;
+    bottom: 2px;
+    background-color: var(--background-color);
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+.becomepartnerform .toggle-wrapper input:checked+.slider {
+    background-color: var(--link-color);
+}
+
+.becomepartnerform .toggle-wrapper input:focus+.slider {
+    outline: 2px solid var(--link-color);
+    outline-offset: 2px;
+}
+
+.becomepartnerform .toggle-wrapper input:checked+.slider::before {
+    transform: translateX(24px);
+}
+
+.becomepartnerform .form2 {
+    display: none;
+
+}
+
+/* Input Fields Styling */
+.becomepartnerform-input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Error Field Styling */
+.error-field {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+/* Labels for Product and Location Selection */
+.plaintext-wrapper p,
+.field-wrapper.plaintext-wrapper p {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+/* Product Buttons Styling */
+.field-wrapper.checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.radio-wrapper.selection-wrapper input[type="radio"],
+.checkbox-wrapper.selection-wrapper input[type="checkbox"] {
+    display: none;
+}
+
+/* .selection-wrapper label:hover {
+    background-color: #0056b3;
+} */
+
+.selection-wrapper label {
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: #FFFFFF;
+    color: #3B3B3B;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    font-weight: 400;
+    text-align: left;
+
+}
+
+.selection-wrapper.selected label,
+.selection-wrapper.checked label {
+    background-color: #8CB133;
+    color: #FFFFFF;
+}
+
+
+.button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.error-message {
+    color: #F50076;
+    font-size: 12px;
+    padding-inline: 8px;
+}
+
+.form2.field-wrapper.plaintext-wrapper .inactive {
+    color: black;
+    font-size: 14px;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.form2.field-wrapper.plaintext-wrapper .active {
+    color: blue;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.becomepartnerform .field-wrapper.plaintext-wrapper p {
+    background-color: #D4D4D499;
+    border-radius: 4px;
+    padding: 12px 8px;
+    color: #585858;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18.77px;
+    margin: 0;
+}
+
+.becomepartnerform .form1.field-wrapper.fieldset-wrapper {
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+.becomepartnerform .form1.checkbox-wrapper.selection-wrapper,
+.becomepartnerform .form1.radio-wrapper.selection-wrapper {
+    padding-inline: 0;
+}
+
+.form2.field-wrapper input,
+.form2.field-wrapper select {
+
+    background-color: #ffffff;
+}
+
+.form2.field-wrapper.fieldset-wrapper fieldset {
+    width: 100%;
+}
+
+
+.form2.field-wrapper.plaintext-wrapper #form-otpmessage {
+    color: #3B3B3B;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18.77px;
+    text-align: left;
+}
+
+.form2.field-wrapper.fieldset-wrapper #form-otpconfirmationfieldset {
+    display: flex;
+}
+
+.becomepartnerform .form1.checkbox-wrapper.selection-wrapper>label,
+.becomepartnerform .form1.radio-wrapper.selection-wrapper>label {
+    padding: 10px;
+}
+
+.form2.verify-btn.field-wrapper.button-wrapper {
+    justify-content: center;
+}
+
+/* .form2.verify-btn.field-wrapper.button-wrapper, */
+.form1.submit-btn.field-wrapper.button-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.becomepartnerform .submit-btn.button-wrapper input[type="button"],
+.becomepartnerform .verify-btn.field-wrapper.button-wrapper input[type="button"] {
+    background: #3CB8FF;
+    font-family: Work Sans;
+    font-size: 16px;
+    font-weight: 500;
+    width: fit-content;
+    color: #FFFFFF;
+    line-height: 16px;
+    padding: 15px 17px;
+    text-align: center;
+    border: unset;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.becomepartnerform .submit-btn.button-wrapper input[type="button"]:disabled,
+.becomepartnerform .verify-btn.field-wrapper.button-wrapper input[type="button"]:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+}
+
+.form2.field-wrapper.fieldset-wrapper #form-otpfieldset {
+    /* background-color: #ffffff; */
+}
+
+.form2.field-wrapper.plaintext-wrapper p {
+    background-color: transparent;
+}
+
+fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper {
+    position: relative;
+}
+
+fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper input {
+    padding-left: calc(50%);
+}
+
+fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper::before {
+    position: absolute;
+    content: '';
+    width: 20px;
+    display: block;
+    height: 2px;
+    z-index: 99;
+    bottom: 15px;
+    left: calc(50% - 10px);
+    background-color: #B8B8B8;
+    transform: translateX(calc(50% - 10px));
+    border-radius: 1px;
+}
+
+fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper:has(input:not(:placeholder-shown))::before {
+    display: none;
 }
