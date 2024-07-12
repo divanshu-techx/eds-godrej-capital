@@ -136,6 +136,9 @@ export default async function decorate(block) {
 
         // Add click event listener to the overlay to close the popup
         overlay.addEventListener('click', hidePopup);
+
+        // Add click event listener to the close icon to close the popup
+        crossicon.addEventListener('click', hidePopup);
       })
       .catch((error) => {
         console.error('Error fetching the HTML:', error);
