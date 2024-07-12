@@ -722,19 +722,19 @@ function initialize(block) {
   });
  
  
-  exisitingEmiAmountSlider.addEventListener("input", function () {
-    const value = this.value;
-    const percentage = ((value - existingEmiMin) / (existingEmiMax - existingEmiMin)) * 100;
-    // Update the background gradient with the calculated percentage
-    this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`;
-  });
+  // exisitingEmiAmountSlider.addEventListener("input", function () {
+  //   const value = this.value;
+  //   const percentage = ((value - existingEmiMin) / (existingEmiMax - existingEmiMin)) * 100;
+  //   // Update the background gradient with the calculated percentage
+  //   this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`;
+  // });
  
-  exisitingEmiText.addEventListener("input", function () {
-    const value = this.value;
-    const percentage = ((value - existingEmiMin) / (existingEmiMax - existingEmiMin)) * 100;
-    // Update the background gradient with the calculated percentage
-    exisitingEmiAmountSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`;
-  });
+  // exisitingEmiText.addEventListener("input", function () {
+  //   const value = this.value;
+  //   const percentage = ((value - existingEmiMin) / (existingEmiMax - existingEmiMin)) * 100;
+  //   // Update the background gradient with the calculated percentage
+  //   exisitingEmiAmountSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`;
+  // });
  
  
  
@@ -824,11 +824,6 @@ function initialize(block) {
       window.location.href = url;
     }
   });
- 
- 
- 
-  ///
- 
  
   //  Set input values to their minimum values
   loanAmtSlider.value = removeCommaAndConvertToInt(loanAmountMinValue);
