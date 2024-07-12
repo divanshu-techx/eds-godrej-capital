@@ -66,6 +66,13 @@
   }
 }
 .popup-div {
+  .closeicon{
+    position: absolute;
+    top:20px;
+    right:25px;
+    cursor:pointer;
+    z-index: 999;
+  }
   max-width: 80%;
   width: 100%;
   transform: translate(-50%, -50%);
