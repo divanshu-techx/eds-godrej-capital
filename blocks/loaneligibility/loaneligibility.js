@@ -189,6 +189,7 @@ function initialize(block) {
   const tenureMaxMonthValue = getDataAttributeValueByName('tenure-max-month-value');
   const redirectionPath = getDataAttributeValueByName('redirection-path');
   const productList = getDataAttributeValueByName('product-list');
+  const mobileredirection =getDataAttributeValueByName('redirection-path-mobile');
   const selectProductLabel = getDataAttributeValueByName('Select-product-label');
   const interestratelabel = getDataAttributeValueByName('Interest-rate-label');
   const totaltenurelabel = getDataAttributeValueByName('Total-tenure-label');
@@ -208,7 +209,8 @@ function initialize(block) {
  
   //  Create a select element
   const selectProduct = document.createElement('select');
- 
+
+  const mobileSelect=document.querySelector('.sec-tab-dropdown');
   //   Loop through the array and create option elements
   option = document.createElement('option');
   option.text = selectProductPlaceHolder;
@@ -722,19 +724,19 @@ function initialize(block) {
   });
  
  
-  exisitingEmiAmountSlider.addEventListener("input", function () {
-    const value = this.value;
-    const percentage = ((value - existingEmiMin) / (existingEmiMax - existingEmiMin)) * 100;
-    // Update the background gradient with the calculated percentage
-    this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`;
-  });
+  // exisitingEmiAmountSlider.addEventListener("input", function () {
+  //   const value = this.value;
+  //   const percentage = ((value - existingEmiMin) / (existingEmiMax - existingEmiMin)) * 100;
+  //   // Update the background gradient with the calculated percentage
+  //   this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`;
+  // });
  
-  exisitingEmiText.addEventListener("input", function () {
-    const value = this.value;
-    const percentage = ((value - existingEmiMin) / (existingEmiMax - existingEmiMin)) * 100;
-    // Update the background gradient with the calculated percentage
-    exisitingEmiAmountSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`;
-  });
+  // exisitingEmiText.addEventListener("input", function () {
+  //   const value = this.value;
+  //   const percentage = ((value - existingEmiMin) / (existingEmiMax - existingEmiMin)) * 100;
+  //   // Update the background gradient with the calculated percentage
+  //   exisitingEmiAmountSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`;
+  // });
  
  
  
@@ -812,6 +814,13 @@ function initialize(block) {
     const applyButton = document.getElementById('apply-btn-le');
     applyButton.setAttribute('data-product', selectedValue);
   });
+
+  mobileSelect.addEventListener('input',function(){
+    const selectedText = mobileSelect.options[mobileSelect.selectedIndex].text;
+
+    const applyMobile=document.getElementById('apply-btn-loan');
+    applyMobile.setAttribute('data-product',selectedText);
+  })
  
   //  Handle button click event to redirect with query parameter
   document.getElementById('apply-btn-le').addEventListener('click', function () {
@@ -824,11 +833,19 @@ function initialize(block) {
       window.location.href = url;
     }
   });
- 
- 
- 
-  ///
- 
+
+    //  Handle button click event to redirect with query parameter for mobile apply now
+    document.getElementById('apply-btn-loan').addEventListener('click', function () {
+      const productValue = this.getAttribute('data-product');
+      if (productValue) {
+        const formattedProductValue = productValue.toLowerCase().replace(/\s+/g, '-');
+        url = `${mobileredirection}?product=${encodeURIComponent(formattedProductValue)}`;
+        window.location.href = url;
+      } else {
+        url = mobileredirection;
+        window.location.href = url;
+      }
+    });
  
   //  Set input values to their minimum values
   loanAmtSlider.value = removeCommaAndConvertToInt(loanAmountMinValue);
