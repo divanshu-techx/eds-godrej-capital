@@ -404,7 +404,7 @@ function updateRange(id) {
 }
 function updateRangeColor() {
     const rangeElements = document.querySelectorAll('input[type="range"]');
-    const unselectedColor = window.innerWidth <= 768 ? 'grey' : '#fff';
+    const unselectedColor = window.innerWidth <= 768 ? '#f4f4f4' : '#fff';
 
     rangeElements.forEach(element => {
         element.style.setProperty('--unselected-color', unselectedColor);
