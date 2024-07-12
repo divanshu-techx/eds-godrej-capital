@@ -1,4 +1,6 @@
 export default async function decorate(block) {
+  const crossBtn=getDataAttributeValueByName('close-button');
+  console.log(crossBtn)
   const anchors = block.querySelectorAll('.button');
   if (anchors.length === 0) {
     console.error('No buttons found within the boardmembers block');
@@ -104,6 +106,20 @@ export default async function decorate(block) {
         popupContent.classList.add('popup-content');
         popup.appendChild(popupContent);
 
+
+        //cross icon added to span
+        const crossspan = document.createElement('span');
+        if(crossBtn){
+        crossspan.innerText = crossBtn;
+        } else {
+          crossspan.innerText = '';
+        }
+       // span added to popup div
+        const crossicon = document.createElement('div');
+        crossicon.classList.add('closeicon');
+        crossicon.appendChild(crossspan)
+        popup.appendChild(crossicon);
+
         // Function to show the popup
         function showPopup() {
           overlay.style.display = 'block';
@@ -126,6 +142,12 @@ export default async function decorate(block) {
         console.error('Error fetching the HTML:', error);
       });
   });
+}
+
+// Retrieve the value of a data attribute by name
+function getDataAttributeValueByName(name) {
+  const element = document.querySelector(`[data-${name}]`);
+  return element ? element.getAttribute(`data-${name}`) : '';
 }
 
 
