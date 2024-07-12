@@ -678,3 +678,27 @@ input[type="range"]::-moz-range-track {
 		background-color: #F4F4F4;
 	}
 }
+
+
+/* manoj css start */
+#canvasItems {
+    position: absolute;
+    top: 108px;
+    left: 108px;
+    font-size: var(--body-font-size-default);
+    text-align: center;
+}
+.view {
+    max-width: 772px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--color-silver);
+    padding: 20px;
+    border-radius: 4px;
+}
+.view {
+    @media (max-width: 768px) {
+        padding: 20px 0px;
+        background-color: #fff;
+    }
+}
