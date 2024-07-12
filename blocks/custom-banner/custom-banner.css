@@ -1,0 +1,132 @@
+.section.custom-banner-container{
+    padding:32px 0px;
+}
+.section.custom-banner-container > div {
+    margin:unset;
+    max-width: unset;
+}
+
+.custom-banner {
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #c9c9c9;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative; /* Ensure the pseudo-element is positioned correctly */
+    overflow: hidden; /* Prevent any overflow issues */
+}
+
+.custom-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #242424 0%, rgba(36, 36, 36, 0.6) 23.3%, rgba(36, 36, 36, 0) 76.88%);
+    z-index: 1;
+    pointer-events: none; 
+}
+
+
+.custom-banner .banner__content{
+    width: 418px;
+    display: flex;
+    flex-direction: column;
+}
+/* when text is center left and right  */
+@media(min-width:769px){
+    .custom-banner.center .banner__content-wrapper{
+        width: 100%;
+        max-width: 1200px;
+        padding: 24px 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .custom-banner.right .banner__content-wrapper{
+        width: 100%;
+        max-width: 1200px;
+        padding: 24px 0;
+        display: flex;
+        justify-content: end;
+    }
+
+    .custom-banner.left .banner__content-wrapper{
+        width: 100%;
+        max-width: 1200px;
+        padding: 24px 0;
+        display: flex;
+        justify-content: start;
+    }
+
+}
+
+
+.custom-banner .banner__content p,
+.custom-banner .banner__content h1,
+.custom-banner .banner__content h2,
+.custom-banner .banner__content h3,
+.custom-banner .banner__content h4,
+.custom-banner .banner__content h5,
+.custom-banner .banner__content h6 {
+    color: #ffffff;
+    text-align: start;
+    z-index: 2; 
+    margin: 0;
+}
+
+.custom-banner.black .banner__content p,
+.custom-banner.black .banner__content h1,
+.custom-banner.black .banner__content h2,
+.custom-banner.black .banner__content h3,
+.custom-banner.black .banner__content h4,
+.custom-banner.black .banner__content h5,
+.custom-banner.black .banner__content h6 {
+    color: #000;
+    text-align: start;
+    z-index: 2; 
+    margin: 0;
+}
+
+.custom-banner.black .banner__content p{
+    color: #000;
+}
+@media (max-width:768px){
+    .custom-banner .banner__content p {
+        color: #ffffff;
+        text-align: start;
+        z-index: 2; 
+        margin:0;
+        font-size: 20px;
+        font-weight: 300;
+        line-height: 23.46px;
+    }
+}
+
+
+.custom-banner .banner__content-wrapper{
+        width: 100%;
+        max-width: 1200px;
+        padding: 24px 0;
+    }
+
+@media (max-width: 1200px) {
+    .custom-banner .banner__content {
+        width: 80%;
+    }
+}
+
+@media (max-width: 768px) {
+    .custom-banner {
+        height: auto;
+    }
+
+    .custom-banner .banner__content {
+        width: 90%; 
+        margin: 0 auto;
+        padding: 10px;
+    }
+}
