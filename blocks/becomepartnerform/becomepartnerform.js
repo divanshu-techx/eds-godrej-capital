@@ -18,7 +18,8 @@ export default async function decorate(block) {
     // Add change event for checkboxes and radio button
     addChangeEventOnCheckboxes(block);
     addChangeEventOnRadioButtons(block);
-
+    handlSelectOnTabAndMob(block)
+    otpsEforcements(block)
     const editNumberInputEle = block.querySelector('#form-mobilenumber');
     editNumberInputEle.setAttribute('readonly', true);
 
@@ -351,3 +352,62 @@ function getDataAttributeValueByName(name) {
     const element = document.querySelector(`[data-${name}]`);
     return element ? element.getAttribute(`data-${name}`) : '';
 }
+
+function handlSelectOnTabAndMob(block) {
+    const dropdowns = block.querySelectorAll('.form1 #form-loancategoryplaceholder , .form1 #form-selectlocationplaceholder');
+    dropdowns.forEach((dropdown) => {
+        dropdown.parentNode.nextElementSibling.children[0].classList.add('hide-options');
+
+        dropdown.addEventListener('click', function () {
+            this.classList.toggle('active-dropdown')
+            this.parentNode.nextElementSibling.children[0].classList.toggle('hide-options');
+        })
+
+    })
+
+}
+function enforceSingleDigit(event) {
+    const inputField = event.target;
+    let { value } = inputField;
+    // Allow only numeric input and truncate to one character
+    if (!/^\d$/.test(value)) {
+        value = value.replace(/[^\d]/g, '');
+    }
+    inputField.value = value.slice(0, 1);
+};
+
+function otpsEforcements(block) {
+    const otpFieldsEls = block.querySelectorAll('#form-otpfieldset input[type="text"]');
+    otpFieldsEls.forEach((otpFieldEl, index) => {
+
+        otpFieldEl.addEventListener('input', function () {
+            if (/^\d$/.test(otpFieldEl.value)) {
+                otpFieldEl.parentNode.classList.add('filled');
+                if (index < otpFieldsEls.length - 1) {
+                    otpFieldsEls[index + 1].focus();
+                }
+            } else {
+                otpFieldEl.value = '';
+            }
+        });
+        otpFieldEl.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && otpFieldEl.value === '' && index > 0) {
+                otpFieldEl.parentNode.classList.remove('filled');
+                otpFieldsEls[index - 1].focus();
+            }
+        });
+    });
+
+}
+
+// input.addEventListener('input', () => {
+//     // Check if the input value is a single digit
+
+// });
+
+// input.addEventListener('keydown', (e) => {
+//     if (e.key === 'Backspace' && input.value === '' && index > 0) {
+//         input.parentNode.classList.remove('filled');
+//         inputs[index - 1].focus();
+//     }
+// });
