@@ -8,9 +8,8 @@ const searchPlaceholderText = getDataAttributeValueByName('search-placeholder-te
 const filterLabel = getDataAttributeValueByName('filter-label');
 const productLabel = getDataAttributeValueByName('default-dropdown-label');
 const sortingFilters = getDataAttributeValueByName('sorting-filters');
-
-// Global variables
-let articlesPerPage = 2;
+const blogsNotFoundMsg = getDataAttributeValueByName('blogs-not-found-msg');
+let articlesPerPage = getDataAttributeValueByName('blogs-per-page');
 let currentPage = 1;
 
 // Main function to decorate the block
@@ -57,7 +56,7 @@ async function fetchData(apiUrl) {
 function renderSearchSection(block) {
 	// Create search filter container
 	const searchFilterContainer = document.createElement('div');
-	searchFilterContainer.classList.add('search-filter');
+	searchFilterContainer.classList.add('blogs-search-filter');
 
 	const searchContainer = document.createElement('div');
 	searchContainer.id = 'search-container';
@@ -75,6 +74,9 @@ function renderSearchSection(block) {
 
 	searchFilterContainer.appendChild(searchContainer);
 
+	const dropdownContainer = document.createElement('div');
+	dropdownContainer.classList.add('blogs-dropdown-container');
+
 	// Create first select dropdown for filter
 	const filterDropdown = document.createElement('select');
 	filterDropdown.classList.add('dropdown');
@@ -85,7 +87,7 @@ function renderSearchSection(block) {
 	defaultOption.textContent = filterLabel;
 	filterDropdown.appendChild(defaultOption);
 
-	searchFilterContainer.appendChild(filterDropdown);
+	dropdownContainer.appendChild(filterDropdown);
 
 	// Create second select dropdown for category
 	const categoryDropdown = document.createElement('select');
@@ -97,7 +99,9 @@ function renderSearchSection(block) {
 	defaultOptionCategory.textContent = productLabel;
 	categoryDropdown.appendChild(defaultOptionCategory);
 
-	searchFilterContainer.appendChild(categoryDropdown);
+	dropdownContainer.appendChild(categoryDropdown);
+
+	searchFilterContainer.appendChild(dropdownContainer);
 
 	// Append search filter container to body
 	block.appendChild(searchFilterContainer);
@@ -253,7 +257,7 @@ function createNoResultDiv(block) {
 	const notFoundContainer = document.createElement('div');
 	notFoundContainer.id = "articles-not-found-container";
 	notFoundContainer.style.display = 'none';
-	notFoundContainer.innerHTML = 'Sorry, Couldn’t find what you’re looking for.';
+	notFoundContainer.innerHTML = blogsNotFoundMsg;
 	block.appendChild(notFoundContainer);
 }
 
@@ -284,8 +288,7 @@ function renderPagination(block, data) {
 
 		// Numbered pages
 		for (let i = 1; i <= totalPages; i++) {
-			let pageLink = document.createElement('a');
-			pageLink.href = '#';
+			let pageLink = document.createElement('span');
 			pageLink.innerText = i < 10 ? `0${i}` : i;
 			pageLink.classList.toggle('active', i === currentPage);
 			pageLink.addEventListener('click', (event) => {

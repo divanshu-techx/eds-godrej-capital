@@ -1,8 +1,8 @@
 indices:
   Blogs:
     include:
-      - /Blogs/**
-    target: /Blogs/query-index.json
+      - about-us/blogs/**
+    target: about-us/blogs/query-index.json
     properties:
       category:
         select: head > meta[name="category"]

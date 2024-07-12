@@ -1,4 +1,5 @@
 export default async function decorate(block) {
+  const crossBtn=getDataAttributeValueByName('close-button');
   const anchors = block.querySelectorAll('.button');
   if (anchors.length === 0) {
     console.error('No buttons found within the boardmembers block');
@@ -89,20 +90,34 @@ export default async function decorate(block) {
         popup.style.position = 'fixed';
         popup.style.top = '50%';
         popup.style.left = '50%';
-        popup.style.transform = 'translate(-50%, -50%)';
+        // popup.style.transform = 'translate(-50%, -50%)';
         popup.style.border = '1px solid #ccc';
-        popup.style.padding = '20px';
+        popup.style.padding = '40px';
         popup.style.backgroundColor = 'white';
         popup.style.zIndex = 1000;
         popup.style.maxWidth = '80%';
         popup.style.maxHeight = '80%';
-        popup.style.overflow = 'auto';
+        // popup.style.overflow = 'auto';
         document.body.appendChild(popup);
 
         const popupContent = document.createElement('div');
         popupContent.innerHTML = popcontenta;
         popupContent.classList.add('popup-content');
         popup.appendChild(popupContent);
+
+
+        //cross icon added to span
+        const crossspan = document.createElement('span');
+        if(crossBtn){
+        crossspan.innerText = crossBtn;
+        } else {
+          crossspan.innerText = '';
+        }
+       // span added to popup div
+        const crossicon = document.createElement('div');
+        crossicon.classList.add('closeicon');
+        crossicon.appendChild(crossspan)
+        popup.appendChild(crossicon);
 
         // Function to show the popup
         function showPopup() {
@@ -126,6 +141,12 @@ export default async function decorate(block) {
         console.error('Error fetching the HTML:', error);
       });
   });
+}
+
+// Retrieve the value of a data attribute by name
+function getDataAttributeValueByName(name) {
+  const element = document.querySelector(`[data-${name}]`);
+  return element ? element.getAttribute(`data-${name}`) : '';
 }
 
 

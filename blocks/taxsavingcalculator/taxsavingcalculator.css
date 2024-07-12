@@ -337,4 +337,78 @@
     }
   }
   
-  
+   
+    /* manoj css start */
+    /* CSS to apply gradient to range sliders */
+ .taxsavingcalculator input[type="range"] {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 8px;
+        background: #d3d3d3; /* Default grey color */
+        outline: none;
+    }
+    
+.taxsavingcalculator input[type="range"]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 8px;
+        background: linear-gradient(to right, #8cb133 0%, #8cb133 var(--value, 0%), var(--unselected-color, #d3d3d3) var(--value, 0%), var(--unselected-color, #d3d3d3) 100%);
+        border-radius: 5px;
+    }
+    
+.taxsavingcalculator input[type="range"]::-webkit-slider-thumb {
+        box-shadow: 2px 2px 5px var(--color-dark-grey-secondary), -1px -1px 3px grey;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        background: #8cb133;
+        cursor: pointer;
+        margin-top: -6px;
+        appearance: none;
+    }
+    
+.taxsavingcalculator  input[type="range"]::-moz-range-track {
+        width: 100%;
+        height: 8px;
+        background: linear-gradient(to right, #8cb133 0%, #8cb133 var(--value, 0%), var(--unselected-color, #d3d3d3) var(--value, 0%), var(--unselected-color, #d3d3d3) 100%);
+        border-radius: 5px;
+    }
+    
+.taxsavingcalculator  input[type="range"]::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        background: #8cb133;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+    
+.taxsavingcalculator input[type="range"]::-ms-track {
+        width: 100%;
+        height: 8px;
+        background: transparent; /* Hides the default track so the custom one shows */
+        border-color: transparent;
+        color: transparent;
+    }
+    
+.taxsavingcalculator    input[type="range"]::-ms-fill-lower {
+        background: #8cb133;
+        border-radius: 5px;
+    }
+    
+.taxsavingcalculator  input[type="range"]::-ms-fill-upper {
+        background: var(--unselected-color, #d3d3d3);
+        border-radius: 5px;
+    }
+    
+.taxsavingcalculator    input[type="range"]::-ms-thumb {
+        width: 25px;
+        height: 25px;
+        background: #8cb133;
+        cursor: pointer;
+        border-radius: 50%;
+        margin-top: 0; /* Adjust based on the height of the slider */
+    }
+    
+.taxsavingcalculator input[type="range"]:focus {
+        outline: none;
+    }
+    
