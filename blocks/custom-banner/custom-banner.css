@@ -1,12 +1,12 @@
-.section.our-leadership-banner-container{
+.section.custom-banner-container{
     padding:32px 0px;
 }
-.section.our-leadership-banner-container > div {
+.section.custom-banner-container > div {
     margin:unset;
     max-width: unset;
 }
 
-.our-leadership-banner {
+.custom-banner {
     height: 400px;
     display: flex;
     align-items: center;
@@ -18,7 +18,7 @@
     overflow: hidden; /* Prevent any overflow issues */
 }
 
-.our-leadership-banner::before {
+.custom-banner::before {
     content: '';
     position: absolute;
     top: 0;
@@ -31,14 +31,14 @@
 }
 
 
-.our-leadership-banner .banner__content{
+.custom-banner .banner__content{
     width: 418px;
     display: flex;
     flex-direction: column;
 }
 /* when text is center left and right  */
 @media(min-width:769px){
-    .our-leadership-banner.center .banner__content-wrapper{
+    .custom-banner.center .banner__content-wrapper{
         width: 100%;
         max-width: 1200px;
         padding: 24px 0;
@@ -46,7 +46,7 @@
         justify-content: center;
     }
 
-    .our-leadership-banner.right .banner__content-wrapper{
+    .custom-banner.right .banner__content-wrapper{
         width: 100%;
         max-width: 1200px;
         padding: 24px 0;
@@ -54,7 +54,7 @@
         justify-content: end;
     }
 
-    .our-leadership-banner.left .banner__content-wrapper{
+    .custom-banner.left .banner__content-wrapper{
         width: 100%;
         max-width: 1200px;
         padding: 24px 0;
@@ -65,37 +65,37 @@
 }
 
 
-.our-leadership-banner .banner__content p,
-.our-leadership-banner .banner__content h1,
-.our-leadership-banner .banner__content h2,
-.our-leadership-banner .banner__content h3,
-.our-leadership-banner .banner__content h4,
-.our-leadership-banner .banner__content h5,
-.our-leadership-banner .banner__content h6 {
+.custom-banner .banner__content p,
+.custom-banner .banner__content h1,
+.custom-banner .banner__content h2,
+.custom-banner .banner__content h3,
+.custom-banner .banner__content h4,
+.custom-banner .banner__content h5,
+.custom-banner .banner__content h6 {
     color: #ffffff;
     text-align: start;
     z-index: 2; 
     margin: 0;
 }
 
-.our-leadership-banner.black .banner__content p,
-.our-leadership-banner.black .banner__content h1,
-.our-leadership-banner.black .banner__content h2,
-.our-leadership-banner.black .banner__content h3,
-.our-leadership-banner.black .banner__content h4,
-.our-leadership-banner.black .banner__content h5,
-.our-leadership-banner.black .banner__content h6 {
+.custom-banner.black .banner__content p,
+.custom-banner.black .banner__content h1,
+.custom-banner.black .banner__content h2,
+.custom-banner.black .banner__content h3,
+.custom-banner.black .banner__content h4,
+.custom-banner.black .banner__content h5,
+.custom-banner.black .banner__content h6 {
     color: #000;
     text-align: start;
     z-index: 2; 
     margin: 0;
 }
 
-.our-leadership-banner.black .banner__content p{
+.custom-banner.black .banner__content p{
     color: #000;
 }
 @media (max-width:768px){
-    .our-leadership-banner .banner__content p {
+    .custom-banner .banner__content p {
         color: #ffffff;
         text-align: start;
         z-index: 2; 
@@ -107,24 +107,24 @@
 }
 
 
-    .our-leadership-banner .banner__content-wrapper{
+.custom-banner .banner__content-wrapper{
         width: 100%;
         max-width: 1200px;
         padding: 24px 0;
     }
 
 @media (max-width: 1200px) {
-    .our-leadership-banner .banner__content {
+    .custom-banner .banner__content {
         width: 80%;
     }
 }
 
 @media (max-width: 768px) {
-    .our-leadership-banner {
+    .custom-banner {
         height: auto;
     }
 
-    .our-leadership-banner .banner__content {
+    .custom-banner .banner__content {
         width: 90%; 
         margin: 0 auto;
         padding: 10px;
