@@ -82,6 +82,11 @@
   .careervalue-wrapper .othernode{
     color: black;
   }
+
+  .btn-container button:disabled{
+    background:var(--color-dark-grey);
+    cursor: not-allowed;
+}
   .careervalue-wrapper .currentnode{
     color:rgba(140, 177, 51, 1);
     font-weight: 600;
