@@ -154,7 +154,7 @@ function handleSearching(block, searchInputField, responseData) {
         articlesContainer.style.display = "none";
       } else {
         noResultDiv.style.display = "none";
-        articlesContainer.style.display = "block";
+        articlesContainer.style.display = "grid";
       }
     } else {
       filteredData = getFilteredDataBasedOnDropdown(
@@ -163,7 +163,7 @@ function handleSearching(block, searchInputField, responseData) {
         categoryDropdown.value
       );
       noResultDiv.style.display = "none";
-      articlesContainer.style.display = "block";
+      articlesContainer.style.display = "grid";
     }
     renderCards(block, filteredData);
     renderPagination(block, filteredData);
