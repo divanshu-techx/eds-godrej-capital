@@ -3,23 +3,27 @@
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: 1fr 1fr;
-    max-width: 1200px;
+    max-width: 1048px;
     margin: auto;
     background-color: #F2F2F2;
     border-radius: 10px;
-    gap: 10px;
+
 }
 
-@media(min-width:1199px) {
-    .section.becomepartnerform-container {
-        max-width: unset;
-        margin: unset;
+@media(min-width:901px) {
+    .becomepartnerform>form {
+        padding-inline: 24px;
     }
 }
 
 
 .becomepartnerform-container .default-content-wrapper {
     grid-column: span 2;
+}
+
+.hero-container.becomepartnerform-container .default-content-wrapper>* {
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .becomepartnerform-container .becomepartnerform-wrapper {
@@ -509,6 +513,8 @@ fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper:has(input:not(:place
     background-color: #8CB133;
     color: #ffffff;
     border-radius: 4px;
+    font-size: 12px;
+    line-height: 14px;
     width: fit-content;
     transition: background-color 0.3s;
     font-weight: 400;
@@ -634,6 +640,13 @@ fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper:has(input:not(:place
     }
 }
 
+@media(min-width:901px) {
+    .section.hero-container.becomepartnerform-container>div {
+        max-width: unset;
+        margin: unset;
+    }
+}
+
 @media(max-width:600px) {
 
     .becomepartnerform input,
@@ -660,4 +673,25 @@ fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper:has(input:not(:place
         padding-top: 0;
         padding-bottom: 0;
     }
+}
+
+#form-selectlocationplaceholder.disabled-true,
+#form-loancategoryplaceholder.disabled-true {
+    cursor: pointer;
+    pointer-events: none;
+    ;
+}
+
+.becomepartnerform input:-webkit-autofill,
+.becomepartnerform input:-webkit-autofill:hover,
+.becomepartnerform input:-webkit-autofill:focus,
+.becomepartnerform textarea:-webkit-autofill,
+.becomepartnerform textarea:-webkit-autofill:hover,
+.becomepartnerform textarea:-webkit-autofill:focus,
+.becomepartnerform select:-webkit-autofill,
+.becomepartnerform select:-webkit-autofill:hover,
+.becomepartnerform select:-webkit-autofill:focus {
+    -webkit-text-fill-color: #585858;
+    -webkit-box-shadow: 0 0 0px 1000px #D4D4D499 inset;
+    transition: background-color 5000s ease-in-out 0s;
 }

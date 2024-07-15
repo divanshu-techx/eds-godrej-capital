@@ -638,3 +638,19 @@ fieldset#form-box .verify-step.field-wrapper.text-wrapper:has(input:not(:placeho
     display: flex;
     align-items: center;
 }
+
+
+.applynowform input:-webkit-autofill,
+.applynowform input:-webkit-autofill:hover,
+.applynowform input:-webkit-autofill:focus,
+.applynowform textarea:-webkit-autofill,
+.applynowform textarea:-webkit-autofill:hover,
+.applynowform textarea:-webkit-autofill:focus,
+.applynowform select:-webkit-autofill,
+.applynowform select:-webkit-autofill:hover,
+.applynowform select:-webkit-autofill:focus {
+
+    -webkit-text-fill-color: #585858;
+    -webkit-box-shadow: 0 0 0px 1000px #D4D4D499 inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
