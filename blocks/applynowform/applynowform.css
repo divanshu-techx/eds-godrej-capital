@@ -298,6 +298,7 @@
     font-weight: 500;
     color: #FFFFFF;
     font-size: 1rem;
+    text-transform: capitalize;
     background-color: #3CB8FF;
     line-height: 1rem;
     padding: 17px 50px;
@@ -305,7 +306,8 @@
     cursor: pointer;
     gap: 10px;
     width: 100%;
-
+    border: none;
+    outline: none;
 }
 
 .applynowform-container .applynowform .step1.submit-registration button:disabled {
@@ -344,11 +346,19 @@
 
 }
 
-.applynowform-container .applynowform .verify-step.field-wrapper.fieldset-wrapper #form-resendcontainer #form-message3 {
+.applynowform-container .applynowform .verify-step.field-wrapper.fieldset-wrapper #form-resendcontainer #form-message3.inactive {
     font-size: 14px;
     line-height: 16px;
     color: #B8B8B8;
     font-weight: 400;
+    cursor: pointer;
+}
+
+.applynowform-container .applynowform .verify-step.field-wrapper.fieldset-wrapper #form-resendcontainer #form-message3.active {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: #8CB133;
     cursor: pointer;
 }
 
