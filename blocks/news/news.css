@@ -74,6 +74,12 @@
   border-radius: 4px;
 }
 
+.news-and-press-container .pagination-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .tabs-and-controls-container {
