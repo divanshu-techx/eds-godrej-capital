@@ -41,6 +41,11 @@ export default async function decorate(block) {
       handleSearching(block, searchInput, responseData);
 
       renderPagination(block, responseData);
+
+		// Resize event listener to handle responsive changes
+		window.addEventListener('resize', () => {
+			renderPagination(block, responseData);
+		});
     } else {
       console.error("No data fetched from API.");
     }
@@ -272,11 +277,11 @@ function handleDropdownChange(
       articlesContainer.style.display = "none";
     } else {
       noResultDiv.style.display = "none";
-      articlesContainer.style.display = "block";
+      articlesContainer.style.display = "grid";
     }
   } else {
     noResultDiv.style.display = "none";
-    articlesContainer.style.display = "block";
+    articlesContainer.style.display = "grid";
   }
 
   renderCards(block, filteredAndSortedData);
@@ -315,20 +320,21 @@ function renderCards(block, data) {
     const articleCard = document.createElement("div");
     articleCard.classList.add("article-card");
     articleCard.innerHTML = `
-				<a href="#" class="article-single-card">
-				  <div class="article-image"><img src="${article.image}" alt="${article.imagealt}">
-				        </div>
-					<div class="article-content">
-					    <div class="date-time-article">
-							<div class="article-date">${formatDate(article.articlepublishdate)}</div>
-							<div class="article-read-time">
-								<img src="${readTimeIcon}" alt="${readTimeIconAltText}">
-								<span class="read-time">${article.readtime}</span>
-							</div>
+			<a href="#" class="article-single-card">
+				<div class="article-image">
+					<img src="${article.image}" alt="${article.imagealt}">
+				</div>
+				<div class="article-content">
+					<div class="date-time-article">
+						<div class="article-date">${formatDate(article.articlepublishdate)}</div>
+						<div class="article-read-time">
+							<img src="${readTimeIcon}" alt="${readTimeIconAltText}">
+							<span class="read-time">${article.readtime}</span>
+						</div>
 					</div>		
-							<div class="description-article">${article.description}</div>
-					</div>
-				</a>
+					<div class="description-article">${article.description}</div>
+				</div>
+			</a>
 		`;
     articlesContainer.appendChild(articleCard);
   });
@@ -342,15 +348,45 @@ function createNoResultDiv(block) {
   block.appendChild(notFoundContainer);
 }
 
-function renderPagination(block, data) {
-  let paginationContainer = block.querySelector("#pagination-container");
-  if (!paginationContainer) {
-    paginationContainer = document.createElement("div");
-	paginationContainer.classList.add("pagination-container");
-    paginationContainer.id = "pagination-container";
-	
-    block.appendChild(paginationContainer);
+function createPaginationContainer(block) {
+  let mobilePaginationContainer = block.querySelector("#mobile-pagination-container");
+  let desktopPaginationContainer = block.querySelector("#desktop-pagination-container");
+  const categoryContainer = block.querySelector('.blogs-category-dropdown-container');
+
+  if (window.matchMedia("(max-width: 768px)").matches) {
+    if (!mobilePaginationContainer) {
+      mobilePaginationContainer = document.createElement("div");
+      mobilePaginationContainer.classList.add("mobile-pagination-container");
+      mobilePaginationContainer.id = "mobile-pagination-container";
+
+      categoryContainer.appendChild(mobilePaginationContainer);
+    }
+    if (desktopPaginationContainer) {
+      desktopPaginationContainer.style.display = 'none';
+    }
+    mobilePaginationContainer.style.display = 'block';
+
+    return mobilePaginationContainer;
+  } else {
+    if (!desktopPaginationContainer) {
+      desktopPaginationContainer = document.createElement("div");
+      desktopPaginationContainer.classList.add("desktop-pagination-container");
+      desktopPaginationContainer.id = "desktop-pagination-container";
+
+      block.appendChild(desktopPaginationContainer);
+    }
+
+    if (mobilePaginationContainer) {
+      mobilePaginationContainer.style.display = 'none';
+    }
+    desktopPaginationContainer.style.display = 'block';
+
+    return desktopPaginationContainer;
   }
+}
+
+function renderPagination(block, data) {
+  const paginationContainer = createPaginationContainer(block);
   paginationContainer.innerHTML = "";
 
   let totalPages = Math.ceil(data.length / articlesPerPage);
@@ -369,24 +405,12 @@ function renderPagination(block, data) {
     });
     paginationContainer.appendChild(leftButton);
 
-
 	const pageLinksContainer = document.createElement("div");
     pageLinksContainer.classList.add("page-links");
 
-    // Numbered pages
-    for (let i = 1; i <= totalPages; i++) {
-      let pageLink = document.createElement("span");
-	  pageLink.classList.add('number-node');
-      pageLink.innerText = i < 10 ? `0${i}` : i;
-      pageLink.classList.toggle("active", i === currentPage);
-      pageLink.addEventListener("click", (event) => {
-        event.preventDefault();
-        currentPage = i;
-        renderCards(block, data);
-        renderPagination(block, data);
-      });
-      pageLinksContainer.appendChild(pageLink);
-    }
+	// Generate pagination based on device type
+	handleDeviceSpecificCode(block, data, totalPages, currentPage, pageLinksContainer);
+	
     paginationContainer.appendChild(pageLinksContainer);
 
     // Right arrow button
@@ -408,6 +432,45 @@ function renderPagination(block, data) {
 		rightButton.disabled = true;
 	  }
   }
+}
+
+// Function to determine the device view and run the appropriate code
+function handleDeviceSpecificCode(block, data, totalPages, currentPage, pageLinksContainer) {
+	const mobileView = window.matchMedia("(max-width: 767px)");
+	const tabletView = window.matchMedia("(min-width: 768px) and (max-width: 1024px)");
+
+	if (mobileView.matches || tabletView.matches) {
+		let pageLink = document.createElement("span");
+		pageLink.classList.add('number-node');
+		pageLink.innerText = formatNumberWithLeadingZero(currentPage);
+		pageLink.classList.add("active");
+		let totalPageNo = document.createElement("span");
+		totalPageNo.innerText = `/ ${formatNumberWithLeadingZero(totalPages)}`;
+
+		pageLinksContainer.appendChild(pageLink);
+		pageLinksContainer.appendChild(totalPageNo);
+
+	} else {
+		// Numbered pages
+		for (let i = 1; i <= totalPages; i++) {
+			let pageLink = document.createElement("span");
+			pageLink.classList.add('number-node');
+			pageLink.innerText = formatNumberWithLeadingZero(i);
+			pageLink.classList.toggle("active", i === currentPage);
+			pageLink.addEventListener("click", (event) => {
+				event.preventDefault();
+				currentPage = i;
+				renderCards(block, data);
+				renderPagination(block, data);
+			});
+			pageLinksContainer.appendChild(pageLink);
+		}
+
+	}
+}
+
+function formatNumberWithLeadingZero(number) {
+	return number < 10 ? `0${number}` : number;
 }
 
 // Extract distinct categories from the data

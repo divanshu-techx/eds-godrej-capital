@@ -1,7 +1,3 @@
-/* .section.teaser-thankyou-cards-container {
-    display: none;
-} */
-
 .block.teaser-thankyou-cards.center {
     text-align: center;
 }
@@ -122,8 +118,7 @@
     display: block;
 }
 
-@media(width >=768px) {
-
+@media(width >= 768px) {
     .block.teaser-thankyou-cards>div,
     .block.teaser-cards.link-list-on-mobile>div {
         flex-flow: row;
@@ -211,7 +206,7 @@
     }
 }
 
-@media(width=992px) {
+@media(width = 992px) {
     .block.teaser-thankyou-cards :is(h2, h3) {
         margin-bottom: 16px;
     }

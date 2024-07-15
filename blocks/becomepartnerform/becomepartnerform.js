@@ -2,6 +2,7 @@ import { createForm, generatePayload } from '../../blocks/form/form.js';
 import { restrictNameInputs, restrictPhoneNumberInputs, validateNameField, validateEmail, validateMobileNumber, handleErrorMessages } from '../becomepartnerform/inputFieldsValidation.js';
 
 const apiUrl = getDataAttributeValueByName('apiurl');
+const thankYouPageUrl = getDataAttributeValueByName('thankyoupageurl');
 
 export default async function decorate(block) {
 
@@ -169,10 +170,7 @@ async function validateOtp(block, form) {
             const otpVerifyRes = await makeAjaxRequest('POST', apiUrl, generateRequestBody(form2Payload, false, otpValue, getSelectedCheckboxValues(block)));
             if (otpVerifyRes.status) {
                 handleErrorMessages(true, otpFieldSetEle);
-                const thankYouTeaserContainer = document.querySelector(".teaser-thankyou-cards-container");
-                const becomePartnerContainer = block.parentNode.parentNode;
-                thankYouTeaserContainer.style.display = 'block';
-                becomePartnerContainer.style.display = 'none';
+                window.location.href = thankYouPageUrl;
             } else {
                 handleErrorMessages(false, otpFieldSetEle, otpVerifyRes.message);
             }
