@@ -514,79 +514,96 @@ function validateFormInput(rules, block) {
     return (isValid && isChecked);
 }
 
-
 function disableSubmitUntilFillForm(block) {
-    const inputs = block.querySelectorAll('.step1.field-wrapper input');
+    const inputs = Array.from(block.querySelectorAll('.step1.field-wrapper input'));
     const submitButton = block.querySelector('.step1.submit-registration button');
 
-    function validateForm() {
-        let isInputFilled = true;
-        let isCheckboxChecked = false;
+    const validators = {
+        text: value => /^[a-zA-Z\s]*$/.test(value.trim()),
+        tel: value => /^\d{10}$/.test(value.trim()),
+        email: value => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value.trim())
+    };
 
-        inputs.forEach(input => {
-            if (input.type === 'text') {
-                if (input.value.trim() === '' || !/^[a-zA-Z\s]*$/.test(input.value)) {
-                    isInputFilled = false;
-                }
-            } else if (input.type === 'tel') {
-                if (input.value.trim() === '' || !/^\d{10}$/.test(input.value)) {
-                    isInputFilled = false;
-                }
-            } else if (input.type === 'email') {
-                if (input.value.trim() === '' || !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(input.value)) {
-                    isInputFilled = false;
-                }
-            } else if (input.type === 'checkbox') {
-                if (input.checked) {
-                    isCheckboxChecked = true;
-                }
-            }
-        });
+    const errorMessages = {
+        text: 'Please enter valid text.',
+        tel: 'Please enter a valid 10-digit phone number.',
+        email: 'Please enter a valid email address.'
+    };
+
+    function createErrorElement(input) {
+        let errorElement = input.parentNode.querySelector('.error-message');
+        if (!errorElement) {
+            errorElement = document.createElement('span');
+            errorElement.className = 'error-message';
+            input.parentNode.appendChild(errorElement);
+        }
+        return errorElement;
+    }
+
+    function showErrorMessage(input, message) {
+        const errorElement = createErrorElement(input);
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
+    }
+
+    function hideErrorMessage(input) {
+        const errorElement = createErrorElement(input);
+        errorElement.textContent = '';
+        errorElement.style.display = 'none';
+    }
+
+    function validateInput(input, showErrors = true) {
+        const value = input.value.trim();
+        const type = input.type;
+        let isValid = type in validators ? validators[type](value) : true;
+
+        if (type === 'tel' && !/^\d*$/.test(value)) {
+            isValid = false;
+        }
+
+        if (isValid) {
+            hideErrorMessage(input);
+        } else if (showErrors) {
+            showErrorMessage(input, errorMessages[type]);
+        }
+        return isValid;
+    }
+
+    function validateForm() {
+        let isInputFilled = inputs.every(input => input.type === 'checkbox' || validateInput(input, false));
+        let isCheckboxChecked = inputs.some(input => input.type === 'checkbox' && input.checked);
 
         submitButton.disabled = !(isInputFilled && isCheckboxChecked);
     }
 
     inputs.forEach(input => {
-        if (input.type === 'text') {
-            input.addEventListener('keydown', function (event) {
-                // Prevent leading space
-                if (event.key === ' ' && this.selectionStart === 0) {
-                    event.preventDefault();
-                }
-                validateForm();
-            });
+        let hasFocused = false;
 
-            input.addEventListener('input', function (event) {
-                if (!/^[a-zA-Z\s]*$/.test(event.data)) {
-                    event.preventDefault();
-                    input.value = input.value.replace(/[^a-zA-Z\s]/g, '');
-                }
-                input.value = input.value.replace(/\s{2,}/g, ' '); // Replace multiple spaces with a single space
+        input.addEventListener('focus', () => {
+            hasFocused = true;
+        });
 
+        input.addEventListener('blur', () => {
+            if (hasFocused) {
+                validateInput(input);
                 validateForm();
-            });
-        } else if (input.type === 'tel') {
-            input.addEventListener('input', function (event) {
-                if (!/^\d*$/.test(event.data)) {
-                    event.preventDefault();
-                    input.value = input.value.replace(/\D/g, '');
-                }
-                if (input.value.length > 10) {
-                    input.value = input.value.slice(0, 10);
-                }
-                validateForm();
-            });
-        } else if (input.type === 'email') {
-            input.addEventListener('input', function () {
-                validateForm();
-            });
-        } else if (input.type === 'checkbox') {
+            }
+        });
+
+        input.addEventListener('input', () => {
+            if (input.type === 'tel') {
+                input.value = input.value.replace(/[^\d]/g, '').slice(0, 10); // Allow only digits and limit to 10 characters
+            } else if (input.type === 'text') {
+                input.value = input.value.replace(/[^a-zA-Z\s]/g, '').replace(/\s{2,}/g, ' ');
+            }
+            validateForm();
+        });
+
+        if (input.type === 'checkbox') {
             input.addEventListener('change', validateForm);
         }
     });
 
     validateForm();
 }
-
-
 
