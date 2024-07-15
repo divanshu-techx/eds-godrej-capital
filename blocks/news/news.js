@@ -1,72 +1,88 @@
 export default async function decorate(block) {
-  // This will be your API response data
   let responseData = [];
-
-  // Function to get authored label data
-  function getDataAttributeValueByName(name) {
-    const element = document.querySelector(`[data-${name}]`);
-    return element ? element.getAttribute(`data-${name}`) : null;
-  }
-
-  const newsTabLabel = getDataAttributeValueByName('newsTabLabel');
-  const pressReleaseLabel = getDataAttributeValueByName('pressReleaseLabel');
   const inputFieldPlaceholder = getDataAttributeValueByName('inputFieldPlaceholder');
-  const latestToOldestLabel = getDataAttributeValueByName('latestToOldestLabel');
-  const oldestToLatestLabel = getDataAttributeValueByName('oldestToLatestLabel');
+  const typeFilter = getDataAttributeValueByName('typeFilter');
   const itemsPerPage = parseInt(getDataAttributeValueByName('itemsPerPage'), 10);
   const noResultFoundMessage = getDataAttributeValueByName('noResultFoundMessage');
-  const newsApi = getDataAttributeValueByName('newsApi');
-  const pressReleaseApi = getDataAttributeValueByName('pressApi');
+  const apiUrl = getDataAttributeValueByName('apiUrl');; // Change this to the correct attribute name
+  const tabsNames = getDataAttributeValueByName('tabsName')?.split(',').map(name => name.trim()) || [];
+  const sortBy = getDataAttributeValueByName('sortByLabel');
+  const searchIcon = getDataAttributeValueByName('searchIcon');
+
+  const readArticleLabel = getDataAttributeValueByName('readArticleLabel');
+
+  const sortOptions = typeFilter.split(',').map(option => option.trim());
 
   // Create container
   const container = document.createElement('div');
-  container.className = 'container';
+  container.className = 'news-and-press-container';
 
   // Create tabs and controls container
   const tabsAndControlsContainer = document.createElement('div');
   tabsAndControlsContainer.className = 'tabs-and-controls-container';
 
+  // Fetch data
+  let data = await fetchData(apiUrl);
+  if (!data) {
+    return;
+  }
+
   // Create tabs container
   const tabsContainer = document.createElement('div');
-  tabsContainer.className = 'tabs';
+  tabsContainer.className = 'news-and-release-tabs';
 
-  const newsTab = document.createElement('div');
-  const pressReleaseTab = document.createElement('div');
+  // If tabsNames is empty, create tabs based on unique categories in the data
+  let capitalizedTabNames = tabsNames.length > 0
+    ? tabsNames.map(tabName => tabName.charAt(0).toUpperCase() + tabName.slice(1))
+    : Array.from(new Set(data.map(item => item.category.charAt(0).toUpperCase() + item.category.slice(1))));
 
-  newsTab.id = 'newsTab';
-  newsTab.className = 'tab active';
-  newsTab.textContent = newsTabLabel;
-
-  pressReleaseTab.id = 'pressReleaseTab';
-  pressReleaseTab.className = 'tab';
-  pressReleaseTab.textContent = pressReleaseLabel;
-
-  tabsContainer.appendChild(newsTab);
-  tabsContainer.appendChild(pressReleaseTab);
+  // Create tabs based on provided or extracted tab names
+  capitalizedTabNames.forEach((tabName, index) => {
+    const tab = document.createElement('div');
+    tab.id = `tab-${tabName}`;
+    tab.className = `tab ${index === 0 ? 'active' : ''}`; // Set the first tab as active
+    tab.textContent = tabName;
+    tab.addEventListener('click', () => setActiveTab(tabName));
+    tabsContainer.appendChild(tab);
+  });
 
   // Create controls container
   const controlsContainer = document.createElement('div');
-  controlsContainer.className = 'controls';
+  controlsContainer.className = 'news-and-release-controls';
+
+  const searchInputContainer = document.createElement('div');
+  searchInputContainer.className = 'search-input-container';
 
   const searchInput = document.createElement('input');
   searchInput.type = 'text';
   searchInput.id = 'searchInput';
   searchInput.placeholder = inputFieldPlaceholder;
+  searchInputContainer.appendChild(searchInput);
+
+  const sortDropdownContainer = document.createElement('div');
+  sortDropdownContainer.className = 'sort-dropdown-container';
 
   const sortDropdown = document.createElement('select');
   sortDropdown.id = 'sortDropdown';
-  const optionNewToOld = document.createElement('option');
-  optionNewToOld.value = 'newToOld';
-  optionNewToOld.textContent = latestToOldestLabel;
-  const optionOldToNew = document.createElement('option');
-  optionOldToNew.value = 'oldToNew';
-  optionOldToNew.textContent = oldestToLatestLabel;
 
-  sortDropdown.appendChild(optionNewToOld);
-  sortDropdown.appendChild(optionOldToNew);
+  const selectPlaceholder = document.createElement('option');
+  selectPlaceholder.value = "";
+  selectPlaceholder.textContent = sortBy;
+  selectPlaceholder.selected = true;
+  sortDropdown.appendChild(selectPlaceholder);
 
-  controlsContainer.appendChild(searchInput);
-  controlsContainer.appendChild(sortDropdown);
+  // Create options for sort dropdown based on sortOptions
+  sortOptions.forEach(option => {
+    const optionElement = document.createElement('option');
+    optionElement.value = option;
+    optionElement.textContent = option;
+    sortDropdown.appendChild(optionElement);
+  });
+
+  sortDropdownContainer.appendChild(sortDropdown);
+
+  controlsContainer.appendChild(searchInputContainer);
+  controlsContainer.appendChild(sortDropdownContainer);
 
   // Append tabs and controls to tabsAndControlsContainer
   tabsAndControlsContainer.appendChild(tabsContainer);
@@ -76,18 +92,33 @@ export default async function decorate(block) {
   const paginationContainer = document.createElement('div');
   paginationContainer.className = 'pagination';
 
+  // Create pagination wrapper for scroll functionality
+  const paginationWrapper = document.createElement('div');
+  paginationWrapper.className = 'pagination-wrapper';
+
+  // Create left and right scroll buttons
+  const scrollLeftButton = document.createElement('button');
+  scrollLeftButton.className = 'scroll-button left';
+  scrollLeftButton.textContent = '<';
+
+  const scrollRightButton = document.createElement('button');
+  scrollRightButton.className = 'scroll-button right';
+  scrollRightButton.textContent = '>';
+
+  paginationWrapper.appendChild(scrollLeftButton);
+  paginationWrapper.appendChild(paginationContainer);
+  paginationWrapper.appendChild(scrollRightButton);
+
   // Create content container
   const contentContainer = document.createElement('div');
   contentContainer.id = 'contentContainer';
 
   // Append sub-divs to main container
   container.appendChild(tabsAndControlsContainer);
-  container.appendChild(paginationContainer);
+  container.appendChild(paginationWrapper);
   container.appendChild(contentContainer);
 
-  // Append main container to block
-  block.appendChild(container);
-
+ block.appendChild(container);
   // Function to render news items
   const getResponseData = (filteredData) => {
     contentContainer.innerHTML = '';
@@ -105,30 +136,38 @@ export default async function decorate(block) {
         const descriptionElement = document.createElement('p');
         descriptionElement.textContent = item.description;
         const publishDateElement = document.createElement('p');
-        publishDateElement.textContent = item.publishdate;
+        let formattedDate = formatDate(item.publishdate);
+        publishDateElement.textContent = formattedDate;
+
+        const readArticleElement = document.createElement('a');
+        readArticleElement.textContent = readArticleLabel;
+        readArticleElement.href = item.readArticleRedirection; // Set the href to the redirection URL
+        readArticleElement.target = '_blank'; // Open the link in a new tab
+
         newsContainerData.appendChild(titleElement);
         newsContainerData.appendChild(descriptionElement);
         newsContainerData.appendChild(publishDateElement);
+        newsContainerData.appendChild(readArticleElement);
         contentContainer.appendChild(newsContainerData);
       });
     }
   };
 
-  // Function to render pagination buttons
+  // Function to render pagination spans
   const renderPagination = (totalPages, currentPage, renderPage) => {
     paginationContainer.innerHTML = '';
     if (responseData.length > itemsPerPage) {
       for (let i = 1; i <= totalPages; i += 1) {
-        const pageButton = document.createElement('button');
-        pageButton.textContent = i;
-        pageButton.className = 'page-button';
+        const pageSpan = document.createElement('span');
+        pageSpan.textContent = i;
+        pageSpan.className = 'page-span';
         if (i === currentPage) {
-          pageButton.classList.add('active');
+          pageSpan.classList.add('active-pagination');
         }
-        pageButton.addEventListener('click', () => {
+        pageSpan.addEventListener('click', () => {
           renderPage(i);
         });
-        paginationContainer.appendChild(pageButton);
+        paginationContainer.appendChild(pageSpan);
       }
     }
   };
@@ -147,50 +186,28 @@ export default async function decorate(block) {
   // Function to sort data based on the selected option
   const sortData = () => {
     const selectedOption = sortDropdown.value;
-    if (selectedOption === 'newToOld') {
+
+    if (selectedOption === 'Date (latest to oldest)') { // New label for latest to oldest
       responseData.sort((a, b) => new Date(b.publishdate) - new Date(a.publishdate));
-    } else if (selectedOption === 'oldToNew') {
+    } else if (selectedOption === 'Date (oldest to latest)') { // New label for oldest to latest
       responseData.sort((a, b) => new Date(a.publishdate) - new Date(b.publishdate));
     }
     renderPage();
   };
 
-  // Function for an API call
-  const getApiResponse = async (api) => {
-    try {
-      const response = await fetch(api, { method: 'GET' });
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      const data = await response.json();
-      responseData = data.data;
-      sortData(); // Ensure data is sorted initially
-      renderPage(1); // Pass the initial page as 1
-    } catch (error) {
-      contentContainer.innerHTML = noResultFoundMessage;
-    }
+  // Function to set active tab and fetch data based on category
+  const setActiveTab = (tabName) => {
+    document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+    document.getElementById(`tab-${tabName}`).classList.add('active');
+
+    const filteredData = data.filter(item => item.category.toLowerCase() === tabName.toLowerCase());
+    responseData = filteredData;
+    sortData();
+    renderPage(1);
   };
 
-  // Function for active tabs
-  const setActiveTab = (tab) => {
-    if (tab === 'news') {
-      newsTab.classList.add('active');
-      pressReleaseTab.classList.remove('active');
-    } else {
-      newsTab.classList.remove('active');
-      pressReleaseTab.classList.add('active');
-    }
-    getApiResponse(tab === 'news' ? newsApi : pressReleaseApi);
-  };
-
-  // On load API call function call
-  getApiResponse(newsApi);
-
-  // News Tab Event Listener
-  newsTab.addEventListener('click', () => setActiveTab('news'));
-
-  // Press Release Tab Event Listener
-  pressReleaseTab.addEventListener('click', () => setActiveTab('pressRelease'));
+  // On load, set the first tab as active
+  setActiveTab(capitalizedTabNames[0]);
 
   // Handle search input
   searchInput.addEventListener('input', (event) => {
@@ -208,8 +225,58 @@ export default async function decorate(block) {
     sortData();
     renderPage();
   });
-}
 
-// Initialize the block
-const blockElement = document.getElementById('block');
-decorate(blockElement);
+  // Add event listeners to scroll buttons
+  scrollLeftButton.addEventListener('click', () => {
+    const currentPageSpan = document.querySelector('.pagination .active-pagination');
+    if (currentPageSpan) {
+      const currentPage = parseInt(currentPageSpan.textContent);
+      if (currentPage > 1) {
+        renderPage(currentPage - 1);
+        paginationContainer.scrollLeft -= paginationContainer.clientWidth; // Scroll left to previous page
+      }
+    }
+  });
+
+  scrollRightButton.addEventListener('click', () => {
+    const currentPageSpan = document.querySelector('.pagination .active-pagination');
+    if (currentPageSpan) {
+      const currentPage = parseInt(currentPageSpan.textContent);
+      const totalPages = Math.ceil(responseData.length / itemsPerPage);
+      if (currentPage < totalPages) {
+        renderPage(currentPage + 1);
+        paginationContainer.scrollLeft += paginationContainer.clientWidth; // Scroll right to next page
+      }
+    }
+  });
+
+  // Initialize the block
+  function excelDateToJSDate(serial) {
+    const excelEpoch = new Date(1900, 0, 1);
+    const date = new Date(excelEpoch.getTime() + (serial - 2) * 24 * 60 * 60 * 1000);
+    return date;
+  }
+
+  function formatDate(serial) {
+    const date = excelDateToJSDate(serial);
+    const day = String(date.getDate()).padStart(2, '0'); // Ensure two digits for the day
+    const month = date.toLocaleString('default', { month: 'long' }); // Full month name
+    const year = date.getFullYear();
+    return `${day} ${month} ${year}`;
+  }
+
+  function getDataAttributeValueByName(name) {
+    const element = document.querySelector(`[data-${name}]`);
+    return element ? element.getAttribute(`data-${name}`) : null;
+  }
+
+  async function fetchData(apiUrl) {
+    try {
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+      return data.data;
+    } catch (error) {
+      return null;
+    }
+  }
+}
