@@ -500,7 +500,13 @@
       background: #3CB8FF;
       color: #fff;
     }
-
+    .outputs_tax_saving .result_tax_cess_result .cessRate{
+      font-size: 12px;
+      font-weight: 300;
+      line-height: 14.08px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
     @media (max-width: 767px) {
     .outputs_tax_saving .result_tax_cess_result .cessRate{
       font-size: 10px;
