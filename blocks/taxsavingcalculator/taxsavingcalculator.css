@@ -59,6 +59,11 @@
   @media (max-width: 767px) {
     .taxsavingcalculator  .inputBox_tax_saving .tax_saving_input_label .inputSpan_tax_saving{
       background-color: #F4F4F4;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 14.08px;
+      text-align: right;
+      color:#3b3b3b;
     }
   }
   @media (max-width: 767px) {
@@ -146,6 +151,7 @@
   @media (max-width: 767px) {
     .taxsavingcalculator  .result_tax_saving {
         height: 83px;
+        margin-top:20px;
     }
   }
   
@@ -445,11 +451,32 @@
       /* padding: 10px; */
       /* flex: 1; */
       box-sizing: border-box;
+      @media(max-width:767px){
+          margin-top:10px;
+      }
     }
+
+    @media(max-width:767px){
+      .result_tax_other_result button{
+        margin-top:10px;
+      }
+    }
+    
+
+    .result_tax_other_result button{
+      border:none;
+      color:#fff;
+      background: #3CB8FF;
+      border-radius:4px;
+    }
+
     .result_tax_other_result .taxBefore{
       display: flex;
       align-items: center;
       /* justify-content: center; */
+      @media(max-width:767px){
+        justify-content: center;
+      }
     }
 
     .result_tax_other_result .span-title{

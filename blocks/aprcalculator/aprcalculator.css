@@ -170,6 +170,7 @@
 .aprcalculator .apply-btn-apr-result button{
   background: #3CB8FF;
   color:#fff;
+  border:none;
 }
 
 .aprcalculator .inputs label {
@@ -328,9 +329,15 @@
 
 /* Mobile */
 @media (max-width: 767px) {
-  .aprcalculator .inputs, .aprcalculator .outputs {
+  .aprcalculator .inputs{
       max-width: 100%;
       width:100%;
+  }
+
+.aprcalculator .outputs {
+      max-width: 100%;
+      width:100%;
+      margin-top:20px;
   }
   .aprcalculator .calculator-container {
       flex-direction: column;
