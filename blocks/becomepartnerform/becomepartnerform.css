@@ -10,6 +10,14 @@
     gap: 10px;
 }
 
+.becomepartnerform-container .default-content-wrapper {
+    grid-column: span 2;
+}
+
+.becomepartnerform-container .becomepartnerform-wrapper {
+    height: 100%;
+}
+
 .hero-container.becomepartnerform-container ul {
     margin: 0;
     padding: 0;
@@ -39,14 +47,6 @@
     background-color: #8CB133;
 }
 
-.becomepartnerform-container .default-content-wrapper {
-    grid-column: span 2;
-}
-
-.becomepartnerform-container .becomepartnerform-wrapper {
-    height: 100%;
-
-}
 
 .becomepartnerform-container .becomepartnerhero {
     border-radius: 10px;
@@ -102,8 +102,6 @@
     text-align: left;
 }
 
-.becomepartnerhero>div>div p:last-of-type a {}
-
 .becomepartnerform .field-wrapper {
 
     padding: 8px;
@@ -119,8 +117,6 @@
 
 @media (width >=900px) {
     .becomepartnerform fieldset {
-        /* grid-template-columns: repeat(6, 1fr);
-            gap: 16px; */
         display: flex;
     }
 }
@@ -158,7 +154,7 @@ fieldset#form-contactfieldset .form2.field-wrapper.number-wrapper:has(input[type
 }
 
 .form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset #form-editmobilenumber {
-
+    cursor: pointer;
     font-size: 14px;
     font-weight: 400;
     line-height: 16.42px;
@@ -186,6 +182,7 @@ fieldset#form-contactfieldset .form2.field-wrapper.number-wrapper:has(input[type
 
 .form2.field-wrapper.fieldset-wrapper fieldset#form-otpconfirmationfieldset input[type="button"] {
     background-color: unset;
+    cursor: pointer;
     color: #B8B8B8;
     font-size: 14px;
     font-weight: 400;
@@ -227,11 +224,6 @@ fieldset#form-contactfieldset .form2.field-wrapper.number-wrapper:has(input[type
 .becomepartnerform .selection-wrapper label {
     margin-bottom: 0;
 }
-
-/* 
-.becomepartnerform input:hover {
-    border;
-} */
 
 .becomepartnerform .button {
     max-width: 225px;
@@ -305,7 +297,6 @@ fieldset#form-contactfieldset .form2.field-wrapper.number-wrapper:has(input[type
 
 }
 
-/* Input Fields Styling */
 .becomepartnerform-input {
     width: 100%;
     padding: 10px;
@@ -315,21 +306,18 @@ fieldset#form-contactfieldset .form2.field-wrapper.number-wrapper:has(input[type
     font-size: 16px;
 }
 
-/* Error Field Styling */
 .error-field {
     color: red;
     font-size: 12px;
     margin-top: 4px;
 }
 
-/* Labels for Product and Location Selection */
 .plaintext-wrapper p,
 .field-wrapper.plaintext-wrapper p {
     font-weight: bold;
     margin-bottom: 8px;
 }
 
-/* Product Buttons Styling */
 .field-wrapper.checkbox-wrapper {
     display: flex;
     align-items: center;
@@ -341,10 +329,6 @@ fieldset#form-contactfieldset .form2.field-wrapper.number-wrapper:has(input[type
 .checkbox-wrapper.selection-wrapper input[type="checkbox"] {
     display: none;
 }
-
-/* .selection-wrapper label:hover {
-    background-color: #0056b3;
-} */
 
 .selection-wrapper label {
     cursor: pointer;
@@ -442,7 +426,6 @@ fieldset#form-contactfieldset .form2.field-wrapper.number-wrapper:has(input[type
     justify-content: center;
 }
 
-/* .form2.verify-btn.field-wrapper.button-wrapper, */
 .form1.submit-btn.field-wrapper.button-wrapper {
     display: flex;
     justify-content: center;
@@ -476,10 +459,6 @@ fieldset#form-contactfieldset .form2.field-wrapper.number-wrapper:has(input[type
     cursor: not-allowed;
 }
 
-.form2.field-wrapper.fieldset-wrapper #form-otpfieldset {
-    /* background-color: #ffffff; */
-}
-
 .form2.field-wrapper.plaintext-wrapper p {
     background-color: transparent;
 }
@@ -508,4 +487,150 @@ fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper::before {
 
 fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper:has(input:not(:placeholder-shown))::before {
     display: none;
+}
+
+@media(max-width:900px) {
+    .hero-container.becomepartnerform-container {
+        display: flex;
+        flex-direction: column;
+        max-width: 570px;
+        background-color: unset;
+    }
+
+    .hero-container.becomepartnerform-container .hero-wrapper {
+        display: none;
+    }
+
+    .becomepartnerform input,
+    .becomepartnerform select,
+    .becomepartnerform textarea {
+        background-color: #D4D4D499;
+        font-size: 16px;
+        line-height: 18.77px;
+        text-align: left;
+    }
+
+    .becomepartnerform .field-wrapper.plaintext-wrapper p {
+        background-color: #D4D4D499;
+        line-height: 18.77px;
+    }
+
+    .selection-wrapper label {
+        background-color: #f4f4f4;
+        font-size: 14px;
+    }
+
+    .form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset {
+        position: relative;
+    }
+
+    .form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset .form2.field-wrapper.plaintext-wrapper {
+        position: absolute;
+        right: 0;
+    }
+
+    .form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset .form2.field-wrapper.plaintext-wrapper p {
+        background-color: unset;
+
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 16.42px;
+
+    }
+
+    .form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset .field-wrapper.select-wrapper,
+    .form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset legend {
+        display: none;
+    }
+
+    .form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset .form2.field-wrapper.number-wrapper #form-mobilenumber {
+        background-color: #D4D4D499;
+    }
+
+    .form2.field-wrapper.plaintext-wrapper p#form-otpmessage {
+        background-color: unset;
+        text-align: center;
+
+        font-size: 14px;
+
+        line-height: 16.42px;
+        text-align: center;
+    }
+
+    .form2.field-wrapper.fieldset-wrapper fieldset#form-otpfieldset input {
+        background-color: #F4F4F4;
+    }
+
+    .form2.field-wrapper.fieldset-wrapper fieldset#form-otpconfirmationfieldset #form-otpconfirmation {
+        background-color: unset;
+    }
+
+    .form2.field-wrapper.fieldset-wrapper fieldset#form-otpconfirmationfieldset input[type="button"] {
+        font-size: 12px;
+        color: #3CB8FF;
+        line-height: 14.08px;
+    }
+
+    .form1.field-wrapper.plaintext-wrapper #form-loancategoryplaceholder,
+    .form1.field-wrapper.plaintext-wrapper #form-selectlocationplaceholder {
+        position: relative;
+        cursor: pointer;
+    }
+
+    .form1.field-wrapper.plaintext-wrapper #form-loancategoryplaceholder::after,
+    .form1.field-wrapper.plaintext-wrapper #form-selectlocationplaceholder::after {
+        content: "";
+        position: absolute;
+        border: solid #585858;
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 3px;
+        font-weight: 400;
+        right: 16px;
+        transform: translateY(calc(50% - 1.5px)) rotate(45deg);
+        -webkit-transform: translateY(calc(50% - 1.5px)) rotate(45deg);
+    }
+
+    .form1.field-wrapper.plaintext-wrapper #form-loancategoryplaceholder.active-dropdown::after,
+    .form1.field-wrapper.plaintext-wrapper #form-selectlocationplaceholder.active-dropdown::after {
+        transform: translateY(calc(50% - 1.5px)) rotate(-135deg);
+        -webkit-transform: translateY(calc(50% - 1.5px)) rotate(-135deg);
+    }
+
+    .becomepartnerform .hide-options {
+        display: none;
+    }
+
+    .becomepartnerform .form2.field-wrapper {
+        padding-top: 0;
+
+    }
+}
+
+@media(max-width:600px) {
+
+    .becomepartnerform input,
+    .becomepartnerform select,
+    .becomepartnerform textarea {
+        background-color: #F4F4F4;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 16.42px;
+        text-align: left;
+    }
+
+    .becomepartnerform .selection-wrapper label {
+        font-size: 12px;
+    }
+
+    .becomepartnerform .field-wrapper.plaintext-wrapper p {
+        background-color: #F4F4F4;
+        font-size: 14px;
+        line-height: 16.42px;
+    }
+
+    .becomepartnerform .form2.field-wrapper {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
 }
