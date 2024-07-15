@@ -50,6 +50,10 @@
     border: none;
 }
 
+.applynowform input:autofill {
+    background-color: var(--background-color) !important;
+}
+
 .applynowform textarea {
     resize: vertical;
 }
