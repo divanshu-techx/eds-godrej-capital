@@ -40,7 +40,7 @@ function updateVisibility(element) {
   if (window.innerWidth <= 768) {
     element.style.display = 'block'; // Show on mobile screens
   } else {
-    element.style.display = 'block'; // Hide on desktop screens
+    element.style.display = 'block'; // Show on desktop screens
   }
 }
 
