@@ -10,6 +10,14 @@
     gap: 10px;
 }
 
+@media(min-width:1199px) {
+    .section.becomepartnerform-container {
+        max-width: unset;
+        margin: unset;
+    }
+}
+
+
 .becomepartnerform-container .default-content-wrapper {
     grid-column: span 2;
 }
@@ -489,6 +497,53 @@ fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper:has(input:not(:place
     display: none;
 }
 
+.field-wrapper.fieldset-wrapper .select-item-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.field-wrapper.fieldset-wrapper .selected-item-selectable {
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: #8CB133;
+    color: #ffffff;
+    border-radius: 4px;
+    width: fit-content;
+    transition: background-color 0.3s;
+    font-weight: 400;
+}
+
+.form1.field-wrapper.plaintext-wrapper #form-loancategoryplaceholder,
+.form1.field-wrapper.plaintext-wrapper #form-selectlocationplaceholder {
+    position: relative;
+    cursor: pointer;
+}
+
+.form1.field-wrapper.plaintext-wrapper #form-loancategoryplaceholder::after,
+.form1.field-wrapper.plaintext-wrapper #form-selectlocationplaceholder::after {
+    content: "";
+    position: absolute;
+    border: solid #585858;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    font-weight: 400;
+    right: 16px;
+    transform: translateY(calc(50% - 1.5px)) rotate(45deg);
+    -webkit-transform: translateY(calc(50% - 1.5px)) rotate(45deg);
+}
+
+.form1.field-wrapper.plaintext-wrapper #form-loancategoryplaceholder.active-dropdown::after,
+.form1.field-wrapper.plaintext-wrapper #form-selectlocationplaceholder.active-dropdown::after {
+    transform: translateY(calc(50% - 1.5px)) rotate(-135deg);
+    -webkit-transform: translateY(calc(50% - 1.5px)) rotate(-135deg);
+}
+
+.becomepartnerform .hide-options {
+    display: none;
+}
+
 @media(max-width:900px) {
     .hero-container.becomepartnerform-container {
         display: flex;
@@ -519,6 +574,7 @@ fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper:has(input:not(:place
         background-color: #f4f4f4;
         font-size: 14px;
     }
+
 
     .form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset {
         position: relative;
@@ -571,35 +627,6 @@ fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper:has(input:not(:place
         line-height: 14.08px;
     }
 
-    .form1.field-wrapper.plaintext-wrapper #form-loancategoryplaceholder,
-    .form1.field-wrapper.plaintext-wrapper #form-selectlocationplaceholder {
-        position: relative;
-        cursor: pointer;
-    }
-
-    .form1.field-wrapper.plaintext-wrapper #form-loancategoryplaceholder::after,
-    .form1.field-wrapper.plaintext-wrapper #form-selectlocationplaceholder::after {
-        content: "";
-        position: absolute;
-        border: solid #585858;
-        border-width: 0 3px 3px 0;
-        display: inline-block;
-        padding: 3px;
-        font-weight: 400;
-        right: 16px;
-        transform: translateY(calc(50% - 1.5px)) rotate(45deg);
-        -webkit-transform: translateY(calc(50% - 1.5px)) rotate(45deg);
-    }
-
-    .form1.field-wrapper.plaintext-wrapper #form-loancategoryplaceholder.active-dropdown::after,
-    .form1.field-wrapper.plaintext-wrapper #form-selectlocationplaceholder.active-dropdown::after {
-        transform: translateY(calc(50% - 1.5px)) rotate(-135deg);
-        -webkit-transform: translateY(calc(50% - 1.5px)) rotate(-135deg);
-    }
-
-    .becomepartnerform .hide-options {
-        display: none;
-    }
 
     .becomepartnerform .form2.field-wrapper {
         padding-top: 0;
