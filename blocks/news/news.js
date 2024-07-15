@@ -108,7 +108,6 @@ export default async function decorate(block) {
   paginationWrapper.appendChild(scrollLeftButton);
   paginationWrapper.appendChild(paginationContainer);
   paginationWrapper.appendChild(scrollRightButton);
-
   // Create content container
   const contentContainer = document.createElement('div');
   contentContainer.id = 'contentContainer';
