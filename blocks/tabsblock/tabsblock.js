@@ -17,6 +17,7 @@ export default async function tabsblock(block) {
         // Create a tab container
         const tabContainer = document.createElement('div');
         tabContainer.classList.add('custom-tabs-container');
+        tabContainer.classList.add('section')
 
         // Create a tabs wrapper
         const tabsWrapper = document.createElement('div');
