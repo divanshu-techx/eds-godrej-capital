@@ -60,3 +60,56 @@ main .thankyou-popup-container>div {
   .thankyou-popup p  {
    color: white;
   }
+
+
+  .thankyoupopupfeedback {
+    position: relative;
+    width: 300px; /* Adjust as necessary */
+    padding: 20px;
+    background-color: #fff; /* Background color for the popup */
+    border: 1px solid #ccc; /* Border for the popup */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1); /* Optional shadow for better visibility */
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .close-button:before,
+  .close-button:after {
+    content: ' ';
+    position: absolute;
+    width: 2px;
+    height: 20px;
+    background-color: #000;
+  }
+  
+  .close-button:before {
+    transform: rotate(45deg);
+    left: 9px;
+  }
+  
+  .close-button:after {
+    transform: rotate(-45deg);
+    left: 9px;
+  }
+
+  .thankyoupopupfeedback {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    width: 700px; }
+  

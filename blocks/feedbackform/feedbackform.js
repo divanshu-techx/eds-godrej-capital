@@ -1,14 +1,12 @@
 import { createForm } from '/blocks/form/form.js';
 
 export default async function decorate(block) {
-    console.log(block);
     const blockEle = block.closest('.section.feedbackform-container');
-    console.log(block.parentElement.nextElementSibling);
 
     const feedbackAttributes = extractValuesOfSectionMetadata(blockEle);
-    console.log(feedbackAttributes);
 
-    const form = await createForm("https://main--eds-godrej-capital--divanshu-techx.hlx.page/feedback-form/feedback-excel.json");
+    const formJsonApi = feedbackAttributes.formJsonApi;
+    const form = await createForm(formJsonApi);
 
     const feedbackBtn = createButton(feedbackAttributes.feedbackTitleButton, 'feedback-title-btn');
     block.appendChild(feedbackBtn);
@@ -28,20 +26,27 @@ export default async function decorate(block) {
     // create a dynamic div which have data change accordingly btn click
     const dynamicDiv = createContainer('dynamicDiv');
 
+     // Create collapse button
+     const collapseButton = document.createElement('button');
+     collapseButton.className = 'collapse-button';
+     collapseButton.textContent = 'Feedback';
+     parentContainerDiv.appendChild(collapseButton);
  
-
-
     // feedback click event
     document.getElementById('feedback-title-btn').addEventListener('click', function() {
-       // getWelocomeContainer(form, block);
         forEmptyDiv(headingTitleDiv, headingDescriptionDiv, dynamicDiv);
 
         forWelcomeContainer(feedbackAttributes, headingTitleDiv, headingDescriptionDiv,
              headingContainerDiv, parentContainerDiv, block);
 
-        forCreatePagination(dynamicDiv, feedbackAttributes, parentContainerDiv, block, form);
-        //this.style = 'display:none';
+        forCreateRatingRadioBtn(dynamicDiv, feedbackAttributes, parentContainerDiv, block, form);
         parentContainerDiv.style = 'display:block';
+        this.style = 'display:none';
+    });
+
+    collapseButton.addEventListener('click', function() {
+        parentContainerDiv.style.display = 'none';
+        document.getElementById('feedback-title-btn').style.display = 'block';
     });
 
 }
@@ -81,7 +86,8 @@ function extractValuesOfSectionMetadata(blockEle) {
         moreLikelyLabel: blockEle.getAttribute('data-moreLikelyLabel'),
         laterButtonLabel: blockEle.getAttribute('data-laterButtonLabel'),
         reviewsubmitButtonLabel: blockEle.getAttribute('data-reviewsubmitButtonLabel'),
-        reviewDescription : blockEle.getAttribute('data-reviewDescription')
+        reviewDescription : blockEle.getAttribute('data-reviewDescription'),
+        formJsonApi : blockEle.getAttribute('data-jsonFormApi')
     };
 }
 
@@ -99,18 +105,42 @@ function forWelcomeContainer(feedbackAttributes, headingTitleDiv, headingDescrip
 
     headingContainerDiv.appendChild(headingTitleDiv);
     headingContainerDiv.appendChild(headingDescriptionDiv);
+    headingContainerDiv.style = 'display:block';
 
     parentContainerDiv.appendChild(headingContainerDiv);
     
     block.appendChild(parentContainerDiv);
-
 }
 
-function forCreatePagination (dynamicDiv, feedbackAttributes, parentContainerDiv, block, form) {
+// function on click of submit rating button and show feedback pop up 
+function showFeedBackPopUp (block, dynamicDiv, parentContainerDiv, form, feedbackAttributes) {
+    dynamicDiv.innerHTML = '';
+    dynamicDiv.appendChild(form);
+
+    const headingDescriptionDiv = block.querySelector('.headingDescriptionDiv');
+    headingDescriptionDiv.innerHTML = '';
+
+    const headingDescription = document.createElement('p');
+    headingDescription.textContent = feedbackAttributes.reviewDescription;
+    headingDescription.className = 'headingDescription';
+    headingDescriptionDiv.appendChild(headingDescription);
+
+    block.querySelector('.headingContainerDiv').style = 'display:block';
+    block.querySelector('.feedback-checkbox-fieldset').style = 'display:block';
+    block.querySelector('.feedback-checkbox-class.field-wrapper.submit-wrapper').style = 'display:block';
+    block.querySelector('.feedback-form-fieldset').style = "display:none";
+    parentContainerDiv.appendChild(dynamicDiv);
+    block.appendChild(parentContainerDiv);
+}
+
+function forCreateRatingRadioBtn (dynamicDiv, feedbackAttributes, parentContainerDiv, block, form) {
         // for rating points
+        var ratingNumber;
         const ratingContainer = createContainer('ratingContainer');
-        const paginationDiv = createContainer('paginationDiv');
+        const ratingDiv = createContainer('ratingDiv');
         const lessMoreLikeLabelDiv = createContainer('lessMoreLikeLabelDiv');
+        const submitRatingButton = createButton(feedbackAttributes.reviewsubmitButtonLabel, 'feedback-rating-button');
+        submitRatingButton.disabled = true;
     
         let minLimit = parseInt(feedbackAttributes.minReviewCount),
         maxLimit = parseInt(feedbackAttributes.maxReviewCount);
@@ -125,7 +155,14 @@ function forCreatePagination (dynamicDiv, feedbackAttributes, parentContainerDiv
             input.value = i;
             
             label.appendChild(input);
-            paginationDiv.appendChild(label);
+            ratingDiv.appendChild(label);
+
+            input.addEventListener('change', function() {
+                // Enable the submit button if any radio button is checked
+                console.log(input.value);
+                ratingNumber = input.value;
+                submitRatingButton.disabled = false;
+            });
         }
     
         const lessLiskely = document.createElement('p');
@@ -138,7 +175,7 @@ function forCreatePagination (dynamicDiv, feedbackAttributes, parentContainerDiv
         moreLikely.className = 'moreLikely';
         lessMoreLikeLabelDiv.appendChild(moreLikely);
         
-        ratingContainer.appendChild(paginationDiv);
+        ratingContainer.appendChild(ratingDiv);
         ratingContainer.appendChild(lessMoreLikeLabelDiv);
     
         // create div container for button which contain later and submit button
@@ -147,7 +184,6 @@ function forCreatePagination (dynamicDiv, feedbackAttributes, parentContainerDiv
         const laterBtn = document.createElement('p');
         laterBtn.textContent = feedbackAttributes.laterButtonLabel;
         laterBtn.className = 'feedback-later-btn';
-        const submitRatingButton = createButton(feedbackAttributes.reviewsubmitButtonLabel, 'feedback-rating-button');
 
         laterButtonContainer.appendChild(laterBtn);
         laterButtonContainer.appendChild(submitRatingButton);
@@ -165,23 +201,26 @@ function forCreatePagination (dynamicDiv, feedbackAttributes, parentContainerDiv
         });
 
         submitRatingButton.addEventListener('click', function() {
-         dynamicDiv.innerHTML = '';
-         dynamicDiv.appendChild(form);
-         parentContainerDiv.appendChild(dynamicDiv);
-         block.appendChild(parentContainerDiv);
-         forFeedback(dynamicDiv, block);
+         showFeedBackPopUp(block, dynamicDiv, parentContainerDiv, form, feedbackAttributes);
+         forFeedback(block);
         })
 }
 
-// function for feedback checkbox
-function forFeedback (dynamicDiv, block) {
+// Function to reset checkboxes
+function resetCheckboxes(checkboxes) {
+    checkboxes.forEach(checkbox => {
+    checkbox.checked = false;
+   });
+}
 
+// function for feedback checkbox
+function forFeedback (block) {
     const submitDiv = block.querySelector('.feedback-checkbox-class.field-wrapper.submit-wrapper');
     const descriptionDiv = block.querySelector('.feedback-description.field-wrapper.text-area-wrapper');
+
     // set attribute in mobile field
     const mobileNoDiv = block.querySelector('#form-mobilenumber');
     mobileNoDiv.setAttribute('maxlength','10');
-    console.log(mobileNoDiv);
     mobileNoDiv.addEventListener('input', function() {
     // Remove any non-numeric characters using regex
     this.value = this.value.replace(/\D/g, '');
@@ -197,6 +236,7 @@ function forFeedback (dynamicDiv, block) {
     fullNameField.addEventListener('input', function() {
         this.value = this.value.replace(/[^a-zA-Z]/g, '');
     });
+
     if(!submitDiv) {
         return; 
     } else {
@@ -209,7 +249,8 @@ function forFeedback (dynamicDiv, block) {
             if (!fieldset) {
               return;
             } else {
-                const checkboxes = fieldset.querySelectorAll('input[type="checkbox"]');               
+                const checkboxes = fieldset.querySelectorAll('input[type="checkbox"]');   
+                resetCheckboxes(checkboxes);            
                 const otherCheckbox = block.querySelector('input[value="Other"]');
                 // Attach change event listeners to each checkbox
                 checkboxes.forEach(checkbox => {
@@ -226,6 +267,8 @@ function forFeedback (dynamicDiv, block) {
                         } else if (!otherCheckbox.checked) {
                             // If "Other" checkbox is unchecked, hide description box
                             descriptionDiv.style.display = 'none';
+                            block.querySelector('.description-empty-err-msg').style = 'display:none';
+                            block.querySelector('.description-limit-err-msg').style = 'display:none';
                         }
                     });
                 });
@@ -250,24 +293,53 @@ function clickEventOnFeedbackSubmitBtn (fieldset, block, descriptionDiv) {
     const checkedCheckboxes = fieldset.querySelectorAll('input[type="checkbox"]:checked');
     const checkedValues = Array.from(checkedCheckboxes).map(checkbox => checkbox.value);
     console.log('Checked values:', checkedValues);
+
     if (descriptionDiv.style.display === 'block') {
-    const textAreaDiv = descriptionDiv.querySelector('textarea');
-    const descLimit = descriptionDiv.querySelector('label').textContent;
-    let descArr = descLimit.split('/');
-    let descMinLimit = parseInt(descArr[0]);
-    let descMaxLimit = parseInt(descArr[1]);
-    var descriptionReview = textAreaDiv.value;
-     if (!descriptionReview) {
-        console.log('please write feedback in description box');
-        return false;
-     } else {
-        if (!(descriptionReview.length > descMinLimit && descriptionReview.length <= descMaxLimit)) {
-           console.log('Limit is exceed');
-           return false;
+        const textAreaDiv = descriptionDiv.querySelector('textarea');
+        const descLimit = descriptionDiv.querySelector('label').textContent;
+        let descArr = descLimit.split('/');
+        let descMinLimit = parseInt(descArr[0]);
+        let descMaxLimit = parseInt(descArr[1]);
+        var descriptionReview = textAreaDiv.value;
+
+        const emptyErrorMsg = block.querySelector('.description-empty-err-msg');
+        const limitErrorMsg = block.querySelector('.description-limit-err-msg');
+
+        // Hide error messages when the user starts typing
+        textAreaDiv.addEventListener('input', function() {
+            emptyErrorMsg.style.display = 'none';
+            limitErrorMsg.style.display = 'none';
+        });
+
+        if (!descriptionReview) {
+            emptyErrorMsg.style.display = 'block';
+            return false;
+        } else {
+            if (!(descriptionReview.length > descMinLimit && descriptionReview.length <= descMaxLimit)) {
+                limitErrorMsg.style.display = 'block';
+                return false;
+            }
         }
-     }
     }   
     return [true, checkedValues];
+}
+
+// function to reset the input fields
+function resetInputField(formContainerDiv) {
+    const inputFieldsDivs = formContainerDiv.querySelectorAll('.feedback-input-field');
+    inputFieldsDivs.forEach(element => {
+        const inputField = element.querySelector('input');
+        if (inputField) {
+            inputField.value = '';
+        }
+    });
+}
+
+// function forThankyou Pop up is shown when user click on skip button or submit button
+function showThankYouPopUp (block) {
+    const thankyouDiv = block.parentElement.nextElementSibling;
+    thankyouDiv.style = 'display:block';
+    block.querySelector('.parentContainerDiv').style = 'display:none';
 }
 
 // function for form when it show on click of feedback submit button
@@ -280,28 +352,32 @@ function forFormFields(block, descriptionDiv, submitDiv, checkedFeildArr) {
 
     const formContainerDiv = block.querySelector('.feedback-form-fieldset.field-wrapper.fieldset-wrapper');
     formContainerDiv.style = 'display:block';
-     // Hide all elements with class 'feedback-error-msg' inside formContainerDiv
+    resetInputField(formContainerDiv);
+    // Hide all elements with class 'feedback-error-msg' inside formContainerDiv
      const errorMessages = formContainerDiv.querySelectorAll('.feedback-error-msg');
      errorMessages.forEach(element => {
          element.style.display = 'none';
      });
 
+     const skipBtnDiv = formContainerDiv.querySelector('.feedback-skip-btn');
+     const skipBtn = skipBtnDiv.querySelector('button');
+
      const formSubmitBtnEle = formContainerDiv.querySelector('.field-wrapper.submit-wrapper.feedback-submit-btn');
      const formSubmitBtn = formSubmitBtnEle.querySelector('button');
 
+     skipBtn.addEventListener('click', function(event) {
+          event.preventDefault(); 
+          showThankYouPopUp(block);
+     });
+
      formSubmitBtn.addEventListener('click', function(event) {
         event.preventDefault(); 
-        console.log('form submit btn');
         if(validateForm(formContainerDiv)){
-         console.log('form is submitted'); 
-         const thankyouDiv = block.parentElement.nextElementSibling;
-         thankyouDiv.style = 'display:block';
+          showThankYouPopUp(block);
         } else {
             console.log('form is not submitted some error');
         }
     });
-
-    
 }
 
 // function for form validation

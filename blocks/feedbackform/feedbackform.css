@@ -1,18 +1,18 @@
 #feedback-title-btn {
     position: fixed;
-    right: 0;  /* Position it on the right side */
-    top: 30%; /* Center it vertically */
+    right: 0;
+    top: 30%;
     transform: translateY(-50%);
-    background-color: #007BFF; /* Button color */
+    background-color: #007BFF;
     color: white;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
-    z-index: 1000; /* Ensure it stays on top of other elements */
-    writing-mode: vertical-rl; /* Make text vertical */
+    z-index: 1000;
+    writing-mode: vertical-rl;
     text-orientation: mixed;
-    border-top-left-radius: 10px; /* Optional: rounded corners */
-    border-bottom-left-radius: 10px; /* Optional: rounded corners */
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
 
 .parentContainerDiv {
@@ -25,31 +25,34 @@
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 1001;
-    width: 700px; }
+    width: 700px;
+    display: none; /* Initially hidden */
+}
 
 .lessMoreLikeLabelDiv {
     display: flex;
     justify-content: space-between;
 }
 
-.paginationDiv{
+.ratingDiv {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 20px 0;
 }
-.paginationDiv label {
+
+.ratingDiv label {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 5px; /* Adjust spacing between labels as needed */
+    margin: 0 5px;
 }
 
-.paginationDiv input[type="radio"] {
-    display: none; /* Hide the actual radio button */
+.ratingDiv input[type="radio"] {
+    display: none;
 }
 
-.paginationDiv label {
+.ratingDiv label {
     background-color: #f0f0f0;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -58,21 +61,20 @@
     transition: background-color 0.3s;
 }
 
-.paginationDiv input[type="radio"]:checked + label {
+.ratingDiv input[type="radio"]:checked + label {
     background-color: #007BFF;
     color: white;
     border-color: #007BFF;
 }
 
-.paginationDiv label:hover {
-    background-color: #e0e0e0;
+.ratingDiv label:hover {
+    background-color: blue;
 }
 
 .laterButtonContainer {
     justify-content: space-around;
     display: flex;
 }
-
 
 .feedback-description.field-wrapper.submit-wrapper {
     display: none;
@@ -82,24 +84,27 @@
     display: none;
 }
 
-.feedback-form-fieldset.field-wrapper.fieldset-wrapper {
+.description-limit-err-msg {
+    display: none;
+}
+
+.description-empty-err-msg {
     display: none;
 }
 
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 input[type="number"] {
-  -moz-appearance: textfield; /* Firefox */
+    -moz-appearance: textfield; /* Firefox */
 }
 
 .thankyoupopupfeedback-wrapper {
     display: none;
 }
-
 
 .thankyoupopupfeedback {
     position: relative;
@@ -113,9 +118,28 @@ input[type="number"] {
     border: none;
     font-size: 24px;
     cursor: pointer;
+    z-index: 1002;
 }
 
 .close-button::before {
     content: '\00d7'; /* Unicode for multiplication sign (×) */
     color: #000;
+}
+
+/* Icon for collapse button */
+.collapse-button {
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1001;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
