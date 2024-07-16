@@ -17,9 +17,8 @@ export default async function decorate(block) {
     restrictNameInputs(block);
     restrictPhoneNumberInputs(block);
 
-    // Add change event for checkboxes and radio button
+    // Add change event for checkboxes
     addChangeEventOnCheckboxes(block);
-    // addChangeEventOnRadioButtons(block);
     handlSelectOnTabAndMob(block)
     otpsEforcements(block)
     showSelectedItems(block, '#firstset', '#firstset .selection-wrapper input[type="checkbox"]');
@@ -208,30 +207,6 @@ function addChangeEventOnCheckboxes(block) {
         });
     });
 }
-
-// function addChangeEventOnRadioButtons(block) {
-//     const radioButtons = block.querySelectorAll('.form1.field-wrapper.radio-wrapper.selection-wrapper input[type="radio"]');
-
-//     radioButtons.forEach(radio => {
-//         radio.addEventListener('change', (e) => {
-//             // Remove the 'selected' class from all radio buttons in the group
-//             const name = radio.getAttribute('name');
-
-//             radioButtons.forEach(r => {
-//                 if (r.getAttribute('name') === name) {
-//                     const parentWrapper = r.closest('.form1.field-wrapper.radio-wrapper.selection-wrapper');
-//                     parentWrapper.classList.remove('selected');
-//                 }
-//             });
-
-//             // Add the 'selected' class to the checked radio button
-//             const parentWrapper = radio.closest('.form1.field-wrapper.radio-wrapper.selection-wrapper');
-//             // const label = parentWrapper.querySelector('label').textContent;
-//             parentWrapper.classList.add('selected');
-//             // radio.value = label;
-//         });
-//     });
-// }
 
 function getSelectedCheckboxValues(block) {
     // Get all checkboxes inside the specified fieldset
