@@ -1,9 +1,9 @@
-.applynowform .field-wrapper {
+/* .applynowform .field-wrapper {
     display: grid;
     grid-auto-flow: row;
     align-items: center;
     padding: 8px;
-}
+} */
 
 .applynowform fieldset {
     display: grid;
@@ -31,36 +31,45 @@
     margin-bottom: 0.25em;
 }
 
+.applynowform input:focus-visible {
+    outline: none;
+}
+
 .applynowform input,
 .applynowform select,
 .applynowform textarea {
     font-size: var(--body-font-size-s);
     width: 100%;
-    max-width: 50rem;
+    color: #585858;
     display: block;
     padding: 12px 8px;
     border-radius: 4px;
     box-sizing: border-box;
-    border: 1px solid var(--text-color);
     color: var(--text-color);
     background-color: var(--background-color);
+    border: none;
+}
+
+.applynowform input:autofill {
+    background-color: var(--background-color) !important;
 }
 
 .applynowform textarea {
     resize: vertical;
 }
 
-.applynowform .selection-wrapper input {
+/* .applynowform .selection-wrapper input {
     width: 16px;
-}
+} */
 
 .applynowform .selection-wrapper label {
     margin-bottom: 0;
 }
 
+/* 
 .applynowform input:hover {
     border: 1px solid var(--text-color);
-}
+} */
 
 .applynowform .button {
     max-width: 225px;
@@ -68,25 +77,19 @@
     padding: 0.2em 0.4em;
 }
 
-.applynowform .field-wrapper.selection-wrapper {
+/* .applynowform .field-wrapper.selection-wrapper {
     grid-auto-flow: column;
     justify-content: start;
     gap: 16px;
-}
+    width: fit-content;
+} */
 
-.applynowform .field-wrapper>label {
-    order: -1;
-}
 
-.applynowform .field-wrapper.selection-wrapper>label {
-    order: 1;
-}
-
-.applynowform input[required]+label::after {
+/* .applynowform input[required]+label::after {
     content: "*";
     color: firebrick;
     margin-inline-start: 1ch;
-}
+} */
 
 .applynowform .toggle-wrapper .switch {
     position: relative;
@@ -138,18 +141,21 @@
 
 
 /* custom css */
-.section.applynowform-container {
-    background-color: #f2f2f2;
-    max-width: 734px;
+
+
+.applynowform-container .applynowform-wrapper {
+    max-width: 540px;
     width: 100%;
+    margin: 0 auto;
 }
 
-.radio-wrapper input[type="checkbox"] {
+
+.applynowform .radio-wrapper input[type="checkbox"] {
     display: none;
 }
 
 /* Style labels */
-.radio-wrapper label {
+.applynowform .radio-wrapper label {
     padding: 10px;
     background: #ffffff;
     display: block;
@@ -158,17 +164,17 @@
 }
 
 /* Active class styling */
-.radio-wrapper.active label {
+.applynowform .radio-wrapper.active label {
     background: green;
 }
 
 
-#applynowform-box {
+.applynowform #applynowform-box {
     display: flex;
 }
 
 
-input[type="checkbox"] {
+.applynowform input[type="checkbox"] {
     display: none;
 }
 
@@ -190,19 +196,20 @@ input[type="checkbox"] {
 
 
 .applynowform-container {
-    background-color: #f5f5f5;
+    background-color: #F2F2F2;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 30px;
-    max-width: 700px;
+    max-width: 734px;
     margin: 50px auto;
 }
 
-.applynowform-container h1 {
+
+.applynowform-container .default-content-wrapper>* {
     text-align: center;
     font-size: 32px;
     font-weight: 500;
-    margin-bottom: 20px;
+    margin-bottom: 35px;
     color: #696969;
     line-height: 38px;
 }
@@ -212,16 +219,18 @@ input[type="checkbox"] {
 .applynowform-container .applynowform .step1.field-wrapper input[type="email"] {
     background-color: #D4D4D499;
     border-radius: 4px;
-    height: 50px;
+    font-family: 'Work Sans';
     width: 100%;
     font-weight: 400;
     font-size: 1rem;
     line-height: 18px;
     border: none;
+    margin-bottom: 16px;
 }
 
-.applynowform-container .applynowform .step1.field-wrapper fieldset #loanTypeFieldset {
-    padding-top: 40px;
+
+.applynowform-container .applynowform .step1.fieldset-wrapper:has(fieldset#loanTypeFieldset) {
+    padding-top: 16px;
     border: none;
     border-top: 1px solid #9A9A9A;
 }
@@ -230,7 +239,7 @@ input[type="checkbox"] {
     font-weight: 400;
     font-size: 1rem;
     line-height: 18px;
-
+    margin-bottom: 1rem;
 }
 
 .applynowform-container .field-wrapper.fieldset-wrapper #form-terms {
@@ -289,13 +298,21 @@ input[type="checkbox"] {
     font-weight: 500;
     color: #FFFFFF;
     font-size: 1rem;
+    text-transform: capitalize;
     background-color: #3CB8FF;
     line-height: 1rem;
     padding: 17px 50px;
     border-radius: 4px;
+    cursor: pointer;
     gap: 10px;
     width: 100%;
-    max-width: 160px;
+    border: none;
+    outline: none;
+}
+
+.applynowform-container .applynowform .step1.submit-registration button:disabled {
+    background-color: grey;
+    cursor: not-allowed;
 }
 
 .applynowform-container .applynowform #form-common legend,
@@ -311,24 +328,38 @@ input[type="checkbox"] {
     font-weight: 400;
     color: #3CB8FF;
     line-height: 16px;
+    cursor: pointer;
 }
 
 .applynowform-container .applynowform .verify-step.field-wrapper.fieldset-wrapper #form-box {
     display: flex;
     flex-direction: row;
+    background-color: #ffffff;
+    border-radius: 4px;
 }
 
 .applynowform-container .applynowform .verify-step.field-wrapper.fieldset-wrapper #form-resendcontainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+
 }
 
-.applynowform-container .applynowform .verify-step.field-wrapper.fieldset-wrapper #form-resendcontainer #form-message3 {
+.applynowform-container .applynowform .verify-step.field-wrapper.fieldset-wrapper #form-resendcontainer #form-message3.inactive {
     font-size: 14px;
     line-height: 16px;
     color: #B8B8B8;
     font-weight: 400;
+    cursor: pointer;
+}
+
+.applynowform-container .applynowform .verify-step.field-wrapper.fieldset-wrapper #form-resendcontainer #form-message3.active {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: #8CB133;
+    cursor: pointer;
 }
 
 .applynowform-container .applynowform .verify-step.field-wrapper.fieldset-wrapper #form-description-1 {
@@ -351,35 +382,34 @@ input[type="checkbox"] {
     color: #5CB7E3;
 }
 
-.submit-wrapper {
+.applynowform .submit-wrapper {
     display: flex;
     justify-content: center;
 }
 
-/* input {
-    background-color: #D4D4D499;
-} */
 
-
-
-
-.error-message {
-    color: red;
+.applynowform .error-message {
+    color: #F50076;
+    margin-top: -12px;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 16.42px;
+    text-align: left;
+    margin-bottom: 8px;
 }
 
 
 
 
 
-.selection-wrapper {
+.applynowform .selection-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
-    margin-bottom: 10px;
 }
 
-label {
+.applynowform label {
     font-weight: bold;
 }
 
@@ -389,26 +419,26 @@ label {
     gap: 10px;
 }
 
-.verify-step .field-wrapper {
+.applynowform .verify-step .field-wrapper {
     display: flex;
     flex-direction: row;
     gap: 10px;
     align-items: center;
 }
 
-.verify-step .plaintext-wrapper {
+.applynowform .verify-step .plaintext-wrapper {
     font-size: 16px;
     font-weight: bold;
 }
 
-.btn-verify-step {
+.applynowform .btn-verify-step {
     display: flex;
     justify-content: center;
     margin-top: 20px;
 }
 
 
-.termsandcondition {
+.applynowform .termsandcondition {
     text-align: center;
     font-size: 14px;
     line-height: 1.5;
@@ -416,12 +446,221 @@ label {
     margin-bottom: 20px;
 }
 
-@media screen and (max-width: 500px) {
-    .loan-type-checkbox {
+.applynowform .verify-step.field-wrapper.fieldset-wrapper fieldset {
+    display: flex;
+}
+
+
+
+
+.applynowform fieldset[name="loanTypeFS"] {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+fieldset#form-box .verify-step.field-wrapper.text-wrapper {
+    position: relative;
+}
+
+fieldset#form-box .verify-step.field-wrapper.text-wrapper::before {
+    position: absolute;
+    content: '';
+    width: 20px;
+    display: block;
+    height: 2px;
+    z-index: 99;
+    bottom: 6px;
+    left: calc(50% - 10px);
+    background-color: #B8B8B8;
+    transform: translateX(calc(50% - 10px));
+    border-radius: 1px;
+}
+
+fieldset#form-box .verify-step.field-wrapper.text-wrapper:has(input:not(:placeholder-shown))::before {
+    display: none;
+}
+
+.applynowform-container .applynowform #form-box input {
+    padding-left: 50%;
+}
+
+
+@media screen and (max-width: 600px) {
+
+    .applynowform .verify-step.field-wrapper.fieldset-wrapper:has(fieldset#form-common) legend {
+        display: none;
+    }
+
+    .applynowform .verify-step.field-wrapper.fieldset-wrapper:has(fieldset#form-common) .select-wrapper {
+        display: none !important;
+    }
+
+    main .section {
+        padding: 0;
+    }
+
+    .applynowform-container {
+        padding: unset;
+        background-color: #ffffff;
+        margin-top: -50px;
+        position: relative;
+        border-radius: 20px 20px 0px 0px;
+    }
+
+    .applynowform-container .applynowform-wrapper {
+        background-color: #f2f2f2;
+        padding: 20px 24px;
+        width: unset;
+    }
+
+    .applynowform-container .applynowform .step1.field-wrapper input[type="text"],
+    .applynowform-container .applynowform .step1.field-wrapper input[type="tel"],
+    .applynowform-container .applynowform .step1.field-wrapper input[type="email"] {
+        background-color: #FFFFFF;
+        font-size: 14px;
+        line-height: 16.42px;
+        color: #585858;
+    }
+
+    .applynowform-container .default-content-wrapper>* {
+        padding-top: 20px;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 23.46px;
+        color: #000000;
+    }
+
+    .applynowform-container .applynowform .step1.fieldset-wrapper:has(fieldset#loanTypeFieldset) {
+        padding-top: 16px;
+        border: none;
+        border-top: 1px solid #B8B8B8;
+    }
+
+    .applynowform-container .applynowform .step1.field-wrapper #loanTypeFieldset legend {
+        width: 100%;
+        max-width: -webkit-fill-available;
+        font-family: Work Sans;
+        font-size: 14px;
+        font-weight: 400;
+        padding: 12px 10px;
+        line-height: 16.42px;
+        text-align: left;
+        background-color: #ffffff;
+        border-radius: 4px;
+    }
+
+    .applynowform .loan-type-checkbox {
         flex-direction: column;
     }
 
-    .verify-step {
+    .applynowform .verify-step {
         flex-direction: column;
     }
+
+    .applynowform .verify-step.field-wrapper.fieldset-wrapper fieldset#form-common {
+        position: relative;
+    }
+
+    .applynowform fieldset#form-common .verify-step.field-wrapper.number-wrapper {
+        flex-grow: 1;
+    }
+
+    .applynowform fieldset#form-common .verify-step.plaintext-wrapper {
+        position: absolute;
+        right: 10px;
+
+    }
+
+    .applynowform-container .applynowform #form-box input {
+        padding-left: 50%;
+    }
+}
+
+@media screen and (min-width: 600.99px) and (max-width:900px) {
+    .applynowform .verify-step.field-wrapper.fieldset-wrapper:has(fieldset#form-common) legend {
+        display: none;
+    }
+
+    .applynowform .verify-step.field-wrapper.fieldset-wrapper:has(fieldset#form-common) .select-wrapper {
+        display: none !important;
+    }
+
+    .applynowform input {
+        background-color: #D4D4D499;
+    }
+
+    .applynowform-container .applynowform .verify-step.field-wrapper.fieldset-wrapper #form-box {
+        background-color: #F4F4F4;
+    }
+
+    .applynowform-container .applynowform #form-box input {
+        background-color: #F4F4F4;
+        padding-left: 50%;
+    }
+
+    .applynowform-container .loan-type-checkbox.field-wrapper.checkbox-wrapper.selection-wrapper label {
+
+        background-color: #F4F4F4;
+    }
+
+    .applynowform-container .applynowform .step1.field-wrapper #loanTypeFieldset legend {
+        width: 100%;
+        border-radius: 4px;
+        padding: 12px 10px;
+        max-width: -webkit-fill-available;
+        background-color: #D4D4D499
+    }
+
+    .applynowform-container {
+        background-color: unset;
+        margin-top: 0;
+        box-shadow: none;
+    }
+
+    .applynowform .verify-step.field-wrapper.fieldset-wrapper fieldset#form-common {
+        position: relative;
+    }
+
+    .applynowform fieldset#form-common .verify-step.field-wrapper.number-wrapper {
+        flex-grow: 1;
+    }
+
+    .applynowform fieldset#form-common .verify-step.plaintext-wrapper {
+        position: absolute;
+        right: 10px;
+
+    }
+}
+
+.terms-and-condition-re {
+    font-family: Work Sans;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 14.08px;
+    text-align: left;
+    margin-left: 10px;
+}
+
+
+.applynowform .verify-step.btn-verify-step.field-wrapper.submit-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+
+.applynowform input:-webkit-autofill,
+.applynowform input:-webkit-autofill:hover,
+.applynowform input:-webkit-autofill:focus,
+.applynowform textarea:-webkit-autofill,
+.applynowform textarea:-webkit-autofill:hover,
+.applynowform textarea:-webkit-autofill:focus,
+.applynowform select:-webkit-autofill,
+.applynowform select:-webkit-autofill:hover,
+.applynowform select:-webkit-autofill:focus {
+
+    -webkit-text-fill-color: #585858;
+    -webkit-box-shadow: 0 0 0px 1000px #D4D4D499 inset;
+    transition: background-color 5000s ease-in-out 0s;
 }

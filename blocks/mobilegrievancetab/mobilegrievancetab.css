@@ -3,15 +3,17 @@
     gap: 8px;
     max-width: 100%;
     overflow-x: auto;
+    padding:10px;
+    justify-content: center;
+    align-items: center;
   }
   
   .mobile-grievance-tabs-tab {
     flex: 0 0 max-content;
     margin: 0;
-    border: 1px solid var(--dark-color);
-    border-radius: 0;
+    border-radius: 4px;
     padding: 8px 16px;
-    background-color: var(--light-color);
+    background-color: #fff;
     color: initial;
     font-size: unset;
     font-weight: bold;
@@ -24,8 +26,6 @@
   }
   
   .mobile-grievance-tabs-tab[aria-selected="true"] {
-    border-bottom: 1px solid var(--background-color);
-    background-color: var(--background-color);
     cursor: initial;
   }
   
@@ -37,11 +37,42 @@
   .mobile-grievance-tabs-panel {
     margin-top: -1px;
     padding: 0 16px;
-    border: 1px solid var(--dark-color);
+    /* border: 1px solid var(--dark-color); */
     overflow: auto;
   }
   
   .mobile-grievance-tabs-panel[aria-hidden="true"] {
     display: none;
   }
+
+  .mobilegrievancetab .mobile-btn-grievances{
+    padding:10px;
+    background: #F2F2F2;
+    gap:10px;
+    display: flex;
+    border-radius: 4px;
+  }
+
+  .mobilegrievancetab .mobile-btn-grievances .mobile-grievance-tabs-tab p{
+    margin:0;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 14.08px;
+  }
+
+  .mobilegrievancetab .mobile-grievance-tabs-panel p{
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14.08px;
+    text-align: left;
+  }
+
+  .mobilegrievancetab .mobile-btn-grievances .mobile-grievance-tabs-tab[aria-selected="true"]{
+    background: #3CB8FF;
+    color:#fff;
+    border-radius: 4px;
+  }
+
+  
+
   

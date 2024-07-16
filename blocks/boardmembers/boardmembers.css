@@ -1,4 +1,35 @@
-.boardmembers {
-    display: flex;
-}
+.boardmembers-container {
+    h2 {
+        color: #696969;
+    }
 
+    .boardmembers {
+        display: flex;
+
+        @media (min-width: 991px) {
+            padding: 0px 200px;
+
+        }
+
+        flex-wrap: wrap;
+        justify-content: center;
+
+        &>div {
+            width: 100%;
+
+            @media (max-width: 991px) {
+                min-width: 50%;
+                max-width: 50%;
+            }
+
+            @media (min-width: 1024px) {
+                min-width: 50%;
+                max-width: 50%;
+            }
+
+            min-width: 383px;
+            max-width: 383px;
+
+        }
+    }
+}

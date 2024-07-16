@@ -1,68 +1,141 @@
-/* Main container for the cards */
+@media (max-width: 767px) {
+  .section.aprcalculator-container{
+    border-radius: 20px 20px 0px 0px;
+    position: relative;
+    bottom: 30px;
+    background-color: #fff;
+    padding-bottom: 0px;
+  }
+}
+
+.calculatordetailscards-container .default-content-wrapper{
+  background: #F4F4F4;
+  padding-top: 15px;
+}
+@media (max-width: 992px) {
+  .calculatordetailscards-container .default-content-wrapper{
+    background: #fff;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+}
+
 .calculatordetailscards {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: nowrap; /* Prevent wrapping */
-    overflow-x: auto; /* Allow horizontal scrolling if needed */
+  display: flex;
+  justify-content: center;
+  background: #F4F4F4;
+  padding: 25px 0;
+  overflow-x: auto; 
+  scroll-snap-type: x mandatory;
+}
+@media (max-width: 992px) {
+  .calculatordetailscards {
+    padding: 12px 0;
   }
-  
-  /* Each card */
+}
+
+/* new added */
+.calculatordetailscards .contentpicparent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: calc(250px / 1351 * 1200);
+  width: 100%;
+  margin: 0 10px;
+  scroll-snap-align: start;
+  background: #fff;
+}
+ /* new added  */
+.calculatordetailscards .contentdata {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Ensures children are spaced properly */
+  text-align: center;
+  padding: 0 10px;
+  flex: 1; /* Ensure it takes full height */
+}
+
+.calculatordetailscards .imagedata img{
+  width: 100%;
+  height: 100px;
+}
+
+.calculatordetailscards .contentdata {
+  text-align: center;
+  padding:0px 10px;
+}
+
+.calculatordetailscards .contentdata p.button-container{
+  margin-top: auto;
+}
+
+.calculatordetailscards .contentdata p{
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 18.77px;
+  color:#3b3b3b;
+  margin:0;
+}
+
+.calculatordetailscards .contentdata .responsive-visibility{
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.08px;
+  text-align: center;
+  color:#3b3b3b;
+}
+
+.calculatordetailscards .button-container a.button {
+  display: inline-block;
+  padding: 7px 15px;
+  text-decoration: none;
+  color: #3b3b3b;
+  border-radius: 2px;
+  border: 1px solid #3CB8FF
+}
+
+@media (max-width: 1351px) {
   .calculatordetailscards .contentpicparent {
-    flex: 0 0 auto; /* Ensure the cards don't shrink and maintain their width */
-    margin: 1rem; /* Adjust the spacing as needed */
-    box-sizing: border-box;
+    max-width: calc(250px / 1351 * 1200);
+    margin: 0 10px; 
+    width:100%;
+    background-color: #fff;
   }
-  
-  /* Center-align text inside the cards */
-  .calculatordetailscards .contentdata {
-    text-align: center;
+}
+
+@media (max-width: 1200px) {
+  .calculatordetailscards .contentpicparent {
+    max-width: calc(250px / 1351 * 1200); 
+    width:100%;
+    margin: 0 10px; 
   }
-  
-  /* Make the first <p> tag and button text bold and increase size */
-  .calculatordetailscards .contentdata p:first-of-type {
-    font-weight: bold;
-    font-size: 1.2rem; /* Adjust size as needed */
+}
+
+
+@media (max-width: 992px) {
+  .calculatordetailscards {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto; 
+    scroll-snap-type: x mandatory; 
+    justify-content: flex-start;
+    background: #fff;
+    padding: 0 10px; 
   }
-  
-  .calculatordetailscards .contentdata .button {
-    font-weight: bold;
-    font-size: 1.1rem; /* Adjust size as needed */
-    border: 1px solid #3CB8FF; /* Add blue border */
-    padding: 0.5rem 1rem; /* Adjust padding as needed */
-    background: none; /* Ensure no background color */
-    color: black; /* Text color */
-    cursor: pointer; /* Change cursor on hover */
+
+  .calculatordetailscards .contentpicparent {
+    flex: 0 0 auto;
+    max-width: 300px; 
+    height: 300px;
+    width: calc(100% - 40px); 
+    margin-right: 20px;
+    scroll-snap-align: start; 
+    background: #F4F4F4;
   }
-  
-  /* Ensure images don't overflow their containers */
+
   .calculatordetailscards .imagedata img {
-    max-width: 100%;
-    height: auto;
+    height: auto; 
+    max-height: 150px;
   }
-  
-  /* Responsive visibility for mobile */
-  @media screen and (max-width: 768px) {
-    .responsive-visibility {
-      display: block !important;
-    }
-  
-    /* Adjust layout for smaller screens */
-    .calculatordetailscards .contentpicparent {
-      flex: 1 1 calc(100% - 2rem); /* One card per row */
-    }
-  }
-  
-  @media screen and (min-width: 769px) and (max-width: 1024px) {
-    /* Adjust layout for tablets */
-    .calculatordetailscards .contentpicparent {
-      flex: 1 1 calc(50% - 2rem); /* Two cards per row */
-    }
-  }
-  
-  @media screen and (min-width: 1025px) {
-    /* Adjust layout for larger screens */
-    .calculatordetailscards .contentpicparent {
-      flex: 1 1 calc(33.333% - 2rem); /* Three cards per row */
-    }
-  }
-  
+}
+

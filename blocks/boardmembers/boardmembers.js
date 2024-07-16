@@ -90,14 +90,14 @@ export default async function decorate(block) {
         popup.style.position = 'fixed';
         popup.style.top = '50%';
         popup.style.left = '50%';
-        popup.style.transform = 'translate(-50%, -50%)';
+        // popup.style.transform = 'translate(-50%, -50%)';
         popup.style.border = '1px solid #ccc';
-        popup.style.padding = '20px';
+        popup.style.padding = '40px';
         popup.style.backgroundColor = 'white';
         popup.style.zIndex = 1000;
         popup.style.maxWidth = '80%';
         popup.style.maxHeight = '80%';
-        popup.style.overflow = 'auto';
+        // popup.style.overflow = 'auto';
         document.body.appendChild(popup);
 
         const popupContent = document.createElement('div');
@@ -136,6 +136,9 @@ export default async function decorate(block) {
 
         // Add click event listener to the overlay to close the popup
         overlay.addEventListener('click', hidePopup);
+
+        // Add click event listener to the close icon to close the popup
+        crossicon.addEventListener('click', hidePopup);
       })
       .catch((error) => {
         console.error('Error fetching the HTML:', error);

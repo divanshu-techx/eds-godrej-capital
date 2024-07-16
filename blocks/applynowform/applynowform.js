@@ -1,7 +1,24 @@
-import createField from './form-fields.js';
+import { createForm, generatePayload, handleSubmitError } from '../../blocks/form/form.js';
 import { sampleRUM } from '../../scripts/aem.js';
+import { getDataAttributes } from '../utils/common.js';
 
-Const
+const VALIDATION_DATA = [
+    {
+        fieldName: "FullName",
+        regexPattern: /^[A-Za-z\s]+$/,
+        validationMessage: "Please enter a valid name"
+    },
+    {
+        fieldName: "EnterEmail",
+        regexPattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+        validationMessage: "Please enter a valid email address"
+    },
+    {
+        fieldName: "Mobile",
+        regexPattern: /^[0-9]{10}$/,
+        validationMessage: "Please enter a valid mobile number"
+    }
+];
 
 export function ApiCall(METHOD, url, data) {
     // Return a promise
@@ -128,8 +145,8 @@ export async function handleVerify(payload, userMobileNumber) {
                 `https://h9qipagt5.godrejfinance.com/v1/ehf/outsources/validateotp/${userMobileNumber}/${retrieveOTP()}`,
                 payload,
             );
-            if (response.ok) {
-                window.location.href = 'https://your-redirect-url.com/success-page';
+            if (response.status) {
+                window.location.href = '/apply-now-form/thankyou';
             } else {
                 // Handle unsuccessful validation
                 console.error('OTP validation failed:', response);
@@ -147,13 +164,20 @@ export function autoFocusEl(form) {
 
     inputs.forEach((input, index) => {
         input.addEventListener('input', () => {
-            if (input.value.length === 1 && index < inputs.length - 1) {
-                inputs[index + 1].focus();
+            // Check if the input value is a single digit
+            if (/^\d$/.test(input.value)) {
+                input.parentNode.classList.add('filled');
+                if (index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            } else {
+                input.value = ''; // Clear the input if it's not a digit
             }
         });
 
         input.addEventListener('keydown', (e) => {
             if (e.key === 'Backspace' && input.value === '' && index > 0) {
+                input.parentNode.classList.remove('filled');
                 inputs[index - 1].focus();
             }
         });
@@ -169,7 +193,7 @@ export function changeNumberFunctinality(block) {
         });
         const registrationFormEl = block.querySelectorAll('.step1');
         registrationFormEl.forEach((el) => {
-            el.style.display = 'block';
+            el.style.display = 'flex';
         });
 
         const submitBtnRegistration = block.querySelector(
@@ -180,50 +204,6 @@ export function changeNumberFunctinality(block) {
 }
 
 let userMobNo = null;
-
-async function createForm(formHref) {
-    const { pathname } = new URL(formHref);
-    const resp = await fetch(pathname);
-    const json = await resp.json();
-
-    const form = document.createElement('form');
-    // eslint-disable-next-line prefer-destructuring
-    form.dataset.action = pathname.split('.json')[0];
-
-    const fields = await Promise.all(json.data.map((fd) => createField(fd, form)));
-    fields.forEach((field) => {
-        if (field) {
-            form.append(field);
-        }
-    });
-
-    // group fields into fieldsets
-    const fieldsets = form.querySelectorAll('fieldset');
-    fieldsets.forEach((fieldset) => {
-        form.querySelectorAll(`[data-fieldset="${fieldset.name}"`).forEach((field) => {
-            fieldset.append(field);
-        });
-    });
-
-    return form;
-}
-
-function generatePayload(form) {
-    const payload = {};
-
-    [...form.elements].forEach((field) => {
-        if (field.name && field.type !== 'submit' && !field.disabled) {
-            if (field.type === 'radio') {
-                if (field.checked) payload[field.name] = field.value;
-            } else if (field.type === 'checkbox') {
-                if (field.checked) payload[field.name] = payload[field.name] ? `${payload[field.name]},${field.value}` : field.value;
-            } else {
-                payload[field.name] = field.value;
-            }
-        }
-    });
-    return payload;
-}
 
 function validateCheckboxes(form) {
     // Select the checkboxes you want to validate
@@ -248,13 +228,6 @@ function showError(fieldset, message) {
     errorDiv.textContent = message;
 }
 
-function handleSubmitError(form, error) {
-    // eslint-disable-next-line no-console
-    console.error(error);
-    form.querySelector('button[type="submit"]').disabled = false;
-    sampleRUM('form:error', { source: '.form', target: error.stack || error.message || 'unknown error' });
-}
-
 async function handleSubmit(form) {
     if (form.getAttribute('data-submitting') === 'true') return;
 
@@ -274,7 +247,7 @@ async function handleSubmit(form) {
 
         // create payload
         const payload = generatePayload(form);
-        console.log(payload);
+
 
         userMobNo = payload.Mobile;
         console.log(userMobNo);
@@ -291,7 +264,7 @@ async function handleSubmit(form) {
 
         console.log(otpEl.textContent);
 
-        const mobileNoVerifyStep = document.querySelector('#form-mobile-number');
+        const mobileNoVerifyStep = document.querySelector('.verify-step.field-wrapper #form');
         if (mobileNoVerifyStep) {
             mobileNoVerifyStep.value = userMobNo;
             mobileNoVerifyStep.readOnly = true;
@@ -332,7 +305,47 @@ async function handleSubmit(form) {
     }
 }
 
+function createRedirection(attributesObj) {
+    const termsAndConditionRedirection = document.createElement('a');
+    termsAndConditionRedirection.classList.add('terms-and-condition-re');
+    termsAndConditionRedirection.setAttribute('href', attributesObj.termsandconditionsurl);
+    termsAndConditionRedirection.innerText = attributesObj.termsandconditionslabel;
+    return termsAndConditionRedirection;
+}
+
+function changesScreenChange(el, dataAttrObj, initialContent) {
+    if (window.innerWidth <= 900) {
+        el.innerText = dataAttrObj.editnumberlabelmobileandtablet;
+    } else {
+        el.innerText = initialContent;
+    }
+}
+
+function addChangeEventOnCheckboxes(block) {
+    const checkboxes = block.querySelectorAll('.step1.field-wrapper.checkbox-wrapper.selection-wrapper input[type="checkbox"]');
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', (e) => {
+            const parentWrapper = checkbox.closest('.step1.field-wrapper.checkbox-wrapper.selection-wrapper');
+            // const label = parentWrapper.querySelector('label').textContent;
+
+            if (checkbox.checked) {
+                parentWrapper.classList.add('checked');
+                // checkbox.value = label;
+            } else {
+                parentWrapper.classList.remove('checked');
+                // checkbox.value = ''; // or set it back to the default value if needed
+            }
+        });
+    });
+}
+
+
 export default async function decorate(block) {
+
+    const container = block.closest(".applynowform-container");
+    const attributesObj = getDataAttributes(container);
+    console.log(attributesObj)
     const formLink = block.querySelector('a[href$=".json"]');
     if (!formLink) return;
 
@@ -345,20 +358,34 @@ export default async function decorate(block) {
         el.style.display = 'none';
     });
 
+    const ChangeNoEl = block.querySelector('#change-number');
+    const initialContent = ChangeNoEl.innerText;
+    console.log(initialContent);
+    changesScreenChange(ChangeNoEl, attributesObj, initialContent);
+    window.addEventListener('resize', () => changesScreenChange(ChangeNoEl, attributesObj, initialContent));
+    const tAndCredirectionStepFirst = createRedirection(attributesObj)
+    const tAndCredirectionStepSecond = createRedirection(attributesObj)
+
+
+    block.querySelector('#form-description').append(tAndCredirectionStepFirst)
+    block.querySelector('#form-message4').append(tAndCredirectionStepSecond)
+    addInitiallychecked(block)
+    addChangeEventOnCheckboxes(block);
+    disableSubmitUntilFillForm(block)
     changeNumberFunctinality(block);
 
     form.addEventListener('submit', (e) => {
-        console.log('clicked');
         e.preventDefault();
         const valid = form.checkValidity();
-        if (valid) {
+        console.log(valid)
+        if (validateFormInput(VALIDATION_DATA, block)) {
             handleSubmit(form);
             const registrationFormEl = block.querySelectorAll('.step1');
             registrationFormEl.forEach((el) => {
                 el.style.display = 'none';
             });
             verifyFormEl.forEach((el) => {
-                el.style.display = 'block';
+                el.style.display = 'flex';
             });
         } else {
             const firstInvalidEl = form.querySelector(':invalid:not(fieldset)');
@@ -368,6 +395,28 @@ export default async function decorate(block) {
             }
         }
     });
+
+    function addInitiallychecked(block) {
+        const currentUrl = new URL(window.location.href);
+        try {
+            let categoryParam = currentUrl.searchParams.get('category');
+            categoryParam = categoryParam.replace(/_/g, ' ');
+            if (categoryParam) {
+                const checkboxes = block.querySelectorAll('input[type="checkbox"][name="loanType"]');
+                checkboxes.forEach((checkbox => {
+                    if (checkbox.getAttribute('value').toLowerCase() == categoryParam.toLowerCase()) {
+                        checkbox.checked = true;
+                        checkbox.parentNode.classList.add('checked')
+                    }
+                }))
+            }
+
+        } catch (error) {
+
+        }
+
+
+    }
 
     function validateForm() {
         const fields = document.querySelectorAll('#form-box input[type="text"]');
@@ -417,3 +466,144 @@ export default async function decorate(block) {
         }
     });
 }
+
+
+
+
+function validateFormInput(rules, block) {
+    // Clear previous error messages
+    block.querySelectorAll('.error-message').forEach(el => el.remove());
+
+    let isValid = true;
+
+    rules.forEach(rule => {
+        const inputField = block.querySelector(`[name="${rule.fieldName}"]`);
+        const fieldValue = inputField.value;
+        if (!fieldValue || !rule.regexPattern.test(fieldValue)) {
+            isValid = false;
+            // Create error message div
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = rule.validationMessage;
+
+            // Append the error message to the corresponding field's parent node
+            inputField.parentNode.appendChild(errorDiv);
+
+        }
+    });
+
+    const checboxes = block.querySelectorAll('.step1.field-wrapper input[type="checkbox"]');
+    let isChecked = false;
+    for (let index = 0; index < checboxes.length; index++) {
+        if (checboxes[index].checked === true) {
+
+            isChecked = true;
+
+        }
+    }
+    if (!isChecked) {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        errorDiv.textContent = 'please check the products you intrested';
+        checboxes[0].parentNode.parentNode.appendChild(errorDiv)
+
+    }
+    console.log('final return value', isChecked)
+
+
+    return (isValid && isChecked);
+}
+
+function disableSubmitUntilFillForm(block) {
+    const inputs = Array.from(block.querySelectorAll('.step1.field-wrapper input'));
+    const submitButton = block.querySelector('.step1.submit-registration button');
+
+    const validators = {
+        text: value => /^[a-zA-Z\s]*$/.test(value.trim()),
+        tel: value => /^\d{10}$/.test(value.trim()),
+        email: value => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value.trim())
+    };
+
+    const errorMessages = {
+        text: 'Please enter valid text.',
+        tel: 'Please enter a valid 10-digit phone number.',
+        email: 'Please enter a valid email address.'
+    };
+
+    function createErrorElement(input) {
+        let errorElement = input.parentNode.querySelector('.error-message');
+        if (!errorElement) {
+            errorElement = document.createElement('span');
+            errorElement.className = 'error-message';
+            input.parentNode.appendChild(errorElement);
+        }
+        return errorElement;
+    }
+
+    function showErrorMessage(input, message) {
+        const errorElement = createErrorElement(input);
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
+    }
+
+    function hideErrorMessage(input) {
+        const errorElement = createErrorElement(input);
+        errorElement.textContent = '';
+        errorElement.style.display = 'none';
+    }
+
+    function validateInput(input, showErrors = true) {
+        const value = input.value.trim();
+        const type = input.type;
+        let isValid = type in validators ? validators[type](value) : true;
+
+        if (type === 'tel' && !/^\d*$/.test(value)) {
+            isValid = false;
+        }
+
+        if (isValid) {
+            hideErrorMessage(input);
+        } else if (showErrors) {
+            showErrorMessage(input, errorMessages[type]);
+        }
+        return isValid;
+    }
+
+    function validateForm() {
+        let isInputFilled = inputs.every(input => input.type === 'checkbox' || validateInput(input, false));
+        let isCheckboxChecked = inputs.some(input => input.type === 'checkbox' && input.checked);
+
+        submitButton.disabled = !(isInputFilled && isCheckboxChecked);
+    }
+
+    inputs.forEach(input => {
+        let hasFocused = false;
+
+        input.addEventListener('focus', () => {
+            hasFocused = true;
+        });
+
+        input.addEventListener('blur', () => {
+            if (hasFocused) {
+                validateInput(input);
+                validateForm();
+            }
+        });
+
+        input.addEventListener('input', () => {
+            if (input.type === 'tel') {
+                input.value = input.value.replace(/[^\d]/g, '').slice(0, 10); // Allow only digits and limit to 10 characters
+            } else if (input.type === 'text') {
+                input.value = input.value.replace(/[^a-zA-Z\s]/g, '').replace(/\s{2,}/g, ' ');
+            }
+            validateForm();
+        });
+
+        if (input.type === 'checkbox') {
+            input.addEventListener('change', validateForm);
+        }
+    });
+
+    validateForm();
+}
+

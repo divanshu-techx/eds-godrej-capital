@@ -1,0 +1,76 @@
+.customer-support-information{
+    display: flex;
+    gap:10px;
+    justify-content: center;
+    /* padding: 16px 26px; */
+}
+
+.customer-support-information img {
+    width: 24px;
+    height: 24px;
+}
+
+.customer-support-information .custom-title-icon{
+    max-width: 177px;
+    width: 100%;
+}
+
+.customer-support-information .custom-title-icon div:first-child{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 4px 0px #00000014;
+    max-height: 84px;
+    height: 60px;
+}
+
+.customer-support-information .custom-title-icon div:last-child{
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14.08px;
+    text-align: center;
+}
+
+
+/* for hide show mobile or desktop view */
+
+/* Mobile view elements are hidden by default */
+.supportcards-column-first-wrapper,
+.supportcards-column-second-wrapper,
+.supportcards-column-third-wrapper,
+.support-table-ui {
+  display: none;
+}
+
+/* Desktop view elements are hidden by default */
+.customer-support-information-container {
+  display: none;
+}
+
+/* Override defaults for desktop view using a media query */
+@media (min-width: 769px) {
+  .supportcards-column-first-wrapper,
+  .supportcards-column-second-wrapper,
+  .supportcards-column-third-wrapper,
+  .support-table-ui {
+    display: block;
+  }
+}
+
+/* Override defaults for mobile view using a media query */
+@media (max-width: 1198px) {
+  .customer-support-information-container {
+        display: block;
+        border-radius: 20px 20px 0px 0px;
+        position: relative;
+        bottom: 30px;
+        background-color: #fff;
+        padding-bottom: 0px;
+        padding: 0px 26px;
+  }
+}
+
+/* main .section.customer-support-information-container.accordion-support-container.navigation-support-container.mobilegrievancetab-container{
+  padding:unset;
+} */
+
