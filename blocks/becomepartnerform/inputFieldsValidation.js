@@ -54,6 +54,19 @@ export function validateMobileNumber(mobileField) {
     }
 }
 
+// Function to validate the dropdown
+export function validateLoanProducts(locationDropdown) {
+    const selectedValue = locationDropdown.value;
+
+    if (selectedValue === "") {
+        handleErrorMessages(false, locationDropdown, 'Please select a location.');
+        return false;
+    } else {
+        handleErrorMessages(true, locationDropdown);
+        return true;
+    }
+}
+
 export function handleErrorMessages(condition, fieldset, errorMessageText) {
     let errorMessage = fieldset.nextElementSibling;
 
