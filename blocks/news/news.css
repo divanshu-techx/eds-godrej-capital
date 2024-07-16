@@ -1,202 +1,300 @@
-/* Container styling *//* Container styling */
-.news-and-press-container {
+.news.news-tab .news-and-press-container .tabs-and-controls-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  width: 100%;
-}
-
-/* Tabs and controls container styling */
-.tabs-and-controls-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-/* Tabs styling */
-.news-and-release-tabs {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.tab {
-  padding: 10px 20px;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin: 0 10px;
-}
-
-.tab.active
-{
-  background-color: #007bff;
-  color: white;
-}
-
-/* Controls container styling */
-.news-and-release-controls {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-  gap: 10px;
-  flex-direction: row;
-}
-
-.controls input,
-.controls select {
+  justify-content: space-between;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  flex-wrap: nowrap; 
+}
+@media(max-width:767px){
+  .news.news-tab .news-and-press-container .tabs-and-controls-container{
+    justify-content: center; 
+  }
 }
 
-/* Pagination container styling */
-.pagination {
+.news.news-tab .news-and-press-container .news-and-release-tabs {
   display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+  flex-grow: 0;
+  padding:10px;
+  margin-right:10px;
+  background-color:#f4f4f4;
+  border-radius: 4px;
 }
 
-/* Content container styling */
-#contentContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  width: 100%;
-}
-
-/* News container card styling */
-.newsContainer {
-  width: 300px;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.newsContainer h3 {
-  margin: 0 0 10px 0;
-  font-size: 18px;
-}
-
-.newsContainer p {
-  margin: 0;
+.news.news-tab .news-and-press-container .news-and-release-tabs .tab {
+  padding: 12px 10px;
+  cursor: pointer;
+  background-color: #fff;
+  margin-right: 5px;
+  border-radius: 4px;
   font-size: 14px;
+  font-weight: 500;
+  line-height: 16.42px;
+  text-align: center;
 }
 
-/* Pagination button styling */
-.page-button {
+@media (max-width: 767px) {
+  .news.news-tab .news-and-press-container .news-and-release-tabs .tab {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 14.08px;
+    text-align: center;
+    padding: 8px 8px;
+  }
+}
+
+.news.news-tab .news-and-press-container .news-and-release-tabs .tab.active {
+  background-color: #3CB8FF;
+  ;
+  color: white;
+  border-radius: 4px;
+}
+
+.news.news-tab .news-and-press-container .news-and-release-controls {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+@media(max-width:767px){
+  .news.news-tab .news-and-press-container .news-and-release-controls {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .news-and-press-container .search-input-container, .sort-dropdown-container {
+    flex: 1; 
+    min-width: 48%; 
+  }
+  
+  .news-and-press-container .search-input-container input, .sort-dropdown-container select {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+.news.news-tab .news-and-press-container .search-input-container {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  margin-right: 10px;
+}
+
+.news.news-tab .news-and-press-container .news-and-release-controls .search-input-container input {
+  width: 100%;
+  border: none;
+  outline: none;
   padding: 10px;
-  margin: 0 5px;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  font-size: 16px;
+  background: #F1F1F1;
+  box-sizing: border-box;
+  height:50px;
+}
+@media (max-width: 767px) {
+  .news.news-tab .news-and-press-container .news-and-release-controls .search-input-container input{
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    height: 40px;
+  }
 }
 
-.page-button.active-pagination {
-  background-color: #007bff;
-  color: white;
+.news.news-tab .news-and-press-container .sort-dropdown-container {
+  flex-grow: 0;
 }
 
-.container {
+.news.news-tab .news-and-press-container .sort-dropdown-container select {
+  padding: 10px;
+  border: inherit;
+  font-size: 16px;
+  text-align: center;
+  background: #F4F4F4;
+  border-radius: 4px;
+}
+
+.news-and-press-container .news-and-press-container .pagination-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 767px) {
+  .news.news-tab .news-and-press-container .tabs-and-controls-container {
+    flex-wrap: wrap; 
+  }
+
+  .news.news-tab .news-and-press-container .news-and-release-tabs {
+    margin-bottom: 10px; 
+  }
+
+  .news.news-tab .news-and-press-container .search-input-container {
+    flex-grow: 1;
+    margin-right: 0;
+    /* margin-bottom: 10px; */
+    padding:unset;
+  }
+
+  .news.news-tab .news-and-press-container .sort-dropdown-container {
+    width: 100%; 
+  }
+
+  .news.news-tab .news-and-press-container .search-input-container input,
+  .news.news-tab .news-and-press-container .sort-dropdown-container select {
+    font-size: 14px;
+  }
+
+  .news.news-tab .news-and-press-container .tab {
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+}
+
+.news-and-press-container .contentContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  transition: grid-template-columns 0.3s ease;
+}
+
+.news-and-press-container .newsContainer {
+  padding: 10px;
+  background: #F4F4F4;
+  border-radius:4px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  min-height: 255px;
+  transition: padding 0.3s ease, font-size 0.3s ease; 
+}
+
+.news-and-press-container .newsContainer .heading_title {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 18.77px;
+  text-align: left;
+  transition: font-size 0.3s ease; 
+}
+
+.news-and-press-container .newsContainer p.discription-element {
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 28.15px;
+  text-align: left;
+  margin: 5px 0px;
+  transition: font-size 0.3s ease;
+  color:#3b3b3b;
+}
+
+.news-and-press-container .newsContainer p.publish-date {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 14.13px;
+  text-align: left;
+  margin-bottom: 10px;
+  transition: font-size 0.3s ease;
+}
+
+.news-and-press-container .newsContainer a.readArticle_anchor {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 14.13px;
+  text-align: left;
+  text-decoration: none;
+  margin-top:auto;
+}
+
+@media (max-width: 768px) {
+  .news-and-press-container .contentContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .news-and-press-container .newsContainer p.discription-element {
+
+  }
+  .news-and-press-container .newsContainer {
+    padding: 10px;
+  }
+
+  .news-and-press-container .newsContainer .heading_title{
+    font-size: 16px;
+  }
+
+  .news-and-press-container .newsContainer a.readArticle_anchor {
+    font-size: 12px;
+  }
+}
+
+.news-and-press-container .pagination-wrapper {
+  display: flex;
   align-items: center;
-  width: 100%;
-}
-
-/* Tabs and controls container styling */
-.tabs-and-controls-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-/* Tabs styling */
-news-and-release-tabs
- {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.tab {
-  padding: 10px 20px;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin: 0 10px;
-}
-
-.tab.active {
-  background-color: #007bff;
-  color: white;
-}
-
-/* Controls container styling */
-.news-and-release-controls{
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+  justify-content: space-around;
   gap: 10px;
 }
-.news-and-release-controls input,
-.news-and-release-controls select {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
 
-/* Pagination container styling */
-.pagination {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-/* Content container styling */
-#contentContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  width: 100%;
-}
-
-/* News container card styling */
-.newsContainer {
-  width: 300px;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.newsContainer h3 {
-  margin: 0 0 10px 0;
-  font-size: 18px;
-}
-
-.newsContainer p {
-  margin: 0;
-  font-size: 14px;
-}
-
-/* Pagination button styling */
-.page-button {
-  padding: 10px;
-  margin: 0 5px;
+.news-and-press-container .scroll-button {
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  padding: 10px 15px;
   cursor: pointer;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
-.page-button.active-pagination {
-  background-color: #007bff;
-  color: white;
+.news-and-press-container .scroll-button:hover {
+  background-color: #e0e0e0;
+}
+
+.news-and-press-container .pagination {
+  display: flex;
+  gap: 5px;
+}
+
+.news-and-press-container .page-span {
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 60px;
+  letter-spacing: 0.01em;
+  text-align: center;
+  color:#3b3b3b;
+  transition: background-color 0.3s ease;
+}
+
+.news-and-press-container .page-span.active-pagination {
+    color:rgba(140, 177, 51, 1);
+    font-weight: 600;
+    text-decoration: underline;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 60px;
+    letter-spacing: 0.01em;
+    text-align: center;
+
+}
+
+.news-and-press-container .pagination-wrapper{
+  margin-bottom:20px;
+}
+
+
+.news-and-press-container .pagination-wrapper{
+  padding:10px 0px;
+  background: #F4F4F4;
+}
+
+.news-and-press-container .pagination-wrapper .scroll-button.left,.pagination-wrapper .scroll-button.right{
+  color: #fff;
+  background-color: #3CB8FF;
+  border-radius: 4px;
+}
+
+.news-and-press-container .pagination-wrapper .scroll-button.left img {
+  transform: rotate(180deg);
+}
+
+.news-and-press-container .pagination-wrapper  button.scroll-button:disabled{
+  background:var(--color-dark-grey);
+  cursor: not-allowed;
 }
