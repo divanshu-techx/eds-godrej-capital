@@ -681,11 +681,9 @@ fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper:has(input:not(:place
     }
 }
 
-#form-selectlocationplaceholder.disabled-true,
-#form-loancategoryplaceholder.disabled-true {
+.form1.disabled-dropdown {
     cursor: pointer;
     pointer-events: none;
-    ;
 }
 
 .becomepartnerform input:-webkit-autofill,

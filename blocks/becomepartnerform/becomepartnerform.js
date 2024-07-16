@@ -2,6 +2,7 @@ import { createForm, generatePayload } from '../../blocks/form/form.js';
 import { restrictNameInputs, restrictPhoneNumberInputs, validateNameField, validateEmail, validateMobileNumber, handleErrorMessages } from '../becomepartnerform/inputFieldsValidation.js';
 
 const apiUrl = getDataAttributeValueByName('apiurl');
+const formSheetUrl = getDataAttributeValueByName('sheeturl');
 const thankYouPageUrl = getDataAttributeValueByName('thankyoupageurl');
 
 export default async function decorate(block) {
@@ -35,10 +36,8 @@ export default async function decorate(block) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const jsonUrl = 'https://main--eds-godrej-capital--divanshu-techx.hlx.page/become-a-partner/become-a-partner-form-sheet.json';
-    console.log(jsonUrl);
 
-    fetch(jsonUrl)
+    fetch(formSheetUrl)
         .then(response => response.json())
         .then(data => {
             const dropdown = document.getElementById('categoryDropdown');
@@ -370,15 +369,6 @@ function handlSelectOnTabAndMob(block) {
     })
 
 }
-function enforceSingleDigit(event) {
-    const inputField = event.target;
-    let { value } = inputField;
-    // Allow only numeric input and truncate to one character
-    if (!/^\d$/.test(value)) {
-        value = value.replace(/[^\d]/g, '');
-    }
-    inputField.value = value.slice(0, 1);
-};
 
 function otpsEforcements(block) {
     const otpFieldsEls = block.querySelectorAll('#form-otpfieldset input[type="text"]');
