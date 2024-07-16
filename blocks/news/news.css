@@ -9,6 +9,13 @@
   .news.news-tab .news-and-press-container .tabs-and-controls-container{
     justify-content: center; 
   }
+  .section.news-feeds-section{
+        border-radius: 20px 20px 0px 0px;
+        position: relative;
+        bottom: 30px;
+        background-color: #fff;
+        padding-bottom: 0px;
+  }
 }
 
 .news.news-tab .news-and-press-container .news-and-release-tabs {
@@ -79,6 +86,29 @@
   align-items: center;
   padding: 5px;
   margin-right: 10px;
+  background: #F1F1F1;
+  border-radius: 4px;
+}
+
+.search-input-container input[type="text"] {
+  flex: 1; 
+  border: none; 
+  outline: none; 
+  padding: 8px; 
+  font-size: 14px;
+}
+
+.search-input-container .search-icon {
+  width: 24px; 
+  height: 24px; 
+  padding-left: 10px;
+}
+@media (max-width: 767px) {
+  .search-input-container .search-icon {
+    width: 16px; 
+    height: 16px; 
+    padding-left: 5px;
+  }
 }
 
 .news.news-tab .news-and-press-container .news-and-release-controls .search-input-container input {
@@ -108,10 +138,26 @@
 .news.news-tab .news-and-press-container .sort-dropdown-container select {
   padding: 10px;
   border: inherit;
-  font-size: 16px;
-  text-align: center;
+  text-align: center!important;
   background: #F4F4F4;
   border-radius: 4px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18.42px;
+  color:#3b3b3b;
+}
+@media (max-width: 767px) {
+  .news.news-tab .news-and-press-container .sort-dropdown-container select {
+    padding: 10px;
+    border: inherit;
+    text-align: center!important;
+    background: #F4F4F4;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.42px;
+    color:#3b3b3b;
+  }
 }
 
 .news-and-press-container .news-and-press-container .pagination-wrapper{
@@ -168,6 +214,11 @@
   min-height: 255px;
   transition: padding 0.3s ease, font-size 0.3s ease; 
 }
+@media (max-width: 767px) {
+  .news-and-press-container .newsContainer {
+    min-height: unset;
+  }
+}
 
 .news-and-press-container .newsContainer .heading_title {
   font-size: 16px;
@@ -211,7 +262,10 @@
   }
 
   .news-and-press-container .newsContainer p.discription-element {
-
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.42px;
+    text-align: left;
   }
   .news-and-press-container .newsContainer {
     padding: 10px;
