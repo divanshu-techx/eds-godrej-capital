@@ -2,9 +2,6 @@
     text-align: center;
 }
 
-/* mobile */
-
-/* first row div */
 .block.teaser-thankyou-cards {
     display: flex;
     flex-direction: column;
@@ -17,16 +14,16 @@
     flex-flow: column;
 }
 
-/* each teaser div in the row */
 .block.teaser-thankyou-cards .teaser {
     box-sizing: border-box;
     flex: 0 1 auto;
 }
 
-/* teaser image */
 .block.teaser-thankyou-cards p.image {
-    display: block;
-    margin: 0 0 1em;
+        margin: 0;
+        position: absolute;
+        inset: 0;
+        z-index: -1;
 }
 
 .block.teaser-thankyou-cards img {
@@ -83,6 +80,10 @@
 
 .teaser-cards-1 .block.teaser-thankyou-cards p.text {
     display: none;
+}
+
+.teaser-cards-1 .block.teaser-thankyou-cards p.special-paragraph {
+    max-width: 426px;
 }
 
 .block.teaser-thankyou-cards a {
