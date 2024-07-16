@@ -364,7 +364,7 @@ function createPaginationContainer(block) {
     if (desktopPaginationContainer) {
       desktopPaginationContainer.style.display = 'none';
     }
-    mobilePaginationContainer.style.display = 'block';
+    mobilePaginationContainer.style.display = 'flex';
 
     return mobilePaginationContainer;
   } else {
@@ -379,7 +379,7 @@ function createPaginationContainer(block) {
     if (mobilePaginationContainer) {
       mobilePaginationContainer.style.display = 'none';
     }
-    desktopPaginationContainer.style.display = 'block';
+    desktopPaginationContainer.style.display = 'flex';
 
     return desktopPaginationContainer;
   }
