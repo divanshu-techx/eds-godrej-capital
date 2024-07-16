@@ -57,7 +57,13 @@ export default async function decorate(block) {
   searchInput.type = 'text';
   searchInput.id = 'searchInput';
   searchInput.placeholder = inputFieldPlaceholder;
+  const searchIconImg = document.createElement('img');
+  searchIconImg.src = searchIcon;
+  searchIconImg.alt = 'Search';
+  searchIconImg.className = 'search-icon';
+  searchInputContainer.appendChild(searchIconImg);
   searchInputContainer.appendChild(searchInput);
+  
 
   const sortDropdownContainer = document.createElement('div');
   sortDropdownContainer.className = 'sort-dropdown-container';
