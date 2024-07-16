@@ -150,6 +150,7 @@ table th:last-child {
   background-color: #3cb8ff;
   color: #fff;
   cursor: initial;
+  border:none;
 }
 
 .grievance-tabs .grievance-tabs-list button[aria-selected="false"]:hover,
