@@ -26,6 +26,23 @@
         z-index: -1;
 }
 
+@media (max-width: 767px) {
+    .block.teaser-thankyou-cards p.image {
+        position: relative; 
+        inset: initial; 
+        z-index: -1;
+    }
+}
+
+@media (max-width: 767px) {
+    .block.teaser-thankyou-cards p.image img {
+        display: block; /* Ensure the image is visible */
+        width: 100%;
+        height: auto; /* Maintain aspect ratio */
+        object-fit: cover; /* Ensure the image fills its container */
+    }
+}
+
 .block.teaser-thankyou-cards img {
     max-width: 100%;
     object-fit: fill;
@@ -175,12 +192,12 @@
         margin-block-start: 0;
     }
 
-    .teaser-cards-1 .block.teaser-thankyou-cards p.image {
+    /* .teaser-cards-1 .block.teaser-thankyou-cards p.image {
         margin: 0;
         position: absolute;
         inset: 0;
         z-index: -1;
-    }
+    } */
 
     .teaser-cards-1 .block.teaser-thankyou-cards .teaser p:last-child{
         font-size: 14px;
