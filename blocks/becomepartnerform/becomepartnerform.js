@@ -356,13 +356,17 @@ function getDataAttributeValueByName(name) {
 function handlSelectOnTabAndMob(block) {
     const dropdowns = block.querySelectorAll('.form1 #form-loancategoryplaceholder , .form1 #form-selectlocationplaceholder');
     dropdowns.forEach((dropdown) => {
-        dropdown.parentNode.nextElementSibling.children[0].classList.add('hide-options');
+        const fieldsetWrapper = dropdown.closest('.form1').nextElementSibling.querySelector('fieldset');
+        console.log(fieldsetWrapper)
 
-        dropdown.addEventListener('click', function () {
-            this.classList.toggle('active-dropdown')
-            this.parentNode.nextElementSibling.children[0].classList.toggle('hide-options');
-        })
+        if (fieldsetWrapper) {
+            fieldsetWrapper.classList.add('hide-options');
 
+            dropdown.addEventListener('click', function () {
+                this.classList.toggle('active-dropdown');
+                fieldsetWrapper.classList.toggle('hide-options');
+            });
+        }
     })
 
 }
@@ -401,10 +405,11 @@ function otpsEforcements(block) {
 }
 
 function showSelectedItems(block, fieldsestId, slectorSelecor, hideOnSelect = false) {
+    const fieldsetContainer = block.querySelector(`${fieldsestId}`);
     const selectedFieldsetContainer = block.querySelector(`${fieldsestId}`).parentNode;
     const selectedItemContainer = document.createElement('div');
     selectedItemContainer.classList.add('select-item-container');
-    selectedFieldsetContainer.appendChild(selectedItemContainer);
+    selectedFieldsetContainer.insertBefore(selectedItemContainer, fieldsetContainer);
     const selectedSelectable = block.querySelectorAll(`${slectorSelecor}`);
 
     selectedSelectable.forEach(function (selected) {
@@ -425,6 +430,7 @@ function showSelectedItems(block, fieldsestId, slectorSelecor, hideOnSelect = fa
                     selectedItem.classList.add('selected-item-selectable');
                     selectedItem.innerText = text;
                     selectedItemContainer.appendChild(selectedItem);
+                    // selectedItemContainer.insertBefore(selectedItem, fieldsetContainer);
                 }
             }
 
