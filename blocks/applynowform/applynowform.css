@@ -50,6 +50,10 @@
     border: none;
 }
 
+.applynowform input:autofill {
+    background-color: var(--background-color) !important;
+}
+
 .applynowform textarea {
     resize: vertical;
 }
@@ -294,6 +298,7 @@
     font-weight: 500;
     color: #FFFFFF;
     font-size: 1rem;
+    text-transform: capitalize;
     background-color: #3CB8FF;
     line-height: 1rem;
     padding: 17px 50px;
@@ -301,7 +306,8 @@
     cursor: pointer;
     gap: 10px;
     width: 100%;
-
+    border: none;
+    outline: none;
 }
 
 .applynowform-container .applynowform .step1.submit-registration button:disabled {
@@ -340,11 +346,19 @@
 
 }
 
-.applynowform-container .applynowform .verify-step.field-wrapper.fieldset-wrapper #form-resendcontainer #form-message3 {
+.applynowform-container .applynowform .verify-step.field-wrapper.fieldset-wrapper #form-resendcontainer #form-message3.inactive {
     font-size: 14px;
     line-height: 16px;
     color: #B8B8B8;
     font-weight: 400;
+    cursor: pointer;
+}
+
+.applynowform-container .applynowform .verify-step.field-wrapper.fieldset-wrapper #form-resendcontainer #form-message3.active {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: #8CB133;
     cursor: pointer;
 }
 
@@ -633,4 +647,20 @@ fieldset#form-box .verify-step.field-wrapper.text-wrapper:has(input:not(:placeho
 .applynowform .verify-step.btn-verify-step.field-wrapper.submit-wrapper {
     display: flex;
     align-items: center;
+}
+
+
+.applynowform input:-webkit-autofill,
+.applynowform input:-webkit-autofill:hover,
+.applynowform input:-webkit-autofill:focus,
+.applynowform textarea:-webkit-autofill,
+.applynowform textarea:-webkit-autofill:hover,
+.applynowform textarea:-webkit-autofill:focus,
+.applynowform select:-webkit-autofill,
+.applynowform select:-webkit-autofill:hover,
+.applynowform select:-webkit-autofill:focus {
+
+    -webkit-text-fill-color: #585858;
+    -webkit-box-shadow: 0 0 0px 1000px #D4D4D499 inset;
+    transition: background-color 5000s ease-in-out 0s;
 }

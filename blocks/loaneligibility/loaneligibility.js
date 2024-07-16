@@ -815,12 +815,13 @@ function initialize(block) {
     applyButton.setAttribute('data-product', selectedValue);
   });
 
+  if(mobileSelect){
   mobileSelect.addEventListener('input',function(){
     const selectedText = mobileSelect.options[mobileSelect.selectedIndex].text;
 
     const applyMobile=document.getElementById('apply-btn-loan');
     applyMobile.setAttribute('data-product',selectedText);
-  })
+  });}
  
   //  Handle button click event to redirect with query parameter
   document.getElementById('apply-btn-le').addEventListener('click', function () {

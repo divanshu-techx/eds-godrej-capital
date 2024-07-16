@@ -2,6 +2,7 @@ import { createForm, generatePayload } from '../../blocks/form/form.js';
 import { restrictNameInputs, restrictPhoneNumberInputs, validateNameField, validateEmail, validateMobileNumber, handleErrorMessages } from '../becomepartnerform/inputFieldsValidation.js';
 
 const apiUrl = getDataAttributeValueByName('apiurl');
+const thankYouPageUrl = getDataAttributeValueByName('thankyoupageurl');
 
 export default async function decorate(block) {
 
@@ -18,7 +19,10 @@ export default async function decorate(block) {
     // Add change event for checkboxes and radio button
     addChangeEventOnCheckboxes(block);
     addChangeEventOnRadioButtons(block);
-
+    handlSelectOnTabAndMob(block)
+    otpsEforcements(block)
+    showSelectedItems(block, '#firstset', '#firstset .selection-wrapper input[type="checkbox"]');
+    showSelectedItems(block, '#secondset', '#secondset .selection-wrapper input[type="radio"]', true);
     const editNumberInputEle = block.querySelector('#form-mobilenumber');
     editNumberInputEle.setAttribute('readonly', true);
 
@@ -166,10 +170,7 @@ async function validateOtp(block, form) {
             const otpVerifyRes = await makeAjaxRequest('POST', apiUrl, generateRequestBody(form2Payload, false, otpValue, getSelectedCheckboxValues(block)));
             if (otpVerifyRes.status) {
                 handleErrorMessages(true, otpFieldSetEle);
-                const thankYouTeaserContainer = document.querySelector(".teaser-thankyou-cards-container");
-                const becomePartnerContainer = block.parentNode.parentNode;
-                thankYouTeaserContainer.style.display = 'block';
-                becomePartnerContainer.style.display = 'none';
+                window.location.href = thankYouPageUrl;
             } else {
                 handleErrorMessages(false, otpFieldSetEle, otpVerifyRes.message);
             }
@@ -350,4 +351,105 @@ function startTimer(block, form) {
 function getDataAttributeValueByName(name) {
     const element = document.querySelector(`[data-${name}]`);
     return element ? element.getAttribute(`data-${name}`) : '';
+}
+
+function handlSelectOnTabAndMob(block) {
+    const dropdowns = block.querySelectorAll('.form1 #form-loancategoryplaceholder , .form1 #form-selectlocationplaceholder');
+    dropdowns.forEach((dropdown) => {
+        dropdown.parentNode.nextElementSibling.children[0].classList.add('hide-options');
+
+        dropdown.addEventListener('click', function () {
+            this.classList.toggle('active-dropdown')
+            this.parentNode.nextElementSibling.children[0].classList.toggle('hide-options');
+        })
+
+    })
+
+}
+function enforceSingleDigit(event) {
+    const inputField = event.target;
+    let { value } = inputField;
+    // Allow only numeric input and truncate to one character
+    if (!/^\d$/.test(value)) {
+        value = value.replace(/[^\d]/g, '');
+    }
+    inputField.value = value.slice(0, 1);
+};
+
+function otpsEforcements(block) {
+    const otpFieldsEls = block.querySelectorAll('#form-otpfieldset input[type="text"]');
+    otpFieldsEls.forEach((otpFieldEl, index) => {
+
+        otpFieldEl.addEventListener('input', function () {
+            if (/^\d$/.test(otpFieldEl.value)) {
+                otpFieldEl.parentNode.classList.add('filled');
+                if (index < otpFieldsEls.length - 1) {
+                    otpFieldsEls[index + 1].focus();
+                }
+            } else {
+                otpFieldEl.value = '';
+            }
+        });
+        otpFieldEl.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && otpFieldEl.value === '' && index > 0) {
+                otpFieldEl.parentNode.classList.remove('filled');
+                otpFieldsEls[index - 1].focus();
+            }
+        });
+    });
+
+}
+
+function showSelectedItems(block, fieldsestId, slectorSelecor, hideOnSelect = false) {
+    const selectedFieldsetContainer = block.querySelector(`${fieldsestId}`).parentNode;
+    const selectedItemContainer = document.createElement('div');
+    selectedItemContainer.classList.add('select-item-container');
+    selectedFieldsetContainer.appendChild(selectedItemContainer);
+    const selectedSelectable = block.querySelectorAll(`${slectorSelecor}`);
+
+    selectedSelectable.forEach(function (selected) {
+        selected.addEventListener('change', function () {
+            const text = this.previousSibling.textContent;
+            const existingItem = selectedFieldsetContainer.querySelector(`[data-value="${text}"]`);
+
+            // Handle radio button selection
+            if (this.type === 'radio') {
+                // Remove any existing selected items
+                const allExistingItems = selectedFieldsetContainer.querySelectorAll('.selected-item-selectable');
+                allExistingItems.forEach(item => item.remove());
+
+                // Add the new selected item
+                if (this.checked) {
+                    const selectedItem = document.createElement('div');
+                    selectedItem.setAttribute('data-value', text);
+                    selectedItem.classList.add('selected-item-selectable');
+                    selectedItem.innerText = text;
+                    selectedItemContainer.appendChild(selectedItem);
+                }
+            }
+
+            // Handle checkbox selection
+            if (this.type === 'checkbox') {
+                if (this.checked) {
+                    if (!existingItem) {
+                        const selectedItem = document.createElement('div');
+                        selectedItem.setAttribute('data-value', text);
+                        selectedItem.classList.add('selected-item-selectable');
+                        selectedItem.innerText = text;
+                        selectedItemContainer.appendChild(selectedItem);
+                    }
+                } else {
+                    if (existingItem) {
+                        existingItem.remove();
+                    }
+                }
+            }
+
+            if (hideOnSelect === true) {
+                block.querySelector(`${fieldsestId}`).classList.toggle('hide-options');
+                block.querySelector(`${fieldsestId}`).parentNode.previousSibling.children[0].classList.toggle('active-dropdown');
+            }
+
+        });
+    });
 }

@@ -539,7 +539,9 @@ input[type="range"] {
 		align-items: center;
 		display: flex;
 		justify-content: center;
+		margin-top:10px;
 	}
+
 
 	#apply-btn {
 		background: var(--color-sky-dark);
@@ -607,7 +609,7 @@ input[type="range"] {
 
 	.mobile-breakup-left>div {
 		width: 100%;
-		text-align: center;
+		text-align: center!important;
 		margin: 10px 0;
 	}
 
@@ -678,7 +680,12 @@ input[type="range"]::-moz-range-track {
 		background-color: #F4F4F4;
 	}
 }
-
+.mobile-tenure-apply button{
+	border:none;
+	background: #3CB8FF;
+	color:#fff;
+	border-radius:4px;
+}
 
 /* manoj css start */
 #canvasItems {
@@ -700,5 +707,14 @@ input[type="range"]::-moz-range-track {
     @media (max-width: 768px) {
         padding: 20px 0px;
         background-color: #fff;
+    }
+}
+@media (max-width: 767px) {
+    .section.emicalculator-container {
+        border-radius: 20px 20px 0px 0px;
+        position: relative;
+        bottom: 30px;
+        background-color: #fff;
+        padding-bottom: 0px;
     }
 }
