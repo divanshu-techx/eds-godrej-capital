@@ -31,7 +31,8 @@
 
 
 .aprcalculator .inputBoxApr {
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
+  margin-bottom: 5px;
 }
 
 .aprcalculator .inputBoxAprLabel {
@@ -62,7 +63,7 @@
 
 .aprcalculator .inputs .inputAprLabelInput span {
   background: #fff;
-  padding: 5px 10px;
+  /* padding: 5px 10px; */
   box-sizing: border-box;
   height: 40px;
   line-height: 30px;
@@ -73,7 +74,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 35px;
+  /* max-width: 35px; */
+  min-width: 35px;
 }
 
 @media (max-width: 767px) {
@@ -97,7 +99,7 @@
 }
 
 .aprcalculator .inputBoxAprRange {
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 .aprcalculator .inputBoxAprRange input[type="range"] {
@@ -168,6 +170,7 @@
 .aprcalculator .apply-btn-apr-result button{
   background: #3CB8FF;
   color:#fff;
+  border:none;
 }
 
 .aprcalculator .inputs label {
@@ -326,9 +329,15 @@
 
 /* Mobile */
 @media (max-width: 767px) {
-  .aprcalculator .inputs, .aprcalculator .outputs {
+  .aprcalculator .inputs{
       max-width: 100%;
       width:100%;
+  }
+
+.aprcalculator .outputs {
+      max-width: 100%;
+      width:100%;
+      margin-top:20px;
   }
   .aprcalculator .calculator-container {
       flex-direction: column;

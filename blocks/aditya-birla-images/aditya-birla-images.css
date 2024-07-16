@@ -1,0 +1,35 @@
+@media(max-width:600px) {
+    .section.aditya-birla-images-section-container {
+        border-radius: 20px 20px 0px 0px;
+        position: relative;
+        bottom: 30px;
+        background-color: #fff;
+        padding-bottom: 0px;
+    }
+}
+
+.aditya-birla-images-section-container .default-content-wrapper h2 {
+    padding-bottom: 10px;
+}
+
+.aditya-birla-images-section-container .default-content-wrapper p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 24px;
+    text-align: center;
+}
+
+.aditya-birla-images .aditya-birla-picture-source-1 img {
+    width: 100%;
+    height: auto;
+}
+
+.aditya-birla-images .aditya-birla-picture-source-2 img {
+    width: 100%;
+    height: auto;
+}
+
+.aditya-birla-images .aditya-birla-picture-source-3 img {
+    width: 100%;
+    height: auto;
+}

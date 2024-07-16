@@ -3,49 +3,132 @@
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: 1fr 1fr;
-    max-width: 1200px;
+    max-width: 1048px;
     margin: auto;
     background-color: #F2F2F2;
     border-radius: 10px;
-    gap: 10px;
+
 }
+
+@media(min-width:901px) {
+    .becomepartnerform>form {
+        padding-inline: 24px;
+    }
+}
+
 
 .becomepartnerform-container .default-content-wrapper {
     grid-column: span 2;
 }
 
+.hero-container.becomepartnerform-container .default-content-wrapper>* {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.becomepartnerform-container .becomepartnerform-wrapper {
+    height: 100%;
+}
+
+.hero-container.becomepartnerform-container ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+}
+
+.hero-container.becomepartnerform-container ul>li {
+    color: #FFFFFF;
+    font-size: 14px;
+    padding-left: 16px;
+    font-weight: 300;
+    line-height: 16.42px;
+    text-align: left;
+    margin-bottom: 8px;
+    position: relative;
+}
+
+.hero-container.becomepartnerform-container ul>li::before {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: calc(50% - 4px);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #8CB133;
+}
+
+
 .becomepartnerform-container .becomepartnerhero {
-    z-index: 1;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 3;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
 }
 
+.hero-container.becomepartnerform-container .hero-wrapper {
+    height: 100%;
+    padding-left: 36px;
 
-/* .hero-wrapper {
-    min-width: 576px;
+    padding-top: 8px;
+
+
 }
 
-.becomepartnerform-wrapper {
-    min-width: 564px;
-} */
+.hero-container.becomepartnerform-container .becomepartnerhero img {
+    max-height: 524px;
+    height: 100%;
+}
+
+.becomepartnerhero>div>div:nth-of-type(2) {
+    padding-top: 23%;
+}
+
+.becomepartnerhero>div>div p:first-of-type {
+    color: #ffffff;
+    font-size: 36px;
+    font-weight: 300;
+    line-height: 42.23px;
+    margin-top: 0;
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+.becomepartnerhero>div>div p:nth-of-type(2) {
+    margin-top: 0;
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 43.2px;
+    text-align: left;
+    color: #ffffff;
+    margin-bottom: 25px;
+}
+
+.becomepartnerhero>div>div p:last-of-type {
+    margin-top: 70px;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 11.73px;
+    text-align: left;
+}
 
 .becomepartnerform .field-wrapper {
-    /* display: grid;
-        grid-auto-flow: row;
-        align-items: center; */
+
     padding: 8px;
 }
 
 .becomepartnerform fieldset {
-    display: grid;
-    grid-auto-flow: row;
-    gap: 8px;
+    display: flex;
+    gap: 10px;
     border: none;
-    padding: 0;
+    flex-wrap: wrap;
+    padding: 0px;
 }
 
 @media (width >=900px) {
     .becomepartnerform fieldset {
-        /* grid-template-columns: repeat(6, 1fr);
-            gap: 16px; */
         display: flex;
     }
 }
@@ -59,6 +142,68 @@
     font-weight: 700;
     font-size: var(--body-font-size-xs);
     margin-bottom: 0.25em;
+}
+
+.form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset {
+    width: 100%;
+    flex-wrap: nowrap;
+}
+
+.form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset .field-wrapper.select-wrapper {
+    min-width: 54px;
+}
+
+fieldset#form-contactfieldset .form2.field-wrapper.number-wrapper:has(input[type="number"]#form-mobilenumber) {
+    width: 100%;
+}
+
+.form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset legend {
+
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18.77px;
+    text-align: left;
+}
+
+.form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset #form-editmobilenumber {
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.42px;
+    text-align: left;
+    color: #3CB8FF;
+}
+
+.form2.field-wrapper.fieldset-wrapper fieldset#form-otpfieldset {
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.form2.field-wrapper.fieldset-wrapper fieldset#form-otpconfirmationfieldset {
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.form2.field-wrapper.fieldset-wrapper fieldset#form-otpconfirmationfieldset #form-otpconfirmation {
+    color: #3B3B3B;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 16.42px;
+    text-align: left;
+}
+
+.form2.field-wrapper.fieldset-wrapper fieldset#form-otpconfirmationfieldset input[type="button"] {
+    background-color: unset;
+    cursor: pointer;
+    color: #B8B8B8;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.42px;
+    text-align: right;
+}
+
+.form2.field-wrapper.fieldset-wrapper fieldset#form-otpconfirmationfieldset .form2.field-wrapper.button-wrapper {
+    margin-left: auto;
 }
 
 .becomepartnerform input,
@@ -91,11 +236,6 @@
 .becomepartnerform .selection-wrapper label {
     margin-bottom: 0;
 }
-
-/* 
-.becomepartnerform input:hover {
-    border;
-} */
 
 .becomepartnerform .button {
     max-width: 225px;
@@ -169,7 +309,6 @@
 
 }
 
-/* Input Fields Styling */
 .becomepartnerform-input {
     width: 100%;
     padding: 10px;
@@ -179,21 +318,18 @@
     font-size: 16px;
 }
 
-/* Error Field Styling */
 .error-field {
     color: red;
     font-size: 12px;
     margin-top: 4px;
 }
 
-/* Labels for Product and Location Selection */
 .plaintext-wrapper p,
 .field-wrapper.plaintext-wrapper p {
     font-weight: bold;
     margin-bottom: 8px;
 }
 
-/* Product Buttons Styling */
 .field-wrapper.checkbox-wrapper {
     display: flex;
     align-items: center;
@@ -205,10 +341,6 @@
 .checkbox-wrapper.selection-wrapper input[type="checkbox"] {
     display: none;
 }
-
-/* .selection-wrapper label:hover {
-    background-color: #0056b3;
-} */
 
 .selection-wrapper label {
     cursor: pointer;
@@ -306,7 +438,6 @@
     justify-content: center;
 }
 
-/* .form2.verify-btn.field-wrapper.button-wrapper, */
 .form1.submit-btn.field-wrapper.button-wrapper {
     display: flex;
     justify-content: center;
@@ -330,14 +461,14 @@
     cursor: pointer;
 }
 
+.becomepartnerform .verify-btn.field-wrapper.button-wrapper input[type="button"] {
+    margin-left: calc(50% - 40px);
+}
+
 .becomepartnerform .submit-btn.button-wrapper input[type="button"]:disabled,
 .becomepartnerform .verify-btn.field-wrapper.button-wrapper input[type="button"]:disabled {
     background-color: grey;
     cursor: not-allowed;
-}
-
-.form2.field-wrapper.fieldset-wrapper #form-otpfieldset {
-    /* background-color: #ffffff; */
 }
 
 .form2.field-wrapper.plaintext-wrapper p {
@@ -368,4 +499,199 @@ fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper::before {
 
 fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper:has(input:not(:placeholder-shown))::before {
     display: none;
+}
+
+.field-wrapper.fieldset-wrapper .select-item-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.field-wrapper.fieldset-wrapper .selected-item-selectable {
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: #8CB133;
+    color: #ffffff;
+    border-radius: 4px;
+    font-size: 12px;
+    line-height: 14px;
+    width: fit-content;
+    transition: background-color 0.3s;
+    font-weight: 400;
+}
+
+.form1.field-wrapper.plaintext-wrapper #form-loancategoryplaceholder,
+.form1.field-wrapper.plaintext-wrapper #form-selectlocationplaceholder {
+    position: relative;
+    cursor: pointer;
+}
+
+.form1.field-wrapper.plaintext-wrapper #form-loancategoryplaceholder::after,
+.form1.field-wrapper.plaintext-wrapper #form-selectlocationplaceholder::after {
+    content: "";
+    position: absolute;
+    border: solid #585858;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    font-weight: 400;
+    right: 16px;
+    transform: translateY(calc(50% - 1.5px)) rotate(45deg);
+    -webkit-transform: translateY(calc(50% - 1.5px)) rotate(45deg);
+}
+
+.form1.field-wrapper.plaintext-wrapper #form-loancategoryplaceholder.active-dropdown::after,
+.form1.field-wrapper.plaintext-wrapper #form-selectlocationplaceholder.active-dropdown::after {
+    transform: translateY(calc(50% - 1.5px)) rotate(-135deg);
+    -webkit-transform: translateY(calc(50% - 1.5px)) rotate(-135deg);
+}
+
+.becomepartnerform .hide-options {
+    display: none;
+}
+
+@media(max-width:900px) {
+    .hero-container.becomepartnerform-container {
+        display: flex;
+        flex-direction: column;
+        max-width: 570px;
+        background-color: unset;
+    }
+
+    .hero-container.becomepartnerform-container .hero-wrapper {
+        display: none;
+    }
+
+    .becomepartnerform input,
+    .becomepartnerform select,
+    .becomepartnerform textarea {
+        background-color: #D4D4D499;
+        font-size: 16px;
+        line-height: 18.77px;
+        text-align: left;
+    }
+
+    .becomepartnerform .field-wrapper.plaintext-wrapper p {
+        background-color: #D4D4D499;
+        line-height: 18.77px;
+    }
+
+    .selection-wrapper label {
+        background-color: #f4f4f4;
+        font-size: 14px;
+    }
+
+
+    .form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset {
+        position: relative;
+    }
+
+    .form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset .form2.field-wrapper.plaintext-wrapper {
+        position: absolute;
+        right: 0;
+    }
+
+    .form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset .form2.field-wrapper.plaintext-wrapper p {
+        background-color: unset;
+
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 16.42px;
+
+    }
+
+    .form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset .field-wrapper.select-wrapper,
+    .form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset legend {
+        display: none;
+    }
+
+    .form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset .form2.field-wrapper.number-wrapper #form-mobilenumber {
+        background-color: #D4D4D499;
+    }
+
+    .form2.field-wrapper.plaintext-wrapper p#form-otpmessage {
+        background-color: unset;
+        text-align: center;
+
+        font-size: 14px;
+
+        line-height: 16.42px;
+        text-align: center;
+    }
+
+    .form2.field-wrapper.fieldset-wrapper fieldset#form-otpfieldset input {
+        background-color: #F4F4F4;
+    }
+
+    .form2.field-wrapper.fieldset-wrapper fieldset#form-otpconfirmationfieldset #form-otpconfirmation {
+        background-color: unset;
+    }
+
+    .form2.field-wrapper.fieldset-wrapper fieldset#form-otpconfirmationfieldset input[type="button"] {
+        font-size: 12px;
+        color: #3CB8FF;
+        line-height: 14.08px;
+    }
+
+
+    .becomepartnerform .form2.field-wrapper {
+        padding-top: 0;
+
+    }
+}
+
+@media(min-width:901px) {
+    .section.hero-container.becomepartnerform-container>div {
+        max-width: unset;
+        margin: unset;
+    }
+}
+
+@media(max-width:600px) {
+
+    .becomepartnerform input,
+    .becomepartnerform select,
+    .becomepartnerform textarea {
+        background-color: #F4F4F4;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 16.42px;
+        text-align: left;
+    }
+
+    .becomepartnerform .selection-wrapper label {
+        font-size: 12px;
+    }
+
+    .becomepartnerform .field-wrapper.plaintext-wrapper p {
+        background-color: #F4F4F4;
+        font-size: 14px;
+        line-height: 16.42px;
+    }
+
+    .becomepartnerform .form2.field-wrapper {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+#form-selectlocationplaceholder.disabled-true,
+#form-loancategoryplaceholder.disabled-true {
+    cursor: pointer;
+    pointer-events: none;
+    ;
+}
+
+.becomepartnerform input:-webkit-autofill,
+.becomepartnerform input:-webkit-autofill:hover,
+.becomepartnerform input:-webkit-autofill:focus,
+.becomepartnerform textarea:-webkit-autofill,
+.becomepartnerform textarea:-webkit-autofill:hover,
+.becomepartnerform textarea:-webkit-autofill:focus,
+.becomepartnerform select:-webkit-autofill,
+.becomepartnerform select:-webkit-autofill:hover,
+.becomepartnerform select:-webkit-autofill:focus {
+    -webkit-text-fill-color: #585858;
+    -webkit-box-shadow: 0 0 0px 1000px #D4D4D499 inset;
+    transition: background-color 5000s ease-in-out 0s;
 }
