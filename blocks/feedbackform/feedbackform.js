@@ -133,6 +133,7 @@ function showFeedBackPopUp (block, dynamicDiv, parentContainerDiv, form, feedbac
     block.appendChild(parentContainerDiv);
 }
 
+// function for radio button of rating second pop up view
 function forCreateRatingRadioBtn (dynamicDiv, feedbackAttributes, parentContainerDiv, block, form) {
         // for rating points
         var ratingNumber;
@@ -335,14 +336,14 @@ function resetInputField(formContainerDiv) {
     });
 }
 
-// function forThankyou Pop up is shown when user click on skip button or submit button
+// function forThankyou Pop up is shown when user click on skip button or submit button fourth view of pop up
 function showThankYouPopUp (block) {
     const thankyouDiv = block.parentElement.nextElementSibling;
     thankyouDiv.style = 'display:block';
     block.querySelector('.parentContainerDiv').style = 'display:none';
 }
 
-// function for form when it show on click of feedback submit button
+// function for form on click of submit feedback button third view of pop up
 function forFormFields(block, descriptionDiv, submitDiv, checkedFeildArr) {
     console.log(checkedFeildArr);
     block.querySelector('.headingContainerDiv').style = 'display:none';
