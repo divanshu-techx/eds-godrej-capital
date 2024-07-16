@@ -99,17 +99,20 @@ export default async function decorate(block) {
   // Create left and right scroll buttons
   const scrollLeftButton = document.createElement('button');
   scrollLeftButton.className = 'scroll-button left';
-  scrollLeftButton.textContent = '<';
+  // scrollLeftButton.textContent = '<';
+  scrollLeftButton.innerHTML = `<img src="/icons/nexticon.svg" alt="Previous" />`; // Custom icon
 
   const scrollRightButton = document.createElement('button');
   scrollRightButton.className = 'scroll-button right';
-  scrollRightButton.textContent = '>';
+  // scrollRightButton.textContent = '>';
+  scrollRightButton.innerHTML = `<img src="/icons/nexticon.svg" alt="next" />`;
 
   paginationWrapper.appendChild(scrollLeftButton);
   paginationWrapper.appendChild(paginationContainer);
   paginationWrapper.appendChild(scrollRightButton);
   // Create content container
   const contentContainer = document.createElement('div');
+  contentContainer.classList.add('contentContainer');
   contentContainer.id = 'contentContainer';
 
   // Append sub-divs to main container
@@ -131,14 +134,18 @@ export default async function decorate(block) {
         const newsContainerData = document.createElement('div');
         newsContainerData.className = 'newsContainer';
         const titleElement = document.createElement('h3');
+        titleElement.classList.add('heading_title');
         titleElement.textContent = item.title;
         const descriptionElement = document.createElement('p');
+        descriptionElement.classList.add('discription-element');
         descriptionElement.textContent = item.description;
         const publishDateElement = document.createElement('p');
+        publishDateElement.classList.add('publish-date');
         let formattedDate = formatDate(item.publishdate);
         publishDateElement.textContent = formattedDate;
 
         const readArticleElement = document.createElement('a');
+        readArticleElement.classList.add('readArticle_anchor');
         readArticleElement.textContent = readArticleLabel;
         readArticleElement.href = item.readArticleRedirection; // Set the href to the redirection URL
         readArticleElement.target = '_blank'; // Open the link in a new tab
@@ -169,7 +176,11 @@ export default async function decorate(block) {
         paginationContainer.appendChild(pageSpan);
       }
     }
+    // FOR DISABLE BTN 
+    scrollLeftButton.disabled = currentPage === 1;
+    scrollRightButton.disabled = currentPage === totalPages;
   };
+
 
   // Function to render items on the current page
   const renderPage = (page = 1) => {
