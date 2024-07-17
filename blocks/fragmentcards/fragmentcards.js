@@ -1,4 +1,4 @@
-export default async function decorate(block) {
+export default async function decorate() {
 
     if (!document.querySelector('.fragmentcards')) {
       return;
@@ -8,32 +8,6 @@ export default async function decorate(block) {
 
     // Get the URL from the href attribute
     const url = anchor.getAttribute('href');
- if (block){
-    const parentDivs = block.querySelectorAll(':scope > div');
-      parentDivs.forEach(parentDiv => {
-        // Add the contentandpictureparent class to the parent div
-        parentDiv.classList.add('fragmentcards-container');
-        
-        // Select the first div (content) and the second div (picture) within each direct child div
-        const contentDiv = parentDiv.querySelector('div:first-of-type');
-        const pictureDiv = parentDiv.querySelector('div:last-of-type');
-        
-        if (contentDiv) {
-          contentDiv.classList.add('fragmentcards-container_left');
-          
-          // Add class to the first h2 element within fragmentcards-container_left
-          const firstH2 = contentDiv.querySelector('h2');
-          if (firstH2) {
-            firstH2.classList.add('fragmentcards-container_left__title'); // Replace 'your-class-name' with the class you want to add
-          }
-        }
-        
-        if (pictureDiv) {
-          pictureDiv.classList.add('fragmentcards-container_right');
-        }
-      });
-    }
-
 
     // Fetch the HTML content from the URL
     fetch(url)
@@ -70,7 +44,6 @@ export default async function decorate(block) {
         // Replace the link with the fetched body content
         const buttonContainer = anchor.parentElement;
         buttonContainer.innerHTML = contentToInsert;
-    // contentDiv.insertAdjacentHTML('beforeend', contentToInsert);
           // Add custom classes directly based on structure
       const addressContainer = buttonContainer.querySelector('.address');
       if (addressContainer) {
@@ -99,4 +72,3 @@ export default async function decorate(block) {
       });
 
 }
-
