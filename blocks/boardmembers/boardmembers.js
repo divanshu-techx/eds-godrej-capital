@@ -123,12 +123,14 @@ export default async function decorate(block) {
         function showPopup() {
           overlay.style.display = 'block';
           popup.style.display = 'block';
+          document.body.classList.add('popup-open');
         }
 
         // Function to hide the popup
         function hidePopup() {
           overlay.style.display = 'none';
           popup.style.display = 'none';
+          document.body.classList.remove('popup-open');
         }
 
         // Add click event listener to the profile picture
