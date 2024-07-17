@@ -84,3 +84,17 @@ indices:
         select: head > meta[name="bullet_points_2"]
         value: |
           attribute(el, 'content')
+
+  media-gallery:
+    include:
+      - /media-gallery/details-page/picture-gallery-pages/**
+    target: /media-gallery/details-page/query-index.json
+    properties:
+      cardtitle:
+        select: head > meta[name="cardtitle"]
+        value: |
+          attribute(el, 'content')
+      cardimagelink:
+        select: head > meta[name="cardimagelink"]
+        value: |
+          attribute(el, 'content')
