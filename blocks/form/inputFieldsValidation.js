@@ -43,10 +43,10 @@ export function validateEmail(emailField) {
 }
 
 // Function to validate mobile number
-export function validateMobileNumber(mobileField) {
+export function validateMobileNumber(mobileField, errorMsg) {
     const mobilePattern = /^[0-9]{10}$/;
     if (!mobilePattern.test(mobileField.value)) {
-        handleErrorMessages(false, mobileField, 'Please enter a valid 10-digit mobile number.');
+        handleErrorMessages(false, mobileField, errorMsg);
         return false;
     } else {
         handleErrorMessages(true, mobileField);
