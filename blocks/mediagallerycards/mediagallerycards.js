@@ -166,6 +166,70 @@ function getYoutubeIdFromUrl(url) {
     return match ? match[1] : null;
 }
 
+// Define openModal function to show only video
+function openModal(videoLink) {
+    // Create modal elements
+    const modal = document.createElement('div');
+    modal.classList.add('modal');
+
+    const modalContent = document.createElement('div');
+    modalContent.classList.add('modal-content');
+
+    // Modal header with close button
+    const modalHeader = document.createElement('div');
+    modalHeader.classList.add('modal-header');
+
+    const closeModalBtn = document.createElement('span');
+    closeModalBtn.classList.add('close-modal');
+    closeModalBtn.textContent = '×';
+    closeModalBtn.addEventListener('click', () => {
+        modal.remove(); // Close modal on close button click
+    });
+
+    modalHeader.appendChild(closeModalBtn);
+
+    // Modal body
+    const modalBody = document.createElement('div');
+    modalBody.classList.add('modal-body');
+
+    // Embed video
+    const videoContainer = document.createElement('div');
+    videoContainer.classList.add('video-container');
+
+    if (videoLink.includes('youtube.com') || videoLink.includes('youtu.be')) {
+        const youtubeId = getYoutubeIdFromUrl(videoLink);
+        if (youtubeId) {
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://www.youtube.com/embed/${youtubeId}`;
+            iframe.width = '560';
+            iframe.height = '315';
+            iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+            iframe.allowFullscreen = true;
+            videoContainer.appendChild(iframe);
+        }
+    } else {
+        const video = document.createElement('video');
+        video.src = videoLink;
+        video.controls = true;
+        video.width = 560;
+        video.height = 315;
+        videoContainer.appendChild(video);
+    }
+
+    modalBody.appendChild(videoContainer);
+
+    // Append modal parts to modal content
+    modalContent.appendChild(modalHeader);
+    modalContent.appendChild(modalBody);
+
+    // Append modal content to modal
+    modal.appendChild(modalContent);
+
+    // Append modal to document body
+    document.body.appendChild(modal);
+}
+
+
 function generateCards(data, block) {
     const cardContainer = document.createElement('div');
     cardContainer.classList.add('media-gallery-cards');
@@ -221,7 +285,6 @@ function generateCards(data, block) {
                 cardVideoDiv.appendChild(video);
             }
 
-
             // Create the div for the card-link
             const cardLinkDiv = document.createElement('div');
             cardLinkDiv.classList.add('card-media-gallery-video-heading');
@@ -230,6 +293,15 @@ function generateCards(data, block) {
             const cardVideoDescription = document.createElement('div');
             cardVideoDescription.classList.add('card-video-description');
             cardVideoDescription.textContent = item.carddescription;
+
+            // Add click event listener to open modal on cardVideoDescription click
+            cardVideoDescription.addEventListener('click', () => {
+                if (item.videotype === 'popup') {
+                    openModal(item.cardvideolink);
+                } else {
+                    window.location.href = item.cardvideolink;
+                }
+            });
 
             cardLinkDiv.append(cardTitle, cardVideoDescription);
             card.append(cardVideoDiv, cardLinkDiv);
@@ -247,6 +319,7 @@ function generateCards(data, block) {
         showCategoryContent(firstCategory, block);
     }
 }
+
 
 export default async function decorate(block) {
     const apiUrl = getDataAttributeValueByName('apiUrl');
