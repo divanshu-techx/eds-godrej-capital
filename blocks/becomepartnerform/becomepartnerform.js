@@ -1,5 +1,5 @@
 import { createForm, generatePayload } from '../../blocks/form/form.js';
-import { restrictNameInputs, restrictPhoneNumberInputs, validateNameField, validateEmail, validateMobileNumber, validateLoanProducts, handleErrorMessages } from '../becomepartnerform/inputFieldsValidation.js';
+import { restrictNameInputs, restrictPhoneNumberInputs, validateNameField, validateEmail, validateMobileNumber, validateLoanProducts, handleErrorMessages } from '../form/inputFieldsValidation.js';
 
 const apiUrl = getDataAttributeValueByName('apiurl');
 const formSheetUrl = getDataAttributeValueByName('sheeturl');
@@ -236,7 +236,7 @@ function validateForm1(block) {
     if (!validateNameField(nameField)) {
         isValid = false;
     }
-    if (!validateMobileNumber(mobileField)) {
+    if (!validateMobileNumber(mobileField, 'Please enter a valid 10-digit mobile number.')) {
         isValid = false;
     }
     if (!validateEmail(emailField)) {
