@@ -72,6 +72,17 @@
 .track-order-carousel .text-item h2 {
     margin: 0;
     text-align: start;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 23.46px;
+}
+
+.track-order-carousel .text-item h1{
+    margin:0;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 28.8px;
+
 }
 
 .track-order-carousel .text-item ul {
