@@ -1,3 +1,50 @@
 .tracking-form .form2 {
     display: none;
 }
+
+.tracking-form .form1.radio-wrapper input {
+    display: none;
+}
+
+.tracking-form .form1.radio-wrapper {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.tracking-form .form1.radio-wrapper label {
+    position: relative;
+    line-height: 22px;
+}
+
+.tracking-form .form1.radio-wrapper label:before,
+.tracking-form .form1.radio-wrapper label:after {
+    content: '';
+}
+
+.tracking-form .form1.radio-wrapper label:after {
+    background: #3CB8FF;
+    border-radius: 4px;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 0px;
+    left: 3px;
+    transition: 300ms;
+    opacity: 0;
+}
+
+.tracking-form .form1.radio-wrapper label:before {
+    border: 1px solid #3CB8FF;
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: top;
+    border-radius: 4px;
+}
+
+.tracking-form .form1.radio-wrapper label.checked:after {
+    opacity: 1;
+    
+}
