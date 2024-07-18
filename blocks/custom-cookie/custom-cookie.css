@@ -1,0 +1,122 @@
+.custom-cookie{
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    max-width: 738px;
+    width: 100%;
+    padding: 20px;
+    background:#f4f4f4;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    z-index: 1000;
+}
+
+.custom-cookie h2 {
+    margin-top: 0;
+}
+
+.custom-cookie p {
+    font-size: 14px;
+}
+
+.custom-cookie button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+/* Toggle button specific styles */
+ .custom-cookie .toggle-button {
+    width: 80px;
+    height: 30px;
+    border-radius: 4px;
+    display: inline-block;
+    position: relative;
+    background-color: #ccc;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.custom-cookie .toggle-button.active:before {
+    content: 'ON';
+    position: absolute;
+    top: 50%;
+    left: 8px;
+    transform: translateY(-50%);
+}
+
+.custom-cookie .toggle-button:before {
+    content: 'OFF';
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+}
+
+.custom-cookie .toggle-button.active {
+    background-color: #4CAF50;
+}
+
+.custom-cookie .toggle-button.active:before {
+    left: 36px;
+    right: auto;
+    color: white;
+}
+.custom-cookie .function-cookie{
+    display: flex;
+}
+.custom-cookie .perform-cookie{
+    display: flex;
+} 
+
+
+/* Toggle button specific styles */
+.toggle-button {
+    width: 60px;
+    height: 30px;
+    border-radius: 15px;
+    display: inline-block;
+    position: relative;
+    background-color: #ccc;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.toggle-button.active {
+    background-color: #4CAF50; /* Green background when active */
+}
+
+.toggle-button:before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    /* background-color: white; */
+    transition: transform 0.3s ease;
+}
+
+.toggle-button.active:before {
+    transform: translateX(30px); /* Move circle to the right when active */
+}
+
+.custom-cookieHeading .close-btn{
+    display: none;
+}
+@media only screen and (max-width: 600px) {
+    .custom-cookie{
+        width: 100%;
+    }
+    .custom-cookieHeading .close-btn{
+        display: block;
+    }
+  }
+
+  .custom-cookieDescription-top > div{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+  }
