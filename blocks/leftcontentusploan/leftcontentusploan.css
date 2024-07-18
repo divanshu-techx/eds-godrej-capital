@@ -1,8 +1,28 @@
+.leftcontentusploan-container .default-content-wrapper h2 {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 28.15px;
+    text-align: center;
+}
+
+.leftcontentusploan-container .default-content-wrapper p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 16.42px;
+    text-align: center;
+    color: #3B3B3B;
+}
+
+.leftcontentusploan-container .leftcontentusploan-wrapper {
+    margin-top: 1.5rem;
+}
+
 .leftcontentusploan {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    padding: 20px;
+
 }
 
 .usp-details-parent {
@@ -14,13 +34,14 @@
 
 .uspcontentdetails {
     flex: 1;
-    padding: 10px;
-    color: black; /* Ensure text is black */
+
+    color: black;
+    /* Ensure text is black */
 }
 
 .imagedata {
     flex: 1;
-    padding: 10px;
+
 }
 
 .imagedata picture img {
@@ -29,37 +50,116 @@
     display: block;
 }
 
-.uspcontentdetails ul {
+
+
+
+
+.leftcontentusploan .usp-details-parent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.leftcontentusploan .usp-details-parent .uspcontentdetails p {
+    margin-top: 0;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 21.11px;
+    text-align: left;
+}
+
+.leftcontentusploan .usp-details-parent .uspcontentdetails p:nth-of-type(1) {
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 40px;
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.leftcontentusploan .usp-details-parent .uspcontentdetails ul {
     list-style: none;
-    padding-left: 20px;
-    margin: 0; /* Reset default margin */
+    padding-left: 0;
+    margin: 0;
+    /* Reset default margin */
 }
 
-.uspcontentdetails ul li {
+.leftcontentusploan .usp-details-parent .uspcontentdetails ul li {
     position: relative;
-    padding-left: 20px; /* Space for marker */
-    margin-bottom: 10px; /* Add spacing between list items */
-    color: black; /* Ensure list text is black */
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.42px;
+    text-align: left;
+    padding-left: 1rem;
 }
 
-.uspcontentdetails ul li::before {
-    content: '•';
-    color: green; /* Marker color */
+.leftcontentusploan .usp-details-parent .uspcontentdetails ul li::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    top: calc(50% - 4px);
+    border-radius: 50%;
+    background-color: #8CB133;
     position: absolute;
     left: 0;
 }
 
-.uspcontentdetails p a {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #3CB8FF; /* Background color */
-    color: white; /* Text color */
-    text-decoration: none;
-    border-radius: 5px;
-    margin-right: 10px;
+.leftcontentusploan .usp-details-parent .uspcontentdetails p:has(a) {
+    display: flex;
+    gap: 10px;
 }
 
-.uspcontentdetails p a:hover {
-    background-color: #1E90FF; /* Slightly darker blue for hover */
-    color: white; /* Ensure text color stays white on hover */
+.leftcontentusploan .usp-details-parent .uspcontentdetails p:has(a) a {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.42px;
+    background-color: #3CB8FF;
+    text-align: center;
+    padding: 12px 20px;
+    border-radius: 2px;
+    color: #FFFFFF;
+}
+
+.leftcontentusploan .usp-details-parent .uspcontentdetails p:has(a) a:hover {
+    text-decoration: none;
+}
+
+.leftcontentusploan .usp-details-parent .uspcontentdetails p:has(a) a:last-of-type {
+    color: #3B3B3B;
+    background-color: unset;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 12px 0px;
+    line-height: 18.77px;
+    text-align: left;
+}
+
+@media(min-width:900px) {
+    .leftcontentusploan-container .default-content-wrapper p {
+        padding-inline: 40px;
+    }
+}
+
+@media(min-width:600px) and (max-width:900px) {
+    .leftcontentusploan .usp-details-parent .uspcontentdetails p {
+        font-size: 11px;
+        line-height: 12.9px;
+    }
+
+    .leftcontentusploan .usp-details-parent .uspcontentdetails p:nth-of-type(1) {
+        margin-bottom: 1rem;
+        font-size: 20px;
+        line-height: 23.46px
+    }
+
+    .leftcontentusploan .usp-details-parent .uspcontentdetails ul li {
+        font-size: 10px;
+        line-height: 11.73px;
+    }
+
+    .leftcontentusploan .usp-details-parent .uspcontentdetails p:has(a) {
+        margin-top: 1rem;
+    }
 }
