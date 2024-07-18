@@ -115,3 +115,7 @@ indices:
         select: head > meta[name="videotype"]
         value: |
           attribute(el, 'content')
+      carddescription:
+        select: head > meta[name="carddescription"]
+        value: |
+          attribute(el, 'content')
