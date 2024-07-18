@@ -42,6 +42,11 @@ export default async function tabsblock(block) {
             tab.textContent = tabTitle;
             tab.dataset.index = index;
 
+            // active class added for default tab
+            if (index === activeTabIndex) {
+                tab.classList.add('active');
+            }
+
             // Create content element
             const content = document.createElement('div');
             content.classList.add('custom-tab-content');
