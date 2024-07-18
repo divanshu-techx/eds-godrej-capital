@@ -1,0 +1,240 @@
+ .carousel-items-container {
+     position: relative;
+     width: 100%;
+     overflow: hidden;
+ }
+
+ .track-order-carousel .swiper-wrapper {
+     display: flex;
+     transition: transform 0.5s ease;
+ }
+ @media(max-width:1200px){
+    .track-order-carousel .swiper-wrapper > div::before{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+        z-index: 1;
+        border-radius: 10px;
+    }
+}
+
+ @media(min-width:1201px){
+    .track-order-carousel .swiper-wrapper > div::before{
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, #242424 0%, rgba(36, 36, 36, 0.6) 38.67%, rgba(36, 36, 36, 0) 60.08%);
+        z-index: 1;
+        border-radius: 10px;
+    }
+}
+
+ .track-order-carousel .carousel-item {
+     position: relative;
+     flex: 0 0 100%;
+     max-width: 100%;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+
+ .track-order-carousel .image-item img {
+     width: 100%;
+     object-fit: fill;
+ }
+ @media(max-width:1199px){
+    .track-order-carousel .image-item img {
+        width: 100%;
+        object-fit: cover;
+    }
+ }
+
+ .track-order-carousel .text-item {
+     position: absolute;
+     width: 90%;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     color: #fff;
+     padding: 20px;
+     z-index: 1;
+ }
+
+
+.track-order-carousel .text-item h3,
+.track-order-carousel .text-item h2 {
+    margin: 0;
+    text-align: start;
+}
+
+.track-order-carousel .text-item ul {
+    padding-left: 20px; 
+    margin: 0; 
+}
+
+.track-order-carousel .text-item ul li {
+    list-style-type: disc; 
+}
+
+.track-order-carousel .text-item ul li::marker {
+    color: #8CB133;
+    font-size: 20px; 
+}
+.track-order-carousel .text-item p {
+    margin: 0;
+}
+
+.track-order-carousel .text-item .button-container {
+    display: inline-block; 
+    margin-right: 10px; 
+}
+
+.track-order-carousel .text-item .button-container:last-child {
+    margin-right: 0; 
+}
+
+.track-order-carousel .text-item .button{
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3CB8FF;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.track-order-carousel .text-item .button-container:last-child .button {
+    background-color: inherit;
+    color: inherit;
+}
+
+
+.track-order-carousel{
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+ .track-order-carousel .control-container {
+     display: flex;
+     justify-content: space-between;
+     position: absolute;
+     top: 50%;
+     width: 100%;
+     transform: translateY(-50%);
+     z-index: 10;
+ }
+
+ .track-order-carousel .swip-pagination {
+     display: flex;
+     justify-content: center;
+     position: absolute;
+     bottom: 10px;
+     width: 100%;
+     top: 185px;
+     right: 36%;
+ }
+
+ .track-order-carousel .swiper-pagination-bullet {
+     width: 10px;
+     height: 10px;
+     margin: 0 5px;
+     background: #fff;
+     border-radius: 50%;
+     cursor: pointer;
+ }
+
+ .track-order-carousel .swiper-pagination-bullet.active {
+     background: #000;
+ }
+
+ .track-order-carousel .swip-left,
+ .swip-right {
+     cursor: pointer;
+     display: none;
+ }
+
+ .track-order-carousel .icon {
+     font-size: 24px;
+ }
+
+ /* Hide carousel on mobile view */
+ @media (max-width: 600px) {
+     .carousel-items-container {
+         display: none;
+     }
+ }
+
+
+ .track-order-carousel .swiper-pagination-bullet {
+     width: 16px;
+     height: 8px;
+     border-radius: 1px;
+     opacity: 1;
+     background: #FFFDFD57;
+ }
+
+ .track-order-carousel .swiper-pagination-bullet.active {
+     width: 76px;
+     height: 8px;
+     opacity: 1;
+     background-image: linear-gradient(to right, white 50%, #FFFDFD57 50%);
+     border-radius: 1px;
+ }
+ @media (min-width: 768px) and (max-width: 1024px) {
+    .track-order-carousel .swiper-pagination-bullet.active {
+        width: 57px;
+        height: 6px;
+        background-image: linear-gradient(to right, white 50%, #FFFDFD57 50%);
+        border-radius: 1px;
+    }
+
+    .track-order-carousel .swiper-pagination-bullet {
+        width: 12px;
+        height: 6px;
+        border-radius: 1px;
+        opacity: 1;
+        background: #FFFDFD57;
+    }
+ }
+
+ .tracking-carousel-form {
+     max-width: 1200px;
+     margin: 0 auto;
+     display: flex;
+     flex-wrap: wrap;
+     gap: 20px; 
+
+ }
+
+ .tracking-form-wrapper {
+     flex: 0 0 calc(40% - 10px);
+     box-sizing: border-box; 
+ }
+
+ .track-order-carousel-wrapper {
+     flex: 0 0 calc(60% - 10px);
+     box-sizing: border-box; 
+ }
+
+ @media (min-width: 768px) and (max-width: 1024px) {
+    .tracking-form-wrapper,
+    .track-order-carousel-wrapper {
+        flex: 0 0 calc(50% - 10px);
+    }
+}
+
+@media (max-width: 768px) {
+    .tracking-form-wrapper {
+        flex: 0 0 100%; 
+    }
+
+    .track-order-carousel-wrapper {
+        display: none;
+    }
+}
