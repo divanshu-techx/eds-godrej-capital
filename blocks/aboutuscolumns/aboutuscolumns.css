@@ -65,13 +65,16 @@
     margin: 0;
   }
 }
+.popup-open{/*---- */
+  overflow: hidden;/*---- */
+}/*---- */
 .popup-div {
   .closeicon{
     position: absolute;
     top:20px;
     right:25px;
     cursor:pointer;
-    z-index: 999;
+    z-index: 9999999; /*---- */
   }
   max-width: 80%;
   width: 100%;
@@ -79,6 +82,7 @@
   @media (min-width: 767px) {
   transform: translate(-50%, -40%);
   }
+  z-index: 999999;  /*---- */
   border-radius: 20px;
   .popup-content {
     display: flex;
