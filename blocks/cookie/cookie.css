@@ -2,26 +2,54 @@
     position: fixed;
     bottom: 20px;
     left: 20px;
-    max-width: 738px;
-    width: 100%;
+    max-width: 50vw;
     padding: 20px;
-    background:#f4f4f4;
+    background:#fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: none;
-    z-index: 1000;
+    z-index: 1003;
+    border-radius:10px;
+    box-sizing: border-box;
 }
 
-/* Media query for mobile view */
-@media (max-width: 768px) {
-  .cookie {
-      left: 10px;
-      right: 10px;
-      width: 100%;
-      padding: 25px;
-      font-size: 14px;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+@media(max-width:1199px){
+  .cookie{
+    max-width: 100vw;
+    left:0;
+    bottom:0;
   }
 }
+
+.cookie-overlay {
+  display: none; 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); 
+  z-index: 1002;
+}
+
+.cookie-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000; 
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.cookieButton button {
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
 .cookie h3 {
     font-family: Work Sans;
     font-size: 36px;
@@ -34,14 +62,25 @@
 .cookie p {
     font-size: 14px;
 }
-.cookieDescription p{
-  font-family: Work Sans;
-font-size: 14px;
-font-weight: 500;
-line-height: 18px;
-text-align: left;
 
+.cookieDescription p{
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 18px;
 }
+
+@media(max-width:1198px){
+  .cookieDescription p{
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 14px;
+  }
+}
+
+.cookieDescription {
+  border-bottom: 1px solid #B8B8B8
+}
+
 .cookieDescription a{
   color: #3CB8FF;
 }
@@ -51,6 +90,11 @@ text-align: left;
     padding: 5px 10px;
     cursor: pointer;
 }
+
+.cookieButton{
+  margin-top:10px;
+}
+
 .cookieButton > div {
     display: flex;
     justify-content: flex-start;
@@ -58,6 +102,7 @@ text-align: left;
   
   .cookieButton > div > button:nth-child(1) {
     margin-right: auto; 
+    margin-left: 0;
   }
   
   .cookieButton > div > button {
@@ -67,28 +112,30 @@ text-align: left;
     padding: 12px, 20px;
     gap: 10px;
     border-radius: 4px;
-    font-family: Work Sans;
     font-size: 14px;
     font-weight: 500;
     line-height: 16.42px;
     text-align: center;
   }
+
   .cookieButton .accept_cookie{
     background: #3CB8FF;
     border: none;
     color: #fff;
+    margin-right:0;
   }
 
   .cookieButton .reject_cookie{
     border:1px solid #3CB8FF;
     color: #3B3B3B;
+    background: #fff;
   }
+
   .cookieButton .customize{
-    max-width:113px;
+    /* max-width:113px; */
     width: 100%;
-    border-radius: 2px;
-    opacity: 0px;   
     border:1px solid #3CB8FF;
     color: #3B3B3B;
+    background: #fff;
+    height: 40px;
   }
-    
