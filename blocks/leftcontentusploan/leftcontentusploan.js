@@ -1,24 +1,26 @@
 export default function decorate(block) {
-    document.querySelectorAll('.usploan');
+    // Ensure the block is defined and log its content
     if (!block) {
         console.error('Main container not found');
         return;
-      }
-      const parentDivs = block.querySelectorAll(':scope > div');
-      parentDivs.forEach(parentDiv => {
-        // Add the contentandpictureparent class to the parent div
-        parentDiv.classList.add('usp-details-parent');
-        
-        // Select the first div (content) and the second div (picture) within each direct child div
-        const contentDiv = parentDiv.querySelector('div:first-of-type');
-        const pictureDiv = parentDiv.querySelector('div:last-of-type');
-        
-        if (contentDiv) {
-          contentDiv.classList.add('uspcontentdetails');
-        }
-        
-        if (pictureDiv) {
-          pictureDiv.classList.add('imagedata');
-        }
-      });
     }
+
+    // Select direct child divs of the block
+    const parentDivs = block.querySelectorAll(':scope > div');
+    parentDivs.forEach(parentDiv => {
+        // Add the usp-details-parent class to the parent div
+        parentDiv.classList.add('usp-details-parent');
+
+        // Select the div that contains a picture tag and add the imagedata class
+        const pictureDiv = parentDiv.querySelector('div picture');
+        if (pictureDiv) {
+            pictureDiv.parentElement.classList.add('imagedata');
+        }
+
+        // Select the div that contains a p tag and add the uspcontentdetails class
+        const contentDiv = parentDiv.querySelector('div p');
+        if (contentDiv) {
+            contentDiv.parentElement.classList.add('uspcontentdetails');
+        }
+    });
+}
