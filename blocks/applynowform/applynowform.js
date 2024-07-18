@@ -15,7 +15,7 @@ const VALIDATION_DATA = [
     },
     {
         fieldName: "Mobile",
-        regexPattern: /^[0-9]{10}$/,
+        regexPattern: /^[6789]\d{9}$/,
         validationMessage: "Please enter a valid mobile number"
     }
 ];
@@ -520,7 +520,7 @@ function disableSubmitUntilFillForm(block) {
 
     const validators = {
         text: value => /^[a-zA-Z\s]*$/.test(value.trim()),
-        tel: value => /^\d{10}$/.test(value.trim()),
+        tel: value => /^[6789]\d{9}$/.test(value.trim()),
         email: value => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value.trim())
     };
 

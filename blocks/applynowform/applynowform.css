@@ -1,3 +1,10 @@
+/* .applynowform .field-wrapper {
+    display: grid;
+    grid-auto-flow: row;
+    align-items: center;
+    padding: 8px;
+} */
+
 .applynowform fieldset {
     display: grid;
     grid-auto-flow: row;
@@ -51,10 +58,18 @@
     resize: vertical;
 }
 
+/* .applynowform .selection-wrapper input {
+    width: 16px;
+} */
+
 .applynowform .selection-wrapper label {
     margin-bottom: 0;
 }
 
+/* 
+.applynowform input:hover {
+    border: 1px solid var(--text-color);
+} */
 
 .applynowform .button {
     max-width: 225px;
@@ -62,6 +77,19 @@
     padding: 0.2em 0.4em;
 }
 
+/* .applynowform .field-wrapper.selection-wrapper {
+    grid-auto-flow: column;
+    justify-content: start;
+    gap: 16px;
+    width: fit-content;
+} */
+
+
+/* .applynowform input[required]+label::after {
+    content: "*";
+    color: firebrick;
+    margin-inline-start: 1ch;
+} */
 
 .applynowform .toggle-wrapper .switch {
     position: relative;
@@ -110,6 +138,11 @@
     transform: translateX(24px);
 }
 
+
+
+/* custom css */
+
+
 .applynowform-container .applynowform-wrapper {
     max-width: 540px;
     width: 100%;
@@ -121,6 +154,7 @@
     display: none;
 }
 
+/* Style labels */
 .applynowform .radio-wrapper label {
     padding: 10px;
     background: #ffffff;
@@ -129,6 +163,7 @@
     margin-bottom: 5px;
 }
 
+/* Active class styling */
 .applynowform .radio-wrapper.active label {
     background: green;
 }
@@ -248,7 +283,8 @@
     line-height: 30px;
     font-size: 14px;
     color: #3B3B3B;
-
+    transition: background-color 0.4s ease, color 0.4s ease;
+    cursor: pointer;
 }
 
 .applynowform-container .loan-type-checkbox.field-wrapper.checkbox-wrapper.selection-wrapper.checked label {
@@ -270,14 +306,15 @@
     border-radius: 4px;
     cursor: pointer;
     gap: 10px;
-    max-width: 160px;
+    width: 100%;
     border: none;
     outline: none;
-    box-sizing: border-box;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 .applynowform-container .applynowform .step1.submit-registration button:disabled {
-    background-color: grey;
+    background-color: #E8E8E8;
+    color: #6D6D6D;
     cursor: not-allowed;
 }
 

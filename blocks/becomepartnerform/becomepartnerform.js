@@ -21,8 +21,6 @@ export default async function decorate(block) {
     addChangeEventOnCheckboxes(block);
     handlSelectOnTabAndMob(block)
     otpsEforcements(block)
-    showSelectedItems(block, '#firstset', '#firstset .selection-wrapper input[type="checkbox"]');
-    showSelectedItems(block, '#secondset', '#secondset .selection-wrapper input[type="radio"]', true);
     const editNumberInputEle = block.querySelector('#form-mobilenumber');
     editNumberInputEle.setAttribute('readonly', true);
 
@@ -370,58 +368,3 @@ function otpsEforcements(block) {
 
 }
 
-function showSelectedItems(block, fieldsestId, slectorSelecor, hideOnSelect = false) {
-    const fieldsetContainer = block.querySelector(`${fieldsestId}`);
-    const selectedFieldsetContainer = block.querySelector(`${fieldsestId}`).parentNode;
-    const selectedItemContainer = document.createElement('div');
-    selectedItemContainer.classList.add('select-item-container');
-    selectedFieldsetContainer.insertBefore(selectedItemContainer, fieldsetContainer);
-    const selectedSelectable = block.querySelectorAll(`${slectorSelecor}`);
-
-    selectedSelectable.forEach(function (selected) {
-        selected.addEventListener('change', function () {
-            const text = this.previousSibling.textContent;
-            const existingItem = selectedFieldsetContainer.querySelector(`[data-value="${text}"]`);
-
-            // Handle radio button selection
-            if (this.type === 'radio') {
-                // Remove any existing selected items
-                const allExistingItems = selectedFieldsetContainer.querySelectorAll('.selected-item-selectable');
-                allExistingItems.forEach(item => item.remove());
-
-                // Add the new selected item
-                if (this.checked) {
-                    const selectedItem = document.createElement('div');
-                    selectedItem.setAttribute('data-value', text);
-                    selectedItem.classList.add('selected-item-selectable');
-                    selectedItem.innerText = text;
-                    selectedItemContainer.appendChild(selectedItem);
-                    // selectedItemContainer.insertBefore(selectedItem, fieldsetContainer);
-                }
-            }
-
-            // Handle checkbox selection
-            if (this.type === 'checkbox') {
-                if (this.checked) {
-                    if (!existingItem) {
-                        const selectedItem = document.createElement('div');
-                        selectedItem.setAttribute('data-value', text);
-                        selectedItem.classList.add('selected-item-selectable');
-                        selectedItem.innerText = text;
-                        selectedItemContainer.appendChild(selectedItem);
-                    }
-                } else {
-                    if (existingItem) {
-                        existingItem.remove();
-                    }
-                }
-            }
-
-            if (hideOnSelect === true) {
-                block.querySelector(`${fieldsestId}`).classList.toggle('hide-options');
-                block.querySelector(`${fieldsestId}`).parentNode.previousSibling.children[0].classList.toggle('active-dropdown');
-            }
-
-        });
-    });
-}
