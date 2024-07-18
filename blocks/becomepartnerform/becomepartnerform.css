@@ -3,11 +3,13 @@
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: 1fr 1fr;
-    max-width: 1048px;
+    max-width: 1099px;
     margin: auto;
     background-color: #F2F2F2;
     border-radius: 10px;
-
+    padding: 20px 10px 40px 10px;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
 @media(min-width:901px) {
@@ -22,8 +24,7 @@
 }
 
 .hero-container.becomepartnerform-container .default-content-wrapper>* {
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
 }
 
 .becomepartnerform-container .becomepartnerform-wrapper {
@@ -44,7 +45,6 @@
     font-weight: 300;
     line-height: 16.42px;
     text-align: left;
-    margin-bottom: 8px;
     position: relative;
 }
 
@@ -62,27 +62,50 @@
 
 .becomepartnerform-container .becomepartnerhero {
     border-radius: 10px;
-    overflow: hidden;
     z-index: 3;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
 }
 
 .hero-container.becomepartnerform-container .hero-wrapper {
-    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
     padding-left: 36px;
-
     padding-top: 8px;
+    height:fit-content
+}
 
+.hero-container.becomepartnerform-container .hero-wrapper .becomepartnerhero::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+    z-index: 1;
+    border-radius: 10px;
 
 }
 
+.hero-container.becomepartnerform-container .becomepartnerhero {
+    flex: 1 1 auto;
+    border-radius: 10px;
+    z-index: 3;
+}
+
+
 .hero-container.becomepartnerform-container .becomepartnerhero img {
-    max-height: 524px;
+    width: 100%;
     height: 100%;
+    border-radius: 10px;
+    object-fit: cover; 
 }
 
 .becomepartnerhero>div>div:nth-of-type(2) {
-    padding-top: 23%;
+    padding-top: 15%;
+    z-index: 1;
+    position: relative;
 }
 
 .becomepartnerhero>div>div p:first-of-type {
@@ -92,31 +115,35 @@
     line-height: 42.23px;
     margin-top: 0;
     text-align: left;
-    margin-bottom: 1rem;
+    margin-bottom: 0;
 }
 
 .becomepartnerhero>div>div p:nth-of-type(2) {
     margin-top: 0;
-    font-size: 36px;
+    font-size: 32px;
     font-weight: 600;
     line-height: 43.2px;
     text-align: left;
     color: #ffffff;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 .becomepartnerhero>div>div p:last-of-type {
-    margin-top: 70px;
+    margin-top: 50px;
     color: #ffffff;
     font-size: 10px;
     font-weight: 400;
     line-height: 11.73px;
     text-align: left;
+    margin-bottom: 0;
 }
 
 .becomepartnerform .field-wrapper {
-
     padding: 8px;
+}
+
+.becomepartnerform .form1.field-wrapper.plaintext-wrapper{
+    height: 50px;
 }
 
 .becomepartnerform fieldset {
@@ -222,7 +249,7 @@ fieldset#form-contactfieldset .form2.field-wrapper.number-wrapper:has(input[type
     background-color: #D4D4D499;
     outline: none;
     border: none;
-    font-family: 'Work Sans';
+    height: 50px;
 }
 
 .becomepartnerform textarea {
@@ -388,12 +415,16 @@ fieldset#form-contactfieldset .form2.field-wrapper.number-wrapper:has(input[type
 .becomepartnerform .field-wrapper.plaintext-wrapper p {
     background-color: #D4D4D499;
     border-radius: 4px;
-    padding: 12px 8px;
+    padding-left: 8px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
     color: #585858;
     font-size: 16px;
     font-weight: 400;
     line-height: 18.77px;
     margin: 0;
+    height:50px;
 }
 
 .becomepartnerform .form1.field-wrapper.fieldset-wrapper {
@@ -451,7 +482,7 @@ fieldset#form-contactfieldset .form2.field-wrapper.number-wrapper:has(input[type
     font-family: Work Sans;
     font-size: 16px;
     font-weight: 500;
-    width: fit-content;
+    max-width: 160px;
     color: #FFFFFF;
     line-height: 16px;
     padding: 15px 17px;
@@ -459,6 +490,8 @@ fieldset#form-contactfieldset .form2.field-wrapper.number-wrapper:has(input[type
     border: unset;
     border-radius: 4px;
     cursor: pointer;
+    box-sizing: border-box;
+    margin-top: 10px;
 }
 
 .becomepartnerform .verify-btn.field-wrapper.button-wrapper input[type="button"] {
@@ -505,7 +538,13 @@ fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper:has(input:not(:place
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
+
 }
+
+.field-wrapper.fieldset-wrapper .select-item-container:has(.selected-item-selectable) {
+    margin-bottom: 8px;
+}
+
 
 .field-wrapper.fieldset-wrapper .selected-item-selectable {
     cursor: pointer;
@@ -528,22 +567,35 @@ fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper:has(input:not(:place
 
 .form1.field-wrapper.plaintext-wrapper #form-loancategoryplaceholder::after,
 .form1.field-wrapper.plaintext-wrapper #form-selectlocationplaceholder::after {
-    content: "";
+    content: url(/icons/dropdown.svg);
     position: absolute;
-    border: solid #585858;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    padding: 3px;
-    font-weight: 400;
-    right: 16px;
-    transform: translateY(calc(50% - 1.5px)) rotate(45deg);
-    -webkit-transform: translateY(calc(50% - 1.5px)) rotate(45deg);
+    right: 8px;
+    top: 16px;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.form1.field-wrapper.select-wrapper select{
+    appearance: none; 
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    background: url('/icons/dropdown.svg') no-repeat; 
+    background-position: calc(100% - 10px) center;
+    padding-right: 20px; 
+    padding: 8px 10px; 
+    font-size: 14px; 
+    width: 100%;
+    background-color: #D4D4D499;
 }
 
 .form1.field-wrapper.plaintext-wrapper #form-loancategoryplaceholder.active-dropdown::after,
 .form1.field-wrapper.plaintext-wrapper #form-selectlocationplaceholder.active-dropdown::after {
-    transform: translateY(calc(50% - 1.5px)) rotate(-135deg);
-    -webkit-transform: translateY(calc(50% - 1.5px)) rotate(-135deg);
+    transform: translateY(calc(50% - 1.5px)) rotate(180deg);
+    top:14px;
 }
 
 .becomepartnerform .hide-options {
@@ -675,11 +727,9 @@ fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper:has(input:not(:place
     }
 }
 
-#form-selectlocationplaceholder.disabled-true,
-#form-loancategoryplaceholder.disabled-true {
+.form1.disabled-dropdown {
     cursor: pointer;
     pointer-events: none;
-    ;
 }
 
 .becomepartnerform input:-webkit-autofill,
@@ -694,4 +744,26 @@ fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper:has(input:not(:place
     -webkit-text-fill-color: #585858;
     -webkit-box-shadow: 0 0 0px 1000px #D4D4D499 inset;
     transition: background-color 5000s ease-in-out 0s;
+}
+
+.field-wrapper.fieldset-wrapper #secondset {
+    gap: 0;
+    flex-direction: column;
+    max-height: 120px;
+    flex-wrap: nowrap;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+}
+
+.field-wrapper.fieldset-wrapper #secondset .selection-wrapper label {
+    display: block;
+    border-radius: unset;
+
+}
+
+.field-wrapper.fieldset-wrapper #secondset .form1.field-wrapper.selection-wrapper {
+    padding-top: 0;
+    padding-bottom: 0;
+
 }

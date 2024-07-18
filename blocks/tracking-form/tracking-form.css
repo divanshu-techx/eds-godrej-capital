@@ -1,0 +1,145 @@
+.tracking-form .form2 {
+    display: none;
+}
+
+.tracking-form .form1.radio-wrapper input {
+    display: none;
+}
+
+.tracking-form .form1.radio-wrapper {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.tracking-form .form1.radio-wrapper label {
+    position: relative;
+    line-height: 22px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14.08px;
+}
+
+.tracking-form .form1.radio-wrapper label:before,
+.tracking-form .form1.radio-wrapper label:after {
+    content: '';
+}
+
+.tracking-form .form1.radio-wrapper label:after {
+    background: #3CB8FF;
+    border-radius: 4px;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: -4px;
+    left: 3px;
+    transition: 300ms;
+    opacity: 0;
+}
+
+.tracking-form .form1.radio-wrapper label:before {
+    border: 1px solid #3CB8FF;
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: top;
+    border-radius: 4px;
+}
+
+.tracking-form .form1.radio-wrapper label.checked:after {
+    opacity: 1;
+    
+}
+
+.tracking-carousel-form .tracking-form-wrapper{
+    box-shadow: 0px 0px 8px 0px #00000033;
+    margin:unset;
+}
+
+.tracking-carousel-form .tracking-form-wrapper form{
+    padding:20px;
+}
+
+.tracking-carousel-form .tracking-form-wrapper fieldset{
+    border:none;
+    display: flex;
+}
+
+.tracking-form-wrapper .tracking-form fieldset legend{
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 18.77px;
+    text-align: center;
+    color:#3b3b3b;
+    margin-bottom: 10px;
+}
+
+.tracking-form .form1.field-wrapper.input-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+fieldset#residentType .radio-wrapper:nth-of-type(2) {
+    margin-left: 20px; /* Adjust the value as needed */
+}
+
+.tracking-form .form1.field-wrapper.text-wrapper {
+    flex: 0 0 10%;
+    margin-right: 10px;
+}
+
+.tracking-form .form1.field-wrapper .error-message{
+    color:#C12065;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14.08px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.tracking-form .form1.field-wrapper.tel-wrapper {
+    flex: 0 0 90%;
+}
+
+.tracking-form .form1.field-wrapper input[type="text"],
+.tracking-form .form1.field-wrapper input[type="tel"] {
+    padding: 8px;
+    font-size: 14px;
+    border:none;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    background: #f4f4f4;
+}
+
+
+.tracking-form .form1.field-wrapper.button-wrapper{
+    text-align: center;
+    margin-top: 40px;
+}
+
+.tracking-form #apply-now-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #3b3b3b;
+    background-color:#e8e8e8; 
+    border:none;
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; 
+}
+
+.tracking-form #apply-now-btn:hover {
+    background-color: #fff; 
+    color: #3CB8FF; 
+    border-color: #3CB8FF; 
+}
+
+.tracking-form #apply-now-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(60, 184, 255, 0.5);
+}
+

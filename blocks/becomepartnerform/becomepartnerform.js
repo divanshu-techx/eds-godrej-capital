@@ -1,7 +1,8 @@
 import { createForm, generatePayload } from '../../blocks/form/form.js';
-import { restrictNameInputs, restrictPhoneNumberInputs, validateNameField, validateEmail, validateMobileNumber, handleErrorMessages } from '../becomepartnerform/inputFieldsValidation.js';
+import { restrictNameInputs, restrictPhoneNumberInputs, validateNameField, validateEmail, validateMobileNumber, validateLoanProducts, handleErrorMessages } from '../form/inputFieldsValidation.js';
 
 const apiUrl = getDataAttributeValueByName('apiurl');
+const formSheetUrl = getDataAttributeValueByName('sheeturl');
 const thankYouPageUrl = getDataAttributeValueByName('thankyoupageurl');
 
 export default async function decorate(block) {
@@ -16,13 +17,10 @@ export default async function decorate(block) {
     restrictNameInputs(block);
     restrictPhoneNumberInputs(block);
 
-    // Add change event for checkboxes and radio button
+    // Add change event for checkboxes
     addChangeEventOnCheckboxes(block);
-    addChangeEventOnRadioButtons(block);
     handlSelectOnTabAndMob(block)
     otpsEforcements(block)
-    showSelectedItems(block, '#firstset', '#firstset .selection-wrapper input[type="checkbox"]');
-    showSelectedItems(block, '#secondset', '#secondset .selection-wrapper input[type="radio"]', true);
     const editNumberInputEle = block.querySelector('#form-mobilenumber');
     editNumberInputEle.setAttribute('readonly', true);
 
@@ -35,10 +33,8 @@ export default async function decorate(block) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const jsonUrl = 'https://main--eds-godrej-capital--divanshu-techx.hlx.page/become-a-partner/become-a-partner-form-sheet.json';
-    console.log(jsonUrl);
 
-    fetch(jsonUrl)
+    fetch(formSheetUrl)
         .then(response => response.json())
         .then(data => {
             const dropdown = document.getElementById('categoryDropdown');
@@ -210,30 +206,6 @@ function addChangeEventOnCheckboxes(block) {
     });
 }
 
-function addChangeEventOnRadioButtons(block) {
-    const radioButtons = block.querySelectorAll('.form1.field-wrapper.radio-wrapper.selection-wrapper input[type="radio"]');
-
-    radioButtons.forEach(radio => {
-        radio.addEventListener('change', (e) => {
-            // Remove the 'selected' class from all radio buttons in the group
-            const name = radio.getAttribute('name');
-
-            radioButtons.forEach(r => {
-                if (r.getAttribute('name') === name) {
-                    const parentWrapper = r.closest('.form1.field-wrapper.radio-wrapper.selection-wrapper');
-                    parentWrapper.classList.remove('selected');
-                }
-            });
-
-            // Add the 'selected' class to the checked radio button
-            const parentWrapper = radio.closest('.form1.field-wrapper.radio-wrapper.selection-wrapper');
-            // const label = parentWrapper.querySelector('label').textContent;
-            parentWrapper.classList.add('selected');
-            // radio.value = label;
-        });
-    });
-}
-
 function getSelectedCheckboxValues(block) {
     // Get all checkboxes inside the specified fieldset
     const checkboxes = block.querySelectorAll('fieldset#firstset input[type="checkbox"]');
@@ -253,28 +225,29 @@ function validateForm1(block) {
     const nameField = block.querySelector('#form-username');
     const mobileField = block.querySelector('#form-usermobilenumder');
     const emailField = block.querySelector('#form-useremailid');
-    const checkboxValidation = validateRadioBtnAndCheckbox(block, "#firstset", 'Please select at least one product.', 'checkbox');
-    const radioButtonValidation = validateRadioBtnAndCheckbox(block, "#secondset", 'Please select a location.', 'radio');
+    const loanProductField = block.querySelector("#firstset");
+    const locationDropdown = block.querySelector('#form-location');
+    const isLoanProductsValid = validateLoanProductCheckboxs(loanProductField);
+    const isLocationValid = validateLoanProducts(locationDropdown);
 
     let isValid = true;
     if (!validateNameField(nameField)) {
         isValid = false;
     }
-    if (!validateMobileNumber(mobileField)) {
+    if (!validateMobileNumber(mobileField, 'Please enter a valid 10-digit mobile number.')) {
         isValid = false;
     }
     if (!validateEmail(emailField)) {
         isValid = false;
     }
 
-    return checkboxValidation && radioButtonValidation && isValid;
+    return isLoanProductsValid && isLocationValid && isValid;
 }
 
 // Consolidated validation function
-function validateRadioBtnAndCheckbox(block, fieldsetId, errorMessageText, inputType) {
-    const fieldset = block.querySelector(fieldsetId);
-    const selectedInputs = fieldset.querySelectorAll(`.form1.field-wrapper.${inputType}-wrapper.selection-wrapper.selected, .form1.field-wrapper.${inputType}-wrapper.selection-wrapper.checked`);
-    return handleErrorMessages(selectedInputs.length > 0, fieldset, errorMessageText);
+function validateLoanProductCheckboxs(loanProductFieldSet) {
+    const selectedInputs = loanProductFieldSet.querySelectorAll(`.form1.field-wrapper.checkbox-wrapper.selection-wrapper.checked`);
+    return handleErrorMessages(selectedInputs.length > 0, loanProductFieldSet, 'Please select at least one product.');
 }
 
 function toggleFormVisibility(hideSelector, showSelector, block) {
@@ -309,7 +282,7 @@ function generateRequestBody(formPayload, isOtpGeneration, otp, selectedProducts
         fullname: formPayload.userName,
         emailId: formPayload.userEmailId,
         mobile: formPayload.userMobileNumder,
-        location: formPayload.locationOption,
+        location: formPayload.location,
         products: selectedProducts,
         eventType: isOtpGeneration ? "OTP_GENERATE" : "OTP_VERIFY",
         otp: otp
@@ -356,25 +329,20 @@ function getDataAttributeValueByName(name) {
 function handlSelectOnTabAndMob(block) {
     const dropdowns = block.querySelectorAll('.form1 #form-loancategoryplaceholder , .form1 #form-selectlocationplaceholder');
     dropdowns.forEach((dropdown) => {
-        dropdown.parentNode.nextElementSibling.children[0].classList.add('hide-options');
+        const fieldsetWrapper = dropdown.closest('.form1').nextElementSibling.querySelector('fieldset');
+        console.log(fieldsetWrapper)
 
-        dropdown.addEventListener('click', function () {
-            this.classList.toggle('active-dropdown')
-            this.parentNode.nextElementSibling.children[0].classList.toggle('hide-options');
-        })
+        if (fieldsetWrapper) {
+            fieldsetWrapper.classList.add('hide-options');
 
+            dropdown.addEventListener('click', function () {
+                this.classList.toggle('active-dropdown');
+                fieldsetWrapper.classList.toggle('hide-options');
+            });
+        }
     })
 
 }
-function enforceSingleDigit(event) {
-    const inputField = event.target;
-    let { value } = inputField;
-    // Allow only numeric input and truncate to one character
-    if (!/^\d$/.test(value)) {
-        value = value.replace(/[^\d]/g, '');
-    }
-    inputField.value = value.slice(0, 1);
-};
 
 function otpsEforcements(block) {
     const otpFieldsEls = block.querySelectorAll('#form-otpfieldset input[type="text"]');
@@ -400,56 +368,3 @@ function otpsEforcements(block) {
 
 }
 
-function showSelectedItems(block, fieldsestId, slectorSelecor, hideOnSelect = false) {
-    const selectedFieldsetContainer = block.querySelector(`${fieldsestId}`).parentNode;
-    const selectedItemContainer = document.createElement('div');
-    selectedItemContainer.classList.add('select-item-container');
-    selectedFieldsetContainer.appendChild(selectedItemContainer);
-    const selectedSelectable = block.querySelectorAll(`${slectorSelecor}`);
-
-    selectedSelectable.forEach(function (selected) {
-        selected.addEventListener('change', function () {
-            const text = this.previousSibling.textContent;
-            const existingItem = selectedFieldsetContainer.querySelector(`[data-value="${text}"]`);
-
-            // Handle radio button selection
-            if (this.type === 'radio') {
-                // Remove any existing selected items
-                const allExistingItems = selectedFieldsetContainer.querySelectorAll('.selected-item-selectable');
-                allExistingItems.forEach(item => item.remove());
-
-                // Add the new selected item
-                if (this.checked) {
-                    const selectedItem = document.createElement('div');
-                    selectedItem.setAttribute('data-value', text);
-                    selectedItem.classList.add('selected-item-selectable');
-                    selectedItem.innerText = text;
-                    selectedItemContainer.appendChild(selectedItem);
-                }
-            }
-
-            // Handle checkbox selection
-            if (this.type === 'checkbox') {
-                if (this.checked) {
-                    if (!existingItem) {
-                        const selectedItem = document.createElement('div');
-                        selectedItem.setAttribute('data-value', text);
-                        selectedItem.classList.add('selected-item-selectable');
-                        selectedItem.innerText = text;
-                        selectedItemContainer.appendChild(selectedItem);
-                    }
-                } else {
-                    if (existingItem) {
-                        existingItem.remove();
-                    }
-                }
-            }
-
-            if (hideOnSelect === true) {
-                block.querySelector(`${fieldsestId}`).classList.toggle('hide-options');
-                block.querySelector(`${fieldsestId}`).parentNode.previousSibling.children[0].classList.toggle('active-dropdown');
-            }
-
-        });
-    });
-}

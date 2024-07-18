@@ -1,0 +1,65 @@
+.leftcontentusploan {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.usp-details-parent {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 100%;
+}
+
+.uspcontentdetails {
+    flex: 1;
+    padding: 10px;
+    color: black; /* Ensure text is black */
+}
+
+.imagedata {
+    flex: 1;
+    padding: 10px;
+}
+
+.imagedata picture img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.uspcontentdetails ul {
+    list-style: none;
+    padding-left: 20px;
+    margin: 0; /* Reset default margin */
+}
+
+.uspcontentdetails ul li {
+    position: relative;
+    padding-left: 20px; /* Space for marker */
+    margin-bottom: 10px; /* Add spacing between list items */
+    color: black; /* Ensure list text is black */
+}
+
+.uspcontentdetails ul li::before {
+    content: '•';
+    color: green; /* Marker color */
+    position: absolute;
+    left: 0;
+}
+
+.uspcontentdetails p a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3CB8FF; /* Background color */
+    color: white; /* Text color */
+    text-decoration: none;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.uspcontentdetails p a:hover {
+    background-color: #1E90FF; /* Slightly darker blue for hover */
+    color: white; /* Ensure text color stays white on hover */
+}
