@@ -87,6 +87,22 @@
     margin: 10px 0;
 }
 
+.main-teaser .mainteaser-banner__content h2,
+.main-teaser .mainteaser-banner__content h3{
+    font-size: 36px;
+    font-weight: 300;
+    line-height: 42.23px;
+}
+@media(max-width:767px){
+    .main-teaser .mainteaser-banner__content h2,
+    .main-teaser .mainteaser-banner__content h3{
+        font-size: 20px;
+        font-weight: 300;
+        line-height: 23.46px;
+        text-align: left;        
+}
+}
+
 .main-teaser.black .mainteaser-banner__content p,
 .main-teaser.black .mainteaser-banner__content ul,
 .main-teaser.black .mainteaser-banner__content h1,
