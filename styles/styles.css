@@ -6,7 +6,6 @@ body footer {
   width: 100%;
 } */
 
-
 :root {
 --slide-content-width: 35%;
   --background-color: #FFFFFF;
@@ -210,6 +209,7 @@ button {
   overflow: hidden;
   text-overflow: ellipsis;
   padding:12px 32px;
+  border:none;
 }
 
 a.button:hover, a.button:focus, button:hover, button:focus  {

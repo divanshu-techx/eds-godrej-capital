@@ -91,6 +91,23 @@
     margin: 0;
 }
 
+.custom-banner .banner__content h2,
+.custom-banner .banner__content h3{
+    font-size: 36px;
+    font-weight: 300;
+    line-height: 42.23px;
+}
+
+@media(max-width:767px){
+    .custom-banner .banner__content h2,
+    .custom-banner .banner__content h3{
+        font-size: 20px;
+        font-weight: 300;
+        line-height: 23.46px;
+        text-align: left;        
+}
+}
+
 .custom-banner.black .banner__content p{
     color: #000;
 }
