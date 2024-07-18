@@ -29,6 +29,16 @@
 
             min-width: 383px;
             max-width: 383px;
+            .profiles{
+                .profile-details{
+                    .profile-picture{
+                        img{
+                            height: 100%;
+                        }
+                    }
+                }
+            
+            }
 
         }
     }

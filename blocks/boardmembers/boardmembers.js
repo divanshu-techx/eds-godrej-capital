@@ -81,7 +81,7 @@ export default async function decorate(block) {
         overlay.style.width = '100%';
         overlay.style.height = '100%';
         overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        overlay.style.zIndex = 999;
+        overlay.style.zIndex = 9999; //----
         document.body.appendChild(overlay);
 
         const popup = document.createElement('div');
@@ -94,7 +94,7 @@ export default async function decorate(block) {
         popup.style.border = '1px solid #ccc';
         popup.style.padding = '40px';
         popup.style.backgroundColor = 'white';
-        popup.style.zIndex = 1000;
+        popup.style.zIndex = 999999; //----
         popup.style.maxWidth = '80%';
         popup.style.maxHeight = '80%';
         // popup.style.overflow = 'auto';
