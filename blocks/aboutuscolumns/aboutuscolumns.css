@@ -1,4 +1,10 @@
-.about-columns > div {
+@media(max-width:601px){
+    .aboutuscolumns{
+      display:none;
+    }
+}
+
+.about-columns>div {
   display: flex;
   flex-direction: column;
 }
