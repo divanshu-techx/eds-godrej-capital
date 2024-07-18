@@ -1,0 +1,15 @@
+.media-gallery-cards{
+    display: flex;
+}
+.media-gallery-filter{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.media-gallery-filter .tabs-wrapper-media-gallery{
+    display: flex;
+}
+.tabs-wrapper-media-gallery .media-tab.active{
+    background: #3CB8FF;
+}
+
