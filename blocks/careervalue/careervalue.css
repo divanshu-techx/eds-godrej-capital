@@ -1,0 +1,97 @@
+.careervalue {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px; 
+  }
+
+  .career-section-container .default-content-wrapper{
+    padding:20px 10px;
+  }
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .careervalue {
+    display: flex;
+    flex-wrap: nowrap; 
+    gap: 20px; 
+    overflow-x: auto; 
+    padding: 10px;
+  }
+
+  .careervalue .career-child-cards {
+    flex: 0 0 424px; 
+    max-width: 424px;
+  }
+}
+
+  .careervalue-wrapper {
+    gap: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+  
+  .career-child-cards {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 10px;
+    box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.16);
+    background-color: #fff;
+    box-sizing: border-box;
+    gap: 10px;
+  }
+  .career-inner-child-cards picture {
+    display: block;
+    margin: 0 auto;                                                
+  }
+  
+  .career-inner-child-cards img {
+    max-width: 123px;
+    height: auto;
+  }
+  
+  .career-inner-child-cards h3{
+    text-align: start;
+    color: #696969;
+  }
+  
+  .career-inner-child-cards p {
+    margin: 0;
+    font-size: 12px;
+    color: #696969;
+  }
+  
+  .careervalue-wrapper .numberChart {
+    gap: 10px;
+    display: flex;
+}
+
+.careervalue-wrapper .btn-container{
+    cursor: pointer;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+  }
+  .careervalue-wrapper .prev,.careervalue-wrapper .next{
+    color: #fff;
+    background-color: #3CB8FF;
+  }
+  .careervalue-wrapper .prev img {
+    transform: rotate(180deg);
+  }
+  .careervalue-wrapper .othernode{
+    color: black;
+  }
+
+  .btn-container button:disabled{
+    background:var(--color-dark-grey);
+    cursor: not-allowed;
+}
+  .careervalue-wrapper .currentnode{
+    color:rgba(140, 177, 51, 1);
+    font-weight: 600;
+    text-decoration: underline;
+  }
+  .careervalue-wrapper .hidecards{
+    display: none;
+  }

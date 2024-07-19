@@ -80,9 +80,6 @@
   display: flex;
 }
 
-
-
-
 .faq-wrapper .middleContainer #faq-not-found {
   display: flex;
   align-items: center;
@@ -93,10 +90,16 @@
   max-width: 1004px;
   background: #F1F1F1;
   height: 166px;
+  transition: height 0.5s ease; 
 }
 
-
-
+.faq-wrapper .middleContainer #faq-not-found p{
+font-size: 14px;
+font-weight: 400;
+line-height: 24px;
+text-align: left;
+color:#5D5D5D;
+}
 
 .faq-wrapper .middleContainer .tags-button {
   display: flex;
@@ -139,6 +142,8 @@
 .faq-wrapper .product-page .banner-container {
   position: relative;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 29.74%, #000 49.78%);
+  max-height: 602px;
+  border-radius: 8px;
 }
 
 .faq-wrapper .product-page .banner-container .content-container {
@@ -151,7 +156,7 @@
 
 .faq-wrapper .product-page .banner-container .content-container .heading-container h3 {
   text-align: left;
-  font-family: Work Sans;
+  font-family: "Work Sans";
   font-size: 36px;
   font-weight: 600;
   line-height: 43.2px;
@@ -197,7 +202,6 @@
 }
 
 .faq-wrapper .product-page .banner-container .content-container .btn-container .btn-details {
-  font-family: Work Sans;
   font-size: 14px;
   font-weight: 500;
   line-height: 16.42px;
@@ -256,8 +260,6 @@
   transition: 0.4s;
   margin: 0;
   position: relative;
-  font-family: Work Sans;
-  font-size: 16px;
   font-weight: 400;
   line-height: 28px;
   text-align: left;
@@ -265,9 +267,7 @@
 
 .lowerContainer .qa-item .faq-heading::after,
 .lowerContainer .qa-item .faq-heading.active::after {
-
   position: absolute;
-
   right: 0;
   font-weight: 500;
   font-size: 22px;
@@ -275,7 +275,6 @@
   width: 30px;
   text-align: center;
   height: 30px;
-
   border-radius: 4px;
 }
 
@@ -304,7 +303,6 @@
   overflow: hidden;
   margin: 0;
   padding-bottom: 8px;
-  font-family: Work Sans;
   font-size: 14px;
   font-weight: 300;
   line-height: 16.42px;
@@ -324,7 +322,12 @@
   }
 
   .section.faq-container {
-    margin-top: 100px;
+    /* margin-top: 100px; */
+    border-radius: 20px 20px 0px 0px;
+        position: relative;
+        bottom: 30px;
+        background-color: #fff;
+        padding-bottom: 0px;
   }
 
   .upperContainer {

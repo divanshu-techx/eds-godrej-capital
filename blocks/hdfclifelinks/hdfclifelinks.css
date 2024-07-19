@@ -1,0 +1,93 @@
+.hdfc-life-link-section-container .default-content-wrapper {
+    padding: 20px 0px;
+    background-color: #f4f4f4;
+}
+
+@media(max-width:767px) {
+    .hdfc-life-link-section-container .default-content-wrapper {
+        padding: 20px 0px;
+        background-color: #fff;
+    }
+}
+
+.hdfc-life-link-section-container .hdfclifelinks-wrapper {
+    background-color: #f4f4f4;
+}
+
+@media(max-width:767px) {
+    .hdfc-life-link-section-container .hdfclifelinks-wrapper {
+        background-color: #fff;
+    }
+}
+
+@media(min-width:768px) {
+    .hdfc-life-link-section-container .hdfclifelinks-wrapper .hdfclifelinks {
+        padding: 10px 50px;
+    }
+}
+
+
+.hdfclifelinks .hdfc-life-child-div {
+    border-radius: 4px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+    height: 40px;
+}
+
+@media(max-width:767px) {
+    .hdfclifelinks .hdfc-life-child-div {
+        background-color: #f4f4f4;
+    }
+}
+
+.hdfclifelinks .hdfc-life-child-div .button-container p {
+    margin: 0px;
+}
+
+.hdfclifelinks .hdfc-life-child-div .button-container p a {
+    padding: 0px;
+    text-decoration: none;
+    color: #3B3B3B;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    word-wrap: break-word;
+    white-space: wrap;
+    word-wrap: break-word;
+}
+
+@media(max-width:767px) {
+    .hdfclifelinks .hdfc-life-child-div .button-container p a.button {
+        font-size: 11px;
+        font-weight: 400;
+        line-height: 28px;
+        padding: 0px 5px;
+    }
+}
+
+.hdfclifelinks .hdfc-life-child-div .button-container p a:hover {
+    background-color: inherit;
+}
+
+@media(min-width:767px) {
+    .hdfclifelinks .hdfc-life-child-div .button-container a:before {
+        content: url(/icons/lidot.svg);
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 8px;
+        height: 8px;
+        margin: 10px 10px;
+    }
+}
+
+.hdfclifelinks .hdfc-life-child-div .button-container {
+    background-image: url(/icons/nextarrow.png);
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: calc(100% - 10px) center;
+}

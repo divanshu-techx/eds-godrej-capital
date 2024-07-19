@@ -1,0 +1,141 @@
+.section.teasercardsheadlines-container>div {
+    max-width: unset;
+    margin: unset;
+}
+
+.section.teasercardsheadlines-container {
+    padding: 0;
+    position: relative;
+}
+
+.desktop-picture {
+    display: block;
+    margin: 0;
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+}
+
+.mobile-picture {
+    display: none;
+    width: 100%;
+}
+
+.teasercardsheadlines.block {
+    width: 100%;
+    height: 300px;
+    max-height: 300px;
+    position: relative;
+}
+
+@media (max-width: 599px) {
+    .teasercardsheadlines.block {
+        width: 100%;
+        height: 180px;
+        max-height: 180px;
+        position: relative;
+    }
+
+}
+
+@media (max-width: 599px) {
+    .teasercardsheadlines.block .desktop-picture {
+        display: none;
+    }
+
+    .mobile-picture {
+        display: block;
+        margin: 0;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .teasercardsheadlines.block div:last-child {
+        /* padding: 8px 16px; */
+    }
+
+    .teaser-content {
+        padding: 8px 16px;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+@media (min-width: 600px) {
+    .desktop-picture {
+        display: block;
+    }
+
+    .mobile-picture {
+        display: none;
+    }
+
+    .our-leadership .teasercardsheadlines.block .desktop-picture img{
+        max-height: 400px;
+    }
+}
+
+.desktop-picture img,
+.mobile-picture img {
+    width: 100%;
+}
+
+.teaser-content p {
+    max-width: 320px;
+    position: relative;
+    background: none;
+    color: white;
+    z-index: 1;
+}
+
+@media (max-width: 599px) {
+    .teaser-content {
+        padding-top: 1rem !important;
+    }
+
+    .teaser-content p {
+        font-size: 10px;
+        font-weight: 500;
+        max-width: 200px;
+    }
+
+    .teaser-content img {
+        width: 105px!important;
+        height: 40px!important;
+    }
+
+    .teaser-content {
+        padding: 8px 16px;
+        box-sizing: border-box;
+    }
+
+}
+
+
+.teaser-content p,
+a {
+    margin: 0;
+    padding: 0;
+}
+.teaser-content img {
+    width: 204px;
+    height: 80px;
+}
+.teasercardsheadlines.block div:last-child {
+    max-width: 1200px;
+    margin: auto;
+    width: 100%;
+}
+.teaser-content {
+    padding-top: 3rem;
+}
+.teaser-content .button-container .button {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #3cb8ff;
+    color: white;
+    border-radius: 2px;
+    font-size: 12px;
+    text-decoration: none;
+    margin-top:10px;
+}

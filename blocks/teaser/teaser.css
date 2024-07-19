@@ -187,9 +187,9 @@ button {
     transition: opacity 1s ease;
 }
 
-.button-container a.button {
+/* .button-container a.button {
     display: none;
-  }
+  } */
 
 .teaser-wrapper {
     /* padding: 20px; */
@@ -397,3 +397,12 @@ button {
   .section.teaser-container{
     display:none;
   }
+
+.carousel-slide-content a{
+ color: inherit;
+}
+
+.carousel-slide-content button{
+    color: inherit;
+}
+   

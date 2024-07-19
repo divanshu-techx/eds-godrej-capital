@@ -1,0 +1,218 @@
+.accordion-content {
+    display: none;
+  }
+
+  .accordion-content.active-show{
+    display: block;
+    background: #E8E8E8;
+
+  }
+
+  .accordion-content.active-show p:first-child{
+    margin-top: 0px;
+
+  }
+  
+  .accordion-header {
+    cursor: pointer;
+    border: 2px;
+  }
+
+.customer-support-information-container {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .supportcards-container,
+  .support-table-ui {
+    display: none;
+  }
+  
+  .customer-support-information-container {
+    display: block;
+  }
+}
+
+@media (min-width: 769px) {
+  .supportcards-container,
+  .support-table-ui {
+    display: block;
+  }
+
+  .customer-support-information-container {
+    display: none;
+  }
+}
+
+
+.supportcards {
+  display: flex;
+  justify-content: space-between;
+  gap:10px; 
+}
+
+.supportcards-column-second{
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+}
+
+.supportcards-column-second .col-second-parent-0 .col-second-child-0-0{
+
+}
+
+.supportcards-column-second .col-second-parent-0 {
+  box-shadow: 2px 2px 8px 0px #0000001A;
+  background-color: #fff;
+  padding:30px;
+  box-sizing: border-box;
+  height: 281px;
+  max-width: 310px;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+}
+
+.supportcards-column-second p{
+  margin:0;
+}
+
+.supportcards-column-second .col-second-parent-0 .col-second-child-0-0 p{
+ margin:0;
+}
+
+.supportcards-column-second .col-second-parent-0 .col-second-child-0-0 p.button-container a{
+ padding:0;
+}
+
+.supportcards-column-second .col-second-parent-1 {
+    display: flex;
+    justify-content: space-between;
+    background: #F4F4F4;
+    padding:10px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    height: 60px;
+    align-items: center;
+}
+
+.supportcards-column-second .col-second-parent-1 .col-second-child-1-0 img{
+    width: 16px;
+    height: 16px;
+    gap: 0px;
+    opacity: 0px;
+}
+
+.supportcards-column-second .col-second-parent-2 {
+    display: flex;
+    justify-content: space-between;
+    background: #F4F4F4;
+    padding:10px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    height: 60px;
+    align-items: center;
+}
+
+.supportcards-column-second .col-second-parent-2 .col-second-child-2-0 img{
+    width: 16px;
+    height: 16px;
+    gap: 0px;
+    opacity: 0px;
+}
+
+.supportcards-column-second .col-second-parent-1 .col-second-child-1-1 p{
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18.77px;
+  text-align: left;
+}
+
+.supportcards-column-second .col-second-parent-2 .col-second-child-2-1 p{
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.08px;
+  text-align: left;
+  color: #3B3B3B;
+}
+
+.supportcards-column-second .col-second-parent-1 .col-second-child-1-0 p{
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18.77px;
+  text-align: left;
+
+}
+
+.supportcards-column-second .col-second-parent-1 .col-second-child-1-1 p{
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.08px;
+  text-align: left;
+  color: #3B3B3B;
+}
+
+
+.supportcards-column-second .col-second-parent-0 .col-second-child-0-0 p {
+  margin-bottom: 10px; 
+}
+
+.supportcards-column-second .col-second-parent-0 .col-second-child-0-0 h3 {
+  text-align: start;
+  margin-bottom: 10px;
+}
+
+.supportcards-column-second .col-second-parent-0 .col-second-child-0-0 p:first-of-type {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 18.77px;
+}
+
+
+.supportcards-column-second .col-second-parent-0 .col-second-child-0-0 p:nth-of-type(2) {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.42px;
+  text-align: left;
+  margin-bottom: 0;
+}
+
+
+.supportcards-column-second .col-second-parent-0 .col-second-child-0-0 p:nth-of-type(3) {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.42px;
+  text-align: left;
+}
+
+
+.supportcards-column-second .col-second-parent-0 .col-second-child-0-0 p:nth-of-type(4) {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 18.77px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+}
+
+.supportcards-column-second .col-second-parent-0 .col-second-child-0-0 img{
+  width:20px;
+  height:16px;
+}
+
+.supportcards-column-second .col-second-parent-0 .col-second-child-0-0 p.button-container {
+  text-align: center; 
+}
+
+.supportcards-column-second .col-second-parent-0 .col-second-child-0-0 p.button-container a.button {
+  padding: 0;
+  text-decoration: none;
+  display: inline-block;
+  color:#3B3B3B;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.42px;
+}
+
+
+

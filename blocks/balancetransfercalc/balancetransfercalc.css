@@ -1,0 +1,420 @@
+
+.balancetransfercalc .calculator-container-balance-tansfer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 100%;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+.balancetransfercalc .inputsBoxBalance,.balancetransfercalc .outputs-balance-result {
+  box-sizing: border-box;
+  width: calc(50% - 10px);
+  max-width: 100%;
+}
+
+.balancetransfercalc .inputsBoxBalance {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  background: #F4F4F4;
+  padding: 20px; 
+  border-radius: 4px;
+}
+
+@media (max-width: 767px) {
+  .balancetransfercalc .inputsBoxBalance {
+      padding: 0; 
+      background: unset;
+  }
+  .section.balancetransfercalc-container{
+    border-radius: 20px 20px 0px 0px;
+    position: relative;
+    bottom: 30px;
+    background-color: #fff;
+    padding-bottom: 0px;
+}
+
+@media (max-width: 767px) {
+  #principalOutstandingDisplay,
+  #balanceTenureYearsDisplay,
+  #existingInterestRateDisplay,
+  #newInterestRateDisplay,
+  #newLoanTenureMonthsDisplay,
+  #newLoanTenureDisplay {
+  max-width: 100px;
+  }
+}
+}
+
+
+.balancetransfercalc .inputBalance {
+  margin-bottom: 20px;
+}
+
+.balancetransfercalc .inputBoxBalanceLabel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.balancetransfercalc .balanceSpanInput {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.balancetransfercalc .inputsBoxBalance .balanceSpanInput input {
+  background: #fff;
+  padding: 5px;
+  border: none;
+  box-sizing: border-box;
+  height: 40px;
+  line-height: 30px;
+}
+@media (max-width: 767px) {
+  .balancetransfercalc .inputsBoxBalance .balanceSpanInput input {
+      height: 30px; 
+  }
+}
+
+.balancetransfercalc .inputsBoxBalance .balanceSpanInput span {
+  background: #fff;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  height: 40px;
+  line-height: 30px;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 16.42px;
+  color:#3b3b3b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 35px;
+}
+
+@media (max-width: 767px) {
+  .balancetransfercalc .inputsBoxBalance .balanceSpanInput input,
+  .balancetransfercalc .inputsBoxBalance .balanceSpanInput span {
+      background: #F4F4F4;
+      height: 30px;
+  }
+}
+
+.balancetransfercalc .balanceSpanInput span {
+  border-right: none; 
+  border-radius: 4px 0 0 4px; 
+}
+
+.balancetransfercalc .balanceSpanInput input {
+  border-left: none; 
+  border-radius: 0 4px 4px 0;
+  margin-left: -1px;
+  text-align: end;
+}
+
+.balancetransfercalc .inputBoxBalanceRange {
+  margin-top: 10px;
+}
+
+.balancetransfercalc .inputBoxBalanceRange input[type="range"] {
+  width: 100%;
+  background: linear-gradient(to right, rgb(140, 177, 51) 0%, rgb(204, 204, 204) 0%);
+}
+
+.balancetransfercalc .inputBoxBalanceBottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+.balancetransfercalc .outputs-balance-result {
+  max-width: 100%;
+}
+
+.balancetransfercalc .balance-output-taxoutflow {
+  background: #8CB133;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff; 
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.balancetransfercalc .balance-output-taxoutflow {
+  height: 120px;
+}
+
+@media (max-width: 1023px) and (min-width: 768px) {
+  .balancetransfercalc .balance-output-taxoutflow {
+      height: 60px;
+  }
+}
+
+@media (max-width: 767px) {
+  .balancetransfercalc .balance-output-taxoutflow {
+      height: 83px;
+  }
+}
+
+.balancetransfercalc .balance-output-taxoutflow > div:first-child {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18.77px;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+.balancetransfercalc .balance-output-taxoutflow > div:last-child {
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 42.23px;
+  text-align: left;
+}
+
+.balancetransfercalc .balance-output-apply{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* box-shadow: 0px 2px 4px 0px #00000014; */
+  padding:20px 20px;
+}
+
+.balancetransfercalc .balance-output-apply button{
+  background: #3CB8FF;
+  color:#fff;
+}
+
+.balancetransfercalc .inputsBoxBalance label {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18.77px;
+  text-align: left;
+  color: #3b3b3b;
+}
+
+@media (max-width: 767px) {
+  .balancetransfercalc .inputsBoxBalance label {
+      font-size: 14px;
+      line-height: 16.42px;
+  }
+}
+
+
+.balancetransfercalc .inputBalance .inputBoxBalanceBottom{
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 16.42px;
+    text-align: left;
+    color:#000;
+}
+
+
+.error-message {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 5px;
+  display: none;
+}
+
+.balancetransfercalc .inputsBoxBalance input[type=range] {
+  -webkit-appearance: none!important;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  outline: none;
+  border-radius: 4px;
+}
+
+@media (max-width: 767px) {
+  .balancetransfercalc .inputsBoxBalance input[type=range] {
+      height: 4px; 
+  }
+}
+
+.balancetransfercalc .inputsBoxBalance input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8px;
+  border-radius: 5px;
+}
+/* @media (max-width: 767px) {
+  .balancetransfercalc .inputsBoxBalance input[type=range]::-webkit-slider-runnable-track {
+      height: 4px; 
+  }
+} */
+
+.balancetransfercalc .inputsBoxBalance input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background:#8CB133;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -6px;
+}
+
+@media (max-width: 767px) {
+  .balancetransfercalc .inputsBoxBalance input[type=range]::-webkit-slider-thumb  {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    background:#8CB133;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -4px;
+  }
+}
+
+.balancetransfercalc .inputsBoxBalance input[type=range]:focus {
+  outline: none;
+}
+
+.balancetransfercalc .inputsBoxBalance input[type=range]:active::-webkit-slider-thumb {
+  background:#8CB133;
+}
+
+.balance-output-bottom-result {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.balance-output-bottom-result .balance-output-list {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  flex: 1; 
+  box-sizing: border-box;
+}
+
+.balance-output-bottom-result .balance-output-list .balance-output-span-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.balance-output-bottom-result .balance-output-list .text-span-list {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18.77px;
+}
+
+.balance-output-bottom-result .balance-output-list .text-span-list-rs {
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 28.15px;
+  text-align: center;
+}
+
+.savingEmiSpan{
+  height: 20px;
+  width: 20px;
+  background-color: #8CB133;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.EMISpan{
+  height: 20px;
+  width: 20px;
+  background-color: #3b3b3b;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+/* Desktop */
+@media (min-width: 1351px) {
+  .balancetransfercalc .inputsBoxBalance {
+      max-width: 672px; 
+      width:100%;
+  }
+  .balancetransfercalc .outputs-balance-result {
+      max-width: calc(100% - 672px - 30px); 
+      width:100%;
+  }
+  .balancetransfercalc .calculator-container-balance-tansfer {
+      flex-direction: row;
+  }
+}
+
+/* Calculate proportion for 1200px screen */
+@media (min-width: 1200px) and (max-width: 1350px) {
+  .balancetransfercalc .inputsBoxBalance {
+      max-width: calc(772px / 1351 * 1200); 
+      width:100%;
+  }
+  .balancetransfercalc .outputs-balance-result {
+      max-width: calc(100% - (772px / 1351 * 1200) - 30px); 
+  }
+  .balancetransfercalc .calculator-container-balance-tansfer {
+      flex-direction: row;
+  }
+}
+
+/* iPad */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .balancetransfercalc .inputsBoxBalance {
+      max-width: calc(100% - 303px - 30px); 
+      width:100%;
+  }
+  .balancetransfercalc .outputs-balance-result {
+      max-width: 273px;
+  }
+  .balancetransfercalc .calculator-container-balance-tansfer {
+      flex-direction: row;
+  }
+  .balance-output-bottom-result {
+    flex-direction: column;
+  }
+  .combined-tab-result-apply{
+    box-shadow: 0px 2px 4px 0px #00000014;
+
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .balancetransfercalc .inputsBoxBalance, .balancetransfercalc .outputs-balance-result {
+      max-width: 100%;
+      width:100%;
+  }
+  .balancetransfercalc .calculator-container-balance-tansfer {
+      flex-direction: column;
+  }
+
+  .balance-output-bottom-result .balance-output-list .text-span-list {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16.42px;
+    text-align: start;
+  }
+  
+  .balance-output-bottom-result .balance-output-list .text-span-list-rs {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14.08px;
+    color:#757575;
+    text-align: start;
+  }
+
+  .EMISpan,.savingEmiSpan{
+    display: none;
+  }
+
+  .balance-output-bottom-result .balance-output-list .balance-output-span-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    margin-bottom: 0px;
+  }
+}
+

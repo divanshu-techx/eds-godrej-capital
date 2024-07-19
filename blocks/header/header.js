@@ -216,8 +216,10 @@ export default async function decorate(block) {
 
   // function to render nav elements div for child depth is 2
   function getChildResponseDataForDepthTwo(response, itemCount) {
-    console.log(response);
-    console.log(itemCount);
+    if (!response || Object.keys(response).length === 0) {
+      belowNavMainContainer.innerHTML = '';
+      return;
+    }
 
     // Clear previous content
     parentContainerDiv.innerHTML = '';
@@ -231,13 +233,16 @@ export default async function decorate(block) {
     // Iterate over the keys in the response object
     Object.keys(response).forEach((key, index) => {
       if (response.hasOwnProperty(key)) {
+        const parentName = key.split('_')[0];
+        const parentPath = key.split('_')[1];
         const li = document.createElement('li');
         li.className = 'listElement';
         if (index === 0) li.classList.add('active');
         const a = document.createElement('a');
-        a.textContent = key;
+        a.textContent = parentName;
+        a.href = parentPath;
         a.className = 'anchorPath';
-        a.addEventListener('click', (event) => {
+        a.addEventListener('mouseover', (event) => {
           event.preventDefault();
           const allListItems = mainUl.querySelectorAll('li');
           allListItems.forEach((item) => item.classList.remove('active'));
@@ -272,12 +277,12 @@ export default async function decorate(block) {
         nestedLi.className = 'listElement';
         const anchor = document.createElement('a');
         anchor.textContent = item.title;
-        anchor.href = '#';
+        anchor.href = item.subPagePath;
         anchor.classList.add('anchorPath');
         if (index === 0) anchor.classList.add('anchor_active');
         anchor.setAttribute('data-path', item.path);
 
-        anchor.addEventListener('click', (event) => {
+        anchor.addEventListener('mouseover', (event) => {
         event.preventDefault();
         const allAnchors = nestedUl.querySelectorAll('a.anchorPath');
         allAnchors.forEach((anchorItem) => anchorItem.classList.remove('anchor_active'));
@@ -298,6 +303,10 @@ export default async function decorate(block) {
 
   // function to render nav elements div for child depth is 1
   function getChildResponseDataForDepthOne(response, itemCount) {
+    if (!response || Object.keys(response).length === 0) {
+      belowNavMainContainer.innerHTML = '';
+      return;
+    }
     parentContainerDiv.innerHTML = '';
     firstElementChildDiv.innerHTML = '';
     secondElementDiv.innerHTML = '';
@@ -316,7 +325,7 @@ export default async function decorate(block) {
 
                 const anchor = document.createElement('a');
                 anchor.textContent = item.title;
-                anchor.href = '#';
+                anchor.href = item.redirectionPath;
                 anchor.classList.add('anchorPath');
                 if (overallIndex === 0) anchor.classList.add('anchor_active');
                 anchor.setAttribute('data-path', item.path);
@@ -324,7 +333,7 @@ export default async function decorate(block) {
                 li.appendChild(anchor);
                 mainUl.appendChild(li);
 
-                anchor.addEventListener('click', (event) => {
+                anchor.addEventListener('mouseover', (event) => {
                     event.preventDefault();
                     const allAnchors = mainUl.querySelectorAll('a.anchorPath');
                     allAnchors.forEach((anchorItem) => anchorItem.classList.remove('anchor_active'));
@@ -366,8 +375,6 @@ export default async function decorate(block) {
 
     const imageContainerDiv = document.createElement('div');
     imageContainerDiv.className = 'imageContainerDiv';
-
-    console.log(responseData.branchlocater);
 
     customerSupportDiv.innerHTML = `
         <li class="customersupport">
@@ -440,12 +447,14 @@ export default async function decorate(block) {
     const transformedData = {};
     data.forEach((item) => {
       if (item.parent) {
-        if (!transformedData[item.parent]) {
-          transformedData[item.parent] = [];
+        const key = `${item.parent}_${item.pagepath}`;
+        if (!transformedData[key]) {
+          transformedData[key] = [];
         }
-        transformedData[item.parent].push({
+        transformedData[key].push({
           title: item.title,
           path: item.path,
+          subPagePath: item.subpagepath,
         });
       } else if (item.title) {
         if (!transformedData[item.title]) {
@@ -454,6 +463,7 @@ export default async function decorate(block) {
         transformedData[item.title].push({
           title: item.title,
           path: item.path,
+          redirectionPath: item.parentRedirectionUrl,
         });
       }
     });
@@ -516,7 +526,7 @@ export default async function decorate(block) {
     const listElements = document.querySelectorAll('li.listElement');
 
     navItems.forEach((navItem) => {
-      navItem.addEventListener('click', (event) => {
+      navItem.addEventListener('mouseover', (event) => {
         event.preventDefault();
         const depth = navItem.getAttribute('data-depth');
         const navListItem = navItem.getAttribute('data-navitem');
@@ -541,6 +551,22 @@ export default async function decorate(block) {
         }
       });
     });
+
+    topNav.addEventListener('mouseleave', () => {
+      belowNavMainContainer.classList.remove('show');
+      navItems.forEach((item) => item.classList.remove('rotate'));
+      listElements.forEach((listElement) => listElement.classList.remove('selected'));
+    });
+  
+    belowNavMainContainer.addEventListener('mouseenter', () => {
+      belowNavMainContainer.classList.add('show');
+    });
+  
+    belowNavMainContainer.addEventListener('mouseleave', () => {
+      belowNavMainContainer.classList.remove('show');
+      navItems.forEach((item) => item.classList.remove('rotate'));
+      listElements.forEach((listElement) => listElement.classList.remove('selected'));
+    });
   }
 
   function getApiResponse(navListapi) {
@@ -554,7 +580,6 @@ export default async function decorate(block) {
         return response.json();
       })
       .then((response) => {
-        console.log(response.data);
         responseData = response.data;
         getResponseData(responseData);
       })
