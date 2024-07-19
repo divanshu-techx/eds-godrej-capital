@@ -18,25 +18,35 @@ async function fetchDataFromUrl(url) {
     }
 }
 function sortCards(sortBy, block) {
-    const cardsContainer = block.querySelector('.media-gallery-cards');
-    const cards = Array.from(cardsContainer.getElementsByClassName('card-media-gallery'));
+    // Select containers for each category
+    const pictureGalleryContainer = block.querySelector('.picture-gallery-container');
+    const otherCategoryContainer = block.querySelector('.other-category-container');
 
-    cards.sort((a, b) => {
-        const publishDateA = parseInt(a.getAttribute('data-publishdate'));
-        const publishDateB = parseInt(b.getAttribute('data-publishdate'));
+    // Convert NodeList to Array and sort each container's cards
+    const sortAndAppendCards = (container) => {
+        const cards = Array.from(container.getElementsByClassName('card-media-gallery'));
 
-        if (sortBy === 'ascending') {
-            return publishDateA - publishDateB;
-        } else if (sortBy === 'descending') {
-            return publishDateB - publishDateA;
-        } else {
-            return 0; // Default case if no valid sort option is selected
-        }
-    });
+        cards.sort((a, b) => {
+            const publishDateA = parseInt(a.getAttribute('data-publishdate'));
+            const publishDateB = parseInt(b.getAttribute('data-publishdate'));
 
-    // Clear the container and re-append sorted cards
-    cardsContainer.innerHTML = '';
-    cards.forEach(card => cardsContainer.appendChild(card));
+            if (sortBy === 'ascending') {
+                return publishDateA - publishDateB;
+            } else if (sortBy === 'descending') {
+                return publishDateB - publishDateA;
+            } else {
+                return 0; // Default case if no valid sort option is selected
+            }
+        });
+
+        // Clear the container and re-append sorted cards
+        container.innerHTML = '';
+        cards.forEach(card => container.appendChild(card));
+    };
+
+    // Sort and update each category container
+    sortAndAppendCards(pictureGalleryContainer);
+    sortAndAppendCards(otherCategoryContainer);
 }
 function createFilter(categories, block) {
     const searchInputPlaceholder = getDataAttributeValueByName('searchInputPlaceholder');
@@ -55,7 +65,7 @@ function createFilter(categories, block) {
         tab.setAttribute('data-category', category);
         tab.textContent = category;
         tab.addEventListener('click', () => {
-            showCategoryContent(category, block);
+            showCategoryContent(category, block, tab);
         });
 
         // Set the first tab as active by default
@@ -95,8 +105,8 @@ function createFilter(categories, block) {
     sortDropdown.appendChild(defaultOption);
 
     const sortOptions = sortByLabelDropDownLabel.split(', ');
-    const sortValues = ['descending','ascending'];
-    sortOptions.forEach((option,index) => {
+    const sortValues = ['descending', 'ascending'];
+    sortOptions.forEach((option, index) => {
         // const cleanOption = option.replace(/\(|\)/g, ''); 
         const sortOption = document.createElement('option');
         sortOption.value = sortValues[index];
@@ -113,24 +123,27 @@ function createFilter(categories, block) {
     tabContainer.append(tabsDiv, searchDiv, sortDiv);
     block.insertBefore(tabContainer, block.firstChild);
 }
-function showCategoryContent(category, block) {
+function showCategoryContent(category, block, tab) {
     const allTabs = block.querySelectorAll('.media-tab');
+    const pictureContainer = block.querySelector('.main-picture-div');
+    const videoContainer = block.querySelector('.other-category-container');
+
     allTabs.forEach(tab => {
-        tab.classList.remove('active');
         if (tab.getAttribute('data-category') === category) {
             tab.classList.add('active');
+        } else {
+            tab.classList.remove('active');
         }
     });
 
-    const allCards = block.querySelectorAll('.card-media-gallery');
-    allCards.forEach(card => {
-        const cardCategory = card.getAttribute('data-category');
-        if (cardCategory === category) {
-            card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
-        }
-    });
+    // Show the content related to the active tab
+    if (category === 'Videos') {
+        pictureContainer.style.display = 'none';
+        videoContainer.style.display = 'block';
+    } else if (category === 'Picture Gallery') {
+        pictureContainer.style.display = 'block';
+        videoContainer.style.display = 'none';
+    }
 }
 function filterCardsBySearch(searchTerm, block) {
     const activeCategory = block.querySelector('.media-tab.active').getAttribute('data-category');
@@ -252,9 +265,51 @@ function openModal(videoLink) {
     // Append modal to document body
     document.body.appendChild(modal);
 }
+// Function to fetch and append content to pictureGalleryContainer
+function fetchAndAppendContent(url, container) {
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(data => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(data, 'text/html');
+            const mainContent = doc.querySelector('main');
+
+            if (mainContent) {
+                container.innerHTML = mainContent.innerHTML;
+            } else {
+                container.innerHTML = '<p>No main content found.</p>';
+            }
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+            // Optionally, show an error message to the user
+            container.innerHTML = '<p>Failed to load content. Please try again later.</p>';
+        });
+}
 function generateCards(data, block) {
-    const cardContainer = document.createElement('div');
-    cardContainer.classList.add('media-gallery-cards');
+    // Create the main parent div for all cards
+    const mainParentDiv = document.createElement('div');
+    mainParentDiv.classList.add('main-parent-container');
+
+    // Create the div for Picture Gallery cards
+    const pictureGalleryContainer = document.createElement('div');
+    pictureGalleryContainer.classList.add('picture-gallery-container');
+
+    const newContentDiv = document.createElement('div');
+    newContentDiv.classList.add("new-content-card");
+
+
+    const mainPicture = document.createElement('div');
+    mainPicture.classList.add('main-picture-div');
+
+    // Create the div for other category cards
+    const otherCategoryContainer = document.createElement('div');
+    otherCategoryContainer.classList.add('other-category-container');
 
     data.data.forEach(item => {
         const card = document.createElement('div');
@@ -285,7 +340,12 @@ function generateCards(data, block) {
             cardTitle.textContent = item.cardtitle;
             cardTitle.href = item.path;
             cardLinkDiv.appendChild(cardTitle);
-
+            cardImageDiv.addEventListener('click', (e) => {
+                e.preventDefault();
+                pictureGalleryContainer.style.display = 'none';
+                newContentDiv.classList.add('active');
+                fetchAndAppendContent(item.path, newContentDiv);
+            })
             card.append(cardImageDiv, cardLinkDiv);
         } else if (item.cardvideolink) {
             // Create the div for the card video
@@ -332,23 +392,34 @@ function generateCards(data, block) {
             card.append(cardVideoDiv, cardLinkDiv);
         }
 
-        // Append card to container
-        cardContainer.appendChild(card);
+        // Append the card to the appropriate container
+        if (item.cardimagelink) {
+            pictureGalleryContainer.appendChild(card);
+            mainPicture.append(pictureGalleryContainer, newContentDiv);
+        } else {
+            otherCategoryContainer.appendChild(card);
+        }
     });
 
-    block.appendChild(cardContainer);
+    // Append the picture gallery container and other category container to the main parent div
+    mainParentDiv.appendChild(mainPicture);
+    mainParentDiv.appendChild(otherCategoryContainer);
 
-    // Show content for the first tab by default
-    const firstCategory = data.data.length > 0 ? data.data[0].category : null;
-    if (firstCategory) {
-        showCategoryContent(firstCategory, block);
-    }
+    // Append the main parent div to the block
+    block.appendChild(mainParentDiv);
+
+    // // Show content for the first tab by default
+    // const firstCategory = data.data.length > 0 ? data.data[0].category : null;
+    // if (firstCategory) {
+    //     showCategoryContent(firstCategory, block);
+    // }
 }
 // Helper function to convert Excel date format to JavaScript Date
 function convertExcelDate(excelDate) {
     const date = new Date((excelDate - (25567 + 2)) * 86400 * 1000);
     return date;
 }
+
 export default async function decorate(block) {
     const apiUrl = getDataAttributeValueByName('apiUrl');
     const categories = getDataAttributeValueByName('categorytab').split(',').map(cat => cat.trim());
@@ -369,6 +440,11 @@ export default async function decorate(block) {
         const data = await fetchDataFromUrl(apiUrl);
         if (data) {
             generateCards(data, block);
+            // Set the first tab as active and show its content
+            const firstTab = block.querySelector('.media-tab');
+            if (firstTab) {
+                showCategoryContent(firstTab.getAttribute('data-category'), block, firstTab);
+            }
         } else {
             console.log('Failed to fetch data.');
         }

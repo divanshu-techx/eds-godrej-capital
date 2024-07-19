@@ -36,3 +36,9 @@
     overflow: auto;
 }
 
+.main-parent-container .picture-gallery-container{
+    display: flex;
+}
+.main-parent-container .other-category-container{
+    display: flex;
+}
