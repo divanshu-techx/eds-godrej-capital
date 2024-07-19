@@ -1,15 +1,15 @@
-#feedback-title-btn {
+button#feedback-title-btn{
     position: fixed;
     right: 0;
-    top: 45%;
-    transform: translateY(-15%);
+    top: 63%;
+    transform: translateY(-50%) rotate(180deg);
     background-color: #5CB7E3;
     color: white;
     border: none;
-    padding: 18px 16px;
+    padding: 16px 16px;
     cursor: pointer;
     z-index: 9999;
-    writing-mode: vertical-rl;
+    writing-mode: vertical-lr;
     text-orientation: mixed;
     overflow: visible;
     border-top-left-radius: 4px;
@@ -23,13 +23,14 @@
 #feedback-title-btn::before {
     background: url(../../icons/less-then-icon.png) transparent no-repeat;
     background-repeat: no-repeat;
+    transform: translateY(-50%) rotate(180deg);
     background-position: center;
     position: absolute;
     height: 20px;
     width: 12px;
     content: "";
-    top: calc(50% - 10px);
-    left: -6px;
+    top: 50%;
+    left: 38px;
     display: flex;
     align-items: center;
     writing-mode: horizontal-tb;
@@ -46,7 +47,7 @@
 .parentContainerDiv {
     position: fixed;
     right: 0;
-    top: 50%;
+    top: 63%;
     transform: translateY(-50%) translateX(100%);
     background-color: #FEFEFE;
     border-radius: 4px 0px 0px 4px;
@@ -56,6 +57,7 @@
     width: 620px;
     box-shadow: -4px 2px 8px 0px #00000033;
     transition: transform 1s ease-in, opacity 0.5s ease-in;
+    box-sizing: border-box;
 }
 
 .parentContainerDiv.visible-parent {
@@ -311,8 +313,8 @@ input[type="number"] {
     width: 1.8ex;
     height: 0.6ex;
     background: rgba(0, 0, 0, 0);
-    top: 1.2ex;
-    left: 0.7ex;
+    top: 1ex;
+    left: 0.5ex;
     border: 3px solid #5CB7E3;
     border-top: none;
     border-right: none;
@@ -477,3 +479,4 @@ input[type="radio"],
     background-color: #E8E8E8;
     color: #3B3B3B;
 }
+
