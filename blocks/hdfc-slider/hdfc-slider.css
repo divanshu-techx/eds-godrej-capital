@@ -1,0 +1,15 @@
+.hdfc-slider {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+}
+
+.slider-item {
+    display: none;
+    text-align: center;
+}
+
+.slider-item:first-child {
+    display: block; 
+}

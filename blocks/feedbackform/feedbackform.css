@@ -1,0 +1,479 @@
+#feedback-title-btn {
+    position: fixed;
+    right: 0;
+    top: 45%;
+    transform: translateY(-15%);
+    background-color: #5CB7E3;
+    color: white;
+    border: none;
+    padding: 18px 16px;
+    cursor: pointer;
+    z-index: 9999;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    overflow: visible;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 12px;
+    text-align: center;
+}
+
+#feedback-title-btn::before {
+    background: url(../../icons/less-then-icon.png) transparent no-repeat;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    height: 20px;
+    width: 12px;
+    content: "";
+    top: calc(50% - 10px);
+    left: -6px;
+    display: flex;
+    align-items: center;
+    writing-mode: horizontal-tb;
+    background-color: #ffffff;
+    height: 20px;
+    width: 12px;
+    color: #5CB7E3;
+    box-shadow: -1px 0px 2px 0px #0000001A;
+    border-radius: 4px;
+}
+
+
+
+.parentContainerDiv {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) translateX(100%);
+    background-color: #FEFEFE;
+    border-radius: 4px 0px 0px 4px;
+    padding: 40px;
+    opacity: 0;
+    z-index: 1001;
+    width: 620px;
+    box-shadow: -4px 2px 8px 0px #00000033;
+    transition: transform 1s ease-in, opacity 0.5s ease-in;
+}
+
+.parentContainerDiv.visible-parent {
+    transition: transform 1s ease-out, opacity 0.5s ease-out;
+    transform: translateY(-50%) translateX(0%);
+    width: 620px;
+    opacity: 1;
+}
+
+.lessMoreLikeLabelDiv {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ratingDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.ratingDiv label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.ratingDiv input[type="radio"] {
+    display: none;
+}
+
+
+
+.ratingDiv label:hover {
+    background-color: blue;
+}
+
+
+.feedback-description.field-wrapper.submit-wrapper {
+    display: none;
+}
+
+.feedback-description.field-wrapper.text-area-wrapper {
+    display: none;
+}
+
+.description-limit-err-msg {
+    display: none;
+}
+
+.description-empty-err-msg {
+    display: none;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+    /* Firefox */
+}
+
+.thankyoupopupfeedback-wrapper {
+    display: none;
+}
+
+.thankyoupopupfeedback {
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1002;
+}
+
+.close-button::before {
+    content: '\00d7';
+    /* Unicode for multiplication sign (×) */
+    color: #000;
+}
+
+/* Icon for collapse button */
+.collapse-button {
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #5CB7E3;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1001;
+    width: 30px;
+    height: 60px;
+    text-orientation: mixed;
+    border-radius: 4px;
+}
+
+
+
+.feedbackform .headingTitleDiv .headingTitle {
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 25.81px;
+    color: #000;
+    text-align: center;
+}
+
+.feedbackform .headingDescriptionDiv .headingDescription {
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 17.13px;
+    color: #000;
+    text-align: center;
+}
+
+
+.feedbackform .ratingDiv label {
+    background-color: #ffffff;
+    border: 1px solid #6D6D6D;
+    border-radius: 4px;
+    color: #6D6D6D;
+
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: background-color 0.5s, border 0.5s;
+
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 23.46px;
+    text-align: center;
+    justify-content: center;
+}
+
+.feedbackform .ratingDiv label:has(input[type="radio"]:checked) {
+    background-color: #5CB7E3;
+    color: white;
+    border-color: #5CB7E3;
+}
+
+.feedbackform .lessMoreLikeLabelDiv .lessLikely,
+.feedbackform .lessMoreLikeLabelDiv .moreLikely {
+    margin-top: 0;
+    font-size: 12px;
+    text-wrap: wrap;
+    display: block;
+    font-weight: 300;
+    line-height: 14.69px;
+    overflow-wrap: break-word;
+    text-align: left;
+}
+
+.feedbackform .lessMoreLikeLabelDiv .lessLikely {
+    width: 32px;
+}
+
+.feedbackform .lessMoreLikeLabelDiv .moreLikely {
+    width: 58px;
+}
+
+.laterButtonContainer {
+    justify-content: center;
+    gap: 30px;
+    align-items: center;
+    display: flex;
+}
+
+.feedbackform .feedback-checkbox-class.field-wrapper.submit-wrapper button[type="submit"],
+.feedbackform .laterButtonContainer .feedback-rating-button {
+    padding: 12px 20px 12px 20px;
+    gap: 10px;
+    border-radius: 2px;
+    opacity: 0px;
+    background-color: #5CB7E3;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.42px;
+    text-align: center;
+    color: #ffffff;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+
+.feedbackform .laterButtonContainer .feedback-rating-button:disabled {
+    background-color: #E8E8E8;
+    color: #6D6D6D;
+}
+
+
+.feedbackform .feedback-checkbox-class.field-wrapper.submit-wrapper button[type="submit"]:disabled {
+    background-color: #E8E8E8;
+    color: #3B3B3B;
+}
+
+.feedbackform .laterButtonContainer .feedback-later-btn {
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.42px;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.feedbackform fieldset#form-feedback-checkbox {
+    border: none;
+    padding-left: 0;
+}
+
+.feedbackform fieldset#form-feedback-checkbox .feedback-checkbox-class.field-wrapper.checkbox-wrapper {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: left;
+    align-items: center;
+}
+
+.feedbackform fieldset#form-feedback-checkbox .feedback-checkbox-class.field-wrapper.checkbox-wrapper label {
+    font-family: Work Sans;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 18.77px;
+    text-align: left;
+}
+
+.feedbackform fieldset#form-feedback-checkbox .feedback-checkbox-class.field-wrapper.checkbox-wrapper input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+
+}
+
+.feedbackform fieldset#form-feedback-checkbox .feedback-checkbox-class.field-wrapper.checkbox-wrapper input[type="checkbox"]:checked {
+    border-color: #5CB7E3;
+    background-color: #ffffff;
+    color: #5CB7E3;
+}
+
+.feedbackform fieldset#form-feedback-checkbox .feedback-checkbox-class.field-wrapper.checkbox-wrapper:has(input[type="checkbox"]:checked) label::after {
+    content: '';
+    position: absolute;
+    width: 1.8ex;
+    height: 0.6ex;
+    background: rgba(0, 0, 0, 0);
+    top: 1.2ex;
+    left: 0.7ex;
+    border: 3px solid #5CB7E3;
+    border-top: none;
+    border-right: none;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-55deg);
+    border-radius: .2ex;
+}
+
+.feedbackform fieldset#form-feedback-checkbox .feedback-checkbox-class.field-wrapper.checkbox-wrapper input[type="checkbox"] {
+    line-height: 2.1ex;
+}
+
+input[type="radio"],
+.feedbackform fieldset#form-feedback-checkbox .feedback-checkbox-class.field-wrapper.checkbox-wrapper input[type="checkbox"] {
+    position: absolute;
+    left: 0;
+    display: none;
+}
+
+.feedbackform fieldset#form-feedback-checkbox .feedback-checkbox-class.field-wrapper.checkbox-wrapper label {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    margin-bottom: 6px;
+}
+
+.feedbackform fieldset#form-feedback-checkbox .feedback-checkbox-class.field-wrapper.checkbox-wrapper label::before {
+    content: "";
+    display: inline-block;
+    vertical-align: -50%;
+    height: 24px;
+    width: 24px;
+    background-color: #ffffff;
+    border: 1px solid #6D6D6D;
+    border-radius: 2px;
+
+    /* box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.25); */
+    margin-right: 0.5em;
+}
+
+.feedbackform fieldset#form-feedback-checkbox .feedback-checkbox-class.field-wrapper.checkbox-wrapper:has(input[type="checkbox"]:checked) label::before {
+    border: 1px solid #5CB7E3;
+}
+
+.feedbackform:has(.feedback-description.text-area-wrapper) .parentContainerDiv {
+    max-width: 400px;
+}
+
+.feedbackform .feedback-description.field-wrapper.text-area-wrapper {
+    width: auto;
+    position: relative;
+}
+
+.feedbackform .feedback-description.field-wrapper.text-area-wrapper label {
+    color: #6D6D6D;
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 12.24px;
+    text-align: left;
+    position: absolute;
+    right: 80px;
+    bottom: 9px;
+}
+
+.feedbackform .feedback-description.field-wrapper.text-area-wrapper textarea {
+    max-width: 320px;
+    width: 100%;
+    height: 100px;
+    border: 1px solid #6D6D6D;
+}
+
+.feedbackform .feedback-form-fieldset.field-wrapper.fieldset-wrapper #form-form-fields {
+    border: none;
+}
+
+.feedbackform #form-form-fields .field-wrapper.plainText-wrapper p#form-formlabel {
+    margin-top: 0;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 25.81px;
+    text-align: center;
+    color: #000000;
+}
+
+.feedbackform #form-form-fields .feedback-error-msg.field-wrapper.plainText-wrapper p {
+    margin-top: 4px;
+    margin-bottom: 8px;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 14.08px;
+    text-align: left;
+    color: #F50076;
+}
+
+
+.feedbackform #form-form-fields input {
+    width: 100%;
+    background-color: #EDEDED;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.42px;
+    text-align: left;
+    color: #959595;
+    padding: 12px 10px;
+    border: none;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+}
+
+.feedbackform #form-form-fields input.error-msg-active {
+    border: 1px solid #F50076;
+    margin-bottom: 0;
+}
+
+.feedbackform #form-form-fields input:focus-visible {
+    outline: none;
+    border: none;
+}
+
+.feedback-skip-btn.submit-wrapper,
+.feedback-submit-btn.submit-wrapper {
+    width: fit-content;
+}
+
+.feedbackform .button-fieldset.field-wrapper.fieldset-wrapper #form-button-fields {
+    border: none;
+    display: flex;
+    padding: 0;
+    gap: 10px;
+    justify-content: end;
+}
+
+.feedbackform .feedback-skip-btn [type="submit"] {
+    background: none;
+    border: none;
+    text-decoration: underline;
+    padding: 12px 20px;
+    color: #959595;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18.77px;
+    text-align: left;
+}
+
+.feedbackform .feedback-submit-btn [type="submit"] {
+    border-radius: 2px;
+    padding: 12px 20px;
+    background-color: #5CB7E3;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.42px;
+    text-align: center;
+    border: none;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.feedbackform .feedback-submit-btn [type="submit"]:disabled {
+    background-color: #E8E8E8;
+    color: #3B3B3B;
+}

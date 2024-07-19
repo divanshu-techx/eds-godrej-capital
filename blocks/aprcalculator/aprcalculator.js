@@ -1,7 +1,7 @@
 // Function to get data attribute value by name
 function getDataAttributeValueByName(name) {
     const element = document.querySelector(`[data-${name}]`);
-    return element ? element.getAttribute(`data-${name}`) : null;
+    return element ? element.getAttribute(`data-${name}`) : '';
 }
 
 // Function to convert numbers to words
@@ -86,8 +86,8 @@ function renderHTML(attributes) {
                     <div class="inputBoxAprRange">
                         <input type="range" id="interestRateAprRange" min="${attributes.interestMin}" max="${attributes.interestMax}" value="${attributes.interestMin}" step="0.1">
                         <div class="inputBoxAprBottom">
-                            <span>${attributes.interestMin}</span>
-                            <span>${attributes.interestMax}</span>
+                            <span>${attributes.interestMin}${attributes.percentSymbol}</span>
+                            <span>${attributes.interestMax}${attributes.percentSymbol}</span>
                         </div>
                     </div>
                 </div>
@@ -103,7 +103,7 @@ function renderHTML(attributes) {
                         <input type="range" id="loanTenureYearsAprRange" min="${attributes.yearMin}" max="${attributes.yearMax}" value="${attributes.yearMin}">
                         <div class="inputBoxAprBottom">
                             <span>${attributes.yearMin}</span>
-                            <span>${attributes.yearMax}</span>
+                            <span>${attributes.yearMax} Years</span>
                         </div>
                     </div>
                 </div>
@@ -119,7 +119,7 @@ function renderHTML(attributes) {
                         <input type="range" id="loanTenureMonthsAprRange" min="${attributes.monthMin}" max="${attributes.monthMax}" value="${attributes.monthMin}">
                         <div class="inputBoxAprBottom">
                             <span>${attributes.monthMin}</span>
-                            <span>${attributes.monthMax}</span>
+                            <span>${attributes.monthMax} Months</span>
                         </div>
                     </div>
                 </div>
@@ -145,36 +145,44 @@ function renderHTML(attributes) {
                     <div>${attributes.annualPercentLabel}</div>
                     <div id="aprDisplay">${attributes.percentSymbol}</div>
                 </div>
-                <button id="apply-btn-apr">${attributes.applyNowLabel}</button>
+                <div class="apply-btn-apr-result">
+                    <button id="apply-btn-apr">${attributes.applyNowLabel}</button>
+                </div>
             </div>
         </div>`;
 }
 
 // Function to update range input colors
 function updateRangeColors(block) {
-    const rangeInputs = block.querySelectorAll('input[type=range]');
+    const isMobileView = window.matchMedia("(max-width: 767px)").matches;
+    const mobileColor = '#f4f4f4';  //  color for mobile view
+    const desktopColor = '#fff'; // White color for desktop view
+ 
+    const rangeInputs = document.querySelectorAll('input[type=range]');
     rangeInputs.forEach(input => {
         const min = parseFloat(input.min);
         const max = parseFloat(input.max);
         const val = parseFloat(input.value);
         const normalizedValue = (val - min) / (max - min) * 100;
-        input.style.background = `linear-gradient(to right, green ${normalizedValue}%, #ccc ${normalizedValue}%)`;
+        const endColor = isMobileView ? mobileColor : desktopColor;
+        input.style.background = `linear-gradient(to right, #8CB133 ${normalizedValue}%, ${endColor} ${normalizedValue}%)`;
     });
 }
+ 
 
 // Function to update APR calculations and display
 function updateAPR(block) {
     const loanAmount = parseFloat(block.querySelector('#loanAmountAprRange').value);
-    const interestRate = parseFloat(block.querySelector('#interestRateAprRange').value).toFixed(1);
+    const interestRate = parseFloat(parseFloat(block.querySelector('#interestRateAprRange').value).toFixed(1));
     const loanTenureYears = parseFloat(block.querySelector('#loanTenureYearsAprRange').value);
     const loanTenureMonths = parseFloat(block.querySelector('#loanTenureMonthsAprRange').value);
     const originationCharges = parseFloat(block.querySelector('#loanOriginationChargesAprRange').value);
 
-    block.querySelector('#loanAmountApr').value = loanAmount.toLocaleString();
+    block.querySelector('#loanAmountApr').value = loanAmount.toLocaleString('en-IN');
     block.querySelector('#interestRateApr').value = interestRate;
     block.querySelector('#loanTenureYearsApr').value = loanTenureYears;
     block.querySelector('#loanTenureMonthsApr').value = loanTenureMonths;
-    block.querySelector('#loanOriginationChargesApr').value = originationCharges.toLocaleString();
+    block.querySelector('#loanOriginationChargesApr').value = originationCharges.toLocaleString('en-IN');
 
     const totalLoanTenure = loanTenureYears * 12 + loanTenureMonths;
     const monthlyInterestRate = interestRate / 100 / 12;
@@ -222,7 +230,7 @@ function addTextInputListeners(block) {
     });
 
     const interestRateInput = block.querySelector('#interestRateApr');
-    interestRateInput.addEventListener('blur', function () {
+    interestRateInput.addEventListener('change', function () {
         let numericValue = parseFloat(this.value.replace(/[^\d.]/g, ''));
         if (!isNaN(numericValue)) {
             numericValue = Math.min(Math.max(numericValue, 0), 20);
@@ -232,14 +240,16 @@ function addTextInputListeners(block) {
                 updateAPR(block);
                 updateRangeColors(block);
             }
+        }else{
+            this.value=" ";
         }
     });
 }
 
-function setApplyNowButton(block){
+function setApplyNowButton(block,attribute){
     const applyNow=block.querySelector('#apply-btn-apr');
     applyNow.addEventListener('click',()=>{
-        window.location.href='/applynow';
+        window.location.href=attribute.redirectionPath;
     })
 }
 // Main function to decorate the block
@@ -250,5 +260,7 @@ export default async function decorate(block) {
     updateAPR(block);
     addRangeInputListeners(block);
     addTextInputListeners(block);
-    setApplyNowButton(block)
+    setApplyNowButton(block,attributes);
 }
+window.addEventListener('resize',updateRangeColors);
+window.addEventListener('load',updateRangeColors);

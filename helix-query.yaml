@@ -1,8 +1,8 @@
 indices:
   Blogs:
     include:
-      - /Blogs/**
-    target: /Blogs/query-index.json
+      - about-us/blogs/**
+    target: about-us/blogs/query-index.json
     properties:
       category:
         select: head > meta[name="category"]
@@ -35,8 +35,8 @@ indices:
 
   information_and_policies:
     include:
-      - /information_and_policies/**
-    target: /information_and_policies/query-index.json
+      - /information_and_policies/pages/**
+    target: /information_and_policies/pages/query-index.json
     properties:
       tabname:
         select: head > meta[name="tabname"]
@@ -44,5 +44,78 @@ indices:
           attribute(el, 'content')
       filter:
         select: head > meta[name="filter"]
+        value: |
+          attribute(el, 'content')
+
+  interest_rate_document:
+    include:
+      - /interest_rate_document/**
+    target: /interest_rate_document/query-index.json
+    properties:
+      document_type:
+        select: head > meta[name="document_type"]
+        value: |
+          attribute(el, 'content')
+      profession_type:
+        select: head > meta[name="profession_type"]
+        value: |
+          attribute(el, 'content')
+      title_1:
+        select: head > meta[name="title_1"]
+        value: |
+          attribute(el, 'content')
+      description_1:
+        select: head > meta[name="description_1"]
+        value: |
+          attribute(el, 'content')
+      bullet_points_1:
+        select: head > meta[name="bullet_points_1"]
+        value: |
+          attribute(el, 'content')
+      title_2:
+        select: head > meta[name="title_2"]
+        value: |
+          attribute(el, 'content')
+      description_2:
+        select: head > meta[name="description_2"]
+        value: |
+          attribute(el, 'content')
+      bullet_points_2:
+        select: head > meta[name="bullet_points_2"]
+        value: |
+          attribute(el, 'content')
+
+  media-gallery:
+    include:
+      - /media-gallery/details-page/picture-gallery-pages/**
+      - /media-gallery/details-page/videos-pages/**
+    target: /media-gallery/details-page/query-index.json
+    properties:
+      cardtitle:
+        select: head > meta[name="cardtitle"]
+        value: |
+          attribute(el, 'content')
+      cardimagelink:
+        select: head > meta[name="cardimagelink"]
+        value: |
+          attribute(el, 'content')
+      cardvideolink:
+        select: head > meta[name="cardvideolink"]
+        value: |
+          attribute(el, 'content')
+      category:
+        select: head > meta[name="category"]
+        value: |
+          attribute(el, 'content')
+      publishdate:
+        select: head > meta[name="publishdate"]
+        value: |
+          attribute(el, 'content')
+      videotype:
+        select: head > meta[name="videotype"]
+        value: |
+          attribute(el, 'content')
+      carddescription:
+        select: head > meta[name="carddescription"]
         value: |
           attribute(el, 'content')

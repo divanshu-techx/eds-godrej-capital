@@ -1,0 +1,769 @@
+/* third  */
+.hero-container.becomepartnerform-container {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 1fr;
+    max-width: 1099px;
+    margin: auto;
+    background-color: #F2F2F2;
+    border-radius: 10px;
+    padding: 20px 10px 40px 10px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+@media(min-width:901px) {
+    .becomepartnerform>form {
+        padding-inline: 24px;
+    }
+}
+
+
+.becomepartnerform-container .default-content-wrapper {
+    grid-column: span 2;
+}
+
+.hero-container.becomepartnerform-container .default-content-wrapper>* {
+    padding-bottom: 10px;
+}
+
+.becomepartnerform-container .becomepartnerform-wrapper {
+    height: 100%;
+}
+
+.hero-container.becomepartnerform-container ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+}
+
+.hero-container.becomepartnerform-container ul>li {
+    color: #FFFFFF;
+    font-size: 14px;
+    padding-left: 16px;
+    font-weight: 300;
+    line-height: 16.42px;
+    text-align: left;
+    position: relative;
+}
+
+.hero-container.becomepartnerform-container ul>li::before {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: calc(50% - 4px);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #8CB133;
+}
+
+
+.becomepartnerform-container .becomepartnerhero {
+    border-radius: 10px;
+    z-index: 3;
+}
+
+.hero-container.becomepartnerform-container .hero-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    padding-left: 36px;
+    padding-top: 8px;
+    height:fit-content
+}
+
+.hero-container.becomepartnerform-container .hero-wrapper .becomepartnerhero::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+    z-index: 1;
+    border-radius: 10px;
+
+}
+
+.hero-container.becomepartnerform-container .becomepartnerhero {
+    flex: 1 1 auto;
+    border-radius: 10px;
+    z-index: 3;
+}
+
+
+.hero-container.becomepartnerform-container .becomepartnerhero img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    object-fit: cover; 
+}
+
+.becomepartnerhero>div>div:nth-of-type(2) {
+    padding-top: 15%;
+    z-index: 1;
+    position: relative;
+}
+
+.becomepartnerhero>div>div p:first-of-type {
+    color: #ffffff;
+    font-size: 36px;
+    font-weight: 300;
+    line-height: 42.23px;
+    margin-top: 0;
+    text-align: left;
+    margin-bottom: 0;
+}
+
+.becomepartnerhero>div>div p:nth-of-type(2) {
+    margin-top: 0;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 43.2px;
+    text-align: left;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.becomepartnerhero>div>div p:last-of-type {
+    margin-top: 50px;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 11.73px;
+    text-align: left;
+    margin-bottom: 0;
+}
+
+.becomepartnerform .field-wrapper {
+    padding: 8px;
+}
+
+.becomepartnerform .form1.field-wrapper.plaintext-wrapper{
+    height: 50px;
+}
+
+.becomepartnerform fieldset {
+    display: flex;
+    gap: 10px;
+    border: none;
+    flex-wrap: wrap;
+    padding: 0px;
+}
+
+@media (width >=900px) {
+    .becomepartnerform fieldset {
+        display: flex;
+    }
+}
+
+.becomepartnerform fieldset>legend {
+    font-weight: 700;
+    font-size: var(--heading-font-size-xs);
+}
+
+.becomepartnerform label {
+    font-weight: 700;
+    font-size: var(--body-font-size-xs);
+    margin-bottom: 0.25em;
+}
+
+.form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset {
+    width: 100%;
+    flex-wrap: nowrap;
+}
+
+.form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset .field-wrapper.select-wrapper {
+    min-width: 54px;
+}
+
+fieldset#form-contactfieldset .form2.field-wrapper.number-wrapper:has(input[type="number"]#form-mobilenumber) {
+    width: 100%;
+}
+
+.form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset legend {
+
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18.77px;
+    text-align: left;
+}
+
+.form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset #form-editmobilenumber {
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.42px;
+    text-align: left;
+    color: #3CB8FF;
+}
+
+.form2.field-wrapper.fieldset-wrapper fieldset#form-otpfieldset {
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.form2.field-wrapper.fieldset-wrapper fieldset#form-otpconfirmationfieldset {
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.form2.field-wrapper.fieldset-wrapper fieldset#form-otpconfirmationfieldset #form-otpconfirmation {
+    color: #3B3B3B;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 16.42px;
+    text-align: left;
+}
+
+.form2.field-wrapper.fieldset-wrapper fieldset#form-otpconfirmationfieldset input[type="button"] {
+    background-color: unset;
+    cursor: pointer;
+    color: #B8B8B8;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.42px;
+    text-align: right;
+}
+
+.form2.field-wrapper.fieldset-wrapper fieldset#form-otpconfirmationfieldset .form2.field-wrapper.button-wrapper {
+    margin-left: auto;
+}
+
+.becomepartnerform input,
+.becomepartnerform select,
+.becomepartnerform textarea {
+    font-size: var(--body-font-size-s);
+    width: 100%;
+    display: block;
+    padding: 12px 8px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-weight: 400;
+    border: 1px solid var(--text-color);
+    color: #585858;
+    background-color: #D4D4D499;
+    outline: none;
+    border: none;
+    height: 50px;
+}
+
+.becomepartnerform textarea {
+    resize: vertical;
+}
+
+.becomepartnerform .selection-wrapper input {
+    width: 16px;
+}
+
+.becomepartnerform .selection-wrapper label {
+    margin-bottom: 0;
+}
+
+.becomepartnerform .button {
+    max-width: 225px;
+    font-size: var(--body-font-size-m);
+    padding: 0.2em 0.4em;
+}
+
+.becomepartnerform .field-wrapper>label {
+    order: -1;
+}
+
+.becomepartnerform .field-wrapper.selection-wrapper>label {
+    order: 1;
+}
+
+.becomepartnerform input[required]+label::after {
+    content: "*";
+    color: firebrick;
+    margin-inline-start: 1ch;
+}
+
+.becomepartnerform .toggle-wrapper .switch {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 24px;
+}
+
+.becomepartnerform .toggle-wrapper input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.becomepartnerform .toggle-wrapper .slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: var(--dark-color);
+    transition: 0.4s;
+    border-radius: 30px;
+}
+
+.becomepartnerform .toggle-wrapper .slider::before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 2px;
+    bottom: 2px;
+    background-color: var(--background-color);
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+.becomepartnerform .toggle-wrapper input:checked+.slider {
+    background-color: var(--link-color);
+}
+
+.becomepartnerform .toggle-wrapper input:focus+.slider {
+    outline: 2px solid var(--link-color);
+    outline-offset: 2px;
+}
+
+.becomepartnerform .toggle-wrapper input:checked+.slider::before {
+    transform: translateX(24px);
+}
+
+.becomepartnerform .form2 {
+    display: none;
+
+}
+
+.becomepartnerform-input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.error-field {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.plaintext-wrapper p,
+.field-wrapper.plaintext-wrapper p {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.field-wrapper.checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.radio-wrapper.selection-wrapper input[type="radio"],
+.checkbox-wrapper.selection-wrapper input[type="checkbox"] {
+    display: none;
+}
+
+.selection-wrapper label {
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: #FFFFFF;
+    color: #3B3B3B;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    font-weight: 400;
+    text-align: left;
+
+}
+
+.selection-wrapper.selected label,
+.selection-wrapper.checked label {
+    background-color: #8CB133;
+    color: #FFFFFF;
+}
+
+
+.button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.error-message {
+    color: #F50076;
+    font-size: 12px;
+    padding-inline: 8px;
+}
+
+.form2.field-wrapper.plaintext-wrapper .inactive {
+    color: black;
+    font-size: 14px;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.form2.field-wrapper.plaintext-wrapper .active {
+    color: blue;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.becomepartnerform .field-wrapper.plaintext-wrapper p {
+    background-color: #D4D4D499;
+    border-radius: 4px;
+    padding-left: 8px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    color: #585858;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18.77px;
+    margin: 0;
+    height:50px;
+}
+
+.becomepartnerform .form1.field-wrapper.fieldset-wrapper {
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+.becomepartnerform .form1.checkbox-wrapper.selection-wrapper,
+.becomepartnerform .form1.radio-wrapper.selection-wrapper {
+    padding-inline: 0;
+}
+
+.form2.field-wrapper input,
+.form2.field-wrapper select {
+
+    background-color: #ffffff;
+}
+
+.form2.field-wrapper.fieldset-wrapper fieldset {
+    width: 100%;
+}
+
+
+.form2.field-wrapper.plaintext-wrapper #form-otpmessage {
+    color: #3B3B3B;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18.77px;
+    text-align: left;
+}
+
+.form2.field-wrapper.fieldset-wrapper #form-otpconfirmationfieldset {
+    display: flex;
+}
+
+.becomepartnerform .form1.checkbox-wrapper.selection-wrapper>label,
+.becomepartnerform .form1.radio-wrapper.selection-wrapper>label {
+    padding: 10px;
+}
+
+.form2.verify-btn.field-wrapper.button-wrapper {
+    justify-content: center;
+}
+
+.form1.submit-btn.field-wrapper.button-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.becomepartnerform .submit-btn.button-wrapper input[type="button"],
+.becomepartnerform .verify-btn.field-wrapper.button-wrapper input[type="button"] {
+    background: #3CB8FF;
+    font-family: Work Sans;
+    font-size: 16px;
+    font-weight: 500;
+    max-width: 160px;
+    color: #FFFFFF;
+    line-height: 16px;
+    padding: 15px 17px;
+    text-align: center;
+    border: unset;
+    border-radius: 4px;
+    cursor: pointer;
+    box-sizing: border-box;
+    margin-top: 10px;
+}
+
+.becomepartnerform .verify-btn.field-wrapper.button-wrapper input[type="button"] {
+    margin-left: calc(50% - 40px);
+}
+
+.becomepartnerform .submit-btn.button-wrapper input[type="button"]:disabled,
+.becomepartnerform .verify-btn.field-wrapper.button-wrapper input[type="button"]:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+}
+
+.form2.field-wrapper.plaintext-wrapper p {
+    background-color: transparent;
+}
+
+fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper {
+    position: relative;
+}
+
+fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper input {
+    padding-left: calc(50%);
+}
+
+fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper::before {
+    position: absolute;
+    content: '';
+    width: 20px;
+    display: block;
+    height: 2px;
+    z-index: 99;
+    bottom: 15px;
+    left: calc(50% - 10px);
+    background-color: #B8B8B8;
+    transform: translateX(calc(50% - 10px));
+    border-radius: 1px;
+}
+
+fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper:has(input:not(:placeholder-shown))::before {
+    display: none;
+}
+
+.field-wrapper.fieldset-wrapper .select-item-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+
+}
+
+.field-wrapper.fieldset-wrapper .select-item-container:has(.selected-item-selectable) {
+    margin-bottom: 8px;
+}
+
+
+.field-wrapper.fieldset-wrapper .selected-item-selectable {
+    cursor: pointer;
+    padding: 5px 10px;
+    background-color: #8CB133;
+    color: #ffffff;
+    border-radius: 4px;
+    font-size: 12px;
+    line-height: 14px;
+    width: fit-content;
+    transition: background-color 0.3s;
+    font-weight: 400;
+}
+
+.form1.field-wrapper.plaintext-wrapper #form-loancategoryplaceholder,
+.form1.field-wrapper.plaintext-wrapper #form-selectlocationplaceholder {
+    position: relative;
+    cursor: pointer;
+}
+
+.form1.field-wrapper.plaintext-wrapper #form-loancategoryplaceholder::after,
+.form1.field-wrapper.plaintext-wrapper #form-selectlocationplaceholder::after {
+    content: url(/icons/dropdown.svg);
+    position: absolute;
+    right: 8px;
+    top: 16px;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.form1.field-wrapper.select-wrapper select{
+    appearance: none; 
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    background: url('/icons/dropdown.svg') no-repeat; 
+    background-position: calc(100% - 10px) center;
+    padding-right: 20px; 
+    padding: 8px 10px; 
+    font-size: 14px; 
+    width: 100%;
+    background-color: #D4D4D499;
+}
+
+.form1.field-wrapper.plaintext-wrapper #form-loancategoryplaceholder.active-dropdown::after,
+.form1.field-wrapper.plaintext-wrapper #form-selectlocationplaceholder.active-dropdown::after {
+    transform: translateY(calc(50% - 1.5px)) rotate(180deg);
+    top:14px;
+}
+
+.becomepartnerform .hide-options {
+    display: none;
+}
+
+@media(max-width:900px) {
+    .hero-container.becomepartnerform-container {
+        display: flex;
+        flex-direction: column;
+        max-width: 570px;
+        background-color: unset;
+    }
+
+    .hero-container.becomepartnerform-container .hero-wrapper {
+        display: none;
+    }
+
+    .becomepartnerform input,
+    .becomepartnerform select,
+    .becomepartnerform textarea {
+        background-color: #D4D4D499;
+        font-size: 16px;
+        line-height: 18.77px;
+        text-align: left;
+    }
+
+    .becomepartnerform .field-wrapper.plaintext-wrapper p {
+        background-color: #D4D4D499;
+        line-height: 18.77px;
+    }
+
+    .selection-wrapper label {
+        background-color: #f4f4f4;
+        font-size: 14px;
+    }
+
+
+    .form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset {
+        position: relative;
+    }
+
+    .form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset .form2.field-wrapper.plaintext-wrapper {
+        position: absolute;
+        right: 0;
+    }
+
+    .form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset .form2.field-wrapper.plaintext-wrapper p {
+        background-color: unset;
+
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 16.42px;
+
+    }
+
+    .form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset .field-wrapper.select-wrapper,
+    .form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset legend {
+        display: none;
+    }
+
+    .form2.field-wrapper.fieldset-wrapper fieldset#form-contactfieldset .form2.field-wrapper.number-wrapper #form-mobilenumber {
+        background-color: #D4D4D499;
+    }
+
+    .form2.field-wrapper.plaintext-wrapper p#form-otpmessage {
+        background-color: unset;
+        text-align: center;
+
+        font-size: 14px;
+
+        line-height: 16.42px;
+        text-align: center;
+    }
+
+    .form2.field-wrapper.fieldset-wrapper fieldset#form-otpfieldset input {
+        background-color: #F4F4F4;
+    }
+
+    .form2.field-wrapper.fieldset-wrapper fieldset#form-otpconfirmationfieldset #form-otpconfirmation {
+        background-color: unset;
+    }
+
+    .form2.field-wrapper.fieldset-wrapper fieldset#form-otpconfirmationfieldset input[type="button"] {
+        font-size: 12px;
+        color: #3CB8FF;
+        line-height: 14.08px;
+    }
+
+
+    .becomepartnerform .form2.field-wrapper {
+        padding-top: 0;
+
+    }
+}
+
+@media(min-width:901px) {
+    .section.hero-container.becomepartnerform-container>div {
+        max-width: unset;
+        margin: unset;
+    }
+}
+
+@media(max-width:600px) {
+
+    .becomepartnerform input,
+    .becomepartnerform select,
+    .becomepartnerform textarea {
+        background-color: #F4F4F4;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 16.42px;
+        text-align: left;
+    }
+
+    .becomepartnerform .selection-wrapper label {
+        font-size: 12px;
+    }
+
+    .becomepartnerform .field-wrapper.plaintext-wrapper p {
+        background-color: #F4F4F4;
+        font-size: 14px;
+        line-height: 16.42px;
+    }
+
+    .becomepartnerform .form2.field-wrapper {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
+.form1.disabled-dropdown {
+    cursor: pointer;
+    pointer-events: none;
+}
+
+.becomepartnerform input:-webkit-autofill,
+.becomepartnerform input:-webkit-autofill:hover,
+.becomepartnerform input:-webkit-autofill:focus,
+.becomepartnerform textarea:-webkit-autofill,
+.becomepartnerform textarea:-webkit-autofill:hover,
+.becomepartnerform textarea:-webkit-autofill:focus,
+.becomepartnerform select:-webkit-autofill,
+.becomepartnerform select:-webkit-autofill:hover,
+.becomepartnerform select:-webkit-autofill:focus {
+    -webkit-text-fill-color: #585858;
+    -webkit-box-shadow: 0 0 0px 1000px #D4D4D499 inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.field-wrapper.fieldset-wrapper #secondset {
+    gap: 0;
+    flex-direction: column;
+    max-height: 120px;
+    flex-wrap: nowrap;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+}
+
+.field-wrapper.fieldset-wrapper #secondset .selection-wrapper label {
+    display: block;
+    border-radius: unset;
+
+}
+
+.field-wrapper.fieldset-wrapper #secondset .form1.field-wrapper.selection-wrapper {
+    padding-top: 0;
+    padding-bottom: 0;
+
+}

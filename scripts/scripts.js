@@ -16,7 +16,8 @@ import {
   // loadheaderMobile,
   getMetadata,
 } from './aem.js';
-import customtabs from '../blocks/tabsblock/tabsblock.js';
+import ffetch from './ffetch.js';
+import { createExpression , renderExpressions} from './expressions.js';
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 
 /**
@@ -24,15 +25,24 @@ const LCP_BLOCKS = []; // add your LCP blocks to the list
  * @param {Element} main The container element
  */
 function buildHeroBlock(main) {
-  const h1 = main.querySelector('h1');
-  const picture = main.querySelector('picture');
-  // eslint-disable-next-line no-bitwise
-  if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
-    const section = document.createElement('div');
-    section.append(buildBlock('hero', { elems: [picture, h1] }));
-    main.prepend(section);
-  }
+  const firstSection = main.querySelector('div');
+  if (!firstSection) return;
+  const firstElement = firstSection.firstElementChild;
+  if (firstElement.tagName === 'DIV' && firstElement.classList.length && !firstElement.classList.contains('hero')) return;
 }
+
+async function fetchInterestRates() {
+  const interestRates = await ffetch('/interest-rates-sheet.json').all();
+  return interestRates;
+}
+
+
+  createExpression('interest', ({ context, args }) => {
+    const subcategory = args;
+    const interestRateData = context.find(item => item.key == subcategory);
+    const interest = interestRateData ? interestRateData.interest_rate : 'N/A';
+    return `${interest}%`;
+  });
 
 /**
  * load fonts.css and set a session storage flag
@@ -85,6 +95,12 @@ async function loadEager(doc) {
     decorateMain(main);
     document.body.classList.add('appear');
     await waitForLCP(LCP_BLOCKS);
+     // Render the expressions in the DOM
+     let interestRate = await fetchInterestRates();
+     const context = {
+      interestRate: 5.25 // or fetch dynamically from an API
+    };
+    renderExpressions(main,interestRate);
   }
 
   try {
@@ -137,6 +153,5 @@ async function loadPage() {
   await loadLazy(document);
   loadDelayed();
 }
- customtabs();
 
 loadPage();

@@ -1,199 +1,558 @@
-.taxsavingcalculator{
-    .calculator-container-tax-saving{
-        display: flex;
-        max-width: 1200px;
-        margin: auto;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 8px;
+.taxsavingcalculator  .calculator-container-tax-saving {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 100%;
+    margin: auto;
+    box-sizing: border-box;
+  }
+  
+  .taxsavingcalculator  .inputBox_tax_saving,.taxsavingcalculator .outputs_tax_saving {
+    box-sizing: border-box;
+    width: calc(50% - 10px);
+    max-width: 100%;
+  }
+  
+  .taxsavingcalculator  .inputBox_tax_saving {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    background: #F4F4F4;
+    padding: 20px; 
+    border-radius: 4px;
+  }
+  
+  @media (max-width: 767px) {
+    .taxsavingcalculator  .inputBox_tax_saving {
+        padding: 0; 
+        background: unset;
     }
-
-    .inputBox_tax_saving {
-        flex: 1;
-        padding-right: 20px;
-        padding: 10px 30px;
+  }
+  
+  
+  .taxsavingcalculator  .inputTaxSaving {
+    margin-bottom: 5px;
+  }
+  
+  .taxsavingcalculator  .inputBoxTaxSavingLabel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .taxsavingcalculator  .tax_saving_input_label {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+  
+  .taxsavingcalculator  .inputBox_tax_saving .tax_saving_input_label .inputSpan_tax_saving {
+    background: #fff;
+    padding: 5px;
+    border: none;
+    box-sizing: border-box;
+    height: 40px;
+    line-height: 30px;
+    min-width: 150px;
+    text-align: end;
+  }
+  @media (max-width: 767px) {
+    .taxsavingcalculator  .inputBox_tax_saving .tax_saving_input_label .inputSpan_tax_saving{
+      background-color: #F4F4F4;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 14.08px;
+      text-align: right;
+      color:#3b3b3b;
+    }
+  }
+  @media (max-width: 767px) {
+    .taxsavingcalculator  .inputBox_tax_saving .inputBoxTaxSavingLabel input {
+        /* height: 30px;  */
+    }
+  }
+  
+  .taxsavingcalculator  .inputBox_tax_saving .inputBoxTaxSavingLabel span {
+    background: #fff;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    height: 40px;
+    line-height: 30px;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 16.42px;
+    color:#3b3b3b;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    max-width: 40px;
+  }
+  
+  @media (max-width: 767px) {
+    .taxsavingcalculator  .inputBox_tax_saving .inputBoxTaxSavingLabel input,
+    .taxsavingcalculator  .inputBox_tax_saving .inputBoxTaxSavingLabel span {
         background: #F4F4F4;
-        border-radius: 4px;
-
+        /* height: 30px; */
     }
-
-    .input_tax_saving, .inputs_tax_saving {
-        margin-bottom: 20px;
+  }
+  
+  .taxsavingcalculator  .inputBoxTaxSavingLabel span {
+    border-right: none; 
+    border-radius: 4px 0 0 4px; 
+  }
+  
+  .taxsavingcalculator  .inputBoxTaxSavingLabel input {
+    border-left: none; 
+    border-radius: 0 4px 4px 0;
+    margin-left: -1px;
+    text-align: end;
+  }
+  
+  .taxsavingcalculator .inputBoxTaxSavingRange {
+    margin-top: 5px;
+  }
+  
+  .taxsavingcalculator .inputBoxTaxSavingRange input[type="range"] {
+    width: 100%;
+    background: linear-gradient(to right, rgb(140, 177, 51) 0%, rgb(204, 204, 204) 0%);
+  }
+  
+  .taxsavingcalculator .inputBoxTaxSavingBottom {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .taxsavingcalculator .outputs_tax_saving {
+    max-width: 100%;
+  }
+  
+  .taxsavingcalculator .result_tax_saving {
+    background: #8CB133;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff; 
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .taxsavingcalculator .result_tax_saving {
+    height: 120px;
+  }
+  
+  @media (max-width: 1023px) and (min-width: 768px) {
+    .taxsavingcalculator .result_tax_saving {
+        height: 60px;
     }
-
-    .input-details-tax-saving {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 10px;
+  }
+  
+  @media (max-width: 767px) {
+    .taxsavingcalculator  .result_tax_saving {
+        height: 83px;
+        margin-top:20px;
     }
-
-    .tax_saving_input_label {
-        display: flex;
-        align-items: center;
+  }
+  
+  .taxsavingcalculator  .result_tax_saving > div:first-child {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18.77px;
+    text-align: left;
+    margin-bottom: 5px;
+  }
+  
+  .taxsavingcalculator  .result_tax_saving > div:last-child {
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 42.23px;
+    text-align: left;
+  }
+  
+  .taxsavingcalculator .apply-btn-apr-result{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 2px 4px 0px #00000014;
+    padding:20px 20px;
+  }
+  
+  .taxsavingcalculator  .apply-btn-apr-result button{
+    background: #3CB8FF;
+    color:#fff;
+  }
+  
+  .taxsavingcalculator  .inputBox_tax_saving label {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18.77px;
+    text-align: left;
+    color: #3b3b3b;
+  }
+  
+  @media (max-width: 767px) {
+    .taxsavingcalculator  .inputBox_tax_saving label {
+        font-size: 14px;
+        line-height: 16.42px;
     }
-
-    .inputLabel_tax_saving {
-        margin-right: 10px;
+  }
+  
+  
+  .taxsavingcalculator  .inputTaxSaving .inputBoxTaxSavingBottom{
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 16.42px;
+      text-align: left;
+      color:#000;
+  }
+  
+  #interestRateApr,
+  #loanAmountApr,
+  #loanTenureYearsApr,
+  #loanTenureMonthsApr,
+  #loanOriginationChargesApr {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 16.42px;
+    color: #3b3b3b;
+  
+  }
+  @media (max-width: 767px) {
+    #interestRateApr,
+    #loanAmountApr,
+    #loanTenureYearsApr,
+    #loanTenureMonthsApr,
+    #loanOriginationChargesApr {
+    max-width: 100px;
     }
-
-    .inputSpan_tax_saving {
-        border: 1px solid #d9d9d9;
-        padding: 5px 10px;
-        border-radius: 4px;
-        outline: none;
-        cursor: text;
-        background-color: #fff;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+    display: none;
+  }
+  
+  .taxsavingcalculator  .inputBox_tax_saving input[type=range] {
+    -webkit-appearance: none!important;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    outline: none;
+    border-radius: 4px;
+  }
+  
+  @media (max-width: 767px) {
+    .taxsavingcalculator  .inputBox_tax_saving input[type=range] {
+        height: 4px; 
     }
-
-    .inputSpan_tax_saving[contenteditable="true"] {
-        min-width: 80px;
-        text-align: right;
+  }
+  
+  .taxsavingcalculator  .inputBox_tax_saving input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;
+  }
+  /* @media (max-width: 767px) {
+    .aprcalculator .inputs input[type=range]::-webkit-slider-runnable-track {
+        height: 4px; 
     }
-
-    .input-bottom-details-tax-saving {
-        display: flex;
-        justify-content: space-between;
-        font-size: 12px;
-        color: #666;
+  } */
+  
+  .taxsavingcalculator  .inputBox_tax_saving input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background:#8CB133;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -6px;
+  }
+  
+  @media (max-width: 767px) {
+    .taxsavingcalculator  .inputBox_tax_saving input[type=range]::-webkit-slider-thumb  {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 15px;
+      height: 15px;
+      background:#8CB133;
+      border-radius: 50%;
+      cursor: pointer;
+      margin-top: -4px;
     }
-
-    input[type="range"] {
-        width: 100%;
-        margin: 10px 0;
+  }
+  
+  
+  .taxsavingcalculator  .inputBox_tax_saving input[type=range]:focus {
+    outline: none;
+  }
+  
+  .taxsavingcalculator  .inputBox_tax_saving input[type=range]:active::-webkit-slider-thumb {
+    background:#8CB133;
+  }
+  
+  /* Desktop */
+  @media (min-width: 1351px) {
+    .taxsavingcalculator  .inputBox_tax_saving {
+        max-width: 772px; 
+        width:100%;
     }
-
-    .errorMsg_tax_saving .error_text{
-        color: red;
-        font-size: 12px;
+    .taxsavingcalculator  .outputs_tax_saving {
+        max-width: calc(100% - 772px - 30px); 
+        width:100%;
     }
-
-    .outputs_tax_saving {
-        flex: 1;
-        padding-left: 20px;
-        display: flex;
+    .taxsavingcalculator  .calculator-container-tax-saving {
+        flex-direction: row;
+    }
+  }
+  
+  /* Calculate proportion for 1200px screen */
+  @media (min-width: 1200px) and (max-width: 1350px) {
+    .taxsavingcalculator  .inputBox_tax_saving {
+        max-width: calc(772px / 1351 * 1200); 
+        width:100%;
+    }
+    .taxsavingcalculator .outputs_tax_saving {
+        max-width: calc(100% - (772px / 1351 * 1200) - 30px); 
+    }
+    .taxsavingcalculator .calculator-container-tax-saving {
+        flex-direction: row;
+    }
+  }
+  
+  /* iPad */
+  @media (min-width: 768px) and (max-width: 1199px) {
+    .taxsavingcalculator  .inputBox_tax_saving {
+        max-width: calc(100% - 303px - 30px); 
+        width:100%;
+    }
+    .taxsavingcalculator  .outputs_tax_saving {
+        max-width: 273px;
+    }
+    .taxsavingcalculator  .calculator-container {
+        flex-direction: row;
+    }
+  }
+  
+  /* Mobile */
+  @media (max-width: 767px) {
+    .taxsavingcalculator  .inputBox_tax_saving, .taxsavingcalculator  .outputs_tax_saving {
+        max-width: 100%;
+        width:100%;
+    }
+    .taxsavingcalculator  .calculator-container-tax-saving {
         flex-direction: column;
-        align-items: center;
-        padding: 10px 30px;
     }
-
-    .result_tax_saving {
-        background-color: #8BC34A;
-        color: white;
-        padding: 20px;
-        border-radius: 8px;
-        text-align: center;
-        width: 100%;
-        margin-bottom: 20px;
-    }
-
-    .result_text_saving {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        font-size: 18px;
-        margin-bottom: 10px;
-    }
-
-
-
-
-    
+  }
+  
+   
     /* manoj css start */
     /* CSS to apply gradient to range sliders */
-    input[type="range"] {
+ .taxsavingcalculator input[type="range"] {
         -webkit-appearance: none;
         width: 100%;
         height: 8px;
         background: #d3d3d3; /* Default grey color */
         outline: none;
-        /* transition: background 0.15s ease-in-out; */
-      }
+    }
     
-      input[type="range"]::-webkit-slider-runnable-track {
+.taxsavingcalculator input[type="range"]::-webkit-slider-runnable-track {
         width: 100%;
         height: 8px;
-        background: linear-gradient(to right, #8cb133 0%, #8cb133 var(--value), #d3d3d3 var(--value), #d3d3d3 100%);
+        background: linear-gradient(to right, #8cb133 0%, #8cb133 var(--value, 0%), var(--unselected-color, #d3d3d3) var(--value, 0%), var(--unselected-color, #d3d3d3) 100%);
         border-radius: 5px;
-      }
+    }
     
-      input[type="range"]::-webkit-slider-thumb {
-          box-shadow: 2px 2px 5px var(--color-dark-grey-secondary), -1px -1px 3px grey;
-          height: 20px;
-          width: 20px;
-          border-radius: 50%;
-          background: #8cb133;
-          cursor: pointer;
-          margin-top: -6px;
-          appearance: none;
-        }
+.taxsavingcalculator input[type="range"]::-webkit-slider-thumb {
+        box-shadow: 2px 2px 5px var(--color-dark-grey-secondary), -1px -1px 3px grey;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        background: #8cb133;
+        cursor: pointer;
+        margin-top: -6px;
+        appearance: none;
+    }
     
-      input[type="range"]::-moz-range-track {
+.taxsavingcalculator  input[type="range"]::-moz-range-track {
         width: 100%;
         height: 8px;
-        background: linear-gradient(to right, #8cb133 0%, #8cb133 var(--value), #d3d3d3 var(--value), #d3d3d3 100%);
+        background: linear-gradient(to right, #8cb133 0%, #8cb133 var(--value, 0%), var(--unselected-color, #d3d3d3) var(--value, 0%), var(--unselected-color, #d3d3d3) 100%);
         border-radius: 5px;
-      }
+    }
     
-      input[type="range"]::-moz-range-thumb {
+.taxsavingcalculator  input[type="range"]::-moz-range-thumb {
         width: 25px;
         height: 25px;
         background: #8cb133;
         cursor: pointer;
         border-radius: 50%;
-      }
+    }
     
-      input[type="range"]::-ms-track {
+.taxsavingcalculator input[type="range"]::-ms-track {
         width: 100%;
         height: 8px;
         background: transparent; /* Hides the default track so the custom one shows */
         border-color: transparent;
         color: transparent;
-      }
+    }
     
-      input[type="range"]::-ms-fill-lower {
+.taxsavingcalculator    input[type="range"]::-ms-fill-lower {
         background: #8cb133;
         border-radius: 5px;
-      }
+    }
     
-      input[type="range"]::-ms-fill-upper {
-        background: #d3d3d3;
+.taxsavingcalculator  input[type="range"]::-ms-fill-upper {
+        background: var(--unselected-color, #d3d3d3);
         border-radius: 5px;
-      }
+    }
     
-      input[type="range"]::-ms-thumb {
+.taxsavingcalculator    input[type="range"]::-ms-thumb {
         width: 25px;
         height: 25px;
         background: #8cb133;
         cursor: pointer;
         border-radius: 50%;
         margin-top: 0; /* Adjust based on the height of the slider */
-      }
+    }
     
-      input[type="range"]:focus {
+.taxsavingcalculator input[type="range"]:focus {
         outline: none;
+    }
+
+  .result_tax_other_result .black_result-span{
+      height: 20px;
+      width: 20px;
+      background-color: #3b3b3b;
+      border-radius: 4px;
+      margin-right: 10px;
+      display: flex;
+      padding: 0 5px;
+    }
+    @media(max-width:767px){
+      .result_tax_other_result .black_result-span{
+        display: none;
       }
-}
+    }
 
-.outputs_tax_saving .result_tax_saving_next{
-  display: flex;
-}
+  .result_tax_other_result .black_result-title{
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 18.77px;
+      color:#000;
+    }
 
-@media only screen and (max-width: 768px) {
-  /* For mobile phones: */
-  .outputs_tax_saving .result_tax_saving_next{
-    display: block;
-    padding: 5px 0px;
+    .result_tax_other_result{
+      display: flex;
+      flex-direction: column;
+      /* padding: 10px; */
+      /* flex: 1; */
+      box-sizing: border-box;
+      @media(max-width:767px){
+          margin-top:10px;
+      }
+    }
+
+    @media(max-width:767px){
+      .result_tax_other_result button{
+        margin-top:10px;
+      }
+    }
+    
+
+    .result_tax_other_result button{
+      border:none;
+      color:#fff;
+      background: #3CB8FF;
+      border-radius:4px;
+    }
+
+    .result_tax_other_result .taxBefore{
+      display: flex;
+      align-items: center;
+      /* justify-content: center; */
+      @media(max-width:767px){
+        justify-content: center;
+      }
+    }
+
+    .result_tax_other_result .span-title{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      /* margin-bottom: 10px; */
+    }
+
+    .result_tax_other_result .taxBefore{
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 28.15px;
+      text-align: center;
+    }
+    @media (max-width: 767px) {
+      .result_tax_other_result .taxBefore{
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 14.08px;
+      color:#757575;
+      }
+    }
+
+    .result_tax_saving_next {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+    }
+
+    @media (max-width: 1200px) {
+      .result_tax_saving_next {
+        flex-direction: column;
+        flex-wrap:wrap;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .result_tax_saving_next {
+        flex-direction: column;
+        flex-wrap:wrap;
+      }
+    }
+
+    .result_tax_other_result button{
+      background: #3CB8FF;
+      color: #fff;
+    }
+    .outputs_tax_saving .result_tax_cess_result .cessRate{
+      font-size: 12px;
+      font-weight: 300;
+      line-height: 14.08px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    @media (max-width: 767px) {
+    .outputs_tax_saving .result_tax_cess_result .cessRate{
+      font-size: 10px;
+      font-weight: 300;
+      line-height: 11.73px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
   }
-}
-#apply-btn-tax{
-  background: #03A9F4;
-  color: white;
-  border: none;
-  padding: 5px 30px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 20px;
-}
 
+    @media (max-width: 767px) {
+    .section.taxsavingcalculator-container{
+        border-radius: 20px 20px 0px 0px;
+        position: relative;
+        bottom: 30px;
+        background-color: #fff;
+        padding-bottom: 0px;
+    }
+  }
+
+
+    

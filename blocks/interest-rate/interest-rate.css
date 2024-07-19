@@ -1,24 +1,32 @@
-.section.interest-rate-container >div{
+.section.interest-rate-container>div {
   background-color: #F0F6E4;
   margin: 0 auto;
   max-width: 1200px;
   border-radius: 4px;
 }
 
-.interest-rate-container .interest-rate-wrapper{
-  padding:30px;
-  box-sizing: border-box;
+@media(min-width:600px) {
+  .interest-rate-container .interest-rate-wrapper {
+    padding: 30px;
+    box-sizing: border-box;
+  }
+}
+
+@media(max-width:600px) {
+  .section.interest-rate-container .default-content-wrapper {
+    background-color: #F4F4F4;
+  }
 }
 
 .documentDiv .tabs-list-wrapper .mobile-card-container,
-.category-document-wrapper{
-  max-width: 183px;
+.category-document-wrapper {
+  /* max-width: 183px; */
 }
 
 .interest-rate-container .interest-rate-wrapper {
   background-color: #F0F6E4;
   border-radius: 4px;
-  margin-top:20px;
+  margin-top: 20px;
 }
 
 .interest-rate-container .interest-rate-wrapper .interest-rate {
@@ -26,7 +34,7 @@
 }
 
 .interest-rate-container .interest-rate-wrapper .interest-rate .disclaimer {
-  margin-top: 10px;
+  padding-top: 10px;
   font-size: 10px;
   font-weight: 300;
   line-height: 11.73px;
@@ -98,8 +106,7 @@
 .interest-rate-container .interest-rate-wrapper .interest-rate .allCards .main-div {
   display: flex;
   flex-direction: row;
-  gap: 10px;
-
+  gap: 20px;
 }
 
 .interest-rate-container .interest-rate-wrapper .interest-rate .allCards .other-card div h3 {
@@ -115,7 +122,7 @@
   display: flex;
   margin: 14px;
   padding: 8px;
-  align-items: center;
+  /* align-items: center; */
   background-color: #F0F6E4;
   border-radius: 4px;
   justify-content: space-between;
@@ -136,9 +143,7 @@
   outline: none;
   border: unset;
   color: #3B3B3B;
-  ;
-
-  font-size: 16px;
+  /* font-size: 16px; */
   font-weight: 400;
   line-height: 18.77px;
 
@@ -156,17 +161,18 @@
   font-weight: 400;
   line-height: 16.42px;
   text-align: left;
-  margin:0;
+  margin: 0;
   color: #242424;
 }
 
 .interest-rate-container .interest-rate-wrapper .interest-rate .interest-card {
-  max-width: 192px;
+  /* max-width: 192px; */
   background-color: #8CB133;
   color: #ffffff;
   border-radius: 4px;
   width: 100%;
   padding: 27.5px;
+  box-sizing: border-box;
 }
 
 .interest-rate-container .interest-rate-wrapper .interest-rate .interest-card .title-container .title,
@@ -175,7 +181,7 @@
   font-size: 12px;
   font-weight: 400;
   line-height: 14.08px;
-  text-align: left;
+  text-align: center;
   margin-top: 0;
 }
 
@@ -183,7 +189,8 @@
   font-size: 40px;
   font-weight: 300;
   line-height: 46.92px;
-  text-align: left;
+  text-align: center;
+  margin:0px;
 }
 
 .interest-rate-container .interest-rate-wrapper .interest-rate .documentDiv {
@@ -234,7 +241,6 @@
 }
 
 .interest-rate-container .interest-rate-wrapper .interest-rate .documentDiv ul>li {
-  font-family: Work Sans;
   font-size: 16px;
   font-weight: 300;
   line-height: 18.77px;
@@ -270,6 +276,7 @@
   padding: 10px 7px;
   color: #3B3B3B;
   background-color: #ffffff;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .interest-rate-container .interest-rate-wrapper .interest-rate .tabs-tab.active-tab {
@@ -283,11 +290,11 @@
 
   .interest-rate-container .interest-rate-wrapper .interest-rate .interest-card {
     padding: 23px 20px;
-    max-width: fit-content;
+    /* max-width: fit-content; */
   }
 
   .interest-rate-container .interest-rate-wrapper .interest-rate {
-    padding: 20px 20px;
+    /* padding: 20px 20px; */
   }
 }
 
@@ -307,6 +314,7 @@
   .interest-rate-container .interest-rate-wrapper .interest-rate .tabs-list-wrapper {
     margin: 0;
     padding: 0;
+    transition: all 0.3s ease;
   }
 
   .interest-rate-container .interest-rate-wrapper .interest-rate .tabs-list-wrapper .mobile-card-container {
@@ -366,13 +374,14 @@
     width: 100%;
     font-size: 10px;
     line-height: 11.73px;
-
     padding: 8px 10px;
     text-align: center;
     border: none;
     outline: none;
     border-radius: 4px;
     box-shadow: none;
+    transition: all 0.3s ease;
+    margin-top: 5px;
   }
 
   .interest-rate-container .interest-rate-wrapper .interest-rate .documentDiv .sections-container .sections-title {
@@ -384,6 +393,7 @@
     font-weight: 300;
     font-size: 11px;
     line-height: 12.9px;
+    transition: all 0.3s ease;
   }
 
   .interest-rate-container .interest-rate-wrapper .interest-rate .documentDiv ul {
@@ -396,11 +406,11 @@
   }
 
   .interest-rate-container .interest-rate-wrapper .interest-rate .disclaimer {
-    margin-top: 8px;
+    padding-top: 8px;
     text-align: start;
     font-size: 8px;
     line-height: 9.38px;
-
+    background-color: #F4F4F4;
   }
 }
 
@@ -419,9 +429,7 @@
   }
 
   .interest-rate-container .interest-rate-wrapper .interest-rate .tabs-list-wrapper .category-wrapper select {
-
     font-size: 10px;
-
     line-height: 11.73px;
 
   }

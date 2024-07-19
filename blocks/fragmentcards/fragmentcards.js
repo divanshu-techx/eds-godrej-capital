@@ -1,10 +1,10 @@
-export default function loadContentFromURL() {
-  document.addEventListener('DOMContentLoaded', () => {
+export default async function decorate() {
+
     if (!document.querySelector('.fragmentcards')) {
       return;
     }
     // Get the anchor tag
-    const anchor = document.querySelector('.fragmentcards .button.primary');
+    const anchor = document.querySelector('.fragmentcards .button');
 
     // Get the URL from the href attribute
     const url = anchor.getAttribute('href');
@@ -44,9 +44,31 @@ export default function loadContentFromURL() {
         // Replace the link with the fetched body content
         const buttonContainer = anchor.parentElement;
         buttonContainer.innerHTML = contentToInsert;
+          // Add custom classes directly based on structure
+      const addressContainer = buttonContainer.querySelector('.address');
+      if (addressContainer) {
+        const addressDivs = addressContainer.querySelectorAll('div');
+        if (addressDivs.length >= 3) {
+          addressContainer.children[0].classList.add('registered-office-address');
+          addressContainer.children[1].classList.add('locate-on-map');
+          addressContainer.children[2].classList.add('office-work-timings');
+        }
+      }
+
+      const forQueryContainer = buttonContainer.querySelector('.forquery');
+      if (forQueryContainer) {
+        const forQueryDivs = forQueryContainer.querySelectorAll('div');
+        if (forQueryDivs.length >= 3) {
+          forQueryContainer.children[0].classList.add('for-query');
+          forQueryContainer.children[1].classList.add('contact-number');
+          forQueryContainer.children[2].classList.add('work-timings');
+        }
+      }
+   
+    
       })
       .catch((error) => {
         console.error('Error fetching the HTML:', error);
       });
-  });
+
 }

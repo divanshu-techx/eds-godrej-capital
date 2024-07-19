@@ -1,3 +1,5 @@
+import { initializeCustomSelect } from '../utils/drop-down.js';
+
 function getDataAttributeValueByName(name) {
   const element = document.querySelector(`[data-${name}]`);
   return element ? element.getAttribute(`data-${name}`) : null;
@@ -6,6 +8,7 @@ function getDataAttributeValueByName(name) {
 const dataUrl = getDataAttributeValueByName('queryIndexUrl');
 const mainTitle = getDataAttributeValueByName('interestRateTitle');
 const viewCompleteLabel = getDataAttributeValueByName('viewCompleteLabel');
+console.log(viewCompleteLabel)
 const disclaimerContent = getDataAttributeValueByName('disclaimer');
 
 async function fetchData(apiUrl) {
@@ -25,7 +28,7 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
   }
 
   const filteredData = data.filter(
-    (item) => item.parent === selectedTab && item.category === selectedOption,
+    (item) => item.document_type === selectedTab && item.profession_type === selectedOption,
   );
 
   if (filteredData.length === 0) {
@@ -43,10 +46,10 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
     sectionsContainer.className = 'sections-container';
 
     // Iterate through sections until no more titles are found
-    while (item[`requirements_${sectionIndex}`]) {
-      const title = item[`requirements_${sectionIndex}`].trim();
+    while (item[`title_${sectionIndex}`]) {
+      const title = item[`title_${sectionIndex}`].trim();
       const description = item[`description_${sectionIndex}`] || ''; // Default to empty string if description is not present
-      const bulletPoints = item[`documentsNeeded_${sectionIndex}`] || ''; // Default to empty string if bullet points are not present
+      const bulletPoints = item[`bullet_points_${sectionIndex}`] || ''; // Default to empty string if bullet points are not present
 
       // Create section element
       const sectionElement = document.createElement('div');
@@ -68,7 +71,7 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
       // Render bullet points if available
       if (bulletPoints.trim() !== '') {
         const bulletPointsList = bulletPoints
-          .split('\n')
+          .split(',')
           .map((bp) => bp.trim())
           .filter((bp) => bp !== '');
 
@@ -281,7 +284,6 @@ async function decorate() {
   const mergeWrapper = document.createElement('div');
   const documentsWrapper = document.createElement('div');
   documentsWrapper.className = 'documents-wrapper';
-
   const tabListLabel = document.createElement('label');
   tabListLabel.textContent = 'Select Documents:';
   tabListLabel.className = 'tabs-list-label';
@@ -289,22 +291,18 @@ async function decorate() {
   const tablist = document.createElement('div');
   tablist.className = 'tabs-list';
   tablist.setAttribute('role', 'tablist');
-
   const tabpanel = document.createElement('div');
   tabpanel.className = 'tabs-panel';
   tabpanel.id = 'tabpanel-tab';
   tabpanel.setAttribute('aria-labelledby', 'tab-1');
   tabpanel.setAttribute('role', 'tabpanel');
-
   let data = [];
   data = await fetchData(dataUrl);
   if (!data) {
     return;
   }
-
-  const tabNames = Array.from(new Set(data.map((item) => item.parent)));
-  const dropdownOptions = Array.from(new Set(data.map((item) => item.category)));
-
+  const tabNames = Array.from(new Set(data.map((item) => item.document_type)));
+  const dropdownOptions = Array.from(new Set(data.map((item) => item.profession_type)));
   tabNames.forEach((tabName, i) => {
     const button = document.createElement('button');
     button.className = 'tabs-tab';
@@ -373,6 +371,8 @@ async function decorate() {
   });
 
   handleViewportChange(tablist, tabsListDropdown); // Initial setup
+
+  // initializeCustomSelect(".tabs-dropdown");
 }
 
 export default decorate;

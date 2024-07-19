@@ -7,6 +7,8 @@ function hasWrapper(el) {
 
 export default async function decorate(block) {
   // build tablist
+  let btnDiv = document.createElement('div');
+  btnDiv.classList.add('grievance-tab-btn');
   const tablist = document.createElement('div');
   tablist.className = 'grievance-tabs-list';
   tablist.setAttribute('role', 'tablist');
@@ -46,16 +48,21 @@ export default async function decorate(block) {
       tabpanel.setAttribute('aria-hidden', false);
       button.setAttribute('aria-selected', true);
     });
-    tablist.append(button);
+    btnDiv.append(button);
+    tablist.append(btnDiv);
     tab.remove();
   });
+  
   let tabDiv = document.createElement('div');
+  tabDiv.classList.add('grievance-title');
     let tabTag = document.createElement('h2');
     let tabTitle = getDataAttributeValueByName('support-table-title');
     tabTag.innerHTML= tabTitle;
     tabDiv.appendChild(tabTag);
     tablist.prepend(tabDiv);
   block.prepend(tablist);
+  
+
 }
 function getDataAttributeValueByName(name) {
     const element = document.querySelector(`[data-${name}]`);
