@@ -87,8 +87,7 @@ indices:
 
   media-gallery:
     include:
-      - /about-us/media-gallery/details-page/picture-gallery-pages/**
-      - /about-us/media-gallery/details-page/videos-pages/**
+      - /about-us/media-gallery/details-page/**
     target: /about-us/media-gallery/details-page/query-index.json
     properties:
       cardtitle:
@@ -122,8 +121,7 @@ indices:
 
   news-and-press-release:
     include:
-      - /about-us/news-and-press-release/news/*
-      - /about-us/news-and-press-release/press-release/*
+      - /about-us/news-and-press-release/**
     target: /about-us/news-and-press-release/query-index.json
     properties:
       title:
