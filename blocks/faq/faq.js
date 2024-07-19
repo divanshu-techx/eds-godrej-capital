@@ -85,12 +85,18 @@ export default async function decorate(block) {
 
     inputField.addEventListener('input', function (event) {
       const inputValue = event.target.value.trim();
-
       renderTabs(quesAnsData, dropdown.value, inputValue, tagsContainer);
       quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
+      // Find the div with the class "tags-button active-tab"
+      const tagsButtonDiv = block.querySelector('.tags-button');
+      const activeTabButton = tagsButtonDiv.querySelector('.tab-button.active-tab');
+      const activeTab = activeTabButton.innerHTML;
+      if(!activeTab){
+        return;
+      } else {
+        renderQA(quesAnsData, '', activeTab, quesAnsDiv);
+      }
     });
-
-
 
   } catch (error) {
     console.error('Error fetching data:', error);
