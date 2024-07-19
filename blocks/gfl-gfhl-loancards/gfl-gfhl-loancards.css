@@ -14,6 +14,19 @@
     margin: 0 auto 20px;
 
 }
+.custom-tabs-content .custom-tab-content .section{
+    padding:32px 0px;
+}
+@media(max-width:767px){
+    .custom-tabs-content .custom-tab-content .section{
+        padding: 16px 26px;
+    }
+}
+
+.custom-tabs-content {
+    margin:unset!important;
+    max-width: unset!important;
+}
 
 .custom-tabs-wrapper .custom-tab {
     width: fit-content;
@@ -109,7 +122,7 @@
 }
 
 .firstgfldata>p:first-of-type {
-    font-size: 48px;
+    font-size: 40px;
     font-weight: 600;
     line-height: 56.3px;
     transition: font-size 0.3s ease, line-height 0.3s ease;
@@ -117,7 +130,7 @@
 }
 
 .firstgfldata>p:last-of-type {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 500;
     line-height: 23.46px;
     transition: font-size 0.3s ease, line-height 0.3s ease;
@@ -219,7 +232,7 @@
 
     .custom-tabs-container .custom-tabs-wrapper {
         overflow-x: scroll;
-        width: 100%;
+        width: calc(100% - 40px);
         justify-content: flex-start;
         scroll-behavior: smooth;
         scrollbar-width: none;
