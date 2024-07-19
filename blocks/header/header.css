@@ -275,6 +275,7 @@ header nav .nav-sections .belowNavMainContainer .secondElementDiv ul {
   margin: 0;
   padding: 0;
   list-style: none;
+  min-width: 225px;
 }
 
 header nav .nav-sections .belowNavMainContainer .thirdElementDiv main {
@@ -449,6 +450,11 @@ header nav .nav-sections .firstElementChildDiv ul {
   margin: 0; 
   display: grid!important; 
   gap: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 12px;
+  text-align: left;
+
 }
 
 .firstElementChildDiv li {
@@ -611,6 +617,11 @@ header nav .nav-tools input[type=text]{
 
 .belowNavMainContainer .secondElementDiv li.listElement {
   padding: 10px 10px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 12px;
+  text-align: left;
+
 }
 
 .header-wrapper {
