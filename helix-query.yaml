@@ -87,7 +87,7 @@ indices:
 
   media-gallery:
     include:
-      - /about-us/media-gallery/details-page/**
+      - /about-us/media-gallery/**
     target: /about-us/media-gallery/details-page/query-index.json
     properties:
       cardtitle:
