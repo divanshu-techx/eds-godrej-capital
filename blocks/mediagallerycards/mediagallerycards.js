@@ -17,13 +17,33 @@ async function fetchDataFromUrl(url) {
         return null;
     }
 }
+function sortCards(sortBy, block) {
+    const cardsContainer = block.querySelector('.media-gallery-cards');
+    const cards = Array.from(cardsContainer.getElementsByClassName('card-media-gallery'));
 
+    cards.sort((a, b) => {
+        const publishDateA = parseInt(a.getAttribute('data-publishdate'));
+        const publishDateB = parseInt(b.getAttribute('data-publishdate'));
+
+        if (sortBy === 'ascending') {
+            return publishDateA - publishDateB;
+        } else if (sortBy === 'descending') {
+            return publishDateB - publishDateA;
+        } else {
+            return 0; // Default case if no valid sort option is selected
+        }
+    });
+
+    // Clear the container and re-append sorted cards
+    cardsContainer.innerHTML = '';
+    cards.forEach(card => cardsContainer.appendChild(card));
+}
 function createFilter(categories, block) {
     const searchInputPlaceholder = getDataAttributeValueByName('searchInputPlaceholder');
     const tabContainer = document.createElement('div');
 
-    const sortByLabel =getDataAttributeValueByName('sortByLabel');
-    const sortByLabelDropDownLabel =getDataAttributeValueByName('sortByLabelDropDownLabel');
+    const sortByLabel = getDataAttributeValueByName('sortByLabel');
+    const sortByLabelDropDownLabel = getDataAttributeValueByName('sortByLabelDropDownLabel');
 
     tabContainer.classList.add('media-gallery-filter');
     const tabsDiv = document.createElement('div');
@@ -58,36 +78,41 @@ function createFilter(categories, block) {
     });
     searchDiv.appendChild(searchInput);
 
-        // Create a dropdown for sorting
-        const sortDiv = document.createElement('div');
-        sortDiv.classList.add('sort-input-media-gallery');
-    
-        const sortDropdown = document.createElement('select');
-        sortDropdown.id = 'sortDropdown';
-        sortDropdown.classList.add('media-sort-dropdown');
+    // Create a dropdown for sorting
+    const sortDiv = document.createElement('div');
+    sortDiv.classList.add('sort-input-media-gallery');
 
-        // Create the default option
-        const defaultOption = document.createElement('option');
-        defaultOption.value = '';
-        defaultOption.textContent = sortByLabel;
-        defaultOption.disabled = true;
-        defaultOption.selected = true;
-        sortDropdown.appendChild(defaultOption);
+    const sortDropdown = document.createElement('select');
+    sortDropdown.id = 'sortDropdown';
+    sortDropdown.classList.add('media-sort-dropdown');
 
-        const sortOptions = sortByLabelDropDownLabel.split(', ');
-        sortOptions.forEach(option => {
-            const sortOption = document.createElement('option');
-            sortOption.value = option;
-            sortOption.textContent = option;
-            sortDropdown.appendChild(sortOption);
-        });
-        sortDiv.appendChild(sortDropdown); 
+    // Create the default option
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = sortByLabel;
+    defaultOption.disabled = true;
+    defaultOption.selected = true;
+    sortDropdown.appendChild(defaultOption);
+
+    const sortOptions = sortByLabelDropDownLabel.split(', ');
+    const sortValues = ['descending','ascending'];
+    sortOptions.forEach((option,index) => {
+        // const cleanOption = option.replace(/\(|\)/g, ''); 
+        const sortOption = document.createElement('option');
+        sortOption.value = sortValues[index];
+        sortOption.textContent = option;
+        sortDropdown.appendChild(sortOption);
+    });
+    sortDropdown.addEventListener('change', () => {
+        sortCards(sortDropdown.value, block);
+    });
+
+    sortDiv.appendChild(sortDropdown);
 
     // Add search input and tabs to the block
-    tabContainer.append(tabsDiv, searchDiv,sortDiv);
+    tabContainer.append(tabsDiv, searchDiv, sortDiv);
     block.insertBefore(tabContainer, block.firstChild);
 }
-
 function showCategoryContent(category, block) {
     const allTabs = block.querySelectorAll('.media-tab');
     allTabs.forEach(tab => {
@@ -165,22 +190,21 @@ function getYoutubeIdFromUrl(url) {
     const match = url.match(regex);
     return match ? match[1] : null;
 }
-
 // Define openModal function to show only video
 function openModal(videoLink) {
     // Create modal elements
     const modal = document.createElement('div');
-    modal.classList.add('modal');
+    modal.classList.add('media-gallery-modal');
 
     const modalContent = document.createElement('div');
-    modalContent.classList.add('modal-content');
+    modalContent.classList.add('media-gallery-modal-content');
 
     // Modal header with close button
     const modalHeader = document.createElement('div');
-    modalHeader.classList.add('modal-header');
+    modalHeader.classList.add('media-gallery-modal-header');
 
     const closeModalBtn = document.createElement('span');
-    closeModalBtn.classList.add('close-modal');
+    closeModalBtn.classList.add('media-gallery-close-modal');
     closeModalBtn.textContent = '×';
     closeModalBtn.addEventListener('click', () => {
         modal.remove(); // Close modal on close button click
@@ -228,8 +252,6 @@ function openModal(videoLink) {
     // Append modal to document body
     document.body.appendChild(modal);
 }
-
-
 function generateCards(data, block) {
     const cardContainer = document.createElement('div');
     cardContainer.classList.add('media-gallery-cards');
@@ -238,6 +260,9 @@ function generateCards(data, block) {
         const card = document.createElement('div');
         card.classList.add('card-media-gallery');
         card.setAttribute('data-category', item.category);
+
+        const publishDate = convertExcelDate(item.publishdate);
+        card.setAttribute('data-publishdate', publishDate.getTime()); // Store as timestamp for easier sorting
 
         if (item.cardimagelink) {
             // Create the div for the card image
@@ -319,8 +344,11 @@ function generateCards(data, block) {
         showCategoryContent(firstCategory, block);
     }
 }
-
-
+// Helper function to convert Excel date format to JavaScript Date
+function convertExcelDate(excelDate) {
+    const date = new Date((excelDate - (25567 + 2)) * 86400 * 1000);
+    return date;
+}
 export default async function decorate(block) {
     const apiUrl = getDataAttributeValueByName('apiUrl');
     const categories = getDataAttributeValueByName('categorytab').split(',').map(cat => cat.trim());
