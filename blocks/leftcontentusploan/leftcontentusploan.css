@@ -34,14 +34,11 @@
 
 .uspcontentdetails {
     flex: 1;
-
     color: black;
-    /* Ensure text is black */
 }
 
 .imagedata {
     flex: 1;
-
 }
 
 .imagedata picture img {
@@ -50,15 +47,33 @@
     display: block;
 }
 
-
-
-
-
 .leftcontentusploan .usp-details-parent {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
+}
+@media(max-width:767px){
+    .leftcontentusploan .usp-details-parent {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .imagedata {
+        order:1;
+    }
+
+    .uspcontentdetails {
+        flex: 1;
+        color: black;
+        order:2;
+    }
+
+    /* ------------ */
+    
+    /* ----------- */
 }
 
 .leftcontentusploan .usp-details-parent .uspcontentdetails p {

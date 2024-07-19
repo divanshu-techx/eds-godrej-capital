@@ -13,6 +13,11 @@
     border-radius: 4px;
     margin-bottom: 20px;
 }
+@media(max-width:767px){
+    .custom-tabs-container .custom-tabs-wrapper {
+        margin-bottom: 0px;
+    }
+}
 .custom-tab {
     /* flex: 1; */
     padding: 10px;
@@ -23,6 +28,12 @@
     border-radius:4px;
     transition: background-color 0.3s ease;
     background-color: #fff;
+}
+
+@media(max-width:767px){
+    .custom-tab {
+        flex: 1;
+    }
 }
 
 .custom-tabs-content .section.featured-posts-container{
