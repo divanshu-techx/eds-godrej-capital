@@ -45,8 +45,8 @@ export default async function decorate(block) {
             headingContainerDiv, parentContainerDiv, block);
 
         forCreateRatingRadioBtn(dynamicDiv, feedbackAttributes, parentContainerDiv, block, form);
-        // parentContainerDiv.style = 'display:block';
-        parentContainerDiv.classList.add('visible-parent')
+        parentContainerDiv.style = 'display:block';
+        parentContainerDiv.classList.add('visible-parent');
         this.style = 'display:none';
     });
 
