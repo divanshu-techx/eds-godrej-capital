@@ -4,6 +4,7 @@ function setCookie(name, value, days) {
     const expires = "expires=" + date.toUTCString();
     document.cookie = name + "=" + value + ";" + expires + ";path=/";
 }
+
 function getCookie(name) {
     const nameEQ = name + "=";
     const ca = document.cookie.split(';');
@@ -14,6 +15,13 @@ function getCookie(name) {
     }
     return null;
 }
+
+function createOverlay() {
+    const overlay = document.createElement('div');
+    overlay.classList.add('cookie-overlay');
+    document.body.appendChild(overlay);
+}
+
 function addClass(block) {
     const defaultclass = ['cookieHeading', 'cookieDescription', 'cookieButton'];
     const allDiv = block.querySelectorAll(':scope > div');
@@ -32,28 +40,35 @@ function addClass(block) {
         const button = document.createElement('button');
         button.textContent = paragraph.textContent;
         button.classList.add(buttonClass[index]);
-        button.id = buttonIds[index]; // Add ID to the button
+        button.id = buttonIds[index];
         paragraph.replaceWith(button);
     });
 }
+
 function showCookieModal(block) {
     block.style.display = 'block';
+    document.querySelector('.cookie-overlay').style.display = 'block';
 }
-function showCookieModalCustom(modelId){
+
+function showCookieModalCustom(modelId) {
     modelId.style.display = 'block';
+    document.querySelector('.cookie-overlay').style.display = 'block';
 }
+
 function hideCookieModal(block) {
     block.style.display = 'none';
+    document.querySelector('.cookie-overlay').style.display = 'none';
 }
+
 function addAction(block) {
     const customizeBtn = block.querySelector('#customize-btn');
     const rejectBtn = block.querySelector('#reject-btn');
     const acceptBtn = block.querySelector('#accept-btn');
 
     if (customizeBtn) {
-        const main=document.querySelector('main');
-        const customCookie=main.querySelector('.custom-cookie-usage');
-        customizeBtn.addEventListener('click', function() {
+        const main = document.querySelector('main');
+        const customCookie = main.querySelector('.custom-cookie-usage');
+        customizeBtn.addEventListener('click', function () {
             showCookieModalCustom(customCookie);
         });
     } else {
@@ -61,7 +76,7 @@ function addAction(block) {
     }
 
     if (rejectBtn) {
-        rejectBtn.addEventListener('click', function() {
+        rejectBtn.addEventListener('click', function () {
             setCookie('cookiesAccepted', 'false', 365);
             hideCookieModal(block);
         });
@@ -70,7 +85,7 @@ function addAction(block) {
     }
 
     if (acceptBtn) {
-        acceptBtn.addEventListener('click', function() {
+        acceptBtn.addEventListener('click', function () {
             setCookie('cookiesAccepted', 'true', 365);
             hideCookieModal(block);
         });
@@ -78,7 +93,9 @@ function addAction(block) {
         console.log("There is no accept button present.");
     }
 }
+
 export default function decorate(block) {
+    createOverlay();
     addClass(block);
 
     if (!getCookie('cookiesAccepted')) {
@@ -87,12 +104,6 @@ export default function decorate(block) {
         }, 3000); // Show after 3 seconds
     }
 
-// for when somone customize the cookie want to show first popup or not
-    // if (!getCookie('cookiesAccepted') && !getCookie('cookiesAccepted-customization')) {
-    //     setTimeout(() => {
-    //         showCookieModal(block);
-    //     }, 3000); // Show after 3 seconds
-    // }
-
     addAction(block);
 }
+

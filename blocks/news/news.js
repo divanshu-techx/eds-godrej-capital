@@ -9,6 +9,8 @@ export default async function decorate(block) {
   const sortBy = getDataAttributeValueByName('sortByLabel');
   const searchIcon = getDataAttributeValueByName('searchIcon');
 
+
+
   const readArticleLabel = getDataAttributeValueByName('readArticleLabel');
 
   const sortOptions = typeFilter.split(',').map(option => option.trim());
@@ -200,16 +202,18 @@ export default async function decorate(block) {
   };
 
   // Function to sort data based on the selected option
-  const sortData = () => {
-    const selectedOption = sortDropdown.value;
+ const sortData = () => {
+   const selectedOption = sortDropdown.value;
+   const regexOldestToLatest = /oldest\s*to\s*latest/i;
+   const regexLatestToOldest = /latest\s*to\s*oldest/i;
+   if (regexLatestToOldest.test(selectedOption)) {
+     responseData.sort((a, b) => new Date(b.publishdate) - new Date(a.publishdate));
+   } else if (regexOldestToLatest.test(selectedOption))
+     responseData.sort((a, b) => new Date(a.publishdate) - new Date(b.publishdate));
 
-    if (selectedOption === 'Date (latest to oldest)') { // New label for latest to oldest
-      responseData.sort((a, b) => new Date(b.publishdate) - new Date(a.publishdate));
-    } else if (selectedOption === 'Date (oldest to latest)') { // New label for oldest to latest
-      responseData.sort((a, b) => new Date(a.publishdate) - new Date(b.publishdate));
-    }
-    renderPage();
-  };
+   renderPage();
+ };
+
 
   // Function to set active tab and fetch data based on category
   const setActiveTab = (tabName) => {
