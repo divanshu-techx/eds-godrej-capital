@@ -1,0 +1,135 @@
+.section.aboutusbanner-container.leftcontentusploan-container{
+    padding:unset;
+}
+
+@media (max-width: 600px) {
+    .custom-tabs-container.section .custom-tabs-wrapper {
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        margin-bottom:30px;
+      }
+      
+      .custom-tabs-container.section  .custom-tab {
+        flex: 0 0 auto;
+        white-space: nowrap;
+        padding: 10px 20px;
+        margin-right: 5px;
+        cursor: pointer;
+        background: #F4F4F4;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 14.08px;
+        color:#242424;
+        border-radius: 4px;
+      }
+
+      .custom-tabs-container.section  .custom-tab.active{
+        background: #3CB8FF;
+        color:#fff;
+        border-radius: 4px;
+      }
+
+      .custom-tabs-container.section  .custom-tabs-wrapper {
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+  
+    .custom-tabs-container.section  .custom-tab {
+      flex: 0 0 auto;
+    }
+
+  }
+
+.cards-container-wrapper {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    scroll-snap-type: x mandatory;
+  }
+
+  @media (max-width: 600px) {
+    .cards-container-wrapper {
+        display: flex;
+        overflow: hidden;
+        width: 100%;
+        scroll-snap-type: x mandatory;
+        box-shadow: 2px 2px 5px 0px #0000001A;
+      }
+}
+  
+  .leftcontentusploan-wrapper {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+  }
+  
+  .carousel-nav-container {
+    position: relative;
+    width: 100%;
+    display: none; 
+  }
+  
+  .carousel-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #5CB7E3;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 999;
+  }
+  
+  .carousel-prev-btn {
+    left: 10px;
+  }
+  
+  .carousel-next-btn {
+    right: 10px;
+  }
+  
+  @media (max-width: 600px) {
+    .carousel-nav-container {
+      display: block; 
+    }
+  }
+  
+
+  .leftcontentusploan-wrapper {
+    display: none;
+  }
+  
+  .leftcontentusploan-wrapper.active {
+    display: block;
+  }
+  
+
+  .carousel-count-display {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    z-index: 1000;
+  }
+  
+
+  .carousel-nav-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .carousel-number {
+    margin: 0 5px;
+    cursor: pointer;
+  }
+  
+  .carousel-number.active-number {
+    font-weight: bold;
+    text-decoration: underline;
+  }

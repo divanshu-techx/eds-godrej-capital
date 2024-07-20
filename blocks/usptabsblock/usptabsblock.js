@@ -1,158 +1,218 @@
 export default async function tabsblock(block) {
     const mainElement = document.querySelector('main');
     const tabsheading = mainElement.querySelector('.tabsheading');
-    // Ensure tabs are created only once
     let tabsCreated = false;
- 
-    // Function to create tabs based on the section data
+  
     function createTabs() {
-        // Get all sections with class 'section' that have a data-tab-title attribute
-        const sections = document.querySelectorAll('.section[data-tab-title][data-section-status="loaded"]');
- 
-        if (sections.length === 0) {
-            console.warn('No sections with data-tab-title and data-section-status="loaded" found.');
-            return;
+      const sections = document.querySelectorAll('.section[data-tab-title][data-section-status="loaded"]');
+  
+      if (sections.length === 0) {
+        console.warn('No sections with data-tab-title and data-section-status="loaded" found.');
+        return;
+      }
+  
+      const tabContainer = document.createElement('div');
+      tabContainer.classList.add('custom-tabs-container', 'section');
+  
+      const tabsWrapper = document.createElement('div');
+      tabsWrapper.classList.add('custom-tabs-wrapper');
+  
+      const contentContainer = document.createElement('div');
+      contentContainer.classList.add('custom-tabs-content');
+  
+      let activeTabIndex = 0;
+  
+      sections.forEach((section, index) => {
+        section.style.display = '';
+  
+        const tabTitle = section.dataset.tabTitle;
+        const tab = document.createElement('button');
+        tab.classList.add('custom-tab');
+        tab.textContent = tabTitle;
+        tab.dataset.index = index;
+  
+        if (index === activeTabIndex) {
+          tab.classList.add('active');
         }
- 
-        // Create a tab container
-        const tabContainer = document.createElement('div');
-        tabContainer.classList.add('custom-tabs-container');
-        tabContainer.classList.add('section')
- 
-        // Create a tabs wrapper
-        const tabsWrapper = document.createElement('div');
-        tabsWrapper.classList.add('custom-tabs-wrapper');
- 
-        // Create a content container
-        const contentContainer = document.createElement('div');
-        contentContainer.classList.add('custom-tabs-content');
-        console.log(contentContainer)
- 
-        // Track active tab index
-        let activeTabIndex = 0;
- 
-        // Iterate over each section to create corresponding tab and content
-        sections.forEach((section, index) => {
-            // Remove display: none style from section if present
-            section.style.display = '';
- 
-            // Create tab element
-            const tabTitle = section.dataset.tabTitle;
-            const tab = document.createElement('button');
-            tab.classList.add('custom-tab');
-            tab.textContent = tabTitle;
-            tab.dataset.index = index;
- 
-            // active class added for default tab
-            if (index === activeTabIndex) {
-                tab.classList.add('active');
-            }
- 
-            // Create content element
-            const content = document.createElement('div');
-            content.classList.add('custom-tab-content');
- 
-            const cardsContainer = document.createElement('div');
-            cardsContainer.classList.add('cards-container-wrapper');  
-           
-            var leftContentDivs = section.querySelectorAll('.leftcontentusploan-wrapper');
-            // Move each 'leftcontentusploan-wrapper' div to the 'cards-container-wrapper'
-            leftContentDivs.forEach(function(div) {
-                cardsContainer.appendChild(div);
-            });
-            section.appendChild(cardsContainer);
- 
-            // Append section content to tab content
-            content.appendChild(section); // Clone section to preserve original structure
- 
-            // Hide all contents except the first one
-            if (index !== activeTabIndex) {
-                content.style.display = 'none';
-            }
- 
-            // Append tab and content to respective containers
-            tabsWrapper.appendChild(tab);
-            contentContainer.appendChild(content);
+  
+        const content = document.createElement('div');
+        content.classList.add('custom-tab-content');
+  
+        const cardsContainer = document.createElement('div');
+        cardsContainer.classList.add('cards-container-wrapper');
+  
+        const leftContentDivs = section.querySelectorAll('.leftcontentusploan-wrapper');
+        leftContentDivs.forEach(div => {
+          cardsContainer.appendChild(div);
         });
- 
-        // Append tabs wrapper and content container to tab container
-        tabContainer.appendChild(tabsWrapper);
-        tabContainer.appendChild(contentContainer);
- 
-        // Get main element
-        const main = document.querySelector('main');
- 
-        // Remove sections with data-tab-title from main
-        const sectionsToRemove = main.querySelectorAll('.section[data-tab-title]');
-        sectionsToRemove.forEach(section => {
-            section.parentNode.removeChild(section);
-        });
- 
-        // Append tab container to main element
-        if(tabsheading){
-        tabsheading.insertAdjacentElement('afterend',tabContainer);
-        }else{
-            main.appendChild(tabContainer);
+  
+        section.appendChild(cardsContainer);
+        content.appendChild(section);
+  
+        if (index !== activeTabIndex) {
+          content.style.display = 'none';
         }
- 
-        // Add click event listener to tabs
-        tabsWrapper.addEventListener('click', (event) => {
-            if (event.target.classList.contains('custom-tab')) {
-                const tabIndex = event.target.dataset.index;
- 
-                // Hide all contents and remove active class from tabs
-                tabsWrapper.querySelectorAll('.custom-tab').forEach(tab => {
-                    tab.classList.remove('active');
-                });
-                contentContainer.querySelectorAll('.custom-tab-content').forEach(content => {
-                    content.style.display = 'none';
-                });
- 
-                // Show the selected tab content and mark the tab as active
-                event.target.classList.add('active');
-                contentContainer.querySelectorAll('.custom-tab-content')[tabIndex].style.display = 'block';
-            }
-        });
+  
+        tabsWrapper.appendChild(tab);
+        contentContainer.appendChild(content);
+      });
+  
+      tabContainer.appendChild(tabsWrapper);
+      tabContainer.appendChild(contentContainer);
+  
+      const main = document.querySelector('main');
+      const sectionsToRemove = main.querySelectorAll('.section[data-tab-title]');
+      sectionsToRemove.forEach(section => {
+        section.parentNode.removeChild(section);
+      });
+  
+      if (tabsheading) {
+        tabsheading.insertAdjacentElement('afterend', tabContainer);
+      } else {
+        main.appendChild(tabContainer);
+      }
+  
+      tabsWrapper.addEventListener('click', (event) => {
+        if (event.target.classList.contains('custom-tab')) {
+          const tabIndex = event.target.dataset.index;
+  
+          tabsWrapper.querySelectorAll('.custom-tab').forEach(tab => {
+            tab.classList.remove('active');
+          });
+          contentContainer.querySelectorAll('.custom-tab-content').forEach(content => {
+            content.style.display = 'none';
+          });
+  
+          event.target.classList.add('active');
+          contentContainer.querySelectorAll('.custom-tab-content')[tabIndex].style.display = 'block';
+        }
+      });
+  
+      setupCarouselNavigation();
     }
- 
-    // Function to check the section status
+
+// ------------------------------------------------------------------------------
+
+function setupCarouselNavigation() {
+    const carousels = document.querySelectorAll('.cards-container-wrapper');
+  
+    carousels.forEach(carousel => {
+      const navContainer = document.createElement('div');
+      navContainer.classList.add('carousel-nav-container');
+  
+      const prevBtn = document.createElement('button');
+      prevBtn.classList.add('carousel-nav-btn', 'carousel-prev-btn');
+      prevBtn.textContent = 'Prev';
+  
+      const nextBtn = document.createElement('button');
+      nextBtn.classList.add('carousel-nav-btn', 'carousel-next-btn');
+      nextBtn.textContent = 'Next';
+  
+      const countDisplay = document.createElement('div');
+      countDisplay.classList.add('carousel-count-display');
+      navContainer.appendChild(countDisplay);
+  
+      navContainer.appendChild(prevBtn);
+      navContainer.appendChild(nextBtn);
+      carousel.parentElement.appendChild(navContainer);
+  
+      let currentIndex = 0;
+      const items = Array.from(carousel.children);
+      const totalItems = items.length;
+  
+      function updateCarousel() {
+        items.forEach((item, index) => {
+          item.classList.toggle('active', index === currentIndex);
+        });
+  
+        // Calculate the offset based on the width of the carousel
+        const itemWidth = items[0].offsetWidth;
+        const offset = -currentIndex * itemWidth;
+        carousel.style.transform = `translateX(${offset}px)`;
+  
+        // Update count display
+        countDisplay.innerHTML = ''; // Clear previous numbers
+        for (let i = 0; i < totalItems; i++) {
+          const number = document.createElement('span');
+          number.textContent = i + 1;
+          number.classList.add('carousel-number');
+          if (i === currentIndex) {
+            number.classList.add('active-number');
+          }
+          number.addEventListener('click', () => {
+            currentIndex = i;
+            updateCarousel();
+          });
+          countDisplay.appendChild(number);
+        }
+  
+        // Update buttons' disabled state
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex === totalItems - 1;
+      }
+  
+      prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+          currentIndex -= 1;
+          updateCarousel();
+        }
+      });
+  
+      nextBtn.addEventListener('click', () => {
+        if (currentIndex < totalItems - 1) {
+          currentIndex += 1;
+          updateCarousel();
+        }
+      });
+  
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 600) {
+          carousel.style.transform = 'translateX(0)';
+          currentIndex = 0;
+          updateCarousel();
+        }
+      });
+  
+      // Initialize display
+      updateCarousel();
+    });
+  }
+  
+  // Call the function to setup the carousel navigation
+  setupCarouselNavigation();
+// --------------------------------------------------------  
     function checkSectionStatus() {
-        const sections = document.querySelectorAll('.section[data-tab-title]');
-        return Array.from(sections).every(section => section.getAttribute('data-section-status') === 'loaded');
+      const sections = document.querySelectorAll('.section[data-tab-title]');
+      return Array.from(sections).every(section => section.getAttribute('data-section-status') === 'loaded');
     }
- 
-    // Function to wait for all sections to be loaded
+  
     function waitForSections() {
-        if (checkSectionStatus()) {
-            if (!tabsCreated) {
-                // Set tabsCreated to true to prevent multiple creations
-                tabsCreated = true;
-                createTabs();
-            }
-        } else {
-            // Use MutationObserver to wait for changes in the data-section-status attribute
-            const observer = new MutationObserver(mutations => {
-                mutations.forEach(mutation => {
-                    if (mutation.type === 'attributes' && mutation.attributeName === 'data-section-status') {
-                        if (checkSectionStatus()) {
-                            observer.disconnect(); // Stop observing once all sections are loaded
-                            if (!tabsCreated) {
-                                tabsCreated = true;
-                                createTabs();
-                            }
-                        }
-                    }
-                });
-            });
- 
-            // Observe each section for attribute changes
-            document.querySelectorAll('.section[data-tab-title]').forEach(section => {
-                observer.observe(section, { attributes: true });
-            });
+      if (checkSectionStatus()) {
+        if (!tabsCreated) {
+          tabsCreated = true;
+          createTabs();
         }
+      } else {
+        const observer = new MutationObserver(mutations => {
+          mutations.forEach(mutation => {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'data-section-status') {
+              if (checkSectionStatus()) {
+                observer.disconnect();
+                if (!tabsCreated) {
+                  tabsCreated = true;
+                  createTabs();
+                }
+              }
+            }
+          });
+        });
+  
+        document.querySelectorAll('.section[data-tab-title]').forEach(section => {
+          observer.observe(section, { attributes: true });
+        });
+      }
     }
+  
     waitForSections();
-    // Wait for DOMContentLoaded event
-  //  document.addEventListener("DOMContentLoaded", waitForSections);
-}
- 
+  }
+  
