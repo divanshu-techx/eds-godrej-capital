@@ -143,9 +143,9 @@ function createModal() {
 
 export default async function decorate(block) {
   prepareBackgroundImage(block);
-  const headings = block.querySelectorAll("h1, h2, h3, h4, h5, h6");
 
-  [...headings].forEach((heading) => heading.classList.add("banner__title"));
+  const headings = block.querySelectorAll("h1, h2, h3, h4, h5, h6");
+  headings.forEach((heading) => heading.classList.add("banner__title"));
 
   block.parentElement.classList.add("full-width");
 
@@ -159,17 +159,24 @@ export default async function decorate(block) {
 
   // Video Modal Functionality
   const modal = document.getElementById("customVideoModal");
-  const btns = block.querySelectorAll('.button'); // Adjust selector to match your play button
   const videoSource = document.getElementById("videoSource");
 
-  btns.forEach(btn => {
-    btn.addEventListener('click', function(event) {
+  // Use a more generic selector to handle both buttons and anchors
+  const clickableElements = block.querySelectorAll('.button, a');
+
+  clickableElements.forEach(el => {
+    el.addEventListener('click', function(event) {
       event.preventDefault();
-      const videoUrl = btn.getAttribute('href');
-      videoSource.src = videoUrl;
-      modal.style.display = "block";
-      const videoPlayer = document.getElementById("videoPlayer");
-      videoPlayer.load();
+
+      // Get the video URL from the href attribute or data attribute
+      const videoUrl = el.getAttribute('href');
+
+      if (videoUrl) {
+        videoSource.src = videoUrl;
+        modal.style.display = "block";
+        const videoPlayer = document.getElementById("videoPlayer");
+        videoPlayer.load();
+      }
     });
   });
 }
