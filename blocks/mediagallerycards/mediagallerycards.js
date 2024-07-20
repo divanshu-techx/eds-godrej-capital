@@ -123,10 +123,12 @@ function createFilter(categories, block) {
     tabContainer.append(tabsDiv, searchDiv, sortDiv);
     block.insertBefore(tabContainer, block.firstChild);
 }
-function showCategoryContent(category, block, tab) {
+
+function showCategoryContent(category, block) {
     const allTabs = block.querySelectorAll('.media-tab');
     const pictureContainer = block.querySelector('.main-picture-div');
     const videoContainer = block.querySelector('.other-category-container');
+    let noResultsMessage = block.querySelector('.no-results');
 
     allTabs.forEach(tab => {
         if (tab.getAttribute('data-category') === category) {
@@ -144,9 +146,28 @@ function showCategoryContent(category, block, tab) {
         pictureContainer.style.display = 'block';
         videoContainer.style.display = 'none';
     }
+
+    // Check if the containers have visible content
+    const hasPictureContent = pictureContainer.querySelector('.card-media-gallery')?.children.length > 0;
+    const hasVideoContent = videoContainer.querySelector('.card-media-gallery')?.children.length > 0;
+
+    // If no content is visible, show the no results message
+    if (!hasPictureContent && !hasVideoContent) {
+        if (!noResultsMessage) {
+            noResultsMessage = document.createElement('div');
+            noResultsMessage.className = 'no-results';
+            noResultsMessage.textContent = 'No results found';
+            block.appendChild(noResultsMessage);
+        }
+        noResultsMessage.style.display = 'block';
+    } else {
+        if (noResultsMessage) {
+            noResultsMessage.style.display = 'none';
+        }
+    }
 }
+
 function filterCardsBySearch(searchTerm, block) {
-    const activeCategory = block.querySelector('.media-tab.active').getAttribute('data-category');
     const allCards = block.querySelectorAll('.card-media-gallery');
     const lowerCaseSearchTerm = searchTerm.trim().toLowerCase(); // Trim and convert to lowercase
     let resultsFound = false;
@@ -155,7 +176,7 @@ function filterCardsBySearch(searchTerm, block) {
     if (lowerCaseSearchTerm.length < 3) {
         // Reset all cards to be visible if searchTerm length is less than 3
         allCards.forEach(card => {
-            card.style.display = (card.getAttribute('data-category') === activeCategory) ? 'block' : 'none';
+            card.style.display = 'block';
         });
 
         // Remove noResultsMessage if it exists
@@ -167,15 +188,10 @@ function filterCardsBySearch(searchTerm, block) {
     }
 
     allCards.forEach(card => {
-        const cardCategory = card.getAttribute('data-category');
-        if (cardCategory === activeCategory) {
-            const cardContent = card.textContent.toLowerCase();
-            if (cardContent.includes(lowerCaseSearchTerm)) {
-                card.style.display = 'block';
-                resultsFound = true;
-            } else {
-                card.style.display = 'none';
-            }
+        const cardContent = card.textContent.toLowerCase();
+        if (cardContent.includes(lowerCaseSearchTerm)) {
+            card.style.display = 'block';
+            resultsFound = true;
         } else {
             card.style.display = 'none';
         }
@@ -198,11 +214,13 @@ function filterCardsBySearch(searchTerm, block) {
         noResultsMessage.style.display = 'block';
     }
 }
+
 function getYoutubeIdFromUrl(url) {
     const regex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
     const match = url.match(regex);
     return match ? match[1] : null;
 }
+
 // Define openModal function to show only video
 function openModal(videoLink) {
     // Create modal elements
@@ -265,8 +283,10 @@ function openModal(videoLink) {
     // Append modal to document body
     document.body.appendChild(modal);
 }
+
 // Function to fetch and append content to pictureGalleryContainer
-function fetchAndAppendContent(url, container) {
+function fetchAndAppendContent(block,url, container) {
+    // console.log(container)
     fetch(url)
         .then(response => {
             if (!response.ok) {
@@ -284,6 +304,8 @@ function fetchAndAppendContent(url, container) {
             } else {
                 container.innerHTML = '<p>No main content found.</p>';
             }
+            // console.log(container);
+            updateNewCard(block,container)
         })
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);
@@ -291,6 +313,7 @@ function fetchAndAppendContent(url, container) {
             container.innerHTML = '<p>Failed to load content. Please try again later.</p>';
         });
 }
+
 function generateCards(data, block) {
     // Create the main parent div for all cards
     const mainParentDiv = document.createElement('div');
@@ -336,15 +359,22 @@ function generateCards(data, block) {
             // Create the div for the card-link
             const cardLinkDiv = document.createElement('div');
             cardLinkDiv.classList.add('card-media-gallery-link');
-            const cardTitle = document.createElement('a');
+            const cardTitle = document.createElement('p');
             cardTitle.textContent = item.cardtitle;
-            cardTitle.href = item.path;
+            // cardTitle.href = item.path;
             cardLinkDiv.appendChild(cardTitle);
             cardImageDiv.addEventListener('click', (e) => {
                 e.preventDefault();
                 pictureGalleryContainer.style.display = 'none';
                 newContentDiv.classList.add('active');
-                fetchAndAppendContent(item.path, newContentDiv);
+                fetchAndAppendContent(block,item.path, newContentDiv);
+            })
+
+            cardTitle.addEventListener('click', (e) => {
+                e.preventDefault();
+                pictureGalleryContainer.style.display = 'none';
+                newContentDiv.classList.add('active');
+                fetchAndAppendContent(block,item.path, newContentDiv);
             })
             card.append(cardImageDiv, cardLinkDiv);
         } else if (item.cardvideolink) {
@@ -414,10 +444,138 @@ function generateCards(data, block) {
     //     showCategoryContent(firstCategory, block);
     // }
 }
+
 // Helper function to convert Excel date format to JavaScript Date
 function convertExcelDate(excelDate) {
     const date = new Date((excelDate - (25567 + 2)) * 86400 * 1000);
     return date;
+}
+
+function updateNewCard(block, container) {
+    console.log(container);
+    const mainCardDiv = container.querySelector(':scope > div');
+    mainCardDiv.classList.add('mainNewCardDiv');
+
+    const mainCardPictureDiv = mainCardDiv.querySelector(':scope > div');
+    mainCardPictureDiv.classList.add('mainCardPictureDiv');
+
+    const newTopDiv = document.createElement('div');
+    newTopDiv.classList.add('redirectDiv-media-gallery');
+
+    const backPage=document.createElement('div');
+    backPage.classList.add('back-page');
+
+    const backAnchor=document.createElement('p');
+    backAnchor.classList.add('back-link-media-gallery');
+    backAnchor.textContent='Housing Loan Happy Customer';
+    backPage.appendChild(backAnchor);
+
+
+    newTopDiv.appendChild(backPage);
+
+    mainCardDiv.insertBefore(newTopDiv, mainCardPictureDiv);
+
+    // Create upperPictureDiv and insert it into mainCardDiv (not mainCardPictureDiv)
+    const upperPictureDiv = document.createElement('div');
+    upperPictureDiv.classList.add('upperPictureDiv');
+    mainCardDiv.insertBefore(upperPictureDiv, mainCardPictureDiv); // Insert before mainCardPictureDiv
+
+    const allChildDiv = mainCardPictureDiv.querySelectorAll(':scope > div');
+    let currentIndex = 0;
+
+    // Set the first new-card-picture-div as active by default
+    allChildDiv[currentIndex].classList.add('active');
+    const initialClone = allChildDiv[currentIndex].cloneNode(true);
+    upperPictureDiv.appendChild(initialClone);
+
+    function updateActiveElement(index) {
+        allChildDiv.forEach(el => el.classList.remove('active'));
+        allChildDiv[index].classList.add('active');
+
+        const clone = allChildDiv[index].cloneNode(true);
+        upperPictureDiv.innerHTML = '';
+        upperPictureDiv.appendChild(clone);
+
+        allChildDiv[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    // Add click event listener to each new-card-picture-div
+    allChildDiv.forEach((element, index) => {
+        element.classList.add('new-card-picture-div');
+        element.addEventListener('click', () => {
+            currentIndex = index;
+            updateActiveElement(currentIndex);
+        });
+    });
+
+    // Create Previous and Next buttons
+    const prevButton = document.createElement('button');
+    prevButton.innerText = 'Previous';
+    prevButton.classList.add('media-gallery-nav-button', 'prev-button');
+    mainCardPictureDiv.insertBefore(prevButton, mainCardPictureDiv.firstChild); // Insert at the beginning
+
+    const nextButton = document.createElement('button');
+    nextButton.innerText = 'Next';
+    nextButton.classList.add('media-gallery-nav-button', 'next-button');
+    mainCardPictureDiv.appendChild(nextButton); // Insert at the end
+
+    // Add event listeners for Previous and Next buttons
+    prevButton.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex = (currentIndex - 1 + allChildDiv.length) % allChildDiv.length;
+            updateActiveElement(currentIndex);
+        }
+    });
+
+    nextButton.addEventListener('click', () => {
+        if (currentIndex < allChildDiv.length - 1) {
+            currentIndex = (currentIndex + 1) % allChildDiv.length;
+            updateActiveElement(currentIndex);
+        }
+    });
+
+// Event listener for backAnchor
+backAnchor.addEventListener('click', () => {
+    console.log("backAnchor clicked");
+
+    // Select the elements you want to modify
+    const pictureGalleryContainer = block.querySelector('.picture-gallery-container');
+    const newContentCard = block.querySelector('.new-content-card');
+
+    // Ensure that picture-gallery-container is displayed as block
+    if (pictureGalleryContainer) {
+        pictureGalleryContainer.style.display = 'block';
+    }
+
+    // Ensure that new-content-card is hidden and remove the active class
+    if (newContentCard) {
+        newContentCard.style.display = 'none';
+        newContentCard.classList.remove('active');
+    }
+});
+
+// Event listener for picture-gallery-container
+const pictureGalleryContainer = block.querySelector('.picture-gallery-container');
+if (pictureGalleryContainer) {
+    pictureGalleryContainer.addEventListener('click', () => {
+        console.log("picture-gallery-container clicked");
+
+        // Select the elements you want to modify
+        const newContentCard = block.querySelector('.new-content-card');
+        const galleryContainer = block.querySelector('.picture-gallery-container');
+
+        // Ensure that new-content-card is displayed as block
+        if (newContentCard) {
+            newContentCard.style.display = 'block';
+        }
+
+        // Ensure that picture-gallery-container is hidden
+        if (galleryContainer) {
+            galleryContainer.style.display = 'none';
+        }
+    });
+}
+
 }
 
 export default async function decorate(block) {
