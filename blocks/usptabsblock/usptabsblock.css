@@ -32,21 +32,24 @@
 
       .custom-tabs-container.section  .custom-tabs-wrapper {
       -webkit-overflow-scrolling: touch;
-      scrollbar-width: thin;
+      /* scrollbar-width: thin; */
+      scrollbar-width: none;
     }
   
     .custom-tabs-container.section  .custom-tab {
       flex: 0 0 auto;
     }
 
+    .cards-container-wrapper {
+      display: flex;
+      overflow: hidden;
+      width: 100%;
+      scroll-snap-type: x mandatory;
+    }
+
   }
 
-.cards-container-wrapper {
-    display: flex;
-    overflow: hidden;
-    width: 100%;
-    scroll-snap-type: x mandatory;
-  }
+
 
   @media (max-width: 600px) {
     .cards-container-wrapper {
@@ -56,45 +59,47 @@
         scroll-snap-type: x mandatory;
         box-shadow: 2px 2px 5px 0px #0000001A;
       }
+
+      .leftcontentusploan-wrapper {
+        flex: 0 0 100%;
+        scroll-snap-align: start;
+      }
+      
+      .carousel-nav-container {
+        position: relative;
+        width: 100%;
+        display: none; 
+      }
+      
+      .carousel-nav-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: #5CB7E3;
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        z-index: 999;
+      }
+      
+      .carousel-prev-btn {
+        left: 10px;
+      }
+      
+      .carousel-next-btn {
+        right: 10px;
+      }
 }
   
-  .leftcontentusploan-wrapper {
-    flex: 0 0 100%;
-    scroll-snap-align: start;
-  }
-  
-  .carousel-nav-container {
-    position: relative;
-    width: 100%;
-    display: none; 
-  }
-  
-  .carousel-nav-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: #5CB7E3;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    z-index: 999;
-  }
-  
-  .carousel-prev-btn {
-    left: 10px;
-  }
-  
-  .carousel-next-btn {
-    right: 10px;
-  }
+
   
   @media (max-width: 600px) {
     .carousel-nav-container {
       display: block; 
     }
-  }
-  
+
+      
 
   .leftcontentusploan-wrapper {
     display: none;
@@ -133,3 +138,9 @@
     font-weight: bold;
     text-decoration: underline;
   }
+  }
+@media(min-width:769px){
+  .carousel-nav-container{
+    display:none;
+  }
+}
