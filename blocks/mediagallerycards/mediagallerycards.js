@@ -21,7 +21,7 @@ function sortCards(sortBy, block) {
     // Select containers for each category
     const pictureGalleryContainer = block.querySelector('.picture-gallery-container');
     const otherCategoryContainer = block.querySelector('.other-category-container');
-    
+
     // Ensure otherCategoryContainer is properly handled
     const otherCategoryWrapper = otherCategoryContainer ? otherCategoryContainer.querySelector('.other-category-wrapper') : null;
 
@@ -291,8 +291,7 @@ function openModal(videoLink) {
 }
 
 // Function to fetch and append content to pictureGalleryContainer
-function fetchAndAppendContent(block,url, container) {
-    // console.log(container)
+function fetchAndAppendContent(block, url, container) {
     fetch(url)
         .then(response => {
             if (!response.ok) {
@@ -311,7 +310,7 @@ function fetchAndAppendContent(block,url, container) {
                 container.innerHTML = '<p>No main content found.</p>';
             }
             // console.log(container);
-            updateNewCard(block,container)
+            updateNewCard(block, container)
         })
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);
@@ -338,7 +337,7 @@ function generateCards(data, block) {
     // Create the div for other category cards and a wrapper for its cards
     const otherCategoryContainer = document.createElement('div');
     otherCategoryContainer.classList.add('other-category-container');
-    
+
     const otherCategoryWrapper = document.createElement('div');
     otherCategoryWrapper.classList.add('other-category-wrapper');
 
@@ -367,10 +366,11 @@ function generateCards(data, block) {
             // Create the div for the card-link
             const cardLinkDiv = document.createElement('div');
             cardLinkDiv.classList.add('card-media-gallery-link');
-            const cardTitle = document.createElement('p');
+            const cardTitle = document.createElement('a');
+            cardTitle.href = item.path;
             cardTitle.textContent = item.cardtitle;
             cardLinkDiv.appendChild(cardTitle);
-            
+
             cardImageDiv.addEventListener('click', (e) => {
                 e.preventDefault();
                 pictureGalleryContainer.style.display = 'none';
@@ -400,6 +400,7 @@ function generateCards(data, block) {
                 iframe.height = '315';
                 iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
                 iframe.allowFullscreen = true;
+                iframe.style.pointerEvents = 'none'; // Prevent click events from affecting iframe
                 cardVideoDiv.appendChild(iframe);
             } else {
                 const video = document.createElement('video');
@@ -407,6 +408,7 @@ function generateCards(data, block) {
                 video.controls = true;
                 video.width = 560;
                 video.height = 315;
+                video.style.pointerEvents = 'none'; // Prevent click events from affecting video
                 cardVideoDiv.appendChild(video);
             }
 
@@ -419,8 +421,9 @@ function generateCards(data, block) {
             cardVideoDescription.classList.add('card-video-description');
             cardVideoDescription.textContent = item.carddescription;
 
-            // Add click event listener to open modal on cardVideoDescription click
-            cardVideoDescription.addEventListener('click', () => {
+            // Add click event listener to open modal or redirect
+            cardVideoDiv.addEventListener('click', (e) => {
+                e.preventDefault();
                 if (item.videotype === 'popup') {
                     openModal(item.cardvideolink);
                 } else {
@@ -444,8 +447,6 @@ function generateCards(data, block) {
     block.appendChild(mainParentDiv);
 }
 
-
-
 // Helper function to convert Excel date format to JavaScript Date
 function convertExcelDate(excelDate) {
     const date = new Date((excelDate - (25567 + 2)) * 86400 * 1000);
@@ -463,12 +464,12 @@ function updateNewCard(block, container) {
     const newTopDiv = document.createElement('div');
     newTopDiv.classList.add('redirectDiv-media-gallery');
 
-    const backPage=document.createElement('div');
+    const backPage = document.createElement('div');
     backPage.classList.add('back-page');
 
-    const backAnchor=document.createElement('p');
+    const backAnchor = document.createElement('p');
     backAnchor.classList.add('back-link-media-gallery');
-    backAnchor.textContent='Housing Loan Happy Customer';
+    backAnchor.textContent = 'Housing Loan Happy Customer';
     backPage.appendChild(backAnchor);
 
 
@@ -535,43 +536,43 @@ function updateNewCard(block, container) {
         }
     });
 
-// Event listener for backAnchor
-backAnchor.addEventListener('click', () => {
-    // Select the elements you want to modify
-    const pictureGalleryContainer = block.querySelector('.picture-gallery-container');
-    const newContentCard = block.querySelector('.new-content-card');
-
-    // Ensure that picture-gallery-container is displayed as block
-    if (pictureGalleryContainer) {
-        pictureGalleryContainer.style.display = 'flex';
-    }
-
-    // Ensure that new-content-card is hidden and remove the active class
-    if (newContentCard) {
-        newContentCard.style.display = 'none';
-        newContentCard.classList.remove('active');
-    }
-});
-
-// Event listener for picture-gallery-container
-const pictureGalleryContainer = block.querySelector('.picture-gallery-container');
-if (pictureGalleryContainer) {
-    pictureGalleryContainer.addEventListener('click', () => {
+    // Event listener for backAnchor
+    backAnchor.addEventListener('click', () => {
         // Select the elements you want to modify
+        const pictureGalleryContainer = block.querySelector('.picture-gallery-container');
         const newContentCard = block.querySelector('.new-content-card');
-        const galleryContainer = block.querySelector('.picture-gallery-container');
 
-        // Ensure that new-content-card is displayed as block
-        if (newContentCard) {
-            newContentCard.style.display = 'block';
+        // Ensure that picture-gallery-container is displayed as block
+        if (pictureGalleryContainer) {
+            pictureGalleryContainer.style.display = 'flex';
         }
 
-        // Ensure that picture-gallery-container is hidden
-        if (galleryContainer) {
-            galleryContainer.style.display = 'none';
+        // Ensure that new-content-card is hidden and remove the active class
+        if (newContentCard) {
+            newContentCard.style.display = 'none';
+            newContentCard.classList.remove('active');
         }
     });
-}
+
+    // Event listener for picture-gallery-container
+    const pictureGalleryContainer = block.querySelector('.picture-gallery-container');
+    if (pictureGalleryContainer) {
+        pictureGalleryContainer.addEventListener('click', () => {
+            // Select the elements you want to modify
+            const newContentCard = block.querySelector('.new-content-card');
+            const galleryContainer = block.querySelector('.picture-gallery-container');
+
+            // Ensure that new-content-card is displayed as block
+            if (newContentCard) {
+                newContentCard.style.display = 'block';
+            }
+
+            // Ensure that picture-gallery-container is hidden
+            if (galleryContainer) {
+                galleryContainer.style.display = 'none';
+            }
+        });
+    }
 
 }
 
