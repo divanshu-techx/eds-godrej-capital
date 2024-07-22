@@ -3,7 +3,9 @@
         console.error('Main container not found');
         return;
     }
+    if(document.querySelector('.usptabsblock-container')){ 
     document.querySelector('.usptabsblock-container').style.display = 'none';
+    }
     const parentDivs = block.querySelectorAll(':scope > div');
     parentDivs.forEach(parentDiv => {
         parentDiv.classList.add('usp-details-parent');
