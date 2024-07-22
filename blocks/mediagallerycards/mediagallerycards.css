@@ -25,6 +25,10 @@
     align-items: center;
     z-index: 1000; /* Adjust z-index as needed */
 }
+.mainCardPictureDiv .media-gallery-nav-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
 
 .media-gallery-modal-content {
     background-color: #fff;
@@ -36,3 +40,57 @@
     overflow: auto;
 }
 
+.main-parent-container .picture-gallery-container{
+    display: flex;
+}
+.main-parent-container .other-category-container{
+    display: flex;
+}
+.mainNewCardDiv .mainCardPictureDiv{
+    display: flex;
+}
+.mainCardPictureDiv .new-card-picture-div.active {
+    border: 2px solid blue; /* Customize the border style as needed */
+}
+
+
+/* Ensure the image fills the container */
+.upperPictureDiv .new-card-picture-div {
+    width: 100%;
+  }
+  
+  /* Style the picture element to take full width */
+  .upperPictureDiv picture {
+    width: 50%;
+    display: block; /* Ensures it takes up full width */
+  }
+  
+  /* Style the image to ensure it fits the container */
+  .upperPictureDiv img {
+    width: 50%;
+  }
+  
+  /* Style for navigation buttons */
+  .media-gallery-nav-button {
+    background-color: #333; /* Dark background for buttons */
+    color: #fff; /* White text color */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    margin: 5px; /* Space around buttons */
+  }
+  
+  
+  /* Responsive styling for smaller screens */
+  @media (max-width: 600px) {
+    .media-gallery-nav-button {
+      font-size: 14px; /* Smaller font size for buttons on small screens */
+      padding: 8px 16px; /* Smaller padding */
+    }
+  }
+  
+  .other-category-container .other-category-wrapper{
+    display: flex;
+  }
