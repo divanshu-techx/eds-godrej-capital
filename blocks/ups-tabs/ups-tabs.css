@@ -1,0 +1,62 @@
+
+.ups-tabs .ups-tabs-list {
+    display: flex;
+    gap: 8px;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  
+  .ups-tabs .ups-tabs-list button {
+    flex: 0 0 max-content;
+    margin: 0;
+    border: 1px solid var(--dark-color);
+    border-radius: 0;
+    padding: 8px 16px;
+    background-color: var(--light-color);
+    color: initial;
+    font-size: unset;
+    font-weight: bold;
+    line-height: unset;
+    text-align: initial;
+    text-overflow: unset;
+    overflow: unset;
+    white-space: unset;
+    transition: background-color 0.2s;
+  }
+  
+  .ups-tabs .ups-tabs-list button[aria-selected="true"] {
+    border-bottom: 1px solid var(--background-color);
+    background-color: var(--background-color);
+    cursor: initial;
+  }
+  
+  .ups-tabs .ups-tabs-list button[aria-selected="false"]:hover,
+  .ups-tabs .ups-tabs-list button[aria-selected="false"]:focus {
+    background-color: var(--dark-color);
+  }
+  
+  .ups-tabs .ups-tabs-panel {
+    margin-top: -1px;
+    padding: 0 16px;
+    border: 1px solid var(--dark-color);
+    overflow: auto;
+  }
+  
+  .ups-tabs .ups-tabs-panel[aria-hidden="true"] {
+    display: none;
+  }
+  .hideTr {
+    display: none;
+}
+
+.showTr {
+    display: table-row; /* or whatever display value suits your table */
+}
+.btnDiv{
+  justify-content: space-between;
+  display: flex;
+}
+.countDiv{
+  display:flex;
+gap: 20px;
+}
