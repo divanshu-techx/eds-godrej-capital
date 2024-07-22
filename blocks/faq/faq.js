@@ -1,8 +1,8 @@
-import {getDataAttributes} from '../utils/common.js'
+import { getDataAttributes } from '../utils/common.js'
 
 export default async function decorate(block) {
   const container = block.closest(".faq-container");
-  const attributeObj=getDataAttributes(container); 
+  const attributeObj = getDataAttributes(container);
 
 
   //   let bannerDataArray;
@@ -56,12 +56,12 @@ export default async function decorate(block) {
   searchContainer.append(searchIconContainer)
   searchContainer.appendChild(inputField);
 
- 
+
   try {
-    
-    const quesAnsUrl=attributeObj.quesansurl;
+
+    const quesAnsUrl = attributeObj.quesansurl;
     const quesAnsData = await fetchData(quesAnsUrl);
-    const productPageUrl=attributeObj.productpageurl;
+    const productPageUrl = attributeObj.productpageurl;
     const productPageData = await fetchData(productPageUrl);
 
 
@@ -70,7 +70,7 @@ export default async function decorate(block) {
     // Initial render of tabs based on the initial category
     renderTabs(quesAnsData, dropdown.value, '', tagsContainer);
     renderCategoryDetails(productPageData, dropdown.value, productPageDiv);
-    renderQA(quesAnsData, dropdown.value, '', quesAnsDiv);
+    renderQA(quesAnsData, dropdown.value, '', quesAnsDiv, '');
 
 
     quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
@@ -78,24 +78,30 @@ export default async function decorate(block) {
     dropdown.addEventListener('change', () => {
       renderTabs(quesAnsData, dropdown.value, '', tagsContainer);
       renderCategoryDetails(productPageData, dropdown.value, productPageDiv);
-      renderQA(quesAnsData, dropdown.value, '', quesAnsDiv);
+      renderQA(quesAnsData, dropdown.value, '', quesAnsDiv,'');
       quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
 
     });
 
     inputField.addEventListener('input', function (event) {
       const inputValue = event.target.value.trim();
-      renderTabs(quesAnsData, dropdown.value, inputValue, tagsContainer);
-      quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
-      // Find the div with the class "tags-button active-tab"
-      const tagsButtonDiv = block.querySelector('.tags-button');
-      const activeTabButton = tagsButtonDiv.querySelector('.tab-button.active-tab');
-      const activeTab = activeTabButton.innerHTML;
-      if(!activeTab){
-        return;
+      if (inputValue.length >= 3) {
+        renderQA(quesAnsData, '', '', quesAnsDiv, inputValue);
       } else {
-        renderQA(quesAnsData, '', activeTab, quesAnsDiv);
+        if (inputValue.length < 3) {
+          renderTabs(quesAnsData, dropdown.value, inputValue, tagsContainer);
+          quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
+          const tagsButtonDiv = block.querySelector('.tags-button');
+          const activeTabButton = tagsButtonDiv.querySelector('.tab-button.active-tab');
+          const activeTab = activeTabButton.innerHTML;
+          if (!activeTab) {
+            return;
+          } else {
+            renderQA(quesAnsData, '', activeTab, quesAnsDiv, '');
+          }
+        }
       }
+      quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
     });
 
   } catch (error) {
@@ -106,7 +112,6 @@ export default async function decorate(block) {
 function quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv) {
   const buttons = Array.from(tagsContainer.children);
 
-
   buttons.forEach((button, index) => {
     if (index === 0) {
       button.classList.add('active-tab')
@@ -116,8 +121,7 @@ function quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv) {
       buttons.forEach(btn => btn.classList.remove('active-tab'));
       this.classList.add('active-tab')
       const clickedButton = event.target;
-
-      renderQA(quesAnsData, '', clickedButton.innerHTML, quesAnsDiv);
+      renderQA(quesAnsData, '', clickedButton.innerHTML, quesAnsDiv, '');
     });
 
   });
@@ -143,6 +147,9 @@ function normalizeTags(tags) {
   return tags.split(',').map(tag => tag.trim().toLowerCase());
 }
 
+function normalizeText(text) {
+  return text.trim().toLowerCase();
+}
 
 function renderCategoryDropdown(data, containerSelector) {
   const categories = [...new Set(data.map(item => item.category))];
@@ -179,8 +186,6 @@ function renderCategoryDropdown(data, containerSelector) {
 
 }
 
-
-
 // Function to render tabs based on selected category
 function renderTabs(data, selectedCategory, inputValue, tagsContainer) {
   tagsContainer.innerHTML = '';
@@ -188,7 +193,7 @@ function renderTabs(data, selectedCategory, inputValue, tagsContainer) {
   const notFoundEle = document.getElementById('faq-not-found');
   const faqLoanCategoryDropdown = document.getElementById("faq-loan-category-dropdown");
   if (inputValue.length >= 3) {
-    const tagFilteredData = data.filter(item => normalizeTags(item.tags).some(tag => tag.includes(inputValue.toLowerCase())));
+    const tagFilteredData = data.filter(item => normalizeTags(item.tags));
     if (tagFilteredData.length > 0) {
       const categoryFilteredData = data.filter(item => normalizeCategory(item.category).includes(selectedCategory.toLowerCase()));
       filteredData = [...new Set([...tagFilteredData, ...categoryFilteredData])];
@@ -208,8 +213,6 @@ function renderTabs(data, selectedCategory, inputValue, tagsContainer) {
     tagsContainer.style.display = 'flex';
   }
 
-
-
   const tags = [...new Set(filteredData.flatMap(item => item.tags.split(',').map(tag => tag.trim())))];
   tags.forEach(tag => {
     const button = document.createElement('button');
@@ -218,7 +221,6 @@ function renderTabs(data, selectedCategory, inputValue, tagsContainer) {
     tagsContainer.appendChild(button);
   });
 }
-
 
 // Function to render category details
 function renderCategoryDetails(data, selectedCategory, containerSelector) {
@@ -264,16 +266,25 @@ function renderCategoryDetails(data, selectedCategory, containerSelector) {
   }
 }
 
-
-function renderQA(data, selectedCategory, tagsName, containerSelector) {
+function renderQA(data, selectedCategory, tagsName, containerSelector, inputValue) {
   containerSelector.innerHTML = '';
-
   var filteredData;
-  if (!tagsName) {
+  if (selectedCategory) {
     filteredData = data.filter(item => normalizeCategory(item.category) === selectedCategory);
   } else {
-    filteredData = data.filter(item => normalizeTags(item.tags).includes(tagsName.toLowerCase()));
+    if(tagsName) {
+     filteredData = data.filter(item => normalizeTags(item.tags).includes(tagsName.toLowerCase()));
+    } 
+    if (inputValue && inputValue.length >= 3) {
+    const normalizedSearchTerm = normalizeText(inputValue);
+    filteredData = data.filter(item =>
+      normalizeText(item.question).includes(normalizedSearchTerm) ||
+      normalizeText(item.answer).includes(normalizedSearchTerm)
+    );
+    const tagsContainer = document.querySelector('.tags-button');
+    renderTabs(filteredData, '', normalizedSearchTerm, tagsContainer);
   }
+}
 
 
   filteredData.forEach(item => {

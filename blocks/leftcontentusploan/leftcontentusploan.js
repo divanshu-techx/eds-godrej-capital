@@ -1,7 +1,10 @@
-export default function decorate(block) {
+    export default function decorate(block) {
     if (!block) {
         console.error('Main container not found');
         return;
+    }
+    if(document.querySelector('.usptabsblock-container')){ 
+    document.querySelector('.usptabsblock-container').style.display = 'none';
     }
     const parentDivs = block.querySelectorAll(':scope > div');
     parentDivs.forEach(parentDiv => {

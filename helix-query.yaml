@@ -85,10 +85,10 @@ indices:
         value: |
           attribute(el, 'content')
 
-  media-gallery:
+  gallery-media:
     include:
-      - /about-us/media-gallery/**
-    target: /about-us/media-gallery/details-page/query-index.json
+      - about-us/media-and-gallery/**
+    target: about-us/media-and-gallery/query-index.json
     properties:
       cardtitle:
         select: head > meta[name="cardtitle"]
@@ -119,28 +119,63 @@ indices:
         value: |
           attribute(el, 'content')
 
-  news-and-press-release:
+#  news-and-press-release:
+#    include:
+#      - about-us/news-and-press-release/**
+#    target: about-us/news-and-press-release/query-index.json
+#    properties:
+#      title:
+#        select: head > meta[name="title"]
+#        value: |
+#          attribute(el, 'content')
+#      description:
+#        select: head > meta[name="description"]
+#        value: |
+#          attribute(el, 'content')
+#      publishdate:
+#        select: head > meta[name="publishdate"]
+#        value: |
+#          attribute(el, 'content')
+#      category:
+#        select: head > meta[name="category"]
+#        value: |
+#          attribute(el, 'content')
+#      readarticleredirection:
+#        select: head > meta[name="readarticleredirection"]
+#        value: |
+#          attribute(el, 'content')
+
+  gallery:
     include:
-      - /about-us/news-and-press-release/**
-    target: /about-us/news-and-press-release/query-index.json
+      - /about-us/gallery/pictures/*
+      - /about-us/gallery/videos/*
+    target: /about-us/gallery/query-index.json
     properties:
-      title:
-        select: head > meta[name="title"]
+      cardtitle:
+        select: head > meta[name="cardtitle"]
         value: |
           attribute(el, 'content')
-      description:
-        select: head > meta[name="description"]
+      cardimagelink:
+        select: head > meta[name="cardimagelink"]
         value: |
           attribute(el, 'content')
-      publishdate:
-        select: head > meta[name="publishdate"]
+      cardvideolink:
+        select: head > meta[name="cardvideolink"]
         value: |
           attribute(el, 'content')
       category:
         select: head > meta[name="category"]
         value: |
           attribute(el, 'content')
-      readarticleredirection:
-        select: head > meta[name="readarticleredirection"]
+      publishdate:
+        select: head > meta[name="publishdate"]
+        value: |
+          attribute(el, 'content')
+      videotype:
+        select: head > meta[name="videotype"]
+        value: |
+          attribute(el, 'content')
+      carddescription:
+        select: head > meta[name="carddescription"]
         value: |
           attribute(el, 'content')

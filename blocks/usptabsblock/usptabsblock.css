@@ -2,7 +2,7 @@
     padding:unset;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 767px) {
     .custom-tabs-container.section .custom-tabs-wrapper {
         display: flex;
         overflow-x: auto;
@@ -60,7 +60,7 @@
     padding:10px;
     justify-content: center;
     align-items: center;
-    gap:20px;
+    gap:10px;
     background: #F4F4F4;
     max-width: fit-content;
     border-radius: 4px;
@@ -71,7 +71,7 @@
     padding:10px;
     align-items: center;
     justify-content: start;
-    gap:20px;
+    gap:10px;
     background: #fff;
     max-width: fit-content;
     border-radius: 4px;
@@ -90,7 +90,7 @@
   border-radius: 4px;
 }
 
-  @media (max-width: 600px) {
+  @media (max-width: 767px) {
     .cards-container-wrapper {
         display: flex;
         overflow: hidden;
@@ -121,36 +121,37 @@
         width: 100%;
         display: none; 
       }
-      
-      .carousel-nav-btn {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background-color: #5CB7E3;
-        color: white;
-        border: none;
-        padding: 10px;
-        cursor: pointer;
-        z-index: 999;
-      }
-      
-      .carousel-prev-btn {
-        left: 10px;
-      }
-      
-      .carousel-next-btn {
-        right: 10px;
-      }
 }
   
 
   
-  @media (max-width: 600px) {
+  @media (max-width: 767px) {
     .carousel-nav-container {
-      display: block; 
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
     }
 
-      
+  .carousel-nav-container .carousel-prev-btn, .carousel-nav-container .carousel-next-btn{
+      color: #fff;
+      background-color: #3CB8FF;
+      border-radius: 4px;
+      padding: 6px 10px;
+  }
+
+  .carousel-nav-container .carousel-prev-btn img {
+    transform: rotate(180deg);
+}
+
+  .carousel-nav-container button:disabled {
+    background: var(--color-dark-grey);
+    cursor: not-allowed;
+  }
+
+    .carousel-count-display{
+      display: flex;
+      align-items: center;
+    }
 
   .leftcontentusploan-wrapper {
     display: none;
@@ -160,21 +161,6 @@
     display: block;
   }
   
-
-  .carousel-count-display {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 14px;
-    z-index: 1000;
-  }
-  
-
   .carousel-nav-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -186,10 +172,13 @@
   }
   
   .carousel-number.active-number {
-    font-weight: bold;
     text-decoration: underline;
+    color: rgba(140, 177, 51, 1);
+    font-weight: 600;
   }
+
   }
+
 @media(min-width:769px){
   .carousel-nav-container{
     display:none;
