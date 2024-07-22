@@ -179,7 +179,12 @@
 
 .custom-cookie .default-custom-cookie-wrapper{
     overflow: auto;
-    height: 599px;
+    height: 500px;
+}
+@media(min-width:768px) and (max-width:1199px){
+    .custom-cookie .default-custom-cookie-wrapper{
+        height: 350px;
+    }
 }
 
 .custom-cookieButton > div > button:nth-child(1){
