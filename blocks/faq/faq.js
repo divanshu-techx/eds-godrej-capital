@@ -70,7 +70,7 @@ export default async function decorate(block) {
     // Initial render of tabs based on the initial category
     renderTabs(quesAnsData, dropdown.value, '', tagsContainer);
     renderCategoryDetails(productPageData, dropdown.value, productPageDiv);
-    renderQA(quesAnsData, dropdown.value, '', quesAnsDiv);
+    renderQA(quesAnsData, dropdown.value, '', quesAnsDiv, '');
 
 
     quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
@@ -78,7 +78,7 @@ export default async function decorate(block) {
     dropdown.addEventListener('change', () => {
       renderTabs(quesAnsData, dropdown.value, '', tagsContainer);
       renderCategoryDetails(productPageData, dropdown.value, productPageDiv);
-      renderQA(quesAnsData, dropdown.value, '', quesAnsDiv);
+      renderQA(quesAnsData, dropdown.value, '', quesAnsDiv,'');
       quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
 
     });
@@ -101,7 +101,7 @@ export default async function decorate(block) {
     inputField.addEventListener('input', function (event) {
       const inputValue = event.target.value.trim();
       if (inputValue.length >= 3) {
-        renderQA(quesAnsData, '', inputValue, quesAnsDiv);
+        renderQA(quesAnsData, '', '', quesAnsDiv, inputValue);
       } else {
         if (inputValue.length < 3) {
           renderTabs(quesAnsData, dropdown.value, inputValue, tagsContainer);
@@ -112,7 +112,7 @@ export default async function decorate(block) {
           if (!activeTab) {
             return;
           } else {
-            renderQA(quesAnsData, '', activeTab, quesAnsDiv);
+            renderQA(quesAnsData, '', activeTab, quesAnsDiv, '');
           }
         }
       }
@@ -136,7 +136,7 @@ function quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv) {
       buttons.forEach(btn => btn.classList.remove('active-tab'));
       this.classList.add('active-tab')
       const clickedButton = event.target;
-      renderQA(quesAnsData, '', clickedButton.innerHTML, quesAnsDiv);
+      renderQA(quesAnsData, '', clickedButton.innerHTML, quesAnsDiv, '');
     });
 
   });
@@ -281,19 +281,17 @@ function renderCategoryDetails(data, selectedCategory, containerSelector) {
   }
 }
 
-function renderQA(data, selectedCategory, tagsName, containerSelector) {
+function renderQA(data, selectedCategory, tagsName, containerSelector, inputValue) {
   containerSelector.innerHTML = '';
   var filteredData;
-  if (!tagsName) {
+  if (selectedCategory) {
     filteredData = data.filter(item => normalizeCategory(item.category) === selectedCategory);
   } else {
-    var inputField = document.querySelector('.input-field');
-    var inputValue = inputField.value;
-    if (inputValue.length < 3 && inputValue.length >= 0) {
+    if(tagsName) {
      filteredData = data.filter(item => normalizeTags(item.tags).includes(tagsName.toLowerCase()));
     } 
-    if(inputValue.length >= 3) {
-    const normalizedSearchTerm = normalizeText(tagsName);
+    if (inputValue && inputValue.length >= 3) {
+    const normalizedSearchTerm = normalizeText(inputValue);
     filteredData = data.filter(item =>
       normalizeText(item.question).includes(normalizedSearchTerm) ||
       normalizeText(item.answer).includes(normalizedSearchTerm)
@@ -301,7 +299,8 @@ function renderQA(data, selectedCategory, tagsName, containerSelector) {
     const tagsContainer = document.querySelector('.tags-button');
     renderTabs(filteredData, '', normalizedSearchTerm, tagsContainer);
   }
-  }
+}
+
 
   filteredData.forEach(item => {
     const qaItem = document.createElement('div');
