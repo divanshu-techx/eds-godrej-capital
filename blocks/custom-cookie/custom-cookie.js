@@ -221,7 +221,7 @@ function addAction(block) {
     const mainElement = document.querySelector('main');
     const cookieUsage = mainElement.querySelector('.cookie-usage');
     const closeButtonX = block.querySelector('.close-btn');
-
+    const overlay = document.querySelector('.cookie-overlay');
     if (customizeBtn) {
         customizeBtn.addEventListener('click', function() {
             // Initialize toggle states object
@@ -243,6 +243,7 @@ function addAction(block) {
             setCookie('customCookie-ToggleStates', JSON.stringify(toggleStates), 365);
             hideCookieBlock(block);
             hideCustomCookieModel(cookieUsage);
+            overlay.style.display = 'none';
         });
     } else {
         console.log("There is no customize button present.");
@@ -253,6 +254,7 @@ function addAction(block) {
             setCookie('cookiesAccepted-customization', 'false', 365);
             hideCookieBlock(block);
             hideCustomCookieModel(cookieUsage);
+            overlay.style.display = 'none';
         });
     } else {
         console.log("There is no reject button present.");
@@ -267,6 +269,7 @@ function addAction(block) {
             setCookie('toggleStates', JSON.stringify(toggleStates), 365);
             hideCookieBlock(block);
             hideCustomCookieModel(cookieUsage);
+            overlay.style.display = 'none';
         });
     } else {
         console.log("There is no accept button present.");
