@@ -102,19 +102,26 @@ function setupCarouselNavigation() {
   
       const prevBtn = document.createElement('button');
       prevBtn.classList.add('carousel-nav-btn', 'carousel-prev-btn');
-      prevBtn.textContent = 'Prev';
+      const prevIcon = document.createElement('img');
+      prevIcon.src = '/icons/nexticon.svg';
+      prevIcon.alt = 'Previous';
+      prevBtn.appendChild(prevIcon);
   
       const nextBtn = document.createElement('button');
       nextBtn.classList.add('carousel-nav-btn', 'carousel-next-btn');
-      nextBtn.textContent = 'Next';
+      const nextIcon = document.createElement('img');
+      nextIcon.src = '/icons/nexticon.svg';
+      nextIcon.alt = 'Next';
+      nextBtn.appendChild(nextIcon);
   
       const countDisplay = document.createElement('div');
       countDisplay.classList.add('carousel-count-display');
-      navContainer.appendChild(countDisplay);
-  
-      navContainer.appendChild(prevBtn);
-      navContainer.appendChild(nextBtn);
-      carousel.parentElement.appendChild(navContainer);
+
+        navContainer.appendChild(prevBtn);
+        navContainer.appendChild(countDisplay);
+        navContainer.appendChild(nextBtn);
+      // carousel.parentElement.appendChild(navContainer);
+      carousel.parentElement.insertBefore(navContainer, carousel);
   
       let currentIndex = 0;
       const items = Array.from(carousel.children);
