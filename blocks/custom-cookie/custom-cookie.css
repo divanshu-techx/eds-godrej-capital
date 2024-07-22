@@ -55,6 +55,13 @@
 
 .custom-cookie p {
     font-size: 14px;
+    margin:0;
+}
+@media(max-width:1400px){
+    .custom-cookie p {
+        font-size: 12px;
+        margin:0;
+    }
 }
 
 .custom-cookie button {
@@ -181,6 +188,11 @@
     overflow: auto;
     height: 500px;
 }
+@media(max-width:767px){
+    .custom-cookie .default-custom-cookie-wrapper{
+        height: 400px;
+    }
+}
 @media(min-width:768px) and (max-width:1199px){
     .custom-cookie .default-custom-cookie-wrapper{
         height: 350px;
@@ -211,6 +223,14 @@
     border-top: 1px solid #B8B8B8
 }
 
+.custom-cookieDescription ul{
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    padding-left:22px;
+    margin:0;
+}
+
 @media(max-width:767px){
     .custom-cookieDescription p{
         font-size: 12px;
@@ -222,7 +242,7 @@
         font-size: 12px;
         font-weight: 500;
         line-height: 18px;
-        text-align: left;
+        padding-left:18px;
     }
     .function-cookie p{
         font-size: 12px;
