@@ -21,33 +21,39 @@ function sortCards(sortBy, block) {
     // Select containers for each category
     const pictureGalleryContainer = block.querySelector('.picture-gallery-container');
     const otherCategoryContainer = block.querySelector('.other-category-container');
+    
+    // Ensure otherCategoryContainer is properly handled
+    const otherCategoryWrapper = otherCategoryContainer ? otherCategoryContainer.querySelector('.other-category-wrapper') : null;
 
     // Convert NodeList to Array and sort each container's cards
     const sortAndAppendCards = (container) => {
-        const cards = Array.from(container.getElementsByClassName('card-media-gallery'));
+        if (container) {
+            const cards = Array.from(container.getElementsByClassName('card-media-gallery'));
 
-        cards.sort((a, b) => {
-            const publishDateA = parseInt(a.getAttribute('data-publishdate'));
-            const publishDateB = parseInt(b.getAttribute('data-publishdate'));
+            cards.sort((a, b) => {
+                const publishDateA = parseInt(a.getAttribute('data-publishdate'));
+                const publishDateB = parseInt(b.getAttribute('data-publishdate'));
 
-            if (sortBy === 'ascending') {
-                return publishDateA - publishDateB;
-            } else if (sortBy === 'descending') {
-                return publishDateB - publishDateA;
-            } else {
-                return 0; // Default case if no valid sort option is selected
-            }
-        });
+                if (sortBy === 'ascending') {
+                    return publishDateA - publishDateB;
+                } else if (sortBy === 'descending') {
+                    return publishDateB - publishDateA;
+                } else {
+                    return 0; // Default case if no valid sort option is selected
+                }
+            });
 
-        // Clear the container and re-append sorted cards
-        container.innerHTML = '';
-        cards.forEach(card => container.appendChild(card));
+            // Clear the container and re-append sorted cards
+            container.innerHTML = '';
+            cards.forEach(card => container.appendChild(card));
+        }
     };
 
     // Sort and update each category container
     sortAndAppendCards(pictureGalleryContainer);
-    sortAndAppendCards(otherCategoryContainer);
+    sortAndAppendCards(otherCategoryWrapper);
 }
+
 function createFilter(categories, block) {
     const searchInputPlaceholder = getDataAttributeValueByName('searchInputPlaceholder');
     const tabContainer = document.createElement('div');
@@ -147,24 +153,24 @@ function showCategoryContent(category, block) {
         videoContainer.style.display = 'none';
     }
 
-    // Check if the containers have visible content
-    const hasPictureContent = pictureContainer.querySelector('.card-media-gallery')?.children.length > 0;
-    const hasVideoContent = videoContainer.querySelector('.card-media-gallery')?.children.length > 0;
+    // // Check if the containers have visible content
+    // const hasPictureContent = pictureContainer.querySelector('.card-media-gallery')?.children.length > 0;
+    // const hasVideoContent = videoContainer.querySelector('.card-media-gallery')?.children.length > 0;
 
-    // If no content is visible, show the no results message
-    if (!hasPictureContent && !hasVideoContent) {
-        if (!noResultsMessage) {
-            noResultsMessage = document.createElement('div');
-            noResultsMessage.className = 'no-results';
-            noResultsMessage.textContent = 'No results found';
-            block.appendChild(noResultsMessage);
-        }
-        noResultsMessage.style.display = 'block';
-    } else {
-        if (noResultsMessage) {
-            noResultsMessage.style.display = 'none';
-        }
-    }
+    // // If no content is visible, show the no results message
+    // if (!hasPictureContent && !hasVideoContent) {
+    //     if (!noResultsMessage) {
+    //         noResultsMessage = document.createElement('div');
+    //         noResultsMessage.className = 'no-results';
+    //         noResultsMessage.textContent = 'No results found';
+    //         block.appendChild(noResultsMessage);
+    //     }
+    //     noResultsMessage.style.display = 'block';
+    // } else {
+    //     if (noResultsMessage) {
+    //         noResultsMessage.style.display = 'none';
+    //     }
+    // }
 }
 
 function filterCardsBySearch(searchTerm, block) {
@@ -324,15 +330,17 @@ function generateCards(data, block) {
     pictureGalleryContainer.classList.add('picture-gallery-container');
 
     const newContentDiv = document.createElement('div');
-    newContentDiv.classList.add("new-content-card");
-
+    newContentDiv.classList.add('new-content-card');
 
     const mainPicture = document.createElement('div');
     mainPicture.classList.add('main-picture-div');
 
-    // Create the div for other category cards
+    // Create the div for other category cards and a wrapper for its cards
     const otherCategoryContainer = document.createElement('div');
     otherCategoryContainer.classList.add('other-category-container');
+    
+    const otherCategoryWrapper = document.createElement('div');
+    otherCategoryWrapper.classList.add('other-category-wrapper');
 
     data.data.forEach(item => {
         const card = document.createElement('div');
@@ -361,22 +369,24 @@ function generateCards(data, block) {
             cardLinkDiv.classList.add('card-media-gallery-link');
             const cardTitle = document.createElement('p');
             cardTitle.textContent = item.cardtitle;
-            // cardTitle.href = item.path;
             cardLinkDiv.appendChild(cardTitle);
+            
             cardImageDiv.addEventListener('click', (e) => {
                 e.preventDefault();
                 pictureGalleryContainer.style.display = 'none';
                 newContentDiv.classList.add('active');
-                fetchAndAppendContent(block,item.path, newContentDiv);
-            })
+                fetchAndAppendContent(block, item.path, newContentDiv);
+            });
 
             cardTitle.addEventListener('click', (e) => {
                 e.preventDefault();
                 pictureGalleryContainer.style.display = 'none';
                 newContentDiv.classList.add('active');
-                fetchAndAppendContent(block,item.path, newContentDiv);
-            })
+                fetchAndAppendContent(block, item.path, newContentDiv);
+            });
+
             card.append(cardImageDiv, cardLinkDiv);
+            pictureGalleryContainer.appendChild(card);
         } else if (item.cardvideolink) {
             // Create the div for the card video
             const cardVideoDiv = document.createElement('div');
@@ -420,30 +430,21 @@ function generateCards(data, block) {
 
             cardLinkDiv.append(cardTitle, cardVideoDescription);
             card.append(cardVideoDiv, cardLinkDiv);
-        }
-
-        // Append the card to the appropriate container
-        if (item.cardimagelink) {
-            pictureGalleryContainer.appendChild(card);
-            mainPicture.append(pictureGalleryContainer, newContentDiv);
-        } else {
-            otherCategoryContainer.appendChild(card);
+            otherCategoryWrapper.appendChild(card);
         }
     });
 
-    // Append the picture gallery container and other category container to the main parent div
+    // Append the picture gallery container and other category wrapper to the main parent div
+    otherCategoryContainer.appendChild(otherCategoryWrapper);
+    mainPicture.append(pictureGalleryContainer, newContentDiv);
     mainParentDiv.appendChild(mainPicture);
     mainParentDiv.appendChild(otherCategoryContainer);
 
     // Append the main parent div to the block
     block.appendChild(mainParentDiv);
-
-    // // Show content for the first tab by default
-    // const firstCategory = data.data.length > 0 ? data.data[0].category : null;
-    // if (firstCategory) {
-    //     showCategoryContent(firstCategory, block);
-    // }
 }
+
+
 
 // Helper function to convert Excel date format to JavaScript Date
 function convertExcelDate(excelDate) {
@@ -536,15 +537,13 @@ function updateNewCard(block, container) {
 
 // Event listener for backAnchor
 backAnchor.addEventListener('click', () => {
-    console.log("backAnchor clicked");
-
     // Select the elements you want to modify
     const pictureGalleryContainer = block.querySelector('.picture-gallery-container');
     const newContentCard = block.querySelector('.new-content-card');
 
     // Ensure that picture-gallery-container is displayed as block
     if (pictureGalleryContainer) {
-        pictureGalleryContainer.style.display = 'block';
+        pictureGalleryContainer.style.display = 'flex';
     }
 
     // Ensure that new-content-card is hidden and remove the active class
@@ -558,8 +557,6 @@ backAnchor.addEventListener('click', () => {
 const pictureGalleryContainer = block.querySelector('.picture-gallery-container');
 if (pictureGalleryContainer) {
     pictureGalleryContainer.addEventListener('click', () => {
-        console.log("picture-gallery-container clicked");
-
         // Select the elements you want to modify
         const newContentCard = block.querySelector('.new-content-card');
         const galleryContainer = block.querySelector('.picture-gallery-container');
@@ -598,7 +595,6 @@ export default async function decorate(block) {
         const data = await fetchDataFromUrl(apiUrl);
         if (data) {
             generateCards(data, block);
-            // Set the first tab as active and show its content
             const firstTab = block.querySelector('.media-tab');
             if (firstTab) {
                 showCategoryContent(firstTab.getAttribute('data-category'), block, firstTab);
