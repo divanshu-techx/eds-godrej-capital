@@ -198,9 +198,17 @@
 .section.hero-carousel-v1.carousel-v1-container>div {
   max-width: unset;
 
+
   @media(width <=600px) {
     height: 525px;
   }
+}
+
+.hero-carousel-secondary.carousel-v1-container>div {
+  @media(min-width:900px) {
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  }
+
 }
 
 .section.hero-carousel-v1.carousel-v1-container .carousel-v1.block {
@@ -371,6 +379,7 @@
 .hero-carousel-v1 .carousel-slide-content.carousel-slide-v1-content p:nth-child(4) {
   display: flex;
   gap: 10px;
+  align-items: center;
 }
 
 .hero-carousel-v1 .carousel-slide-content.carousel-slide-v1-content p:nth-child(4) a:first-child {
@@ -436,7 +445,6 @@
 .hero-carousel-secondary .carousel-v1 {
   border-radius: 0px 0px 4px 4px;
   background: #FFF;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .hero-carousel-secondary .summary-wrapper {
@@ -481,6 +489,10 @@
   .hero-carousel-secondary .carousel-v1 .summary-wrapper .summary-content {
     margin-left: 4rem;
     margin-bottom: 40px;
+  }
+
+  .hero-carousel-secondary .carousel-v1 .summary-wrapper .summary-content .highlight {
+    color: #DA0404;
   }
 
   .hero-carousel-secondary .carousel-v1 nav {
@@ -541,6 +553,7 @@
   color:#fff;
   z-index: 1;
   margin: 4rem;
+  margin-left: 2.5rem;
 }
 
 .hero-carousel-secondary .carousel-slide-content.carousel-slide-v1-content .button-container a.button {
@@ -814,6 +827,7 @@
     width: 100%;
     max-width: 100%;
   }
+
   .carousel-slide-content.by-row-wise.carousel-slide-v1-content ul {
     display: grid;
     width: 100%;
@@ -826,4 +840,3 @@
 .carousel-slide-content .button-container button.primary-button:first-of-type {
   background: #3CB8FF;
 }
- 
