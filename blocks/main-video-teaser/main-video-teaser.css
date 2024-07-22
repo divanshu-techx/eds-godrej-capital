@@ -1,0 +1,355 @@
+.main-video-teaser {
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #c9c9c9;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}
+@media(max-width:600px){
+    .main-video-teaser {
+        background-size: cover;
+    }
+    .section.main-video-teaser-container{
+        padding:unset;
+    }
+
+    .section.tabsheading {
+            border-radius: 20px 20px 0px 0px;
+            position: relative;
+            bottom: 30px;
+            background-color: #fff;
+            padding-bottom: 0px;
+    }
+
+}
+
+.main-video-teaser::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0) 100%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+
+.main-video-teaser .mainteaservideo-banner__content {
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+}
+
+@media(max-width:768px) {
+    .main-video-teaser .mainteaservideo-banner__content {
+        width: 300px;
+    }
+}
+
+/* when text is center left and right  */
+@media(min-width:769px) {
+    .main-video-teaser.center .mainteaservideo-banner__content-wrapper {
+        width: 100%;
+        max-width: 1200px;
+        padding: 24px 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .main-video-teaser.right .mainteaservideo-banner__content-wrapper {
+        width: 100%;
+        max-width: 1200px;
+        padding: 24px 0;
+        display: flex;
+        justify-content: end;
+    }
+
+    .main-video-teaser.left .mainteaservideo-banner__content-wrapper {
+        width: 100%;
+        max-width: 1200px;
+        padding: 24px 0;
+        display: flex;
+        justify-content: start;
+    }
+
+}
+
+
+.main-video-teaser .mainteaservideo-banner__content p,
+.main-video-teaser .mainteaservideo-banner__content ul,
+.main-video-teaser .mainteaservideo-banner__content h1,
+.main-video-teaser .mainteaservideo-banner__content h2,
+.main-video-teaser .mainteaservideo-banner__content h3,
+.main-video-teaser .mainteaservideo-banner__content h4,
+.main-video-teaser .mainteaservideo-banner__content h5,
+.main-video-teaser .mainteaservideo-banner__content h6 {
+    color: #ffffff;
+    text-align: start;
+    z-index: 2;
+    margin: 10px 0;
+}
+
+@media(max-width:600px){
+    .main-video-teaser .mainteaservideo-banner__content h1{
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 12.11px;
+    }
+}
+
+
+.main-video-teaser .mainteaservideo-banner__content p {
+    display: flex;;
+    align-items: center;
+}
+
+.main-video-teaser .mainteaservideo-banner__content p>strong{
+    color :#F50076;
+    font-size: 8px;
+    font-weight: 300;
+    line-height: 9.38px;
+    text-align: left;
+}
+.main-video-teaser .mainteaservideo-banner__content p:last-child{
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 32px;
+    text-align: left;
+    bottom: 0;
+    position: absolute;
+}
+
+@media(max-width:767px){
+    .main-video-teaser .mainteaservideo-banner__content p:last-child{
+        font-size: 8px;
+        font-weight: 300;
+        line-height: 9.38px;
+        bottom: 10px;
+        position: absolute;
+    }
+}
+
+.main-video-teaser .mainteaservideo-banner__content img {
+    margin-right:5px;
+}
+@media(max-width:767px){
+    .main-video-teaser .mainteaservideo-banner__content img {
+        margin-right:5px;
+        margin-top:5px;
+        height: 16px;
+        width: 16px;
+    }
+}
+
+.main-video-teaser .mainteaservideo-banner__content p a{
+    text-decoration: none;
+    color:#fff;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14.08px;
+}    
+.main-video-teaser .mainteaservideo-banner__content h2,
+.main-video-teaser .mainteaservideo-banner__content h3{
+    font-size: 36px;
+    font-weight: 300;
+    line-height: 42.23px;
+}
+@media(max-width:767px){
+    .main-video-teaser .mainteaservideo-banner__content h2,
+    .main-video-teaser .mainteaservideo-banner__content h3{
+        font-size: 20px;
+        font-weight: 300;
+        line-height: 23.46px;
+        text-align: left;        
+}
+}
+
+.main-video-teaser.black .mainteaservideo-banner__content p,
+.main-video-teaser.black .mainteaservideo-banner__content ul,
+.main-video-teaser.black .mainteaservideo-banner__content h1,
+.main-video-teaser.black .mainteaservideo-banner__content h2,
+.main-video-teaser.black .mainteaservideo-banner__content h3,
+.main-video-teaser.black .mainteaservideo-banner__content h4,
+.main-video-teaser.black .mainteaservideo-banner__content h5,
+.main-video-teaser.black .mainteaservideo-banner__content h6 {
+    color: #000;
+    text-align: start;
+    z-index: 2;
+    margin: 0;
+}
+
+.main-video-teaser.row-wise .mainteaservideo-banner__content ul li::marker {
+    color: #8cb133;
+    font-size: 1.2rem;
+}
+
+.main-video-teaser.row-wise .mainteaservideo-banner__content ul {
+    list-style-position: inside;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 18.77px;
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+.main-video-teaser.row-wise .mainteaservideo-banner__content p.button-container a {
+    background: var(--color-sky-dark);
+    border-radius: 2px;
+    box-sizing: border-box;
+    padding: 12px 20px;
+    font-size: 14px;
+    display: inline-block !important;
+    color: var(--color-white);
+    font-weight: 500;
+}
+
+@media(max-width:768px) {
+    .main-video-teaser.row-wise .mainteaservideo-banner__content p.button-container a {
+        background: var(--color-sky-dark);
+        border-radius: 2px;
+        box-sizing: border-box;
+        padding: 12px 20px;
+        font-size: 12px;
+        display: inline-block !important;
+        color: var(--color-white);
+        font-weight: 500;
+    }
+}
+
+@media(min-width:769px) {
+    .main-video-teaser.row-wise .mainteaservideo-banner__content ul {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0;
+        margin: 0;
+    }
+
+    .main-video-teaser.row-wise .mainteaservideo-banner__content ul li {
+        width: 48%;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        padding: 5px;
+    }
+}
+
+.main-video-teaser.black .mainteaservideo-banner__content p {
+    color: #000;
+}
+
+@media (max-width:768px) {
+    .main-video-teaser .mainteaservideo-banner__content p {
+        color: #ffffff;
+        z-index: 2;
+        margin: 0;
+        font-size: 10px;
+        font-weight: 400;
+        line-height: 11.73px;
+    }
+
+    .main-video-teaser .mainteaservideo-banner__content ul {
+        color: #ffffff;
+        text-align: start;
+        z-index: 2;
+        margin: 0;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 14.08px;
+        padding: 0;
+    }
+}
+
+
+.main-video-teaser .mainteaservideo-banner__content-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    padding: 24px 0;
+}
+
+@media (max-width: 1200px) {
+    .main-video-teaser .mainteaservideo-banner__content {
+        width: 80%;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-video-teaser {
+        height: 165px;
+    }
+
+    .main-video-teaser .mainteaservideo-banner__content {
+        width: 50%;
+        padding: 20px;
+    }
+}
+
+@media (min-width: 769px) and (max-width:1199px) {
+    .main-video-teaser {
+        height: 233px;
+    }
+
+    .main-video-teaser .mainteaservideo-banner__content {
+        width: 90%;
+        padding: 20px;
+    }
+}
+
+
+
+
+.custom-video-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+  }
+  
+  .custom-video-modal-content {
+    position: relative;
+    margin: auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 800px;
+  }
+  
+  .custom-video-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    color: #fff;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1;
+  }
+  
+  .custom-video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #000;
+  }
+  
+  .custom-video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  

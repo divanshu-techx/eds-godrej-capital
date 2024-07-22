@@ -75,7 +75,9 @@
   .careervalue-wrapper .prev,.careervalue-wrapper .next{
     color: #fff;
     background-color: #3CB8FF;
+    padding: 6px 10px;
   }
+  
   .careervalue-wrapper .prev img {
     transform: rotate(180deg);
   }
