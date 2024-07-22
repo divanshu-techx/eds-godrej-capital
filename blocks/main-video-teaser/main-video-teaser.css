@@ -18,6 +18,14 @@
         padding:unset;
     }
 
+    .section.tabsheading {
+            border-radius: 20px 20px 0px 0px;
+            position: relative;
+            bottom: 30px;
+            background-color: #fff;
+            padding-bottom: 0px;
+    }
+
 }
 
 .main-video-teaser::before {

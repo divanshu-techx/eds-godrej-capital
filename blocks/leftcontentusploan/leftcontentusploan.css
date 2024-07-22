@@ -18,6 +18,16 @@
     margin-top: 1.5rem;
 } */
 
+.leftcontentusploan-container .leftcontentusploan-wrapper:not(:last-child){
+    margin-bottom:30px;
+}
+
+@media(min-width:769px){
+.section.main-video-teaser-container.leftcontentusploan-container .default-content-wrapper{
+    padding-bottom:20px;
+}
+}
+
 .leftcontentusploan {
     display: flex;
     justify-content: space-between;
@@ -88,6 +98,8 @@
     line-height: 21.11px;
     text-align: left;
 }
+
+
 @media (max-width: 600px) {
     .leftcontentusploan .usp-details-parent .uspcontentdetails p {
         font-size: 11px;
@@ -165,6 +177,7 @@
 .leftcontentusploan .usp-details-parent .uspcontentdetails p:has(a) {
     display: flex;
     gap: 10px;
+    padding-top: 10px;
 }
 
 .leftcontentusploan .usp-details-parent .uspcontentdetails p:has(a) a {
