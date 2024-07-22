@@ -291,7 +291,7 @@ function openModal(videoLink) {
 }
 
 // Function to fetch and append content to pictureGalleryContainer
-function fetchAndAppendContent(block, url, container) {
+function fetchAndAppendContent(block, url, container,cardTitle) {
     fetch(url)
         .then(response => {
             if (!response.ok) {
@@ -310,7 +310,7 @@ function fetchAndAppendContent(block, url, container) {
                 container.innerHTML = '<p>No main content found.</p>';
             }
             // console.log(container);
-            updateNewCard(block, container)
+            updateNewCard(block, container,cardTitle,url)
         })
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);
@@ -318,6 +318,13 @@ function fetchAndAppendContent(block, url, container) {
             container.innerHTML = '<p>Failed to load content. Please try again later.</p>';
         });
 }
+
+// Helper function to convert Excel date format to JavaScript Date
+function convertExcelDate(excelDate) {
+    const date = new Date((excelDate - (25567 + 2)) * 86400 * 1000);
+    return date;
+}
+
 
 function generateCards(data, block) {
     // Create the main parent div for all cards
@@ -371,18 +378,19 @@ function generateCards(data, block) {
             cardTitle.textContent = item.cardtitle;
             cardLinkDiv.appendChild(cardTitle);
 
+
             cardImageDiv.addEventListener('click', (e) => {
                 e.preventDefault();
                 pictureGalleryContainer.style.display = 'none';
                 newContentDiv.classList.add('active');
-                fetchAndAppendContent(block, item.path, newContentDiv);
+                fetchAndAppendContent(block, item.path, newContentDiv,item.cardtitle);
             });
 
             cardTitle.addEventListener('click', (e) => {
                 e.preventDefault();
                 pictureGalleryContainer.style.display = 'none';
                 newContentDiv.classList.add('active');
-                fetchAndAppendContent(block, item.path, newContentDiv);
+                fetchAndAppendContent(block, item.path, newContentDiv,item.cardtitle);
             });
 
             card.append(cardImageDiv, cardLinkDiv);
@@ -447,14 +455,7 @@ function generateCards(data, block) {
     block.appendChild(mainParentDiv);
 }
 
-// Helper function to convert Excel date format to JavaScript Date
-function convertExcelDate(excelDate) {
-    const date = new Date((excelDate - (25567 + 2)) * 86400 * 1000);
-    return date;
-}
-
-function updateNewCard(block, container) {
-    console.log(container);
+function updateNewCard(block, container,cardTitle,url) {
     const mainCardDiv = container.querySelector(':scope > div');
     mainCardDiv.classList.add('mainNewCardDiv');
 
@@ -467,9 +468,10 @@ function updateNewCard(block, container) {
     const backPage = document.createElement('div');
     backPage.classList.add('back-page');
 
-    const backAnchor = document.createElement('p');
+    const backAnchor = document.createElement('a');
+    backAnchor.href=url;
     backAnchor.classList.add('back-link-media-gallery');
-    backAnchor.textContent = 'Housing Loan Happy Customer';
+    backAnchor.textContent = cardTitle;
     backPage.appendChild(backAnchor);
 
 
@@ -537,7 +539,8 @@ function updateNewCard(block, container) {
     });
 
     // Event listener for backAnchor
-    backAnchor.addEventListener('click', () => {
+    backAnchor.addEventListener('click', (e) => {
+        e.preventDefault();
         // Select the elements you want to modify
         const pictureGalleryContainer = block.querySelector('.picture-gallery-container');
         const newContentCard = block.querySelector('.new-content-card');
