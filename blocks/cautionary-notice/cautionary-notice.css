@@ -1,0 +1,71 @@
+.section.cautionary-notice-container {
+    padding-bottom: 0px;
+}
+
+.cautionary-notice-container .parent-details .child-div h2 {
+
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 40px;
+    text-align: center;
+    color: #3B3B3B;
+    transition: font-size 0.4s ease, font-weight 0.4s ease, color 0.4s ease;
+}
+
+.cautionary-notice .parent-details .child-div p {
+    font-family: Work Sans;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 21.11px;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    transition: font-size 0.4s ease, font-weight 0.4s ease, color 0.4s ease;
+}
+
+@media(min-width:768px) and (max-width:1024px) {
+    .cautionary-notice-wrapper .cautionary-notice .parent-details:nth-child(even) {
+        border-bottom: 1px solid #B8B8B8;
+        margin-bottom: 20px;
+    }
+
+    .cautionary-notice-container .parent-details .child-div h2 {
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 28.15px;
+    }
+
+    .cautionary-notice .parent-details .child-div p {
+
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 16.42px;
+
+    }
+}
+
+@media(max-width:767.99px) {
+
+
+    .section.cautionary-notice-container {
+        position: relative;
+        top: -30px;
+        background-color: #fff;
+        z-index: 1;
+        border-radius: 20px 20px 0px 0px;
+    }
+
+    .cautionary-notice-container .parent-details .child-div h2 {
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 23.46px;
+        color: #000000;
+    }
+
+    .cautionary-notice .parent-details .child-div p {
+
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 14.08px;
+
+    }
+}
