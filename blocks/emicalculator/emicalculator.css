@@ -63,11 +63,12 @@
 	border-radius: 4px;
 	text-align: end;
 	padding: 0;
-	background:#fff;
+	background: #fff;
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
-	@media(width <= 767px){
-		background:var(--color-silver)
+
+	@media(width <=767px) {
+		background: var(--color-silver)
 	}
 }
 
@@ -110,13 +111,14 @@ input[type="number"] {
 	align-items: center;
 	font-size: var(--body-font-size-s);
 	/* width: 50px; */
-	width:40px;
+	width: 40px;
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
 	justify-content: center;
 	border-radius: 4px;
-	@media(width < 767px){
-		background:var(--color-silver);
+
+	@media(width < 767px) {
+		background: var(--color-silver);
 	}
 }
 
@@ -274,7 +276,8 @@ input[type="range"] {
 	color: var(--color-black);
 	font-size: var(--body-font-size-s);
 	font-weight: 300;
-	@media(min-width: 768px ){
+
+	@media(min-width: 768px) {
 		font-size: var(--body-font-size-xs);
 	}
 }
@@ -290,7 +293,7 @@ input[type="range"] {
 	justify-content: space-around;
 	align-items: center;
 	margin-bottom: 20px;
-	width:100%;
+	width: 100%;
 }
 
 .canvasDetail {
@@ -353,23 +356,24 @@ input[type="range"] {
 .mobile-breakup {
 	display: flex;
 	flex-wrap: wrap;
-  }
+}
 
-  .mobile-breakup-left, .mobile-breakup-right {
+.mobile-breakup-left,
+.mobile-breakup-right {
 	flex: 1;
-  }
+}
 
-  .mobile-tenure-right {
+.mobile-tenure-right {
 	display: flex;
 	flex-direction: column;
-  }
+}
 
-  /* Media query for mobile view */
-  @media (max-width: 600px) {
+/* Media query for mobile view */
+@media (max-width: 600px) {
 	.mobile-breakup {
-	  gap: 10px; 
+		gap: 10px;
 	}
-  }
+}
 
 
 .mobile-breakup {
@@ -377,7 +381,7 @@ input[type="range"] {
 	/* justify-content: space-around; */
 	justify-content: space-between;
 	box-shadow: 0px 2px 4px 0px #00000014;
-    padding:20px;
+	padding: 20px;
 
 	.mobile-tenure-apply {
 		align-items: center;
@@ -456,9 +460,10 @@ input[type="range"] {
 	.mobile-tenure-emi-details .mobile-tenure-emi-price {
 		text-align: start;
 		font-size: 32px;
-		@media(min-width: 768px) and (max-width: 900px){
-		text-align: center;
-		
+
+		@media(min-width: 768px) and (max-width: 900px) {
+			text-align: center;
+
 		}
 	}
 
@@ -466,7 +471,8 @@ input[type="range"] {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		@media(max-width:767px){
+
+		@media(max-width:767px) {
 			text-align: left;
 		}
 	}
@@ -481,7 +487,7 @@ input[type="range"] {
 		display: flex;
 		/* justify-content: center; */
 		align-items: center;
-		
+
 	}
 
 	.mobile-tenure-monthYear span {
@@ -539,7 +545,7 @@ input[type="range"] {
 		align-items: center;
 		display: flex;
 		justify-content: center;
-		margin-top:10px;
+		margin-top: 10px;
 	}
 
 
@@ -609,7 +615,7 @@ input[type="range"] {
 
 	.mobile-breakup-left>div {
 		width: 100%;
-		text-align: center!important;
+		text-align: center !important;
 		margin: 10px 0;
 	}
 
@@ -675,40 +681,49 @@ input[type="range"]::-moz-range-track {
 	border-radius: 4px;
 }
 
-@media (width <= 767px) {
+@media (width <=767px) {
 	input[type="range"] {
 		background-color: #F4F4F4;
 	}
 }
-.mobile-tenure-apply button{
-	border:none;
+
+.mobile-tenure-apply button {
+	border: none;
 	background: #3CB8FF;
-	color:#fff;
-	border-radius:4px;
+	color: #fff;
+	border-radius: 4px;
 }
 
 /* manoj css start */
 #canvasItems {
-    position: absolute;
-    top: 108px;
-    left: 108px;
-    font-size: var(--body-font-size-default);
-    text-align: center;
+	position: absolute;
+	top: 108px;
+	left: 108px;
+	font-size: var(--body-font-size-default);
+	text-align: center;
 }
+
+#canvasItems #yearTenure,
+#canvasItems #monthTenure {
+	padding-right: 4px;
+}
+
 .view {
-    max-width: 772px;
-    width: 100%;
-    box-sizing: border-box;
-    background-color: var(--color-silver);
-    padding: 20px;
-    border-radius: 4px;
+	max-width: 772px;
+	width: 100%;
+	box-sizing: border-box;
+	background-color: var(--color-silver);
+	padding: 20px;
+	border-radius: 4px;
 }
+
 .view {
-    @media (max-width: 768px) {
-        padding: 20px 0px;
-        background-color: #fff;
-    }
+	@media (max-width: 768px) {
+		padding: 20px 0px;
+		background-color: #fff;
+	}
 }
+
 /* @media (max-width: 767px) {
     .section.emicalculator-container {
         border-radius: 20px 20px 0px 0px;

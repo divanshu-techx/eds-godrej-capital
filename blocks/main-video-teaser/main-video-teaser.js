@@ -171,12 +171,61 @@ export default async function decorate(block) {
       // Get the video URL from the href attribute or data attribute
       const videoUrl = el.getAttribute('href');
 
-      if (videoUrl) {
-        videoSource.src = videoUrl;
-        modal.style.display = "block";
-        const videoPlayer = document.getElementById("videoPlayer");
-        videoPlayer.load();
+      console.log('Clicked element:', el);
+      console.log('Video URL:', videoUrl);
+
+      // Check if the clicked element or its parent has the 'video-bg' class
+      const isBackgroundVideo = el.classList.contains('video-bg') || el.closest('.video-bg');
+      console.log('Is background video:', isBackgroundVideo);
+
+      if (isBackgroundVideo) {
+        if (videoUrl) {
+          console.log('Setting background video source');
+          
+          let mainTeaser = document.querySelector('.main-video-teaser');
+          console.log(mainTeaser);
+
+          // Remove any existing background video
+          let existingVideo = mainTeaser.querySelector('.video-bg');
+          if (existingVideo) {
+            existingVideo.remove();
+          }
+
+          // Create and insert a new video element
+          let backgroundVideo = document.createElement('video');
+          backgroundVideo.className = 'video-bg';
+          backgroundVideo.muted = true;
+          backgroundVideo.loop = true;
+          backgroundVideo.autoplay = true;
+
+          let videoSourceElement = document.createElement('source');
+          videoSourceElement.src = videoUrl;
+          videoSourceElement.type = 'video/mp4';
+          backgroundVideo.appendChild(videoSourceElement);
+
+          mainTeaser.appendChild(backgroundVideo);
+
+          backgroundVideo.load();
+          backgroundVideo.play().catch(error => console.error('Error playing background video:', error));
+          backgroundVideo.style.position = 'absolute';
+          backgroundVideo.style.top = '0';
+          backgroundVideo.style.left = '0';
+          backgroundVideo.style.width = '100%';
+          backgroundVideo.style.height = '100%';
+          backgroundVideo.style.objectFit = 'cover';
+        }
+      } else {
+        if (videoUrl) {
+          console.log('Setting modal video source');
+          videoSource.src = videoUrl;
+          modal.style.display = "block";
+          const videoPlayer = document.getElementById("videoPlayer");
+          videoPlayer.load();
+        }
       }
     });
   });
 }
+
+
+

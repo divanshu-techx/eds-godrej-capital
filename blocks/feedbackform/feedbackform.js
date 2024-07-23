@@ -167,7 +167,6 @@ function forCreateRatingRadioBtn(dynamicDiv, feedbackAttributes, parentContainer
 
         input.addEventListener('change', function () {
             // Enable the submit button if any radio button is checked
-            console.log(input.value);
             ratingNumber = input.value;
             submitRatingButton.disabled = false;
         });
@@ -300,7 +299,6 @@ function forFeedback(block) {
 function clickEventOnFeedbackSubmitBtn(fieldset, block, descriptionDiv) {
     const checkedCheckboxes = fieldset.querySelectorAll('input[type="checkbox"]:checked');
     const checkedValues = Array.from(checkedCheckboxes).map(checkbox => checkbox.value);
-    console.log('Checked values:', checkedValues);
 
     if (descriptionDiv.style.display === 'block') {
         const textAreaDiv = descriptionDiv.querySelector('textarea');
@@ -352,7 +350,6 @@ function showThankYouPopUp(block) {
 
 // function for form when it show on click of feedback submit button
 function forFormFields(block, descriptionDiv, submitDiv, checkedFeildArr) {
-    console.log(checkedFeildArr);
     block.querySelector('.headingContainerDiv').style = 'display:none';
     block.querySelector('.feedback-checkbox-fieldset.field-wrapper.fieldset-wrapper').style = 'display:none';
     descriptionDiv.style = 'display:none';
