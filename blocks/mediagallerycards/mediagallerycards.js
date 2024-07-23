@@ -125,8 +125,11 @@ function createFilter(categories, block) {
 
     sortDiv.appendChild(sortDropdown);
 
+    const SearchDropDiv=document.createElement('div');
+    SearchDropDiv.classList.add('search-sortBy-filter');
+    SearchDropDiv.append(searchDiv,sortDiv);
     // Add search input and tabs to the block
-    tabContainer.append(tabsDiv, searchDiv, sortDiv);
+    tabContainer.append(tabsDiv, SearchDropDiv);
     block.insertBefore(tabContainer, block.firstChild);
 }
 
@@ -311,6 +314,7 @@ function fetchAndAppendContent(block, url, container,cardTitle) {
             }
             // console.log(container);
             updateNewCard(block, container,cardTitle,url)
+            console.log(mainContent);
         })
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);
@@ -474,8 +478,13 @@ function updateNewCard(block, container,cardTitle,url) {
     backAnchor.textContent = cardTitle;
     backPage.appendChild(backAnchor);
 
+    const totalImgVid=document.createElement('div');
+    totalImgVid.classList.add('total-img-video-media-gallery');
 
-    newTopDiv.appendChild(backPage);
+    const countCards=document.createElement('p');
+    totalImgVid.appendChild(countCards);
+
+    newTopDiv.append(backPage,totalImgVid);
 
     mainCardDiv.insertBefore(newTopDiv, mainCardPictureDiv);
 
@@ -576,6 +585,13 @@ function updateNewCard(block, container,cardTitle,url) {
             }
         });
     }
+
+    
+    const pictureDivs = block.querySelectorAll('.new-card-picture-div');
+    const pictureLength = pictureDivs.length;
+    const videoDivs=document.querySelectorAll('.other-category-wrapper .card-media-gallery');
+    const videoDivLendth= videoDivs.length;
+    countCards.textContent=`${pictureLength} Images ${videoDivLendth} Videos`;
 
 }
 
