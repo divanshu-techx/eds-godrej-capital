@@ -545,7 +545,6 @@ export default async function decorate(block) {
           setTimeout(() => {
             belowNavMainContainer.classList.add('show');
           }, 1000); 
-         // belowNavMainContainer.classList.add('show');
         }
     
         if (parentListItem.classList.contains('selected')) {
