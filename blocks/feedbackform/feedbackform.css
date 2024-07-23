@@ -1,15 +1,15 @@
-#feedback-title-btn {
+button#feedback-title-btn{
     position: fixed;
     right: 0;
-    top: 45%;
-    transform: translateY(-15%);
+    top: 63%;
+    transform: translateY(-50%) rotate(180deg);
     background-color: #5CB7E3;
     color: white;
     border: none;
-    padding: 18px 16px;
+    padding: 16px 16px;
     cursor: pointer;
     z-index: 9999;
-    writing-mode: vertical-rl;
+    writing-mode: vertical-lr;
     text-orientation: mixed;
     overflow: visible;
     border-top-left-radius: 4px;
@@ -23,13 +23,14 @@
 #feedback-title-btn::before {
     background: url(../../icons/less-then-icon.png) transparent no-repeat;
     background-repeat: no-repeat;
+    transform: translateY(-50%) rotate(180deg);
     background-position: center;
     position: absolute;
     height: 20px;
     width: 12px;
     content: "";
-    top: calc(50% - 10px);
-    left: -6px;
+    top: 50%;
+    left: 38px;
     display: flex;
     align-items: center;
     writing-mode: horizontal-tb;
@@ -41,12 +42,10 @@
     border-radius: 4px;
 }
 
-
-
 .parentContainerDiv {
     position: fixed;
     right: 0;
-    top: 50%;
+    top: 63%;
     transform: translateY(-50%) translateX(100%);
     background-color: #FEFEFE;
     border-radius: 4px 0px 0px 4px;
@@ -56,6 +55,7 @@
     width: 620px;
     box-shadow: -4px 2px 8px 0px #00000033;
     transition: transform 1s ease-in, opacity 0.5s ease-in;
+    box-sizing: border-box;
 }
 
 .parentContainerDiv.visible-parent {
@@ -63,6 +63,17 @@
     transform: translateY(-50%) translateX(0%);
     width: 620px;
     opacity: 1;
+}
+
+@media(max-width:600px){
+    .parentContainerDiv.visible-parent {
+        width: 320px;
+        padding:20px;
+    }
+    .parentContainerDiv {
+        width: 320px;
+        padding:20px;
+    }
 }
 
 .lessMoreLikeLabelDiv {
@@ -164,6 +175,12 @@ input[type="number"] {
     text-orientation: mixed;
     border-radius: 4px;
 }
+@media(max-width:600px){
+    .collapse-button {
+        width: 25px;
+        height: 40px;
+    }
+}
 
 
 
@@ -175,13 +192,28 @@ input[type="number"] {
     text-align: center;
 }
 
+@media(max-width:600px){
+    .feedbackform .headingTitleDiv .headingTitle{
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 18.77px;
+    }
+}
+
 .feedbackform .headingDescriptionDiv .headingDescription {
     margin-bottom: 0;
     font-size: 14px;
     font-weight: 300;
     line-height: 17.13px;
     color: #000;
-    text-align: center;
+}
+@media(max-width:600px){
+    .feedbackform .headingDescriptionDiv .headingDescription {
+        font-size: 12px;
+        font-weight: 300;
+        line-height: 14.69px;
+        text-align: center;
+    }
 }
 
 
@@ -190,17 +222,25 @@ input[type="number"] {
     border: 1px solid #6D6D6D;
     border-radius: 4px;
     color: #6D6D6D;
-
     width: 40px;
     height: 40px;
     cursor: pointer;
     transition: background-color 0.5s, border 0.5s;
-
     font-size: 20px;
     font-weight: 400;
     line-height: 23.46px;
     text-align: center;
     justify-content: center;
+}
+@media(max-width:600px){
+    .feedbackform .ratingDiv label{
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 14.08px;
+        width: 20px;
+        height: 20px;
+
+    }
 }
 
 .feedbackform .ratingDiv label:has(input[type="radio"]:checked) {
@@ -224,9 +264,25 @@ input[type="number"] {
 .feedbackform .lessMoreLikeLabelDiv .lessLikely {
     width: 32px;
 }
+@media(max-width:600px){
+    .feedbackform .lessMoreLikeLabelDiv .lessLikely {
+        text-align: start;
+        font-size: 10px;
+        font-weight: 300;
+        line-height: 12.24px;
+    }
+}
 
 .feedbackform .lessMoreLikeLabelDiv .moreLikely {
     width: 58px;
+}
+@media(max-width:600px){
+    .feedbackform .lessMoreLikeLabelDiv .moreLikely{
+        text-align: end;
+        font-size: 10px;
+        font-weight: 300;
+        line-height: 12.24px;
+    }
 }
 
 .laterButtonContainer {
@@ -273,6 +329,14 @@ input[type="number"] {
     text-decoration: underline;
 }
 
+@media(max-width:600px){
+    .feedbackform .laterButtonContainer .feedback-later-btn{
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 14.08px;
+    }
+}
+
 .feedbackform fieldset#form-feedback-checkbox {
     border: none;
     padding-left: 0;
@@ -286,11 +350,19 @@ input[type="number"] {
 }
 
 .feedbackform fieldset#form-feedback-checkbox .feedback-checkbox-class.field-wrapper.checkbox-wrapper label {
-    font-family: Work Sans;
     font-size: 16px;
     font-weight: 300;
     line-height: 18.77px;
     text-align: left;
+}
+@media(max-width:600px){
+    .feedbackform fieldset#form-feedback-checkbox .feedback-checkbox-class.field-wrapper.checkbox-wrapper label {
+        font-size: 12px;
+        font-weight: 300;
+        line-height: 14.08px;
+        text-align: left;
+        color:#000;
+    }
 }
 
 .feedbackform fieldset#form-feedback-checkbox .feedback-checkbox-class.field-wrapper.checkbox-wrapper input[type="checkbox"] {
@@ -311,8 +383,8 @@ input[type="number"] {
     width: 1.8ex;
     height: 0.6ex;
     background: rgba(0, 0, 0, 0);
-    top: 1.2ex;
-    left: 0.7ex;
+    top: 1ex;
+    left: 0.5ex;
     border: 3px solid #5CB7E3;
     border-top: none;
     border-right: none;
@@ -323,6 +395,14 @@ input[type="number"] {
     transform: rotate(-55deg);
     border-radius: .2ex;
 }
+
+@media(max-width:600px){
+    .feedbackform fieldset#form-feedback-checkbox .feedback-checkbox-class.field-wrapper.checkbox-wrapper:has(input[type="checkbox"]:checked) label::after{
+        top: 1.5ex;
+        left: 0.8ex;
+    }
+}
+
 
 .feedbackform fieldset#form-feedback-checkbox .feedback-checkbox-class.field-wrapper.checkbox-wrapper input[type="checkbox"] {
     line-height: 2.1ex;
@@ -398,6 +478,14 @@ input[type="radio"],
     line-height: 25.81px;
     text-align: center;
     color: #000000;
+}
+
+@media(max-width:600px){
+    .feedbackform #form-form-fields .field-wrapper.plainText-wrapper p#form-formlabel{
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 18.77px;
+    }
 }
 
 .feedbackform #form-form-fields .feedback-error-msg.field-wrapper.plainText-wrapper p {
@@ -477,3 +565,4 @@ input[type="radio"],
     background-color: #E8E8E8;
     color: #3B3B3B;
 }
+

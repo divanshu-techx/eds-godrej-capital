@@ -1,39 +1,39 @@
 footer {
   background-color: #f4f8e8;
 }
- 
+
 @media (width <=900px) {
   footer {
     background-color: #8CB133;
   }
 }
- 
+
 @media (max-width: 768px) {
   .footer-footer-1 {
     display: none;
   }
 }
- 
+
 footer .footer {
   max-width: 1200px;
   margin: auto;
 }
- 
+
 footer .footer p {
   margin: 0;
   font-size: 14px;
 }
- 
+
 .footer-footer-1 .default-content-wrapper ul {
   list-style-type: none;
   padding: unset;
 }
- 
+
 footer .footer-li {
   position: relative;
   font-size: 14px;
 }
- 
+
 footer .footer-footer-1 .default-content-wrapper h4 {
   font-size: 24px;
   margin-bottom: 15px;
@@ -42,13 +42,13 @@ footer .footer-footer-1 .default-content-wrapper h4 {
   line-height: 28px;
   color: var(--color-black);
 }
- 
+
 footer .footer-footer-1 .default-content-wrapper ul>li>strong {
   font-size: var(--body-font-size-default);
   font-weight: 500;
   line-height: 18px;
 }
- 
+
 footer .footer-footer-1 .default-content-wrapper {
   display: flex;
   flex-direction: column;
@@ -56,7 +56,7 @@ footer .footer-footer-1 .default-content-wrapper {
   border-left: 1px solid #8cb133;
   border-right: 1px solid #8cb133;
 }
- 
+
 footer .footer-footer-1 .default-content-wrapper ul {
   list-style-type: none;
   padding: 0;
@@ -64,27 +64,27 @@ footer .footer-footer-1 .default-content-wrapper ul {
   text-align: left;
   margin-left: 16px;
 }
- 
+
 footer .footer-footer-1 .default-content-wrapper ul>li>ul {
   margin: 0;
   padding: 0;
 }
- 
+
 footer .footer-footer-1 .default-content-wrapper ul>li>ul>li a {
   color: var(--color-black);
   font-size: var(--body-font-size-s);
   font-weight: 300;
   line-height: 30px;
 }
- 
+
 footer .footer-footer-1 .default-content-wrapper li {
   margin: 2px 0px 24px;
 }
- 
+
 footer .footer-footer-1 .default-content-wrapper ul li ul {
   margin: 5px 0px 10px;
 }
- 
+
 footer .footer-footer-1 .default-content-wrapper ul li ul li:first-child {
   margin: 5px 0px 0px;
   color: var(--color-black);
@@ -92,7 +92,7 @@ footer .footer-footer-1 .default-content-wrapper ul li ul li:first-child {
   font-weight: 300;
   line-height: 30px;
 }
- 
+
 footer .footer-footer-1 .default-content-wrapper ul li ul li:nth-child(2) {
   margin: 0px 0px 10px;
   color: var(--color-black);
@@ -100,7 +100,7 @@ footer .footer-footer-1 .default-content-wrapper ul li ul li:nth-child(2) {
   font-weight: 300;
   line-height: 30px;
 }
- 
+
 footer .footer-footer-1 .default-content-wrapper ul li ul li:nth-child(3) {
   margin: -8px 0px 10px;
   color: var(--color-black);
@@ -108,15 +108,15 @@ footer .footer-footer-1 .default-content-wrapper ul li ul li:nth-child(3) {
   font-weight: 300;
   line-height: 30px;
 }
- 
+
 footer .footer-footer-1 .default-content-wrapper li strong {
   margin-bottom: 5px;
 }
- 
+
 footer .footer-footer-1 .default-content-wrapper li ul {
   padding-left: 20px;
 }
- 
+
 footer .footer-li strong::after {
   content: '';
   display: inline-block;
@@ -130,31 +130,31 @@ footer .footer-li strong::after {
   border-radius: 0 1px 0 0;
   border-width: 2px 2px 0 0;
 }
- 
+
 footer .footer-li[aria-expanded="true"] strong::after {
   transform: rotate(315deg);
   top: 9px;
 }
- 
+
 footer .footer-footer-1 .default-content-wrapper>ul>li>ul {
   display: none;
   position: relative;
 }
- 
+
 footer .footer-footer-1 .default-content-wrapper>ul>li[aria-expanded="true"]>ul {
   display: block;
 }
- 
+
 footer .footer-footer-1 .default-content-wrapper {
   margin: unset;
 }
- 
+
 footer .third-section-wrapper .third-section>div {
   display: flex;
   justify-content: space-evenly;
   gap: 12px;
 }
- 
+
 footer .partitionfirstcolumn picture img {
   max-width: 213px;
   width: 100%;
@@ -162,108 +162,109 @@ footer .partitionfirstcolumn picture img {
   max-height: 70px;
   overflow: hidden;
 }
- 
+
 footer .partitionfirstcolumn-wrapper {
   margin: 6px !important;
+  margin-left: 0px !important;
 }
- 
+
 footer .partitionfirstcolumn-container {
   display: grid;
   padding: 3rem 0;
   background-color: #f4f8e8;
   grid-template-columns: repeat(2, 25%) auto;
- 
+
   @media (width <=900px) {
     display: none;
   }
 }
- 
- 
+
+
 footer .third-section-wrapper {
   margin: unset;
 }
- 
+
 footer .default-content-wrapper :is(h1, h2, h3, h4, h5, h6) {
   margin: unset;
 }
- 
+
 footer .third-section-wrapper .third-section_part-subparts p>strong {
   font-size: var(--body-font-size-default);
   font-weight: 500;
   line-height: 18px;
   color: var(--color-black);
 }
- 
+
 footer .third-section-wrapper .third-section_part-subparts p {
   font-size: var(--body-font-size-s);
   font-weight: 300;
   line-height: 30px;
   cursor: pointer;
 }
- 
+
 footer .third-section-wrapper .third-section_part-subparts p:has(strong) {
   margin-top: 25px;
   margin-bottom: 10px;
 }
- 
+
 footer .third-section-wrapper .third-section_part-subparts p:has(strong):first-of-type {
   margin-top: 0;
   margin-bottom: 10px;
 }
- 
+
 footer .partitionfirstcolumn-container .partitionfirstcolumn>div:last-child img {
   height: 48px;
   width: 48px;
 }
- 
+
 footer .partitionfirstcolumn-container .partitionfirstcolumn div p {
   font-weight: 400;
   font-size: var(--body-font-size-s);
   line-height: 21px;
   color: var(--color-black-primary);
 }
- 
+
 .partitionfirstcolumn>div {
   margin-bottom: 1.5rem;
 }
- 
+
 footer .partitionfirstcolumn-container .partitionfirstcolumn div p>strong {
   font-weight: 500;
   font-size: var(--body-font-size-default);
   line-height: 40px;
   color: var(--color-black);
 }
- 
+
 .section.copyright-section .default-content-wrapper {
   display: flex;
   justify-content: space-between;
- 
+
 }
- 
+
 .section.copyright-section .default-content-wrapper p {
   font-size: 12px;
   padding: 0;
   padding-top: 20px;
 }
- 
+
 @media (width <=900px) {
   .secfooter.block .highlight-desktop-footer {
     display: none;
   }
 }
- 
+
 @media (width >=900px) {
   .secfooter.block {
     display: block;
     background: #8CB133;
   }
- 
+
   .section.mobilesubfooter-container {
     display: none;
   }
 }
- 
- 
+
+
 .secfooter.block .default-content-wrapper ul {
   display: flex;
   justify-content: end;
@@ -274,59 +275,59 @@ footer .partitionfirstcolumn-container .partitionfirstcolumn div p>strong {
   padding: 12px 0;
   margin: 0;
 }
- 
+
 .secfooter.block .default-content-wrapper a:any-link {
   text-decoration: none;
   color: var(--pure-white);
 }
- 
+
 .section.mobilesubfooter-container .default-content-wrapper a:any-link {
   text-decoration: none;
   color: #3b3b3b;
   margin-left: 20px;
   margin-right: 20px;
 }
- 
+
 .secfooter-list:first-child {
   margin-right: auto;
   color: var(--pure-white);
 }
- 
+
 .section.mobilesubfooter-container {
   text-align: center;
   margin: 0;
   padding: 0;
 }
- 
+
 .mobilesubfooter-container .mobilesubfooter-wrapper,
 .default-content-wrapper {
   margin: 0 auto;
   padding: 0;
 }
- 
+
 .mobilesubfooter-container .default-content-wrapper p,
 .mobilesubfooter-container .default-content-wrapper .button-container {
   margin: 0;
   padding: 0;
   font-size: 12px;
 }
- 
+
 .mobilesubfooter-container .default-content-wrapper p:first-of-type,
 .mobilesubfooter-container .default-content-wrapper p:first-of-type~p:first-of-type {
   font-weight: 600;
 }
- 
+
 .mobilesubfooter-container .default-content-wrapper p:not(:first-of-type):not(.button-container),
 .mobilesubfooter-container .default-content-wrapper .button-container {
   font-weight: 400;
   margin-top: 10px;
 }
- 
+
 .mobilesubfooter-container .default-content-wrapper .button-container a.button {
   display: block;
   font-weight: 600;
 }
- 
+
 @media (width <=900px) {
   .secfooter.block {
     margin-bottom: 120px;
@@ -334,9 +335,9 @@ footer .partitionfirstcolumn-container .partitionfirstcolumn div p>strong {
   }
 }
 
-footer .partitionfirstcolumn .button-container a.button{
+footer .partitionfirstcolumn .button-container a.button {
   display: block;
-  padding:0;
+  padding: 0;
   display: flex;
   justify-content: start;
   font-weight: 400;
@@ -345,6 +346,6 @@ footer .partitionfirstcolumn .button-container a.button{
   color: var(--color-black-primary);
 }
 
-footer .partitionfirstcolumn .button-container a.button:hover{
+footer .partitionfirstcolumn .button-container a.button:hover {
   background-color: unset;
 }

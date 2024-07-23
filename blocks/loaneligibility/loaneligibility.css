@@ -18,12 +18,17 @@
 
 .detail {
     font-size: 14px;
+    color: #3B3B3B;
     align-items: center;
     display: flex;
 
     @media (min-width: 768px) {
         display: flex;
         justify-content: space-between;
+    }
+
+    @media(min-width:900px) {
+        font-size: 16px;
     }
 
 }
@@ -115,7 +120,8 @@ input[type='number'] {
     display: flex;
     align-items: center;
     color: #b3b3b3;
-    @media(width >= 767px){
+
+    @media(width >=767px) {
         min-width: 300px;
     }
 }
@@ -132,8 +138,9 @@ input[type='number'] {
     border-radius: 4px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    @media(width <=767px){
-        background:var(--color-silver);
+
+    @media(width <=767px) {
+        background: var(--color-silver);
     }
 }
 
@@ -186,7 +193,7 @@ input[type="range"] {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
-    margin-top:10px;
+    margin-top: 10px;
 
     @media (min-width: 768px) and (max-width: 900px) {
         margin-bottom: unset;
@@ -198,7 +205,8 @@ input[type="range"] {
     color: var(--color-black);
     font-size: var(--body-font-size-s);
     font-weight: 300;
-    @media(max-width: 768px){
+
+    @media(max-width: 768px) {
         font-size: var(--body-font-size-xs);
     }
 }
@@ -215,7 +223,7 @@ input[type="range"] {
     justify-content: space-around;
     align-items: center;
     margin-bottom: 30px;
-    width:100%;
+    width: 100%;
 }
 
 .canvasDetail {
@@ -257,7 +265,7 @@ input[type="range"] {
 }
 
 .loan-details {
-    width:100%;
+    width: 100%;
     height: auto;
     display: flex;
     justify-content: space-between;
@@ -292,17 +300,18 @@ input[type="range"] {
 }
 
 .detail-select-child {
-    flex: 1; 
+    flex: 1;
     white-space: nowrap;
     font-size: 14px;
     text-align: center;
-    @media(width >= 767px){
+
+    @media(width >=767px) {
         text-align: left;
     }
 }
 
 .detail-select select {
-    flex: 1; 
+    flex: 1;
     margin-left: 10px 0px 10px 0px;
 }
 
@@ -311,11 +320,12 @@ input[type="range"] {
     .detail-select {
         flex-direction: column;
     }
-    
-    .detail-select-child, select {
-        flex: none; 
-        width: 100%; 
-        margin: 5px 0; 
+
+    .detail-select-child,
+    select {
+        flex: none;
+        width: 100%;
+        margin: 5px 0;
     }
 }
 
@@ -324,7 +334,7 @@ input[type="range"] {
 /* Custom Select Style */
 .loaneligibility-wrapper select {
     max-width: 250px;
-    width:100%;
+    width: 100%;
     height: 35px;
     padding: 8px 60px;
     border: none;
@@ -341,7 +351,8 @@ input[type="range"] {
     background-position: calc(100% - 60px) center;
     background-size: 9px 9px;
     cursor: pointer;
-    @media(max-width:769px){
+
+    @media(max-width:769px) {
         width: 100%;
         max-width: 300px;
         padding: 10px 15px;
@@ -364,10 +375,10 @@ input[type="range"] {
     }
 }
 
-.tabs-container .tab-dropdown{
+.tabs-container .tab-dropdown {
     font-size: 10px;
     font-weight: 400;
-    height:28px;
+    height: 28px;
     border: none;
     border-radius: 4px;
     background-color: #f4f4f4;
@@ -424,9 +435,10 @@ select:focus {
     background-color: var(--color-silver);
     padding: 20px;
     border-radius: 4px;
-    @media(max-width:768px){
-        padding:20px 0px;
-        background-color:#fff;
+
+    @media(max-width:768px) {
+        padding: 20px 0px;
+        background-color: #fff;
     }
 }
 
@@ -447,16 +459,17 @@ select:focus {
 
 /* ------------- */
 .mobile-loaneligible {
-@media (min-width: 768px) and (max-width: 900px) {
+    @media (min-width: 768px) and (max-width: 900px) {
         display: block;
         max-width: 273px;
         width: 100%;
         box-sizing: border-box;
-        background-color: #fff!important;
+        background-color: #fff !important;
         padding: 20px;
         border-radius: 4px;
     }
 }
+
 .mobile-loaneligible {
     display: flex;
     justify-content: space-around;
@@ -466,8 +479,9 @@ select:focus {
         align-items: center;
         display: flex;
         justify-content: center;
-        @media(max-width: 768px){
-        justify-content: flex-start;
+
+        @media(max-width: 768px) {
+            justify-content: flex-start;
         }
     }
 
@@ -539,22 +553,25 @@ select:focus {
         width: 100%;
         text-align: center;
         margin: 10px 0;
-        @media(max-width: 768px){
-            text-align: left;;
-                    }
+
+        @media(max-width: 768px) {
+            text-align: left;
+            ;
+        }
     }
 
     .mobile-tenure-monthYear {
         display: flex;
         justify-content: center;
         align-items: center;
-        @media(max-width: 768px){
+
+        @media(max-width: 768px) {
             justify-content: flex-start;
-                    }
+        }
     }
 
     .mobile-tenure-monthYear span {
-        margin: 0 5px 0px 0px ;
+        margin: 0 5px 0px 0px;
     }
 
     /* @media (min-width: 768px) and (max-width: 900px) {
@@ -674,7 +691,7 @@ select:focus {
 
     .mobile-breakup-left>div {
         width: 100%;
-        text-align: center!important;
+        text-align: center !important;
         margin: 10px 0;
     }
 
@@ -761,25 +778,26 @@ input[type="range"]::-moz-range-track {
     border-radius: 4px;
 }
 
-.mobile-loaneligibale .mobile-loan-eligible-details{
-    font-size: 32px!important;
+.mobile-loaneligibale .mobile-loan-eligible-details {
+    font-size: 32px !important;
 }
 
-.mobile-loaneligibale .mobile-loan-eligible-label{
-    font-size: 18px!important;
+.mobile-loaneligibale .mobile-loan-eligible-label {
+    font-size: 18px !important;
 }
 
-.mobile-breakup-right{
-    display:flex;
+.mobile-breakup-right {
+    display: flex;
     justify-content: space-between;
     flex-direction: column;
 }
 
-.detail-select{
+.detail-select {
     display: none;
 }
 
-.details input[type="number"], .details input[type='text'] {
+.details input[type="number"],
+.details input[type='text'] {
     max-width: 100px;
     width: 100%;
     border: none;
@@ -792,9 +810,11 @@ input[type="range"]::-moz-range-track {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
+
 .chartDetails {
     position: relative;
 }
+
 #canvasItems-loanele {
     position: absolute;
     top: 110px;
@@ -803,7 +823,7 @@ input[type="range"]::-moz-range-track {
     text-align: center;
 }
 
-@media (width <= 767px) {
+@media (width <=767px) {
     input[type="range"] {
         background-color: #F4F4F4;
     }

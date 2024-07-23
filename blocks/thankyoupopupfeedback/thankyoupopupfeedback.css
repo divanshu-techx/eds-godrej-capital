@@ -23,7 +23,6 @@ main .thankyou-popup-container {
   top: 307px;
   left: 80px;
   gap: 4px;
-  font-family: 'Work Sans', sans-serif;
   font-size: 36px;
   font-weight: 300;
   line-height: 42.23px;
@@ -52,18 +51,11 @@ main .thankyou-popup-container {
   background-color: #fff;
 }
 
-.thankyou-popup img {
-  object-fit: none;
-  width: 100%;
-  height: auto;
-}
-
 .thankyou-popup p {
   color: #000000;
   font-size: 22px;
   font-weight: 400;
   line-height: 25.81px;
-  margin-top: 45%;
   text-align: center;
 }
 
@@ -71,14 +63,10 @@ main .thankyou-popup-container {
 .thankyoupopupfeedback {
   position: relative;
   width: 300px;
-  /* Adjust as necessary */
   padding: 20px;
   background-color: #fff;
-  /* Background color for the popup */
   border: 1px solid #ccc;
-  /* Border for the popup */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  /* Optional shadow for better visibility */
 }
 
 .close-button {
@@ -123,4 +111,17 @@ main .thankyou-popup-container {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 1001;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.thankyoupopupfeedback.thankyou-popup  img{
+  height: 100%;
+  width: 100%;
+  object-fit: none;
+}
+
+.thankyoupopupfeedback.thankyou-popup >div{
+  max-width: 201px;
 }
