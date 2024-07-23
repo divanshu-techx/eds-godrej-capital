@@ -3,7 +3,6 @@ export default async function decorate(block) {
       console.error('Main container not found');
       return;
     }
-        if (block) {
             // Add the custom class to the main block
             const parentDivs = block.querySelectorAll(':scope > div');
             console.log(parentDivs);
@@ -18,6 +17,5 @@ export default async function decorate(block) {
                 contentDiv.classList.add('child-div');
               }
             });
-        }
     }
     
