@@ -85,39 +85,39 @@ indices:
         value: |
           attribute(el, 'content')
 
-  gallery-media:
-    include:
-      - about-us/media-and-gallery/**
-    target: about-us/media-and-gallery/query-index.json
-    properties:
-      cardtitle:
-        select: head > meta[name="cardtitle"]
-        value: |
-          attribute(el, 'content')
-      cardimagelink:
-        select: head > meta[name="cardimagelink"]
-        value: |
-          attribute(el, 'content')
-      cardvideolink:
-        select: head > meta[name="cardvideolink"]
-        value: |
-          attribute(el, 'content')
-      category:
-        select: head > meta[name="category"]
-        value: |
-          attribute(el, 'content')
-      publishdate:
-        select: head > meta[name="publishdate"]
-        value: |
-          attribute(el, 'content')
-      videotype:
-        select: head > meta[name="videotype"]
-        value: |
-          attribute(el, 'content')
-      carddescription:
-        select: head > meta[name="carddescription"]
-        value: |
-          attribute(el, 'content')
+#  gallery-media:
+#    include:
+#      - about-us/media-and-gallery/**
+#    target: about-us/media-and-gallery/query-index.json
+#    properties:
+#      cardtitle:
+#        select: head > meta[name="cardtitle"]
+#        value: |
+#          attribute(el, 'content')
+#      cardimagelink:
+#        select: head > meta[name="cardimagelink"]
+#        value: |
+#          attribute(el, 'content')
+#      cardvideolink:
+#        select: head > meta[name="cardvideolink"]
+#        value: |
+#          attribute(el, 'content')
+#      category:
+#        select: head > meta[name="category"]
+#        value: |
+#          attribute(el, 'content')
+#      publishdate:
+#        select: head > meta[name="publishdate"]
+#        value: |
+#          attribute(el, 'content')
+#      videotype:
+#        select: head > meta[name="videotype"]
+#        value: |
+#          attribute(el, 'content')
+#      carddescription:
+#        select: head > meta[name="carddescription"]
+#        value: |
+#          attribute(el, 'content')
 
 #  news-and-press-release:
 #    include:
