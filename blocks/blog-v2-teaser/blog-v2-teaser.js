@@ -56,7 +56,7 @@ function prepareBackgroundImage(block) {
   const onBreakpointChange = (pictureEl, breakpoint) => {
     const pictureClone = pictureEl.cloneNode(true);
     const img = pictureClone.querySelector("img");
-    pictureClone.classList.add("v2-dlt__picture");
+    pictureClone.classList.add("blog_v2-dlt_picture_blog");
 
     block.append(pictureClone);
 
@@ -87,7 +87,7 @@ function initBackgroundPosition(classList, breakpoint) {
   const backgroudPositionClass = [...classList].find((item) =>
     item.startsWith(`bp-${classPrefix}-`)
   );
-  let backgroundPositionValue = "center";
+  let backgroundPositionValue = "bottom";
 
   if (backgroudPositionClass) {
     let [, , xPosition, yPosition] = backgroudPositionClass.split("-");
@@ -107,43 +107,59 @@ export default async function decorate(block) {
   prepareBackgroundImage(block);
   const headings = block.querySelectorAll("h1, h2, h3, h4, h5, h6");
 
-  [...headings].forEach((heading) => heading.classList.add("banner__title"));
+  [...headings].forEach((heading) =>
+    heading.classList.add("banner_v2_title_blog")
+  );
 
-  block.parentElement.classList.add("under-1200px-width");
+  block.parentElement.classList.add("full-width-blog");
 
   const contentElWrapper = block.querySelector(":scope > div");
-  contentElWrapper.classList.add("overlayteaser-banner__content-wrapper");
+  contentElWrapper.classList.add("blog_v2_banner_content-wrapper");
   const contentEl = block.querySelector(":scope > div > div");
-  contentEl.classList.add("overlayteaser-banner__content");
-
-  const contentContainer = block.querySelector(
-    ".overlayteaser-banner__content"
-  );
+  contentEl.classList.add("blog_v2_banner_content");
+  const contentContainer = block.querySelector(".blog_v2_banner_content");
   if (contentContainer) {
-    const paragraphs = contentContainer.querySelectorAll("p");
-    const classNames = ["nth", "nth1", "nth2", "nth3", "nth4"];
-    paragraphs.forEach((paragraph, index) => {
-      if (paragraph.classList.contains("button-container")) {
-        paragraph.classList.add(`button${index + 1}`);
-        return;
+    const defaultUlClass = ["upperul", "lowerul"];
+    const allUl = block.querySelectorAll("ul");
+    allUl.forEach((element, index) => {
+      if (index < defaultUlClass.length) {
+        element.classList.add(defaultUlClass[index]);
       }
-      if (paragraph.textContent.trim() === "") {
-        paragraph.style.display = "none";
+      const hasLi = element.querySelectorAll("li").length > 0;
+      if (hasLi) {
+        element.style.display = "block";
       } else {
-        paragraph.style.display = "block";
-        if (classNames[index]) {
-          paragraph.classList.add(classNames[index]);
-        } else {
-          console.log(`No class defined for paragraph index ${index}`);
-        }
+        element.style.display = "none";
       }
     });
+
+    const allP = block.querySelectorAll("p");
+    const defaultPClass = [
+      "p-description-n1",
+      "p-description-n2",
+      "p-description-n3",
+    ];
+    allP.forEach((element, index) => {
+      if (element.closest(".button-container")) {
+        return;
+      }
+      element.classList.add(defaultPClass[index % defaultPClass.length]);
+      const hasContent = element.textContent.trim().length > 0;
+      if (hasContent) {
+        element.style.display = "block";
+      } else {
+        element.style.display = "none";
+      }
+    });
+
     const buttonContainerWrapper = document.createElement("div");
-    buttonContainerWrapper.classList.add("button-container-wrapper");
+    buttonContainerWrapper.classList.add("button-container-combined");
     const buttonContainers =
       contentContainer.querySelectorAll(".button-container");
-    buttonContainers.forEach((buttonContainer) => {
+    buttonContainers.forEach((buttonContainer, index) => {
       buttonContainerWrapper.appendChild(buttonContainer);
+      buttonContainer.classList.contains("button-container");
+      buttonContainer.classList.add(`button${index + 1}`);
     });
     contentContainer.appendChild(buttonContainerWrapper);
   } else {

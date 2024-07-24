@@ -553,13 +553,17 @@ export default async function decorate(block) {
     });
 
     topNav.addEventListener('mouseleave', () => {
+      setTimeout(() => {
       belowNavMainContainer.classList.remove('show');
       navItems.forEach((item) => item.classList.remove('rotate'));
       listElements.forEach((listElement) => listElement.classList.remove('selected'));
+     }, 1000);
     });
   
     belowNavMainContainer.addEventListener('mouseenter', () => {
-      belowNavMainContainer.classList.add('show');
+      setTimeout(() => {
+        belowNavMainContainer.classList.add('show');
+      }, 10000);
     });
   
     belowNavMainContainer.addEventListener('mouseleave', () => {
@@ -567,6 +571,7 @@ export default async function decorate(block) {
       navItems.forEach((item) => item.classList.remove('rotate'));
       listElements.forEach((listElement) => listElement.classList.remove('selected'));
     });
+
   }
 
   function getApiResponse(navListapi) {

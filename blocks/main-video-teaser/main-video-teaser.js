@@ -4,6 +4,85 @@ const MEDIA_BREAKPOINTS = {
   TABLET: "TABLET",
   DESKTOP: "DESKTOP",
 };
+//Main Function
+export default async function decorate(block) {
+  prepareBackgroundImage(block);
+
+  const headings = block.querySelectorAll("h1, h2, h3, h4, h5, h6");
+  headings.forEach((heading) => heading.classList.add("banner__title"));
+
+  block.parentElement.classList.add("full-width");
+
+  const contentElWrapper = block.querySelector(":scope > div");
+  contentElWrapper.classList.add("mainteaservideo-banner__content-wrapper");
+  const contentEl = block.querySelector(":scope > div > div");
+  contentEl.classList.add("mainteaservideo-banner__content");
+
+ 
+
+  const clickableElements = block.querySelectorAll('.button, a');
+  clickableElements.forEach(el => {
+    el.addEventListener('click', function(event) {
+      event.preventDefault();
+
+      const videoUrl = el.getAttribute('href');
+      const isBackgroundVideo = el.classList.contains('video-bg') || el.closest('.video-bg');
+      //condition to check video open in popup mode or in background
+      if (isBackgroundVideo) {
+        if (videoUrl) {
+          let mainTeaser = document.querySelector('.main-video-teaser');
+          let existingVideo = mainTeaser.querySelector('.video-bg');
+          if (existingVideo) {
+            existingVideo.remove();
+          }
+
+          if (isYouTubeURL(videoUrl)) {
+              let frame = document.createElement('iframe');
+              frame.src = getYouTubeEmbedURL(videoUrl);
+              frame.style.position = 'absolute';
+              frame.style.width = '100%';
+              frame.style.height = '100%';
+              frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+              frame.allowFullscreen = true;
+              frame.loop=true;
+              frame.autoplay = true;
+              mainTeaser.appendChild(frame);
+            } 
+          else {
+            let backgroundVideo = document.createElement('video');
+            backgroundVideo.className = 'video-bg';
+            backgroundVideo.muted = true;
+            backgroundVideo.loop = true;
+            backgroundVideo.autoplay = true;
+
+            let videoSourceElement = document.createElement('source');
+            videoSourceElement.src = videoUrl;
+            videoSourceElement.type = 'video/mp4';
+            backgroundVideo.appendChild(videoSourceElement);
+
+            mainTeaser.appendChild(backgroundVideo);
+            backgroundVideo.load();
+            backgroundVideo.play().catch(error => console.error('Error playing background video:', error));
+            backgroundVideo.style.position = 'absolute';
+            backgroundVideo.style.top = '0';
+            backgroundVideo.style.left = '0';
+            backgroundVideo.style.width = '100%';
+            backgroundVideo.style.height = '100%';
+            backgroundVideo.style.objectFit = 'cover';
+          }
+        }
+      } else {
+        if (videoUrl) {
+          if (isYouTubeURL(videoUrl)) {
+            youtubeModel(videoUrl);
+          } else {
+            createModal(videoUrl)
+          }
+        }
+      }
+    });
+  });
+}
 
 function getImageForBreakpoint(imagesList, onChange = () => {}) {
   const mobileMQ = window.matchMedia("(max-width: 743px)");
@@ -103,8 +182,32 @@ function initBackgroundPosition(classList, breakpoint) {
 
   return backgroundPositionValue;
 }
+//function to identify youtube link
+function isYouTubeURL(url) {
+  const youtubePattern = /^(https?:\/\/)?(www\.)?(youtube\.com\/(?:embed\/|v\/|watch\?v=)|youtu\.be\/)[\w-]+/;
+  return youtubePattern.test(url);
+}
+//function to convert youtube link to embed form
+function getYouTubeEmbedURL(url) {
+  const urlObj = new URL(url);
+  let videoId = '';
 
-function createModal() {
+  if (urlObj.hostname === 'youtube.com') {
+    const params = new URLSearchParams(urlObj.search);
+    videoId = params.get('v');
+  } else if (urlObj.hostname === 'youtu.be') {
+    videoId = urlObj.pathname.substring(1);
+  }
+
+  return videoId ? `https://www.youtube.com/embed/${videoId}` : '';
+}
+//Video Modal for Mp4 video and other 
+function createModal(videoUrl) {
+let existingModal = document.querySelector('.custom-video-modal');
+  if (existingModal) {
+    existingModal.remove();
+  }
+  
   const modalHtml = `
     <div id="customVideoModal" class="custom-video-modal">
       <div class="custom-video-modal-content">
@@ -122,9 +225,16 @@ function createModal() {
   modalDiv.innerHTML = modalHtml;
   document.body.appendChild(modalDiv);
 
+
+   const videoSource = document.getElementById("videoSource");
+
   const modal = document.getElementById("customVideoModal");
   const span = modal.querySelector(".custom-video-modal-close");
   const videoPlayer = document.getElementById("videoPlayer");
+
+            videoSource.src = videoUrl;
+            modal.style.display = "block";
+            videoPlayer.load();
 
   span.onclick = function() {
     modal.style.display = "none";
@@ -140,92 +250,53 @@ function createModal() {
     }
   }
 }
+//Video Model for YouTube Video
+function youtubeModel(videoUrl){
+  if (!isYouTubeURL(videoUrl)) {
+    console.error('Invalid YouTube URL');
+    return;
+  }
 
-export default async function decorate(block) {
-  prepareBackgroundImage(block);
+  const embedUrl = getYouTubeEmbedURL(videoUrl);
 
-  const headings = block.querySelectorAll("h1, h2, h3, h4, h5, h6");
-  headings.forEach((heading) => heading.classList.add("banner__title"));
+  // Remove any existing YouTube modal
+  let existingModal = document.querySelector('.youtube-modal');
+  if (existingModal) {
+    existingModal.remove();
+  }
 
-  block.parentElement.classList.add("full-width");
+  // Modal HTML
+  const modalHtml = `
+    <div id="youtubeModal" class="youtube-modal">
+      <div class="youtube-modal-content">
+        <span class="youtube-modal-close">&times;</span>
+        <div class="youtube-video-container">
+          <iframe src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  `;
 
-  const contentElWrapper = block.querySelector(":scope > div");
-  contentElWrapper.classList.add("mainteaservideo-banner__content-wrapper");
-  const contentEl = block.querySelector(":scope > div > div");
-  contentEl.classList.add("mainteaservideo-banner__content");
+  // Append modal HTML to the body
+  const modalDiv = document.createElement('div');
+  modalDiv.innerHTML = modalHtml;
+  document.body.appendChild(modalDiv);
 
-  // Create the modal
-  createModal();
+  const modal = document.getElementById("youtubeModal");
+  const closeBtn = modal.querySelector(".youtube-modal-close");
 
-  // Video Modal Functionality
-  const modal = document.getElementById("customVideoModal");
-  const videoSource = document.getElementById("videoSource");
+  // Show the modal
+  modal.style.display = "block";
 
-  // Use a more generic selector to handle both buttons and anchors
-  const clickableElements = block.querySelectorAll('.button, a');
+  // Close modal on close button click
+  closeBtn.onclick = function() {
+    modal.style.display = "none";
+  }
 
-  clickableElements.forEach(el => {
-    el.addEventListener('click', function(event) {
-      event.preventDefault();
-
-      // Get the video URL from the href attribute or data attribute
-      const videoUrl = el.getAttribute('href');
-
-      console.log('Clicked element:', el);
-      console.log('Video URL:', videoUrl);
-
-      // Check if the clicked element or its parent has the 'video-bg' class
-      const isBackgroundVideo = el.classList.contains('video-bg') || el.closest('.video-bg');
-      console.log('Is background video:', isBackgroundVideo);
-
-      if (isBackgroundVideo) {
-        if (videoUrl) {
-          console.log('Setting background video source');
-          
-          let mainTeaser = document.querySelector('.main-video-teaser');
-          console.log(mainTeaser);
-
-          // Remove any existing background video
-          let existingVideo = mainTeaser.querySelector('.video-bg');
-          if (existingVideo) {
-            existingVideo.remove();
-          }
-
-          // Create and insert a new video element
-          let backgroundVideo = document.createElement('video');
-          backgroundVideo.className = 'video-bg';
-          backgroundVideo.muted = true;
-          backgroundVideo.loop = true;
-          backgroundVideo.autoplay = true;
-
-          let videoSourceElement = document.createElement('source');
-          videoSourceElement.src = videoUrl;
-          videoSourceElement.type = 'video/mp4';
-          backgroundVideo.appendChild(videoSourceElement);
-
-          mainTeaser.appendChild(backgroundVideo);
-
-          backgroundVideo.load();
-          backgroundVideo.play().catch(error => console.error('Error playing background video:', error));
-          backgroundVideo.style.position = 'absolute';
-          backgroundVideo.style.top = '0';
-          backgroundVideo.style.left = '0';
-          backgroundVideo.style.width = '100%';
-          backgroundVideo.style.height = '100%';
-          backgroundVideo.style.objectFit = 'cover';
-        }
-      } else {
-        if (videoUrl) {
-          console.log('Setting modal video source');
-          videoSource.src = videoUrl;
-          modal.style.display = "block";
-          const videoPlayer = document.getElementById("videoPlayer");
-          videoPlayer.load();
-        }
-      }
-    });
-  });
+  // Close modal on clicking outside of the content area
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
 }
-
-
-
