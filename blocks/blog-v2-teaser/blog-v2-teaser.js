@@ -117,5 +117,52 @@ export default async function decorate(block) {
   contentElWrapper.classList.add("blog_v2_banner_content-wrapper");
   const contentEl = block.querySelector(":scope > div > div");
   contentEl.classList.add("blog_v2_banner_content");
+  const contentContainer = block.querySelector(".blog_v2_banner_content");
+  if (contentContainer) {
+    const defaultUlClass = ["upperul", "lowerul"];
+    const allUl = block.querySelectorAll("ul");
+    allUl.forEach((element, index) => {
+      if (index < defaultUlClass.length) {
+        element.classList.add(defaultUlClass[index]);
+      }
+      const hasLi = element.querySelectorAll("li").length > 0;
+      if (hasLi) {
+        element.style.display = "block";
+      } else {
+        element.style.display = "none";
+      }
+    });
 
+    const allP = block.querySelectorAll("p");
+    const defaultPClass = [
+      "p-description-n1",
+      "p-description-n2",
+      "p-description-n3",
+    ];
+    allP.forEach((element, index) => {
+      if (element.closest(".button-container")) {
+        return;
+      }
+      element.classList.add(defaultPClass[index % defaultPClass.length]);
+      const hasContent = element.textContent.trim().length > 0;
+      if (hasContent) {
+        element.style.display = "block";
+      } else {
+        element.style.display = "none";
+      }
+    });
+
+    const buttonContainerWrapper = document.createElement("div");
+    buttonContainerWrapper.classList.add("button-container-combined");
+    const buttonContainers =
+      contentContainer.querySelectorAll(".button-container");
+    buttonContainers.forEach((buttonContainer, index) => {
+      buttonContainerWrapper.appendChild(buttonContainer);
+      buttonContainer.classList.contains("button-container");
+      buttonContainer.classList.add(`button${index + 1}`);
+    });
+    contentContainer.appendChild(buttonContainerWrapper);
+  } else {
+    console.log("No .overlayteaser-banner__content container found.");
+  }
 }
