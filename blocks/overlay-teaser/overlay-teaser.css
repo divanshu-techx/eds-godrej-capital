@@ -1,6 +1,5 @@
-
 .overlay-teaser {
-    height: 518px;
+    height: 500px;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -11,24 +10,73 @@
     overflow: hidden;
 }
 
-/* .overlay-teaser::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0) 100%);
-    z-index: 0;
-    pointer-events: none;
-} */
+.overlay-teaser.overlay-bg .overlayteaser-banner__content p .button-container{
+    display:inline;
+}
+
+.overlayteaser-banner__content .button-container-wrapper{
+    display:flex;
+    margin-top: 20px;
+}
+
+.overlayteaser-banner__content .button-container-wrapper p a.button{
+    padding:10px 10px;
+}
+
+.overlayteaser-banner__content .button-container-wrapper .button3 .button{
+    background: #3CB8FF;
+    color:#fff;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+}
+
+.overlayteaser-banner__content .button-container-wrapper .button4 .button{
+    color:#fff;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+}
+
+.overlayteaser-banner__content .button-container-wrapper .button4 .button:hover{
+    background-color: inherit;
+    color:#000;
+}
+
+@media(max-width:1200px){
+    .section.overlay-teaser-container{
+        padding:unset;
+    }
+    .overlay-teaser.overlay-bg .overlayteaser-banner__content{
+        background:unset!important;
+    }
+}
+
+@media(min-width:768px)and (max-width:1200px)
+{
+    .overlay-teaser::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(270deg, rgba(0, 0, 0, 0) 20.16%, #000000 100%);
+        z-index: 0;
+        pointer-events: none;
+    }
+}
 
 .overlay-teaser.overlay-bg .overlayteaser-banner__content{
     background: rgba(0, 0, 0, 0.5);
     width: 60.58%;
     display: flex;
-    margin-left:25px;
+    margin-left: 25px;
     flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: width 0.3s ease-in-out;
 }
 
 .overlay-teaser.overlay-bg .overlayteaser-banner__content p{
@@ -90,17 +138,16 @@
 .overlay-teaser .overlayteaser-banner__content h2,
 .overlay-teaser .overlayteaser-banner__content h3{
     font-size: 36px;
-    font-weight: 300;
-    line-height: 42.23px;
+    font-weight: 600;
+    line-height: 30.23px;
 }
 @media(max-width:767px){
     .overlay-teaser .overlayteaser-banner__content h2,
     .overlay-teaser .overlayteaser-banner__content h3{
-        font-size: 20px;
-        font-weight: 300;
-        line-height: 23.46px;
-        text-align: left;        
-}
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 16.46px;
+    }
 }
 
 .overlay-teaser.black .overlayteaser-banner__content p,
@@ -132,25 +179,25 @@
 }
 
 .overlay-teaser.row-wise .overlayteaser-banner__content p.button-container a {
-    background: var(--color-sky-dark);
+    background: #3b3b3b;
     border-radius: 2px;
     box-sizing: border-box;
     padding: 12px 20px;
     font-size: 14px;
     display: inline-block !important;
-    color: var(--color-white);
+    color: #fff;
     font-weight: 500;
 }
 
 @media(max-width:768px) {
     .overlay-teaser.row-wise .overlayteaser-banner__content p.button-container a {
-        background: var(--color-sky-dark);
+        background: #3b3b3b;
         border-radius: 2px;
         box-sizing: border-box;
         padding: 12px 20px;
         font-size: 12px;
         display: inline-block !important;
-        color: var(--color-white);
+        color: #fff;
         font-weight: 500;
     }
 }
@@ -208,12 +255,23 @@
 @media (max-width: 1200px) {
     .overlay-teaser .overlayteaser-banner__content {
         width: 80%;
+        transition: width 0.3s ease-in-out; 
+    }
+    .overlay-teaser .overlayteaser-banner__content .nth1{
+        display:none!important;
+    }
+
+    .overlay-teaser.overlay-bg .overlayteaser-banner__content p{
+        font-size: 10px;
+        font-weight: 400;
+        line-height: 11.73px;
+        margin:0;
     }
 }
 
 @media (max-width: 768px) {
     .overlay-teaser {
-        height: 260px;
+        height: 280px;
     }
 
     .overlay-teaser .overlayteaser-banner__content {
