@@ -1,0 +1,42 @@
+.spinner-circular .spinner {
+    width: 100px;
+    height: 100px;
+    display: grid;
+    border: 4.5px solid transparent;
+    /* Use transparent for uniform border */
+    border-radius: 50%;
+    border-right-color: #3CB8FF;
+    animation: spinner-rotate 1s infinite linear;
+}
+
+.spinner-circular .spinner::before,
+.spinner-circular .spinner::after {
+    content: "";
+    grid-area: 1/1;
+    margin: 2.2px;
+    border: inherit;
+    border-radius: 50%;
+    animation: spinner-rotate 2s infinite;
+}
+
+.spinner-circular .spinner::before {
+    border-right-color: #8CB133;
+}
+
+.spinner-circular .spinner::after {
+    margin: 8.9px;
+    border-right-color: #F50076;
+    animation-duration: 3s;
+}
+
+@keyframes spinner-rotate {
+    100% {
+        transform: rotate(1turn);
+    }
+}
+
+.spinner-circular > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
