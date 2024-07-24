@@ -524,7 +524,6 @@ export default async function decorate(block) {
 
     const navItems = document.querySelectorAll('a.anchorClass');
     const listElements = document.querySelectorAll('li.listElement');
-    let hideTimer;
 
     navItems.forEach((navItem) => {
       navItem.addEventListener('mouseover', (event) => {
@@ -537,14 +536,11 @@ export default async function decorate(block) {
 
         if (navItem.classList.contains('rotate')) {
           navItem.classList.remove('rotate');
-          clearTimeout(hideTimer); // Clear any pending hide timers
           belowNavMainContainer.classList.remove('show');
         } else {
           navItems.forEach((item) => item.classList.remove('rotate'));
           navItem.classList.add('rotate');
-          setTimeout(() => {
-            belowNavMainContainer.classList.add('show');
-          }, 1000); 
+          belowNavMainContainer.classList.add('show');
         }
     
         if (parentListItem.classList.contains('selected')) {
@@ -557,26 +553,23 @@ export default async function decorate(block) {
     });
 
     topNav.addEventListener('mouseleave', () => {
-      hideTimer = setTimeout(() => {
+      setTimeout(() => {
       belowNavMainContainer.classList.remove('show');
       navItems.forEach((item) => item.classList.remove('rotate'));
       listElements.forEach((listElement) => listElement.classList.remove('selected'));
-    }, 100);
+     }, 1000);
     });
   
     belowNavMainContainer.addEventListener('mouseenter', () => {
-      clearTimeout(hideTimer); // Clear any pending hide timers
       setTimeout(() => {
         belowNavMainContainer.classList.add('show');
-      }, 1000);
+      }, 10000);
     });
   
     belowNavMainContainer.addEventListener('mouseleave', () => {
-      hideTimer = setTimeout(() => {
       belowNavMainContainer.classList.remove('show');
       navItems.forEach((item) => item.classList.remove('rotate'));
       listElements.forEach((listElement) => listElement.classList.remove('selected'));
-    }, 1000);
     });
 
   }
