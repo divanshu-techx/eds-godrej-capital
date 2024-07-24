@@ -54,12 +54,26 @@
 .section.non-italic li {
     position: relative;
     padding-left: 15px; 
-    margin-bottom: 10px; 
+    /* margin-bottom: 10px;  */
   }
 
   .section.non-italic ul{
     padding:unset;
     list-style: none;
+  }
+  @media(max-width:1199px){
+    .section.non-italic li {
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 14.08px;
+        text-align: left;
+    }
+    .section.non-italic p {
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 14.08px;
+        text-align: left;
+    }
   }
 
   .section.non-italic li::before {
@@ -98,6 +112,14 @@
 .section.blog-description li {
     position: relative;
     padding-left: 15px; 
+  }
+  @media(max-width:1199px){
+    .section.blog-description li {
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 14.08px;
+        text-align: left;
+    }
   }
 
   .section.blog-description ul{
