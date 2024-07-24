@@ -25,14 +25,13 @@ export default async function decorate(block) {
       const description = firstDiv.querySelector('div:first-of-type');
       if (description) {
         description.classList.add('card-description');
-        // Split title text and wrap parts in spans
-        const descriptionText = description.textContent.trim();
-        const [firstWord, ...rest] = descriptionText.split(' ');
-        const restOfTitle = rest.join(' ');
-        description.innerHTML = `
-            <span class="amount">${firstWord}</span>
-            ${restOfTitle ? `<span class="unit">${restOfTitle}</span>` : ''}
-          `;
+        // const descriptionText = description.textContent.trim();
+        // const [firstWord, ...rest] = descriptionText.split(' ');
+        // const restOfTitle = rest.join(' ');
+        // description.innerHTML = `
+        //     <span class="amount">${firstWord}</span>
+        //     ${restOfTitle ? `<span class="unit">${restOfTitle}</span>` : ''}
+        //   `;
       }
     }
     if (secondDiv) {
