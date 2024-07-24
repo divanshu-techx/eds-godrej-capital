@@ -188,25 +188,45 @@ function addClass(block) {
     });
  
     // Function to create a toggle button with a specific class and id
-    function createToggleButton(className, id) {
-        const container = document.createElement('div');
-        container.className = `toggle-container ${className}`;
+    // function createToggleButton(className, id) {
+    //     const container = document.createElement('div');
+    //     container.className = `toggle-container ${className}`;
  
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.id = id;
+    //     const checkbox = document.createElement('input');
+    //     checkbox.type = 'checkbox';
+    //     checkbox.id = id;
  
-        const label = document.createElement('label');
-        label.htmlFor = id;
-        label.textContent = 'Toggle'; // This text will be hidden due to CSS, used for accessibility
+    //     const label = document.createElement('label');
+    //     label.htmlFor = id;
+    //     label.textContent = 'Toggle'; // This text will be hidden due to CSS, used for accessibility
  
-        container.appendChild(checkbox);
-        container.appendChild(label);
+    //     container.appendChild(checkbox);
+    //     container.appendChild(label);
  
-        return container;
+    //     return container;
+    // }
+    function createToggleButton(className) {
+        const button = document.createElement('div');
+        button.className = `toggle-btns ${className}`;
+        button.innerHTML = `
+            <div class="toggle-button-cover">
+                <div class="button-cover">
+                    <div class="button r" id="button-1">
+                    <input type="checkbox" class="checkbox" />
+                    <div class="knobs"></div>
+                    <div class="layer"></div>
+                </div>
+            </div>
+        `;
+        return button;
     }
 }
  
+{/* <input type="checkbox" class="toggleCheckbox" /></input>
+            <label class="toggleContainer">
+                <div><img src="/icons/closetoggle.png" alt="Toggle Image 1" width="20" height="20"></div>   
+                <div><img src="/icons/ticktoggle.png" alt="Button Image" width="20" height="20"></div>
+            </label> */}
 
 function hideCustomCookieModel(modelId) {
     console.log(modelId);
