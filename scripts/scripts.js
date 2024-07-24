@@ -69,6 +69,29 @@ function buildAutoBlocks(main) {
   }
 }
 
+function updateLinks() {
+  // Get all anchor tags in the document
+  const links = document.querySelectorAll('a');
+
+  links.forEach(link => {
+      // Check if the href contains the specified base URL
+      const url = new URL(link.href);
+      if (url.searchParams.has('gtm')) {
+          // Get the gtm value
+          const gtmValue = url.searchParams.get('gtm');
+          
+          // Add data attribute with the gtm value
+          link.setAttribute('data-gtm', gtmValue);
+          
+          // Remove the gtm query parameter from the URL
+          url.searchParams.delete('gtm');
+          link.href = url.toString();
+      }
+  });
+}
+
+
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -81,6 +104,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+  updateLinks();
 }
 
 /**
