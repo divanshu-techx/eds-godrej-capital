@@ -42,10 +42,10 @@ export default async function decorate(block) {
 
       renderPagination(block, responseData);
 
-		// Resize event listener to handle responsive changes
-		window.addEventListener('resize', () => {
-			renderPagination(block, responseData);
-		});
+      // Resize event listener to handle responsive changes
+      window.addEventListener('resize', () => {
+        renderPagination(block, responseData);
+      });
     } else {
       console.error("No data fetched from API.");
     }
@@ -68,69 +68,69 @@ async function fetchData(apiUrl) {
 
 // Render the search section with search input and filter/category dropdowns
 function renderSearchSection(block) {
-	// Create search filter container
-	const searchFilterContainer = document.createElement("div");
-	searchFilterContainer.classList.add("blogs-search-filter");
-  
-	// Create search container
-	const searchContainer = document.createElement("div");
-	searchContainer.classList.add("search-container");
-	searchContainer.id = "search-container";
+  // Create search filter container
+  const searchFilterContainer = document.createElement("div");
+  searchFilterContainer.classList.add("blogs-search-filter");
 
-	// Create search icon
-	const searchImage = document.createElement("img");
-	searchImage.src = searchIcon;
-	searchImage.alt = searchIconAltText;
-	searchContainer.appendChild(searchImage);
-	// Create search input
-	const searchInput = document.createElement("input");
-	searchInput.type = "text";
-	searchInput.placeholder = searchPlaceholderText;
-	searchInput.id = "search-input";
-	searchContainer.appendChild(searchInput);
-  
-	searchFilterContainer.appendChild(searchContainer);
-  
-	// Create dropdown container for filter
-	const filterDropdownContainer = document.createElement("div");
-	filterDropdownContainer.classList.add("blogs-filter-dropdown-container");
-  
-	// Create first select dropdown for filter
-	const filterDropdown = document.createElement("select");
-	filterDropdown.classList.add("dropdown");
-	filterDropdown.id = "filter-dropdown";
-	// Create the first option with default text "Select"
-	const defaultOption = document.createElement("option");
-	defaultOption.value = "";
-	defaultOption.textContent = filterLabel;
-	filterDropdown.appendChild(defaultOption);
-  
-	filterDropdownContainer.appendChild(filterDropdown);
-  
-	// Create dropdown container for category
-	const categoryDropdownContainer = document.createElement("div");
-	categoryDropdownContainer.classList.add("blogs-category-dropdown-container");
-  
-	// Create second select dropdown for category
-	const categoryDropdown = document.createElement("select");
-	categoryDropdown.classList.add("dropdown");
-	categoryDropdown.id = "category-dropdown";
-	// Create the first option with default text "Select"
-	const defaultOptionCategory = document.createElement("option");
-	defaultOptionCategory.value = "";
-	defaultOptionCategory.textContent = productLabel;
-	categoryDropdown.appendChild(defaultOptionCategory);
-  
-	categoryDropdownContainer.appendChild(categoryDropdown);
-  
-	// Append the dropdown containers to the search filter container
-	searchFilterContainer.appendChild(filterDropdownContainer);
-	searchFilterContainer.appendChild(categoryDropdownContainer);
-  
-	// Append search filter container to block
-	block.appendChild(searchFilterContainer);
-  }
-  
+  // Create search container
+  const searchContainer = document.createElement("div");
+  searchContainer.classList.add("search-container");
+  searchContainer.id = "search-container";
+
+  // Create search icon
+  const searchImage = document.createElement("img");
+  searchImage.src = searchIcon;
+  searchImage.alt = searchIconAltText;
+  searchContainer.appendChild(searchImage);
+  // Create search input
+  const searchInput = document.createElement("input");
+  searchInput.type = "text";
+  searchInput.placeholder = searchPlaceholderText;
+  searchInput.id = "search-input";
+  searchContainer.appendChild(searchInput);
+
+  searchFilterContainer.appendChild(searchContainer);
+
+  // Create dropdown container for filter
+  const filterDropdownContainer = document.createElement("div");
+  filterDropdownContainer.classList.add("blogs-filter-dropdown-container");
+
+  // Create first select dropdown for filter
+  const filterDropdown = document.createElement("select");
+  filterDropdown.classList.add("dropdown");
+  filterDropdown.id = "filter-dropdown";
+  // Create the first option with default text "Select"
+  const defaultOption = document.createElement("option");
+  defaultOption.value = "";
+  defaultOption.textContent = filterLabel;
+  filterDropdown.appendChild(defaultOption);
+
+  filterDropdownContainer.appendChild(filterDropdown);
+
+  // Create dropdown container for category
+  const categoryDropdownContainer = document.createElement("div");
+  categoryDropdownContainer.classList.add("blogs-category-dropdown-container");
+
+  // Create second select dropdown for category
+  const categoryDropdown = document.createElement("select");
+  categoryDropdown.classList.add("dropdown");
+  categoryDropdown.id = "category-dropdown";
+  // Create the first option with default text "Select"
+  const defaultOptionCategory = document.createElement("option");
+  defaultOptionCategory.value = "";
+  defaultOptionCategory.textContent = productLabel;
+  categoryDropdown.appendChild(defaultOptionCategory);
+
+  categoryDropdownContainer.appendChild(categoryDropdown);
+
+  // Append the dropdown containers to the search filter container
+  searchFilterContainer.appendChild(filterDropdownContainer);
+  searchFilterContainer.appendChild(categoryDropdownContainer);
+
+  // Append search filter container to block
+  block.appendChild(searchFilterContainer);
+}
+
 
 // Handle search input functionality
 function handleSearching(block, searchInputField, responseData) {
@@ -305,7 +305,7 @@ function renderCards(block, data) {
   let articlesContainer = block.querySelector("#articles-container");
   if (!articlesContainer) {
     articlesContainer = document.createElement("div");
-	articlesContainer.classList.add("articles-container");
+    articlesContainer.classList.add("articles-container");
     articlesContainer.id = "articles-container";
     block.appendChild(articlesContainer);
   }
@@ -353,7 +353,7 @@ function createPaginationContainer(block) {
   let desktopPaginationContainer = block.querySelector("#desktop-pagination-container");
   const categoryContainer = block.querySelector('.blogs-category-dropdown-container');
 
-  if (window.matchMedia("(max-width: 768px)").matches) {
+  if (window.matchMedia("(max-width: 767px)").matches) {
     if (!mobilePaginationContainer) {
       mobilePaginationContainer = document.createElement("div");
       mobilePaginationContainer.classList.add("mobile-pagination-container");
@@ -405,12 +405,12 @@ function renderPagination(block, data) {
     });
     paginationContainer.appendChild(leftButton);
 
-	const pageLinksContainer = document.createElement("div");
+    const pageLinksContainer = document.createElement("div");
     pageLinksContainer.classList.add("page-links");
 
-	// Generate pagination based on device type
-	handleDeviceSpecificCode(block, data, totalPages, currentPage, pageLinksContainer);
-	
+    // Generate pagination based on device type
+    handleDeviceSpecificCode(block, data, totalPages, currentPage, pageLinksContainer);
+
     paginationContainer.appendChild(pageLinksContainer);
 
     // Right arrow button
@@ -426,51 +426,51 @@ function renderPagination(block, data) {
     });
     paginationContainer.appendChild(rightButton);
 
-	if (currentPage === 1) {
-		leftButton.disabled = true;
-	  } else if (currentPage === totalPages) {
-		rightButton.disabled = true;
-	  }
+    if (currentPage === 1) {
+      leftButton.disabled = true;
+    } else if (currentPage === totalPages) {
+      rightButton.disabled = true;
+    }
   }
 }
 
 // Function to determine the device view and run the appropriate code
 function handleDeviceSpecificCode(block, data, totalPages, currentPage, pageLinksContainer) {
-	const mobileView = window.matchMedia("(max-width: 767px)");
-	const tabletView = window.matchMedia("(min-width: 768px) and (max-width: 1024px)");
+  const mobileView = window.matchMedia("(max-width: 767px)");
+  const tabletView = window.matchMedia("(min-width: 767.99px) and (max-width: 1024px)");
 
-	if (mobileView.matches || tabletView.matches) {
-		let pageLink = document.createElement("span");
-		pageLink.classList.add('number-node');
-		pageLink.innerText = formatNumberWithLeadingZero(currentPage);
-		pageLink.classList.add("active");
-		let totalPageNo = document.createElement("span");
-		totalPageNo.innerText = `/ ${formatNumberWithLeadingZero(totalPages)}`;
+  if (mobileView.matches) {
+    let pageLink = document.createElement("span");
+    pageLink.classList.add('number-node');
+    pageLink.innerText = formatNumberWithLeadingZero(currentPage);
+    pageLink.classList.add("active");
+    let totalPageNo = document.createElement("span");
+    totalPageNo.innerText = `/ ${formatNumberWithLeadingZero(totalPages)}`;
 
-		pageLinksContainer.appendChild(pageLink);
-		pageLinksContainer.appendChild(totalPageNo);
+    pageLinksContainer.appendChild(pageLink);
+    pageLinksContainer.appendChild(totalPageNo);
 
-	} else {
-		// Numbered pages
-		for (let i = 1; i <= totalPages; i++) {
-			let pageLink = document.createElement("span");
-			pageLink.classList.add('number-node');
-			pageLink.innerText = formatNumberWithLeadingZero(i);
-			pageLink.classList.toggle("active", i === currentPage);
-			pageLink.addEventListener("click", (event) => {
-				event.preventDefault();
-				currentPage = i;
-				renderCards(block, data);
-				renderPagination(block, data);
-			});
-			pageLinksContainer.appendChild(pageLink);
-		}
+  } else {
+    // Numbered pages
+    for (let i = 1; i <= totalPages; i++) {
+      let pageLink = document.createElement("span");
+      pageLink.classList.add('number-node');
+      pageLink.innerText = formatNumberWithLeadingZero(i);
+      pageLink.classList.toggle("active", i === currentPage);
+      pageLink.addEventListener("click", (event) => {
+        event.preventDefault();
+        currentPage = i;
+        renderCards(block, data);
+        renderPagination(block, data);
+      });
+      pageLinksContainer.appendChild(pageLink);
+    }
 
-	}
+  }
 }
 
 function formatNumberWithLeadingZero(number) {
-	return number < 10 ? `0${number}` : number;
+  return number < 10 ? `0${number}` : number;
 }
 
 // Extract distinct categories from the data

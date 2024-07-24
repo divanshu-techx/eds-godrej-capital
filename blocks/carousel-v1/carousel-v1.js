@@ -54,7 +54,7 @@ function groupTeasersByTargetId(mainSelector) {
 
     // Add the teaser element to the group
     groups[id].push(teaser);
-    
+
     // Mark this container as processed
     groups._processed.add(container);
 
@@ -63,7 +63,7 @@ function groupTeasersByTargetId(mainSelector) {
 
   // Clean up the helper property
   delete groupedTeasers._processed;
- 
+
   return groupedTeasers;
 
 }
@@ -77,14 +77,14 @@ export default async function decorate(block) {
   const carouselContainer = block.closest('.carousel-v1-container');
   const targetId = carouselContainer.getAttribute('data-teaser-target-id');
   // Select the main element
-  let teaser = groupTeasersByTargetId('main'); 
+  let teaser = groupTeasersByTargetId('main');
 
-  createCarousel(block, teaser[targetId],targetId);
+  createCarousel(block, teaser[targetId], targetId);
 
 }
 
 
-async function createCarousel(block, rows,targetId){
+async function createCarousel(block, rows, targetId) {
   carouselId += 1;
   const placeholders = await fetchPlaceholders();
   const carouselContainer = block.closest('.carousel-v1-container');
@@ -92,9 +92,9 @@ async function createCarousel(block, rows,targetId){
   const mainElement = document.createElement('div');
   mainElement.classList.add('carousel-wrapper');
   mainElement.setAttribute('id', `carousel-v1-${carouselId}`);
- 
+
   let summaryContent = carouselContainer.getAttribute("data-summary");
- 
+
 
   // Append teaser containers to the main wrapper
   rows.forEach(teaser => {
@@ -125,6 +125,7 @@ async function createCarousel(block, rows,targetId){
   const summary = document.createElement("div");
   summary.className = 'summary-content';
   summary.innerHTML = summaryContent;
+  summary.innerHTML = summary.innerHTML.replace(/\*/g, '<span class="highlight">*</span>');
   summaryWrapper.appendChild(summary);
   const progressBar = document.createElement('div');
   progressBar.classList.add('carousel-v1-progress-bar-container');
@@ -145,12 +146,12 @@ async function createCarousel(block, rows,targetId){
   nextButton.setAttribute('aria-label', placeholders.nextSlide || 'Next Slide');
 
   // Append navigation buttons to the slideIndicators
- let styleType = carouselContainer.getAttribute('data-teaser-target-id');
- if(styleType == 'homepage-carousel-secondary'){
-  slideIndicators.appendChild(prevButton);
-  slideIndicators.appendChild(nextButton);
- }
-  
+  let styleType = carouselContainer.getAttribute('data-teaser-target-id');
+  if (styleType == 'homepage-carousel-secondary') {
+    slideIndicators.appendChild(prevButton);
+    slideIndicators.appendChild(nextButton);
+  }
+
   // Append slideIndicators to slideIndicatorsNav
   slideIndicatorsNav.append(slideIndicators);
 
@@ -158,7 +159,7 @@ async function createCarousel(block, rows,targetId){
   block.append(progressBar)
   block.append(summaryWrapper);
   if (rows.length > 1)
-  block.append(slideIndicatorsNav);
+    block.append(slideIndicatorsNav);
 
   rows.forEach((row, idx) => {
     const slide = createSlide(row, idx, carouselId);
@@ -169,11 +170,11 @@ async function createCarousel(block, rows,targetId){
       indicator.classList.add('carousel-v1-slide-indicator');
       indicator.dataset.targetSlide = idx;
       indicator.innerHTML = `<button type="button"><span>${placeholders.showSlide || 'Show Slide'} ${idx + 1} ${placeholders.of || 'of'} ${rows.length}</span></button>`;
-      if(styleType == 'homepage-carousel-secondary'){
-      // Append indicator to slideIndicators
-      slideIndicators.insertBefore(indicator, nextButton); // Insert each indicator before the next button
-      }else{
-      slideIndicators.append(indicator); 
+      if (styleType == 'homepage-carousel-secondary') {
+        // Append indicator to slideIndicators
+        slideIndicators.insertBefore(indicator, nextButton); // Insert each indicator before the next button
+      } else {
+        slideIndicators.append(indicator);
       }
       const span = indicator.querySelector('span');
       const formattedIndex = String(idx + 1).padStart(2, '0'); // Formats index as 01, 02, etc.
@@ -209,7 +210,7 @@ let carouselId = 0;
 
 
 function createSlide(row, slideIndex, carouselId) {
- 
+
   const slide = document.createElement('li');
   slide.dataset.slideIndex = slideIndex;
   slide.setAttribute('id', `carousel-${carouselId}-slide-${slideIndex}`);
@@ -251,7 +252,7 @@ function bindEvents(block) {
       showSlide(block, isNaN(activeSlide) ? 0 : activeSlide - 1);
     });
   }
-  
+
   if (nextButton) {
     nextButton.addEventListener('click', () => {
       const activeSlide = parseInt(block.dataset.activeSlide, 10);
@@ -269,11 +270,11 @@ function bindEvents(block) {
     slideObserver.observe(slide);
   });
 
-  updateProgressBar(0,totalSlides,block);
+  updateProgressBar(0, totalSlides, block);
 }
 
 
-function updateProgressBar(currentSlideIndex, totalSlides,block) {
+function updateProgressBar(currentSlideIndex, totalSlides, block) {
   const progressBar = block.querySelector('.carousel-v1-progress-bar');
   if (!progressBar) return;
 
@@ -308,7 +309,7 @@ function updateActiveSlide(slide) {
     }
   });
 
-  updateProgressBar(slideIndex, slides.length,block);
+  updateProgressBar(slideIndex, slides.length, block);
 }
 
 let autoSlideTimer;
@@ -342,6 +343,6 @@ function showSlide(block, slideIndex = 0) {
   // Update active slide index in the dataset for reference
   block.dataset.activeSlide = realSlideIndex;
 
-  updateProgressBar(realSlideIndex, slides.length,block);
+  updateProgressBar(realSlideIndex, slides.length, block);
   resetAutoSlide(block);
 }
