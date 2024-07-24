@@ -5,6 +5,7 @@
   text-align: center;
   color: #242424;
 }
+
 @media (min-width: 600px) {
   .section.becomepartnercards-container .default-content-wrapper {
     font-size: 16px;
@@ -14,29 +15,32 @@
     text-align: center;
   }
 }
-/* round corner in mobile  */
-.section.becomepartnercards-container {
-  @media (width <=600px) {
-    border-radius: 20px 20px 0px 0px;
-    position: relative;
-    bottom: 30px;
-    background-color: #fff;
-    padding-bottom: 0px;
-  }
+
+@media(max-width:600px){
+  .section.heading-container {
+      border-radius: 20px 20px 0px 0px;
+      position: relative;
+      bottom: 30px;
+      background-color: #fff;
+      padding-bottom: 0px;
+    }
 }
+
 .becomepartnercards {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 8px;
   justify-content: space-between;
 }
+
 .contentandpictureparent {
   flex: 1 1 calc(25% - 16px);
   box-sizing: border-box;
-  max-width: calc(25% - 16px);
+  max-width: calc(25% - 0px);
   position: relative;
   transition: flex 0.3s ease, max-width 0.3s ease;
 }
+
 .picturedetails {
   position: relative;
   width: 100%;
@@ -44,6 +48,7 @@
   padding-bottom: 50%;
   overflow: hidden;
 }
+
 .picturedetails picture,
 .picturedetails img {
   position: absolute;
@@ -54,51 +59,57 @@
   object-fit: cover;
   border-radius: 4px;
 }
+
 .card-contentdetails {
   position: absolute;
   bottom: 10px;
   left: 10px;
   right: 10px;
   color: white;
-  padding: 10px;
-  text-align: left;
+  padding: 0px 10px;
+  text-align: center;
   overflow: hidden;
-  white-space: nowrap;
+  /* white-space: nowrap; */
   text-overflow: ellipsis;
   z-index: 1;
 }
-.card-contentdetails>.description {
+
+.card-contentdetails .card-description {
   font-weight: 500;
   transition: font-size 0.3s ease, line-height 0.3s ease;
-  font-family: Work Sans;
   font-size: 16px;
   line-height: 18.77px;
   text-align: center;
 
 }
+
 @media (max-width: 1200px) {
   .contentandpictureparent {
     flex: 1 1 calc(33.333% - 16px);
-    max-width: calc(33.333% - 16px);
+    max-width: calc(33.333% - 0px);
   }
 }
 @media (max-width: 900px) {
   .contentandpictureparent {
     flex: 1 1 calc(50% - 16px);
-    max-width: calc(50% - 16px);
+    max-width: calc(50% - 0px);
   }
 }
+
 @media (max-width: 600px) {
   .contentandpictureparent {
     flex: 1 1 calc(50% - 16px);
-    max-width: calc(50% - 16px);
+    max-width: calc(50% - 0px);
   }
+
   .card-contentdetails {
-    max-width: 147px;
-    max-height: 53px;
+    /* max-width: 147px;
+    max-height: 53px; */
   }
-  .card-contentdetails>.card-description {
+
+  .becomepartnercards .card-contentdetails .card-description{
     font-size: 14px;
-    line-height: 12px;
+    font-weight: 500;
+    line-height: 16.42px;
   }
 }
