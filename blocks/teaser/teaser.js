@@ -339,13 +339,12 @@ const createInlineVideoPlayer = (container, videoUrl) => {
   container.style.alignItems = 'center';
 
   // Add play button to the container
-  // slideContent.appendChild(playButton);
-  playButtonInLine.append(playButton);
+  slideContent.appendChild(playButton);
   container.querySelector('.button-container').appendChild(playButtonInLine);
-
-  let hideButton = slideContent.querySelector('.button');
+ 
+  let hideButton =  slideContent.querySelector('.button');
   hideButton.style.display = 'none';
-
+ 
   // Create the video element
   const video = document.createElement('video');
   video.setAttribute('controls', true);
@@ -353,41 +352,42 @@ const createInlineVideoPlayer = (container, videoUrl) => {
   video.style.width = '100%';
   video.style.height = '100%';
   video.style.objectFit = 'cover'; // Ensure video covers the container
-
+ 
   let videoAppended = false;
-
+ 
   // Handle inline button click
   playButtonInLine.onclick = () => {
-    playButton.click();
+      playButton.click();
   };
-
+ 
   // Handle play button click
   playButton.onclick = (event) => {
-    const parentElement = event.target.parentNode.parentNode.parentNode;
-    const grandparentElement = parentElement.parentNode;
-    const imageDiv = grandparentElement.querySelector('.carousel-slide-image div');
-
-    if (!videoAppended) {
-      const pictureElement = imageDiv.querySelector('picture');
-      if (pictureElement) {
-        pictureElement.style.display = 'none';
+      const parentElement = event.target.parentNode;
+      const grandparentElement = parentElement.parentNode;
+      const imageDiv = grandparentElement.querySelector('.carousel-slide-image div');
+ 
+      if (!videoAppended) {
+          const pictureElement = imageDiv.querySelector('picture');
+          if (pictureElement) {
+              pictureElement.style.display = 'none';
+          }
+ 
+          imageDiv.appendChild(video);
+          videoAppended = true;
       }
-
-      imageDiv.appendChild(video);
-      videoAppended = true;
-    }
-
-    if (video.paused) {
-      video.play();
-      playButtonInLine.innerText = 'Pause';
-      playButton.innerText = '❚❚'; // Change play button icon to pause
-    } else {
-      video.pause();
-      playButtonInLine.innerText = 'Play';
-      playButton.innerText = '▶'; // Change play button icon to play
-    }
+ 
+      if (video.paused) {
+          video.play();
+          playButtonInLine.innerText = 'Pause';
+          playButton.innerText = '❚❚'; // Change play button icon to pause
+      } else {
+          video.pause();
+          playButtonInLine.innerText = 'Play';
+          playButton.innerText = '▶'; // Change play button icon to play
+      }
   };
 };
+ 
 
 
 const createImageBackground = (container, imageUrl) => {
