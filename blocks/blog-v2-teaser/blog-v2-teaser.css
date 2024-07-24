@@ -1,10 +1,11 @@
 .section.blog-v2-teaser-container {
     padding: 0px;
 }
-
+@media(max-width:1200px){
 .section.blog-v2-teaser-container>div {
     margin: unset;
     max-width: unset;
+}
 }
 
 .blog-v2-teaser {
@@ -35,7 +36,11 @@
 .blog-v2-teaser .blog_v2_banner_content {
     width: 1000px;
     display: flex;
+    margin-left: 25px;
     flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: width 0.3s ease-in-out;
 }
 
 @media(max-width:768px) {
