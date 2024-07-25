@@ -18,7 +18,6 @@ import {
 } from './aem.js';
 import ffetch from './ffetch.js';
 import { createExpression , renderExpressions} from './expressions.js';
-import { button } from '../blocks/utils/dom-helper.js';
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 
 /**
