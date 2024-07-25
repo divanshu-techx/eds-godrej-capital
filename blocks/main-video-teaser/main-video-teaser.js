@@ -23,7 +23,8 @@ export default async function decorate(block) {
   let playBtn = mainEle[0].parentElement;
   let pauseBtn = mainEle[1].parentElement;
   pauseBtn.style.display = 'none';
-
+  playBtn.classList.add('play-action');
+  pauseBtn.classList.add('pause-action');
   const clickableElements = block.querySelectorAll('.button, a');
   let clickableElement = clickableElements[0];
   let linkUrl = clickableElement.href;
