@@ -305,8 +305,8 @@ function initializeEventListeners(block) {
     const percentage =
       ((ageRange.value - ageRange.min) / (ageRange.max - ageRange.min)) * 100;
     ageRange.style.setProperty("--value", `${percentage}%`);
-    updateDisplay();
     this.textContent = formatNumberToIndianCommas(ageRange.value);
+    updateDisplay();
   });
 
   block.querySelector("#income").addEventListener("blur", function () {
@@ -320,8 +320,8 @@ function initializeEventListeners(block) {
         (incomeRange.max - incomeRange.min)) *
       100;
     incomeRange.style.setProperty("--value", `${percentage}%`);
-    updateDisplay();
     this.textContent = formatNumberToIndianCommas(incomeRange.value);
+    updateDisplay();
   });
 
   block.querySelector("#principal").addEventListener("blur", function () {
@@ -335,8 +335,8 @@ function initializeEventListeners(block) {
         (principalRange.max - principalRange.min)) *
       100;
     principalRange.style.setProperty("--value", `${percentage}%`);
-    updateDisplay();
     this.textContent = formatNumberToIndianCommas(principalRange.value);
+    updateDisplay();
   });
 
   block.querySelector("#interest").addEventListener("blur", function () {
@@ -350,8 +350,8 @@ function initializeEventListeners(block) {
         (interestRange.max - interestRange.min)) *
       100;
     this.textContent = formatNumberToIndianCommas(interestRange.value);
-    updateDisplay();
     interestRange.style.setProperty("--value", `${percentage}%`);
+    updateDisplay();
   });
 
   block.querySelector("#month").addEventListener("blur", function () {
@@ -365,8 +365,8 @@ function initializeEventListeners(block) {
         (monthRange.max - monthRange.min)) *
       100;
     monthRange.style.setProperty("--value", `${percentage}%`);
-    updateDisplay();
     this.textContent = formatNumberToIndianCommas(monthRange.value);
+    updateDisplay();
   });
 
   // Add event listeners to spans to enforce numeric input
@@ -415,6 +415,8 @@ function initializeEventListeners(block) {
 }
 function calculateTax(income, principal, interest, month) {
   const cessRate = parseFloat(getDataAttributeValueByName("cess-rate")) / 100;
+  const principalDeductionLimit = 150000;
+  const interestDeductionLimit = 200000;
 
   // Function to calculate tax based on income slabs
   function calculateBasicTax(income) {
@@ -438,10 +440,14 @@ function calculateTax(income, principal, interest, month) {
   const cessBefore = basicTaxBefore * cessRate;
   const taxBefore = Math.round(basicTaxBefore + cessBefore);
 
+  // Restrict principal and interest deductions to their respective limits
+  const annualPrincipal = Math.min(principal * month, principalDeductionLimit);
+  const annualInterest = Math.min(interest * month, interestDeductionLimit);
+
   // Calculate taxable income after loan deductions
   const taxableIncomeAfter = Math.max(
     0,
-    (income - principal - interest) * month
+    (income - annualPrincipal - annualInterest) * month
   );
 
   // Calculate tax after loan deductions
