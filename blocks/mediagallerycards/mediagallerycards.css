@@ -455,6 +455,14 @@
 }
 
 @media (min-width:768px) {
+  .section.mediagallerycards-container {
+    padding: 25px 16px;
+  }
+
+  .main-parent-container {
+    margin-top: 20px;
+  }
+
   .mediagallerycards .media-gallery-filter {
     flex-direction: row;
   }
