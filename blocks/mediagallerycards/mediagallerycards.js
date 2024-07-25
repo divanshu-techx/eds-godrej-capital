@@ -125,9 +125,9 @@ function createFilter(categories, block) {
 
     sortDiv.appendChild(sortDropdown);
 
-    const SearchDropDiv=document.createElement('div');
+    const SearchDropDiv = document.createElement('div');
     SearchDropDiv.classList.add('search-sortBy-filter');
-    SearchDropDiv.append(searchDiv,sortDiv);
+    SearchDropDiv.append(searchDiv, sortDiv);
     // Add search input and tabs to the block
     tabContainer.append(tabsDiv, SearchDropDiv);
     block.insertBefore(tabContainer, block.firstChild);
@@ -294,7 +294,7 @@ function openModal(videoLink) {
 }
 
 // Function to fetch and append content to pictureGalleryContainer
-function fetchAndAppendContent(block, url, container,cardTitle) {
+function fetchAndAppendContent(block, url, container, cardTitle) {
     fetch(url)
         .then(response => {
             if (!response.ok) {
@@ -313,7 +313,7 @@ function fetchAndAppendContent(block, url, container,cardTitle) {
                 container.innerHTML = '<p>No main content found.</p>';
             }
             // console.log(container);
-            updateNewCard(block, container,cardTitle,url)
+            updateNewCard(block, container, cardTitle, url)
             console.log(mainContent);
         })
         .catch(error => {
@@ -380,6 +380,9 @@ function generateCards(data, block) {
             const cardTitle = document.createElement('a');
             cardTitle.href = item.path;
             cardTitle.textContent = item.cardtitle;
+            const arrowContainer = document.createElement('span');
+            arrowContainer.classList.add('arrow-right');
+            cardTitle.append(arrowContainer);
             cardLinkDiv.appendChild(cardTitle);
 
 
@@ -387,14 +390,14 @@ function generateCards(data, block) {
                 e.preventDefault();
                 pictureGalleryContainer.style.display = 'none';
                 newContentDiv.classList.add('active');
-                fetchAndAppendContent(block, item.path, newContentDiv,item.cardtitle);
+                fetchAndAppendContent(block, item.path, newContentDiv, item.cardtitle);
             });
 
             cardTitle.addEventListener('click', (e) => {
                 e.preventDefault();
                 pictureGalleryContainer.style.display = 'none';
                 newContentDiv.classList.add('active');
-                fetchAndAppendContent(block, item.path, newContentDiv,item.cardtitle);
+                fetchAndAppendContent(block, item.path, newContentDiv, item.cardtitle);
             });
 
             card.append(cardImageDiv, cardLinkDiv);
@@ -459,7 +462,7 @@ function generateCards(data, block) {
     block.appendChild(mainParentDiv);
 }
 
-function updateNewCard(block, container,cardTitle,url) {
+function updateNewCard(block, container, cardTitle, url) {
     const mainCardDiv = container.querySelector(':scope > div');
     mainCardDiv.classList.add('mainNewCardDiv');
 
@@ -473,18 +476,18 @@ function updateNewCard(block, container,cardTitle,url) {
     backPage.classList.add('back-page');
 
     const backAnchor = document.createElement('a');
-    backAnchor.href=url;
+    backAnchor.href = url;
     backAnchor.classList.add('back-link-media-gallery');
     backAnchor.textContent = cardTitle;
     backPage.appendChild(backAnchor);
 
-    const totalImgVid=document.createElement('div');
+    const totalImgVid = document.createElement('div');
     totalImgVid.classList.add('total-img-video-media-gallery');
 
-    const countCards=document.createElement('p');
+    const countCards = document.createElement('p');
     totalImgVid.appendChild(countCards);
 
-    newTopDiv.append(backPage,totalImgVid);
+    newTopDiv.append(backPage, totalImgVid);
 
     mainCardDiv.insertBefore(newTopDiv, mainCardPictureDiv);
 
@@ -523,12 +526,18 @@ function updateNewCard(block, container,cardTitle,url) {
 
     // Create Previous and Next buttons
     const prevButton = document.createElement('button');
-    prevButton.innerText = 'Previous';
+    const spanArrowLeft = document.createElement('span');
+    spanArrowLeft.classList.add('arrow', 'left');
+    prevButton.append(spanArrowLeft)
+    // prevButton.innerText = 'Previous';
     prevButton.classList.add('media-gallery-nav-button', 'prev-button');
     mainCardPictureDiv.insertBefore(prevButton, mainCardPictureDiv.firstChild); // Insert at the beginning
 
     const nextButton = document.createElement('button');
-    nextButton.innerText = 'Next';
+    const spanArrowRight = document.createElement('span');
+    spanArrowRight.classList.add('arrow', 'right');
+    nextButton.append(spanArrowRight)
+    // nextButton.innerText = 'Next';
     nextButton.classList.add('media-gallery-nav-button', 'next-button');
     mainCardPictureDiv.appendChild(nextButton); // Insert at the end
 
@@ -586,12 +595,12 @@ function updateNewCard(block, container,cardTitle,url) {
         });
     }
 
-    
+
     const pictureDivs = block.querySelectorAll('.new-card-picture-div');
     const pictureLength = pictureDivs.length;
-    const videoDivs=document.querySelectorAll('.other-category-wrapper .card-media-gallery');
-    const videoDivLendth= videoDivs.length;
-    countCards.textContent=`${pictureLength} Images ${videoDivLendth} Videos`;
+    const videoDivs = document.querySelectorAll('.other-category-wrapper .card-media-gallery');
+    const videoDivLendth = videoDivs.length;
+    countCards.textContent = `${pictureLength} Images ${videoDivLendth} Videos`;
 
 }
 
