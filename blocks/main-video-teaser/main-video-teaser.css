@@ -109,6 +109,7 @@
 .main-video-teaser .mainteaservideo-banner__content p {
     display: flex;;
     align-items: center;
+    cursor: pointer;
 }
 
 .main-video-teaser .mainteaservideo-banner__content p>strong{
@@ -363,12 +364,6 @@
     z-index: -1; /* Ensure the video is behind other content */
   }
 
-
-
-
-
-
-
   .youtube-modal {
     display: none; 
     position: fixed; 
@@ -423,24 +418,12 @@
   .youtube-modal-close:hover {
     color: #000;
   }
-  
-  .mainteaservideo-banner__content picture{
-    margin-bottom:30px ;
-     width: auto;
-  }
 
-
-  p picture img {
-    height: 80px;
-    width: 80px;
+.mainteaservideo-banner__content p picture img {
+    height: 18px;
+    width: 18px;
 }
 
-
-  .show {
-   display: block;
-  }
-  
-
-  .hide {
-    display:none;
-  }
+.mainteaservideo-banner__content .pause-action{
+    font-size: 12px;
+}
