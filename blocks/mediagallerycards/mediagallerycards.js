@@ -497,6 +497,9 @@ function updateNewCard(block, container, cardTitle, url) {
     mainCardDiv.insertBefore(upperPictureDiv, mainCardPictureDiv); // Insert before mainCardPictureDiv
 
     const allChildDiv = mainCardPictureDiv.querySelectorAll(':scope > div');
+    const pictuireNavList = document.createElement('div');
+    pictuireNavList.classList.add('pictuire-nav-list');
+
     let currentIndex = 0;
 
     // Set the first new-card-picture-div as active by default
@@ -512,7 +515,7 @@ function updateNewCard(block, container, cardTitle, url) {
         upperPictureDiv.innerHTML = '';
         upperPictureDiv.appendChild(clone);
 
-        allChildDiv[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // allChildDiv[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
     // Add click event listener to each new-card-picture-div
@@ -522,6 +525,7 @@ function updateNewCard(block, container, cardTitle, url) {
             currentIndex = index;
             updateActiveElement(currentIndex);
         });
+        pictuireNavList.append(element);
     });
 
     // Create Previous and Next buttons
@@ -532,7 +536,7 @@ function updateNewCard(block, container, cardTitle, url) {
     // prevButton.innerText = 'Previous';
     prevButton.classList.add('media-gallery-nav-button', 'prev-button');
     mainCardPictureDiv.insertBefore(prevButton, mainCardPictureDiv.firstChild); // Insert at the beginning
-
+    mainCardPictureDiv.append(pictuireNavList)
     const nextButton = document.createElement('button');
     const spanArrowRight = document.createElement('span');
     spanArrowRight.classList.add('arrow', 'right');
@@ -540,11 +544,13 @@ function updateNewCard(block, container, cardTitle, url) {
     // nextButton.innerText = 'Next';
     nextButton.classList.add('media-gallery-nav-button', 'next-button');
     mainCardPictureDiv.appendChild(nextButton); // Insert at the end
-
-    // Add event listeners for Previous and Next buttons
+    function getScrollAmount() {
+        return window.innerWidth > 1024 ? 140 : 40; // Adjust values as needed
+    }
     prevButton.addEventListener('click', () => {
         if (currentIndex > 0) {
             currentIndex = (currentIndex - 1 + allChildDiv.length) % allChildDiv.length;
+            pictuireNavList.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
             updateActiveElement(currentIndex);
         }
     });
@@ -552,6 +558,7 @@ function updateNewCard(block, container, cardTitle, url) {
     nextButton.addEventListener('click', () => {
         if (currentIndex < allChildDiv.length - 1) {
             currentIndex = (currentIndex + 1) % allChildDiv.length;
+            pictuireNavList.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
             updateActiveElement(currentIndex);
         }
     });
