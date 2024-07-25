@@ -79,27 +79,47 @@ function calculateLoanDetails(p, r, emi, n, m, line) {
     let totalMonths = n * 12 + m;
     for (let i = 0; i < totalMonths; i++) {
         let monthlyInterest = p * r;
-        p = p - (emi - monthlyInterest);
+        let principalPayment = emi - monthlyInterest;
+        
+        // Check if principal payment exceeds remaining principal
+        if (principalPayment > p) {
+            principalPayment = p;
+            emi = principalPayment + monthlyInterest;
+        }
+        
+        p = p - principalPayment;
         totalInterest += monthlyInterest;
-        principal += emi - monthlyInterest;
+        principal += principalPayment;
         interest += monthlyInterest;
-        if (++counter == 12) {
+
+        if (++counter == 12 || i == totalMonths - 1) { // Check for end of year or end of term
             years.push(year++);
             yearlyInterest.push(parseInt(interest));
             yearPrincipal.push(parseInt(principal));
             counter = 0;
+            // Reset for the next year
+            principal = 0;
+            interest = 0;
         }
     }
+
+    // Handle case where there is no complete year (if the term is less than 1 year)
+    if (counter > 0) {
+        years.push(year);
+        yearlyInterest.push(parseInt(interest));
+        yearPrincipal.push(parseInt(principal));
+    }
+
     line.data.datasets[0].data = yearPrincipal;
     line.data.datasets[1].data = yearlyInterest;
     line.data.labels = years;
-    return totalInterest;
+    return parseFloat(totalInterest.toFixed(2));
 }
 
 function displayDetails(P, R, N, M, line, pie, block) {
-    let r = parseFloat(R) / 1200;
-    let n = parseFloat(N);
-    let m = parseFloat(M);
+    let r = parseFloat(R) / 1200; // Convert annual rate to monthly
+    let n = parseFloat(N); // Number of years
+    let m = parseFloat(M); // Number of months
     let totalMonths = n * 12 + m;
 
     let num = P * r * Math.pow(1 + r, totalMonths);
@@ -110,53 +130,33 @@ function displayDetails(P, R, N, M, line, pie, block) {
 
     let opts = { style: "currency", currency: "INR", maximumFractionDigits: 0 };
 
-    block.querySelector("#cp").innerText =
-        P.toLocaleString("en-IN", opts);
-
-    block.querySelector("#ci").innerText =
-        payableInterest.toLocaleString("en-IN", opts);
-
-    block.querySelector("#tenure-interest").innerText =
-        payableInterest.toLocaleString("en-IN", opts);
-
-    block.querySelector("#ct").innerText =
-        (P + payableInterest).toLocaleString("en-IN", opts);
-
-
-    block.querySelector("#tenure-amount").innerText =
-        (P + payableInterest).toLocaleString("en-IN", opts);
-
-    block.querySelector("#price").innerText =
-        emi.toLocaleString("en-IN", opts);
-
-    block.querySelector("#tenure-price").innerText =
-        emi.toLocaleString("en-IN", opts);
-
-    block.querySelector("#rate").innerText =
-        R.toLocaleString("en-IN", R) + "%";
-
-    block.querySelector("#tenure-rate").innerText =
-        "@" + R.toLocaleString("en-IN", R) + "%";
-
-    block.querySelector("#monthTenure").innerText =
-        M.toLocaleString("en-IN", M + 'M');
-
-    block.querySelector("#mobile-monthTenure").innerText =
-        N.toLocaleString("en-IN", M + 'M');
-
-    block.querySelector("#yearTenure").innerText =
-        N.toLocaleString("en-IN", N + 'Y');
-
-    block.querySelector("#mobile-yearTenure").innerText =
-        N.toLocaleString("en-IN", N + 'Y');
-
-    block.querySelector("#mobile-monthTenure").innerText =
-        N.toLocaleString("en-IN", M + 'M');
+    block.querySelector("#cp").innerText = P.toLocaleString("en-IN", opts);
+    block.querySelector("#ci").innerText = payableInterest.toLocaleString("en-IN", opts);
+    block.querySelector("#tenure-interest").innerText = payableInterest.toLocaleString("en-IN", opts);
+    block.querySelector("#ct").innerText = (P + payableInterest).toLocaleString("en-IN", opts);
+    block.querySelector("#tenure-amount").innerText = (P + payableInterest).toLocaleString("en-IN", opts);
+    block.querySelector("#price").innerText = emi.toLocaleString("en-IN", opts);
+    block.querySelector("#tenure-price").innerText = emi.toLocaleString("en-IN", opts);
+    block.querySelector("#rate").innerText = R.toLocaleString("en-IN", R) + "%";
+    block.querySelector("#tenure-rate").innerText = "@" + R.toLocaleString("en-IN", R) + "%";
+    block.querySelector("#monthTenure").innerText = m.toLocaleString("en-IN", m + 'M');
+    block.querySelector("#mobile-monthTenure").innerText = m.toLocaleString("en-IN", m + 'M');
+    block.querySelector("#yearTenure").innerText = n.toLocaleString("en-IN", n + 'Y');
+    block.querySelector("#mobile-yearTenure").innerText = n.toLocaleString("en-IN", n + 'Y');
 
     pie.data.datasets[0].data[0] = P;
     pie.data.datasets[0].data[1] = payableInterest;
     pie.update();
-    // line.update();
+    // line.update(); // Uncomment if you want to update the line chart
+}
+
+function updateSliderBackground(value, min, max, slider) {
+    const percentage = Math.round(((value - min) / (max - min)) * 100);
+    if (window.innerWidth <= 768) {
+        slider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+    } else {
+        slider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+    }
 }
 
 function initialize(block) {
@@ -301,7 +301,7 @@ function initialize(block) {
         ),
         footer,
         createElement('div', { class: 'chart-details' },
-            createElement('button', { id: 'apply-btn' }, apply_now_label),
+            createElement('button', { id: 'apply-btn' ,'data-path':redirectionApplyPath}, apply_now_label),
         ),
     );
 
@@ -338,7 +338,7 @@ function initialize(block) {
                 )
             ),
             createElement('div', { class: 'mobile-tenure-apply' },
-                createElement('button', { id: 'apply-btn-mobile' }, apply_now_label)
+                createElement('button', { id: 'apply-btn-mobile' ,'data-path':redirectionApplyPath}, apply_now_label)
             )
         )
     );
@@ -427,103 +427,59 @@ function initialize(block) {
     });
 
     //for slider color event listener
-
+    
     loan_amt_slider.addEventListener('input', function () {
-        const value = this.value;
-        const maxValue = this.max; // Get the maximum value of the range input
-        const percentage = (value / maxValue) * 100;
-
-        if (window.innerWidth <= 768) {
-            this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
-        } else {
-            this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
-        }
+        const value = parseFloat(this.value);
+        updateSliderBackground(value, this.min, this.max, this);
+        loan_amt_text.value = value; // Keep text input in sync
     });
-
+    
     loan_amt_text.addEventListener('input', function () {
-        const value = this.value;
-        const maxValue = this.max;
-        const percentage = (value / maxValue) * 100;
-
-        if (window.innerWidth <= 768) {
-            loan_amt_slider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
-        } else {
-            loan_amt_slider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+        const value = parseFloat(this.value);
+        if (!isNaN(value) && value >= loan_amt_slider.min && value <= loan_amt_slider.max) {
+            updateSliderBackground(value, loan_amt_slider.min, loan_amt_slider.max, loan_amt_slider);
+            loan_amt_slider.value = value; // Keep slider in sync
         }
     });
-
-
-
     int_rate_slider.addEventListener('input', function () {
-        const value = this.value;
-        const percentage = ((value - interestrate_minvalue) / (interestrate_maxvalue - interestrate_minvalue)) * 100;
-        if (window.innerWidth <= 768) {
-            this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
-        } else {
-            this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
-        }
-
+        const value = parseFloat(this.value);
+        updateSliderBackground(value, interestrate_minvalue, interestrate_maxvalue, this);
+        int_rate_text.value = value; // Keep text input in sync
     });
-
+    
     int_rate_text.addEventListener('input', function () {
-        const value = this.value;
-        const percentage = ((value - interestrate_minvalue) / (interestrate_maxvalue - interestrate_minvalue)) * 100;
-
-        if (window.innerWidth <= 768) {
-            int_rate_slider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
-        } else {
-            int_rate_slider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+        const value = parseFloat(this.value);
+        if (!isNaN(value) && value >= interestrate_minvalue && value <= interestrate_maxvalue) {
+            updateSliderBackground(value, interestrate_minvalue, interestrate_maxvalue, int_rate_slider);
+            int_rate_slider.value = value; // Keep slider in sync
         }
-
-
     });
-
+    
     loan_period_slider.addEventListener("input", function () {
-        const value = this.value;
-        const percentage = ((value - tenure_min_yearvalue) / (tenure_max_yearvalue - tenure_min_yearvalue)) * 100;
-        if (window.innerWidth <= 768) {
-            this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
-        } else {
-            this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
-        }
-
-
+        const value = parseFloat(this.value);
+        updateSliderBackground(value, tenure_min_yearvalue, tenure_max_yearvalue, this);
+        loan_period_text.value = value; // Keep text input in sync
     });
-
+    
     loan_period_text.addEventListener("input", function () {
-        const value = this.value;
-        const percentage = ((value - tenure_min_yearvalue) / (tenure_max_yearvalue - tenure_min_yearvalue)) * 100;
-        if (window.innerWidth <= 768) {
-            loan_period_slider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
-        } else {
-            loan_period_slider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+        const value = parseFloat(this.value);
+        if (!isNaN(value) && value >= tenure_min_yearvalue && value <= tenure_max_yearvalue) {
+            updateSliderBackground(value, tenure_min_yearvalue, tenure_max_yearvalue, loan_period_slider);
+            loan_period_slider.value = value; // Keep slider in sync
         }
     });
-
-
     loan_period_slider_month.addEventListener("input", function () {
-        const value = this.value;
-        const percentage = ((value - tenure_min_monthvalue) / (tenure_max_monthvalue - tenure_min_monthvalue)) * 100;
-        if (window.innerWidth <= 768) {
-            this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
-        } else {
-            this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
-        }
-
-
+        const value = parseFloat(this.value);
+        updateSliderBackground(value, tenure_min_monthvalue, tenure_max_monthvalue, this);
+        loan_period_text_month.value = value; // Keep text input in sync
     });
-
+    
     loan_period_text_month.addEventListener("input", function () {
-        const value = this.value;
-        const percentage = ((value - tenure_min_monthvalue) / (tenure_max_monthvalue - tenure_min_monthvalue)) * 100;
-
-        if (window.innerWidth <= 768) {
-            loan_period_slider_month.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
-        } else {
-            loan_period_slider_month.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+        const value = parseFloat(this.value);
+        if (!isNaN(value) && value >= tenure_min_monthvalue && value <= tenure_max_monthvalue) {
+            updateSliderBackground(value, tenure_min_monthvalue, tenure_max_monthvalue, loan_period_slider_month);
+            loan_period_slider_month.value = value; // Keep slider in sync
         }
-
-
     });
 
     // Error message spans
