@@ -85,11 +85,37 @@ indices:
         value: |
           attribute(el, 'content')
 
-  media-gallery:
+  news-and-press-release:
     include:
-      - /media-gallery/details-page/picture-gallery-pages/**
-      - /media-gallery/details-page/videos-pages/**
-    target: /media-gallery/details-page/query-index.json
+      - about-us/news-and-press-release/**
+    target: about-us/news-and-press-release/query-index.json
+    properties:
+      title:
+        select: head > meta[name="title"]
+        value: |
+          attribute(el, 'content')
+      description:
+        select: head > meta[name="description"]
+        value: |
+          attribute(el, 'content')
+      publishdate:
+        select: head > meta[name="publishdate"]
+        value: |
+          attribute(el, 'content')
+      category:
+        select: head > meta[name="category"]
+        value: |
+          attribute(el, 'content')
+      readarticleredirection:
+        select: head > meta[name="readarticleredirection"]
+        value: |
+          attribute(el, 'content')
+
+  gallery:
+    include:
+      - /about-us/gallery/pictures/*
+      - /about-us/gallery/videos/*
+    target: /about-us/gallery/query-index.json
     properties:
       cardtitle:
         select: head > meta[name="cardtitle"]

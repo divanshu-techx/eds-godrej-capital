@@ -1,10 +1,9 @@
-
 /* Style the container that holds the buttons */
 .tabs-container .button-container {
     display: flex;
     justify-content: center;
     gap: 10px;
-    padding:10px;
+    padding: 10px;
     /* background: #F4F4F4; */
     border-radius: 4px;
 }
@@ -12,7 +11,8 @@
 /* Style the buttons */
 .tabs-container .button-container button {
     padding: 10px 20px;
-    border: 1px solid #ccc;
+    font-size: 14px;
+    /* border: 1px solid #ccc; */
     cursor: pointer;
     transition: background-color 0.3s, border-color 0.3s;
     background-color: #fff;
@@ -23,7 +23,7 @@
 .tabs-container .button-container button.active {
     background-color: #3cb8ff;
     font-weight: 500;
-    color:white;
+    color: white;
     font-size: 14px;
 }
 
@@ -31,24 +31,27 @@
 .button-container button:hover:not(.active) {
     background-color: #e1e1e1;
     border-color: #bbb;
-    color:#3b3b3b;
+    color: #3b3b3b;
 }
 
 .cal.active {
     display: block;
 }
 
-.section.calculator-v1-container{
-    display:none;
+.section.calculator-v1-container {
+    display: none;
 }
 
 @media (max-width: 768px) {
     .chartDetails {
-        display: none !important; /* Hide the chart details on mobile */
+        display: none !important;
+        /* Hide the chart details on mobile */
     }
-    .sub-container{
-        display: block!important;
+
+    .sub-container {
+        display: block !important;
     }
+
     .view {
         background-color: #f4f4f4;
         padding: 20px;
@@ -57,7 +60,7 @@
 }
 
 .chartDetails {
-    position: relative; 
+    position: relative;
 }
 
 #canvasItems {
@@ -67,7 +70,8 @@
     font-size: var(--body-font-size-default);
     text-align: center;
 }
-#canvasItems-loanele{
+
+#canvasItems-loanele {
     position: absolute;
     top: 110px;
     left: 125px;
@@ -79,33 +83,36 @@
     display: flex;
     /* margin-bottom: 1rem; */
 }
- 
-select{
+
+select {
     margin: 10px auto;
 }
+
 /* Hide dropdown by default */
 .tabs-container .tab-dropdown {
     display: none;
     width: 100%;
     /* margin-bottom: 1rem; */
 }
- 
+
 /* Mobile view styles */
 @media (max-width: 600px) {
     .tabs-container .tab-dropdown {
-        display: block!important;
+        display: block !important;
         /* margin:0 auto; */
     }
 }
 
 
 .tabs-container .buttonWrapper {
-    display:none;
-    @media(width >= 601px){
+    display: none;
+
+    @media(width >=601px) {
         display: flex;
         padding: 10px;
         gap: 10px;
         background: #F4F4F4;
+        border-radius: 4px;
     }
 }
 
@@ -114,60 +121,66 @@ select{
     display: flex;
     gap: 10px;
     padding: 0px 26px;
-    @media(width >= 600px){
+
+    @media(width >=600px) {
         display: none;
     }
-  }
+}
 
-  .calculator-dropdown, .product-dropdown {
+.calculator-dropdown,
+.product-dropdown {
     flex: 1;
     display: flex;
     flex-direction: column;
-  }
-  /* Mobile view styles */
-  @media (max-width: 768px) {
-    .tab-dropdown, .sec-tab-dropdown {
-    margin:0;
-    font-size: 10px;
-    font-weight: 400;
-    height: 28px;
-    border: none;
-    border-radius: 4px;
-    background-color: #f4f4f4;
-    -moz-appearance: none;
-    background-image: url(/icons/dropdown.svg);
-    background-repeat: no-repeat;
-    background-position: calc(100% - 24px) center;
-    background-size: 9px 9px;
-    cursor: pointer;
-    text-align: center;
-    text-align-last: center;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    }
-  }
-  
-  /* Desktop view styles */
-  @media (min-width: 769px) {
-    .sec-tab-dropdown {
-      display: none;
-    }
-    .tab-dropdown {
-      width: 100%;
-    }
-  }
-  
-  .calculator-label {
-    margin-bottom: 5px;
-    font-size: 11px;  
-    font-weight: 400;
-    color:#000000;
-  }
- .product-label {
-    margin-bottom: 5px;
-    font-size: 11px;  
-    font-weight: 400;
-    color:#A8A8A8;
-  }
+}
 
+/* Mobile view styles */
+@media (max-width: 768px) {
+
+    .tab-dropdown,
+    .sec-tab-dropdown {
+        margin: 0;
+        font-size: 10px;
+        font-weight: 400;
+        height: 28px;
+        border: none;
+        border-radius: 4px;
+        background-color: #f4f4f4;
+        -moz-appearance: none;
+        background-image: url(/icons/dropdown.svg);
+        background-repeat: no-repeat;
+        background-position: calc(100% - 24px) center;
+        background-size: 9px 9px;
+        cursor: pointer;
+        text-align: center;
+        text-align-last: center;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+}
+
+/* Desktop view styles */
+@media (min-width: 769px) {
+    .sec-tab-dropdown {
+        display: none;
+    }
+
+    .tab-dropdown {
+        width: 100%;
+    }
+}
+
+.calculator-label {
+    margin-bottom: 5px;
+    font-size: 11px;
+    font-weight: 400;
+    color: #000000;
+}
+
+.product-label {
+    margin-bottom: 5px;
+    font-size: 11px;
+    font-weight: 400;
+    color: #A8A8A8;
+}

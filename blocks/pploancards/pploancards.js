@@ -35,11 +35,12 @@ export default async function decorate(block) {
 
         // Split title text and wrap parts in spans
         const titleText = title.textContent.trim();
-        const [amount, unit] = titleText.includes(' ') ? titleText.split(' ') : [titleText, ''];
-        
+        const [firstWord, ...rest] = titleText.split(' ');
+        const restOfTitle = rest.join(' ');
+
         title.innerHTML = `
-          <span class="amount">${amount}</span>
-          ${unit ? `<span class="unit">${unit}</span>` : ''}
+          <span class="amount">${firstWord}</span>
+          ${restOfTitle ? `<span class="unit">${restOfTitle}</span>` : ''}
         `;
       }
       

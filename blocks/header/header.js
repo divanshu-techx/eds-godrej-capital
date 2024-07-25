@@ -497,27 +497,26 @@ export default async function decorate(block) {
       });
   }
 
-  // Function to render nav items
   function getResponseData(filteredData) {
     const ul = document.createElement('ul');
 
     filteredData.forEach((item) => {
-      const li = document.createElement('li');
-      li.className = 'listElement';
+        const li = document.createElement('li');
+        li.className = 'listElement';
 
-      const a = document.createElement('a');
-      a.href = '#.html';
-      a.textContent = item.HeadingName;
-      a.setAttribute('data-path', item.ChildPageUrl);
-      a.setAttribute('data-depth', item.depth);
-      a.setAttribute('data-navItem', item.HeadingName);
+        const a = document.createElement('a');
+        a.href = '#.html';
+        a.textContent = item.HeadingName;
+        a.setAttribute('data-path', item.ChildPageUrl);
+        a.setAttribute('data-depth', item.depth);
+        a.setAttribute('data-navItem', item.HeadingName);
 
-      const apiClass = item.HeadingName.replace(/\s+/g, '-');
-      const customClass = 'anchorClass';
-      a.classList.add(apiClass, customClass);
+        const apiClass = item.HeadingName.replace(/\s+/g, '-');
+        const customClass = 'anchorClass';
+        a.classList.add(apiClass, customClass);
 
-      li.appendChild(a);
-      ul.appendChild(li);
+        li.appendChild(a);
+        ul.appendChild(li);
     });
 
     topNav.appendChild(ul);
@@ -526,48 +525,64 @@ export default async function decorate(block) {
     const listElements = document.querySelectorAll('li.listElement');
 
     navItems.forEach((navItem) => {
-      navItem.addEventListener('mouseover', (event) => {
-        event.preventDefault();
-        const depth = navItem.getAttribute('data-depth');
-        const navListItem = navItem.getAttribute('data-navitem');
-        const childPath = navItem.getAttribute('data-path');
-        getChildApiResponse(childPath, navListItem, depth);   
-        const parentListItem = navItem.closest('li');
+        navItem.addEventListener('mouseover', (event) => {
+            event.preventDefault();
+            const depth = navItem.getAttribute('data-depth');
+            const navListItem = navItem.getAttribute('data-navitem');
+            const childPath = navItem.getAttribute('data-path');
+            getChildApiResponse(childPath, navListItem, depth);
+            const parentListItem = navItem.closest('li');
 
-        if (navItem.classList.contains('rotate')) {
-          navItem.classList.remove('rotate');
-          belowNavMainContainer.classList.remove('show');
-        } else {
-          navItems.forEach((item) => item.classList.remove('rotate'));
-          navItem.classList.add('rotate');
-          belowNavMainContainer.classList.add('show');
-        }
-    
-        if (parentListItem.classList.contains('selected')) {
-          parentListItem.classList.remove('selected');
-        } else {
-          listElements.forEach((listElement) => listElement.classList.remove('selected'));
-          parentListItem.classList.add('selected');
-        }
-      });
+            if (navItem.classList.contains('rotate')) {
+                navItem.classList.remove('rotate');
+                belowNavMainContainer.classList.remove('show');
+            } else {
+                navItems.forEach((item) => item.classList.remove('rotate'));
+                navItem.classList.add('rotate');
+                belowNavMainContainer.classList.add('show');
+            }
+
+            if (parentListItem.classList.contains('selected')) {
+                parentListItem.classList.remove('selected');
+            } else {
+                listElements.forEach((listElement) => listElement.classList.remove('selected'));
+                parentListItem.classList.add('selected');
+            }
+        });
     });
+
+    let navTimeout;
 
     topNav.addEventListener('mouseleave', () => {
-      belowNavMainContainer.classList.remove('show');
-      navItems.forEach((item) => item.classList.remove('rotate'));
-      listElements.forEach((listElement) => listElement.classList.remove('selected'));
+        navTimeout = setTimeout(() => {
+            belowNavMainContainer.classList.remove('show');
+            navItems.forEach((item) => item.classList.remove('rotate'));
+            listElements.forEach((listElement) => listElement.classList.remove('selected'));
+        }, 200);
     });
-  
+
+    topNav.addEventListener('mouseenter', () => {
+        clearTimeout(navTimeout);
+    });
+
     belowNavMainContainer.addEventListener('mouseenter', () => {
-      belowNavMainContainer.classList.add('show');
+        belowNavMainContainer.classList.add('show');
+        clearTimeout(navTimeout);
     });
-  
+
     belowNavMainContainer.addEventListener('mouseleave', () => {
-      belowNavMainContainer.classList.remove('show');
-      navItems.forEach((item) => item.classList.remove('rotate'));
-      listElements.forEach((listElement) => listElement.classList.remove('selected'));
+        belowNavMainContainer.classList.remove('show');
+        navItems.forEach((item) => item.classList.remove('rotate'));
+        listElements.forEach((listElement) => listElement.classList.remove('selected'));
     });
-  }
+}
+
+  
+  topNav.addEventListener('mouseenter', () => {
+    // Ensure the container remains visible when mouse re-enters the topNav
+    belowNavMainContainer.classList.add('show');
+  });
+  
 
   function getApiResponse(navListapi) {
     fetch(navListapi, {

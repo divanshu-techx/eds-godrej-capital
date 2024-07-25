@@ -1,0 +1,186 @@
+.section.aboutusbanner-container.leftcontentusploan-container{
+    padding:unset;
+}
+
+@media (max-width: 767px) {
+    .custom-tabs-container.section .custom-tabs-wrapper {
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        margin-bottom:30px;
+      }
+      
+      .custom-tabs-container.section  .custom-tab {
+        flex: 0 0 auto;
+        white-space: nowrap;
+        padding: 10px 20px;
+        margin-right: 5px;
+        cursor: pointer;
+        background: #F4F4F4;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 14.08px;
+        color:#242424;
+        border-radius: 4px;
+      }
+
+      .custom-tabs-container.section  .custom-tab.active{
+        background: #3CB8FF;
+        color:#fff;
+        border-radius: 4px;
+      }
+
+
+      .custom-tabs-container.section  .custom-tabs-wrapper {
+      -webkit-overflow-scrolling: touch;
+      /* scrollbar-width: thin; */
+      scrollbar-width: none;
+      width:100%;
+    }
+  
+    .custom-tabs-container.section  .custom-tab {
+      flex: 0 0 auto;
+    }
+
+    .cards-container-wrapper {
+      display: flex;
+      overflow: hidden;
+      width: 100%;
+      scroll-snap-type: x mandatory;
+    }
+
+    .section.leftcontentusploan-container{
+      padding:unset;
+    }
+
+  }
+
+  .custom-tabs-container.section .custom-tabs-wrapper{
+    display: flex;
+    padding:10px;
+    justify-content: center;
+    align-items: center;
+    gap:10px;
+    background: #F4F4F4;
+    max-width: fit-content;
+    border-radius: 4px;
+}
+@media(max-width:767px){
+  .custom-tabs-container.section .custom-tabs-wrapper{
+    display: flex;
+    padding:10px;
+    align-items: center;
+    justify-content: start;
+    gap:10px;
+    background: #fff;
+    max-width: fit-content;
+    border-radius: 4px;
+}
+}
+
+.custom-tabs-container.section .custom-tabs-wrapper .custom-tab.active{
+    color:#fff;
+    background-color: #3CB8FF;
+    border-radius: 4px;
+}
+
+.custom-tabs-container.section .custom-tabs-wrapper .custom-tab{
+  color:#000;
+  background:#fff;
+  border-radius: 4px;
+}
+
+  @media (max-width: 767px) {
+    .cards-container-wrapper {
+        display: flex;
+        overflow: hidden;
+        width: 100%;
+        scroll-snap-type: x mandatory;
+        box-shadow: 2px 2px 5px 0px #0000001A;
+      }
+
+      .custom-tabs-container.section .custom-tabs-wrapper .custom-tab.active{
+        color:#fff;
+        background-color: #3CB8FF;
+        border-radius: 4px;
+    }
+
+      .custom-tabs-container.section .custom-tabs-wrapper .custom-tab{
+        color:#000;
+        background:#f4f4f4;
+        border-radius: 4px;
+      }
+
+      .leftcontentusploan-wrapper {
+        flex: 0 0 100%;
+        scroll-snap-align: start;
+      }
+      
+      .carousel-nav-container {
+        position: relative;
+        width: 100%;
+        display: none; 
+      }
+}
+  
+
+  
+  @media (max-width: 767px) {
+    .carousel-nav-container {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+
+  .carousel-nav-container .carousel-prev-btn, .carousel-nav-container .carousel-next-btn{
+      color: #fff;
+      background-color: #3CB8FF;
+      border-radius: 4px;
+      padding: 6px 10px;
+  }
+
+  .carousel-nav-container .carousel-prev-btn img {
+    transform: rotate(180deg);
+}
+
+  .carousel-nav-container button:disabled {
+    background: var(--color-dark-grey);
+    cursor: not-allowed;
+  }
+
+    .carousel-count-display{
+      display: flex;
+      align-items: center;
+    }
+
+  .leftcontentusploan-wrapper {
+    display: none;
+  }
+  
+  .leftcontentusploan-wrapper.active {
+    display: block;
+  }
+  
+  .carousel-nav-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .carousel-number {
+    margin: 0 5px;
+    cursor: pointer;
+  }
+  
+  .carousel-number.active-number {
+    text-decoration: underline;
+    color: rgba(140, 177, 51, 1);
+    font-weight: 600;
+  }
+
+  }
+
+@media(min-width:769px){
+  .carousel-nav-container{
+    display:none;
+  }
+}
