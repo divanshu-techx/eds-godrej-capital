@@ -401,7 +401,7 @@
   padding: 12px 20px;
   font-size: 12px;
   display: block !important;
-  color: var(--color-white);
+  color: inherit;
   font-weight: 400;
   text-decoration: none;
 }

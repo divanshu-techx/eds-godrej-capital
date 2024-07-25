@@ -49,11 +49,12 @@
   justify-content: center;
   gap: 30px;
   box-sizing: border-box;
-  box-shadow: 0px 4px 10px 0px #0000000D;
-
   @media (max-width: 768px) {
     gap: 20px;
   }
+}
+.content-container a{
+  box-shadow: 0px 4px 10px 0px #0000000D;
 }
 
 .buttons-container {
