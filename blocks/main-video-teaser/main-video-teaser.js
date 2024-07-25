@@ -344,7 +344,6 @@ function youtubeModel(videoUrl) {
       </div>
     </div>
   `;
-
   // Append modal HTML to the body
   const modalDiv = document.createElement('div');
   modalDiv.innerHTML = modalHtml;
