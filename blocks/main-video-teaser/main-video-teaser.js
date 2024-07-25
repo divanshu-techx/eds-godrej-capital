@@ -18,16 +18,58 @@ export default async function decorate(block) {
   const contentEl = block.querySelector(":scope > div > div");
   contentEl.classList.add("mainteaservideo-banner__content");
 
- 
+  let mainEle = document.querySelectorAll('.main-video-teaser p picture');
 
+  let playBtn = mainEle[0].parentElement;
+  let pauseBtn = mainEle[1].parentElement;
+  pauseBtn.style.display = 'none';
+  playBtn.classList.add('play-action');
+  pauseBtn.classList.add('pause-action');
   const clickableElements = block.querySelectorAll('.button, a');
-  clickableElements.forEach(el => {
-    el.addEventListener('click', function(event) {
+  let clickableElement = clickableElements[0];
+  let linkUrl = clickableElement.href;
+  let pictureElement = playBtn.querySelector('picture');
+
+  let newAnchor = document.createElement('a');
+  newAnchor.href = linkUrl;
+  newAnchor.title = 'Play Video';
+
+
+  // insert link in play image also 
+  if (linkUrl && pictureElement) {
+    let imgElement = pictureElement.querySelector('img');
+
+    if (imgElement) {
+      let newAnchor = document.createElement('a');
+      newAnchor.href = linkUrl;
+      newAnchor.title = 'Play Video';
+
+      console.log(imgElement.parentNode);
+
+      imgElement.parentNode.insertBefore(newAnchor, imgElement);
+      newAnchor.appendChild(imgElement);
+    }
+  }
+
+
+
+  const clickable = block.querySelectorAll('.button, a');
+
+  clickable.forEach(el => {
+    el.addEventListener('click', function (event) {
       event.preventDefault();
 
       const videoUrl = el.getAttribute('href');
+
       const isBackgroundVideo = el.classList.contains('video-bg') || el.closest('.video-bg');
-      //condition to check video open in popup mode or in background
+      const parent = el.parentNode;
+
+
+
+
+      // Extract the text content from the anchor tag
+      const textContent = el.textContent;
+
       if (isBackgroundVideo) {
         if (videoUrl) {
           let mainTeaser = document.querySelector('.main-video-teaser');
@@ -37,23 +79,22 @@ export default async function decorate(block) {
           }
 
           if (isYouTubeURL(videoUrl)) {
-              let frame = document.createElement('iframe');
-              frame.src = getYouTubeEmbedURL(videoUrl);
-              frame.style.position = 'absolute';
-              frame.style.width = '100%';
-              frame.style.height = '100%';
-              frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-              frame.allowFullscreen = true;
-              frame.loop=true;
-              frame.autoplay = true;
-              mainTeaser.appendChild(frame);
-            } 
-          else {
+            let frame = document.createElement('iframe');
+            frame.src = getYouTubeEmbedURL(videoUrl);
+            frame.style.position = 'absolute';
+            frame.style.width = '100%';
+            frame.style.height = '100%';
+            frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+            frame.allowFullscreen = true;
+            frame.loop = true;
+            frame.autoplay = true;
+            mainTeaser.appendChild(frame);
+            playBtn.style.display = 'none';
+            pauseBtn.style.display = 'none';
+          } else {
             let backgroundVideo = document.createElement('video');
             backgroundVideo.className = 'video-bg';
             backgroundVideo.muted = true;
-            backgroundVideo.loop = true;
-            backgroundVideo.autoplay = true;
 
             let videoSourceElement = document.createElement('source');
             videoSourceElement.src = videoUrl;
@@ -63,20 +104,44 @@ export default async function decorate(block) {
             mainTeaser.appendChild(backgroundVideo);
             backgroundVideo.load();
             backgroundVideo.play().catch(error => console.error('Error playing background video:', error));
+
             backgroundVideo.style.position = 'absolute';
             backgroundVideo.style.top = '0';
             backgroundVideo.style.left = '0';
             backgroundVideo.style.width = '100%';
             backgroundVideo.style.height = '100%';
             backgroundVideo.style.objectFit = 'cover';
+
+            playBtn.addEventListener('click', () => {
+              backgroundVideo.play();
+              playBtn.style.display = 'none';
+              pauseBtn.style.display = 'block';
+            });
+
+            pauseBtn.addEventListener('click', () => {
+              backgroundVideo.pause();
+              playBtn.style.display = 'block';
+              pauseBtn.style.display = 'none';
+            });
           }
         }
+         // Remove links from both image and text content
+      const links = block.querySelectorAll('a');
+      links.forEach(link => {
+        const parent = link.parentNode;
+        while (link.firstChild) {
+          parent.insertBefore(link.firstChild, link);
+        }
+        parent.removeChild(link);
+      });
+
       } else {
+        // call to their model for pop up mode
         if (videoUrl) {
           if (isYouTubeURL(videoUrl)) {
             youtubeModel(videoUrl);
           } else {
-            createModal(videoUrl)
+            createModal(videoUrl);
           }
         }
       }
@@ -84,7 +149,9 @@ export default async function decorate(block) {
   });
 }
 
-function getImageForBreakpoint(imagesList, onChange = () => {}) {
+
+
+function getImageForBreakpoint(imagesList, onChange = () => { }) {
   const mobileMQ = window.matchMedia("(max-width: 743px)");
   const tabletMQ = window.matchMedia(
     "(min-width: 744px) and (max-width: 1199px)"
@@ -203,11 +270,11 @@ function getYouTubeEmbedURL(url) {
 }
 //Video Modal for Mp4 video and other 
 function createModal(videoUrl) {
-let existingModal = document.querySelector('.custom-video-modal');
+  let existingModal = document.querySelector('.custom-video-modal');
   if (existingModal) {
     existingModal.remove();
   }
-  
+
   const modalHtml = `
     <div id="customVideoModal" class="custom-video-modal">
       <div class="custom-video-modal-content">
@@ -226,23 +293,23 @@ let existingModal = document.querySelector('.custom-video-modal');
   document.body.appendChild(modalDiv);
 
 
-   const videoSource = document.getElementById("videoSource");
+  const videoSource = document.getElementById("videoSource");
 
   const modal = document.getElementById("customVideoModal");
   const span = modal.querySelector(".custom-video-modal-close");
   const videoPlayer = document.getElementById("videoPlayer");
 
-            videoSource.src = videoUrl;
-            modal.style.display = "block";
-            videoPlayer.load();
+  videoSource.src = videoUrl;
+  modal.style.display = "block";
+  videoPlayer.load();
 
-  span.onclick = function() {
+  span.onclick = function () {
     modal.style.display = "none";
     videoPlayer.pause();
     videoPlayer.src = "";
   }
 
-  window.onclick = function(event) {
+  window.onclick = function (event) {
     if (event.target == modal) {
       modal.style.display = "none";
       videoPlayer.pause();
@@ -251,7 +318,7 @@ let existingModal = document.querySelector('.custom-video-modal');
   }
 }
 //Video Model for YouTube Video
-function youtubeModel(videoUrl){
+function youtubeModel(videoUrl) {
   if (!isYouTubeURL(videoUrl)) {
     console.error('Invalid YouTube URL');
     return;
@@ -289,12 +356,12 @@ function youtubeModel(videoUrl){
   modal.style.display = "block";
 
   // Close modal on close button click
-  closeBtn.onclick = function() {
+  closeBtn.onclick = function () {
     modal.style.display = "none";
   }
 
   // Close modal on clicking outside of the content area
-  window.onclick = function(event) {
+  window.onclick = function (event) {
     if (event.target == modal) {
       modal.style.display = "none";
     }
