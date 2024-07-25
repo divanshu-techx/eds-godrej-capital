@@ -509,7 +509,7 @@
   }
 
   .other-category-wrapper .card-media-gallery .card-video-media-gallery iframe {
-    max-height: 207px;
+    min-height: 207px;
   }
 
   .other-category-wrapper .card-media-gallery .card-media-gallery-video-heading h3 {
