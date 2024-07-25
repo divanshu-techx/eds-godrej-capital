@@ -424,3 +424,23 @@
     color: #000;
   }
   
+  .mainteaservideo-banner__content picture{
+    margin-bottom:30px ;
+     width: auto;
+  }
+
+
+  p picture img {
+    height: 80px;
+    width: 80px;
+}
+
+
+  .show {
+   display: block;
+  }
+  
+
+  .hide {
+    display:none;
+  }
