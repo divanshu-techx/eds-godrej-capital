@@ -245,8 +245,8 @@ function initializeEventListeners(block) {
     ageRange.value = isNaN(value)
       ? ageRange.min
       : Math.min(Math.max(value, ageRange.min), ageRange.max);
-    const percentage =
-      ((ageRange.value - ageRange.min) / (ageRange.max - ageRange.min)) * 100;
+    const percentage = ((ageRange.value - ageRange.min) 
+    / (ageRange.max - ageRange.min)) * 100;
     ageRange.style.setProperty('--value', `${percentage}%`);
     this.textContent = formatNumberToIndianCommas(ageRange.value);
     updateDisplay();
