@@ -10,3 +10,9 @@
     font-weight: 400;
     padding:0;
 }
+
+@media(min-width:1199px){
+    .section.pdp-blogs-header-container {
+        background-color: #f2f2f2;
+    }
+}

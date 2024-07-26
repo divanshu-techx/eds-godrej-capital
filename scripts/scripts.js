@@ -79,10 +79,10 @@ function updateLinks() {
       if (url.searchParams.has('gtm')) {
           // Get the gtm value
           const gtmValue = url.searchParams.get('gtm');
-          
+
           // Add data attribute with the gtm value
           link.setAttribute('data-gtm', gtmValue);
-          
+
           // Remove the gtm query parameter from the URL
           url.searchParams.delete('gtm');
           link.href = url.toString();
@@ -90,7 +90,62 @@ function updateLinks() {
   });
 }
 
+function updateButtonWithGtm() {
+  const buttons = document.querySelectorAll('button');
+  buttons.forEach(button => {
+    if (button.hasAttribute('data-path')) {
+      let redirectionUrl = new URL(button.getAttribute('data-path'), window.location.origin);
+      if (redirectionUrl) {
+        // Get the gtm value
+        const gtmValue = redirectionUrl.searchParams.get('gtm');
 
+        // Add data attribute with the gtm value
+        button.setAttribute('data-gtm', gtmValue);
+
+        // Remove the gtm query parameter from the URL
+        redirectionUrl.searchParams.delete('gtm');
+        button.href = redirectionUrl.toString();
+      } else {
+        return;
+      }
+    }
+    else {
+      return;
+    }
+  })
+}
+
+function getAnchorButtonTag() {
+  const buttonEle = document.querySelectorAll('button');
+  const anchorEle = document.querySelectorAll('a');
+
+  buttonEle.forEach(button => {
+    button.addEventListener('click', function() {
+      const gtmValue = this.getAttribute('data-gtm');
+      if (gtmValue) {
+        dataStoreInDataLayer(gtmValue);
+      }
+      console.log('Button clicked:', gtmValue);
+    });
+  });
+
+  anchorEle.forEach(anchor => {
+    anchor.addEventListener('click', function() {
+      const gtmValue = this.getAttribute('data-gtm');
+      if (gtmValue) {
+        dataStoreInDataLayer(gtmValue);
+      }
+      console.log('Anchor clicked:', gtmValue);
+    });
+  });
+}
+
+function dataStoreInDataLayer(gtmValue) {
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    'gtmEvent': gtmValue ? gtmValue : 'NA'
+  });
+}
 
 /**
  * Decorates the main element.
@@ -176,6 +231,8 @@ async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
   loadDelayed();
+  updateButtonWithGtm();
+  getAnchorButtonTag();
 }
 
 loadPage();
