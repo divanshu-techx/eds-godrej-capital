@@ -12,7 +12,6 @@ export default async function decorate(block) {
   faqmobileTitlediv.className = 'faq-container-titleMobile';
   faqmobileTitlediv.textContent = faqMobileTitle;
   block.appendChild(faqmobileTitlediv);
-  
   const faqContainer = document.createElement('div');
   faqContainer.className = 'faq-container';
   block.appendChild(faqContainer);
@@ -33,7 +32,7 @@ export default async function decorate(block) {
   titleContainer.append(title);
   faqTabs.append(titleContainer);
 
-  // Create and append "Can't Find" element to the FAQ tabs
+  // Create and append 'Can't Find' element to the FAQ tabs
   const cantFindEl1 = createCantFindEl();
   faqTabs.append(cantFindEl1);
 
@@ -54,7 +53,7 @@ export default async function decorate(block) {
 
     // Filter Q&A data based on the selected category
     const filteredData = quesAnsData.filter(item => item.category.toLowerCase() === selectedCategory);
-    
+
     // Extract unique tags from the filtered data and render them
     const tags = [...new Set(filteredData.flatMap(item => normalizeTags(item.tags)))];
     renderTags(tags, faqTabs);
@@ -69,8 +68,6 @@ export default async function decorate(block) {
   }
 }
 
-
-
 // Function to retrieve the value of a data attribute by name
 function getDataAttributeValueByName(name) {
   const element = document.querySelector(`[data-${name}]`);
@@ -84,7 +81,7 @@ async function fetchData(apiUrl) {
     const data = await response.json();
     return data.data;
   } catch (error) {
-    console.error("Error fetching data:", error);
+    console.error('Error fetching data:', error);
     return null;
   }
 }
@@ -161,7 +158,7 @@ function renderQA(data, selectedCategory, selectedTag, container) {
     container.appendChild(qaItem);
   });
 
-  // Add "Can't Find" element at the end
+  // Add 'Can't Find' element at the end
   const cantFindDivEl2 = createCantFindEl();
   container.append(cantFindDivEl2);
 
@@ -189,7 +186,7 @@ function renderQA(data, selectedCategory, selectedTag, container) {
   });
 }
 
-// Function to create the "Can't Find" element
+// Function to create the 'Can't Find' element
 function createCantFindEl() {
   let cannotFindDiv = document.createElement('div');
   cannotFindDiv.className = 'cannot-find-container';
@@ -243,5 +240,3 @@ function quesAnsChangeOnTags(faqTabs, quesAnsData, faqAccordion) {
     });
   });
 }
-
-
