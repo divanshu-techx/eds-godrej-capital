@@ -302,8 +302,10 @@ function initializeEventListeners(block) {
     .querySelectorAll('.input-details-tax-saving span')
     .forEach((span) => {
       span.addEventListener('input', function () {
-        const value = this.textContent.trim(); // Get the text content and remove leading/trailing whitespace
-        const numericValue = parseFloat(value.replace(/\D/g, '')); // Extract numeric value
+        // Get the text content and remove leading/trailing whitespace
+        const value = this.textContent.trim();
+        // Get the text content and remove leading/trailing whitespace
+        const numericValue = parseFloat(value.replace(/\D/g, ''));
 
         if (!isNaN(numericValue)) {
           const formattedValue = numericValue.toString(); // Format numeric value
@@ -335,7 +337,7 @@ function initializeEventListeners(block) {
     input.addEventListener('change', function () {
       const id = this.id.replace('Range', ''); // Get the ID of the associated span
       document.getElementById(id).textContent = formatNumberToIndianCommas(
-        this.value
+        this.value,
       );
       updateDisplay(); // Call updateDisplay function after the value is changed
     });
@@ -473,7 +475,7 @@ function calculateTax(income, principal, interest, age) {
   // Calculate taxable income after loan deductions
   const taxableIncomeAfter = Math.max(
     0,
-    income - annualPrincipal - annualInterest
+    income - annualPrincipal - annualInterest,
   );
 
   // Calculate tax after loan deductions
@@ -494,13 +496,13 @@ function calculateTax(income, principal, interest, age) {
 function updateDisplay() {
   const age = parseFloat(document.getElementById('age').textContent);
   const income = parseFloat(
-    document.getElementById('income').textContent.replace(/\D/g, '')
+    document.getElementById('income').textContent.replace(/\D/g, ''),
   );
   const principal = parseFloat(
-    document.getElementById('principal').textContent.replace(/\D/g, '')
+    document.getElementById('principal').textContent.replace(/\D/g, ''),
   );
   const interest = parseFloat(
-    document.getElementById('interest').textContent.replace(/\D/g, '')
+    document.getElementById('interest').textContent.replace(/\D/g, ''),
   );
 
   // Validation
@@ -509,55 +511,55 @@ function updateDisplay() {
   const incomeMin = parseFloat(document.getElementById('income').dataset.min);
   const incomeMax = parseFloat(document.getElementById('income').dataset.max);
   const principalMin = parseFloat(
-    document.getElementById('principal').dataset.min
+    document.getElementById('principal').dataset.min,
   );
   const principalMax = parseFloat(
-    document.getElementById('principal').dataset.max
+    document.getElementById('principal').dataset.max,
   );
   const interestMin = parseFloat(
-    document.getElementById('interest').dataset.min
+    document.getElementById('interest').dataset.min,
   );
   const interestMax = parseFloat(
-    document.getElementById('interest').dataset.max
+    document.getElementById('interest').dataset.max,
   );
 
   validateAndShowError(
     age,
     ageMin,
     ageMax,
-    document.getElementById('ageError')
+    document.getElementById('ageError'),
   );
   validateAndShowError(
     income,
     incomeMin,
     incomeMax,
-    document.getElementById('incomeError')
+    document.getElementById('incomeError'),
   );
   validateAndShowError(
     principal,
     principalMin,
     principalMax,
-    document.getElementById('principalError')
+    document.getElementById('principalError'),
   );
   validateAndShowError(
     interest,
     interestMin,
     interestMax,
-    document.getElementById('interestError')
+    document.getElementById('interestError'),
   );
   // Calculate taxes
   const { taxBefore, taxAfter, taxBenefits } = calculateTax(
-    income, principal, interest, age
+    income, principal, interest, age,
   );
 
   document.getElementById(
-    'taxBefore'
+    'taxBefore',
   ).textContent = `₹ ${formatNumberToIndianCommas(taxBefore)}`;
   document.getElementById(
-    'taxAfter'
+    'taxAfter',
   ).textContent = `₹ ${formatNumberToIndianCommas(taxAfter)}`;
   document.getElementById(
-    'taxBenefits'
+    'taxBenefits',
   ).textContent = `₹ ${formatNumberToIndianCommas(taxBenefits)}`;
 }
 
