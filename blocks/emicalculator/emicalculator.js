@@ -186,6 +186,7 @@ function initialize(block) {
     const apply_now_label = getDataAttributeValueByName('apply-now-label');
     const monthly_emi_label = getDataAttributeValueByName('monthly-emi-label');
     const redirectionApplyPath = getDataAttributeValueByName('redirection-path-emi');
+    const applyRedirectionPath = redirectionApplyPath.split('?')[0];
     const amountDetail = createElement('div', {},
         createElement('div', { class: 'detail' },
             //createElement('div', { style: 'color: #3b3b3b; font-size:16px;font-weight:400' }, laonamount_title),
@@ -367,12 +368,11 @@ function initialize(block) {
     var mobileApplyButton = block.querySelector('#apply-btn-mobile');
 
     desktopApplyButton.addEventListener('click', () => {
-        window.location.href = redirectionApplyPath;
+        window.location.href = applyRedirectionPath;
     })
     mobileApplyButton.addEventListener('click', () => {
-        window.location.href = redirectionApplyPath;
+        window.location.href = applyRedirectionPath;
     })
-
 
     loan_amt_slider.addEventListener("change", (self) => {
         // loan_amt_text.value = formatNumberWithCommas(self.target.value);
