@@ -1,7 +1,7 @@
 import { createForm, generatePayload } from '../form/form.js';
 import { validateMobileNumber, validateEmail, restrictPhoneNumberInputs } from '../form/inputFieldsValidation.js';
 
-//const formSheetUrl = getDataAttributeValueByName('sheeturl');
+  //const formSheetUrl = getDataAttributeValueByName('sheeturl');
 
 export default async function decorate(block) {
   const formLink = block.querySelector('a[href$=".json"]');
@@ -14,7 +14,8 @@ export default async function decorate(block) {
   const nriMobileNumberDiv = block.querySelector('#nriMobileNumber');
   const indianOtpMessage = block.querySelector('#indianOtpMessage');
   const nriOtpMessage = block.querySelector('#nriOtpMessage');
-  if (indianResidentRadio && nonResidentIndianRadio && indianMobileNumberDiv && nriMobileNumberDiv && indianOtpMessage && nriOtpMessage) {
+  if (indianResidentRadio && nonResidentIndianRadio
+     && indianMobileNumberDiv && nriMobileNumberDiv && indianOtpMessage && nriOtpMessage) {
     // Select the first radio button by default
     indianResidentRadio.checked = true;
     // Add checked class to the corresponding label
