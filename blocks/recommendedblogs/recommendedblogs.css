@@ -1,6 +1,13 @@
 .section.recommendedblogs-container {
     padding: unset;
 }
+@media(min-width:1199px){
+    .section.recommendedblogs-container {
+        padding: unset;
+        padding-bottom: 10px;
+        background-color: #f2f2f2;
+    }
+}
 
 @media (max-width: 600px) {
     .section.recommendedblogs-container {
