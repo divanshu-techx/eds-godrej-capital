@@ -52,16 +52,16 @@ function getMetaData(metadata) {
     'principal-min-annual',
   );
   metadata.principalMaxAnnual = getDataAttributeValueByName(
-    'principal-max-annual'
+    'principal-max-annual',
   );
   metadata.interestTitleAnnual = getDataAttributeValueByName(
-    'interest-title-annual'
+    'interest-title-annual',
   );
   metadata.interestMinAnnual = getDataAttributeValueByName(
-    'interest-min-annual'
+    'interest-min-annual',
   );
   metadata.interestMaxAnnual = getDataAttributeValueByName(
-    'interest-max-annual'
+    'interest-max-annual',
   );
   metadata.yearSymbol = getDataAttributeValueByName('year-symbol');
   metadata.rupeeSymbolHindi = getDataAttributeValueByName('rupee-symbol-hindi');
@@ -69,17 +69,17 @@ function getMetaData(metadata) {
   metadata.percentSymbol = getDataAttributeValueByName('percent-symbol');
   metadata.applyNowLabel = getDataAttributeValueByName('apply-now-label');
   metadata.incomeTaxBenifitLabel = getDataAttributeValueByName(
-    'income-tax-benefits-label'
+    'income-tax-benefits-label',
   );
   metadata.incomeTaxAfterLabel = getDataAttributeValueByName(
-    'income-tax-after-label'
+    'income-tax-after-label',
   );
   metadata.incomeTaxBeforeLabel = getDataAttributeValueByName(
-    'income-tax-before-label'
+    'income-tax-before-label',
   );
   metadata.cessTaxRate = getDataAttributeValueByName('cess-rate');
   metadata.redirectionPath = getDataAttributeValueByName(
-    'redirection-path-tax-saving'
+    'redirection-path-tax-saving',
   );
   // Optionally, return the metadata object
   return metadata;
@@ -100,25 +100,23 @@ function getHtmlData(newMetaData) {
             <div class="inputBoxTaxSavingLabel">
                 <label for="age">${newMetaData.ageTitle}</label>
                 <div class="tax_saving_input_label">
-                <span id="inputLabel_tax_saving">${newMetaData.yearSymbol
-    }</span>
-                <span id="age"  class="inputSpan_tax_saving" contenteditable="true" data-min="${newMetaData.ageMin
-    }" data-max="${newMetaData.ageMax}" onblur="updateDisplay()">${newMetaData.ageMin
-    }</span>
+                <span id="inputLabel_tax_saving">${newMetaData.yearSymbol}</span>
+                <span id="age"  class="inputSpan_tax_saving" contenteditable="true" data-min="${newMetaData.ageMin}" 
+                data-max="${newMetaData.ageMax}" onblur="updateDisplay()">${newMetaData.ageMin}
+                </span>
                 </div>
             </div>
             <div class="inputBoxTaxSavingRange">
-            <input type="range" id="ageRange" min="${newMetaData.ageMin
-    }" max="${newMetaData.ageMax}" value="${newMetaData.ageMin
-    }" oninput="updateRange('age')">
+            <input type="range" id="ageRange" min="${newMetaData.ageMin}" 
+            max="${newMetaData.ageMax}" value="${newMetaData.ageMin}" oninput="updateRange('age')">
             <div class="inputBoxTaxSavingBottom">
                 <span>${newMetaData.ageMin}Year</span>
                 <span>${newMetaData.ageMax}Years</span>
             </div>
             </div>
             <div class="errorMsg_tax_saving">
-                <p id="ageError" class="error_text" style="display: none;">Value must be between ${newMetaData.ageMin
-    } and ${newMetaData.ageMax}</p>
+                <p id="ageError" class="error_text" style="display: none;">Value must be between ${newMetaData.ageMin}
+                 and ${newMetaData.ageMax}</p>
             </div>
          </div>
 
@@ -127,53 +125,46 @@ function getHtmlData(newMetaData) {
                 <label for="income">${newMetaData.totalTextTitle}</label>
                 <div class="tax_saving_input_label">
                 <span id="total_tax_label">${newMetaData.rupeeSymbolEng}</span>
-                <span id="income" class="inputSpan_tax_saving" contenteditable="true" data-min="${newMetaData.totalTaxMin
-    }" data-max="${newMetaData.totalTaxMax
-    }" onblur="updateDisplay()">${formatNumberToIndianCommas(
-      newMetaData.totalTaxMin
-    )}</span>
+                <span id="income" class="inputSpan_tax_saving" contenteditable="true" data-min="${newMetaData.totalTaxMin}"
+                data-max="${newMetaData.totalTaxMax}" onblur="updateDisplay()">
+                ${formatNumberToIndianCommas(newMetaData.totalTaxMin)}
+                </span>
             </div>
             </div>
             <div class="inputBoxTaxSavingRange">
-            <input type="range" id="incomeRange" min="${newMetaData.totalTaxMin
-    }" max="${newMetaData.totalTaxMax}" value="${newMetaData.totalTaxMin
-    }"  oninput="updateRange('income')">
+            <input type="range" id="incomeRange" min="${newMetaData.totalTaxMin}"
+            max="${newMetaData.totalTaxMax}" value="${newMetaData.totalTaxMin}"
+              oninput="updateRange('income')">
             <div class="inputBoxTaxSavingBottom">
                 <span>${numberToWords(newMetaData.totalTaxMin)}</span>
                 <span>${numberToWords(newMetaData.totalTaxMax)}</span>
             </div>
             </div>
             <div class="errorMsg_tax_saving">
-                <p id="incomeError" class="error_text" style="display: none;">Value must be between ${newMetaData.totalTaxMin
-    } and ${newMetaData.totalTaxMax}</p>
+                <p id="incomeError" class="error_text" style="display: none;">Value must be between ${newMetaData.totalTaxMin} and ${newMetaData.totalTaxMax}</p>
             </div>
             </div>
             <div class="inputTaxSaving">
             <div class="inputBoxTaxSavingLabel">
-                <label for="principal">${newMetaData.principalTitleAnnual
-    }</label>
+                <label for="principal">${newMetaData.principalTitleAnnual}</label>
                 <div class="tax_saving_input_label">
-                <span id="tax_saving_principal_label">${newMetaData.rupeeSymbolEng
-    }</span>
-                <span id="principal" class="inputSpan_tax_saving" contenteditable="true" data-min="${newMetaData.principalMinAnnual
-    }" data-max="${newMetaData.principalMaxAnnual
-    }" onblur="updateDisplay()">${formatNumberToIndianCommas(
-      newMetaData.principalMinAnnual
-    )}</span>
+                <span id="tax_saving_principal_label">${newMetaData.rupeeSymbolEng}</span>
+                <span id="principal" class="inputSpan_tax_saving" contenteditable="true" data-min="${newMetaData.principalMinAnnual}"
+                 data-max="${newMetaData.principalMaxAnnual}" onblur="updateDisplay()">
+                 ${formatNumberToIndianCommas(newMetaData.principalMinAnnual)}</span>
                 </div>
             </div>
             <div class="inputBoxTaxSavingRange">
-            <input type="range" id="principalRange" min="${newMetaData.principalMinAnnual
-    }" max="${newMetaData.principalMaxAnnual}" value="${newMetaData.principalMinAnnual
-    }"  oninput="updateRange('principal')">
+            <input type="range" id="principalRange" min="${newMetaData.principalMinAnnual}" max="${newMetaData.principalMaxAnnual}" value="${newMetaData.principalMinAnnual}"
+              oninput="updateRange('principal')">
             <div class="inputBoxTaxSavingBottom">
                 <span>${numberToWords(newMetaData.principalMinAnnual)}</span>
                 <span>${numberToWords(newMetaData.principalMaxAnnual)}</span>
             </div>
             </div>
             <div class="errorMsg_tax_saving">
-                <p id="principalError" class="error_text" style="display: none;">Value must be between ${newMetaData.principalMinAnnual
-    } and ${newMetaData.principalMaxAnnual}</p>
+                <p id="principalError" class="error_text" style="display: none;">Value must be between ${newMetaData.principalMinAnnual}
+     and ${newMetaData.principalMaxAnnual}</p>
             </div>
 
             </div>
@@ -183,25 +174,24 @@ function getHtmlData(newMetaData) {
                 <label for="interest">${newMetaData.interestTitleAnnual}</label>
                 <div class="tax_saving_input_label">
                  <span id="interest_tax_label">${newMetaData.yearSymbol}</span>
-                <span id="interest" class="inputSpan_tax_saving" contenteditable="true" data-min="${newMetaData.interestMinAnnual
-    }" data-max="${newMetaData.interestMaxAnnual
-    }" onblur="updateDisplay()">${formatNumberToIndianCommas(
-      newMetaData.interestMinAnnual
-    )}</span>
+                <span id="interest" class="inputSpan_tax_saving" contenteditable="true" data-min="${newMetaData.interestMinAnnual}"
+                 data-max="${newMetaData.interestMaxAnnual}"
+                onblur="updateDisplay()">${formatNumberToIndianCommas(newMetaData.interestMinAnnual)}
+                </span>
             </div>
             </div>
             <div class="inputBoxTaxSavingRange">
-            <input type="range" id="interestRange" min="${newMetaData.interestMinAnnual
-    }" max="${newMetaData.interestMaxAnnual}" value="${newMetaData.interestMinAnnual
-    }"  oninput="updateRange('interest')">
+            <input type="range" id="interestRange" min="${newMetaData.interestMinAnnual}"
+             max="${newMetaData.interestMaxAnnual}" value="${newMetaData.interestMinAnnual}"
+               oninput="updateRange('interest')">
             <div class="inputBoxTaxSavingBottom">
                 <span>${numberToWords(newMetaData.interestMinAnnual)}</span>
                 <span>${numberToWords(newMetaData.interestMaxAnnual)}</span>
             </div>
             </div>
             <div class="errorMsg_tax_saving">
-                <p id="interestError" class="error_text" style="display: none;">Value must be between ${newMetaData.interestMinAnnual
-    } and ${newMetaData.interestMaxAnnual}</p>
+                <p id="interestError" class="error_text" style="display: none;">Value must be between ${newMetaData.interestMinAnnual}
+     and ${newMetaData.interestMaxAnnual}</p>
             </div>
 
             </div>
@@ -239,8 +229,8 @@ function getHtmlData(newMetaData) {
             </div>
             
             <div class="result_tax_cess_result">
-                <div class="cessRate">Income Tax Payable Includes ${newMetaData.cessTaxRate
-    }${newMetaData.percentSymbol} Cess.</div>
+                <div class="cessRate">Income Tax Payable Includes ${newMetaData.cessTaxRate}
+    ${newMetaData.percentSymbol} Cess.</div>
             </div>  
             <div class="result_tax_saving_next">
                 <div class="result_tax_other_result">
