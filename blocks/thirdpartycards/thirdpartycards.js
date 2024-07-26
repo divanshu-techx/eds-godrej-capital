@@ -24,7 +24,6 @@ export default async function decorate(block) {
     });
   });
 
-
   // Adding a container class to manage the flex layout
   block.classList.add('third-party-cards-container');
 }
