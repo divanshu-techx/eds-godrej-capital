@@ -1,3 +1,12 @@
+function getDataAttributeValueByName(name) {
+    const element = document.querySelector(`[data-${name}]`);
+    return element ? element.getAttribute(`data-${name}`) : "";
+}
+function getMetaTagsContentValueByName(name) {
+    const el = document.querySelector(`meta[property="og:${name}"]`);
+    return el ? el.getAttribute('content') : '';
+}
+console.log(getMetaTagsContentValueByName('title'))
 import { createForm, generatePayload, handleSubmitError } from '../../blocks/form/form.js';
 import { sampleRUM } from '../../scripts/aem.js';
 import { getDataAttributes } from '../utils/common.js';
@@ -6,17 +15,17 @@ const VALIDATION_DATA = [
     {
         fieldName: "FullName",
         regexPattern: /^[A-Za-z\s]+$/,
-        validationMessage: "Please enter a valid name"
+        validationMessage: getDataAttributeValueByName('namevalidationerrormessage')
     },
     {
         fieldName: "EnterEmail",
         regexPattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-        validationMessage: "Please enter a valid email address"
+        validationMessage: getDataAttributeValueByName('emailvalidationerrormessage')
     },
     {
         fieldName: "Mobile",
         regexPattern: /^[6789]\d{9}$/,
-        validationMessage: "Please enter a valid mobile number"
+        validationMessage: getDataAttributeValueByName('mobilevalidationerrormessage')
     }
 ];
 
@@ -27,7 +36,7 @@ export function ApiCall(METHOD, url, data) {
             method: METHOD,
             headers: {
                 'Content-Type': 'application/json',
-                'auth-key': '9K43LtTEGpqmhAYgN10MPzqASvRmUKLk',
+                'auth-key': getDataAttributeValueByName('authkey'),
             },
             body: JSON.stringify(data),
         })
@@ -59,30 +68,38 @@ export function toggleResendOTPClass(active) {
 export function startTimer() {
     let seconds = 30;
     const otpConfirmationParagraph = document.getElementById('form-message2');
+    let otpSeconds = document.getElementById('otp-seconds');
+
+    // Check if the span element already exists, if not create and append it
+    if (!otpSeconds) {
+        otpSeconds = document.createElement('span');
+        otpSeconds.id = 'otp-seconds';
+        otpConfirmationParagraph.appendChild(otpSeconds);
+    }
 
     // Initially add inactive class
     toggleResendOTPClass(false);
 
     const intervalId = setInterval(() => {
         seconds -= 1;
-        otpConfirmationParagraph.textContent = `Didn't receive any OTP? ${seconds} Seconds`;
+        otpSeconds.textContent = ` ${seconds} Seconds`;
 
         if (seconds === 0) {
             clearInterval(intervalId);
             toggleResendOTPClass(true); // Add active class
         }
     }, 1000);
+
+    // Initial text content
+    otpConfirmationParagraph.textContent = "Didn't receive any OTP?";
+    otpConfirmationParagraph.appendChild(otpSeconds);
 }
+
 // Function to resend OTP
 export function resendOTP() {
     const seconds = 30;
     const otpConfirmationParagraph = document.getElementById('form-message2');
     otpConfirmationParagraph.textContent = `Didn't receive any OTP? ${seconds} Seconds`;
-
-    // Code to resend OTP goes here
-    console.log('Resending OTP...');
-
-    // Reset the timer and restart it
     startTimer();
 }
 
@@ -108,11 +125,11 @@ export function generateOtpPayload(formPayload) {
         name: formPayload.FullName,
         username: formPayload.Mobile,
         email: formPayload.Email,
-        outSource: 'GodrejCapitalWebsite',
+        outSource: getDataAttributeValueByName('outsource'),
         pageUrl: 'https://www.godrejcapital.com/apply-now.html',
-        pageTitle: 'Apply Now',
+        pageTitle: getMetaTagsContentValueByName('title'),
         mx_Refferral_URL: '',
-        mx_Refferal_Type: 'direct',
+        mx_Refferal_Type: getDataAttributeValueByName('mx-refferal-type'),
     };
     return customPayload;
 }
@@ -123,11 +140,11 @@ export function generateVerifyOtpPayload(formPayload) {
         name: formPayload.FullName,
         username: formPayload.Mobile,
         email: formPayload.Email,
-        outSource: 'GodrejCapitalWebsite',
+        outSource: getDataAttributeValueByName('outsource'),
         pageUrl: 'https://www.godrejcapital.com/apply-now.html#HomeLoan',
-        pageTitle: 'Apply Now',
+        pageTitle: getMetaTagsContentValueByName('title'),
         mx_Refferral_URL: '',
-        mx_Refferal_Type: 'direct',
+        mx_Refferal_Type: getDataAttributeValueByName('mx-refferal-type'),
         utmSource: null,
         utmMedium: null,
         utmCampaign: null,
@@ -137,16 +154,30 @@ export function generateVerifyOtpPayload(formPayload) {
     return customPayload;
 }
 
-export async function handleVerify(payload, userMobileNumber) {
+export async function handleVerify(payload, userMobileNumber, block) {
     if (userMobileNumber) {
         try {
             const response = await ApiCall(
                 'POST',
-                `https://h9qipagt5.godrejfinance.com/v1/ehf/outsources/validateotp/${userMobileNumber}/${retrieveOTP()}`,
+                `${getDataAttributeValueByName('validateotpapiurl')}/${userMobileNumber}/${retrieveOTP()}`,
                 payload,
             );
             if (response.status) {
-                window.location.href = '/apply-now-form/thankyou';
+                window.location.href = getDataAttributeValueByName('thankupageurl');
+            } else if (response.status == false) {
+                const existingErrorMessage = block.querySelector('#error-message');
+                if (existingErrorMessage) {
+                    existingErrorMessage.remove();
+                }
+
+                const errorMessage = document.createElement('div');
+                errorMessage.id = 'error-message';
+                errorMessage.className = 'error-message';
+                errorMessage.textContent = getDataAttributeValueByName('wrongotpvalidationerrormessage')
+
+                // Append the error message to the fieldset
+                const formBox = block.querySelector('#form-box');
+                formBox.parentNode.insertBefore(errorMessage, formBox.nextSibling);
             } else {
                 // Handle unsuccessful validation
                 console.error('OTP validation failed:', response);
@@ -239,7 +270,7 @@ async function handleSubmit(form) {
         const loanTypeFieldset = form.querySelector('#loanTypeFieldset');
 
         if (!validateCheckboxes(form)) {
-            showError(loanTypeFieldset, 'Please select at least one loan type.');
+            showError(loanTypeFieldset, getDataAttributeValueByName('loantypevalidationerrormessage'));
             submit.disabled = false;
             form.setAttribute('data-submitting', 'false');
             return;
@@ -288,11 +319,11 @@ async function handleSubmit(form) {
 
         startTimer();
 
-        ApiCall('POST', 'https://h9qipagt5.godrejfinance.com/v1/ehf/outsources/generateotp', generateOtpPayload(payload));
+        ApiCall('POST', getDataAttributeValueByName('generateotpapiurl'), generateOtpPayload(payload));
         document.getElementById('form-message3').addEventListener('click', () => {
             const element = document.getElementById('form-message3');
             if (element.classList.contains('active')) {
-                ApiCall('POST', 'https://h9qipagt5.godrejfinance.com/v1/ehf/outsources/generateotp', generateOtpPayload(payload));
+                ApiCall('POST', getDataAttributeValueByName('generateotpapiurl'), generateOtpPayload(payload));
                 resendOTP();
             } else {
                 console.log('The element does not have the class "active".');
@@ -439,8 +470,8 @@ export default async function decorate(block) {
             // Create a new error message
             const errorMessage = document.createElement('div');
             errorMessage.id = 'error-message';
-            errorMessage.className = 'error';
-            errorMessage.textContent = 'Please enter the valid OTP';
+            errorMessage.className = 'error-message';
+            errorMessage.textContent = getDataAttributeValueByName('emptyotpfieldvalidationmessage');
 
             // Append the error message to the fieldset
             const formBox = document.getElementById('form-box');
@@ -458,7 +489,7 @@ export default async function decorate(block) {
         if (validateForm()) {
             const payload = generatePayload(form);
             if (payload) {
-                handleVerify(generateVerifyOtpPayload(payload), payload.Mobile);
+                handleVerify(generateVerifyOtpPayload(payload), payload.Mobile, block);
             } else {
                 console.error('error payload is not retrived');
             }
@@ -504,7 +535,7 @@ function validateFormInput(rules, block) {
     if (!isChecked) {
         const errorDiv = document.createElement('div');
         errorDiv.className = 'error-message';
-        errorDiv.textContent = 'please check the products you intrested';
+        errorDiv.textContent = getDataAttributeValueByName('loantypevalidationerrormessage');
         checboxes[0].parentNode.parentNode.appendChild(errorDiv)
 
     }
@@ -525,9 +556,9 @@ function disableSubmitUntilFillForm(block) {
     };
 
     const errorMessages = {
-        text: 'Please enter valid text.',
-        tel: 'Please enter a valid 10-digit phone number.',
-        email: 'Please enter a valid email address.'
+        text: getDataAttributeValueByName('namevalidationerrormessage'),
+        tel: getDataAttributeValueByName('mobilevalidationerrormessage'),
+        email: getDataAttributeValueByName('emailvalidationerrormessage')
     };
 
     function createErrorElement(input) {
