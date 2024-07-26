@@ -68,7 +68,6 @@ export default async function tabsblock() {
           updateCarousel();
         }
       });
-
       window.addEventListener('resize', () => {
         if (window.innerWidth > 600) {
           carousel.style.transform = 'translateX(0)';
@@ -76,7 +75,6 @@ export default async function tabsblock() {
           updateCarousel();
         }
       });
-
       // Initialize display
       updateCarousel();
     });
@@ -174,7 +172,6 @@ export default async function tabsblock() {
           }
         });
       });
-
       document.querySelectorAll('.section[data-tab-title]').forEach((section) => {
         observer.observe(section, { attributes: true });
       });
