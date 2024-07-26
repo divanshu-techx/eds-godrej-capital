@@ -8,7 +8,6 @@ export default async function decorate(block) {
     const picture = div.querySelector('picture');
 
     if (link && picture) {
-
       const pictureLink = document.createElement('a');
       pictureLink.href = link.href;
       pictureLink.title = link.title;
