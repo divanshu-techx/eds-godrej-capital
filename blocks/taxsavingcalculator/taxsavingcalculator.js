@@ -46,10 +46,10 @@ function getMetaData(metadata) {
   metadata.totalTaxMin = getDataAttributeValueByName('total-tax-min');
   metadata.totalTaxMax = getDataAttributeValueByName('total-tax-max');
   metadata.principalTitleAnnual = getDataAttributeValueByName(
-  'principal-title-annual'
+    'principal-title-annual',
   );
   metadata.principalMinAnnual = getDataAttributeValueByName(
-    'principal-min-annual'
+    'principal-min-annual',
   );
   metadata.principalMaxAnnual = getDataAttributeValueByName(
     'principal-max-annual'
