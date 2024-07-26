@@ -254,7 +254,7 @@ function initializeEventListeners(block) {
 
   block.querySelector('#income').addEventListener('blur', function () {
     const value = parseFloat(this.textContent.replace(/\D/g, ''));
-    const incomeRange = block.querySelector("#incomeRange");
+    const incomeRange = block.querySelector('#incomeRange');
     incomeRange.value = isNaN(value)
       ? incomeRange.min
       : Math.min(Math.max(value, incomeRange.min), incomeRange.max);
@@ -418,7 +418,7 @@ function initializeEventListeners(block) {
 
 
 function calculateTax(income, principal, interest, age) {
-  const cessRate = parseFloat(getDataAttributeValueByName("cess-rate")) / 100;
+  const cessRate = parseFloat(getDataAttributeValueByName('cess-rate')) / 100;
   const principalDeductionLimit = 150000;
   const interestDeductionLimit = 200000;
 
@@ -520,9 +520,6 @@ function updateDisplay() {
   const interestMax = parseFloat(
     document.getElementById('interest').dataset.max
   );
-
-  const monthMin = parseFloat(document.getElementById("month").dataset.min);
-  const monthMax = parseFloat(document.getElementById("month").dataset.max);
 
   validateAndShowError(
     age,
