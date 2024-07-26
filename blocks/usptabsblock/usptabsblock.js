@@ -2,72 +2,6 @@ export default async function tabsblock() {
   const mainElement = document.querySelector('main');
   const tabsheading = mainElement.querySelector('.tabsheading');
   let tabsCreated = false;
-  function createTabs() {
-    const sections = document.querySelectorAll('.section[data-tab-title][data-section-status="loaded"]');
-    if (sections.length === 0) {
-      console.warn('No sections with data-tab-title and data-section-status="loaded" found.');
-      return;
-    }
-    const tabContainer = document.createElement('div');
-    tabContainer.classList.add('custom-tabs-container', 'section');
-    const tabsWrapper = document.createElement('div');
-    tabsWrapper.classList.add('custom-tabs-wrapper');
-    const contentContainer = document.createElement('div');
-    contentContainer.classList.add('custom-tabs-content');
-    let activeTabIndex = 0;
-    sections.forEach((section, index) => {
-      section.style.display = '';
-      const tabTitle = section.dataset.tabTitle;
-      const tab = document.createElement('button');
-      tab.classList.add('custom-tab');
-      tab.textContent = tabTitle;
-      tab.dataset.index = index;
-      if (index === activeTabIndex) {
-        tab.classList.add('active');
-      }
-      const content = document.createElement('div');
-      content.classList.add('custom-tab-content');
-      const cardsContainer = document.createElement('div');
-      cardsContainer.classList.add('cards-container-wrapper');
-      const leftContentDivs = section.querySelectorAll('.leftcontentusploan-wrapper');
-      leftContentDivs.forEach((div) => {
-        cardsContainer.appendChild(div);
-      });
-      section.appendChild(cardsContainer);
-      content.appendChild(section);
-      if (index !== activeTabIndex) {
-        content.style.display = 'none';
-      }
-      tabsWrapper.appendChild(tab);
-      contentContainer.appendChild(content);
-    });
-    tabContainer.appendChild(tabsWrapper);
-    tabContainer.appendChild(contentContainer);
-    const main = document.querySelector('main');
-    const sectionsToRemove = main.querySelectorAll('.section[data-tab-title]');
-    sectionsToRemove.forEach(section => {
-      section.parentNode.removeChild(section);
-    });
-    if (tabsheading) {
-      tabsheading.insertAdjacentElement('afterend', tabContainer);
-    } else {
-      main.appendChild(tabContainer);
-    }
-    tabsWrapper.addEventListener('click', (event) => {
-      if (event.target.classList.contains('custom-tab')) {
-        const tabIndex = event.target.dataset.index;
-        tabsWrapper.querySelectorAll('.custom-tab').forEach(tab => {
-          tab.classList.remove('active');
-        });
-        contentContainer.querySelectorAll('.custom-tab-content').forEach((content) => {
-          content.style.display = 'none';
-        });
-        event.target.classList.add('active');
-        contentContainer.querySelectorAll('.custom-tab-content')[tabIndex].style.display = 'block';
-      }
-    });
-    setupCarouselNavigation();
-  }
   // ------------------------------------------------------------------------------
   function setupCarouselNavigation() {
     const carousels = document.querySelectorAll('.cards-container-wrapper');
@@ -147,12 +81,78 @@ export default async function tabsblock() {
       updateCarousel();
     });
   }
+  function createTabs() {
+    const sections = document.querySelectorAll('.section[data-tab-title][data-section-status="loaded"]');
+    if (sections.length === 0) {
+      console.warn('No sections with data-tab-title and data-section-status="loaded" found.');
+      return;
+    }
+    const tabContainer = document.createElement('div');
+    tabContainer.classList.add('custom-tabs-container', 'section');
+    const tabsWrapper = document.createElement('div');
+    tabsWrapper.classList.add('custom-tabs-wrapper');
+    const contentContainer = document.createElement('div');
+    contentContainer.classList.add('custom-tabs-content');
+    const activeTabIndex = 0;
+    sections.forEach((section, index) => {
+      section.style.display = '';
+      const tabTitle = section.dataset.tabTitle;
+      const tab = document.createElement('button');
+      tab.classList.add('custom-tab');
+      tab.textContent = tabTitle;
+      tab.dataset.index = index;
+      if (index === activeTabIndex) {
+        tab.classList.add('active');
+      }
+      const content = document.createElement('div');
+      content.classList.add('custom-tab-content');
+      const cardsContainer = document.createElement('div');
+      cardsContainer.classList.add('cards-container-wrapper');
+      const leftContentDivs = section.querySelectorAll('.leftcontentusploan-wrapper');
+      leftContentDivs.forEach((div) => {
+        cardsContainer.appendChild(div);
+      });
+      section.appendChild(cardsContainer);
+      content.appendChild(section);
+      if (index !== activeTabIndex) {
+        content.style.display = 'none';
+      }
+      tabsWrapper.appendChild(tab);
+      contentContainer.appendChild(content);
+    });
+    tabContainer.appendChild(tabsWrapper);
+    tabContainer.appendChild(contentContainer);
+    const main = document.querySelector('main');
+    const sectionsToRemove = main.querySelectorAll('.section[data-tab-title]');
+    sectionsToRemove.forEach((section) => {
+      section.parentNode.removeChild(section);
+    });
+    if (tabsheading) {
+      tabsheading.insertAdjacentElement('afterend', tabContainer);
+    } else {
+      main.appendChild(tabContainer);
+    }
+    tabsWrapper.addEventListener('click', (event) => {
+      if (event.target.classList.contains('custom-tab')) {
+        const tabIndex = event.target.dataset.index;
+        tabsWrapper.querySelectorAll('.custom-tab').forEach((tab) => {
+          tab.classList.remove('active');
+        });
+        contentContainer.querySelectorAll('.custom-tab-content').forEach((content) => {
+          content.style.display = 'none';
+        });
+        event.target.classList.add('active');
+        contentContainer.querySelectorAll('.custom-tab-content')[tabIndex].style.display = 'block';
+      }
+    });
+    setupCarouselNavigation();
+  }
   // Call the function to setup the carousel navigation
   setupCarouselNavigation();
   // --------------------------------------------------------  
   function checkSectionStatus() {
     const sections = document.querySelectorAll('.section[data-tab-title]');
-    return Array.from(sections).every(section => section.getAttribute('data-section-status') === 'loaded');
+    return Array.from(sections).every((section) => section.getAttribute('data-section-status') === 'loaded');
   }
   function waitForSections() {
     if (checkSectionStatus()) {
