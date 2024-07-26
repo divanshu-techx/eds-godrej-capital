@@ -1,7 +1,7 @@
 import { createForm, generatePayload } from '../form/form.js';
 import { validateMobileNumber, validateEmail, restrictPhoneNumberInputs } from '../form/inputFieldsValidation.js';
 
-  //const formSheetUrl = getDataAttributeValueByName('sheeturl');
+// const formSheetUrl = getDataAttributeValueByName('sheeturl');
 
 export default async function decorate(block) {
   const formLink = block.querySelector('a[href$=".json"]');
@@ -68,7 +68,7 @@ export default async function decorate(block) {
     }
 
     function addCheckedClass(radio) {
-      block.querySelectorAll('.radio-wrapper label').forEach(label => label.classList.remove('checked'));
+      block.querySelectorAll('.radio-wrapper label').forEach((label) => label.classList.remove('checked'));
       const label = block.querySelector(`label[for="${radio.id}"]`);
       if (label) {
         label.classList.add('checked');
@@ -80,8 +80,8 @@ export default async function decorate(block) {
 function toggleFormVisibility(hideSelector, showSelector, block) {
   const hideElements = block.querySelectorAll(hideSelector);
   const showElements = block.querySelectorAll(showSelector);
-  hideElements.forEach(el => el.style.display = 'none');
-  showElements.forEach(el => el.style.display = 'block');
+  hideElements.forEach((el) => el.style.display = 'none');
+  showElements.forEach((el) => el.style.display = 'block');
 }
 
 // // Get data attribute value by name
