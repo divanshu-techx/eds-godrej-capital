@@ -121,7 +121,7 @@ function addSwipeCapability(block) {
       touchStartX = e.changedTouches[0].screenX;
       touchStartY = e.changedTouches[0].screenY;
     },
-    { passive: true, }
+    { passive: true },
   );
 
   block.addEventListener(
@@ -144,7 +144,7 @@ function addSwipeCapability(block) {
         rightSwip.click();
       }
     },
-    { passive: true, }
+    { passive: true },
   );
 }
 
