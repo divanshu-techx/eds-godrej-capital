@@ -46,31 +46,41 @@ function getMetaData(metadata) {
   metadata.totalTaxMin = getDataAttributeValueByName('total-tax-min');
   metadata.totalTaxMax = getDataAttributeValueByName('total-tax-max');
   metadata.principalTitleAnnual = getDataAttributeValueByName(
-    'principal-title-annual');
+    'principal-title-annual'
+  );
   metadata.principalMinAnnual = getDataAttributeValueByName(
-    'principal-min-annual');
+    'principal-min-annual'
+  );
   metadata.principalMaxAnnual = getDataAttributeValueByName(
-    'principal-max-annual');
+    'principal-max-annual'
+  );
   metadata.interestTitleAnnual = getDataAttributeValueByName(
-    'interest-title-annual');
+    'interest-title-annual'
+  );
   metadata.interestMinAnnual = getDataAttributeValueByName(
-    'interest-min-annual');
+    'interest-min-annual'
+  );
   metadata.interestMaxAnnual = getDataAttributeValueByName(
-    'interest-max-annual');
+    'interest-max-annual'
+  );
   metadata.yearSymbol = getDataAttributeValueByName('year-symbol');
   metadata.rupeeSymbolHindi = getDataAttributeValueByName('rupee-symbol-hindi');
   metadata.rupeeSymbolEng = getDataAttributeValueByName('rupee-symbol-eng');
   metadata.percentSymbol = getDataAttributeValueByName('percent-symbol');
   metadata.applyNowLabel = getDataAttributeValueByName('apply-now-label');
   metadata.incomeTaxBenifitLabel = getDataAttributeValueByName(
-    'income-tax-benefits-label');
+    'income-tax-benefits-label'
+  );
   metadata.incomeTaxAfterLabel = getDataAttributeValueByName(
-    'income-tax-after-label');
+    'income-tax-after-label'
+  );
   metadata.incomeTaxBeforeLabel = getDataAttributeValueByName(
-    'income-tax-before-label');
+    'income-tax-before-label'
+  );
   metadata.cessTaxRate = getDataAttributeValueByName('cess-rate');
   metadata.redirectionPath = getDataAttributeValueByName(
-    'redirection-path-tax-saving');
+    'redirection-path-tax-saving'
+  );
   // Optionally, return the metadata object
   return metadata;
 }
