@@ -60,7 +60,7 @@ function createFilter(categories, block) {
 
     const sortByLabel = getDataAttributeValueByName('sortByLabel');
     const sortByLabelDropDownLabel = getDataAttributeValueByName('sortByLabelDropDownLabel');
-
+    const searchIcon = getDataAttributeValueByName('searchicon');
     tabContainer.classList.add('media-gallery-filter');
     const tabsDiv = document.createElement('div');
     tabsDiv.classList.add('tabs-wrapper-media-gallery');
@@ -84,6 +84,12 @@ function createFilter(categories, block) {
 
     const searchDiv = document.createElement('div');
     searchDiv.classList.add('seach-input-media-gallery');
+    const searchIconImgTag = document.createElement('img');
+    searchIconImgTag.src = searchIcon;
+    searchIconImgTag.alt = 'search-icon';
+    searchIconImgTag.classList.add('search-icon-img');
+
+    searchDiv.append(searchIconImgTag)
     // Create a search input
     const searchInput = document.createElement('input');
     searchInput.type = 'text';
@@ -552,6 +558,13 @@ function updateNewCard(block, container, cardTitle, url) {
             currentIndex = (currentIndex - 1 + allChildDiv.length) % allChildDiv.length;
             pictuireNavList.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
             updateActiveElement(currentIndex);
+            console.log(currentIndex, allChildDiv.length)
+            if (currentIndex == 0) {
+                prevButton.disabled = true;
+            } else {
+                prevButton.disabled = false;
+            }
+            nextButton.disabled = false;
         }
     });
 
@@ -560,6 +573,12 @@ function updateNewCard(block, container, cardTitle, url) {
             currentIndex = (currentIndex + 1) % allChildDiv.length;
             pictuireNavList.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
             updateActiveElement(currentIndex);
+            if (currentIndex == allChildDiv.length - 1) {
+                nextButton.disabled = true;
+            } else {
+                nextButton.disabled = false;
+            }
+            prevButton.disabled = false;
         }
     });
 

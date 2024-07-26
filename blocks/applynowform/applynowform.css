@@ -401,6 +401,10 @@
     margin-bottom: 8px;
 }
 
+.verify-step.field-wrapper.fieldset-wrapper .error-message {
+    padding-top: 12px;
+}
+
 
 
 
@@ -666,4 +670,17 @@ fieldset#form-box .verify-step.field-wrapper.text-wrapper:has(input:not(:placeho
     -webkit-text-fill-color: #585858;
     -webkit-box-shadow: 0 0 0px 1000px #D4D4D499 inset;
     transition: background-color 5000s ease-in-out 0s;
+}
+
+.applynowform .verify-step .plaintext-wrapper #form-message2 {
+    font-family: Work Sans;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 16.42px;
+    color: #3B3B3B;
+}
+
+.applynowform .verify-step .plaintext-wrapper #form-message2 #otp-seconds {
+    font-weight: 500;
+
 }
