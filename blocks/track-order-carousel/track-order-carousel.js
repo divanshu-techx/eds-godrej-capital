@@ -10,7 +10,7 @@ let timer;
 function commonOnClick(block, newIndex) {
   const activeEles = block.querySelectorAll('.active');
   const newEles = block.querySelectorAll(`[index='${newIndex}']`);
-  const swiperWrapper = block.querySelector(".swiper-wrapper");
+  const swiperWrapper = block.querySelector('.swiper-wrapper');
   let activeEleWidth = null;
 
   newEles.forEach((newEle) => {
@@ -46,7 +46,7 @@ function getPrevOrNextSwip(swipType, block, totalLength) {
   swip.classList.add(`swip-${swipType}`);
 
   const prevSwipSpan = document.createElement('span');
-  prevSwipSpan.classList.add("icon", `icon-${swipType}`);
+  prevSwipSpan.classList.add('icon', `icon-${swipType}`);
 
   swip.appendChild(prevSwipSpan);
 
@@ -76,7 +76,7 @@ function getCarouselControl(block, totalLength) {
   pagination.classList.add(
     'swip-pagination',
     'swiper-pagination-clickable',
-    'swiper-pagination-bullets'
+    'swiper-pagination-bullets',
   );
 
   for (let index = 0; index < totalLength; index += 1) {
@@ -121,7 +121,7 @@ function addSwipeCapability(block) {
       touchStartX = e.changedTouches[0].screenX;
       touchStartY = e.changedTouches[0].screenY;
     },
-    { passive: true }
+    { passive: true, }
   );
 
   block.addEventListener(
@@ -144,7 +144,7 @@ function addSwipeCapability(block) {
         rightSwip.click();
       }
     },
-    { passive: true }
+    { passive: true, }
   );
 }
 
@@ -179,7 +179,7 @@ export default async function decorate(block) {
   const container = document.createElement('div');
   container.classList.add('carousel-items-container');
 
-  block.innerHTML = "";
+  block.innerHTML = '';
 
   container.appendChild(swiperWrapper);
   block.appendChild(container);
