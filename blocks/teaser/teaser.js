@@ -160,15 +160,16 @@ const convertAnchorToButton = (parent, selector, buttonClass) => {
   const element = parent.querySelector(selector);
   if (element) {
     const anchor = element.closest('a');
-    const button = createButton(anchor.innerText, anchor.href, buttonClass);
+    const button = createButton(anchor.innerText, anchor.href, buttonClass, anchor.getAttribute('data-gtm'));
     anchor.replaceWith(button);
   }
 };
 
-const createButton = (text, href, className) => {
+const createButton = (text, href, className, gtmValue) => {
   const button = document.createElement('button');
   button.innerText = text;
   button.className = className;
+  button.setAttribute('data-gtm',gtmValue);
   button.onclick = () => {
     window.location.href = href;
   };
