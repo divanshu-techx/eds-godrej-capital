@@ -26,10 +26,9 @@ function formatNumberToIndianCommas(number) {
   const lastThreeDigits = integerPart.slice(-3);
   const otherDigits = integerPart.slice(0, -3);
 
-  const formattedNumber =
-    otherDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ',') +
-    (otherDigits ? ',' : '') +
-    lastThreeDigits;
+  const formattedNumber = otherDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ',')
+    + (otherDigits ? ',' : '')
+    + lastThreeDigits;
 
   // If there's a decimal part, add it back
   return decimalPart ? `${formattedNumber}.${decimalPart}` : formattedNumber;
