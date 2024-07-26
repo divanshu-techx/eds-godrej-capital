@@ -18,5 +18,4 @@ function decorate(block) {
 }
 
 const blockElement = document.querySelector('.teasercardsheadlines.block');
-
 decorate(blockElement);
