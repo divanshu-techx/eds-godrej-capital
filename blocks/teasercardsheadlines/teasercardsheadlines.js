@@ -1,4 +1,3 @@
-
 function decorate(block) {
   const pictureDivs = block.querySelectorAll('.teasercardsheadlines.block > div:first-child > div');
 
