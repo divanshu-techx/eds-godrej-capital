@@ -9,6 +9,7 @@ export default async function decorate(block) {
     if (!formLink) return;
 
     const form = await createForm(formLink.href);
+    autoFocusEl(form);
     block.replaceChildren(form);
 
     const indianResidentRadio = block.querySelector('#indianResident');
@@ -39,12 +40,12 @@ export default async function decorate(block) {
         // Function to show or hide divs based on resident type radio button selection
         function toggleResidentDivVisibility() {
             if (indianResidentRadio.checked) {
-                indianMobileNumberDiv.parentNode.style.display = 'block';
+                indianMobileNumberDiv.parentNode.style.display = 'flex';
                 nriMobileNumberDiv.parentNode.style.display = 'none';
                 addCheckedClass(indianResidentRadio);
             } else if (nonResidentIndianRadio.checked) {
                 indianMobileNumberDiv.parentNode.style.display = 'none';
-                nriMobileNumberDiv.parentNode.style.display = 'block';
+                nriMobileNumberDiv.parentNode.style.display = 'flex';
                 addCheckedClass(nonResidentIndianRadio);
             }
         }
@@ -52,10 +53,10 @@ export default async function decorate(block) {
         function toggleOtpMsgVisibility() {
             if (indianResidentRadio.checked) {
                 nriOtpMessage.parentNode.style.display = 'none';
-                indianOtpMessage.parentNode.style.display = 'block';
+                indianOtpMessage.parentNode.style.display = 'flex';
             } else if (nonResidentIndianRadio.checked) {
                 indianOtpMessage.parentNode.style.display = 'none';
-                nriOtpMessage.parentNode.style.display = 'block';
+                nriOtpMessage.parentNode.style.display = 'flex';
             }
         }
 
@@ -91,11 +92,37 @@ function toggleFormVisibility(hideSelector, showSelector, block) {
     const hideElements = block.querySelectorAll(hideSelector);
     const showElements = block.querySelectorAll(showSelector);
     hideElements.forEach(el => el.style.display = 'none');
-    showElements.forEach(el => el.style.display = 'block');
+    showElements.forEach(el => el.style.display = 'flex');
 }
 
 // Get data attribute value by name
 function getDataAttributeValueByName(name) {
     const element = document.querySelector(`[data-${name}]`);
     return element ? element.getAttribute(`data-${name}`) : '';
+}
+
+
+function autoFocusEl(form) {
+    const inputs = form.querySelectorAll('#form-otpfieldset  input');
+
+    inputs.forEach((input, index) => {
+        input.addEventListener('input', () => {
+            // Check if the input value is a single digit
+            if (/^\d$/.test(input.value)) {
+                input.parentNode.classList.add('filled');
+                if (index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            } else {
+                input.value = ''; // Clear the input if it's not a digit
+            }
+        });
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && input.value === '' && index > 0) {
+                input.parentNode.classList.remove('filled');
+                inputs[index - 1].focus();
+            }
+        });
+    });
 }
