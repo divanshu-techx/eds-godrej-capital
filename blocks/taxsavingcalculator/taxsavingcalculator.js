@@ -258,7 +258,7 @@ function initializeEventListeners(block) {
     incomeRange.value = isNaN(value)
       ? incomeRange.min
       : Math.min(Math.max(value, incomeRange.min), incomeRange.max);
-    const percentage = ((incomeRange.value - incomeRange.min) 
+    const percentage = ((incomeRange.value - incomeRange.min)
       / (incomeRange.max - incomeRange.min))
       * 100;
     incomeRange.style.setProperty('--value', `${percentage}%`);
