@@ -154,7 +154,7 @@ const styles = [
     stylers: [
       { color: '#92998d' },
     ],
-  }
+  },
 ];
 
 export default styles;
