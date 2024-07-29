@@ -3,7 +3,7 @@ import { validateMobileNumber, validateEmail, restrictPhoneNumberInputs } from '
 
 // const formSheetUrl = getDataAttributeValueByName('sheeturl');
 
-function addCheckedClass(radio) {
+function addCheckedClass(radio, block) {
   block.querySelectorAll('.radio-wrapper label').forEach((label) => label.classList.remove('checked'));
   const label = block.querySelector(`label[for="${radio.id}"]`);
   if (label) {
@@ -11,21 +11,19 @@ function addCheckedClass(radio) {
   }
 }
 
-function toggleResidentDivVisibility(indianResidentRadio, indianMobileNumberDiv, nriMobileNumberDiv,
-  nonResidentIndianRadio) {
+function toggleResidentDivVisibility(indianResidentRadio, indianMobileNumberDiv, nriMobileNumberDiv, nonResidentIndianRadio) {
   if (indianResidentRadio.checked) {
     indianMobileNumberDiv.parentNode.style.display = 'block';
     nriMobileNumberDiv.parentNode.style.display = 'none';
-    addCheckedClass(indianResidentRadio);
+    addCheckedClass(indianResidentRadio, block);
   } else if (nonResidentIndianRadio.checked) {
     indianMobileNumberDiv.parentNode.style.display = 'none';
     nriMobileNumberDiv.parentNode.style.display = 'block';
-    addCheckedClass(nonResidentIndianRadio);
+    addCheckedClass(nonResidentIndianRadio, block);
   }
 }
 
-function toggleOtpMsgVisibility(indianResidentRadio, nriOtpMessage,
-  indianOtpMessage, nonResidentIndianRadio) {
+function toggleOtpMsgVisibility(indianResidentRadio, nriOtpMessage, indianOtpMessage, nonResidentIndianRadio) {
   if (indianResidentRadio.checked) {
     nriOtpMessage.parentNode.style.display = 'none';
     indianOtpMessage.parentNode.style.display = 'block';
@@ -48,9 +46,9 @@ function handleApplyNowBtn(block, form) {
   const applyNowBtn = block.querySelector('#apply-now-btn');
   if (applyNowBtn) {
     applyNowBtn.addEventListener('click', function () {
-      if (validateMobileNumber(residentMobileField, 'Please enter a valid mobile number.') ||
-        validateMobileNumber(nriMobileField, 'Please enter a valid mobile number.') ||
-        validateEmail(nriMobileField)) {
+      if (validateMobileNumber(residentMobileField, 'Please enter a valid mobile number.')
+        || validateMobileNumber(nriMobileField, 'Please enter a valid mobile number.')
+        || validateEmail(nriMobileField)) {
         toggleFormVisibility('.form1', '.form2', block);
         toggleOtpMsgVisibility();
         console.log(generatePayload(form));
@@ -75,7 +73,7 @@ export default async function decorate(block) {
     // Select the first radio button by default
     indianResidentRadio.checked = true;
     // Add checked class to the corresponding label
-    addCheckedClass(indianResidentRadio);
+    addCheckedClass(indianResidentRadio, block);
     // Restrict the inputs
     restrictPhoneNumberInputs(block);
     toggleResidentDivVisibility();
