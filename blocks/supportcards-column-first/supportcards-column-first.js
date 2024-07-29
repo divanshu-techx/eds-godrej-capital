@@ -39,11 +39,11 @@ export default async function decorate(block) {
  
   blockContainer.forEach((div, index) => {                             
     // Add unique class to each div
-    div.classList.add(`col-wrapper-child-${index+1}`);
+    div.classList.add(`col-wrapper-child-${index + 1}`);
  
     // Add unique classes to the children of each div
     Array.from(div.children).forEach((child, i) => {
-      child.classList.add(`col-wrapper-child-${index+1}-child-${i + 1}`);
+      child.classList.add(`col-wrapper-child-${index + 1}-child-${i + 1}`);
     });
 
     wrapperDiv.appendChild(div);
@@ -51,10 +51,10 @@ export default async function decorate(block) {
 
   let wrapperElement = wrapperDiv.querySelectorAll(':scope > div');
 
-  if(wrapperElement.length <= 2){
+  if(wrapperElement.length <= 2) {
     block.appendChild(wrapperDiv);
   }
-  else if(wrapperElement.length>=3){
+  else if(wrapperElement.length >= 3) {
     const lastDiv = wrapperDiv.lastElementChild;
     lastDiv.classList.add('col-first');
     const colFirstChildren = lastDiv.children;
@@ -66,17 +66,7 @@ export default async function decorate(block) {
     block.appendChild(wrapperDiv);
     block.appendChild(lastDiv);
   }
- 
 }
-
-
-
-
-
-
-
-
-
 
 
 
