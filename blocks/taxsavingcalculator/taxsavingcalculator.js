@@ -245,7 +245,7 @@ function initializeEventListeners(block) {
     ageRange.value = isNaN(value)
       ? ageRange.min
       : Math.min(Math.max(value, ageRange.min), ageRange.max);
-    const percentage = ((ageRange.value - ageRange.min) 
+    const percentage = ((ageRange.value - ageRange.min)
     / (ageRange.max - ageRange.min)) * 100;
     ageRange.style.setProperty('--value', `${percentage}%`);
     this.textContent = formatNumberToIndianCommas(ageRange.value);
@@ -258,10 +258,9 @@ function initializeEventListeners(block) {
     incomeRange.value = isNaN(value)
       ? incomeRange.min
       : Math.min(Math.max(value, incomeRange.min), incomeRange.max);
-    const percentage =
-      ((incomeRange.value - incomeRange.min) /
-        (incomeRange.max - incomeRange.min)) *
-      100;
+    const percentage = ((incomeRange.value - incomeRange.min) 
+      / (incomeRange.max - incomeRange.min))
+      * 100;
     incomeRange.style.setProperty('--value', `${percentage}%`);
     this.textContent = formatNumberToIndianCommas(incomeRange.value);
     updateDisplay();
@@ -273,10 +272,9 @@ function initializeEventListeners(block) {
     principalRange.value = isNaN(value)
       ? principalRange.min
       : Math.min(Math.max(value, principalRange.min), principalRange.max);
-    const percentage =
-      ((principalRange.value - principalRange.min) /
-        (principalRange.max - principalRange.min)) *
-      100;
+    const percentage = ((principalRange.value - principalRange.min)
+        / (principalRange.max - principalRange.min))
+      * 100;
     principalRange.style.setProperty('--value', `${percentage}%`);
     this.textContent = formatNumberToIndianCommas(principalRange.value);
     updateDisplay();
@@ -288,10 +286,9 @@ function initializeEventListeners(block) {
     interestRange.value = isNaN(value)
       ? interestRange.min
       : Math.min(Math.max(value, interestRange.min), interestRange.max);
-    const percentage =
-      ((interestRange.value - interestRange.min) /
-        (interestRange.max - interestRange.min)) *
-      100;
+    const percentage = ((interestRange.value - interestRange.min)
+        / (interestRange.max - interestRange.min))
+      * 100;
     this.textContent = formatNumberToIndianCommas(interestRange.value);
     interestRange.style.setProperty('--value', `${percentage}%`);
     updateDisplay();
@@ -417,7 +414,6 @@ function initializeEventListeners(block) {
 //     taxBenefits: taxBenefits,
 //   };
 // }
-
 
 function calculateTax(income, principal, interest, age) {
   const cessRate = parseFloat(getDataAttributeValueByName('cess-rate')) / 100;
