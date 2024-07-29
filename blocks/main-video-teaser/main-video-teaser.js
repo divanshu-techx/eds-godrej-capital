@@ -1,22 +1,22 @@
 
 const MEDIA_BREAKPOINTS = {
-  MOBILE: "MOBILE",
-  TABLET: "TABLET",
-  DESKTOP: "DESKTOP",
+  MOBILE: 'MOBILE',
+  TABLET: 'TABLET',
+  DESKTOP: 'DESKTOP',
 };
 //Main Function
 export default async function decorate(block) {
   prepareBackgroundImage(block);
 
-  const headings = block.querySelectorAll("h1, h2, h3, h4, h5, h6");
-  headings.forEach((heading) => heading.classList.add("banner__title"));
+  const headings = block.querySelectorAll('h1, h2, h3, h4, h5, h6');
+  headings.forEach((heading) => heading.classList.add('banner__title'));
 
-  block.parentElement.classList.add("full-width");
+  block.parentElement.classList.add('full-width');
 
-  const contentElWrapper = block.querySelector(":scope > div");
-  contentElWrapper.classList.add("mainteaservideo-banner__content-wrapper");
-  const contentEl = block.querySelector(":scope > div > div");
-  contentEl.classList.add("mainteaservideo-banner__content");
+  const contentElWrapper = block.querySelector(':scope > div');
+  contentElWrapper.classList.add('mainteaservideo-banner__content-wrapper');
+  const contentEl = block.querySelector(':scope > div > div');
+  contentEl.classList.add('mainteaservideo-banner__content');
 
   let mainEle = document.querySelectorAll('.main-video-teaser p picture');
 
@@ -125,15 +125,15 @@ export default async function decorate(block) {
             });
           }
         }
-         // Remove links from both image and text content
-      const links = block.querySelectorAll('a');
-      links.forEach(link => {
-        const parent = link.parentNode;
-        while (link.firstChild) {
-          parent.insertBefore(link.firstChild, link);
-        }
-        parent.removeChild(link);
-      });
+        // Remove links from both image and text content
+        const links = block.querySelectorAll('a');
+        links.forEach(link => {
+          const parent = link.parentNode;
+          while (link.firstChild) {
+            parent.insertBefore(link.firstChild, link);
+          }
+          parent.removeChild(link);
+        });
 
       } else {
         // call to their model for pop up mode
@@ -152,14 +152,14 @@ export default async function decorate(block) {
 
 
 function getImageForBreakpoint(imagesList, onChange = () => { }) {
-  const mobileMQ = window.matchMedia("(max-width: 743px)");
+  const mobileMQ = window.matchMedia('(max-width: 743px)');
   const tabletMQ = window.matchMedia(
-    "(min-width: 744px) and (max-width: 1199px)"
+    '(min-width: 744px) and (max-width: 1199px)'
   );
-  const desktopMQ = window.matchMedia("(min-width: 1200px)");
+  const desktopMQ = window.matchMedia('(min-width: 1200px)');
 
   const [mobilePic, tabletPic, desktopPic] =
-    imagesList.querySelectorAll("picture");
+    imagesList.querySelectorAll('picture');
 
   const onBreakpointChange = (mq, picture, breakpoint) => {
     if (mq.matches) {
@@ -173,9 +173,9 @@ function getImageForBreakpoint(imagesList, onChange = () => { }) {
   const onDesktopChange = (mq) =>
     onBreakpointChange(mq, desktopPic, MEDIA_BREAKPOINTS.DESKTOP);
 
-  mobileMQ.addEventListener("change", onMobileChange);
-  tabletMQ.addEventListener("change", onTabletChange);
-  desktopMQ.addEventListener("change", onDesktopChange);
+  mobileMQ.addEventListener('change', onMobileChange);
+  tabletMQ.addEventListener('change', onTabletChange);
+  desktopMQ.addEventListener('change', onDesktopChange);
 
   if (mobileMQ.matches) {
     onMobileChange(mobileMQ);
@@ -202,8 +202,8 @@ function prepareBackgroundImage(block) {
 
   const onBreakpointChange = (pictureEl, breakpoint) => {
     const pictureClone = pictureEl.cloneNode(true);
-    const img = pictureClone.querySelector("img");
-    pictureClone.classList.add("v2-dlt__picture");
+    const img = pictureClone.querySelector('img');
+    pictureClone.classList.add('v2-dlt__picture');
 
     block.append(pictureClone);
 
@@ -211,14 +211,14 @@ function prepareBackgroundImage(block) {
       onBackgroundImgChange(img, block, breakpoint);
       pictureClone.remove();
     } else {
-      img.addEventListener("load", () => {
+      img.addEventListener('load', () => {
         onBackgroundImgChange(img, block, breakpoint);
         pictureClone.remove();
       });
     }
   };
 
-  const listOfPictures = block.querySelector("ul");
+  const listOfPictures = block.querySelector('ul');
   // removing from DOM - prevent loading all of provided images
   listOfPictures.remove();
   getImageForBreakpoint(listOfPictures, onBreakpointChange);
@@ -226,23 +226,23 @@ function prepareBackgroundImage(block) {
 
 function initBackgroundPosition(classList, breakpoint) {
   const classPrefixes = {
-    [MEDIA_BREAKPOINTS.MOBILE]: "s",
-    [MEDIA_BREAKPOINTS.TABLET]: "m",
-    [MEDIA_BREAKPOINTS.DESKTOP]: "l",
+    [MEDIA_BREAKPOINTS.MOBILE]: 's',
+    [MEDIA_BREAKPOINTS.TABLET]: 'm',
+    [MEDIA_BREAKPOINTS.DESKTOP]: 'l',
   };
   const classPrefix = classPrefixes[breakpoint];
   const backgroudPositionClass = [...classList].find((item) =>
     item.startsWith(`bp-${classPrefix}-`)
   );
-  let backgroundPositionValue = "unset";
+  let backgroundPositionValue = 'unset';
 
   if (backgroudPositionClass) {
-    let [, , xPosition, yPosition] = backgroudPositionClass.split("-");
+    let [, , xPosition, yPosition] = backgroudPositionClass.split('-');
 
     // workaround, '-' character classes are not supported
     // so for '-45px' we need to put 'm45px'
-    xPosition = xPosition.replace("m", "-");
-    yPosition = yPosition.replace("m", "-");
+    xPosition = xPosition.replace('m', '-');
+    yPosition = yPosition.replace('m', '-');
 
     backgroundPositionValue = `${xPosition} ${yPosition}`;
   }
@@ -293,27 +293,27 @@ function createModal(videoUrl) {
   document.body.appendChild(modalDiv);
 
 
-  const videoSource = document.getElementById("videoSource");
+  const videoSource = document.getElementById('videoSource');
 
-  const modal = document.getElementById("customVideoModal");
-  const span = modal.querySelector(".custom-video-modal-close");
-  const videoPlayer = document.getElementById("videoPlayer");
+  const modal = document.getElementById('customVideoModal');
+  const span = modal.querySelector('.custom-video-modal-close');
+  const videoPlayer = document.getElementById('videoPlayer');
 
   videoSource.src = videoUrl;
-  modal.style.display = "block";
+  modal.style.display = 'block';
   videoPlayer.load();
 
   span.onclick = function () {
-    modal.style.display = "none";
+    modal.style.display = 'none';
     videoPlayer.pause();
-    videoPlayer.src = "";
+    videoPlayer.src = '';
   }
 
   window.onclick = function (event) {
     if (event.target == modal) {
-      modal.style.display = "none";
+      modal.style.display = 'none';
       videoPlayer.pause();
-      videoPlayer.src = "";
+      videoPlayer.src = '';
     }
   }
 }
@@ -349,21 +349,21 @@ function youtubeModel(videoUrl) {
   modalDiv.innerHTML = modalHtml;
   document.body.appendChild(modalDiv);
 
-  const modal = document.getElementById("youtubeModal");
-  const closeBtn = modal.querySelector(".youtube-modal-close");
+  const modal = document.getElementById('youtubeModal');
+  const closeBtn = modal.querySelector('.youtube-modal-close');
 
   // Show the modal
-  modal.style.display = "block";
+  modal.style.display = 'block';
 
   // Close modal on close button click
   closeBtn.onclick = function () {
-    modal.style.display = "none";
+    modal.style.display = 'none';
   }
 
   // Close modal on clicking outside of the content area
   window.onclick = function (event) {
     if (event.target == modal) {
-      modal.style.display = "none";
+      modal.style.display = 'none';
     }
   }
 }

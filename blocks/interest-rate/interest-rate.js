@@ -1,10 +1,8 @@
 import { initializeCustomSelect } from '../utils/drop-down.js';
-
 function getDataAttributeValueByName(name) {
   const element = document.querySelector(`[data-${name}]`);
   return element ? element.getAttribute(`data-${name}`) : null;
 }
-
 const dataUrl = getDataAttributeValueByName('queryIndexUrl');
 const mainTitle = getDataAttributeValueByName('interestRateTitle');
 const viewCompleteLabel = getDataAttributeValueByName('viewCompleteLabel');
@@ -12,7 +10,6 @@ console.log(viewCompleteLabel)
 const disclaimerContent = getDataAttributeValueByName('disclaimer');
 
 async function fetchData(apiUrl) {
-
   try {
     const response = await fetch(apiUrl);
     const data = await response.json();
@@ -26,21 +23,16 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
   if (!selectedTab || !selectedOption) {
     return;
   }
-
   const filteredData = data.filter(
     (item) => item.document_type === selectedTab && item.profession_type === selectedOption,
   );
-
   if (filteredData.length === 0) {
     return;
   }
-
   // Clear previous data
   tabpanel.innerHTML = '';
-
   filteredData.forEach((item) => {
     let sectionIndex = 1;
-
     // Create a container for the sections
     const sectionsContainer = document.createElement('div');
     sectionsContainer.className = 'sections-container';
@@ -58,13 +50,13 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
       // Create paragraph element for title with bold styling
       const titleElement = document.createElement('p');
       titleElement.textContent = title;
-      titleElement.classList.add('sections-title')
+      titleElement.classList.add('sections-title');
 
       sectionElement.appendChild(titleElement);
 
       // Create paragraph element for description
       const descriptionElement = document.createElement('p');
-      descriptionElement.classList.add('sections-description')
+      descriptionElement.classList.add('sections-description');
       descriptionElement.textContent = description.trim();
       sectionElement.appendChild(descriptionElement);
 
@@ -86,9 +78,7 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
             listItem.textContent = bullet;
             listElement.appendChild(listItem);
           });
-
           sectionElement.appendChild(listElement);
-
           // Add "Read More" button if there are more than 3 bullet points
           if (bulletPointsList.length > 3) {
             const readMoreButton = document.createElement('button');
@@ -221,7 +211,7 @@ async function decorate() {
   const documentsDiv = document.createElement('div');
   documentsDiv.classList.add('documentDiv');
   const disclaimer = document.createElement('div');
-  disclaimer.classList.add('disclaimer')
+  disclaimer.classList.add('disclaimer');
   disclaimer.textContent = disclaimerContent;
 
   if (interestRateBlock) {
@@ -240,16 +230,16 @@ async function decorate() {
         const inrestCardsChildrens = div.querySelectorAll('div');
         inrestCardsChildrens.forEach((el, index) => {
           if (index === 0) {
-            el.classList.add('title-container')
-            el.childNodes[0].classList.add('title')
+            el.classList.add('title-container');
+            el.childNodes[0].classList.add('title');
           }
           if (index === 1) {
-            el.classList.add('intrest-container')
+            el.classList.add('intrest-container');
             el.children[0].classList.add('intrest');
           }
 
           if (index === 2) {
-            el.classList.add('time-period-container')
+            el.classList.add('time-period-container');
             el.children[0].classList.add('time-period');
           }
         })
@@ -328,7 +318,7 @@ async function decorate() {
   const categoryDocWrapper = document.createElement('div');
   categoryDocWrapper.classList.add('category-document-wrapper');
   categoryDocWrapper.appendChild(documentsWrapper);
-  categoryDocWrapper.appendChild(categoryWrapper)
+  categoryDocWrapper.appendChild(categoryWrapper);
   //tabListWrapper.appendChild(documentsWrapper);
   tabListWrapper.appendChild(categoryDocWrapper); // Append documentsWrapper to tabListWrapper
   documentsDiv.appendChild(tabListWrapper);

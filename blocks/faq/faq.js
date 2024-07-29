@@ -1,7 +1,7 @@
 import { getDataAttributes } from '../utils/common.js'
 
 export default async function decorate(block) {
-  const container = block.closest(".faq-container");
+  const container = block.closest('.faq-container');
   const attributeObj = getDataAttributes(container);
 
 
@@ -51,7 +51,7 @@ export default async function decorate(block) {
   inputField.placeholder = 'What are you looking for?';
   const searchIconContainer = document.createElement('div');
   searchIconContainer.classList.add('icon-container');
-  searchIconContainer.innerHTML = `<img src=${attributeObj.searchicon} alt=${"attributeObj.seachiconalttext"} class="icon">`
+  searchIconContainer.innerHTML = `<img src=${attributeObj.searchicon} alt=${'attributeObj.seachiconalttext'} class='icon'>`
 
   searchContainer.append(searchIconContainer)
   searchContainer.appendChild(inputField);
@@ -78,7 +78,7 @@ export default async function decorate(block) {
     dropdown.addEventListener('change', () => {
       renderTabs(quesAnsData, dropdown.value, '', tagsContainer);
       renderCategoryDetails(productPageData, dropdown.value, productPageDiv);
-      renderQA(quesAnsData, dropdown.value, '', quesAnsDiv,'');
+      renderQA(quesAnsData, dropdown.value, '', quesAnsDiv, '');
       quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
 
     });
@@ -134,7 +134,7 @@ async function fetchData(apiUrl) {
     const data = await response.json();
     return data.data;
   } catch (error) {
-    console.error("Error fetching data:", error);
+    console.error('Error fetching data:', error);
     return null;
   }
 }
@@ -155,7 +155,7 @@ function renderCategoryDropdown(data, containerSelector) {
   const categories = [...new Set(data.map(item => item.category))];
   const dropdown = document.createElement('select');
   dropdown.className = 'category-dropdown';
-  dropdown.id = "faq-loan-category-dropdown";
+  dropdown.id = 'faq-loan-category-dropdown';
 
   categories.forEach(category => {
     const option = document.createElement('option');
@@ -191,7 +191,7 @@ function renderTabs(data, selectedCategory, inputValue, tagsContainer) {
   tagsContainer.innerHTML = '';
   var filteredData;
   const notFoundEle = document.getElementById('faq-not-found');
-  const faqLoanCategoryDropdown = document.getElementById("faq-loan-category-dropdown");
+  const faqLoanCategoryDropdown = document.getElementById('faq-loan-category-dropdown');
   if (inputValue.length >= 3) {
     const tagFilteredData = data.filter(item => normalizeTags(item.tags));
     if (tagFilteredData.length > 0) {
@@ -272,19 +272,19 @@ function renderQA(data, selectedCategory, tagsName, containerSelector, inputValu
   if (selectedCategory) {
     filteredData = data.filter(item => normalizeCategory(item.category) === selectedCategory);
   } else {
-    if(tagsName) {
-     filteredData = data.filter(item => normalizeTags(item.tags).includes(tagsName.toLowerCase()));
-    } 
+    if (tagsName) {
+      filteredData = data.filter(item => normalizeTags(item.tags).includes(tagsName.toLowerCase()));
+    }
     if (inputValue && inputValue.length >= 3) {
-    const normalizedSearchTerm = normalizeText(inputValue);
-    filteredData = data.filter(item =>
-      normalizeText(item.question).includes(normalizedSearchTerm) ||
-      normalizeText(item.answer).includes(normalizedSearchTerm)
-    );
-    const tagsContainer = document.querySelector('.tags-button');
-    renderTabs(filteredData, '', normalizedSearchTerm, tagsContainer);
+      const normalizedSearchTerm = normalizeText(inputValue);
+      filteredData = data.filter(item =>
+        normalizeText(item.question).includes(normalizedSearchTerm) ||
+        normalizeText(item.answer).includes(normalizedSearchTerm)
+      );
+      const tagsContainer = document.querySelector('.tags-button');
+      renderTabs(filteredData, '', normalizedSearchTerm, tagsContainer);
+    }
   }
-}
 
 
   filteredData.forEach(item => {
