@@ -1,4 +1,3 @@
-
 // export default async function decorate(block) {
 //   const wrapperDiv = document.createElement('div');
 //   wrapperDiv.classList.add('col-wrapper');
@@ -38,7 +37,7 @@ export default async function decorate(block) {
   // Select the direct child divs of the block
   const blockContainer = block.querySelectorAll(':scope > div');
  
-  blockContainer.forEach((div, index) => {                                  
+  blockContainer.forEach((div, index) => {                             
     // Add unique class to each div
     div.classList.add(`col-wrapper-child-${index+1}`);
  
