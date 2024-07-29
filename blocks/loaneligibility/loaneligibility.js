@@ -188,8 +188,10 @@ function initialize(block) {
   const tenureMinMonthValue = getDataAttributeValueByName('tenure-min-month-value');
   const tenureMaxMonthValue = getDataAttributeValueByName('tenure-max-month-value');
   const redirectionPath = getDataAttributeValueByName('redirection-path');
+  const desktopRedirectionPath = redirectionPath.split('?')[0];
   const productList = getDataAttributeValueByName('product-list');
   const mobileredirection =getDataAttributeValueByName('redirection-path-mobile');
+  const applyMobileRedirectionPath = mobileredirection.split('?')[0];
   const selectProductLabel = getDataAttributeValueByName('Select-product-label');
   const interestratelabel = getDataAttributeValueByName('Interest-rate-label');
   const totaltenurelabel = getDataAttributeValueByName('Total-tenure-label');
@@ -461,7 +463,7 @@ function initialize(block) {
       createElement('div', { id: 'CT', style: 'color: #3B3B3B; font-size: 24px;font-weight:500;' }),
     ), footer,
     createElement('div', { class: 'chart-details' },
-      createElement('button', { id: 'apply-btn-le' }, applynowbutton),
+      createElement('button', { id: 'apply-btn-le','data-path':redirectionPath }, applynowbutton),
     ),
     createElement('div', { id: 'mylineChart' }),
   );
@@ -503,7 +505,7 @@ function initialize(block) {
           )
         ),
         createElement('div', { class: 'mobile-tenure-apply' },
-          createElement('button', { id: 'apply-btn-loan' }, applynowbutton)
+          createElement('button', { id: 'apply-btn-loan', 'data-path': mobileredirection }, applynowbutton)
         )
       )
     ),
@@ -826,11 +828,13 @@ function initialize(block) {
   //  Handle button click event to redirect with query parameter
   document.getElementById('apply-btn-le').addEventListener('click', function () {
     const productValue = this.getAttribute('data-product');
+    console.log('desk btn click');
+    console.log(productValue);
     if (productValue) {
-      url = `${redirectionPath}?product=${encodeURIComponent(productValue)}`;
+      url = `${desktopRedirectionPath}?product=${encodeURIComponent(productValue)}`;
       window.location.href = url;
     } else {
-      url = redirectionPath;
+      url = desktopRedirectionPath;
       window.location.href = url;
     }
   });
@@ -840,10 +844,11 @@ function initialize(block) {
       const productValue = this.getAttribute('data-product');
       if (productValue) {
         const formattedProductValue = productValue.toLowerCase().replace(/\s+/g, '-');
-        url = `${mobileredirection}?product=${encodeURIComponent(formattedProductValue)}`;
+        //url = `${mobileredirection}?product=${encodeURIComponent(formattedProductValue)}`;
+        url = `${applyMobileRedirectionPath}?product=${encodeURIComponent(formattedProductValue)}`;
         window.location.href = url;
       } else {
-        url = mobileredirection;
+        url = applyMobileRedirectionPath;
         window.location.href = url;
       }
     });
