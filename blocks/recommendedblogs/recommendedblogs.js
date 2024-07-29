@@ -30,15 +30,15 @@ export default async function decorate(block) {
 
 function createBlogContainer(block) {
   const blogsContainer = document.createElement('div');
-  blogsContainer.id = "blogs-container";
-  blogsContainer.classList.add("blogs-container");
+  blogsContainer.id = 'blogs-container';
+  blogsContainer.classList.add('blogs-container');
   block.appendChild(blogsContainer);
   return blogsContainer;
 }
 
 function createNoResultDiv(block) {
   const notFoundContainer = document.createElement('div');
-  notFoundContainer.id = "blogs-not-found-container";
+  notFoundContainer.id = 'blogs-not-found-container';
   notFoundContainer.innerHTML = notFoundMsg;
   block.appendChild(notFoundContainer);
 }
