@@ -11,7 +11,7 @@ function addCheckedClass(radio, block) {
   }
 }
 
-function toggleResidentDivVisibility(indianResidentRadio, indianMobileNumberDiv, nriMobileNumberDiv, nonResidentIndianRadio) {
+function toggleResidentDivVisibility(indianResidentRadio, indianMobileNumberDiv, nriMobileNumberDiv, nonResidentIndianRadio, block) {
   if (indianResidentRadio.checked) {
     indianMobileNumberDiv.parentNode.style.display = 'block';
     nriMobileNumberDiv.parentNode.style.display = 'none';
@@ -76,14 +76,15 @@ export default async function decorate(block) {
     addCheckedClass(indianResidentRadio, block);
     // Restrict the inputs
     restrictPhoneNumberInputs(block);
-    toggleResidentDivVisibility();
+    toggleResidentDivVisibility(indianResidentRadio, indianMobileNumberDiv, nriMobileNumberDiv,
+      nonResidentIndianRadio, block);
     // Add event listeners to radio buttons to toggle div visibility on change
     indianResidentRadio.addEventListener('change', toggleResidentDivVisibility);
     nonResidentIndianRadio.addEventListener('change', toggleResidentDivVisibility);
     handleApplyNowBtn(block, form);
     // Function to show or hide divs based on resident type radio button selection
     toggleResidentDivVisibility(indianResidentRadio, indianMobileNumberDiv, nriMobileNumberDiv,
-      nonResidentIndianRadio);
+      nonResidentIndianRadio, block);
 
     toggleOtpMsgVisibility(indianResidentRadio, nriOtpMessage, indianOtpMessage, nonResidentIndianRadio);
 
