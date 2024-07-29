@@ -142,10 +142,3 @@ export default async function tabsblock() {
   }
   waitForSections();
 }
-
-
-
-
-
-
-
