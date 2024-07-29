@@ -18,9 +18,9 @@ export default async function decorate(block) {
 
 function triggerCustomEvent() {
   // Create the custom event
-  const customEvent = new CustomEvent("allMethodsCompleted", {
+  const customEvent = new CustomEvent('allMethodsCompleted', {
     detail: {
-      message: "All methods completed",
+      message: 'All methods completed',
       timestamp: new Date()
     }
   });
@@ -36,15 +36,15 @@ function triggerCustomEvent() {
  */
 function createTeaser(teaserContainer) {
   // Select the teaser-wrapper element
-  const teaserWrapper = teaserContainer.querySelector(".teaser-wrapper");
+  const teaserWrapper = teaserContainer.querySelector('.teaser-wrapper');
   if (!teaserWrapper) return;
 
   // Select the teaser element inside teaser-wrapper
-  const teaser = teaserWrapper.querySelector(".teaser");
+  const teaser = teaserWrapper.querySelector('.teaser');
   if (!teaser) return;
 
   // Add the teaser-wrapper class to the teaser element
-  teaser.classList.add("teaser-wrapper");
+  teaser.classList.add('teaser-wrapper');
 
   // Move the teaser element out of the teaser-wrapper
   teaserWrapper.parentNode.insertBefore(teaser, teaserWrapper);
@@ -53,18 +53,18 @@ function createTeaser(teaserContainer) {
   teaserWrapper.remove();
 
   // Create new structure elements using domEl
-  const carouselSlideImage = div({ class: "carousel-slide-image" });
-  const carouselSlideContent = div({ class: "carousel-slide-content" });
+  const carouselSlideImage = div({ class: 'carousel-slide-image' });
+  const carouselSlideContent = div({ class: 'carousel-slide-content' });
 
   // Move image elements to carousel-slide-image
-  const images = teaser.querySelectorAll("picture");
+  const images = teaser.querySelectorAll('picture');
   images.forEach(image => {
     const imageWrapper = div(image);
     carouselSlideImage.appendChild(imageWrapper);
   });
 
   // Move text content to carousel-slide-content
-  const paragraphs = teaser.querySelectorAll("p, ul");
+  const paragraphs = teaser.querySelectorAll('p, ul');
   paragraphs.forEach(paragraph => {
     carouselSlideContent.appendChild(paragraph);
   });
@@ -169,7 +169,7 @@ const createButton = (text, href, className, gtmValue) => {
   const button = document.createElement('button');
   button.innerText = text;
   button.className = className;
-  button.setAttribute('data-gtm',gtmValue);
+  button.setAttribute('data-gtm', gtmValue);
   button.onclick = () => {
     window.location.href = href;
   };
@@ -342,10 +342,10 @@ const createInlineVideoPlayer = (container, videoUrl) => {
   // Add play button to the container
   slideContent.appendChild(playButton);
   container.querySelector('.button-container').appendChild(playButtonInLine);
- 
-  let hideButton =  slideContent.querySelector('.button');
+
+  let hideButton = slideContent.querySelector('.button');
   hideButton.style.display = 'none';
- 
+
   // Create the video element
   const video = document.createElement('video');
   video.setAttribute('controls', true);
@@ -353,42 +353,42 @@ const createInlineVideoPlayer = (container, videoUrl) => {
   video.style.width = '100%';
   video.style.height = '100%';
   video.style.objectFit = 'cover'; // Ensure video covers the container
- 
+
   let videoAppended = false;
- 
+
   // Handle inline button click
   playButtonInLine.onclick = () => {
-      playButton.click();
+    playButton.click();
   };
- 
+
   // Handle play button click
   playButton.onclick = (event) => {
-      const parentElement = event.target.parentNode;
-      const grandparentElement = parentElement.parentNode;
-      const imageDiv = grandparentElement.querySelector('.carousel-slide-image div');
- 
-      if (!videoAppended) {
-          const pictureElement = imageDiv.querySelector('picture');
-          if (pictureElement) {
-              pictureElement.style.display = 'none';
-          }
- 
-          imageDiv.appendChild(video);
-          videoAppended = true;
+    const parentElement = event.target.parentNode;
+    const grandparentElement = parentElement.parentNode;
+    const imageDiv = grandparentElement.querySelector('.carousel-slide-image div');
+
+    if (!videoAppended) {
+      const pictureElement = imageDiv.querySelector('picture');
+      if (pictureElement) {
+        pictureElement.style.display = 'none';
       }
- 
-      if (video.paused) {
-          video.play();
-          playButtonInLine.innerText = 'Pause';
-          playButton.innerText = '❚❚'; // Change play button icon to pause
-      } else {
-          video.pause();
-          playButtonInLine.innerText = 'Play';
-          playButton.innerText = '▶'; // Change play button icon to play
-      }
+
+      imageDiv.appendChild(video);
+      videoAppended = true;
+    }
+
+    if (video.paused) {
+      video.play();
+      playButtonInLine.innerText = 'Pause';
+      playButton.innerText = '❚❚'; // Change play button icon to pause
+    } else {
+      video.pause();
+      playButtonInLine.innerText = 'Play';
+      playButton.innerText = '▶'; // Change play button icon to play
+    }
   };
 };
- 
+
 
 
 const createImageBackground = (container, imageUrl) => {
