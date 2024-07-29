@@ -1,4 +1,4 @@
-export default async function tabsblock(block) {
+export default async function tabsblock() {
   const mainElement = document.querySelector('main');
   const tabsheading = mainElement.querySelector('.tabsheading');
   // Ensure tabs are created only once
@@ -17,7 +17,7 @@ export default async function tabsblock(block) {
     // Create a tab container
     const tabContainer = document.createElement('div');
     tabContainer.classList.add('custom-tabs-container');
-    tabContainer.classList.add('section')
+    tabContainer.classList.add('section');
 
     // Create a tabs wrapper
     const tabsWrapper = document.createElement('div');
@@ -73,7 +73,7 @@ export default async function tabsblock(block) {
 
     // Remove sections with data-tab-title from main
     const sectionsToRemove = main.querySelectorAll('.section[data-tab-title]');
-    sectionsToRemove.forEach(section => {
+    sectionsToRemove.forEach((section) => {
       section.parentNode.removeChild(section);
     });
 
@@ -90,10 +90,10 @@ export default async function tabsblock(block) {
         const tabIndex = event.target.dataset.index;
 
         // Hide all contents and remove active class from tabs
-        tabsWrapper.querySelectorAll('.custom-tab').forEach(tab => {
+        tabsWrapper.querySelectorAll('.custom-tab').forEach((tab) => {
           tab.classList.remove('active');
         });
-        contentContainer.querySelectorAll('.custom-tab-content').forEach(content => {
+        contentContainer.querySelectorAll('.custom-tab-content').forEach((content) => {
           content.style.display = 'none';
         });
 
@@ -121,7 +121,7 @@ export default async function tabsblock(block) {
     } else {
       // Use MutationObserver to wait for changes in the data-section-status attribute
       const observer = new MutationObserver(mutations => {
-        mutations.forEach(mutation => {
+        mutations.forEach((mutation) => {
           if (mutation.type === 'attributes' && mutation.attributeName === 'data-section-status') {
             if (checkSectionStatus()) {
               observer.disconnect(); // Stop observing once all sections are loaded
@@ -135,7 +135,7 @@ export default async function tabsblock(block) {
       });
 
       // Observe each section for attribute changes
-      document.querySelectorAll('.section[data-tab-title]').forEach(section => {
+      document.querySelectorAll('.section[data-tab-title]').forEach((section) => {
         observer.observe(section, { attributes: true });
       });
     }
