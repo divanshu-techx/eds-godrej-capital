@@ -9,8 +9,6 @@ export default async function decorate(block) {
   const sortBy = getDataAttributeValueByName('sortByLabel');
   const searchIcon = getDataAttributeValueByName('searchIcon');
 
-
-
   const readArticleLabel = getDataAttributeValueByName('readArticleLabel');
 
   const sortOptions = typeFilter.split(',').map(option => option.trim());
@@ -65,7 +63,7 @@ export default async function decorate(block) {
   searchIconImg.className = 'search-icon';
   searchInputContainer.appendChild(searchIconImg);
   searchInputContainer.appendChild(searchInput);
-  
+
 
   const sortDropdownContainer = document.createElement('div');
   sortDropdownContainer.className = 'sort-dropdown-container';
@@ -128,7 +126,7 @@ export default async function decorate(block) {
   container.appendChild(paginationWrapper);
   container.appendChild(contentContainer);
 
- block.appendChild(container);
+  block.appendChild(container);
   // Function to render news items
   const getResponseData = (filteredData) => {
     contentContainer.innerHTML = '';
@@ -202,17 +200,17 @@ export default async function decorate(block) {
   };
 
   // Function to sort data based on the selected option
- const sortData = () => {
-   const selectedOption = sortDropdown.value;
-   const regexOldestToLatest = /oldest\s*to\s*latest/i;
-   const regexLatestToOldest = /latest\s*to\s*oldest/i;
-   if (regexLatestToOldest.test(selectedOption)) {
-     responseData.sort((a, b) => new Date(b.publishdate) - new Date(a.publishdate));
-   } else if (regexOldestToLatest.test(selectedOption))
-     responseData.sort((a, b) => new Date(a.publishdate) - new Date(b.publishdate));
+  const sortData = () => {
+    const selectedOption = sortDropdown.value;
+    const regexOldestToLatest = /oldest\s*to\s*latest/i;
+    const regexLatestToOldest = /latest\s*to\s*oldest/i;
+    if (regexLatestToOldest.test(selectedOption)) {
+      responseData.sort((a, b) => new Date(b.publishdate) - new Date(a.publishdate));
+    } else if (regexOldestToLatest.test(selectedOption))
+      responseData.sort((a, b) => new Date(a.publishdate) - new Date(b.publishdate));
 
-   renderPage();
- };
+    renderPage();
+  };
 
 
   // Function to set active tab and fetch data based on category
