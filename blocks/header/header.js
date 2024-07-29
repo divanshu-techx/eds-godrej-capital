@@ -2,7 +2,7 @@ import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
 const isDesktop = window.matchMedia('(min-width: 900px)');
-
+var navElement = document.getElementById('nav');
 function closeOnEscape(e) {
   if (e.code === 'Escape') {
     const nav = document.getElementById('nav');
@@ -158,8 +158,6 @@ export default async function decorate(block) {
   navWrapper.append(nav);
   block.append(navWrapper);
 
-  var navElement = document.getElementById("nav");
-
   const api = getDataAttributeValueByName('globalnavigationapiurl');
 
   function getDataAttributeValueByName(name) {
@@ -283,11 +281,11 @@ export default async function decorate(block) {
         anchor.setAttribute('data-path', item.path);
 
         anchor.addEventListener('mouseover', (event) => {
-        event.preventDefault();
-        const allAnchors = nestedUl.querySelectorAll('a.anchorPath');
-        allAnchors.forEach((anchorItem) => anchorItem.classList.remove('anchor_active'));
-        anchor.classList.add('anchor_active');
-        displayURLContent(item.path);
+          event.preventDefault();
+          const allAnchors = nestedUl.querySelectorAll('a.anchorPath');
+          allAnchors.forEach((anchorItem) => anchorItem.classList.remove('anchor_active'));
+          anchor.classList.add('anchor_active');
+          displayURLContent(item.path);
         });
 
         nestedLi.appendChild(anchor);
@@ -318,47 +316,47 @@ export default async function decorate(block) {
     let overallIndex = 0;
 
     for (const key in response) {
-        if (response.hasOwnProperty(key)) {
-            response[key].forEach((item) => {
-                const li = document.createElement('li');
-                li.classList.add('listElement');
+      if (response.hasOwnProperty(key)) {
+        response[key].forEach((item) => {
+          const li = document.createElement('li');
+          li.classList.add('listElement');
 
-                const anchor = document.createElement('a');
-                anchor.textContent = item.title;
-                anchor.href = item.redirectionPath;
-                anchor.classList.add('anchorPath');
-                if (overallIndex === 0) anchor.classList.add('anchor_active');
-                anchor.setAttribute('data-path', item.path);
+          const anchor = document.createElement('a');
+          anchor.textContent = item.title;
+          anchor.href = item.redirectionPath;
+          anchor.classList.add('anchorPath');
+          if (overallIndex === 0) anchor.classList.add('anchor_active');
+          anchor.setAttribute('data-path', item.path);
 
-                li.appendChild(anchor);
-                mainUl.appendChild(li);
+          li.appendChild(anchor);
+          mainUl.appendChild(li);
 
-                anchor.addEventListener('mouseover', (event) => {
-                    event.preventDefault();
-                    const allAnchors = mainUl.querySelectorAll('a.anchorPath');
-                    allAnchors.forEach((anchorItem) => anchorItem.classList.remove('anchor_active'));
-                    anchor.classList.add('anchor_active');
-                    displayURLContent(item.path);
-                });
+          anchor.addEventListener('mouseover', (event) => {
+            event.preventDefault();
+            const allAnchors = mainUl.querySelectorAll('a.anchorPath');
+            allAnchors.forEach((anchorItem) => anchorItem.classList.remove('anchor_active'));
+            anchor.classList.add('anchor_active');
+            displayURLContent(item.path);
+          });
 
-                if (!defaultPathSet) {
-                    displayURLContent(item.path);
-                    defaultPathSet = true;
-                }
+          if (!defaultPathSet) {
+            displayURLContent(item.path);
+            defaultPathSet = true;
+          }
 
-                overallIndex++;
-            });
-        }
+          overallIndex++;
+        });
+      }
     }
 
     if (itemCount != 0) {
-        secondElementDiv.appendChild(mainUl);
-        parentContainerDiv.appendChild(secondElementDiv);
+      secondElementDiv.appendChild(mainUl);
+      parentContainerDiv.appendChild(secondElementDiv);
     }
 
     parentContainerDiv.appendChild(thirdElementDiv);
     belowNavMainContainer.appendChild(parentContainerDiv);
-}
+  }
 
   // function to render nav elements div for child depth is zero
   function getChildResponseDataForDepthZero(responseData) {
@@ -368,7 +366,7 @@ export default async function decorate(block) {
     thirdElementDiv.innerHTML = '';
 
     const customerSupportDiv = document.createElement('ul');
-    customerSupportDiv.className = 'customerSupportDiv'; 
+    customerSupportDiv.className = 'customerSupportDiv';
 
     const freeCreditDiv = document.createElement('div');
     freeCreditDiv.className = 'freeCreditDiv';
@@ -501,22 +499,22 @@ export default async function decorate(block) {
     const ul = document.createElement('ul');
 
     filteredData.forEach((item) => {
-        const li = document.createElement('li');
-        li.className = 'listElement';
+      const li = document.createElement('li');
+      li.className = 'listElement';
 
-        const a = document.createElement('a');
-        a.href = '#.html';
-        a.textContent = item.HeadingName;
-        a.setAttribute('data-path', item.ChildPageUrl);
-        a.setAttribute('data-depth', item.depth);
-        a.setAttribute('data-navItem', item.HeadingName);
+      const a = document.createElement('a');
+      a.href = '#.html';
+      a.textContent = item.HeadingName;
+      a.setAttribute('data-path', item.ChildPageUrl);
+      a.setAttribute('data-depth', item.depth);
+      a.setAttribute('data-navItem', item.HeadingName);
 
-        const apiClass = item.HeadingName.replace(/\s+/g, '-');
-        const customClass = 'anchorClass';
-        a.classList.add(apiClass, customClass);
+      const apiClass = item.HeadingName.replace(/\s+/g, '-');
+      const customClass = 'anchorClass';
+      a.classList.add(apiClass, customClass);
 
-        li.appendChild(a);
-        ul.appendChild(li);
+      li.appendChild(a);
+      ul.appendChild(li);
     });
 
     topNav.appendChild(ul);
@@ -525,64 +523,62 @@ export default async function decorate(block) {
     const listElements = document.querySelectorAll('li.listElement');
 
     navItems.forEach((navItem) => {
-        navItem.addEventListener('mouseover', (event) => {
-            event.preventDefault();
-            const depth = navItem.getAttribute('data-depth');
-            const navListItem = navItem.getAttribute('data-navitem');
-            const childPath = navItem.getAttribute('data-path');
-            getChildApiResponse(childPath, navListItem, depth);
-            const parentListItem = navItem.closest('li');
+      navItem.addEventListener('mouseover', (event) => {
+        event.preventDefault();
+        const depth = navItem.getAttribute('data-depth');
+        const navListItem = navItem.getAttribute('data-navitem');
+        const childPath = navItem.getAttribute('data-path');
+        getChildApiResponse(childPath, navListItem, depth);
+        const parentListItem = navItem.closest('li');
 
-            if (navItem.classList.contains('rotate')) {
-                navItem.classList.remove('rotate');
-                belowNavMainContainer.classList.remove('show');
-            } else {
-                navItems.forEach((item) => item.classList.remove('rotate'));
-                navItem.classList.add('rotate');
-                belowNavMainContainer.classList.add('show');
-            }
+        if (navItem.classList.contains('rotate')) {
+          navItem.classList.remove('rotate');
+          belowNavMainContainer.classList.remove('show');
+        } else {
+          navItems.forEach((item) => item.classList.remove('rotate'));
+          navItem.classList.add('rotate');
+          belowNavMainContainer.classList.add('show');
+        }
 
-            if (parentListItem.classList.contains('selected')) {
-                parentListItem.classList.remove('selected');
-            } else {
-                listElements.forEach((listElement) => listElement.classList.remove('selected'));
-                parentListItem.classList.add('selected');
-            }
-        });
+        if (parentListItem.classList.contains('selected')) {
+          parentListItem.classList.remove('selected');
+        } else {
+          listElements.forEach((listElement) => listElement.classList.remove('selected'));
+          parentListItem.classList.add('selected');
+        }
+      });
     });
 
     let navTimeout;
 
     topNav.addEventListener('mouseleave', () => {
-        navTimeout = setTimeout(() => {
-            belowNavMainContainer.classList.remove('show');
-            navItems.forEach((item) => item.classList.remove('rotate'));
-            listElements.forEach((listElement) => listElement.classList.remove('selected'));
-        }, 200);
-    });
-
-    topNav.addEventListener('mouseenter', () => {
-        clearTimeout(navTimeout);
-    });
-
-    belowNavMainContainer.addEventListener('mouseenter', () => {
-        belowNavMainContainer.classList.add('show');
-        clearTimeout(navTimeout);
-    });
-
-    belowNavMainContainer.addEventListener('mouseleave', () => {
+      navTimeout = setTimeout(() => {
         belowNavMainContainer.classList.remove('show');
         navItems.forEach((item) => item.classList.remove('rotate'));
         listElements.forEach((listElement) => listElement.classList.remove('selected'));
+      }, 200);
     });
-}
 
-  
+    topNav.addEventListener('mouseenter', () => {
+      clearTimeout(navTimeout);
+    });
+
+    belowNavMainContainer.addEventListener('mouseenter', () => {
+      belowNavMainContainer.classList.add('show');
+      clearTimeout(navTimeout);
+    });
+
+    belowNavMainContainer.addEventListener('mouseleave', () => {
+      belowNavMainContainer.classList.remove('show');
+      navItems.forEach((item) => item.classList.remove('rotate'));
+      listElements.forEach((listElement) => listElement.classList.remove('selected'));
+    });
+  }
+
   topNav.addEventListener('mouseenter', () => {
     // Ensure the container remains visible when mouse re-enters the topNav
     belowNavMainContainer.classList.add('show');
   });
-  
 
   function getApiResponse(navListapi) {
     fetch(navListapi, {
