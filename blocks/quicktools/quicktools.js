@@ -1,18 +1,17 @@
-
 export default async function decorate(block) {
-  const allDivs = block.querySelectorAll(":scope > div");
+  const allDivs = block.querySelectorAll(':scope > div');
  
-  allDivs.forEach((div, index) => {
-    div.classList.add('quicktool-item')
-    const quickToolItem = div.querySelectorAll(":scope > div");
+  allDivs.forEach((div) => {
+    div.classList.add('quicktool-item');
+    const quickToolItem = div.querySelectorAll(':scope > div');
     quickToolItem.forEach((item, index) => {
       if (index === 0) {
-        item.classList.add("quicktool-item-picture");
+        item.classList.add('quicktool-item-picture');
       } else {
-        item.classList.add("quicktool-item-text");
+        item.classList.add('quicktool-item-text');
         const isLastItem = index === quickToolItem.length - 1;
         if (isLastItem) {
-          const textElement = item.querySelector(":scope > *");
+          const textElement = item.querySelector(':scope > *');
           if (textElement && textElement.textContent.trim()) {
             const text = textElement.textContent.trim();
             const middleIndex = Math.floor(text.length / 2);
