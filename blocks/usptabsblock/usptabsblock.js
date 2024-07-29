@@ -94,8 +94,7 @@ export default async function tabsblock() {
     const activeTabIndex = 0;
     sections.forEach((section, index) => {
       section.style.display = '';
-      //const tabTitle = section.dataset.tabTitle;
-      
+      // const tabTitle = section.dataset.tabTitle;
       // Object destructuring to extract tabTitle from dataset
       const { tabTitle } = section.dataset;
       const tab = document.createElement('button');
