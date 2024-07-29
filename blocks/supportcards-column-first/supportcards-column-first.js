@@ -50,8 +50,7 @@ export default async function decorate(block) {
 
   if (wrapperElement.length <= 2) {
     block.appendChild(wrapperDiv);
-  }
-  else if(wrapperElement.length >= 3) {
+  } else if (wrapperElement.length >= 3) {
     const lastDiv = wrapperDiv.lastElementChild;
     lastDiv.classList.add('col-first');
     const colFirstChildren = lastDiv.children;
