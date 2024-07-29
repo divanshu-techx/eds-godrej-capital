@@ -1,30 +1,28 @@
 export default async function decorate(block) {
-    const allDivs = block.querySelectorAll(':scope > div');
+  const allDivs = block.querySelectorAll(':scope > div');
 
-    allDivs.forEach((div) => {
-        div.classList.add('third-party-cards');
+  allDivs.forEach((div) => {
+    div.classList.add('third-party-cards');
 
-        const link = div.querySelector('a.button');
-        const picture = div.querySelector('picture');
+    const link = div.querySelector('a.button');
+    const picture = div.querySelector('picture');
 
-        if (link && picture) {
+    if (link && picture) {
+      const pictureLink = document.createElement('a');
+      pictureLink.href = link.href;
+      pictureLink.title = link.title;
 
-            const pictureLink = document.createElement('a');
-            pictureLink.href = link.href;
-            pictureLink.title = link.title;
+      pictureLink.appendChild(picture.cloneNode(true));
 
-            pictureLink.appendChild(picture.cloneNode(true));
+      // Replace the original picture with the new anchor-wrapped picture
+      picture.replaceWith(pictureLink);
+    }
 
-            // Replace the original picture with the new anchor-wrapped picture
-            picture.replaceWith(pictureLink);
-        }
-        
-        div.querySelectorAll(':scope > *').forEach((child) => {
-            child.classList.add('third-party-cards-child');
-          });
+    div.querySelectorAll(':scope > *').forEach((child) => {
+      child.classList.add('third-party-cards-child');
     });
-    
+  });
 
-    // Adding a container class to manage the flex layout
-    block.classList.add('third-party-cards-container');
+  // Adding a container class to manage the flex layout
+  block.classList.add('third-party-cards-container');
 }
