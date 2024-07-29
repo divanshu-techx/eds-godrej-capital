@@ -1,6 +1,5 @@
 import styles from './google-map-styles.js';
 
-
 function createMap(lat, long, mapCanvasID, icons) {
   const pointA = new google.maps.LatLng(lat, long);
   let infowindow = new google.maps.InfoWindow({ maxWidth: 205 });
@@ -16,7 +15,7 @@ function createMap(lat, long, mapCanvasID, icons) {
   };
   infowindow = new google.maps.InfoWindow();
 
- let map = new google.maps.Map(document.getElementById(mapCanvasID), myOptions);
+  let map = new google.maps.Map(document.getElementById(mapCanvasID), myOptions);
 
   const marker = new google.maps.Marker({
     position: pointA,

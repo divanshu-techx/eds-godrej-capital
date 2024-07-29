@@ -1,10 +1,10 @@
 export default async function decorate(block) {
-  const emptyDiv = block.querySelector(":scope > div > div");
+  const emptyDiv = block.querySelector(':scope > div > div');
   if (emptyDiv) {
-    emptyDiv.classList.add("spinner");
+    emptyDiv.classList.add('spinner');
   }
 }
-const spinnerCircularBlock = document.querySelector(".spinner-circular.block");
+const spinnerCircularBlock = document.querySelector('.spinner-circular.block');
 if (spinnerCircularBlock) {
   decorate(spinnerCircularBlock);
 }
