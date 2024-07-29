@@ -180,7 +180,7 @@ const hideSpecifiedButtons = (container) => {
 
   if (buttonsToHide) {
     buttonsToHide.forEach((buttonType) => {
-      const buttonSelector = buttonType 
+      const buttonSelector = buttonType
       === 'primary' ? '.primary-button' : '.secondary-button';
       const button = container.querySelector(buttonSelector);
       if (button) {
