@@ -229,28 +229,6 @@ function getHtmlData(newMetaData) {
             </div>
 
             </div>
-
-            <div class="inputTaxSaving">
-            <div class="inputBoxTaxSavingLabel">
-                <label for="month">Loan Tenures (In Months)</label>
-                <div class="tax_saving_input_label">
-                 <span id="month_tax_label">Mos.</span>
-                <span id="month" class="inputSpan_tax_saving" contenteditable="true" data-min="1" data-max="11" onblur="updateDisplay()">1</span>
-            </div>
-            </div>
-            <div class="inputBoxTaxSavingRange">
-            <input type="range" id="monthRange" min="1" max="11" value="1"  oninput="updateRange('month')">
-            <div class="inputBoxTaxSavingBottom">
-                <span>1</span>
-                <span>11</span>
-            </div>
-            </div>
-            <div class="errorMsg_tax_saving">
-                <p id="monthError" class="error_text" style="display: none;">Value must be between 1 and 11</p>
-            </div>
-
-            </div>
-
         </div>
 
         <div class="outputs_tax_saving">
@@ -305,8 +283,8 @@ function initializeEventListeners(block) {
     const percentage =
       ((ageRange.value - ageRange.min) / (ageRange.max - ageRange.min)) * 100;
     ageRange.style.setProperty("--value", `${percentage}%`);
-    updateDisplay();
     this.textContent = formatNumberToIndianCommas(ageRange.value);
+    updateDisplay();
   });
 
   block.querySelector("#income").addEventListener("blur", function () {
@@ -320,8 +298,8 @@ function initializeEventListeners(block) {
         (incomeRange.max - incomeRange.min)) *
       100;
     incomeRange.style.setProperty("--value", `${percentage}%`);
-    updateDisplay();
     this.textContent = formatNumberToIndianCommas(incomeRange.value);
+    updateDisplay();
   });
 
   block.querySelector("#principal").addEventListener("blur", function () {
@@ -335,8 +313,8 @@ function initializeEventListeners(block) {
         (principalRange.max - principalRange.min)) *
       100;
     principalRange.style.setProperty("--value", `${percentage}%`);
-    updateDisplay();
     this.textContent = formatNumberToIndianCommas(principalRange.value);
+    updateDisplay();
   });
 
   block.querySelector("#interest").addEventListener("blur", function () {
@@ -350,23 +328,8 @@ function initializeEventListeners(block) {
         (interestRange.max - interestRange.min)) *
       100;
     this.textContent = formatNumberToIndianCommas(interestRange.value);
-    updateDisplay();
     interestRange.style.setProperty("--value", `${percentage}%`);
-  });
-
-  block.querySelector("#month").addEventListener("blur", function () {
-    const value = parseFloat(this.textContent);
-    const monthRange = block.querySelector("#monthRange");
-    monthRange.value = isNaN(value)
-      ? monthRange.min
-      : Math.min(Math.max(value, monthRange.min), monthRange.max);
-    const percentage =
-      ((monthRange.value - monthRange.min) /
-        (monthRange.max - monthRange.min)) *
-      100;
-    monthRange.style.setProperty("--value", `${percentage}%`);
     updateDisplay();
-    this.textContent = formatNumberToIndianCommas(monthRange.value);
   });
 
   // Add event listeners to spans to enforce numeric input
@@ -413,8 +376,86 @@ function initializeEventListeners(block) {
     });
   });
 }
-function calculateTax(income, principal, interest, month) {
+// when needs logic of month also
+// function calculateTax(income, principal, interest, month, age) {
+//   const cessRate = parseFloat(getDataAttributeValueByName("cess-rate")) / 100;
+//   const principalDeductionLimit = 150000;
+//   const interestDeductionLimit = 200000;
+
+//   // Function to calculate tax based on income slabs
+//   function calculateBasicTax(income) {
+//     let tax = 0;
+//     if (income > 1000000) {
+//       tax += (income - 1000000) * 0.3;
+//       income = 1000000;
+//     }
+//     if (income > 500000) {
+//       tax += (income - 500000) * 0.2;
+//       income = 500000;
+//     }
+//     if (income > 250000) {
+//       tax += (income - 250000) * 0.05;
+//     }
+//     return tax;
+//   }
+
+//   // Tax Slabs based on age
+//   function getTaxSlabs(age) {
+//     if (age > 80) {
+//       return {
+//         taxSlabs: [250000, 500000, 1000000],
+//         rates: [0.05, 0.2, 0.3],
+//       };
+//     } else if (age > 60) {
+//       return {
+//         taxSlabs: [300000, 500000, 1000000],
+//         rates: [0.05, 0.2, 0.3],
+//       };
+//     } else {
+//       return {
+//         taxSlabs: [250000, 500000, 1000000],
+//         rates: [0.05, 0.2, 0.3],
+//       };
+//     }
+//   }
+
+//   const { taxSlabs, rates } = getTaxSlabs(age);
+
+//   // Calculate tax before loan deductions
+//   const basicTaxBefore = calculateBasicTax(income * month);
+//   const cessBefore = basicTaxBefore * cessRate;
+//   const taxBefore = Math.round(basicTaxBefore + cessBefore);
+
+//   // Restrict principal and interest deductions to their respective limits
+//   const annualPrincipal = Math.min(principal * month, principalDeductionLimit);
+//   const annualInterest = Math.min(interest * month, interestDeductionLimit);
+
+//   // Calculate taxable income after loan deductions
+//   const taxableIncomeAfter = Math.max(
+//     0,
+//     (income - annualPrincipal - annualInterest) * month
+//   );
+
+//   // Calculate tax after loan deductions
+//   const basicTaxAfter = calculateBasicTax(taxableIncomeAfter);
+//   const cessAfter = basicTaxAfter * cessRate;
+//   const taxAfter = Math.round(basicTaxAfter + cessAfter);
+
+//   // Calculate tax benefits
+//   const taxBenefits = Math.round(taxBefore - taxAfter);
+
+//   return {
+//     taxBefore: taxBefore,
+//     taxAfter: taxAfter,
+//     taxBenefits: taxBenefits,
+//   };
+// }
+
+
+function calculateTax(income, principal, interest, age) {
   const cessRate = parseFloat(getDataAttributeValueByName("cess-rate")) / 100;
+  const principalDeductionLimit = 150000;
+  const interestDeductionLimit = 200000;
 
   // Function to calculate tax based on income slabs
   function calculateBasicTax(income) {
@@ -433,15 +474,41 @@ function calculateTax(income, principal, interest, month) {
     return tax;
   }
 
+  // Tax Slabs based on age
+  function getTaxSlabs(age) {
+    if (age > 80) {
+      return {
+        taxSlabs: [250000, 500000, 1000000],
+        rates: [0.05, 0.2, 0.3],
+      };
+    } else if (age > 60) {
+      return {
+        taxSlabs: [300000, 500000, 1000000],
+        rates: [0.05, 0.2, 0.3],
+      };
+    } else {
+      return {
+        taxSlabs: [250000, 500000, 1000000],
+        rates: [0.05, 0.2, 0.3],
+      };
+    }
+  }
+
+  const { taxSlabs, rates } = getTaxSlabs(age);
+
   // Calculate tax before loan deductions
-  const basicTaxBefore = calculateBasicTax(income * month);
+  const basicTaxBefore = calculateBasicTax(income);
   const cessBefore = basicTaxBefore * cessRate;
   const taxBefore = Math.round(basicTaxBefore + cessBefore);
+
+  // Restrict principal and interest deductions to their respective limits
+  const annualPrincipal = Math.min(principal, principalDeductionLimit);
+  const annualInterest = Math.min(interest, interestDeductionLimit);
 
   // Calculate taxable income after loan deductions
   const taxableIncomeAfter = Math.max(
     0,
-    (income - principal - interest) * month
+    income - annualPrincipal - annualInterest
   );
 
   // Calculate tax after loan deductions
@@ -471,10 +538,6 @@ function updateDisplay() {
     document.getElementById("interest").textContent.replace(/\D/g, "")
   );
 
-  const month = parseFloat(
-    document.getElementById("month").textContent.replace(/\D/g, "")
-  );
-
   // Validation
   const ageMin = parseFloat(document.getElementById("age").dataset.min);
   const ageMax = parseFloat(document.getElementById("age").dataset.max);
@@ -492,9 +555,6 @@ function updateDisplay() {
   const interestMax = parseFloat(
     document.getElementById("interest").dataset.max
   );
-
-  const monthMin = parseFloat(document.getElementById("month").dataset.min);
-  const monthMax = parseFloat(document.getElementById("month").dataset.max);
 
   validateAndShowError(
     age,
@@ -520,19 +580,9 @@ function updateDisplay() {
     interestMax,
     document.getElementById("interestError")
   );
-  validateAndShowError(
-    month,
-    monthMin,
-    monthMax,
-    document.getElementById("monthError")
-  );
-
   // Calculate taxes
   const { taxBefore, taxAfter, taxBenefits } = calculateTax(
-    income,
-    principal,
-    interest,
-    month
+    income, principal, interest, age
   );
 
   document.getElementById(

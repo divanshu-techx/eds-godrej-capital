@@ -46,6 +46,7 @@
 .block.teaser-thankyou-cards img {
     max-width: 100%;
     object-fit: fill;
+    height: 100%;
 }
 
 
@@ -98,14 +99,16 @@
 
 .teaser-cards-1 .block.teaser-thankyou-cards :is(h2, h3,h4,h1,h5,h6) {
     margin: 30px 0 16px;
-    font-size: 48px;
+    font-size: 54px;
     margin:0;
     color: #8CB133;
     font-weight: 600;
 }
 @media(max-width:767px){
     .teaser-cards-1 .block.teaser-thankyou-cards :is(h2, h3,h4,h1,h5,h6){
-        font-size: 24px;
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 32px;
     }
 }
 
@@ -119,6 +122,10 @@
 
 .block.teaser-thankyou-cards a {
     background-color: transparent;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.42px;
+
 }
 
 .block.teaser-thankyou-cards a:hover {
@@ -231,6 +238,7 @@
 
     .teaser-cards-1 .block.teaser-thankyou-cards p.image img {
         height: 100%;
+        min-height: 240px;
         width: 100%;
     }
 
