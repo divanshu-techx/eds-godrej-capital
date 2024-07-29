@@ -34,8 +34,8 @@ export default async function decorate(block) {
   // If tabsNames is empty, create tabs based on unique categories in the data
   let capitalizedTabNames = tabsNames.length > 0
     ? tabsNames.map((tabName) => tabName.charAt(0).toUpperCase() + tabName.slice(1))
-    : Array.from(new Set(data.map((item) => item.category.charAt(0).toUpperCase() +
-     item.category.slice(1))));
+    : Array.from(new Set(data.map((item) => item.category.charAt(0).toUpperCase()
+     + item.category.slice(1))));
 
   // Create tabs based on provided or extracted tab names
   capitalizedTabNames.forEach((tabName, index) => {
@@ -153,8 +153,10 @@ export default async function decorate(block) {
         const readArticleElement = document.createElement('a');
         readArticleElement.classList.add('readArticle_anchor');
         readArticleElement.textContent = readArticleLabel;
-        readArticleElement.href = item.readArticleRedirection; // Set the href to the redirection URL
-        readArticleElement.target = '_blank'; // Open the link in a new tab
+        // Set the href to the redirection URL
+        readArticleElement.href = item.readArticleRedirection;
+        // Open the link in a new tab
+        readArticleElement.target = '_blank';
 
         newsContainerData.appendChild(titleElement);
         newsContainerData.appendChild(descriptionElement);
