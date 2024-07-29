@@ -78,9 +78,10 @@ const styles = [
   {
     featureType: 'poi.park',
     elementType: 'geometry.fill',
+    // Light green color for parks
     stylers: [
-      { color: '#a5b076' },  // Light green color for parks
-    ]
+      { color: '#a5b076' },
+    ],
   },
   {
     featureType: 'road',
@@ -93,7 +94,7 @@ const styles = [
   {
     featureType: 'road',
     elementType: 'geometry.stroke',
-     // Light brownish beige color for road borders
+    // Light brownish beige color for road borders
     stylers: [
       { color: '#e5d7c9' },
     ],
@@ -112,14 +113,15 @@ const styles = [
     // Light orange color for highways
     stylers: [
       { color: '#f8c967' },
-    ]
+    ],
   },
   {
     featureType: 'road.highway',
     elementType: 'geometry.stroke',
+    // Light yellowish brown color for highway borders
     stylers: [
-      { color: '#e9bc62' },  // Light yellowish brown color for highway borders
-    ]
+      { color: '#e9bc62' },
+    ],
   },
   {
     featureType: 'transit',
@@ -127,7 +129,7 @@ const styles = [
     // Light peach color for transit routes
     stylers: [
       { color: '#f3d3a7' },
-    ]
+    ],
   },
   {
     featureType: 'transit.station',
@@ -135,7 +137,7 @@ const styles = [
     // Dark grayish brown text color for transit stations
     stylers: [
       { color: '#8a7c77' },
-    ]
+    ],
   },
   {
     featureType: 'water',
