@@ -14,7 +14,7 @@ export default async function decorate(block) {
     // Select the first div (content) and the second div (picture) within each direct child div
     const firstDiv = parentDiv.querySelector('div:first-of-type');
     const secondDiv = parentDiv.querySelector('div:last-of-type');
- 
+
     if (firstDiv) {
       firstDiv.classList.add('contentdetails');
 
