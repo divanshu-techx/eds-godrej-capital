@@ -415,44 +415,60 @@ function initializeEventListeners(block) {
 //   };
 // }
 
+
 function calculateTax(income, principal, interest, age) {
-  const cessRate = parseFloat(getDataAttributeValueByName('cess-rate')) / 100;
-  const principalDeductionLimit = 150000;
-  const interestDeductionLimit = 200000;
+  const cessRate = parseFloat(getDataAttributeValueByName("cess-rate")) / 100;
+  const principalDeductionLimit = parseFloat(getDataAttributeValueByName('Principal-deduction-limit'));
+  const interestDeductionLimit = parseFloat(getDataAttributeValueByName('Interest-deduction-limit'));
+
+  const tax_bracket_limit_first=parseFloat(getDataAttributeValueByName('Tax-bracket-limit-first'));
+  const tax_bracket_limit_first_tax_rate=parseFloat(getDataAttributeValueByName('Tax-bracket-limit-first-tax-rate'))/100;
+
+  const tax_bracket_limit_second=parseFloat(getDataAttributeValueByName('Tax-bracket-limit-second'));
+  const tax_bracket_limit_second_tax_rate=parseFloat(getDataAttributeValueByName('Tax-bracket-limit-second-tax-rate'))/100;
+
+  const tax_bracket_limit_third=parseFloat(getDataAttributeValueByName('Tax-bracket-limit-third'));
+  const tax_bracket_limit_third_tax_rate=parseFloat(getDataAttributeValueByName('Tax-bracket-limit-third-tax-rate'))/100;
+
+
+  const first_age=parseFloat(getDataAttributeValueByName('First-age'));
+  const sec_age=parseFloat(getDataAttributeValueByName('Second-age'));
+
+  const second_age_tax_slab=parseFloat(getDataAttributeValueByName('Second-age-tax-slab'));
 
   // Function to calculate tax based on income slabs
   function calculateBasicTax(income) {
     let tax = 0;
-    if (income > 1000000) {
-      tax += (income - 1000000) * 0.3;
-      income = 1000000;
+    if (income > tax_bracket_limit_third) {
+      tax += (income - tax_bracket_limit_third) * tax_bracket_limit_third_tax_rate;
+      income = tax_bracket_limit_third;
     }
-    if (income > 500000) {
-      tax += (income - 500000) * 0.2;
-      income = 500000;
+    if (income > tax_bracket_limit_second) {
+      tax += (income - tax_bracket_limit_second) * tax_bracket_limit_second_tax_rate;
+      income = tax_bracket_limit_second;
     }
-    if (income > 250000) {
-      tax += (income - 250000) * 0.05;
+    if (income > tax_bracket_limit_first) {
+      tax += (income - tax_bracket_limit_first) * tax_bracket_limit_first_tax_rate;
     }
     return tax;
   }
 
   // Tax Slabs based on age
   function getTaxSlabs(age) {
-    if (age > 80) {
+    if (age > first_age) {
       return {
-        taxSlabs: [250000, 500000, 1000000],
-        rates: [0.05, 0.2, 0.3],
+        taxSlabs: [tax_bracket_limit_first, tax_bracket_limit_second, tax_bracket_limit_third],
+        rates: [tax_bracket_limit_first_tax_rate, tax_bracket_limit_second_tax_rate, tax_bracket_limit_third_tax_rate],
       };
-    } else if (age > 60) {
+    } else if (age > sec_age) {
       return {
-        taxSlabs: [300000, 500000, 1000000],
-        rates: [0.05, 0.2, 0.3],
+        taxSlabs: [second_age_tax_slab, tax_bracket_limit_second, tax_bracket_limit_third],
+        rates: [tax_bracket_limit_first_tax_rate, tax_bracket_limit_second_tax_rate, tax_bracket_limit_third_tax_rate],
       };
     } else {
       return {
-        taxSlabs: [250000, 500000, 1000000],
-        rates: [0.05, 0.2, 0.3],
+        taxSlabs: [tax_bracket_limit_first, tax_bracket_limit_second, tax_bracket_limit_third],
+        rates: [tax_bracket_limit_first_tax_rate, tax_bracket_limit_second_tax_rate, tax_bracket_limit_third_tax_rate],
       };
     }
   }

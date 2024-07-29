@@ -169,14 +169,18 @@ function updateRangeColors(block) {
   });
 }
 
-
 // Function to update APR calculations and display
 function updateAPR(block) {
-  const loanAmount = parseFloat(block.querySelector('#loanAmountAprRange').value);
-  const interestRate = parseFloat(parseFloat(block.querySelector('#interestRateAprRange').value).toFixed(1));
-  const loanTenureYears = parseFloat(block.querySelector('#loanTenureYearsAprRange').value);
-  const loanTenureMonths = parseFloat(block.querySelector('#loanTenureMonthsAprRange').value);
-  const originationCharges = parseFloat(block.querySelector('#loanOriginationChargesAprRange').value);
+    const loanAmount = parseFloat(block.querySelector('#loanAmountAprRange').value);
+    const interestRate = parseFloat(parseFloat(block.querySelector('#interestRateAprRange').value).toFixed(1));
+    const loanTenureYears = parseFloat(block.querySelector('#loanTenureYearsAprRange').value);
+    const loanTenureMonths = parseFloat(block.querySelector('#loanTenureMonthsAprRange').value);
+    const originationCharges = parseFloat(block.querySelector('#loanOriginationChargesAprRange').value);
+    console.log(loanAmount,typeof(loanAmount));
+    console.log(interestRate,typeof(interestRate));
+    console.log(loanTenureYears,typeof(loanTenureYears));
+    console.log(loanTenureMonths,typeof(loanTenureMonths));
+    console.log(originationCharges,typeof(originationCharges));
 
   block.querySelector('#loanAmountApr').value = loanAmount.toLocaleString('en-IN');
   block.querySelector('#interestRateApr').value = interestRate;
@@ -184,6 +188,41 @@ function updateAPR(block) {
   block.querySelector('#loanTenureMonthsApr').value = loanTenureMonths;
   block.querySelector('#loanOriginationChargesApr').value = originationCharges.toLocaleString('en-IN');
 
+    // APR Calculation Logic
+    const loanamt = loanAmount;
+    const periods = loanTenureYears * 12 + loanTenureMonths;
+    const ROI = interestRate / 100; // Annual interest rate in decimal
+    const charges = loanamt - originationCharges;
+
+    // Calculate monthly payment (PMT)
+    const monthlyRate = ROI / 12;
+    const pmt = Math.round((loanamt * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -periods)));
+    console.log(pmt);
+
+    // Calculate APR using iterative method (Newton-Raphson)
+    function calculateAPR(periods, pmt, charges) {
+        const epsilon = 0.00001;
+        let apr = ROI;
+        let iteration = 0;
+        const maxIterations = 100;
+
+        while (iteration < maxIterations) {
+            const monthlyRateGuess = apr / 12;
+            const f = charges * Math.pow(1 + monthlyRateGuess, periods) - (pmt / monthlyRateGuess) * (Math.pow(1 + monthlyRateGuess, periods) - 1);
+            const fPrime = periods * charges * Math.pow(1 + monthlyRateGuess, periods - 1) - pmt * (Math.pow(1 + monthlyRateGuess, periods) - 1) / Math.pow(monthlyRateGuess, 2);
+            const nextApr = apr - f / fPrime;
+
+            if (Math.abs(nextApr - apr) < epsilon) {
+                apr = nextApr;
+                break;
+            }
+
+            apr = nextApr;
+            iteration++;
+        }
+
+        return apr * 12;
+    }
   const totalLoanTenure = loanTenureYears * 12 + loanTenureMonths;
   const monthlyInterestRate = interestRate / 100 / 12;
   const monthlyEMI = loanAmount * monthlyInterestRate * Math.pow((1 + monthlyInterestRate), totalLoanTenure) /
@@ -192,10 +231,22 @@ function updateAPR(block) {
   const totalCost = totalPayment + originationCharges;
   const apr = (totalCost / loanAmount - 1) / (totalLoanTenure / 12) * 100;
 
+    let apr = calculateAPR(periods, pmt, charges);
+    if (apr === Infinity || isNaN(apr) || apr === -Infinity) {
+        apr = ROI;
+    }
+    if (!loanamt && !periods && !charges) {
+        apr = 0;
+    }
+    apr = apr * 100;
+    apr = apr > 24 ? 24 : apr < 6 ? 6 : apr; // APR should be between 6% and 24%
+    apr = apr.toFixed(2) + "%";
   block.querySelector('#aprDisplay').textContent = `${apr.toFixed(2)}%`;
 }
 
-// Function to add event listeners to range inputs
+    block.querySelector('#aprDisplay').textContent = apr;
+}
+
 function addRangeInputListeners(block) {
   const rangeInputs = block.querySelectorAll('input[type=range]');
   rangeInputs.forEach(input => {
