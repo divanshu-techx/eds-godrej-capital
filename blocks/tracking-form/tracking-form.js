@@ -36,8 +36,14 @@ function toggleOtpMsgVisibility(indianResidentRadio, nriOtpMessage, indianOtpMes
 function toggleFormVisibility(hideSelector, showSelector, block) {
   const hideElements = block.querySelectorAll(hideSelector);
   const showElements = block.querySelectorAll(showSelector);
-  hideElements.forEach((el) => el.style.display = 'none');
-  showElements.forEach((el) => el.style.display = 'block');
+
+  hideElements.forEach((el) => {
+    el.style.display = 'none';
+  });
+
+  showElements.forEach((el) => {
+    el.style.display = 'block';
+  });
 }
 
 function handleApplyNowBtn(block, form) {
