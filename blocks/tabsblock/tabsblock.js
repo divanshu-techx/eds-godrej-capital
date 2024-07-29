@@ -141,8 +141,6 @@ export default async function tabsblock() {
     }
   }
   waitForSections();
-  // Wait for DOMContentLoaded event
-  //  document.addEventListener("DOMContentLoaded", waitForSections);
 }
 
 
