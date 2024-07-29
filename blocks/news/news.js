@@ -218,7 +218,8 @@ export default async function decorate(block) {
     document.querySelectorAll('.tab').forEach((tab) => tab.classList.remove('active'));
     document.getElementById(`tab-${tabName}`).classList.add('active');
 
-    const filteredData = data.filter((item) => item.category.toLowerCase() === tabName.toLowerCase());
+    const filteredData = data.filter(
+      (item) => item.category.toLowerCase() === tabName.toLowerCase());
     responseData = filteredData;
     sortData();
     renderPage(1);
