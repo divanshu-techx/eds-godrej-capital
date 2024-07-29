@@ -7,7 +7,7 @@ const MEDIA_BREAKPOINTS = {
 function getImageForBreakpoint(imagesList, onChange = () => { }) {
   const mobileMQ = window.matchMedia('(max-width: 743px)');
   const tabletMQ = window.matchMedia(
-    '(min-width: 744px) and (max-width: 1199px)'
+    '(min-width: 744px) and (max-width: 1199px)',
   );
   const desktopMQ = window.matchMedia('(min-width: 1200px)');
 
@@ -46,7 +46,7 @@ function prepareBackgroundImage(block) {
   const onBackgroundImgChange = (imgEl, backgroundTarget, breakpoint) => {
     const backgroundPostionStyles = initBackgroundPosition(
       block.classList,
-      breakpoint
+      breakpoint,
     );
     const backgroundSrc = imgEl.currentSrc;
     backgroundTarget.style.backgroundImage = `url(${backgroundSrc})`;
@@ -117,7 +117,7 @@ export default async function decorate(block) {
   contentEl.classList.add('overlayteaser-banner__content');
 
   const contentContainer = block.querySelector(
-    '.overlayteaser-banner__content'
+    '.overlayteaser-banner__content',
   );
   if (contentContainer) {
     const paragraphs = contentContainer.querySelectorAll('p');
@@ -128,7 +128,7 @@ export default async function decorate(block) {
         return;
       }
       if (paragraph.textContent.trim() === '') {
-        paragraph.style.display = "none";
+        paragraph.style.display = 'none';
       } else {
         paragraph.style.display = 'block';
         if (classNames[index]) {
@@ -140,8 +140,7 @@ export default async function decorate(block) {
     });
     const buttonContainerWrapper = document.createElement('div');
     buttonContainerWrapper.classList.add('button-container-wrapper');
-    const buttonContainers =
-      contentContainer.querySelectorAll('.button-container');
+    const buttonContainers = contentContainer.querySelectorAll('.button-container');
     buttonContainers.forEach((buttonContainer) => {
       buttonContainerWrapper.appendChild(buttonContainer);
     });
