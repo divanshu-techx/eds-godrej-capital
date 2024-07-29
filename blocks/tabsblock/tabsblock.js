@@ -107,7 +107,7 @@ export default async function tabsblock() {
   // Function to check the section status
   function checkSectionStatus() {
     const sections = document.querySelectorAll('.section[data-tab-title]');
-    return Array.from(sections).every(section => section.getAttribute('data-section-status') === 'loaded');
+    return Array.from(sections).every((section) => section.getAttribute('data-section-status') === 'loaded');
   }
 
   // Function to wait for all sections to be loaded
@@ -120,7 +120,7 @@ export default async function tabsblock() {
       }
     } else {
       // Use MutationObserver to wait for changes in the data-section-status attribute
-      const observer = new MutationObserver(mutations => {
+      const observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
           if (mutation.type === 'attributes' && mutation.attributeName === 'data-section-status') {
             if (checkSectionStatus()) {
@@ -144,11 +144,6 @@ export default async function tabsblock() {
   // Wait for DOMContentLoaded event
   //  document.addEventListener("DOMContentLoaded", waitForSections);
 }
-
-
-
-
-
 
 
 
