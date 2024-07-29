@@ -1,4 +1,4 @@
-import { div } from "../utils/dom-helper.js";
+import { div } from '../utils/dom-helper.js';
 
 export default async function decorate(block) {
   const teaserContainer = block.closest('.teaser-container');
@@ -22,7 +22,7 @@ function triggerCustomEvent() {
     detail: {
       message: 'All methods completed',
       timestamp: new Date(),
-    }
+    },
   });
 
   // Dispatch the custom event on the document
@@ -180,8 +180,8 @@ const hideSpecifiedButtons = (container) => {
 
   if (buttonsToHide) {
     buttonsToHide.forEach((buttonType) => {
-      const buttonSelector = buttonType ===
-       'primary' ? '.primary-button' : '.secondary-button';
+      const buttonSelector = buttonType 
+      === 'primary' ? '.primary-button' : '.secondary-button';
       const button = container.querySelector(buttonSelector);
       if (button) {
         button.style.display = 'none';
