@@ -200,10 +200,10 @@ function initialize(block) {
             createElement('div', { class: 'title' }, interestrate_title),
             createElement('div', { class: "inputDetail" },
                 createElement('span', { class: "percentSpan" }, "%"),
-                createElement('input', { id: 'interest-rate-text', type: 'number', min: interestrate_minvalue, max: interestrate_maxvalue, style: 'color: #3b3b3b; font-size:14px;font-weight:400' })
+                createElement('input', { id: 'interest-rate-text', type: 'number', min: interestrate_minvalue, max: interestrate_maxvalue, step:'0.5', style: 'color: #3b3b3b; font-size:14px;font-weight:400' })
             )
         ),
-        createElement('input', { type: 'range', id: 'interest-rate', min: interestrate_minvalue, max: interestrate_maxvalue }),
+        createElement('input', { type: 'range', id: 'interest-rate', min: interestrate_minvalue, max: interestrate_maxvalue, step:'0.5' }),
         createElement('div', { class: 'range-values' },
             createElement('div', { class: 'min-value' }, interestrate_minvalue + "%"),
             createElement('div', { class: 'max-value', style: 'float: right;' }, interestrate_maxvalue + "%"))
