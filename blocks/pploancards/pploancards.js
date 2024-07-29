@@ -10,14 +10,14 @@ export default async function decorate(block) {
   parentDivs.forEach((parentDiv) => {
     // Add the contentandpictureparent class to the parent div
     parentDiv.classList.add('contentandpictureparent');
- 
+
     // Select the first div (content) and the second div (picture) within each direct child div
     const firstDiv = parentDiv.querySelector('div:first-of-type');
     const secondDiv = parentDiv.querySelector('div:last-of-type');
  
     if (firstDiv) {
       firstDiv.classList.add('contentdetails');
-   
+
       // Convert <p> elements to <div> elements within the contentDiv
       const paragraphs = firstDiv.querySelectorAll('p');
       paragraphs.forEach((p) => {
@@ -43,7 +43,7 @@ export default async function decorate(block) {
           ${restOfTitle ? `<span class="unit">${restOfTitle}</span>` : ''}
         `;
       }
- 
+
       if (description) description.classList.add('description');
     }
 
