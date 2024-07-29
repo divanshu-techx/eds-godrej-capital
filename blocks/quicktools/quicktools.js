@@ -1,6 +1,6 @@
 export default async function decorate(block) {
   const allDivs = block.querySelectorAll(':scope > div');
- 
+
   allDivs.forEach((div) => {
     div.classList.add('quicktool-item');
     const quickToolItem = div.querySelectorAll(':scope > div');
