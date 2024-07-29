@@ -39,7 +39,7 @@ export default async function tabsblock() {
         carousel.style.transform = `translateX(${offset}px)`;
         // Update count display
         countDisplay.innerHTML = ''; // Clear previous numbers
-        for (let i = 0; i < totalItems; i++) {
+        for (let i = 0; i < totalItems; i+1) {
           const number = document.createElement('span');
           number.textContent = i + 1;
           number.classList.add('carousel-number');
@@ -147,7 +147,7 @@ export default async function tabsblock() {
   }
   // Call the function to setup the carousel navigation
   setupCarouselNavigation();
-  // --------------------------------------------------------  
+  // --------------------------------------------------------
   function checkSectionStatus() {
     const sections = document.querySelectorAll('.section[data-tab-title]');
     return Array.from(sections).every((section) => section.getAttribute('data-section-status') === 'loaded');
