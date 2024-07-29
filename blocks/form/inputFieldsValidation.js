@@ -20,9 +20,9 @@ export function restrictPhoneNumberInputs(block) {
 }
 
 // Function to validate name
-export function validateNameField(nameField) {
+export function validateNameField(nameField, errorMessage) {
     if (nameField.value.trim() === "") {
-        handleErrorMessages(false, nameField, 'Please enter your name.');
+        handleErrorMessages(false, nameField, errorMessage);
         return false;
     } else {
         handleErrorMessages(true, nameField);
@@ -31,10 +31,10 @@ export function validateNameField(nameField) {
 }
 
 // Function to validate email
-export function validateEmail(emailField) {
+export function validateEmail(emailField, errorMessage) {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailPattern.test(emailField.value)) {
-        handleErrorMessages(false, emailField, 'Please enter a valid email address.');
+        handleErrorMessages(false, emailField, errorMessage);
         return false;
     } else {
         handleErrorMessages(true, emailField);
@@ -55,11 +55,11 @@ export function validateMobileNumber(mobileField, errorMsg) {
 }
 
 // Function to validate the dropdown
-export function validateLoanProducts(locationDropdown) {
+export function validateLoanProducts(locationDropdown, errorMessage) {
     const selectedValue = locationDropdown.value;
 
     if (selectedValue === "") {
-        handleErrorMessages(false, locationDropdown, 'Please select a location.');
+        handleErrorMessages(false, locationDropdown, errorMessage);
         return false;
     } else {
         handleErrorMessages(true, locationDropdown);

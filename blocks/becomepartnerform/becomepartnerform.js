@@ -158,7 +158,7 @@ async function validateOtp(block, form) {
 
     const otpFieldSetEle = document.querySelector("fieldset#form-otpfieldset");
     if (!isValid) {
-        handleErrorMessages(false, otpFieldSetEle, 'Please enter the valid OTP.');
+        handleErrorMessages(false, otpFieldSetEle, getDataAttributeValueByName('otperrorvalidationmessage'));
     } else {
         handleErrorMessages(true, otpFieldSetEle);
         const form2Payload = generatePayload(form);
@@ -168,7 +168,7 @@ async function validateOtp(block, form) {
                 handleErrorMessages(true, otpFieldSetEle);
                 window.location.href = thankYouPageUrl;
             } else {
-                handleErrorMessages(false, otpFieldSetEle, otpVerifyRes.message);
+                handleErrorMessages(false, otpFieldSetEle, getDataAttributeValueByName('otperrorverifcationmessage'));
             }
         } catch (error) {
             console.error('Error:', error);
@@ -228,16 +228,16 @@ function validateForm1(block) {
     const loanProductField = block.querySelector("#firstset");
     const locationDropdown = block.querySelector('#form-location');
     const isLoanProductsValid = validateLoanProductCheckboxs(loanProductField);
-    const isLocationValid = validateLoanProducts(locationDropdown);
+    const isLocationValid = validateLoanProducts(locationDropdown, getDataAttributeValueByName('locationerrorvalidationmessage'));
 
     let isValid = true;
-    if (!validateNameField(nameField)) {
+    if (!validateNameField(nameField, getDataAttributeValueByName('nameerrorvalidationmessage'))) {
         isValid = false;
     }
-    if (!validateMobileNumber(mobileField, 'Please enter a valid 10-digit mobile number.')) {
+    if (!validateMobileNumber(mobileField, getDataAttributeValueByName('mobileerrorvalidationmessage'))) {
         isValid = false;
     }
-    if (!validateEmail(emailField)) {
+    if (!validateEmail(emailField, getDataAttributeValueByName('emailerrorvalidationmessage'))) {
         isValid = false;
     }
 
@@ -247,7 +247,7 @@ function validateForm1(block) {
 // Consolidated validation function
 function validateLoanProductCheckboxs(loanProductFieldSet) {
     const selectedInputs = loanProductFieldSet.querySelectorAll(`.form1.field-wrapper.checkbox-wrapper.selection-wrapper.checked`);
-    return handleErrorMessages(selectedInputs.length > 0, loanProductFieldSet, 'Please select at least one product.');
+    return handleErrorMessages(selectedInputs.length > 0, loanProductFieldSet, getDataAttributeValueByName('producterrorvalidationmessage'));
 }
 
 function toggleFormVisibility(hideSelector, showSelector, block) {
