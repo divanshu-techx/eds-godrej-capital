@@ -17,11 +17,8 @@
 //     for (let i = 0; i < colWrapperChild2Children.length; i++) {
 //       colWrapperChild2Children[i].classList.add(`col-wrapper-child-2-child-${i + 1}`);
 //     }
-
 //     block.insertBefore(wrapperDiv, blockContainer[2]);
-    
 //     blockContainer[2].classList.add('col-first');
-
 //     const colFirstChildren = blockContainer[2].children;
 //     for (let i = 0; i < colFirstChildren.length; i++) {
 //       colFirstChildren[i].classList.add(`col-first-child-${i + 1}`);
@@ -33,14 +30,14 @@ export default async function decorate(block) {
   // Create a new div to wrap the first two divs
   const wrapperDiv = document.createElement('div');
   wrapperDiv.classList.add('col-wrapper');
- 
+
   // Select the direct child divs of the block
   const blockContainer = block.querySelectorAll(':scope > div');
- 
+
   blockContainer.forEach((div, index) => {                             
     // Add unique class to each div
     div.classList.add(`col-wrapper-child-${index + 1}`);
- 
+
     // Add unique classes to the children of each div
     Array.from(div.children).forEach((child, i) => {
       child.classList.add(`col-wrapper-child-${index + 1}-child-${i + 1}`);
@@ -51,7 +48,7 @@ export default async function decorate(block) {
 
   let wrapperElement = wrapperDiv.querySelectorAll(':scope > div');
 
-  if(wrapperElement.length <= 2) {
+  if (wrapperElement.length <= 2) {
     block.appendChild(wrapperDiv);
   }
   else if(wrapperElement.length >= 3) {
@@ -67,7 +64,3 @@ export default async function decorate(block) {
     block.appendChild(lastDiv);
   }
 }
-
-
-
-
