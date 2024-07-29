@@ -15,7 +15,12 @@
     gap: 20px; 
     overflow-x: auto; 
     padding: 10px;
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
   }
+  .careervalue::-webkit-scrollbar {
+    display: none;
+}
 
   .careervalue .career-child-cards {
     flex: 0 0 424px; 
