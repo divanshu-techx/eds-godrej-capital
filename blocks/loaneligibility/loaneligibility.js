@@ -536,14 +536,17 @@ function initialize(block) {
     P = removeCommaAndConvertToInt(self.target.value);
     displayDetails(P, R, N, M, E, line, pie, block);
   });
- 
   loanAmtText.addEventListener("blur", (self) => {
-    const valueWithoutCommas = removeCommaAndConvertToInt(self.target.value);
-    loanAmtSlider.value = valueWithoutCommas;
-    loanAmtText.value = formatNumberToIndianCommas(valueWithoutCommas);
-    P = valueWithoutCommas;
-    displayDetails(P, R, N, M, E, line, pie, block);
-  });
+    if (self.target.value === '') {
+      loanAmtSlider.value = loanAmtSlider.min;
+        self.target.value = formatNumberToIndianCommas(loanAmtSlider.min);
+    } else {
+        loanAmtSlider.value = removeCommaAndConvertToInt(self.target.value);
+        self.target.value = formatNumberToIndianCommas(self.target.value);
+    }
+    P = removeCommaAndConvertToInt(self.target.value);
+    displayDetails(P, R, N, M, pie, block);
+});
  
   // Event listener to allow only numeric input
   loanAmtText.addEventListener('input', function (event) {
@@ -551,27 +554,51 @@ function initialize(block) {
     value = value.replace(/[^\d.]/g, ''); // Remove non-numeric characters except '.'
     this.value = value;
   });
- 
- 
-  // Event listener to allow only numeric input
+
   loanAmtSlider.addEventListener('input', function (event) {
     let value = this.value;
     value = value.replace(/[^\d.]/g, ''); // Remove non-numeric characters except '.'
     this.value = value;
   });
+
+  exisitingEmiAmountSlider.addEventListener('input', function (event) {
+    let value = this.value;
+    value = value.replace(/[^\d.]/g, ''); // Remove non-numeric characters except '.'
+    this.value = value;
+  });
+  
+  exisitingEmiText.addEventListener('input', function (event) {
+    let value = this.value;
+    value = value.replace(/[^\d.]/g, ''); // Remove non-numeric characters except '.'
+    this.value = value;
+  });
+
+
   exisitingEmiAmountSlider.addEventListener('change', (self) => {
     exisitingEmiText.value = formatNumberToIndianCommas(self.target.value);
     E = removeCommaAndConvertToInt(self.target.value);
     displayDetails(P, R, N, M, E, line, pie, block);
   });
  
-  exisitingEmiText.addEventListener('blur', (self) => {
-    const valueWithoutCommas = removeCommaAndConvertToInt(self.target.value);
-    exisitingEmiAmountSlider.value = valueWithoutCommas;
-    exisitingEmiText.value = formatNumberToIndianCommas(valueWithoutCommas);
-    E = valueWithoutCommas;
-    displayDetails(P, R, N, M, E, line, pie, block);
-  });
+  // exisitingEmiText.addEventListener('blur', (self) => {
+  //   const valueWithoutCommas = removeCommaAndConvertToInt(self.target.value);
+  //   exisitingEmiAmountSlider.value = valueWithoutCommas;
+  //   exisitingEmiText.value = formatNumberToIndianCommas(valueWithoutCommas);
+  //   E = valueWithoutCommas;
+  //   displayDetails(P, R, N, M, E, line, pie, block);
+  // });
+
+  exisitingEmiText.addEventListener("blur", (self) => {
+    if (self.target.value === '') {
+      exisitingEmiAmountSlider.value = exisitingEmiAmountSlider.min;
+        self.target.value = formatNumberToIndianCommas(exisitingEmiAmountSlider.min);
+    } else {
+      exisitingEmiAmountSlider.value = removeCommaAndConvertToInt(self.target.value);
+        self.target.value = formatNumberToIndianCommas(self.target.value);
+    }
+    P = removeCommaAndConvertToInt(self.target.value);
+    displayDetails(P, R, N, M, pie, block);
+});
  
   intRateSlider.addEventListener('change', (self) => {
     intRateText.value = self.target.value;
@@ -580,7 +607,12 @@ function initialize(block) {
   });
  
   intRateText.addEventListener('blur', (self) => {
+    if(self.target.value===''){
+      intRateSlider.value=intRateSlider.min;
+      self.target.value=intRateSlider.min;
+    }else{
     intRateSlider.value = self.target.value;
+    }
     R = parseFloat(self.target.value);
     displayDetails(P, R, N, M, E, line, pie, block);
   });
@@ -592,7 +624,12 @@ function initialize(block) {
   });
  
   loanPeriodText.addEventListener('blur', (self) => {
+    if(self.target.value===''){
+      loanPeriodSlider.value=loanPeriodSlider.min;
+      self.target.value=loanPeriodSlider.min;
+  }else{
     loanPeriodSlider.value = self.target.value;
+  }
     N = parseFloat(self.target.value);
     displayDetails(P, R, N, M, E, line, pie, block);
   });
@@ -604,7 +641,12 @@ function initialize(block) {
   });
  
   loanPeriodTextMonth.addEventListener('blur', (self) => {
+    if(self.target.value===''){
+      loanPeriodSliderMonth.value=loanPeriodSliderMonth.min;
+      self.target.value=loanPeriodSliderMonth.min;
+  }else{
     loanPeriodSliderMonth.value = self.target.value;
+  }
     M = parseFloat(self.target.value);
     displayDetails(P, R, N, M, E, line, pie, block);
   });
@@ -726,24 +768,6 @@ function initialize(block) {
   });
  
  
-  // exisitingEmiAmountSlider.addEventListener("input", function () {
-  //   const value = this.value;
-  //   const percentage = ((value - existingEmiMin) / (existingEmiMax - existingEmiMin)) * 100;
-  //   // Update the background gradient with the calculated percentage
-  //   this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`;
-  // });
- 
-  // exisitingEmiText.addEventListener("input", function () {
-  //   const value = this.value;
-  //   const percentage = ((value - existingEmiMin) / (existingEmiMax - existingEmiMin)) * 100;
-  //   // Update the background gradient with the calculated percentage
-  //   exisitingEmiAmountSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #fff ${percentage}%, white 100%)`;
-  // });
- 
- 
- 
- 
- 
   //   Error message spans
   const loanAmtError = createErrorSpan(`Value should be between ${formatNumberToIndianCommas(loanAmountMinValue)} and ${formatNumberToIndianCommas(loanAmountMaxValue)}`);
   const interestRateError = createErrorSpan(`Value should be between ${interestRateMinValue}% and ${interestRateMaxValue}%`);
@@ -758,7 +782,6 @@ function initialize(block) {
   tenureMonthsDetail.appendChild(loanPeriodMonthError);
   existingEmi.appendChild(exisitingEmiError);
  
-  //   Event listeners for input elements to validate input values
  
   //  error for loan amount
   loanAmtText.addEventListener('input', function () {
