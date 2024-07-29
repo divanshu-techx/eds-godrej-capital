@@ -4,14 +4,14 @@ export default async function decorate(block) {
   const typeFilter = getDataAttributeValueByName('typeFilter');
   const itemsPerPage = parseInt(getDataAttributeValueByName('itemsPerPage'), 10);
   const noResultFoundMessage = getDataAttributeValueByName('noResultFoundMessage');
-  const apiUrl = getDataAttributeValueByName('apiUrl');; // Change this to the correct attribute name
-  const tabsNames = getDataAttributeValueByName('tabsName')?.split(',').map(name => name.trim()) || [];
+  const apiUrl = getDataAttributeValueByName('apiUrl');
+  const tabsNames = getDataAttributeValueByName('tabsName')?.split(',').map((name) => name.trim()) || [];
   const sortBy = getDataAttributeValueByName('sortByLabel');
   const searchIcon = getDataAttributeValueByName('searchIcon');
 
   const readArticleLabel = getDataAttributeValueByName('readArticleLabel');
 
-  const sortOptions = typeFilter.split(',').map(option => option.trim());
+  const sortOptions = typeFilter.split(',').map((option) => option.trim());
 
   // Create container
   const container = document.createElement('div');
@@ -33,8 +33,9 @@ export default async function decorate(block) {
 
   // If tabsNames is empty, create tabs based on unique categories in the data
   let capitalizedTabNames = tabsNames.length > 0
-    ? tabsNames.map(tabName => tabName.charAt(0).toUpperCase() + tabName.slice(1))
-    : Array.from(new Set(data.map(item => item.category.charAt(0).toUpperCase() + item.category.slice(1))));
+    ? tabsNames.map((tabName) => tabName.charAt(0).toUpperCase() + tabName.slice(1))
+    : Array.from(new Set(data.map((item) => item.category.charAt(0).toUpperCase() +
+     item.category.slice(1))));
 
   // Create tabs based on provided or extracted tab names
   capitalizedTabNames.forEach((tabName, index) => {
@@ -64,7 +65,6 @@ export default async function decorate(block) {
   searchInputContainer.appendChild(searchIconImg);
   searchInputContainer.appendChild(searchInput);
 
-
   const sortDropdownContainer = document.createElement('div');
   sortDropdownContainer.className = 'sort-dropdown-container';
 
@@ -72,13 +72,13 @@ export default async function decorate(block) {
   sortDropdown.id = 'sortDropdown';
 
   const selectPlaceholder = document.createElement('option');
-  selectPlaceholder.value = "";
+  selectPlaceholder.value = '';
   selectPlaceholder.textContent = sortBy;
   selectPlaceholder.selected = true;
   sortDropdown.appendChild(selectPlaceholder);
 
   // Create options for sort dropdown based on sortOptions
-  sortOptions.forEach(option => {
+  sortOptions.forEach((option) => {
     const optionElement = document.createElement('option');
     optionElement.value = option;
     optionElement.textContent = option;
@@ -106,12 +106,12 @@ export default async function decorate(block) {
   const scrollLeftButton = document.createElement('button');
   scrollLeftButton.className = 'scroll-button left';
   // scrollLeftButton.textContent = '<';
-  scrollLeftButton.innerHTML = `<img src="/icons/nexticon.svg" alt="Previous" />`; // Custom icon
+  scrollLeftButton.innerHTML = `<img src='/icons/nexticon.svg' alt='Previous' />`; // Custom icon
 
   const scrollRightButton = document.createElement('button');
   scrollRightButton.className = 'scroll-button right';
   // scrollRightButton.textContent = '>';
-  scrollRightButton.innerHTML = `<img src="/icons/nexticon.svg" alt="next" />`;
+  scrollRightButton.innerHTML = `<img src='/icons/nexticon.svg' alt='next' />`;
 
   paginationWrapper.appendChild(scrollLeftButton);
   paginationWrapper.appendChild(paginationContainer);
@@ -182,11 +182,10 @@ export default async function decorate(block) {
         paginationContainer.appendChild(pageSpan);
       }
     }
-    // FOR DISABLE BTN 
+    // FOR DISABLE BTN
     scrollLeftButton.disabled = currentPage === 1;
     scrollRightButton.disabled = currentPage === totalPages;
   };
-
 
   // Function to render items on the current page
   const renderPage = (page = 1) => {
@@ -206,19 +205,18 @@ export default async function decorate(block) {
     const regexLatestToOldest = /latest\s*to\s*oldest/i;
     if (regexLatestToOldest.test(selectedOption)) {
       responseData.sort((a, b) => new Date(b.publishdate) - new Date(a.publishdate));
-    } else if (regexOldestToLatest.test(selectedOption))
+    } else if (regexOldestToLatest.test(selectedOption)) {
       responseData.sort((a, b) => new Date(a.publishdate) - new Date(b.publishdate));
-
+    }
     renderPage();
   };
 
-
   // Function to set active tab and fetch data based on category
   const setActiveTab = (tabName) => {
-    document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach((tab) => tab.classList.remove('active'));
     document.getElementById(`tab-${tabName}`).classList.add('active');
 
-    const filteredData = data.filter(item => item.category.toLowerCase() === tabName.toLowerCase());
+    const filteredData = data.filter((item) => item.category.toLowerCase() === tabName.toLowerCase());
     responseData = filteredData;
     sortData();
     renderPage(1);
@@ -251,7 +249,7 @@ export default async function decorate(block) {
       const currentPage = parseInt(currentPageSpan.textContent);
       if (currentPage > 1) {
         renderPage(currentPage - 1);
-        paginationContainer.scrollLeft -= paginationContainer.clientWidth; // Scroll left to previous page
+        paginationContainer.scrollLeft -= paginationContainer.clientWidth;
       }
     }
   });
@@ -263,7 +261,7 @@ export default async function decorate(block) {
       const totalPages = Math.ceil(responseData.length / itemsPerPage);
       if (currentPage < totalPages) {
         renderPage(currentPage + 1);
-        paginationContainer.scrollLeft += paginationContainer.clientWidth; // Scroll right to next page
+        paginationContainer.scrollLeft += paginationContainer.clientWidth;
       }
     }
   });
