@@ -1,14 +1,14 @@
 import { div } from "../utils/dom-helper.js";
+
 export default async function decorate(block) {
   const teaserContainer = block.closest('.teaser-container');
 
   if (teaserContainer) {
     createTeaser(teaserContainer);
-    //applyInitialStyles(teaserContainer);
+    // applyInitialStyles(teaserContainer);
     applyTextAlignmentAndPlacement(teaserContainer);
     convertAnchorsToButtons(block, teaserContainer);
     hideSpecifiedButtons(teaserContainer);
-
     handleBackgroundStyle(teaserContainer, block);
     // hidePictures(block);
     // showContainer(teaserContainer);
@@ -21,7 +21,7 @@ function triggerCustomEvent() {
   const customEvent = new CustomEvent('allMethodsCompleted', {
     detail: {
       message: 'All methods completed',
-      timestamp: new Date()
+      timestamp: new Date(),
     }
   });
 
@@ -58,14 +58,14 @@ function createTeaser(teaserContainer) {
 
   // Move image elements to carousel-slide-image
   const images = teaser.querySelectorAll('picture');
-  images.forEach(image => {
+  images.forEach((image) => {
     const imageWrapper = div(image);
     carouselSlideImage.appendChild(imageWrapper);
   });
 
   // Move text content to carousel-slide-content
   const paragraphs = teaser.querySelectorAll('p, ul');
-  paragraphs.forEach(paragraph => {
+  paragraphs.forEach((paragraph) => {
     carouselSlideContent.appendChild(paragraph);
   });
 
@@ -75,11 +75,10 @@ function createTeaser(teaserContainer) {
   teaser.appendChild(carouselSlideContent);
 }
 
-
 const applyInitialStyles = (container) => {
   const mobileAlignment = container.getAttribute('data-mobile-alignment');
   const desktopAlignment = container.getAttribute(
-    'data-desktop-text-alignment'
+    'data-desktop-text-alignment',
   );
 
   const applyStyles = () => {
@@ -93,22 +92,22 @@ const applyInitialStyles = (container) => {
 
 const applyTextAlignmentAndPlacement = (container) => {
   const desktopTextAlignment = container.getAttribute(
-    'data-desktop-text-alignment'
+    'data-desktop-text-alignment',
   );
   const desktopTextPlacement = container.getAttribute(
-    'data-desktop-text-placement'
+    'data-desktop-text-placement',
   );
 
   const contentColour = container.getAttribute(
-    'data-text-color'
+    'data-text-color',
   );
 
   const headingStyle = container.getAttribute(
-    'data-heading-style'
+    'data-heading-style',
   );
 
   const descriptionAlignment = container.getAttribute(
-    'data-description-alignment '
+    'data-description-alignment ',
   );
 
   const wrapper = container.querySelector('.teaser-wrapper .carousel-slide-content');
@@ -150,9 +149,9 @@ const convertAnchorsToButtons = (block, container) => {
   const paragraphs = block.querySelectorAll('p');
   paragraphs.forEach((paragraph) => {
     convertAnchorToButton(paragraph, 'strong a', 'primary-button');
-    //const element = paragraph.querySelector("a");
-    //convertAnchorToButton(paragraph, 'a', 'primary-button');
-    //convertAnchorToButton(paragraph, 'em a', 'secondary-button');
+    // const element = paragraph.querySelector("a");
+    // convertAnchorToButton(paragraph, 'a', 'primary-button');
+    // convertAnchorToButton(paragraph, 'em a', 'secondary-button');
   });
 };
 
@@ -181,8 +180,8 @@ const hideSpecifiedButtons = (container) => {
 
   if (buttonsToHide) {
     buttonsToHide.forEach((buttonType) => {
-      const buttonSelector
-        = buttonType === 'primary' ? '.primary-button' : '.secondary-button';
+      const buttonSelector = buttonType ===
+       'primary' ? '.primary-button' : '.secondary-button';
       const button = container.querySelector(buttonSelector);
       if (button) {
         button.style.display = 'none';
@@ -218,8 +217,6 @@ const handleBackgroundStyle = (container, block) => {
     // window.addEventListener('resize', applyBackgroundImage);
   }
 
-
-
   const videoLinks = block.querySelectorAll('a[href]');
 
   let videoUrl = '';
@@ -233,8 +230,7 @@ const handleBackgroundStyle = (container, block) => {
       mp4VideoUrl = href;
     }
   });
-  if (backgroundStyle === "video") {
-
+  if (backgroundStyle === 'video') {
     createInlineVideoPlayer(container, mp4VideoUrl);
   } else if (videoUrl) {
     let hideButton = container.querySelector('.button');
@@ -279,8 +275,6 @@ const createVideoPopup = (container, videoUrl, isMp4) => {
       popup.appendChild(iframe);
     }
 
-
-
     const closeButton = document.createElement('button');
     closeButton.className = 'close-button';
     closeButton.innerText = 'Close';
@@ -292,7 +286,6 @@ const createVideoPopup = (container, videoUrl, isMp4) => {
   };
   container.querySelector('.button-container').appendChild(playButton);
 };
-
 
 // Function to find carousel-slide-image div inside a container
 const findCarouselSlideImage = (container) => {
@@ -307,7 +300,6 @@ const findCarouselSlideImage = (container) => {
   }
   return null; // Return null if no suitable div is found
 };
-
 
 const createInlineVideoPlayer = (container, videoUrl) => {
   const slideContent = container.querySelector('.carousel-slide-content');
@@ -388,8 +380,6 @@ const createInlineVideoPlayer = (container, videoUrl) => {
     }
   };
 };
-
-
 
 const createImageBackground = (container, imageUrl) => {
   container.style.backgroundImage = `url(${imageUrl})`;
