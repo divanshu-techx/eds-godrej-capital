@@ -418,7 +418,7 @@
     margin-bottom: 0px;
   }
 }
-
+/* for .existing input label and proposed input label */
 .inputBalance .proposedLoan-input-label,.existgingLoan-input-label{
   margin-top: 0em;
 }
