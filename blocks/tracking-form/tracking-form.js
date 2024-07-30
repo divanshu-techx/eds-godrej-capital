@@ -30,7 +30,8 @@ function toggleResidentDivVisibility(
   }
 }
 
-function toggleOtpMsgVisibility(indianResidentRadio, nriOtpMessage, indianOtpMessage, nonResidentIndianRadio) {
+function toggleOtpMsgVisibility(
+  indianResidentRadio, nriOtpMessage, indianOtpMessage, nonResidentIndianRadio) {
   if (indianResidentRadio.checked) {
     nriOtpMessage.parentNode.style.display = 'none';
     indianOtpMessage.parentNode.style.display = 'block';
@@ -58,7 +59,7 @@ function handleApplyNowBtn(block, form) {
   const nriMobileField = block.querySelector('#nriMobileNumber');
   const applyNowBtn = block.querySelector('#apply-now-btn');
   if (applyNowBtn) {
-    applyNowBtn.addEventListener('click', function () {
+    applyNowBtn.addEventListener('click', () => {
       if (validateMobileNumber(residentMobileField, 'Please enter a valid mobile number.')
         || validateMobileNumber(nriMobileField, 'Please enter a valid mobile number.')
         || validateEmail(nriMobileField)) {
