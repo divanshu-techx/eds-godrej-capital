@@ -147,18 +147,18 @@ const hideSpecifiedButtons = (container) => {
 };
 
 // Function to find carousel-slide-image div inside a container
-const findCarouselSlideImage = (container) => {
-  const children = container.children;
-  for (let i = 0; i < children.length; i + 1) {
-    const child = children[i];
-    // Check if the child has a picture element inside
-    const pictureElement = child.querySelector('picture');
-    if (pictureElement) {
-      return child; // Return the first div found with a picture element
-    }
-  }
-  return null; // Return null if no suitable div is found
-};
+// const findCarouselSlideImage = (container) => {
+//   const children = container.children;
+//   for (let i = 0; i < children.length; i + 1) {
+//     const child = children[i];
+//     // Check if the child has a picture element inside
+//     const pictureElement = child.querySelector('picture');
+//     if (pictureElement) {
+//       return child; // Return the first div found with a picture element
+//     }
+//   }
+//   return null; // Return null if no suitable div is found
+// };
 
 const createInlineVideoPlayer = (container, videoUrl) => {
   const slideContent = container.querySelector('.carousel-slide-content');
@@ -284,26 +284,26 @@ const handleBackgroundStyle = (container, block) => {
   // const teaserWrappers = container.querySelectorAll('.teaser-wrapper');
 
   // if (backgroundStyle === 'image') {
-    // const pictures = container.querySelectorAll('picture');
-    // let desktopImageSrc = '';
-    // let mobileImageSrc = '';
-    // pictures.forEach((picture, index) => {
-    //   const img = picture.querySelector('img');
-    //   if (img) {
-    //     if (index === 0) {
-    //       desktopImageSrc = img.src;
-    //     } else if (index === 1) {
-    //       mobileImageSrc = img.src;
-    //     }
-    //   }
-    // });
-    // const applyBackgroundImage = () => {
-    //   container.style.backgroundImage = `url(${
-    //     window.innerWidth < 600 ? mobileImageSrc : desktopImageSrc
-    //   })`;
-    // };
-    // applyBackgroundImage();
-    // window.addEventListener('resize', applyBackgroundImage);
+  // const pictures = container.querySelectorAll('picture');
+  // let desktopImageSrc = '';
+  // let mobileImageSrc = '';
+  // pictures.forEach((picture, index) => {
+  //   const img = picture.querySelector('img');
+  //   if (img) {
+  //     if (index === 0) {
+  //       desktopImageSrc = img.src;
+  //     } else if (index === 1) {
+  //       mobileImageSrc = img.src;
+  //     }
+  //   }
+  // });
+  // const applyBackgroundImage = () => {
+  //   container.style.backgroundImage = `url(${
+  //     window.innerWidth < 600 ? mobileImageSrc : desktopImageSrc
+  //   })`;
+  // };
+  // applyBackgroundImage();
+  // window.addEventListener('resize', applyBackgroundImage);
   // }
 
   const videoLinks = block.querySelectorAll('a[href]');
