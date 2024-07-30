@@ -1,3 +1,18 @@
+async function fetchData(apiUrl) {
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    return data.data;
+  } catch (error) {
+    return null;
+  }
+}
+
+function getDataAttributeValueByName(name) {
+  const element = document.querySelector(`[data-${name}]`);
+  return element ? element.getAttribute(`data-${name}`) : null;
+}
+
 export default async function decorate(block) {
   let responseData = [];
   const inputFieldPlaceholder = getDataAttributeValueByName('inputFieldPlaceholder');
@@ -22,7 +37,7 @@ export default async function decorate(block) {
   tabsAndControlsContainer.className = 'tabs-and-controls-container';
 
   // Fetch data
-  let data = await fetchData(apiUrl);
+  const data = await fetchData(apiUrl);
   if (!data) {
     return;
   }
@@ -32,10 +47,10 @@ export default async function decorate(block) {
   tabsContainer.className = 'news-and-release-tabs';
 
   // If tabsNames is empty, create tabs based on unique categories in the data
-  let capitalizedTabNames = tabsNames.length > 0
+  const capitalizedTabNames = tabsNames.length > 0
     ? tabsNames.map((tabName) => tabName.charAt(0).toUpperCase() + tabName.slice(1))
     : Array.from(new Set(data.map((item) => item.category.charAt(0).toUpperCase()
-     + item.category.slice(1))));
+      + item.category.slice(1))));
 
   // Create tabs based on provided or extracted tab names
   capitalizedTabNames.forEach((tabName, index) => {
@@ -283,19 +298,5 @@ export default async function decorate(block) {
     const year = date.getFullYear();
     return `${day} ${month} ${year}`;
   }
-
-  function getDataAttributeValueByName(name) {
-    const element = document.querySelector(`[data-${name}]`);
-    return element ? element.getAttribute(`data-${name}`) : null;
-  }
-
-  async function fetchData(apiUrl) {
-    try {
-      const response = await fetch(apiUrl);
-      const data = await response.json();
-      return data.data;
-    } catch (error) {
-      return null;
-    }
-  }
 }
+
