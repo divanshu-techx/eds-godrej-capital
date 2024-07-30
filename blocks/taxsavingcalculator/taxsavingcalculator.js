@@ -340,82 +340,6 @@ function initializeEventListeners(block) {
     });
   });
 }
-// when needs logic of month also
-// function calculateTax(income, principal, interest, month, age) {
-//   const cessRate = parseFloat(getDataAttributeValueByName("cess-rate")) / 100;
-//   const principalDeductionLimit = 150000;
-//   const interestDeductionLimit = 200000;
-
-//   // Function to calculate tax based on income slabs
-//   function calculateBasicTax(income) {
-//     let tax = 0;
-//     if (income > 1000000) {
-//       tax += (income - 1000000) * 0.3;
-//       income = 1000000;
-//     }
-//     if (income > 500000) {
-//       tax += (income - 500000) * 0.2;
-//       income = 500000;
-//     }
-//     if (income > 250000) {
-//       tax += (income - 250000) * 0.05;
-//     }
-//     return tax;
-//   }
-
-//   // Tax Slabs based on age
-//   function getTaxSlabs(age) {
-//     if (age > 80) {
-//       return {
-//         taxSlabs: [250000, 500000, 1000000],
-//         rates: [0.05, 0.2, 0.3],
-//       };
-//     } else if (age > 60) {
-//       return {
-//         taxSlabs: [300000, 500000, 1000000],
-//         rates: [0.05, 0.2, 0.3],
-//       };
-//     } else {
-//       return {
-//         taxSlabs: [250000, 500000, 1000000],
-//         rates: [0.05, 0.2, 0.3],
-//       };
-//     }
-//   }
-
-//   const { taxSlabs, rates } = getTaxSlabs(age);
-
-//   // Calculate tax before loan deductions
-//   const basicTaxBefore = calculateBasicTax(income * month);
-//   const cessBefore = basicTaxBefore * cessRate;
-//   const taxBefore = Math.round(basicTaxBefore + cessBefore);
-
-//   // Restrict principal and interest deductions to their respective limits
-//   const annualPrincipal = Math.min(principal * month, principalDeductionLimit);
-//   const annualInterest = Math.min(interest * month, interestDeductionLimit);
-
-//   // Calculate taxable income after loan deductions
-//   const taxableIncomeAfter = Math.max(
-//     0,
-//     (income - annualPrincipal - annualInterest) * month
-//   );
-
-//   // Calculate tax after loan deductions
-//   const basicTaxAfter = calculateBasicTax(taxableIncomeAfter);
-//   const cessAfter = basicTaxAfter * cessRate;
-//   const taxAfter = Math.round(basicTaxAfter + cessAfter);
-
-//   // Calculate tax benefits
-//   const taxBenefits = Math.round(taxBefore - taxAfter);
-
-//   return {
-//     taxBefore: taxBefore,
-//     taxAfter: taxAfter,
-//     taxBenefits: taxBenefits,
-//   };
-// }
-
-
 function calculateTax(income, principal, interest, age) {
   const cessRate = parseFloat(getDataAttributeValueByName("cess-rate")) / 100;
   const principalDeductionLimit = parseFloat(getDataAttributeValueByName('Principal-deduction-limit'));
@@ -476,7 +400,7 @@ function calculateTax(income, principal, interest, age) {
   const { taxSlabs, rates } = getTaxSlabs(age);
 
   // Calculate tax before loan deductions
-  const basicTaxBefore = calculateBasicTax(income);
+  const basicTaxBefore = calculateBasicTax(income, taxSlabs, rates);
   const cessBefore = basicTaxBefore * cessRate;
   const taxBefore = Math.round(basicTaxBefore + cessBefore);
 
@@ -491,7 +415,7 @@ function calculateTax(income, principal, interest, age) {
   );
 
   // Calculate tax after loan deductions
-  const basicTaxAfter = calculateBasicTax(taxableIncomeAfter);
+  const basicTaxAfter = calculateBasicTax(taxableIncomeAfter, taxSlabs, rates);
   const cessAfter = basicTaxAfter * cessRate;
   const taxAfter = Math.round(basicTaxAfter + cessAfter);
 
