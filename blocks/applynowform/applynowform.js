@@ -597,7 +597,6 @@ function validateFormInput(rules, block) {
   let isChecked = false;
   for (let index = 0; index < checboxes.length; index++) {
     if (checboxes[index].checked === true) {
-
       isChecked = true;
 
     }
@@ -607,7 +606,6 @@ function validateFormInput(rules, block) {
     errorDiv.className = 'error-message';
     errorDiv.textContent = getDataAttributeValueByName('loantypevalidationerrormessage');
     checboxes[0].parentNode.parentNode.appendChild(errorDiv);
-
   }
   return (isValid && isChecked);
 }
