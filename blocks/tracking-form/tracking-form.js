@@ -11,6 +11,7 @@ function addCheckedClass(radio, block) {
   }
 }
 
+// Function to show or hide divs based on resident type radio button selection
 function toggleResidentDivVisibility(indianResidentRadio, indianMobileNumberDiv, nriMobileNumberDiv, nonResidentIndianRadio, block) {
   if (indianResidentRadio.checked) {
     indianMobileNumberDiv.parentNode.style.display = 'block';
@@ -85,12 +86,14 @@ export default async function decorate(block) {
     toggleResidentDivVisibility(indianResidentRadio, indianMobileNumberDiv, nriMobileNumberDiv,
       nonResidentIndianRadio, block);
     // Add event listeners to radio buttons to toggle div visibility on change
-    indianResidentRadio.addEventListener('change', toggleResidentDivVisibility);
-    nonResidentIndianRadio.addEventListener('change', toggleResidentDivVisibility);
+    // indianResidentRadio.addEventListener('change', toggleResidentDivVisibility);
+    // nonResidentIndianRadio.addEventListener('change', toggleResidentDivVisibility);
+    // Add event listeners to radio buttons to toggle div visibility on change
+    indianResidentRadio.addEventListener('change', () => toggleResidentDivVisibility(
+      indianResidentRadio, indianMobileNumberDiv, nriMobileNumberDiv, nonResidentIndianRadio, block));
+    nonResidentIndianRadio.addEventListener('change', () => toggleResidentDivVisibility(
+      indianResidentRadio, indianMobileNumberDiv, nriMobileNumberDiv, nonResidentIndianRadio, block));
     handleApplyNowBtn(block, form);
-    // Function to show or hide divs based on resident type radio button selection
-    toggleResidentDivVisibility(indianResidentRadio, indianMobileNumberDiv, nriMobileNumberDiv,
-      nonResidentIndianRadio, block);
 
     toggleOtpMsgVisibility(indianResidentRadio, nriOtpMessage, indianOtpMessage, nonResidentIndianRadio);
 
