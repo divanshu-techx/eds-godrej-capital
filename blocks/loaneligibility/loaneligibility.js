@@ -829,8 +829,10 @@ function initialize(block) {
   if (mobileSelect) {
     mobileSelect.addEventListener('input', function () {
       const selectedText = mobileSelect.options[mobileSelect.selectedIndex].text;
+      console.log(selectedText);
 
       const applyMobile = document.getElementById('apply-btn-loan');
+      console.log(applyMobile);
       applyMobile.setAttribute('data-product', selectedText);
     });
   }
