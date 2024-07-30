@@ -312,7 +312,8 @@ const handleBackgroundStyle = (container, block) => {
   let mp4VideoUrl = '';
 
   videoLinks.forEach((link) => {
-    const href = link.href;
+    // const href = link.href;
+    const { href } = link;
     if (href.includes('youtube.com')) {
       videoUrl = href;
     } else if (href.match(/\.(mp4|webm|ogg)$/)) {
