@@ -31,7 +31,11 @@ function toggleResidentDivVisibility(
 }
 
 function toggleOtpMsgVisibility(
-  indianResidentRadio, nriOtpMessage, indianOtpMessage, nonResidentIndianRadio) {
+  indianResidentRadio,
+  nriOtpMessage,
+  indianOtpMessage,
+  nonResidentIndianRadio,
+) {
   if (indianResidentRadio.checked) {
     nriOtpMessage.parentNode.style.display = 'none';
     indianOtpMessage.parentNode.style.display = 'block';
