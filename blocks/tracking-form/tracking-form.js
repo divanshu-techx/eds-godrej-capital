@@ -88,28 +88,38 @@ export default async function decorate(block) {
       indianMobileNumberDiv,
       nriMobileNumberDiv,
       nonResidentIndianRadio,
-      block
+      block,
     );
     // Add event listeners to radio buttons to toggle div visibility on change
     // indianResidentRadio.addEventListener('change', toggleResidentDivVisibility);
     // nonResidentIndianRadio.addEventListener('change', toggleResidentDivVisibility);
     // Add event listeners to radio buttons to toggle div visibility on change
     indianResidentRadio.addEventListener('change', () =>
-      toggleResidentDivVisibility(indianResidentRadio, indianMobileNumberDiv,
-        nriMobileNumberDiv, nonResidentIndianRadio, block)
+      toggleResidentDivVisibility(
+        indianResidentRadio,
+        indianMobileNumberDiv,
+        nriMobileNumberDiv,
+        nonResidentIndianRadio,
+        block,
+      )
     );
-    nonResidentIndianRadio.addEventListener('change', () =>
-      toggleResidentDivVisibility(indianResidentRadio, indianMobileNumberDiv,
-        nriMobileNumberDiv, nonResidentIndianRadio, block)
+    nonResidentIndianRadio.addEventListener('change', () => 
+      toggleResidentDivVisibility(
+        indianResidentRadio, 
+        indianMobileNumberDiv, 
+        nriMobileNumberDiv, 
+        nonResidentIndianRadio, 
+        block,
+      )
     );
-      
+    
     handleApplyNowBtn(block, form);
 
     toggleOtpMsgVisibility(
       indianResidentRadio,
       nriOtpMessage,
       indianOtpMessage,
-      nonResidentIndianRadio
+      nonResidentIndianRadio,
     );
 
     handleApplyNowBtn(block, form);
