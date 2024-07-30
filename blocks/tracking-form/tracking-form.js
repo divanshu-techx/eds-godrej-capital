@@ -58,7 +58,14 @@ function toggleFormVisibility(hideSelector, showSelector, block) {
   });
 }
 
-function handleApplyNowBtn(block, form) {
+function handleApplyNowBtn(
+  block,
+  form,
+  indianResidentRadio,
+  nriOtpMessage,
+  indianOtpMessage,
+  nonResidentIndianRadio,
+) {
   const residentMobileField = block.querySelector('#mobileNumber');
   const nriMobileField = block.querySelector('#nriMobileNumber');
   const applyNowBtn = block.querySelector('#apply-now-btn');
@@ -68,7 +75,12 @@ function handleApplyNowBtn(block, form) {
         || validateMobileNumber(nriMobileField, 'Please enter a valid mobile number.')
         || validateEmail(nriMobileField)) {
         toggleFormVisibility('.form1', '.form2', block);
-        toggleOtpMsgVisibility();
+        toggleOtpMsgVisibility(
+          indianResidentRadio,
+          nriOtpMessage,
+          indianOtpMessage,
+          nonResidentIndianRadio,
+        );
         console.log(generatePayload(form));
       }
     });
@@ -123,7 +135,14 @@ export default async function decorate(block) {
       );
     });
 
-    handleApplyNowBtn(block, form);
+    handleApplyNowBtn(
+      block,
+      form,
+      indianResidentRadio,
+      nriOtpMessage,
+      indianOtpMessage,
+      nonResidentIndianRadio,
+    );
 
     toggleOtpMsgVisibility(
       indianResidentRadio,
@@ -131,7 +150,5 @@ export default async function decorate(block) {
       indianOtpMessage,
       nonResidentIndianRadio,
     );
-
-    handleApplyNowBtn(block, form);
   }
 }
