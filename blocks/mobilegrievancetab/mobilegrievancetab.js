@@ -17,7 +17,6 @@ export default async function decorate(block) {
   const tabs = [...block.children].map((child) => child.firstElementChild);
   tabs.forEach((tab, i) => {
     const id = toClassName(tab.textContent);
-
     // decorate tabpanel
     const tabpanel = block.children[i];
     tabpanel.className = 'mobile-grievance-tabs-panel'; // Updated class name here

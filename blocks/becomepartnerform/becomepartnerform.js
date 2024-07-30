@@ -1,7 +1,7 @@
 import { createForm, generatePayload } from '../../blocks/form/form.js';
 import { restrictNameInputs, restrictPhoneNumberInputs, validateNameField, validateEmail, validateMobileNumber, validateLoanProducts, handleErrorMessages } from '../form/inputFieldsValidation.js';
 
-const apiUrl = getDataAttributeValueByName('apiurl');
+const apiUrl = getDataAttributeValueByName('otpapiurl');
 const formSheetUrl = getDataAttributeValueByName('sheeturl');
 const thankYouPageUrl = getDataAttributeValueByName('thankyoupageurl');
 
