@@ -250,9 +250,9 @@ export default async function decorate(block) {
 
     // const filteredData = data.filter((item,
     // ) => item.category.toLowerCase() === tabName.toLowerCase());
-    const filteredData = data.filter((item) =>
+    const filteredData = data.filter((item) => (
       item.category.toLowerCase() === tabName.toLowerCase()
-    );
+    ));
     responseData = filteredData;
     sortData();
     renderPage(1);
