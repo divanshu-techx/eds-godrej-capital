@@ -7,7 +7,7 @@ import { div } from '../utils/dom-helper.js';
  */
 function createTeaser(teaserContainer) {
   // Select the teaser-wrapper element
-  const teaserWrapper = teaserContainer.querySelector('.teaser-wrapper',);
+  const teaserWrapper = teaserContainer.querySelector('.teaser-wrapper');
   if (!teaserWrapper) return;
 
   // Select the teaser element inside teaser-wrapper
@@ -44,7 +44,7 @@ function createTeaser(teaserContainer) {
   teaser.innerHTML = '';
   teaser.appendChild(carouselSlideImage);
   teaser.appendChild(carouselSlideContent);
-};
+}
 
 const applyTextAlignmentAndPlacement = (container) => {
   const desktopTextAlignment = container.getAttribute(
@@ -121,7 +121,7 @@ const convertAnchorToButton = (parent, selector, buttonClass) => {
   }
 };
 
-const convertAnchorsToButtons = (block, container) => {
+const convertAnchorsToButtons = (block) => {
   const paragraphs = block.querySelectorAll('p');
   paragraphs.forEach((paragraph) => {
     convertAnchorToButton(paragraph, 'strong a', 'primary-button');
@@ -149,7 +149,7 @@ const hideSpecifiedButtons = (container) => {
 // Function to find carousel-slide-image div inside a container
 const findCarouselSlideImage = (container) => {
   const children = container.children;
-  for (let i = 0; i < children.length; i++) {
+  for (let i = 0; i < children.length; i + 1) {
     const child = children[i];
     // Check if the child has a picture element inside
     const pictureElement = child.querySelector('picture');
@@ -162,7 +162,7 @@ const findCarouselSlideImage = (container) => {
 
 const createInlineVideoPlayer = (container, videoUrl) => {
   const slideContent = container.querySelector('.carousel-slide-content');
-  const carouselSlideImage = findCarouselSlideImage(container);
+  // const carouselSlideImage = findCarouselSlideImage(container);
 
   const playButtonInLine = document.createElement('button');
   playButtonInLine.className = 'play-button-v1';
@@ -194,7 +194,7 @@ const createInlineVideoPlayer = (container, videoUrl) => {
   slideContent.appendChild(playButton);
   container.querySelector('.button-container').appendChild(playButtonInLine);
 
-  let hideButton = slideContent.querySelector('.button');
+  const hideButton = slideContent.querySelector('.button');
   hideButton.style.display = 'none';
 
   // Create the video element
@@ -241,7 +241,7 @@ const createInlineVideoPlayer = (container, videoUrl) => {
 };
 
 const createVideoPopup = (container, videoUrl, isMp4) => {
-  const slideContent = container.querySelector('.carousel-slide-content');
+  // const slideContent = container.querySelector('.carousel-slide-content');
   const playButton = document.createElement('button');
   playButton.className = 'play-button';
   playButton.innerText = 'Play Video';
@@ -281,22 +281,22 @@ const createVideoPopup = (container, videoUrl, isMp4) => {
 
 const handleBackgroundStyle = (container, block) => {
   const backgroundStyle = container.getAttribute('data-background-style');
-  const teaserWrappers = container.querySelectorAll('.teaser-wrapper');
+  // const teaserWrappers = container.querySelectorAll('.teaser-wrapper');
 
-  if (backgroundStyle === 'image') {
-    const pictures = container.querySelectorAll('picture');
-    let desktopImageSrc = '';
-    let mobileImageSrc = '';
-    pictures.forEach((picture, index) => {
-      const img = picture.querySelector('img');
-      if (img) {
-        if (index === 0) {
-          desktopImageSrc = img.src;
-        } else if (index === 1) {
-          mobileImageSrc = img.src;
-        }
-      }
-    });
+  // if (backgroundStyle === 'image') {
+    // const pictures = container.querySelectorAll('picture');
+    // let desktopImageSrc = '';
+    // let mobileImageSrc = '';
+    // pictures.forEach((picture, index) => {
+    //   const img = picture.querySelector('img');
+    //   if (img) {
+    //     if (index === 0) {
+    //       desktopImageSrc = img.src;
+    //     } else if (index === 1) {
+    //       mobileImageSrc = img.src;
+    //     }
+    //   }
+    // });
     // const applyBackgroundImage = () => {
     //   container.style.backgroundImage = `url(${
     //     window.innerWidth < 600 ? mobileImageSrc : desktopImageSrc
@@ -304,7 +304,7 @@ const handleBackgroundStyle = (container, block) => {
     // };
     // applyBackgroundImage();
     // window.addEventListener('resize', applyBackgroundImage);
-  }
+  // }
 
   const videoLinks = block.querySelectorAll('a[href]');
 
@@ -322,7 +322,7 @@ const handleBackgroundStyle = (container, block) => {
   if (backgroundStyle === 'video') {
     createInlineVideoPlayer(container, mp4VideoUrl);
   } else if (videoUrl) {
-    let hideButton = container.querySelector('.button');
+    const hideButton = container.querySelector('.button');
     hideButton.style.display = 'none';
     createVideoPopup(container, videoUrl, false);
   }
@@ -357,7 +357,7 @@ export default async function decorate(block) {
     createTeaser(teaserContainer);
     // applyInitialStyles(teaserContainer);
     applyTextAlignmentAndPlacement(teaserContainer);
-    convertAnchorsToButtons(block, teaserContainer);
+    convertAnchorsToButtons(block);
     hideSpecifiedButtons(teaserContainer);
     handleBackgroundStyle(teaserContainer, block);
     // hidePictures(block);
@@ -366,35 +366,34 @@ export default async function decorate(block) {
   }
 }
 
-const applyInitialStyles = (container) => {
-  const mobileAlignment = container.getAttribute('data-mobile-alignment');
-  const desktopAlignment = container.getAttribute(
-    'data-desktop-text-alignment',
-  );
+// const applyInitialStyles = (container) => {
+//   const mobileAlignment = container.getAttribute('data-mobile-alignment');
+//   const desktopAlignment = container.getAttribute(
+//     'data-desktop-text-alignment',
+//   );
 
-  const applyStyles = () => {
-    const isMobile = window.innerWidth < 600;
-    container.style.textAlign = isMobile ? mobileAlignment : desktopAlignment;
-  };
+//   const applyStyles = () => {
+//     const isMobile = window.innerWidth < 600;
+//     container.style.textAlign = isMobile ? mobileAlignment : desktopAlignment;
+//   };
 
-  applyStyles();
-  window.addEventListener('resize', applyStyles);
-};
+//   applyStyles();
+//   window.addEventListener('resize', applyStyles);
+// };
 
-const createImageBackground = (container, imageUrl) => {
-  container.style.backgroundImage = `url(${imageUrl})`;
-  container.style.backgroundSize = '100% 100%';
-  container.style.backgroundPosition = 'center';
-};
+// const createImageBackground = (container, imageUrl) => {
+//   container.style.backgroundImage = `url(${imageUrl})`;
+//   container.style.backgroundSize = '100% 100%';
+//   container.style.backgroundPosition = 'center';
+// };
 
-const hidePictures = (block) => {
-  const pictures = block.querySelectorAll('picture');
-  pictures.forEach((picture) => {
-    picture.style.display = 'none';
-  });
-};
+// const hidePictures = (block) => {
+//   const pictures = block.querySelectorAll('picture');
+//   pictures.forEach((picture) => {
+//     picture.style.display = 'none';
+//   });
+// };
 
-const showContainer = (container) => {
-  container.style.display = 'block';
-};
-
+// const showContainer = (container) => {
+//   container.style.display = 'block';
+// };
