@@ -38,6 +38,34 @@ function getImageForBreakpoint(imagesList, onChange = () => { }) {
   onDesktopChange(desktopMQ);
 }
 
+function initBackgroundPosition(classList, breakpoint) {
+  const classPrefixes = {
+    [MEDIA_BREAKPOINTS.MOBILE]: 's',
+    [MEDIA_BREAKPOINTS.TABLET]: 'm',
+    [MEDIA_BREAKPOINTS.DESKTOP]: 'l',
+  };
+  const classPrefix = classPrefixes[breakpoint];
+  // const backgroudPositionClass = [...classList].find((item) => item.startsWith(`bp-${classPrefix}-`),
+  // );
+  const backgroudPositionClass = [...classList].find((item) =>
+    item.startsWith(`bp-${classPrefix}-`)
+  );
+  let backgroundPositionValue = 'center';
+
+  if (backgroudPositionClass) {
+    let [, , xPosition, yPosition] = backgroudPositionClass.split('-');
+
+    // workaround, '-' character classes are not supported
+    // so for '-45px' we need to put 'm45px'
+    xPosition = xPosition.replace('m', '-');
+    yPosition = yPosition.replace('m', '-');
+
+    backgroundPositionValue = `${xPosition} ${yPosition}`;
+  }
+
+  return backgroundPositionValue;
+}
+
 function prepareBackgroundImage(block) {
   const onBackgroundImgChange = (imgEl, backgroundTarget, breakpoint) => {
     const backgroundPostionStyles = initBackgroundPosition(
@@ -71,31 +99,6 @@ function prepareBackgroundImage(block) {
   // removing from DOM - prevent loading all of provided images
   listOfPictures.remove();
   getImageForBreakpoint(listOfPictures, onBreakpointChange);
-}
-
-function initBackgroundPosition(classList, breakpoint) {
-  const classPrefixes = {
-    [MEDIA_BREAKPOINTS.MOBILE]: 's',
-    [MEDIA_BREAKPOINTS.TABLET]: 'm',
-    [MEDIA_BREAKPOINTS.DESKTOP]: 'l',
-  };
-  const classPrefix = classPrefixes[breakpoint];
-  const backgroudPositionClass = [...classList].find((item) => item.startsWith(`bp-${classPrefix}-`),
-  );
-  let backgroundPositionValue = 'center';
-
-  if (backgroudPositionClass) {
-    let [, , xPosition, yPosition] = backgroudPositionClass.split('-');
-
-    // workaround, '-' character classes are not supported
-    // so for '-45px' we need to put 'm45px'
-    xPosition = xPosition.replace('m', '-');
-    yPosition = yPosition.replace('m', '-');
-
-    backgroundPositionValue = `${xPosition} ${yPosition}`;
-  }
-
-  return backgroundPositionValue;
 }
 
 export default async function decorate(block) {
