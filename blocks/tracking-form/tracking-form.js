@@ -93,23 +93,24 @@ export default async function decorate(block) {
     // Add event listeners to radio buttons to toggle div visibility on change
     // indianResidentRadio.addEventListener('change', toggleResidentDivVisibility);
     // nonResidentIndianRadio.addEventListener('change', toggleResidentDivVisibility);
-    // Add event listeners to radio buttons to toggle div visibility on change
-    indianResidentRadio.addEventListener('change', () =>
+    indianResidentRadio.addEventListener('change', () => {
       toggleResidentDivVisibility(
         indianResidentRadio,
         indianMobileNumberDiv,
         nriMobileNumberDiv,
         nonResidentIndianRadio,
         block,
-      ));
-    nonResidentIndianRadio.addEventListener('change', () =>
+      )
+    });
+    nonResidentIndianRadio.addEventListener('change', () => {
       toggleResidentDivVisibility(
         indianResidentRadio,
         indianMobileNumberDiv,
         nriMobileNumberDiv,
         nonResidentIndianRadio,
         block,
-      ));
+      );
+    });
 
     handleApplyNowBtn(block, form);
 
@@ -122,4 +123,5 @@ export default async function decorate(block) {
 
     handleApplyNowBtn(block, form);
   }
+
 }
