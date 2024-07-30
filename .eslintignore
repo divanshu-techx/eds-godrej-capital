@@ -1,7 +1,7 @@
 helix-importer-ui,
-jquery.js,
-chart.js,
-expressions.js,
-ffetch.js,
-scripts.js,
+jquery.js
+expressions.js
+ffetch.js
+scripts.js
 aem.js
+chart.js
