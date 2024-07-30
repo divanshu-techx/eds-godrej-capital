@@ -1,34 +1,5 @@
 import { div } from '../utils/dom-helper.js';
 
-export default async function decorate(block) {
-  const teaserContainer = block.closest('.teaser-container');
-
-  if (teaserContainer) {
-    createTeaser(teaserContainer);
-    // applyInitialStyles(teaserContainer);
-    applyTextAlignmentAndPlacement(teaserContainer);
-    convertAnchorsToButtons(block, teaserContainer);
-    hideSpecifiedButtons(teaserContainer);
-    handleBackgroundStyle(teaserContainer, block);
-    // hidePictures(block);
-    // showContainer(teaserContainer);
-    triggerCustomEvent();
-  }
-}
-
-function triggerCustomEvent() {
-  // Create the custom event
-  const customEvent = new CustomEvent('allMethodsCompleted', {
-    detail: {
-      message: 'All methods completed',
-      timestamp: new Date(),
-    },
-  });
-
-  // Dispatch the custom event on the document
-  document.dispatchEvent(customEvent);
-}
-
 /**
  * Transforms the HTML structure by:
  * 1. Removing the `teaser-wrapper` and moving its child `teaser` element up.
@@ -74,21 +45,6 @@ function createTeaser(teaserContainer) {
   teaser.appendChild(carouselSlideImage);
   teaser.appendChild(carouselSlideContent);
 }
-
-const applyInitialStyles = (container) => {
-  const mobileAlignment = container.getAttribute('data-mobile-alignment');
-  const desktopAlignment = container.getAttribute(
-    'data-desktop-text-alignment',
-  );
-
-  const applyStyles = () => {
-    const isMobile = window.innerWidth < 600;
-    container.style.textAlign = isMobile ? mobileAlignment : desktopAlignment;
-  };
-
-  applyStyles();
-  window.addEventListener('resize', applyStyles);
-};
 
 const applyTextAlignmentAndPlacement = (container) => {
   const desktopTextAlignment = container.getAttribute(
@@ -145,25 +101,6 @@ const applyTextAlignmentAndPlacement = (container) => {
   }
 };
 
-const convertAnchorsToButtons = (block, container) => {
-  const paragraphs = block.querySelectorAll('p');
-  paragraphs.forEach((paragraph) => {
-    convertAnchorToButton(paragraph, 'strong a', 'primary-button');
-    // const element = paragraph.querySelector("a");
-    // convertAnchorToButton(paragraph, 'a', 'primary-button');
-    // convertAnchorToButton(paragraph, 'em a', 'secondary-button');
-  });
-};
-
-const convertAnchorToButton = (parent, selector, buttonClass) => {
-  const element = parent.querySelector(selector);
-  if (element) {
-    const anchor = element.closest('a');
-    const button = createButton(anchor.innerText, anchor.href, buttonClass, anchor.getAttribute('data-gtm'));
-    anchor.replaceWith(button);
-  }
-};
-
 const createButton = (text, href, className, gtmValue) => {
   const button = document.createElement('button');
   button.innerText = text;
@@ -175,116 +112,38 @@ const createButton = (text, href, className, gtmValue) => {
   return button;
 };
 
+const convertAnchorToButton = (parent, selector, buttonClass) => {
+  const element = parent.querySelector(selector);
+  if (element) {
+    const anchor = element.closest('a');
+    const button = createButton(anchor.innerText, anchor.href, buttonClass, anchor.getAttribute('data-gtm'));
+    anchor.replaceWith(button);
+  }
+};
+
+const convertAnchorsToButtons = (block, container) => {
+  const paragraphs = block.querySelectorAll('p');
+  paragraphs.forEach((paragraph) => {
+    convertAnchorToButton(paragraph, 'strong a', 'primary-button');
+    // const element = paragraph.querySelector("a");
+    // convertAnchorToButton(paragraph, 'a', 'primary-button');
+    // convertAnchorToButton(paragraph, 'em a', 'secondary-button');
+  });
+};
+
 const hideSpecifiedButtons = (container) => {
   const buttonsToHide = container.getAttribute('data-hide-button')?.split(' ');
 
   if (buttonsToHide) {
     buttonsToHide.forEach((buttonType) => {
       const buttonSelector = buttonType
-      === 'primary' ? '.primary-button' : '.secondary-button';
+        === 'primary' ? '.primary-button' : '.secondary-button';
       const button = container.querySelector(buttonSelector);
       if (button) {
         button.style.display = 'none';
       }
     });
   }
-};
-
-const handleBackgroundStyle = (container, block) => {
-  const backgroundStyle = container.getAttribute('data-background-style');
-  const teaserWrappers = container.querySelectorAll('.teaser-wrapper');
-
-  if (backgroundStyle === 'image') {
-    const pictures = container.querySelectorAll('picture');
-    let desktopImageSrc = '';
-    let mobileImageSrc = '';
-    pictures.forEach((picture, index) => {
-      const img = picture.querySelector('img');
-      if (img) {
-        if (index === 0) {
-          desktopImageSrc = img.src;
-        } else if (index === 1) {
-          mobileImageSrc = img.src;
-        }
-      }
-    });
-    // const applyBackgroundImage = () => {
-    //   container.style.backgroundImage = `url(${
-    //     window.innerWidth < 600 ? mobileImageSrc : desktopImageSrc
-    //   })`;
-    // };
-    // applyBackgroundImage();
-    // window.addEventListener('resize', applyBackgroundImage);
-  }
-
-  const videoLinks = block.querySelectorAll('a[href]');
-
-  let videoUrl = '';
-  let mp4VideoUrl = '';
-
-  videoLinks.forEach((link) => {
-    const href = link.href;
-    if (href.includes('youtube.com')) {
-      videoUrl = href;
-    } else if (href.match(/\.(mp4|webm|ogg)$/)) {
-      mp4VideoUrl = href;
-    }
-  });
-  if (backgroundStyle === 'video') {
-    createInlineVideoPlayer(container, mp4VideoUrl);
-  } else if (videoUrl) {
-    let hideButton = container.querySelector('.button');
-    hideButton.style.display = 'none';
-    createVideoPopup(container, videoUrl, false);
-  }
-
-  // if (!mp4VideoUrl) {
-  //   const pictures = container.querySelectorAll('picture img');
-  //   if (pictures.length > 0) {
-  //     let imageUrl
-  //      = window.innerWidth < 600 ? pictures[1].src : pictures[0].src;
-  //     //createImageBackground(container, imageUrl);
-  //   }
-  // }
-};
-
-const createVideoPopup = (container, videoUrl, isMp4) => {
-  const slideContent = container.querySelector('.carousel-slide-content');
-  const playButton = document.createElement('button');
-  playButton.className = 'play-button';
-  playButton.innerText = 'Play Video';
-  playButton.onclick = () => {
-    const popup = document.createElement('div');
-    popup.className = 'video-popup';
-    if (isMp4) {
-      const video = document.createElement('video');
-      video.setAttribute('controls', false);
-      const source = document.createElement('source');
-      source.src = videoUrl;
-      source.type = 'video/mp4';
-      video.style.maxWidth = '100%';
-      video.style.maxHeight = '100%';
-      video.appendChild(source);
-      popup.appendChild(video);
-    } else {
-      const iframe = document.createElement('iframe');
-      iframe.src = videoUrl.replace('watch?v=', 'embed/');
-      iframe.setAttribute('frameborder', '0');
-      iframe.setAttribute('allow', 'autoplay; encrypted-media');
-      iframe.setAttribute('allowfullscreen', 'true');
-      popup.appendChild(iframe);
-    }
-
-    const closeButton = document.createElement('button');
-    closeButton.className = 'close-button';
-    closeButton.innerText = 'Close';
-    closeButton.onclick = () => {
-      popup.remove();
-    };
-    popup.appendChild(closeButton);
-    document.body.appendChild(popup);
-  };
-  container.querySelector('.button-container').appendChild(playButton);
 };
 
 // Function to find carousel-slide-image div inside a container
@@ -381,6 +240,147 @@ const createInlineVideoPlayer = (container, videoUrl) => {
   };
 };
 
+const createVideoPopup = (container, videoUrl, isMp4) => {
+  const slideContent = container.querySelector('.carousel-slide-content');
+  const playButton = document.createElement('button');
+  playButton.className = 'play-button';
+  playButton.innerText = 'Play Video';
+  playButton.onclick = () => {
+    const popup = document.createElement('div');
+    popup.className = 'video-popup';
+    if (isMp4) {
+      const video = document.createElement('video');
+      video.setAttribute('controls', false);
+      const source = document.createElement('source');
+      source.src = videoUrl;
+      source.type = 'video/mp4';
+      video.style.maxWidth = '100%';
+      video.style.maxHeight = '100%';
+      video.appendChild(source);
+      popup.appendChild(video);
+    } else {
+      const iframe = document.createElement('iframe');
+      iframe.src = videoUrl.replace('watch?v=', 'embed/');
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute('allow', 'autoplay; encrypted-media');
+      iframe.setAttribute('allowfullscreen', 'true');
+      popup.appendChild(iframe);
+    }
+
+    const closeButton = document.createElement('button');
+    closeButton.className = 'close-button';
+    closeButton.innerText = 'Close';
+    closeButton.onclick = () => {
+      popup.remove();
+    };
+    popup.appendChild(closeButton);
+    document.body.appendChild(popup);
+  };
+  container.querySelector('.button-container').appendChild(playButton);
+};
+
+const handleBackgroundStyle = (container, block) => {
+  const backgroundStyle = container.getAttribute('data-background-style');
+  const teaserWrappers = container.querySelectorAll('.teaser-wrapper');
+
+  if (backgroundStyle === 'image') {
+    const pictures = container.querySelectorAll('picture');
+    let desktopImageSrc = '';
+    let mobileImageSrc = '';
+    pictures.forEach((picture, index) => {
+      const img = picture.querySelector('img');
+      if (img) {
+        if (index === 0) {
+          desktopImageSrc = img.src;
+        } else if (index === 1) {
+          mobileImageSrc = img.src;
+        }
+      }
+    });
+    // const applyBackgroundImage = () => {
+    //   container.style.backgroundImage = `url(${
+    //     window.innerWidth < 600 ? mobileImageSrc : desktopImageSrc
+    //   })`;
+    // };
+    // applyBackgroundImage();
+    // window.addEventListener('resize', applyBackgroundImage);
+  }
+
+  const videoLinks = block.querySelectorAll('a[href]');
+
+  let videoUrl = '';
+  let mp4VideoUrl = '';
+
+  videoLinks.forEach((link) => {
+    const href = link.href;
+    if (href.includes('youtube.com')) {
+      videoUrl = href;
+    } else if (href.match(/\.(mp4|webm|ogg)$/)) {
+      mp4VideoUrl = href;
+    }
+  });
+  if (backgroundStyle === 'video') {
+    createInlineVideoPlayer(container, mp4VideoUrl);
+  } else if (videoUrl) {
+    let hideButton = container.querySelector('.button');
+    hideButton.style.display = 'none';
+    createVideoPopup(container, videoUrl, false);
+  }
+
+  // if (!mp4VideoUrl) {
+  //   const pictures = container.querySelectorAll('picture img');
+  //   if (pictures.length > 0) {
+  //     let imageUrl
+  //      = window.innerWidth < 600 ? pictures[1].src : pictures[0].src;
+  //     //createImageBackground(container, imageUrl);
+  //   }
+  // }
+};
+
+function triggerCustomEvent() {
+  // Create the custom event
+  const customEvent = new CustomEvent('allMethodsCompleted', {
+    detail: {
+      message: 'All methods completed',
+      timestamp: new Date(),
+    },
+  });
+
+  // Dispatch the custom event on the document
+  document.dispatchEvent(customEvent);
+}
+
+export default async function decorate(block) {
+  const teaserContainer = block.closest('.teaser-container');
+
+  if (teaserContainer) {
+    createTeaser(teaserContainer);
+    // applyInitialStyles(teaserContainer);
+    applyTextAlignmentAndPlacement(teaserContainer);
+    convertAnchorsToButtons(block, teaserContainer);
+    hideSpecifiedButtons(teaserContainer);
+    handleBackgroundStyle(teaserContainer, block);
+    // hidePictures(block);
+    // showContainer(teaserContainer);
+    triggerCustomEvent();
+  }
+}
+
+const applyInitialStyles = (container) => {
+  const mobileAlignment = container.getAttribute('data-mobile-alignment');
+  const desktopAlignment = container.getAttribute(
+    'data-desktop-text-alignment',
+  );
+
+  const applyStyles = () => {
+    const isMobile = window.innerWidth < 600;
+    container.style.textAlign = isMobile ? mobileAlignment : desktopAlignment;
+  };
+
+  applyStyles();
+  window.addEventListener('resize', applyStyles);
+};
+
 const createImageBackground = (container, imageUrl) => {
   container.style.backgroundImage = `url(${imageUrl})`;
   container.style.backgroundSize = '100% 100%';
@@ -397,3 +397,4 @@ const hidePictures = (block) => {
 const showContainer = (container) => {
   container.style.display = 'block';
 };
+
