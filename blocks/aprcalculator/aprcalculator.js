@@ -169,7 +169,6 @@ function updateRangeColors(block) {
   });
 }
 
-
 // Function to update APR calculations and display
 function updateAPR(block) {
   const loanAmount = parseFloat(block.querySelector('#loanAmountAprRange').value);
