@@ -84,14 +84,25 @@ function getCarouselControl(block, totalLength) {
     innerSpan.classList.add('swiper-pagination-bullet');
     innerSpan.setAttribute('index', index);
 
-    innerSpan.onclick = () => {
-      const isActive = innerSpan.classList.contains('active');
-      if (!isActive) {
-        commonOnClick(block, Number(innerSpan.getAttribute('index')));
-        clearInterval(timer);
-        timer = startTimer(block);
-      }
-    };
+    // innerSpan.onclick = () => {
+    //   const isActive = innerSpan.classList.contains('active');
+    //   if (!isActive) {
+    //     commonOnClick(block, Number(innerSpan.getAttribute('index')));
+    //     clearInterval(timer);
+    //     timer = startTimer(block);
+    //   }
+    // };
+
+    (function(currentIndex) {
+      innerSpan.onclick = () => {
+        const isActive = innerSpan.classList.contains('active');
+        if (!isActive) {
+          commonOnClick(block, currentIndex);
+          clearInterval(timer);
+          timer = startTimer(block);
+        }
+      };
+    })(index);
 
     if (index === 0) {
       innerSpan.classList.add('active');
