@@ -419,3 +419,6 @@
   }
 }
 
+.inputBalance .proposedLoan-input-label,.existgingLoan-input-label{
+  margin-top: 0em;
+}

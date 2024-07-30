@@ -137,7 +137,9 @@ function getCalcAttribute() {
     percentSymbol: getDataAttributeValueByName('percent-symbol'),
     monthSymbol: getDataAttributeValueByName('month-symbol'),
     yearSymbol: getDataAttributeValueByName('year-symbol'),
-    redirectionPath: getDataAttributeValueByName('redirection-balance-path')
+    redirectionPath: getDataAttributeValueByName('redirection-balance-path'),
+    proposed_loan_label :getDataAttributeValueByName('proposed-loan-label'),
+    existing_loan_label :getDataAttributeValueByName('existing-loan-label')
   };
   return calculatorAttributes;
 }
@@ -146,6 +148,7 @@ function getHTML(calculatorAttributes) {
         <div class="calculator-container-balance-tansfer">
             <div class="inputsBoxBalance">
                 <div class="inputBalance">
+                <p class="existgingLoan-input-label">${calculatorAttributes.existing_loan_label}</p>
                     <div class="inputBoxBalanceLabel">
                         <label for="principalOutstanding">${calculatorAttributes.principalOutstanding.label}</label>
                         <div class="balanceSpanInput">
@@ -200,6 +203,7 @@ function getHTML(calculatorAttributes) {
                 </div>
    
                 <div class="inputBalance">
+                <p class="proposedLoan-input-label">${calculatorAttributes.proposed_loan_label}</p>
                     <div class="inputBoxBalanceLabel">
                         <label for="newInterestRate">${calculatorAttributes.proposedInterestRate.label}</label>
                         <div class="balanceSpanInput">
