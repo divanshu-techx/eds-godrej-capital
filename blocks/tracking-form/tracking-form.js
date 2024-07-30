@@ -12,7 +12,13 @@ function addCheckedClass(radio, block) {
 }
 
 // Function to show or hide divs based on resident type radio button selection
-function toggleResidentDivVisibility(indianResidentRadio, indianMobileNumberDiv, nriMobileNumberDiv, nonResidentIndianRadio, block) {
+function toggleResidentDivVisibility(
+  indianResidentRadio,
+  indianMobileNumberDiv,
+  nriMobileNumberDiv,
+  nonResidentIndianRadio,
+  block,
+) {
   if (indianResidentRadio.checked) {
     indianMobileNumberDiv.parentNode.style.display = 'block';
     nriMobileNumberDiv.parentNode.style.display = 'none';
@@ -100,7 +106,7 @@ export default async function decorate(block) {
         nriMobileNumberDiv,
         nonResidentIndianRadio,
         block,
-      )
+      );
     });
     nonResidentIndianRadio.addEventListener('change', () => {
       toggleResidentDivVisibility(
@@ -123,5 +129,4 @@ export default async function decorate(block) {
 
     handleApplyNowBtn(block, form);
   }
-
 }
