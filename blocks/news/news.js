@@ -248,7 +248,7 @@ export default async function decorate(block) {
     document.querySelectorAll('.tab').forEach((tab) => tab.classList.remove('active'));
     document.getElementById(`tab-${tabName}`).classList.add('active');
 
-    const filteredData = data.filter((item
+    const filteredData = data.filter((item,
     ) => item.category.toLowerCase() === tabName.toLowerCase());
     responseData = filteredData;
     sortData();
@@ -279,7 +279,7 @@ export default async function decorate(block) {
   scrollLeftButton.addEventListener('click', () => {
     const currentPageSpan = document.querySelector('.pagination .active-pagination');
     if (currentPageSpan) {
-      const currentPage = parseInt(currentPageSpan.textContent);
+      const currentPage = parseInt(currentPageSpan.textContent, 10);
       if (currentPage > 1) {
         renderPage(currentPage - 1);
         paginationContainer.scrollLeft -= paginationContainer.clientWidth;
@@ -290,7 +290,7 @@ export default async function decorate(block) {
   scrollRightButton.addEventListener('click', () => {
     const currentPageSpan = document.querySelector('.pagination .active-pagination');
     if (currentPageSpan) {
-      const currentPage = parseInt(currentPageSpan.textContent);
+      const currentPage = parseInt(currentPageSpan.textContent, 10);
       const totalPages = Math.ceil(responseData.length / itemsPerPage);
       if (currentPage < totalPages) {
         renderPage(currentPage + 1);
@@ -298,6 +298,4 @@ export default async function decorate(block) {
       }
     }
   });
-
 }
-
