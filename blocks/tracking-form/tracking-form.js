@@ -101,18 +101,16 @@ export default async function decorate(block) {
         nriMobileNumberDiv,
         nonResidentIndianRadio,
         block,
-      )
-    );
-    nonResidentIndianRadio.addEventListener('change', () => 
+      ));
+    nonResidentIndianRadio.addEventListener('change', () =>
       toggleResidentDivVisibility(
-        indianResidentRadio, 
-        indianMobileNumberDiv, 
-        nriMobileNumberDiv, 
-        nonResidentIndianRadio, 
+        indianResidentRadio,
+        indianMobileNumberDiv,
+        nriMobileNumberDiv,
+        nonResidentIndianRadio,
         block,
-      )
-    );
-    
+      ));
+
     handleApplyNowBtn(block, form);
 
     toggleOtpMsgVisibility(
