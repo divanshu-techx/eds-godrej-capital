@@ -7,7 +7,7 @@ import { div } from '../utils/dom-helper.js';
  */
 function createTeaser(teaserContainer) {
   // Select the teaser-wrapper element
-  const teaserWrapper = teaserContainer.querySelector('.teaser-wrapper');
+  const teaserWrapper = teaserContainer.querySelector('.teaser-wrapper',);
   if (!teaserWrapper) return;
 
   // Select the teaser element inside teaser-wrapper
@@ -44,7 +44,7 @@ function createTeaser(teaserContainer) {
   teaser.innerHTML = '';
   teaser.appendChild(carouselSlideImage);
   teaser.appendChild(carouselSlideContent);
-}
+};
 
 const applyTextAlignmentAndPlacement = (container) => {
   const desktopTextAlignment = container.getAttribute(
