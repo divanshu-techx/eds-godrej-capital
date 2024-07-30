@@ -1,29 +1,28 @@
 function getDataAttributeValueByName(name) {
   const element = document.querySelector(`[data-${name}]`);
-  return element ? element.getAttribute(`data-${name}`) : "";
+  return element ? element.getAttribute(`data-${name}`) : '';
 }
 function getMetaTagsContentValueByName(name) {
   const el = document.querySelector(`meta[property="og:${name}"]`);
   return el ? el.getAttribute('content') : '';
 }
-console.log(getMetaTagsContentValueByName('title'))
 import { createForm, generatePayload, handleSubmitError } from '../../blocks/form/form.js';
 import { sampleRUM } from '../../scripts/aem.js';
 import { getDataAttributes } from '../utils/common.js';
 
 const VALIDATION_DATA = [
   {
-    fieldName: "FullName",
+    fieldName: 'FullName',
     regexPattern: /^[A-Za-z\s]+$/,
     validationMessage: getDataAttributeValueByName('namevalidationerrormessage')
   },
   {
-    fieldName: "EnterEmail",
+    fieldName: 'EnterEmail',
     regexPattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
     validationMessage: getDataAttributeValueByName('emailvalidationerrormessage')
   },
   {
-    fieldName: "Mobile",
+    fieldName: 'Mobile',
     regexPattern: /^[6789]\d{9}$/,
     validationMessage: getDataAttributeValueByName('mobilevalidationerrormessage')
   }
@@ -104,7 +103,6 @@ export function resendOTP() {
 }
 
 // Function to start the timer
-
 export function retrieveOTP() {
   let otp = '';
   // Loop through each input field
@@ -114,7 +112,6 @@ export function retrieveOTP() {
       // Concatenate the value of each input field
       otp += input.value;
     });
-  console.log(otp);
   // Return the concatenated OTP
   return otp;
 }
@@ -173,8 +170,7 @@ export async function handleVerify(payload, userMobileNumber, block) {
         const errorMessage = document.createElement('div');
         errorMessage.id = 'error-message';
         errorMessage.className = 'error-message';
-        errorMessage.textContent = getDataAttributeValueByName('wrongotpvalidationerrormessage')
-
+        errorMessage.textContent = getDataAttributeValueByName('wrongotpvalidationerrormessage');
         // Append the error message to the fieldset
         const formBox = block.querySelector('#form-box');
         formBox.parentNode.insertBefore(errorMessage, formBox.nextSibling);
@@ -235,11 +231,9 @@ export function changeNumberFunctinality(block) {
 }
 
 let userMobNo = null;
-
 function validateCheckboxes(form) {
   // Select the checkboxes you want to validate
   const checkboxes = form.querySelectorAll('input[type="checkbox"][name="loanType"]');
-
   // Convert NodeList to Array and use some() to check if at least one checkbox is checked
   const isAnyCheckboxChecked = Array.from(checkboxes).some((checkbox) => checkbox.checked);
 
@@ -275,25 +269,18 @@ async function handleSubmit(form) {
       form.setAttribute('data-submitting', 'false');
       return;
     }
-
     // create payload
     const payload = generatePayload(form);
 
-
     userMobNo = payload.Mobile;
-    console.log(userMobNo);
     const mobileNoStr = userMobNo.toString();
     const lastFourDigits = mobileNoStr.slice(-4);
-    console.log(lastFourDigits);
-
     const otpEl = document.querySelector('#form-message');
 
     // Replace last four digits in otpEl.textContent
     const otpText = otpEl.textContent;
     const otpTextWithoutDigits = otpText.replace(/\d{4}$/, '');
     otpEl.textContent = `${otpTextWithoutDigits} ${lastFourDigits}`;
-
-    console.log(otpEl.textContent);
 
     const mobileNoVerifyStep = document.querySelector('.verify-step.field-wrapper #form');
     if (mobileNoVerifyStep) {
@@ -371,12 +358,10 @@ function addChangeEventOnCheckboxes(block) {
   });
 }
 
-
 export default async function decorate(block) {
 
-  const container = block.closest(".applynowform-container");
+  const container = block.closest('.applynowform-container');
   const attributesObj = getDataAttributes(container);
-  console.log(attributesObj)
   const formLink = block.querySelector('a[href$=".json"]');
   if (!formLink) return;
 
@@ -391,16 +376,14 @@ export default async function decorate(block) {
 
   const ChangeNoEl = block.querySelector('#change-number');
   const initialContent = ChangeNoEl.innerText;
-  console.log(initialContent);
   changesScreenChange(ChangeNoEl, attributesObj, initialContent);
   window.addEventListener('resize', () => changesScreenChange(ChangeNoEl, attributesObj, initialContent));
-  const tAndCredirectionStepFirst = createRedirection(attributesObj)
-  const tAndCredirectionStepSecond = createRedirection(attributesObj)
+  const tAndCredirectionStepFirst = createRedirection(attributesObj);
+  const tAndCredirectionStepSecond = createRedirection(attributesObj);
 
-
-  block.querySelector('#form-description').append(tAndCredirectionStepFirst)
-  block.querySelector('#form-message4').append(tAndCredirectionStepSecond)
-  addInitiallychecked(block)
+  block.querySelector('#form-description').append(tAndCredirectionStepFirst);
+  block.querySelector('#form-message4').append(tAndCredirectionStepSecond);
+  addInitiallychecked(block);
   addChangeEventOnCheckboxes(block);
   disableSubmitUntilFillForm(block)
   changeNumberFunctinality(block);
@@ -408,7 +391,6 @@ export default async function decorate(block) {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const valid = form.checkValidity();
-    console.log(valid)
     if (validateFormInput(VALIDATION_DATA, block)) {
       handleSubmit(form);
       const registrationFormEl = block.querySelectorAll('.step1');
@@ -437,15 +419,13 @@ export default async function decorate(block) {
         checkboxes.forEach((checkbox => {
           if (checkbox.getAttribute('value').toLowerCase() == categoryParam.toLowerCase()) {
             checkbox.checked = true;
-            checkbox.parentNode.classList.add('checked')
+            checkbox.parentNode.classList.add('checked');
           }
         }))
       }
 
     } catch (error) {
-
     }
-
 
   }
 
@@ -485,7 +465,6 @@ export default async function decorate(block) {
   const verifyFormBtn = document.querySelector('.verify-step.btn-verify-step button');
   verifyFormBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    console.log('hello from step 2');
     if (validateForm()) {
       const payload = generatePayload(form);
       if (payload) {
@@ -497,9 +476,6 @@ export default async function decorate(block) {
     }
   });
 }
-
-
-
 
 function validateFormInput(rules, block) {
   // Clear previous error messages
@@ -536,12 +512,9 @@ function validateFormInput(rules, block) {
     const errorDiv = document.createElement('div');
     errorDiv.className = 'error-message';
     errorDiv.textContent = getDataAttributeValueByName('loantypevalidationerrormessage');
-    checboxes[0].parentNode.parentNode.appendChild(errorDiv)
+    checboxes[0].parentNode.parentNode.appendChild(errorDiv);
 
   }
-  console.log('final return value', isChecked)
-
-
   return (isValid && isChecked);
 }
 
