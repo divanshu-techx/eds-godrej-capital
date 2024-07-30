@@ -28,7 +28,7 @@ export default async function tabsblock() {
     contentContainer.classList.add('custom-tabs-content');
 
     // Track active tab index
-    let activeTabIndex = 0;
+    const activeTabIndex = 0;
 
     // Iterate over each section to create corresponding tab and content
     sections.forEach((section, index) => {
@@ -36,7 +36,8 @@ export default async function tabsblock() {
       section.style.display = '';
 
       // Create tab element
-      const tabTitle = section.dataset.tabTitle;
+      // const tabTitle = section.dataset.tabTitle;
+      const { tabTitle } = section.dataset;
       const tab = document.createElement('button');
       tab.classList.add('custom-tab');
       tab.textContent = tabTitle;
