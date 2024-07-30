@@ -7,25 +7,25 @@ function getMetaTagsContentValueByName(name) {
   return el ? el.getAttribute('content') : '';
 }
 import { createForm, generatePayload, handleSubmitError } from '../../blocks/form/form.js';
-import { sampleRUM } from '../../scripts/aem.js';
+//import { sampleRUM } from '../../scripts/aem.js';
 import { getDataAttributes } from '../utils/common.js';
 
 const VALIDATION_DATA = [
   {
     fieldName: 'FullName',
     regexPattern: /^[A-Za-z\s]+$/,
-    validationMessage: getDataAttributeValueByName('namevalidationerrormessage',)
+    validationMessage: getDataAttributeValueByName('namevalidationerrormessage'),
   },
   {
     fieldName: 'EnterEmail',
     regexPattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-    validationMessage: getDataAttributeValueByName('emailvalidationerrormessage',)
+    validationMessage: getDataAttributeValueByName('emailvalidationerrormessage'),
   },
   {
     fieldName: 'Mobile',
     regexPattern: /^[6789]\d{9}$/,
-    validationMessage: getDataAttributeValueByName('mobilevalidationerrormessage',)
-  },
+    validationMessage: getDataAttributeValueByName('mobilevalidationerrormessage'),
+  }
 ];
 
 export function ApiCall(METHOD, url, data) {
@@ -161,7 +161,7 @@ export async function handleVerify(payload, userMobileNumber, block) {
       );
       if (response.status) {
         window.location.href = getDataAttributeValueByName('thankupageurl');
-      } else if (response.status === false) {
+      } else if (response.status == false) {
         const existingErrorMessage = block.querySelector('#error-message');
         if (existingErrorMessage) {
           existingErrorMessage.remove();
@@ -342,7 +342,7 @@ function changesScreenChange(el, dataAttrObj, initialContent) {
 function addChangeEventOnCheckboxes(block) {
   const checkboxes = block.querySelectorAll('.step1.field-wrapper.checkbox-wrapper.selection-wrapper input[type="checkbox"]');
 
-  checkboxes.forEach((checkbox) => {
+  checkboxes.forEach(checkbox => {
     checkbox.addEventListener('change', (e) => {
       const parentWrapper = checkbox.closest('.step1.field-wrapper.checkbox-wrapper.selection-wrapper');
       // const label = parentWrapper.querySelector('label').textContent;
@@ -358,24 +358,164 @@ function addChangeEventOnCheckboxes(block) {
   });
 }
 
-function addInitiallychecked(block) {
-  const currentUrl = new URL(window.location.href);
-  try {
-    let categoryParam = currentUrl.searchParams.get('category');
-    categoryParam = categoryParam.replace(/_/g, ' ');
-    if (categoryParam) {
-      const checkboxes = block.querySelectorAll('input[type="checkbox"][name="loanType"]');
-      checkboxes.forEach((checkbox => {
-        if (checkbox.getAttribute('value').toLowerCase() == categoryParam.toLowerCase()) {
-          checkbox.checked = true;
-          checkbox.parentNode.classList.add('checked');
-        }
-      }))
+export default async function decorate(block) {
+
+  const container = block.closest('.applynowform-container');
+  const attributesObj = getDataAttributes(container);
+  const formLink = block.querySelector('a[href$=".json"]');
+  if (!formLink) return;
+
+  const form = await createForm(formLink.href);
+  autoFocusEl(form);
+  block.replaceChildren(form);
+
+  const verifyFormEl = block.querySelectorAll('.verify-step');
+  verifyFormEl.forEach((el) => {
+    el.style.display = 'none';
+  });
+
+  const ChangeNoEl = block.querySelector('#change-number');
+  const initialContent = ChangeNoEl.innerText;
+  changesScreenChange(ChangeNoEl, attributesObj, initialContent);
+  window.addEventListener('resize', () => changesScreenChange(ChangeNoEl, attributesObj, initialContent));
+  const tAndCredirectionStepFirst = createRedirection(attributesObj);
+  const tAndCredirectionStepSecond = createRedirection(attributesObj);
+
+  block.querySelector('#form-description').append(tAndCredirectionStepFirst);
+  block.querySelector('#form-message4').append(tAndCredirectionStepSecond);
+  addInitiallychecked(block);
+  addChangeEventOnCheckboxes(block);
+  disableSubmitUntilFillForm(block);
+  changeNumberFunctinality(block);
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const valid = form.checkValidity();
+    if (validateFormInput(VALIDATION_DATA, block)) {
+      handleSubmit(form);
+      const registrationFormEl = block.querySelectorAll('.step1');
+      registrationFormEl.forEach((el) => {
+        el.style.display = 'none';
+      });
+      verifyFormEl.forEach((el) => {
+        el.style.display = 'flex';
+      });
+    } else {
+      const firstInvalidEl = form.querySelector(':invalid:not(fieldset)');
+      if (firstInvalidEl) {
+        firstInvalidEl.focus();
+        firstInvalidEl.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  });
+
+  function addInitiallychecked(block) {
+    const currentUrl = new URL(window.location.href);
+    try {
+      let categoryParam = currentUrl.searchParams.get('category');
+      categoryParam = categoryParam.replace(/_/g, ' ');
+      if (categoryParam) {
+        const checkboxes = block.querySelectorAll('input[type="checkbox"][name="loanType"]');
+        checkboxes.forEach((checkbox => {
+          if (checkbox.getAttribute('value').toLowerCase() == categoryParam.toLowerCase()) {
+            checkbox.checked = true;
+            checkbox.parentNode.classList.add('checked')
+          }
+        }))
+      }
+
+    } catch (error) {
     }
 
-  } catch (error) {
   }
 
+  function validateForm() {
+    const fields = document.querySelectorAll('#form-box input[type="text"]');
+    let isAnyFieldEmpty = false;
+
+    // Remove existing error message if any
+    const existingErrorMessage = document.getElementById('error-message');
+    if (existingErrorMessage) {
+      existingErrorMessage.remove();
+    }
+
+    // Check if any field is empty
+    fields.forEach((field) => {
+      if (field.value.trim() === '') {
+        isAnyFieldEmpty = true;
+      }
+    });
+
+    if (isAnyFieldEmpty) {
+      // Create a new error message
+      const errorMessage = document.createElement('div');
+      errorMessage.id = 'error-message';
+      errorMessage.className = 'error-message';
+      errorMessage.textContent = getDataAttributeValueByName('emptyotpfieldvalidationmessage');
+
+      // Append the error message to the fieldset
+      const formBox = document.getElementById('form-box');
+      formBox.parentNode.insertBefore(errorMessage, formBox.nextSibling);
+      return false; // Form is not valid
+    }
+
+    return true; // Form is valid
+  }
+
+  const verifyFormBtn = document.querySelector('.verify-step.btn-verify-step button');
+  verifyFormBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      const payload = generatePayload(form);
+      if (payload) {
+        handleVerify(generateVerifyOtpPayload(payload), payload.Mobile, block);
+      } else {
+        console.error('error payload is not retrived');
+      }
+      // You can now proceed with the payload
+    }
+  });
+}
+
+function validateFormInput(rules, block) {
+  // Clear previous error messages
+  block.querySelectorAll('.error-message').forEach(el => el.remove());
+
+  let isValid = true;
+
+  rules.forEach(rule => {
+    const inputField = block.querySelector(`[name="${rule.fieldName}"]`);
+    const fieldValue = inputField.value;
+    if (!fieldValue || !rule.regexPattern.test(fieldValue)) {
+      isValid = false;
+      // Create error message div
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'error-message';
+      errorDiv.textContent = rule.validationMessage;
+
+      // Append the error message to the corresponding field's parent node
+      inputField.parentNode.appendChild(errorDiv);
+
+    }
+  });
+
+  const checboxes = block.querySelectorAll('.step1.field-wrapper input[type="checkbox"]');
+  let isChecked = false;
+  for (let index = 0; index < checboxes.length; index++) {
+    if (checboxes[index].checked === true) {
+
+      isChecked = true;
+
+    }
+  }
+  if (!isChecked) {
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-message';
+    errorDiv.textContent = getDataAttributeValueByName('loantypevalidationerrormessage');
+    checboxes[0].parentNode.parentNode.appendChild(errorDiv)
+
+  }
+  return (isValid && isChecked);
 }
 
 function disableSubmitUntilFillForm(block) {
@@ -471,141 +611,3 @@ function disableSubmitUntilFillForm(block) {
   validateForm();
 }
 
-export default async function decorate(block) {
-  const container = block.closest('.applynowform-container');
-  const attributesObj = getDataAttributes(container);
-  const formLink = block.querySelector('a[href$=".json"]');
-  if (!formLink) return;
-
-  const form = await createForm(formLink.href);
-  autoFocusEl(form);
-  block.replaceChildren(form);
-
-  const verifyFormEl = block.querySelectorAll('.verify-step');
-  verifyFormEl.forEach((el) => {
-    el.style.display = 'none';
-  });
-
-  const ChangeNoEl = block.querySelector('#change-number');
-  const initialContent = ChangeNoEl.innerText;
-  changesScreenChange(ChangeNoEl, attributesObj, initialContent);
-  window.addEventListener('resize', () => changesScreenChange(ChangeNoEl, attributesObj, initialContent));
-  const tAndCredirectionStepFirst = createRedirection(attributesObj);
-  const tAndCredirectionStepSecond = createRedirection(attributesObj);
-
-  block.querySelector('#form-description').append(tAndCredirectionStepFirst);
-  block.querySelector('#form-message4').append(tAndCredirectionStepSecond);
-  addInitiallychecked(block);
-  addChangeEventOnCheckboxes(block);
-  disableSubmitUntilFillForm(block);
-  changeNumberFunctinality(block);
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const valid = form.checkValidity();
-    if (validateFormInput(VALIDATION_DATA, block)) {
-      handleSubmit(form);
-      const registrationFormEl = block.querySelectorAll('.step1');
-      registrationFormEl.forEach((el) => {
-        el.style.display = 'none';
-      });
-      verifyFormEl.forEach((el) => {
-        el.style.display = 'flex';
-      });
-    } else {
-      const firstInvalidEl = form.querySelector(':invalid:not(fieldset)');
-      if (firstInvalidEl) {
-        firstInvalidEl.focus();
-        firstInvalidEl.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  });
-
-
-
-  function validateForm() {
-    const fields = document.querySelectorAll('#form-box input[type="text"]');
-    let isAnyFieldEmpty = false;
-
-    // Remove existing error message if any
-    const existingErrorMessage = document.getElementById('error-message');
-    if (existingErrorMessage) {
-      existingErrorMessage.remove();
-    }
-
-    // Check if any field is empty
-    fields.forEach((field) => {
-      if (field.value.trim() === '') {
-        isAnyFieldEmpty = true;
-      }
-    });
-
-    if (isAnyFieldEmpty) {
-      // Create a new error message
-      const errorMessage = document.createElement('div');
-      errorMessage.id = 'error-message';
-      errorMessage.className = 'error-message';
-      errorMessage.textContent = getDataAttributeValueByName('emptyotpfieldvalidationmessage');
-
-      // Append the error message to the fieldset
-      const formBox = document.getElementById('form-box');
-      formBox.parentNode.insertBefore(errorMessage, formBox.nextSibling);
-      return false; // Form is not valid
-    }
-
-    return true; // Form is valid
-  }
-
-  const verifyFormBtn = document.querySelector('.verify-step.btn-verify-step button');
-  verifyFormBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      const payload = generatePayload(form);
-      if (payload) {
-        handleVerify(generateVerifyOtpPayload(payload), payload.Mobile, block);
-      } else {
-        console.error('error payload is not retrived');
-      }
-      // You can now proceed with the payload
-    }
-  });
-}
-
-function validateFormInput(rules, block) {
-  // Clear previous error messages
-  block.querySelectorAll('.error-message').forEach(el => el.remove());
-
-  let isValid = true;
-
-  rules.forEach(rule => {
-    const inputField = block.querySelector(`[name="${rule.fieldName}"]`);
-    const fieldValue = inputField.value;
-    if (!fieldValue || !rule.regexPattern.test(fieldValue)) {
-      isValid = false;
-      // Create error message div
-      const errorDiv = document.createElement('div');
-      errorDiv.className = 'error-message';
-      errorDiv.textContent = rule.validationMessage;
-
-      // Append the error message to the corresponding field's parent node
-      inputField.parentNode.appendChild(errorDiv);
-
-    }
-  });
-
-  const checboxes = block.querySelectorAll('.step1.field-wrapper input[type="checkbox"]');
-  let isChecked = false;
-  for (let index = 0; index < checboxes.length; index++) {
-    if (checboxes[index].checked === true) {
-      isChecked = true;
-
-    }
-  }
-  if (!isChecked) {
-    const errorDiv = document.createElement('div');
-    errorDiv.className = 'error-message';
-    errorDiv.textContent = getDataAttributeValueByName('loantypevalidationerrormessage');
-    checboxes[0].parentNode.parentNode.appendChild(errorDiv);
-  }
-  return (isValid && isChecked);
-}
