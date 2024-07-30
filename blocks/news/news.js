@@ -136,12 +136,12 @@ export default async function decorate(block) {
   const scrollLeftButton = document.createElement('button');
   scrollLeftButton.className = 'scroll-button left';
   // scrollLeftButton.textContent = '<';
-  scrollLeftButton.innerHTML = "<img src='/icons/nexticon.svg' alt='Previous' />"; // Custom icon
+  scrollLeftButton.innerHTML = '<img src="/icons/nexticon.svg" alt="Previous" />'; // Custom icon
 
   const scrollRightButton = document.createElement('button');
   scrollRightButton.className = 'scroll-button right';
   // scrollRightButton.textContent = '>';
-  scrollRightButton.innerHTML = "<img src='/icons/nexticon.svg' alt='next' />";
+  scrollRightButton.innerHTML = '<img src="/icons/nexticon.svg" alt="next" />';
 
   paginationWrapper.appendChild(scrollLeftButton);
   paginationWrapper.appendChild(paginationContainer);
