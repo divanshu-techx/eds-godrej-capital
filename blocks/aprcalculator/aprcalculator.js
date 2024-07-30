@@ -1,3 +1,4 @@
+
 // Function to get data attribute value by name
 function getDataAttributeValueByName(name) {
     const element = document.querySelector(`[data-${name}]`);
@@ -169,66 +170,46 @@ function updateRangeColors(block) {
     });
 }
 
-// Function to update APR calculations and display
 function updateAPR(block) {
+    // Extract values from the form fields
     const loanAmount = parseFloat(block.querySelector('#loanAmountAprRange').value);
     const interestRate = parseFloat(parseFloat(block.querySelector('#interestRateAprRange').value).toFixed(1));
     const loanTenureYears = parseFloat(block.querySelector('#loanTenureYearsAprRange').value);
     const loanTenureMonths = parseFloat(block.querySelector('#loanTenureMonthsAprRange').value);
     const originationCharges = parseFloat(block.querySelector('#loanOriginationChargesAprRange').value);
-    block.querySelector('#loanAmountApr').value = loanAmount.toLocaleString('en-IN');
+
+     block.querySelector('#loanAmountApr').value = loanAmount.toLocaleString('en-IN');
     block.querySelector('#interestRateApr').value = interestRate;
     block.querySelector('#loanTenureYearsApr').value = loanTenureYears;
     block.querySelector('#loanTenureMonthsApr').value = loanTenureMonths;
     block.querySelector('#loanOriginationChargesApr').value = originationCharges.toLocaleString('en-IN');
 
-    // APR Calculation Logic
+    // Convert tenure to months
+    const totalTenureMonths = (loanTenureYears * 12) + loanTenureMonths;
+
+    // Calculate APR
     const loanamt = loanAmount;
-    const periods = loanTenureYears * 12 + loanTenureMonths;
-    const ROI = interestRate / 100; // Annual interest rate in decimal
-    const charges = loanamt - originationCharges;
+    const periods = totalTenureMonths;
+    const ROI = interestRate;
+    const loanOrigin = originationCharges; // Original charges as provided
 
-    // Calculate monthly payment (PMT)
-    const monthlyRate = ROI / 12;
-    const pmt = Math.round((loanamt * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -periods)));
-    console.log(pmt);
+    let charges = parseFloat(loanamt - loanOrigin);
+    let pmt = formulajs.PMT(ROI / 1200, periods, loanamt);
+    pmt = pmt * -1;
+    charges = charges * -1;
+    let apr = formulajs.RATE(periods, pmt, charges) * 12;
 
-    // Calculate APR using iterative method (Newton-Raphson)
-    function calculateAPR(periods, pmt, charges) {
-        const epsilon = 0.00001;
-        let apr = ROI;
-        let iteration = 0;
-        const maxIterations = 100;
-
-        while (iteration < maxIterations) {
-            const monthlyRateGuess = apr / 12;
-            const f = charges * Math.pow(1 + monthlyRateGuess, periods) - (pmt / monthlyRateGuess) * (Math.pow(1 + monthlyRateGuess, periods) - 1);
-            const fPrime = periods * charges * Math.pow(1 + monthlyRateGuess, periods - 1) - pmt * (Math.pow(1 + monthlyRateGuess, periods) - 1) / Math.pow(monthlyRateGuess, 2);
-            const nextApr = apr - f / fPrime;
-
-            if (Math.abs(nextApr - apr) < epsilon) {
-                apr = nextApr;
-                break;
-            }
-
-            apr = nextApr;
-            iteration++;
-        }
-
-        return apr * 12;
-    }
-
-    let apr = calculateAPR(periods, pmt, charges);
-    if (apr === Infinity || isNaN(apr) || apr === -Infinity) {
-        apr = ROI;
+    if (apr == "Infinity" || isNaN(apr) || apr == "-Infinity") {
+        apr = ROI / 100;
     }
     if (!loanamt && !periods && !charges) {
         apr = 0;
     }
     apr = apr * 100;
-    apr = apr > 24 ? 24 : apr < 6 ? 6 : apr; // APR should be between 6% and 24%
+    apr = apr > 24 ? 24 : apr < 6 ? 6 : apr;
     apr = apr.toFixed(2) + "%";
 
+    // Update the UI with the calculated APR
     block.querySelector('#aprDisplay').textContent = apr;
 }
 
