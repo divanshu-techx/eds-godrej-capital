@@ -13,6 +13,21 @@ function getDataAttributeValueByName(name) {
   return element ? element.getAttribute(`data-${name}`) : null;
 }
 
+// Initialize the block
+function excelDateToJSDate(serial) {
+  const excelEpoch = new Date(1900, 0, 1);
+  const date = new Date(excelEpoch.getTime() + (serial - 2) * 24 * 60 * 60 * 1000);
+  return date;
+}
+
+function formatDate(serial) {
+  const date = excelDateToJSDate(serial);
+  const day = String(date.getDate()).padStart(2, '0'); // Ensure two digits for the day
+  const month = date.toLocaleString('default', { month: 'long' }); // Full month name
+  const year = date.getFullYear();
+  return `${day} ${month} ${year}`;
+}
+
 export default async function decorate(block) {
   let responseData = [];
   const inputFieldPlaceholder = getDataAttributeValueByName('inputFieldPlaceholder');
@@ -121,12 +136,12 @@ export default async function decorate(block) {
   const scrollLeftButton = document.createElement('button');
   scrollLeftButton.className = 'scroll-button left';
   // scrollLeftButton.textContent = '<';
-  scrollLeftButton.innerHTML = `<img src='/icons/nexticon.svg' alt='Previous' />`; // Custom icon
+  scrollLeftButton.innerHTML = "<img src='/icons/nexticon.svg' alt='Previous' />"; // Custom icon
 
   const scrollRightButton = document.createElement('button');
   scrollRightButton.className = 'scroll-button right';
   // scrollRightButton.textContent = '>';
-  scrollRightButton.innerHTML = `<img src='/icons/nexticon.svg' alt='next' />`;
+  scrollRightButton.innerHTML = "<img src='/icons/nexticon.svg' alt='next' />";
 
   paginationWrapper.appendChild(scrollLeftButton);
   paginationWrapper.appendChild(paginationContainer);
@@ -162,7 +177,7 @@ export default async function decorate(block) {
         descriptionElement.textContent = item.description;
         const publishDateElement = document.createElement('p');
         publishDateElement.classList.add('publish-date');
-        let formattedDate = formatDate(item.publishdate);
+        const formattedDate = formatDate(item.publishdate);
         publishDateElement.textContent = formattedDate;
 
         const readArticleElement = document.createElement('a');
@@ -284,19 +299,5 @@ export default async function decorate(block) {
     }
   });
 
-  // Initialize the block
-  function excelDateToJSDate(serial) {
-    const excelEpoch = new Date(1900, 0, 1);
-    const date = new Date(excelEpoch.getTime() + (serial - 2) * 24 * 60 * 60 * 1000);
-    return date;
-  }
-
-  function formatDate(serial) {
-    const date = excelDateToJSDate(serial);
-    const day = String(date.getDate()).padStart(2, '0'); // Ensure two digits for the day
-    const month = date.toLocaleString('default', { month: 'long' }); // Full month name
-    const year = date.getFullYear();
-    return `${day} ${month} ${year}`;
-  }
 }
 
