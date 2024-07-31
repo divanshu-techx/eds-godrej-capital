@@ -4,9 +4,47 @@
     align-items: center;
 }
 
-.pdp-blogs-header .button-container a{
-    color:#000;
+.pdp-blogs-header h2 {
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 38px;
+
+}
+
+@media(max-width:600px) {
+    .pdp-blogs-header h2 {
+        font-size: 20px;
+    }
+}
+
+@media(min-width:600px)and(max-width:900px) {
+    .pdp-blogs-header h2 {
+        font-size: 24px;
+    }
+}
+
+
+.pdp-blogs-header .button-container a {
+    color: #3B3B3B;
     font-size: 16px;
     font-weight: 400;
-    padding:0;
+    line-height: 18.77px;
+    text-align: left;
+}
+
+@media(min-width:600px)and(max-width:900px) {
+    .pdp-blogs-header .button-container a {
+        font-size: 10px;
+        font-weight: 400;
+        line-height: 11.73px;
+    }
+}
+
+@media(max-width:600px) {
+    .pdp-blogs-header .button-container a {
+        color: #242424;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 14.08px;
+    }
 }

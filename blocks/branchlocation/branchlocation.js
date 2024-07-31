@@ -6,7 +6,7 @@ import {
 } from '../utils/dom-helper.js';
 import createMap from '../utils/google-map.js';
 
-import {getDataAttributes} from '../utils/common.js'
+import { getDataAttributes } from '../utils/common.js'
 
 
 /**
@@ -25,7 +25,7 @@ const pincodeInput = input({
 });
 
 
-function updateMapCard(item,label) {
+function updateMapCard(item, label) {
   document.getElementById('mapCardTitle').textContent = item.location;
   document.getElementById('mapCardAddress').textContent = item.address;
   document.getElementById('mapCardPhone').textContent = `${label} ${item.phone}`;
@@ -42,7 +42,7 @@ function updateMapCard(item,label) {
  * @param {Array} filteredLocations - Array of location objects to display.
  * Each object should include properties like 'location', 'address', 'phone', and 'hours'.
  */
-function displayResults(filteredLocations,attributeObj) {
+function displayResults(filteredLocations, attributeObj) {
   const container = document.querySelector('.branch-locator');
   const cardContainer = div({ class: 'address-cards' });
   if (!container) {
@@ -67,7 +67,7 @@ function displayResults(filteredLocations,attributeObj) {
     // Add click listener to the card to create a map on click
     card.addEventListener('click', (event) => {
       createMap(lat, lng, 'map-canvas');
-      updateMapCard(item,attributeObj.phonenumberlabel);
+      updateMapCard(item, attributeObj.phonenumberlabel);
       document.querySelectorAll('.card').forEach((c) => {
         c.classList.remove('active');
       });
@@ -91,7 +91,7 @@ function displayResults(filteredLocations,attributeObj) {
  *
  */
 
-function filterResults(locations,attributeObj) {
+function filterResults(locations, attributeObj) {
   const selectedState = stateSelect.value;
   const selectedCity = citySelect.value;
   const enteredPincode = pincodeInput.value.trim();
@@ -101,14 +101,14 @@ function filterResults(locations,attributeObj) {
       && (!selectedCity || location.city === selectedCity)
       && (!enteredPincode || location.pincode.startsWith(enteredPincode)),
   );
-  displayResults(filteredLocations,attributeObj);
+  displayResults(filteredLocations, attributeObj);
 }
 
 /**
  * Handle state selection and update city options accordingly.
  * @param {Array} entries - All location entries.
  */
-function handleStateChange(entries,attributeObj) {
+function handleStateChange(entries, attributeObj) {
   const selectedState = stateSelect.value;
   const cities = stateToCities[selectedState] || [];
   citySelect.innerHTML = '';
@@ -144,9 +144,9 @@ function debounce(func, wait) {
  *
  * @param {Array} locations - Array of location objects.
  */
-function renderFilters(locations, filterContainer,attributeObj) {
+function renderFilters(locations, filterContainer, attributeObj) {
   // Create filter dropdown
-
+  console.log(attributeObj)
   filterContainer.appendChild(
     div(
       { class: 'filters' },
@@ -159,7 +159,7 @@ function renderFilters(locations, filterContainer,attributeObj) {
         div({ class: 'city-container' }, label({ for: 'citySelect' }, attributeObj.selectcitylabel),
           citySelect,),
         div({ class: 'pincode-container' }, label({ for: 'pincodeInput' }, attributeObj.pincodelabel),
-          div({ class: 'input-img-container' }, img({ class: '-icon', src: attributeObj.mapbuttonicon }), pincodeInput)),
+          div({ class: 'input-img-container' }, img({ class: '-icon', src: attributeObj.locationmapicon }), pincodeInput)),
 
       )
 
@@ -183,7 +183,7 @@ function renderFilters(locations, filterContainer,attributeObj) {
     stateSelect.appendChild(option({ value: state }, state));
   });
 
-  filterResults(locations,attributeObj);
+  filterResults(locations, attributeObj);
 }
 
 /**
@@ -205,7 +205,7 @@ function initialize(entries, block) {
   block.append(branchlocator);
   renderFilters(entries, filterContainer, attributeObj);
 
-  stateSelect.addEventListener('change', () => handleStateChange(entries,attributeObj));
+  stateSelect.addEventListener('change', () => handleStateChange(entries, attributeObj));
   citySelect.addEventListener('change', () => filterResults(entries, attributeObj));
   pincodeInput.addEventListener('input', debounce(() => filterResults(entries, attributeObj), 300)); // Debounced input
   const coordinates = entries[0].coordinate;

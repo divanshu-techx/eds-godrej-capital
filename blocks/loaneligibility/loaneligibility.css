@@ -811,6 +811,15 @@ input[type="range"]::-moz-range-track {
     border-bottom-left-radius: 0;
 }
 
+@media(max-width:767px) {
+
+    .details input[type="number"],
+    .details input[type='text'] {
+        background: #F4F4F4;
+    }
+
+}
+
 .chartDetails {
     position: relative;
 }

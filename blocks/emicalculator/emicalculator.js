@@ -66,7 +66,7 @@ function createElement(type, attributes = {}, ...children) {
 
 //error message
 function createErrorSpan(message) {
-    return createElement('span', { class: 'error-message', style: 'color: red; display: none;' }, message);
+    return createElement('span', { class: 'error-message', style: 'color: #F50076;; display: none;' }, message);
 }
 
 // function calculateLoanDetails(p, r, emi, n, m, line) {
@@ -80,13 +80,13 @@ function createErrorSpan(message) {
 //     for (let i = 0; i < totalMonths; i++) {
 //         let monthlyInterest = p * r;
 //         let principalPayment = emi - monthlyInterest;
-        
+
 //         // Check if principal payment exceeds remaining principal
 //         if (principalPayment > p) {
 //             principalPayment = p;
 //             emi = principalPayment + monthlyInterest;
 //         }
-        
+
 //         p = p - principalPayment;
 //         totalInterest += monthlyInterest;
 //         principal += principalPayment;
@@ -120,7 +120,7 @@ function calculateLoanDetails(P, emi, n, m) {
     let totalMonths = n * 12 + m;
     let totalPayment = emi * totalMonths;
     let totalInterest = totalPayment - P;
-    
+
     return totalInterest;
 }
 function displayDetails(P, R, N, M, pie, block) {
@@ -132,7 +132,7 @@ function displayDetails(P, R, N, M, pie, block) {
     let num = P * r * Math.pow(1 + r, totalMonths);
     let denom = Math.pow(1 + r, totalMonths) - 1;
     let emi = Math.round(num / denom);
-    let payableInterest = Math.round(calculateLoanDetails(P,emi, n, m));
+    let payableInterest = Math.round(calculateLoanDetails(P, emi, n, m));
 
     let opts = { style: "currency", currency: "INR", maximumFractionDigits: 0 };
 
@@ -308,7 +308,7 @@ function initialize(block) {
         ),
         footer,
         createElement('div', { class: 'chart-details' },
-            createElement('button', { id: 'apply-btn' ,'data-path':redirectionApplyPath}, apply_now_label),
+            createElement('button', { id: 'apply-btn', 'data-path': redirectionApplyPath }, apply_now_label),
         ),
     );
 
@@ -345,7 +345,7 @@ function initialize(block) {
                 )
             ),
             createElement('div', { class: 'mobile-tenure-apply' },
-                createElement('button', { id: 'apply-btn-mobile' ,'data-path':redirectionApplyPath}, apply_now_label)
+                createElement('button', { id: 'apply-btn-mobile', 'data-path': redirectionApplyPath }, apply_now_label)
             )
         )
     );
@@ -399,7 +399,7 @@ function initialize(block) {
     int_rate_slider.addEventListener("change", (self) => {
         int_rate_text.value = self.target.value;
         R = parseFloat(self.target.value);
-        displayDetails(P, R, N, M,  pie, block);
+        displayDetails(P, R, N, M, pie, block);
     });
 
     int_rate_text.addEventListener("blur", (self) => {
@@ -411,19 +411,19 @@ function initialize(block) {
     loan_period_slider.addEventListener("change", (self) => {
         loan_period_text.value = self.target.value;
         N = parseFloat(self.target.value);
-        displayDetails(P, R, N, M,  pie, block);
+        displayDetails(P, R, N, M, pie, block);
     });
 
     loan_period_text.addEventListener("blur", (self) => {
         loan_period_slider.value = self.target.value;
         N = parseFloat(self.target.value);
-        displayDetails(P, R, N, M,  pie, block);
+        displayDetails(P, R, N, M, pie, block);
     });
 
     loan_period_slider_month.addEventListener("change", (self) => {
         loan_period_text_month.value = self.target.value;
         M = parseFloat(self.target.value);
-        displayDetails(P, R, N, M,  pie, block);
+        displayDetails(P, R, N, M, pie, block);
     });
 
     loan_period_text_month.addEventListener("blur", (self) => {
@@ -433,13 +433,13 @@ function initialize(block) {
     });
 
     //for slider color event listener
-    
+
     loan_amt_slider.addEventListener('input', function () {
         const value = parseFloat(this.value);
         updateSliderBackground(value, this.min, this.max, this);
         loan_amt_text.value = value; // Keep text input in sync
     });
-    
+
     loan_amt_text.addEventListener('input', function () {
         const value = parseFloat(this.value);
         if (!isNaN(value) && value >= loan_amt_slider.min && value <= loan_amt_slider.max) {
@@ -452,7 +452,7 @@ function initialize(block) {
         updateSliderBackground(value, interestrate_minvalue, interestrate_maxvalue, this);
         int_rate_text.value = value; // Keep text input in sync
     });
-    
+
     int_rate_text.addEventListener('input', function () {
         const value = parseFloat(this.value);
         if (!isNaN(value) && value >= interestrate_minvalue && value <= interestrate_maxvalue) {
@@ -460,13 +460,13 @@ function initialize(block) {
             int_rate_slider.value = value; // Keep slider in sync
         }
     });
-    
+
     loan_period_slider.addEventListener("input", function () {
         const value = parseFloat(this.value);
         updateSliderBackground(value, tenure_min_yearvalue, tenure_max_yearvalue, this);
         loan_period_text.value = value; // Keep text input in sync
     });
-    
+
     loan_period_text.addEventListener("input", function () {
         const value = parseFloat(this.value);
         if (!isNaN(value) && value >= tenure_min_yearvalue && value <= tenure_max_yearvalue) {
@@ -479,7 +479,7 @@ function initialize(block) {
         updateSliderBackground(value, tenure_min_monthvalue, tenure_max_monthvalue, this);
         loan_period_text_month.value = value; // Keep text input in sync
     });
-    
+
     loan_period_text_month.addEventListener("input", function () {
         const value = parseFloat(this.value);
         if (!isNaN(value) && value >= tenure_min_monthvalue && value <= tenure_max_monthvalue) {
