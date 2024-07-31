@@ -31,14 +31,14 @@ function sortCards(sortBy, block) {
       const cards = Array.from(container.getElementsByClassName('card-media-gallery'));
 
       cards.sort((a, b) => {
-        // const publishDateA = parseInt(a.getAttribute('data-publishdate', 10));
-        // const publishDateB = parseInt(b.getAttribute('data-publishdate', 10));
+        // const publishDateA = parseInt(a.getAttribute('data-publishdate'));
+        // const publishDateB = parseInt(b.getAttribute('data-publishdate'));
         const publishDateA = parseInt(a.getAttribute('data-publishdate'), 10);
         const publishDateB = parseInt(b.getAttribute('data-publishdate'), 10);
 
         if (sortBy === 'ascending') {
           return publishDateA - publishDateB;
-        } 
+        }
         if (sortBy === 'descending') {
           return publishDateB - publishDateA;
         }
