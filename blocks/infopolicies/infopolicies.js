@@ -1,3 +1,9 @@
+// Get authoring values
+function getDataAttributeValueByName(name) {
+  const element = document.querySelector(`[data-${name}]`);
+  return element ? element.getAttribute(`data-${name}`) : null;
+}
+
 const indexUrl = getDataAttributeValueByName('queryindexurl');
 const title = getDataAttributeValueByName('title');
 let dropdown;
@@ -6,6 +12,20 @@ let dropDownContainer;
 // For check the view is mobile or desktop
 function isMobileView() {
   return window.matchMedia('(max-width: 767px)').matches;
+}
+
+// Fetch data from the provided URL
+async function fetchData() {
+  const responseData = await fetch(indexUrl);
+  const dataObj = await responseData.json();
+  return dataObj.data;
+}
+
+// Create and return the dropdown element
+function createDropdown() {
+  const dropdown = document.createElement('select');
+  dropdown.className = 'dropdown';
+  return dropdown;
 }
 
 export default async function decorate() {
@@ -35,19 +55,6 @@ export default async function decorate() {
   dropdown.addEventListener('change', () => {
     updateDropdownOptions(dropdown);
   });
-}
-
-// Get authoring values
-function getDataAttributeValueByName(name) {
-  const element = document.querySelector(`[data-${name}]`);
-  return element ? element.getAttribute(`data-${name}`) : null;
-}
-
-// Fetch data from the provided URL
-async function fetchData() {
-  const responseData = await fetch(indexUrl);
-  const dataObj = await responseData.json();
-  return dataObj.data;
 }
 
 // Create and return the tabs and tab contents containers
@@ -89,13 +96,6 @@ function createTabsAndContentsContainers(infoPoliciesEle) {
     infoPoliciesEle.appendChild(tabContentsContainer);
   }
   return { tabsContainer, tabContentsContainer };
-}
-
-// Create and return the dropdown element
-function createDropdown() {
-  const dropdown = document.createElement('select');
-  dropdown.className = 'dropdown';
-  return dropdown;
 }
 
 // Fetch and display data for the selected option
@@ -191,7 +191,8 @@ function populateTabsAndContents(data, tabsContainer, tabContentsContainer, drop
     tabContent.id = `content-${parent.replace(/\s+/g, '-')}`;
     tabContentsContainer.appendChild(tabContent);
     tab.addEventListener('click', () => {
-      // document.querySelectorAll('.tab-content').forEach((content) => content.classList.remove('active'));
+      // document.querySelectorAll('.tab-content').forEach((content) =>
+      // content.classList.remove('active'));
       // tabContent.classList.add('active');
       document.querySelectorAll('.tab').forEach((tab) => tab.classList.remove('active'));
       tab.classList.add('active');
@@ -217,7 +218,7 @@ function initializeFirstTab(data, dropdown) {
 function updateDropdownOptions(dropdown) {
   const selectedOption = dropdown.options[dropdown.selectedIndex];
   const selectedValue = selectedOption.value;
-  const dataAttribute = selectedOption.getAttribute('data-path');
+  // const dataAttribute = selectedOption.getAttribute('data-path');
   if (selectedOption.value === selectedValue) {
     selectedOption.selected = true;
     fetchSelectedOptionData(selectedOption.getAttribute('data-path'));
