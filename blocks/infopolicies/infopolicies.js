@@ -23,9 +23,9 @@ async function fetchData() {
 
 // Create and return the dropdown element
 function createDropdown() {
-  const dropdown = document.createElement('select');
-  dropdown.className = 'dropdown';
-  return dropdown;
+  const dropdownEle = document.createElement('select');
+  dropdownEle.className = 'dropdown';
+  return dropdownEle;
 }
 
 export default async function decorate() {
@@ -43,8 +43,10 @@ export default async function decorate() {
     // Create the dropdown element once
     dropdown = createDropdown();
     // Create the tabs and tab contents containers
-    const { tabsContainer, tabContentsContainer } =
-    createTabsAndContentsContainers(firstChildElement);
+    const {
+      tabsContainer,
+      tabContentsContainer
+    } = createTabsAndContentsContainers(firstChildElement);  
     // Populate tabs and their contents
     populateTabsAndContents(data, tabsContainer, tabContentsContainer, dropdown);
     // Initialize the first tab and update the dropdown
