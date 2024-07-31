@@ -476,10 +476,8 @@ export default async function decorate(block) {
 function validateFormInput(rules, block) {
   // Clear previous error messages
   block.querySelectorAll('.error-message').forEach(el => el.remove());
-
   let isValid = true;
-
-  rules.forEach(rule => {
+  rules.forEach((rule) => {
     const inputField = block.querySelector(`[name="${rule.fieldName}"]`);
     const fieldValue = inputField.value;
     if (!fieldValue || !rule.regexPattern.test(fieldValue)) {
@@ -499,17 +497,14 @@ function validateFormInput(rules, block) {
   let isChecked = false;
   for (let index = 0; index < checboxes.length; index++) {
     if (checboxes[index].checked === true) {
-
       isChecked = true;
-
     }
   }
   if (!isChecked) {
     const errorDiv = document.createElement('div');
     errorDiv.className = 'error-message';
     errorDiv.textContent = getDataAttributeValueByName('loantypevalidationerrormessage');
-    checboxes[0].parentNode.parentNode.appendChild(errorDiv)
-
+    checboxes[0].parentNode.parentNode.appendChild(errorDiv);
   }
   return (isValid && isChecked);
 }
@@ -606,4 +601,3 @@ function disableSubmitUntilFillForm(block) {
 
   validateForm();
 }
-
