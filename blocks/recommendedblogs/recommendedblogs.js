@@ -4,6 +4,10 @@ function getDataAttributeValueByName(name) {
   return element ? element.getAttribute(`data-${name}`) : '';
 }
 
+// Retrieve configurable values from data attributes
+const readMoreLabel = getDataAttributeValueByName('read-more-label');
+const notFoundMsg = getDataAttributeValueByName('not-found-msg');
+
 function getBlogsUrls(block) {
   const parentElement = block.querySelector('div');
   if (!parentElement) {
@@ -66,10 +70,6 @@ function createNoResultDiv(block) {
   block.appendChild(notFoundContainer);
 }
 
-// Retrieve configurable values from data attributes
-const readMoreLabel = getDataAttributeValueByName('read-more-label');
-const notFoundMsg = getDataAttributeValueByName('not-found-msg');
-
 // Main function to decorate the block
 export default async function decorate(block) {
   try {
@@ -95,7 +95,3 @@ export default async function decorate(block) {
     console.error('Error fetching data:', error);
   }
 }
-
-
-
-
