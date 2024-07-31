@@ -64,7 +64,7 @@ function createElement(type, attributes = {}, ...children) {
 
 //error message
 function createErrorSpan(message) {
-  return createElement('span', { class: 'error-message', style: 'color: red; display: none;' }, message);
+    return createElement('span', { class: 'error-message', style: 'color: red; display: none;' }, message);
 }
 // function calculateLoanDetails(p, r, emi, n, m, line) {
 //     let totalInterest = 0;
@@ -77,13 +77,13 @@ function createErrorSpan(message) {
 //     for (let i = 0; i < totalMonths; i++) {
 //         let monthlyInterest = p * r;
 //         let principalPayment = emi - monthlyInterest;
-
+        
 //         // Check if principal payment exceeds remaining principal
 //         if (principalPayment > p) {
 //             principalPayment = p;
 //             emi = principalPayment + monthlyInterest;
 //         }
-
+        
 //         p = p - principalPayment;
 //         totalInterest += monthlyInterest;
 //         principal += principalPayment;
@@ -298,7 +298,7 @@ function initialize(block) {
     ),
   );
 
-  breakup.append(loanDetails);
+    breakup.append(loanDetails);
 
   //mobile breakup
   const mobileBreakup = createElement('div', { class: 'mobile-breakup' },
@@ -383,11 +383,11 @@ function initialize(block) {
     this.value = value;
   });
 
-  int_rate_slider.addEventListener('change', (self) => {
-    int_rate_text.value = self.target.value;
-    R = parseFloat(self.target.value);
-    displayDetails(P, R, N, M, pie, block);
-  });
+    int_rate_slider.addEventListener("change", (self) => {
+        int_rate_text.value = self.target.value;
+        R = parseFloat(self.target.value);
+        displayDetails(P, R, N, M,  pie, block);
+    });
 
   int_rate_text.addEventListener('blur', (self) => {
     if (self.target.value === '') {
