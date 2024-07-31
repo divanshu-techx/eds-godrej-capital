@@ -40,10 +40,9 @@ function sortCards(sortBy, block) {
           return publishDateA - publishDateB;
         } else if (sortBy === 'descending') {
           return publishDateB - publishDateA;
+        } else {
+          return 0; // Default case if no valid sort option is selected
         }
-        // else {
-        //   return 0; // Default case if no valid sort option is selected
-        // }
       });
 
       // Clear the container and re-append sorted cards
@@ -379,7 +378,8 @@ function updateNewCard(block, container, cardTitle, url) {
   prevButton.append(spanArrowLeft);
   // prevButton.innerText = 'Previous';
   prevButton.classList.add('media-gallery-nav-button', 'prev-button');
-  mainCardPictureDiv.insertBefore(prevButton, mainCardPictureDiv.firstChild); // Insert at the beginning
+  // Insert at the beginning
+  mainCardPictureDiv.insertBefore(prevButton, mainCardPictureDiv.firstChild);
   mainCardPictureDiv.append(pictuireNavList);
   const nextButton = document.createElement('button');
   const spanArrowRight = document.createElement('span');
