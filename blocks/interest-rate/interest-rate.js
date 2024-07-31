@@ -162,7 +162,7 @@ function createDropdownForTabs(tabNames, tablist, data, tabpanel, dropdown) {
 }
 
 function handleViewportChange(tablist, tabsListDropdown) {
-  const tabsWrapper = document.querySelector('.tabs-list-wrapper');
+  // const tabsWrapper = document.querySelector('.tabs-list-wrapper');
   // const tabsListLabel = tabsWrapper.querySelector('.tabs-list-label');
   // const tabsDropdownLabel = tabsWrapper.querySelector('.tabs-dropdown-label');
   const allCards = document.querySelectorAll('.interest-card');
@@ -216,7 +216,7 @@ async function decorate() {
     const divs = interestRateBlock.querySelectorAll(':scope > div');
 
     divs.forEach((div, index) => {
-      if (index == 0) {
+      if (index === 0) {
         div.classList.add('other-card');
         allCards.appendChild(div);
       } else {
@@ -226,17 +226,17 @@ async function decorate() {
         div.classList.add('interest-card');
         maindiv.appendChild(div);
         const inrestCardsChildrens = div.querySelectorAll('div');
-        inrestCardsChildrens.forEach((el, index) => {
-          if (index === 0) {
+        inrestCardsChildrens.forEach((el, indexCards) => {
+          if (indexCards === 0) {
             el.classList.add('title-container');
             el.childNodes[0].classList.add('title');
           }
-          if (index === 1) {
+          if (indexCards === 1) {
             el.classList.add('intrest-container');
             el.children[0].classList.add('intrest');
           }
 
-          if (index === 2) {
+          if (indexCards === 2) {
             el.classList.add('time-period-container');
             el.children[0].classList.add('time-period');
           }
