@@ -13,7 +13,7 @@ function initializetabs() {
       const tabsContainer = document.createElement('div');
       tabsContainer.classList.add('tabs-container');
 
-      //create a div for button wrapper
+      // create a div for button wrapper
       const buttonWrapper = document.createElement('div');
       buttonWrapper.classList.add('button-container');
 
@@ -35,8 +35,7 @@ function initializetabs() {
       const dropdown = document.createElement('select');
       dropdown.classList.add('tab-dropdown');
 
-
-      //create a select element for secound mobile dropdown
+      // create a select element for secound mobile dropdown
 
       const productDropdown = document.createElement('div');
       productDropdown.classList.add('product-dropdown');
@@ -54,15 +53,12 @@ function initializetabs() {
       defaultOption.value = '';
       defaultOption.selected = true;
       secDropdownContainer.appendChild(defaultOption);
-
       let initialTabIndex = 0; // Default to the first tab
 
       // Create tabs and corresponding buttons dynamically
       calSections.forEach((section, index) => {
-
         // Get the data-tab-title attribute value
         const tabTitle = section.getAttribute('data-tab-title') || `Tab ${index + 1}`;
-
         // Create Tab button
         const tabButton = document.createElement('button');
         tabButton.textContent = tabTitle;
@@ -113,7 +109,6 @@ function initializetabs() {
         }
       });
 
-
       tabsContainer.appendChild(buttonWrapper);
       tabsContainer.appendChild(dropDownContainer);
       productDropdown.append(productLabel, secDropdownContainer);
@@ -133,7 +128,6 @@ function initializetabs() {
         const tabButtons = buttonContainer.querySelectorAll('button');
         tabButtons.forEach((button, i) => {
           button.classList.toggle('active', i === index);
-
         });
 
         // Update the dropdown value
@@ -152,7 +146,7 @@ function initializetabs() {
       heroCarouselSecondary.insertAdjacentElement('afterend', tabsContainer);
 
       // Append each .cal section to the tabs container (move instead of append)
-      calSections.forEach(section => {
+      calSections.forEach((section) => {
         tabsContainer.appendChild(section);
       });
 

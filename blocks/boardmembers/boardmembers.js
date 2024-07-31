@@ -108,8 +108,7 @@ export default async function decorate(block) {
         popupContent.innerHTML = popcontenta;
         popupContent.classList.add('popup-content');
         popup.appendChild(popupContent);
-
-        //cross icon added to span
+        // cross icon added to span
         const crossspan = document.createElement('span');
         if (crossBtn) {
           crossspan.innerText = crossBtn;

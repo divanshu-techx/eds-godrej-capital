@@ -67,14 +67,14 @@ export default async function decorate(block) {
     // centeredSlides: true,
     autoplay: {
       delay: 5000,
-      disableOnInteraction: true
+      disableOnInteraction: true,
     },
     pagination: {
       el: '.swiper-pagination',
-      type: "custom",
+      type: 'custom',
       renderCustom: function (swiper, current, total) {
         return `<span class="swiper-pagination-current">${addLeadingZero(current)}</span> / <span class="swiper-pagination-total">${addLeadingZero(total)}</span>`;
-      }
+      },
     },
     navigation: {
       nextEl: '.swiper-button-prev',
@@ -84,9 +84,9 @@ export default async function decorate(block) {
       768: {
         slidesPerView: 2.2,
         spaceBetween: 10,
-      }
-    }
-  })
+      },
+    },
+  });
   swiper.on('slideChange', function () {
     document.querySelector('.swiper-button-prev').setAttribute('aria-disabled', swiper.isBeginning ? 'true' : 'false');
     document.querySelector('.swiper-button-next').setAttribute('aria-disabled', swiper.isEnd ? 'true' : 'false');

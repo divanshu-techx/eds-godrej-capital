@@ -1,33 +1,3 @@
-export default async function decorate(block) {
-  const calculatorDetailPageWrapper = block.parentElement;
-  const defaultWrapper = calculatorDetailPageWrapper.parentElement;
-
-  let linksDiv = defaultWrapper.querySelector('.calculator-links');
-  if (!linksDiv) {
-    linksDiv = document.createElement('div');
-    linksDiv.classList.add('calculator-links');
-    defaultWrapper.insertBefore(linksDiv, calculatorDetailPageWrapper);
-  }
-
-  linksDiv.classList.add('links-div');
-  Array.from(linksDiv.children).forEach(child => {
-    addClassToElementAndDescendants(child, 'calculator-links-child');
-    child.children[0].classList.add('calculator-links-child-child');
-
-    Array.from(child.children[0].getElementsByTagName('p')).forEach(paragraph => {
-      const divElement = document.createElement('div');
-      divElement.classList.add('calculator-button');
-
-      Array.from(paragraph.childNodes).forEach(node => {
-        divElement.appendChild(node.cloneNode(true));
-      });
-      paragraph.parentNode.replaceChild(divElement, paragraph);
-    });
-  });
-  Array.from(block.children).forEach(child => {
-    addClassToElementAndDescendants(child, 'calculator-detail-page_v1');
-  });
-}
 function addClassToElementAndDescendants(element, className) {
   element.classList.add(className);
   if (element.classList.contains('calculator-detail-page_v1')) {
@@ -55,3 +25,33 @@ function addClassToElementAndDescendants(element, className) {
   });
 }
 
+export default async function decorate(block) {
+  const calculatorDetailPageWrapper = block.parentElement;
+  const defaultWrapper = calculatorDetailPageWrapper.parentElement;
+
+  let linksDiv = defaultWrapper.querySelector('.calculator-links');
+  if (!linksDiv) {
+    linksDiv = document.createElement('div');
+    linksDiv.classList.add('calculator-links');
+    defaultWrapper.insertBefore(linksDiv, calculatorDetailPageWrapper);
+  }
+
+  linksDiv.classList.add('links-div');
+  Array.from(linksDiv.children).forEach((child) => {
+    addClassToElementAndDescendants(child, 'calculator-links-child');
+    child.children[0].classList.add('calculator-links-child-child');
+
+    Array.from(child.children[0].getElementsByTagName('p')).forEach((paragraph) => {
+      const divElement = document.createElement('div');
+      divElement.classList.add('calculator-button');
+
+      Array.from(paragraph.childNodes).forEach((node) => {
+        divElement.appendChild(node.cloneNode(true));
+      });
+      paragraph.parentNode.replaceChild(divElement, paragraph);
+    });
+  });
+  Array.from(block.children).forEach(child => {
+    addClassToElementAndDescendants(child, 'calculator-detail-page_v1');
+  });
+}

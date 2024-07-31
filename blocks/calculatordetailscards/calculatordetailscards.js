@@ -1,3 +1,12 @@
+// Function to update visibility of the second <p> tag based on screen size
+function updateVisibility(element) {
+  if (window.innerWidth <= 768) {
+    element.style.display = 'block'; // Show on mobile screens
+  } else {
+    element.style.display = 'block'; // Show on desktop screens
+  }
+}
+
 // Function to add classes to specific divs and convert <p> elements to <div> elements
 export default async function decorate(block) {
   if (!block) {
@@ -7,7 +16,7 @@ export default async function decorate(block) {
 
   // Select all direct children divs of the container
   const parentDivs = block.querySelectorAll(':scope > div');
-  parentDivs.forEach(parentDiv => {
+  parentDivs.forEach((parentDiv) => {
     // Add the contentandpictureparent class to the parent div
     parentDiv.classList.add('contentpicparent');
 
@@ -35,12 +44,3 @@ export default async function decorate(block) {
     }
   });
 }
-// Function to update visibility of the second <p> tag based on screen size
-function updateVisibility(element) {
-  if (window.innerWidth <= 768) {
-    element.style.display = 'block'; // Show on mobile screens
-  } else {
-    element.style.display = 'block'; // Show on desktop screens
-  }
-}
-
