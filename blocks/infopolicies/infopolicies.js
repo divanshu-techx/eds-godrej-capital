@@ -109,6 +109,48 @@ function populateTabsAndContents(data, tabsContainer, tabContentsContainer, drop
   });
 }
 
+// Fetch and display data for the selected option
+function fetchSelectedOptionData(dataPath) {
+  const mainUrl = dataPath;
+  fetch(mainUrl)
+    .then((response) => response.text())
+    .then((data) => {
+      const parser = new DOMParser();
+      const htmlDoc = parser.parseFromString(data, 'text/html');
+      // Get the content inside the <main> tag
+      const mainContent = htmlDoc.querySelector('main').innerHTML;
+      // Handle the fetched data as needed, e.g., update target element
+      const tabContentsDiv = document.getElementById('tab-contents');
+      tabContentsDiv.innerHTML = mainContent;
+      // Add accordion functionality to elements with class 'accordion'
+      const accordions = tabContentsDiv.querySelectorAll('.accordion > div > div:first-child');
+      accordions.forEach((header) => {
+        header.classList.add('accordion-header');
+        header.nextElementSibling.classList.add('accordion-content');
+        header.addEventListener('click', () => {
+          header.classList.toggle('active');
+          header.nextElementSibling.classList.toggle('active');
+        });
+      });
+    })
+    .catch((error) => {
+      console.error('Error fetching data:', error);
+    });
+}
+
+// Initialize the first tab and update the dropdown
+function initializeFirstTab(data, dropdownVal) {
+  const firstTab = document.querySelector('.tab');
+  if (firstTab) {
+    firstTab.click();
+    const selectedOption = dropdownVal.options[dropdownVal.selectedIndex];
+    const dataPath = selectedOption.getAttribute('data-path');
+    if (dataPath) {
+      fetchSelectedOptionData(dataPath);
+    }
+  }
+}
+
 export default async function decorate() {
   let data;
   try {
@@ -142,35 +184,6 @@ export default async function decorate() {
   });
 }
 
-// Fetch and display data for the selected option
-function fetchSelectedOptionData(dataPath) {
-  const mainUrl = dataPath;
-  fetch(mainUrl)
-    .then((response) => response.text())
-    .then((data) => {
-      const parser = new DOMParser();
-      const htmlDoc = parser.parseFromString(data, 'text/html');
-      // Get the content inside the <main> tag
-      const mainContent = htmlDoc.querySelector('main').innerHTML;
-      // Handle the fetched data as needed, e.g., update target element
-      const tabContentsDiv = document.getElementById('tab-contents');
-      tabContentsDiv.innerHTML = mainContent;
-      // Add accordion functionality to elements with class 'accordion'
-      const accordions = tabContentsDiv.querySelectorAll('.accordion > div > div:first-child');
-      accordions.forEach((header) => {
-        header.classList.add('accordion-header');
-        header.nextElementSibling.classList.add('accordion-content');
-        header.addEventListener('click', () => {
-          header.classList.toggle('active');
-          header.nextElementSibling.classList.toggle('active');
-        });
-      });
-    })
-    .catch((error) => {
-      console.error('Error fetching data:', error);
-    });
-}
-
 // Update dropdown options based on the selected tab
 function updateDropdownOptionsOnTabs(parent, data, dropdownVal) {
   const selectedValue = dropdownVal.value;
@@ -202,19 +215,6 @@ function updateDropdownOptionsOnTabs(parent, data, dropdownVal) {
         fetchSelectedOptionData(option.getAttribute('data-path'));
       }
     });
-  }
-}
-
-// Initialize the first tab and update the dropdown
-function initializeFirstTab(data, dropdownVal) {
-  const firstTab = document.querySelector('.tab');
-  if (firstTab) {
-    firstTab.click();
-    const selectedOption = dropdownVal.options[dropdownVal.selectedIndex];
-    const dataPath = selectedOption.getAttribute('data-path');
-    if (dataPath) {
-      fetchSelectedOptionData(dataPath);
-    }
   }
 }
 
