@@ -38,7 +38,8 @@ function sortCards(sortBy, block) {
 
         if (sortBy === 'ascending') {
           return publishDateA - publishDateB;
-        } else if (sortBy === 'descending') {
+        } 
+        if (sortBy === 'descending') {
           return publishDateB - publishDateA;
         }
         return 0; // Default case if no valid sort option is selected
