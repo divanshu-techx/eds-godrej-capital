@@ -191,7 +191,7 @@ function renderFilters(locations, filterContainer, attributeObj) {
  * @param {Array} entries - All location entries.
  */
 function initialize(entries, block) {
-  const container = block.closest(".branchlocation-container");
+  const container = block.closest('.branchlocation-container');
 
   const attributeObj = getDataAttributes(container);
   const mapContainer = div({ class: "google-map" },
@@ -240,8 +240,8 @@ function loadGoogleMaps(callback) {
 }
 
 export default async function decorate(block) {
-  let mainContainer = block.closest(".branchlocation-container");
-  let locationUrl = mainContainer.getAttribute("data-locationUrl");
+  let mainContainer = block.closest('.branchlocation-container');
+  let locationUrl = mainContainer.getAttribute('data-locationUrl');
   // Load Google Maps API
   loadGoogleMaps(async () => {
     const allentries = await ffetch(locationUrl).all();
@@ -249,4 +249,3 @@ export default async function decorate(block) {
   });
 
 }
-

@@ -1,5 +1,5 @@
 export default async function decorate(block) {
-  const crossBtn=getDataAttributeValueByName('close-button');
+  const crossBtn = getDataAttributeValueByName('close-button');
   const anchors = block.querySelectorAll('.button');
   if (anchors.length === 0) {
     console.error('No buttons found within the boardmembers block');
@@ -30,26 +30,26 @@ export default async function decorate(block) {
         Array.from(profileContainers).forEach((profile) => {
           const profileInnerDivs = profile.children;
           const descDiv = profileDiv;
-          if (profileDiv){
+          if (profileDiv) {
             profileDiv.children[0].classList.add('profile-details');
           }
           const pictureElement = profileInnerDivs[0]?.querySelector('picture');
           if (pictureElement) {
             pictureElement.parentElement.classList.add('profile-picture');
           }
-          
+
           if (descDiv) {
             descDiv.children[1].classList.add('profile-description');
           }
         });
-        
+
         const popcontenta = profileDiv.innerHTML;
         if (!profileDiv) {
           console.error('Profiles div not found in fetched HTML');
           return;
         }
 
-       
+
         // Insert the .profiles div into the button container
         const buttonContainer = anchor.parentElement;
         buttonContainer.innerHTML = '';
@@ -108,12 +108,12 @@ export default async function decorate(block) {
 
         //cross icon added to span
         const crossspan = document.createElement('span');
-        if(crossBtn){
-        crossspan.innerText = crossBtn;
+        if (crossBtn) {
+          crossspan.innerText = crossBtn;
         } else {
           crossspan.innerText = '';
         }
-       // span added to popup div
+        // span added to popup div
         const crossicon = document.createElement('div');
         crossicon.classList.add('closeicon');
         crossicon.appendChild(crossspan)

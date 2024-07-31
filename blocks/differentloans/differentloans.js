@@ -2,31 +2,27 @@ import ffetch from '../../scripts/ffetch.js';
 var categories;
 // Retrieve configurable values from data attributes
 const queryIndexApiUrl = getDataAttributeValueByName('queryindexurl');
-
 // Selectors for DOM elements
 const SELECTORS = {
   tabsSelector: '.tab',
 };
-
 // API URLs
 const API_URL = {
   Different_Home_Loan_Url: queryIndexApiUrl,
 };
-
 // CSS class names for creating elements
 const CREATE_SELECTOR_CLASS = {
   contentContainer: 'content-container',
   tabsContainer: 'tabs-loans-container',
   titleContainer: 'different-loans-title',
 };
-
 // Main function to decorate the block
 export default async function decorate(block) {
   try {
     const responseData = await fetchData();
     const tabsNameArray = getTabNamesFromMetadata();
     var tabsContainer;
-    if(tabsNameArray.length > 0){
+    if (tabsNameArray.length > 0) {
       tabsContainer = createTabs(block, tabsNameArray);
     } else {
       categories = getDistinctCategories(responseData);
@@ -41,7 +37,6 @@ export default async function decorate(block) {
     console.error('Error fetching data:', err);
   }
 }
-
 // Fetch data from the API
 async function fetchData() {
   const responseData = await ffetch(API_URL.Different_Home_Loan_Url).all();
@@ -50,7 +45,6 @@ async function fetchData() {
   }
   return responseData;
 }
-
 // Extract distinct categories from the data
 function getDistinctCategories(data) {
   const categoriesSet = new Set();
@@ -59,17 +53,14 @@ function getDistinctCategories(data) {
   });
   return Array.from(categoriesSet);
 }
-
 // Create tabs for each category and append to the block
 function createTabs(block, categories) {
   const tabsContainer = document.createElement('div');
   tabsContainer.classList.add(CREATE_SELECTOR_CLASS.tabsContainer);
   block.appendChild(tabsContainer);
-
   const buttonsContainer = document.createElement('div');
   buttonsContainer.classList.add('buttons-container');
   tabsContainer.appendChild(buttonsContainer);
-
   categories.forEach(category => {
     const tab = document.createElement('button');
     tab.classList.add('tab');
@@ -77,10 +68,8 @@ function createTabs(block, categories) {
     tab.dataset.tabName = category.toLowerCase();
     buttonsContainer.appendChild(tab);
   });
-
   return tabsContainer;
 }
-
 // Create and append the content container to the block
 function createContentContainer(block) {
   const contentContainer = document.createElement('div');
@@ -88,7 +77,6 @@ function createContentContainer(block) {
   block.appendChild(contentContainer);
   return contentContainer;
 }
-
 // Filter and render content based on the selected category
 function renderFilteredContent(category, responseData, contentContainer) {
   const filteredData = responseData.filter(item =>
@@ -96,7 +84,6 @@ function renderFilteredContent(category, responseData, contentContainer) {
   );
   renderCards(filteredData, contentContainer);
 }
-
 // Render cards based on the filtered data
 function renderCards(data, contentContainer) {
   contentContainer.innerHTML = ''; // Clear existing content
@@ -104,31 +91,25 @@ function renderCards(data, contentContainer) {
     const itemElement = document.createElement('a');
     itemElement.href = item.path;
     itemElement.classList.add('loan-card');
-
     const imageElement = document.createElement('img');
     imageElement.src = item.image;
     imageElement.alt = item.title;
     imageElement.classList.add('loan-image');
     itemElement.appendChild(imageElement);
-
     const loanContent = document.createElement('div');
     loanContent.classList.add('loan-content');
-
     const loanTitle = document.createElement('h2');
     loanTitle.classList.add('loanTitle');
     loanTitle.textContent = item.title;
     loanContent.appendChild(loanTitle);
-
     const loanDescription = document.createElement('p');
     loanDescription.classList.add('loanDescription');
     loanDescription.textContent = item.description;
     loanContent.appendChild(loanDescription);
-
     itemElement.appendChild(loanContent);
     contentContainer.appendChild(itemElement);
   });
 }
-
 // Add event listeners to tabs for filtering content
 function addEventListeners(tabs, responseData, contentContainer) {
   tabs.forEach(tab => {
@@ -139,18 +120,15 @@ function addEventListeners(tabs, responseData, contentContainer) {
     });
   });
 }
-
 // Retrieve the value of a data attribute by name
 function getDataAttributeValueByName(name) {
   const element = document.querySelector(`[data-${name}]`);
   return element ? element.getAttribute(`data-${name}`) : '';
 }
-
 function getTabNamesFromMetadata() {
   const tabsName = getDataAttributeValueByName('tabs-name-ordering');
-  
   if (!tabsName || tabsName.trim().length === 0) {
-      return [];
+    return [];
   }
   return tabsName.includes(',') ? tabsName.split(',') : [tabsName];
 }

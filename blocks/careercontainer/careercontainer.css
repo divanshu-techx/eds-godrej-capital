@@ -3,6 +3,13 @@
     gap: 2%;
 }
 
+@media(width >= 1200px){
+    .careercontainer .career-child-0{
+        width:80%;
+        margin:auto;
+    }
+}
+
 .careercontainer .career-child-1 .career-inner-child-1-0 {
     width: 48%;
     margin-bottom: 10px;
@@ -30,6 +37,9 @@
         line-height: 16.42px;
         text-align: center;
     }
+    .careercontainer .career-child-1 .career-inner-child-1-1 {
+        order: -1;
+    }
 }
 
 @media(min-width:767px){
@@ -38,7 +48,7 @@
         margin-bottom: 10px;
         box-sizing: border-box;
         display: flex;
-        align-items: center;
+        /* align-items: center; */
         flex-direction: column;
         justify-content: center;
     }
@@ -81,6 +91,8 @@
 .careercontainer .career-child-1 .career-inner-child-1-0 h3 {
     font-size: 24px;
     margin-bottom: 10px;
+    text-align: left;
+    color:#696969;
 }
 
 .careercontainer .career-child-1 .career-inner-child-1-0 p,

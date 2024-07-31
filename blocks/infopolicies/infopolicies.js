@@ -10,13 +10,10 @@ function isMobileView() {
 
 export default async function decorate() {
   let data;
-
   try {
     // Fetch the data asynchronously
     data = await fetchData();
-
     const infopoliciesEle = document.getElementsByClassName('infopolicies');
-
     let firstChildElement;
     if (infopoliciesEle.length > 0) {
       firstChildElement = infopoliciesEle[0];
@@ -24,13 +21,10 @@ export default async function decorate() {
 
     // Create the dropdown element once
     dropdown = createDropdown();
-
     // Create the tabs and tab contents containers
     const { tabsContainer, tabContentsContainer } = createTabsAndContentsContainers(firstChildElement);
-
     // Populate tabs and their contents
     populateTabsAndContents(data, tabsContainer, tabContentsContainer, dropdown);
-
     // Initialize the first tab and update the dropdown
     initializeFirstTab(data, dropdown);
   } catch (error) {
@@ -41,7 +35,6 @@ export default async function decorate() {
   dropdown.addEventListener('change', () => {
     updateDropdownOptions(dropdown);
   });
-  
 }
 
 // Get authoring values
@@ -69,15 +62,15 @@ function createTabsAndContentsContainers(infoPoliciesEle) {
     infoPoliciesEle.appendChild(titleContainer);
   }
 
-  if(dropdown) {
-      dropDownContainer = document.createElement('div');
-      if(isMobileView()){
-        dropDownContainer.className = 'dropdown-container-for-mobile';
-      } else {
-        dropDownContainer.className = 'dropdown-container-for-desktop';
-      }
-      dropDownContainer.appendChild(dropdown);
-      infoPoliciesEle.appendChild(dropDownContainer);
+  if (dropdown) {
+    dropDownContainer = document.createElement('div');
+    if (isMobileView()) {
+      dropDownContainer.className = 'dropdown-container-for-mobile';
+    } else {
+      dropDownContainer.className = 'dropdown-container-for-desktop';
+    }
+    dropDownContainer.appendChild(dropdown);
+    infoPoliciesEle.appendChild(dropDownContainer);
   }
 
   let tabsContainer = document.getElementById('tabs');
@@ -95,7 +88,6 @@ function createTabsAndContentsContainers(infoPoliciesEle) {
     tabContentsContainer.className = 'tabs-content';
     infoPoliciesEle.appendChild(tabContentsContainer);
   }
-
   return { tabsContainer, tabContentsContainer };
 }
 
@@ -114,15 +106,12 @@ function fetchSelectedOptionData(dataPath) {
     .then((data) => {
       const parser = new DOMParser();
       const htmlDoc = parser.parseFromString(data, 'text/html');
-
       // Get the content inside the <main> tag
       const mainContent = htmlDoc.querySelector('main').innerHTML;
-
       // Handle the fetched data as needed, e.g., update target element
       const tabContentsDiv = document.getElementById('tab-contents');
       tabContentsDiv.innerHTML = mainContent;
-
-      // Add accordion functionality to elements with class "accordion"
+      // Add accordion functionality to elements with class 'accordion'
       const accordions = tabContentsDiv.querySelectorAll('.accordion > div > div:first-child');
       accordions.forEach((header) => {
         header.classList.add('accordion-header');
@@ -141,10 +130,8 @@ function fetchSelectedOptionData(dataPath) {
 // Update dropdown options based on the selected tab
 function updateDropdownOptionsOnTabs(parent, data, dropdown) {
   const selectedValue = dropdown.value;
-
   // Clear existing options
   dropdown.innerHTML = '';
-
   // Add new options based on the selected tab
   if (isMobileView()) {
     data.filter((item) => item.selector === parent).forEach((item) => {
@@ -166,7 +153,6 @@ function updateDropdownOptionsOnTabs(parent, data, dropdown) {
       option.innerText = item.selector;
       option.setAttribute('data-path', item.path);
       dropdown.appendChild(option);
-
       if (option.value === selectedValue) {
         option.selected = true;
         fetchSelectedOptionData(option.getAttribute('data-path'));
@@ -192,7 +178,7 @@ function populateTabsAndContents(data, tabsContainer, tabContentsContainer, drop
     tabsContainer.appendChild(tab);
 
     // Append the dropdown to the tabs container
-    if(isMobileView()){
+    if (isMobileView()) {
       dropDownContainer.appendChild(dropdown);
     } else {
       dropDownContainer.appendChild(dropdown);
@@ -204,7 +190,6 @@ function populateTabsAndContents(data, tabsContainer, tabContentsContainer, drop
     tabContent.className = 'tab-content';
     tabContent.id = `content-${parent.replace(/\s+/g, '-')}`;
     tabContentsContainer.appendChild(tabContent);
-
     tab.addEventListener('click', () => {
       // document.querySelectorAll('.tab-content').forEach((content) => content.classList.remove('active'));
       // tabContent.classList.add('active');

@@ -33,7 +33,6 @@ export default async function decorate(block) {
         footerSection.setAttribute('aria-expanded', 'false');
         footerSection.setAttribute('role', 'button');
         footerSection.setAttribute('tabindex', '0');
-
         if (footerSection.querySelector('ul')) { footerSection.classList.add('footer-li'); }
         footerSection.addEventListener('click', () => {
           if (isDesktop.matches) {

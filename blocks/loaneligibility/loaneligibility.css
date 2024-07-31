@@ -792,8 +792,10 @@ input[type="range"]::-moz-range-track {
     flex-direction: column;
 }
 
-.detail-select {
-    display: none;
+@media(width <=600px){
+    .detail-select {
+        display: none;
+    }  
 }
 
 .details input[type="number"],
@@ -837,3 +839,7 @@ input[type="range"]::-moz-range-track {
         background-color: #F4F4F4;
     }
 }
+
+.section.hide-dropdown .detail-select {
+    display: none;
+} 

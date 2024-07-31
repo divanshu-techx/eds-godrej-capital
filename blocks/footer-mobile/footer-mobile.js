@@ -1,11 +1,11 @@
 export default async function decorate(block) {
   const allDivs = block.querySelectorAll(':scope > div');
- 
+
   // Create overlay element
   const overlay = document.createElement('div');
   overlay.classList.add('overlay');
   document.body.appendChild(overlay);
- 
+
   // Constants for header and footer height
   const headerHeight = 70;
   const footerHeight = 100;
@@ -20,32 +20,32 @@ export default async function decorate(block) {
       }
     });
   }
- 
+
   // Function to adjust dropdown height to half the remaining screen height
   function adjustDropdownSize(dropdown) {
     const screenHeight = window.innerHeight;
     const remainingHeight = screenHeight - headerHeight - footerHeight;
     const halfRemainingHeight = remainingHeight / 2;
- 
+
     dropdown.style.height = `${halfRemainingHeight}px`;
     dropdown.style.width = '-webkit-fill-available';
     overlay.style.height = `${halfRemainingHeight + headerHeight}px`; // Extend to cover header
     overlay.style.top = `0`; // Start from the top of the viewport
   }
- 
+
   allDivs.forEach((div, index) => {
     div.classList.add('footer-element');
     const childDivs = div.querySelectorAll(':scope > div');
- 
+
     if (childDivs.length > 1) {
       const [firstDiv, secondDiv] = childDivs;
- 
+
       if (index === 0) {
         secondDiv.classList.add('products-class');
       } else if (index === 2) {
         secondDiv.classList.add('calculators');
       }
- 
+
       secondDiv.classList.add('dropdown-content');
       secondDiv.style.display = 'none';
       firstDiv.classList.add('tooltip-trigger');
@@ -57,7 +57,7 @@ export default async function decorate(block) {
         })
         if (isExpanded) {
           this.parentElement.classList.remove('active-el')
- 
+
           secondDiv.style.display = 'none';
           secondDiv.classList.remove('open'); // Remove fade-in effect
           overlay.classList.remove('open'); // Hide the overlay
@@ -71,7 +71,7 @@ export default async function decorate(block) {
           firstDiv.style.backgroundColor = '#fff';
         }
       });
- 
+
       const listItems = secondDiv.querySelectorAll('li');
       listItems.forEach((li) => {
         if (li.querySelector('ol')) {
@@ -92,7 +92,7 @@ export default async function decorate(block) {
       });
     }
   });
- 
+
   document.addEventListener('click', function (event) {
     if (!event.target.closest('.tooltip-trigger')) {
       hideAllDropdowns();

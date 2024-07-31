@@ -1,3 +1,4 @@
+
 // Function to get data attribute value by name
 function getDataAttributeValueByName(name) {
     const element = document.querySelector(`[data-${name}]`);
@@ -168,34 +169,50 @@ function updateRangeColors(block) {
         input.style.background = `linear-gradient(to right, #8CB133 ${normalizedValue}%, ${endColor} ${normalizedValue}%)`;
     });
 }
- 
 
-// Function to update APR calculations and display
 function updateAPR(block) {
+    // Extract values from the form fields
     const loanAmount = parseFloat(block.querySelector('#loanAmountAprRange').value);
     const interestRate = parseFloat(parseFloat(block.querySelector('#interestRateAprRange').value).toFixed(1));
     const loanTenureYears = parseFloat(block.querySelector('#loanTenureYearsAprRange').value);
     const loanTenureMonths = parseFloat(block.querySelector('#loanTenureMonthsAprRange').value);
     const originationCharges = parseFloat(block.querySelector('#loanOriginationChargesAprRange').value);
 
-    block.querySelector('#loanAmountApr').value = loanAmount.toLocaleString('en-IN');
+     block.querySelector('#loanAmountApr').value = loanAmount.toLocaleString('en-IN');
     block.querySelector('#interestRateApr').value = interestRate;
     block.querySelector('#loanTenureYearsApr').value = loanTenureYears;
     block.querySelector('#loanTenureMonthsApr').value = loanTenureMonths;
     block.querySelector('#loanOriginationChargesApr').value = originationCharges.toLocaleString('en-IN');
 
-    const totalLoanTenure = loanTenureYears * 12 + loanTenureMonths;
-    const monthlyInterestRate = interestRate / 100 / 12;
-    const monthlyEMI = loanAmount * monthlyInterestRate * Math.pow((1 + monthlyInterestRate), totalLoanTenure) /
-        (Math.pow((1 + monthlyInterestRate), totalLoanTenure) - 1);
-    const totalPayment = monthlyEMI * totalLoanTenure;
-    const totalCost = totalPayment + originationCharges;
-    const apr = (totalCost / loanAmount - 1) / (totalLoanTenure / 12) * 100;
+    // Convert tenure to months
+    const totalTenureMonths = (loanTenureYears * 12) + loanTenureMonths;
 
-    block.querySelector('#aprDisplay').textContent = `${apr.toFixed(2)}%`;
+    // Calculate APR
+    const loanamt = loanAmount;
+    const periods = totalTenureMonths;
+    const ROI = interestRate;
+    const loanOrigin = originationCharges; // Original charges as provided
+
+    let charges = parseFloat(loanamt - loanOrigin);
+    let pmt = formulajs.PMT(ROI / 1200, periods, loanamt);
+    pmt = pmt * -1;
+    charges = charges * -1;
+    let apr = formulajs.RATE(periods, pmt, charges) * 12;
+
+    if (apr == "Infinity" || isNaN(apr) || apr == "-Infinity") {
+        apr = ROI / 100;
+    }
+    if (!loanamt && !periods && !charges) {
+        apr = 0;
+    }
+    apr = apr * 100;
+    apr = apr > 24 ? 24 : apr < 6 ? 6 : apr;
+    apr = apr.toFixed(2) + "%";
+
+    // Update the UI with the calculated APR
+    block.querySelector('#aprDisplay').textContent = apr;
 }
 
-// Function to add event listeners to range inputs
 function addRangeInputListeners(block) {
     const rangeInputs = block.querySelectorAll('input[type=range]');
     rangeInputs.forEach(input => {

@@ -48,3 +48,9 @@
         line-height: 14.08px;
     }
 }
+
+@media(min-width:1199px){
+    .section.pdp-blogs-header-container {
+        background-color: #f2f2f2;
+    }
+}
