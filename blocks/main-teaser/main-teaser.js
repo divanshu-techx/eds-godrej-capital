@@ -10,19 +10,15 @@ function getImageForBreakpoint(imagesList, onChange = () => { }) {
     '(min-width: 744px) and (max-width: 1199px)',
   );
   const desktopMQ = window.matchMedia('(min-width: 1200px)');
-  const [mobilePic, tabletPic, desktopPic] =
-    imagesList.querySelectorAll('picture');
+  const [mobilePic, tabletPic, desktopPic] = imagesList.querySelectorAll('picture');
   const onBreakpointChange = (mq, picture, breakpoint) => {
     if (mq.matches) {
       onChange(picture, breakpoint);
     }
   };
-  const onMobileChange = (mq) =>
-    onBreakpointChange(mq, mobilePic, MEDIA_BREAKPOINTS.MOBILE);
-  const onTabletChange = (mq) =>
-    onBreakpointChange(mq, tabletPic, MEDIA_BREAKPOINTS.TABLET);
-  const onDesktopChange = (mq) =>
-    onBreakpointChange(mq, desktopPic, MEDIA_BREAKPOINTS.DESKTOP);
+  const onMobileChange = (mq) => onBreakpointChange(mq, mobilePic, MEDIA_BREAKPOINTS.MOBILE);
+  const onTabletChange = (mq) => onBreakpointChange(mq, tabletPic, MEDIA_BREAKPOINTS.TABLET);
+  const onDesktopChange = (mq) => onBreakpointChange(mq, desktopPic, MEDIA_BREAKPOINTS.DESKTOP);
 
   mobileMQ.addEventListener('change', onMobileChange);
   tabletMQ.addEventListener('change', onTabletChange);
