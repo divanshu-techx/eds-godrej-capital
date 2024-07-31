@@ -43,9 +43,12 @@ function initBackgroundPosition(classList, breakpoint) {
     [MEDIA_BREAKPOINTS.DESKTOP]: 'l',
   };
   const classPrefix = classPrefixes[breakpoint];
-  const backgroudPositionClass = [...classList].find((item) =>
-    item.startsWith(`bp-${classPrefix}-`),
-  );
+  // const backgroudPositionClass = [...classList].find((item) =>
+  //   item.startsWith(`bp-${classPrefix}-`),
+  // );
+  const backgroudPositionClass = [...classList].find(
+    (item) => item.startsWith(`bp-${classPrefix}-`)
+  );  
   let backgroundPositionValue = 'unset';
 
   if (backgroudPositionClass) {
