@@ -187,7 +187,6 @@ function handleViewportChange(tablist, tabsListDropdown) {
     // tabsListLabel.style.display = "block"; // Show "Select Documents" label
     allCards.forEach((card) => {
       card.style.display = 'block';
-
     });
     mobileCardContainer.innerHTML = ''; // Clear mobile card container
   }
@@ -241,7 +240,6 @@ async function decorate() {
             el.children[0].classList.add('time-period');
           }
         });
-
       }
     });
   }
