@@ -72,22 +72,53 @@ function createNoResultDiv(block) {
 
 // Main function to decorate the block
 export default async function decorate(block) {
+  // try {
+  //   const blogsUrls = getBlogsUrls(block);
+  //   if (blogsUrls) {
+  //     const blogsContainer = createBlogContainer(block);
+  //     for (const blogUrl of blogsUrls) {
+  //       const responseData = await fetch(blogUrl);
+  //       if (responseData.ok) {
+  //         const text = await responseData.text();
+  //         // Parse the HTML string using DOMParser
+  //         const parser = new DOMParser();
+  //         const doc = parser.parseFromString(text, 'text/html');
+  //         renderBlogs(blogsContainer, doc);
+  //       } else {
+  //         console.error('No data fetched for the given blog url.');
+  //       }
+  //     }
+  //   } else {
+  //     createNoResultDiv(block);
+  //   }
+  // } catch (error) {
+  //   console.error('Error fetching data:', error);
+  // }
+
   try {
     const blogsUrls = getBlogsUrls(block);
     if (blogsUrls) {
       const blogsContainer = createBlogContainer(block);
-      for (const blogUrl of blogsUrls) {
-        const responseData = await fetch(blogUrl);
-        if (responseData.ok) {
-          const text = await responseData.text();
-          // Parse the HTML string using DOMParser
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(text, 'text/html');
-          renderBlogs(blogsContainer, doc);
-        } else {
-          console.error('No data fetched for the given blog url.');
+      // Define an async function to fetch and render blog data
+      const fetchAndRenderBlog = async (blogUrl) => {
+        try {
+          const response = await fetch(blogUrl);
+          if (response.ok) {
+            const text = await response.text();
+            // Parse the HTML string using DOMParser
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(text, 'text/html');
+            renderBlogs(blogsContainer, doc);
+          } else {
+            console.error('No data fetched for the given blog url:', blogUrl);
+          }
+        } catch (error) {
+          console.error('Error fetching data for URL:', blogUrl, error);
         }
-      }
+      };
+
+      // Use Promise.all to fetch all blogs concurrently
+      await Promise.all(blogsUrls.map(fetchAndRenderBlog));
     } else {
       createNoResultDiv(block);
     }
