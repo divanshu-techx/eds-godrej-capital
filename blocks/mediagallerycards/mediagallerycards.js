@@ -31,8 +31,10 @@ function sortCards(sortBy, block) {
       const cards = Array.from(container.getElementsByClassName('card-media-gallery'));
 
       cards.sort((a, b) => {
-        const publishDateA = parseInt(a.getAttribute('data-publishdate', 10));
-        const publishDateB = parseInt(b.getAttribute('data-publishdate', 10));
+        // const publishDateA = parseInt(a.getAttribute('data-publishdate', 10));
+        // const publishDateB = parseInt(b.getAttribute('data-publishdate', 10));
+        const publishDateA = parseInt(a.getAttribute('data-publishdate'), 10);
+        const publishDateB = parseInt(b.getAttribute('data-publishdate'), 10);
 
         if (sortBy === 'ascending') {
           return publishDateA - publishDateB;
@@ -164,8 +166,10 @@ function showCategoryContent(category, block) {
   }
 
   // // Check if the containers have visible content
-  // const hasPictureContent = pictureContainer.querySelector('.card-media-gallery')?.children.length > 0;
-  // const hasVideoContent = videoContainer.querySelector('.card-media-gallery')?.children.length > 0;
+  // const hasPictureContent = pictureContainer.querySelector(
+  // '.card-media-gallery')?.children.length > 0;
+  // const hasVideoContent = videoContainer.querySelector(
+  // '.card-media-gallery')?.children.length > 0;
 
   // // If no content is visible, show the no results message
   // if (!hasPictureContent && !hasVideoContent) {
@@ -191,7 +195,7 @@ function filterCardsBySearch(searchTerm, block) {
   // Check if searchTerm has at least 3 characters
   if (lowerCaseSearchTerm.length < 3) {
     // Reset all cards to be visible if searchTerm length is less than 3
-    allCards.forEach(card => {
+    allCards.forEach((card) => {
       card.style.display = 'block';
     });
 
@@ -203,7 +207,7 @@ function filterCardsBySearch(searchTerm, block) {
     return; // Exit function early
   }
 
-  allCards.forEach(card => {
+  allCards.forEach((card) => {
     const cardContent = card.textContent.toLowerCase();
     if (cardContent.includes(lowerCaseSearchTerm)) {
       card.style.display = 'block';
@@ -357,7 +361,7 @@ function generateCards(data, block) {
   const otherCategoryWrapper = document.createElement('div');
   otherCategoryWrapper.classList.add('other-category-wrapper');
 
-  data.data.forEach(item => {
+  data.data.forEach((item) => {
     const card = document.createElement('div');
     card.classList.add('card-media-gallery');
     card.setAttribute('data-category', item.category);
@@ -513,7 +517,7 @@ function updateNewCard(block, container, cardTitle, url) {
   upperPictureDiv.appendChild(initialClone);
 
   function updateActiveElement(index) {
-    allChildDiv.forEach(el => el.classList.remove('active'));
+    allChildDiv.forEach((el) => el.classList.remove('active'));
     allChildDiv[index].classList.add('active');
 
     const clone = allChildDiv[index].cloneNode(true);
