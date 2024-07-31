@@ -1,11 +1,4 @@
 
-// Function to calculate EMI
-function calculateEMI(principal, annualRate, tenureMonths) {
-  const monthlyRate = annualRate / 12 / 100;
-  return (principal * monthlyRate * Math.pow((1 + monthlyRate), tenureMonths)) /
-    (Math.pow((1 + monthlyRate), tenureMonths) - 1);
-}
-
 function formatNumberToIndianCommas(number) {
   // Convert the number to a string
   const numStr = number.toString();
@@ -40,40 +33,53 @@ function numberToWords(num) {
     }
   }
 }
-// Function to update calculations
 function updateCalculations(block) {
-  const principalOutstanding = parseFloat(block.querySelector('#principalOutstanding').value);
-  const existingInterestRate = parseFloat(block.querySelector('#existingInterestRate').value);
-  const balanceTenureYears = parseFloat(block.querySelector('#balanceTenureYears').value);
+  // Retrieve and parse input values
+  const principal = parseFloat(block.querySelector('#principalOutstanding').value);
+  const interestRate = parseFloat(block.querySelector('#existingInterestRate').value);
+  const tenure = parseFloat(block.querySelector('#balanceTenureYears').value);
   const newInterestRate = parseFloat(block.querySelector('#newInterestRate').value);
   const newLoanTenureYears = parseFloat(block.querySelector('#newLoanTenure').value);
   const newLoanTenureMonths = parseFloat(block.querySelector('#newLoanTenureMonths').value);
+
+  // Calculate the new loan tenure in months
   const newLoanTenureTotalMonths = (newLoanTenureYears * 12) + newLoanTenureMonths;
 
+  // Variable assignments based on new logic
+  const finalprincipal = principal;
+  const finaltenure = tenure * 12;
+  const finalELInterestRate = interestRate / 1200;
+
+  const finalPLTenure = newLoanTenureTotalMonths;
+  const finalPLInterestRate = newInterestRate / 1200;
+
   // Calculate existing EMI per month for remaining tenure
-  const existingEMIMonthly = calculateEMI(principalOutstanding, existingInterestRate, balanceTenureYears * 12);
+  const existingEmi = (finalprincipal * finalELInterestRate * Math.pow(1 + finalELInterestRate, finaltenure)) /
+    (Math.pow(1 + finalELInterestRate, finaltenure) - 1);
 
   // Calculate proposed EMI per month for new tenure
-  const proposedEMIMonthly = calculateEMI(principalOutstanding, newInterestRate, newLoanTenureTotalMonths);
+  const proposedEmi = (finalprincipal * finalPLInterestRate * Math.pow(1 + finalPLInterestRate, finalPLTenure)) /
+    (Math.pow(1 + finalPLInterestRate, finalPLTenure) - 1);
 
-  // Savings in EMI per month
-  const savingsInEMIMonthly = existingEMIMonthly - proposedEMIMonthly;
+  // Calculate total savings in cash outflow and savings in EMI
+  let totalSavinginCashoutflow = (existingEmi * finaltenure) - (proposedEmi * finalPLTenure);
+  totalSavinginCashoutflow = totalSavinginCashoutflow < 0 ? 0 : totalSavinginCashoutflow;
 
-  // Total savings over the new loan tenure in months
-  const totalSavingMonths = savingsInEMIMonthly * newLoanTenureTotalMonths;
+  let savinginEmi = existingEmi - proposedEmi;
+  savinginEmi = savinginEmi < 0 ? 0 : savinginEmi;
 
   // Update the display values
-  block.querySelector('#principalOutstandingDisplay').textContent = `₹ ${principalOutstanding.toLocaleString('en-IN')}`;
-  block.querySelector('#balanceTenureYearsDisplay').textContent = `${balanceTenureYears}`;
-  block.querySelector('#existingInterestRateDisplay').textContent = `${existingInterestRate.toFixed(2)}`;
+  block.querySelector('#principalOutstandingDisplay').textContent = `₹ ${finalprincipal.toLocaleString('en-IN')}`;
+  block.querySelector('#balanceTenureYearsDisplay').textContent = `${tenure.toFixed(2)}`;
+  block.querySelector('#existingInterestRateDisplay').textContent = `${interestRate.toFixed(2)}`;
   block.querySelector('#newInterestRateDisplay').textContent = `${newInterestRate.toFixed(2)}`;
   block.querySelector('#newLoanTenureDisplay').textContent = `${newLoanTenureYears}`;
   block.querySelector('#newLoanTenureMonthsDisplay').textContent = `${newLoanTenureMonths}`;
 
-  block.querySelector('#totalSaving').textContent = `₹ ${Math.floor(totalSavingMonths).toLocaleString('en-IN')}`;
-  block.querySelector('#savingsInEMI').textContent = `₹ ${Math.floor(savingsInEMIMonthly).toLocaleString('en-IN')}`;
-  block.querySelector('#existingEMI').textContent = `₹ ${Math.floor(existingEMIMonthly).toLocaleString('en-IN')}`;
-  block.querySelector('#proposedEMI').textContent = `₹ ${Math.floor(proposedEMIMonthly).toLocaleString('en-IN')}`;
+  block.querySelector('#totalSaving').textContent = `₹ ${Math.round(totalSavinginCashoutflow).toLocaleString('en-IN')}`;
+  block.querySelector('#savingsInEMI').textContent = `₹ ${Math.round(savinginEmi).toLocaleString('en-IN')}`;
+  block.querySelector('#existingEMI').textContent = `₹ ${Math.round(existingEmi).toLocaleString('en-IN')}`;
+  block.querySelector('#proposedEMI').textContent = `₹ ${Math.round(proposedEmi).toLocaleString('en-IN')}`;
 }
 function getDataAttributeValueByName(name) {
   const element = document.querySelector(`[data-${name}]`);
@@ -138,8 +144,8 @@ function getCalcAttribute() {
     monthSymbol: getDataAttributeValueByName('month-symbol'),
     yearSymbol: getDataAttributeValueByName('year-symbol'),
     redirectionPath: getDataAttributeValueByName('redirection-balance-path'),
-    proposed_loan_label :getDataAttributeValueByName('proposed-loan-label'),
-    existing_loan_label :getDataAttributeValueByName('existing-loan-label')
+    proposed_loan_label: getDataAttributeValueByName('proposed-loan-label'),
+    existing_loan_label: getDataAttributeValueByName('existing-loan-label')
   };
   return calculatorAttributes;
 }
@@ -175,7 +181,7 @@ function getHTML(calculatorAttributes) {
                         </div>
                     </div>
                     <div class="inputBoxBalanceRange">
-                    <input type="range" id="balanceTenureYears" min="${calculatorAttributes.balanceTenureYear.min}" max="${calculatorAttributes.balanceTenureYear.max}" value="${calculatorAttributes.balanceTenureYear.min}">
+                    <input type="range" id="balanceTenureYears" min="${calculatorAttributes.balanceTenureYear.min}" max="${calculatorAttributes.balanceTenureYear.max}" value="${calculatorAttributes.balanceTenureYear.min}" step="0.1">
                     <div class="inputBoxBalanceBottom">
                         <span>${calculatorAttributes.balanceTenureYear.min} Year</span>
                         <span>${calculatorAttributes.balanceTenureYear.max} Years</span>
@@ -212,7 +218,7 @@ function getHTML(calculatorAttributes) {
                         </div>
                     </div>
                 <div class="inputBoxBalanceRange">
-                    <input type="range" id="newInterestRate" min="${calculatorAttributes.proposedInterestRate.min}" max="${calculatorAttributes.proposedInterestRate.max}" value="${calculatorAttributes.proposedInterestRate.min}">
+                    <input type="range" id="newInterestRate" min="${calculatorAttributes.proposedInterestRate.min}" max="${calculatorAttributes.proposedInterestRate.max}" value="${calculatorAttributes.proposedInterestRate.min}" step="0.1">
                     <div class="inputBoxBalanceBottom">
                         <span>${calculatorAttributes.proposedInterestRate.min}${calculatorAttributes.percentSymbol}</span>
                         <span>${calculatorAttributes.proposedInterestRate.max}${calculatorAttributes.percentSymbol}</span>
@@ -316,8 +322,6 @@ function updateRangeColors(block) {
     input.style.background = `linear-gradient(to right, #8CB133 ${normalizedValue}%, ${endColor} ${normalizedValue}%)`;
   });
 }
-
-
 
 // Wrap your main functionality in the decorate function
 export default async function decorate(block) {
