@@ -40,9 +40,8 @@ function sortCards(sortBy, block) {
           return publishDateA - publishDateB;
         } else if (sortBy === 'descending') {
           return publishDateB - publishDateA;
-        } else {
-          return 0; // Default case if no valid sort option is selected
         }
+        return 0; // Default case if no valid sort option is selected
       });
 
       // Clear the container and re-append sorted cards
