@@ -195,12 +195,21 @@ footer .third-section-wrapper .third-section_part-subparts p>strong {
   color: var(--color-black);
 }
 
-footer .third-section-wrapper .third-section_part-subparts p {
+
+footer .third-section-wrapper .third-section_part-subparts p.button-container a {
   font-size: var(--body-font-size-s);
+  color: var(--color-black);
   font-weight: 300;
   line-height: 30px;
   cursor: pointer;
+  padding: 0;
 }
+
+footer .third-section-wrapper .third-section_part-subparts p.button-container a:hover {
+  background-color: unset;
+}
+
+
 
 footer .third-section-wrapper .third-section_part-subparts p:has(strong) {
   margin-top: 25px;
