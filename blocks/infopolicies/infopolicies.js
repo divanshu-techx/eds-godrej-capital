@@ -28,39 +28,6 @@ function createDropdown() {
   return dropdownEle;
 }
 
-export default async function decorate() {
-  let data;
-  try {
-    // Fetch the data asynchronously
-    data = await fetchData();
-    const infopoliciesEle = document.getElementsByClassName('infopolicies');
-    let firstChildElement;
-    if (infopoliciesEle.length > 0) {
-      // firstChildElement = infopoliciesEle[0];
-      [firstChildElement] = infopoliciesEle;
-    }
-
-    // Create the dropdown element once
-    dropdown = createDropdown();
-    // Create the tabs and tab contents containers
-    const {
-      tabsContainer,
-      tabContentsContainer,
-    } = createTabsAndContentsContainers(firstChildElement);
-    // Populate tabs and their contents
-    populateTabsAndContents(data, tabsContainer, tabContentsContainer, dropdown);
-    // Initialize the first tab and update the dropdown
-    initializeFirstTab(data, dropdown);
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-
-  // Add event listener to the dropdown to update options on change
-  dropdown.addEventListener('change', () => {
-    updateDropdownOptions(dropdown);
-  });
-}
-
 // Create and return the tabs and tab contents containers
 function createTabsAndContentsContainers(infoPoliciesEle) {
   if (title) {
@@ -100,6 +67,39 @@ function createTabsAndContentsContainers(infoPoliciesEle) {
     infoPoliciesEle.appendChild(tabContentsContainer);
   }
   return { tabsContainer, tabContentsContainer };
+}
+
+export default async function decorate() {
+  let data;
+  try {
+    // Fetch the data asynchronously
+    data = await fetchData();
+    const infopoliciesEle = document.getElementsByClassName('infopolicies');
+    let firstChildElement;
+    if (infopoliciesEle.length > 0) {
+      // firstChildElement = infopoliciesEle[0];
+      [firstChildElement] = infopoliciesEle;
+    }
+
+    // Create the dropdown element once
+    dropdown = createDropdown();
+    // Create the tabs and tab contents containers
+    const {
+      tabsContainer,
+      tabContentsContainer,
+    } = createTabsAndContentsContainers(firstChildElement);
+    // Populate tabs and their contents
+    populateTabsAndContents(data, tabsContainer, tabContentsContainer, dropdown);
+    // Initialize the first tab and update the dropdown
+    initializeFirstTab(data, dropdown);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+
+  // Add event listener to the dropdown to update options on change
+  dropdown.addEventListener('change', () => {
+    updateDropdownOptions(dropdown);
+  });
 }
 
 // Fetch and display data for the selected option
