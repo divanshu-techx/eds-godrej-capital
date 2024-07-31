@@ -69,6 +69,46 @@ function createTabsAndContentsContainers(infoPoliciesEle) {
   return { tabsContainer, tabContentsContainer };
 }
 
+// Populate the tabs and their corresponding contents
+function populateTabsAndContents(data, tabsContainer, tabContentsContainer, dropdownVal) {
+  let parents;
+  if (isMobileView()) {
+    parents = [...new Set(data.map((item) => item.selector))];
+  } else {
+    parents = [...new Set(data.map((item) => item.parent))];
+  }
+  parents.forEach((parent) => {
+    // Create and append the tab element
+    const tab = document.createElement('div');
+    tab.className = 'tab';
+    tab.innerText = parent;
+    tab.dataset.parent = parent;
+    tabsContainer.appendChild(tab);
+
+    // Append the dropdown to the tabs container
+    if (isMobileView()) {
+      dropDownContainer.appendChild(dropdownVal);
+    } else {
+      dropDownContainer.appendChild(dropdownVal);
+      tabsContainer.appendChild(dropDownContainer);
+    }
+
+    // Create and append the tab content element
+    const tabContent = document.createElement('div');
+    tabContent.className = 'tab-content';
+    tabContent.id = `content-${parent.replace(/\s+/g, '-')}`;
+    tabContentsContainer.appendChild(tabContent);
+    tab.addEventListener('click', () => {
+      // document.querySelectorAll('.tab-content').forEach((content) =>
+      // content.classList.remove('active'));
+      // tabContent.classList.add('active');
+      document.querySelectorAll('.tab').forEach((tabList) => tabList.classList.remove('active'));
+      tab.classList.add('active');
+      updateDropdownOptionsOnTabs(parent, data, dropdownVal);
+    });
+  });
+}
+
 export default async function decorate() {
   let data;
   try {
@@ -163,46 +203,6 @@ function updateDropdownOptionsOnTabs(parent, data, dropdownVal) {
       }
     });
   }
-}
-
-// Populate the tabs and their corresponding contents
-function populateTabsAndContents(data, tabsContainer, tabContentsContainer, dropdownVal) {
-  let parents;
-  if (isMobileView()) {
-    parents = [...new Set(data.map((item) => item.selector))];
-  } else {
-    parents = [...new Set(data.map((item) => item.parent))];
-  }
-  parents.forEach((parent) => {
-    // Create and append the tab element
-    const tab = document.createElement('div');
-    tab.className = 'tab';
-    tab.innerText = parent;
-    tab.dataset.parent = parent;
-    tabsContainer.appendChild(tab);
-
-    // Append the dropdown to the tabs container
-    if (isMobileView()) {
-      dropDownContainer.appendChild(dropdownVal);
-    } else {
-      dropDownContainer.appendChild(dropdownVal);
-      tabsContainer.appendChild(dropDownContainer);
-    }
-
-    // Create and append the tab content element
-    const tabContent = document.createElement('div');
-    tabContent.className = 'tab-content';
-    tabContent.id = `content-${parent.replace(/\s+/g, '-')}`;
-    tabContentsContainer.appendChild(tabContent);
-    tab.addEventListener('click', () => {
-      // document.querySelectorAll('.tab-content').forEach((content) =>
-      // content.classList.remove('active'));
-      // tabContent.classList.add('active');
-      document.querySelectorAll('.tab').forEach((tabList) => tabList.classList.remove('active'));
-      tab.classList.add('active');
-      updateDropdownOptionsOnTabs(parent, data, dropdownVal);
-    });
-  });
 }
 
 // Initialize the first tab and update the dropdown
