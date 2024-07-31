@@ -1,19 +1,19 @@
 // Retrieve configurable values from data attributes
-const queryIndexApiUrl = getDataAttributeValueByName("blogs-apiUrl");
-const readTimeIcon = getDataAttributeValueByName("read-time-icon");
+const queryIndexApiUrl = getDataAttributeValueByName('blogs-apiUrl');
+const readTimeIcon = getDataAttributeValueByName('read-time-icon');
 const readTimeIconAltText = getDataAttributeValueByName(
-  "read-time-icon-alt-text"
+  'read-time-icon-alt-text'
 );
-const searchIcon = getDataAttributeValueByName("search-icon");
-const searchIconAltText = getDataAttributeValueByName("search-icon-alt-text");
+const searchIcon = getDataAttributeValueByName('search-icon');
+const searchIconAltText = getDataAttributeValueByName('search-icon-alt-text');
 const searchPlaceholderText = getDataAttributeValueByName(
-  "search-placeholder-text"
+  'search-placeholder-text'
 );
-const filterLabel = getDataAttributeValueByName("filter-label");
-const productLabel = getDataAttributeValueByName("default-dropdown-label");
-const sortingFilters = getDataAttributeValueByName("sorting-filters");
-const blogsNotFoundMsg = getDataAttributeValueByName("blogs-not-found-msg");
-let articlesPerPage = getDataAttributeValueByName("blogs-per-page");
+const filterLabel = getDataAttributeValueByName('filter-label');
+const productLabel = getDataAttributeValueByName('default-dropdown-label');
+const sortingFilters = getDataAttributeValueByName('sorting-filters');
+const blogsNotFoundMsg = getDataAttributeValueByName('blogs-not-found-msg');
+let articlesPerPage = getDataAttributeValueByName('blogs-per-page');
 let currentPage = 1;
 
 // Main function to decorate the block
@@ -27,7 +27,7 @@ export default async function decorate(block) {
     console.log(responseData);
     if (responseData) {
       // Extract and render distinct categories and filters
-      let searchInput = block.querySelector("#search-input");
+      let searchInput = block.querySelector('#search-input');
       const categories = getDistinctCategories(responseData);
       renderFiltersAndCategoriesDropdown(
         block,
@@ -47,10 +47,10 @@ export default async function decorate(block) {
         renderPagination(block, responseData);
       });
     } else {
-      console.error("No data fetched from API.");
+      console.error('No data fetched from API.');
     }
   } catch (error) {
-    console.error("Error fetching data:", error);
+    console.error('Error fetching data:', error);
   }
 }
 
@@ -61,7 +61,7 @@ async function fetchData(apiUrl) {
     const data = await response.json();
     return data.data;
   } catch (error) {
-    console.error("Error fetching data:", error);
+    console.error('Error fetching data:', error);
     return [];
   }
 }
@@ -69,55 +69,55 @@ async function fetchData(apiUrl) {
 // Render the search section with search input and filter/category dropdowns
 function renderSearchSection(block) {
   // Create search filter container
-  const searchFilterContainer = document.createElement("div");
-  searchFilterContainer.classList.add("blogs-search-filter");
+  const searchFilterContainer = document.createElement('div');
+  searchFilterContainer.classList.add('blogs-search-filter');
 
   // Create search container
-  const searchContainer = document.createElement("div");
-  searchContainer.classList.add("search-container");
-  searchContainer.id = "search-container";
+  const searchContainer = document.createElement('div');
+  searchContainer.classList.add('search-container');
+  searchContainer.id = 'search-container';
 
   // Create search icon
-  const searchImage = document.createElement("img");
+  const searchImage = document.createElement('img');
   searchImage.src = searchIcon;
   searchImage.alt = searchIconAltText;
   searchContainer.appendChild(searchImage);
   // Create search input
-  const searchInput = document.createElement("input");
-  searchInput.type = "text";
+  const searchInput = document.createElement('input');
+  searchInput.type = 'text';
   searchInput.placeholder = searchPlaceholderText;
-  searchInput.id = "search-input";
+  searchInput.id = 'search-input';
   searchContainer.appendChild(searchInput);
 
   searchFilterContainer.appendChild(searchContainer);
 
   // Create dropdown container for filter
-  const filterDropdownContainer = document.createElement("div");
-  filterDropdownContainer.classList.add("blogs-filter-dropdown-container");
+  const filterDropdownContainer = document.createElement('div');
+  filterDropdownContainer.classList.add('blogs-filter-dropdown-container');
 
   // Create first select dropdown for filter
-  const filterDropdown = document.createElement("select");
-  filterDropdown.classList.add("dropdown");
-  filterDropdown.id = "filter-dropdown";
-  // Create the first option with default text "Select"
-  const defaultOption = document.createElement("option");
-  defaultOption.value = "";
+  const filterDropdown = document.createElement('select');
+  filterDropdown.classList.add('dropdown');
+  filterDropdown.id = 'filter-dropdown';
+  // Create the first option with default text 'Select'
+  const defaultOption = document.createElement('option');
+  defaultOption.value = '';
   defaultOption.textContent = filterLabel;
   filterDropdown.appendChild(defaultOption);
 
   filterDropdownContainer.appendChild(filterDropdown);
 
   // Create dropdown container for category
-  const categoryDropdownContainer = document.createElement("div");
-  categoryDropdownContainer.classList.add("blogs-category-dropdown-container");
+  const categoryDropdownContainer = document.createElement('div');
+  categoryDropdownContainer.classList.add('blogs-category-dropdown-container');
 
   // Create second select dropdown for category
-  const categoryDropdown = document.createElement("select");
-  categoryDropdown.classList.add("dropdown");
-  categoryDropdown.id = "category-dropdown";
-  // Create the first option with default text "Select"
-  const defaultOptionCategory = document.createElement("option");
-  defaultOptionCategory.value = "";
+  const categoryDropdown = document.createElement('select');
+  categoryDropdown.classList.add('dropdown');
+  categoryDropdown.id = 'category-dropdown';
+  // Create the first option with default text 'Select'
+  const defaultOptionCategory = document.createElement('option');
+  defaultOptionCategory.value = '';
   defaultOptionCategory.textContent = productLabel;
   categoryDropdown.appendChild(defaultOptionCategory);
 
@@ -135,12 +135,12 @@ function renderSearchSection(block) {
 // Handle search input functionality
 function handleSearching(block, searchInputField, responseData) {
   // Event listener for input in search field
-  let noResultDiv = block.querySelector("#articles-not-found-container");
-  let articlesContainer = block.querySelector("#articles-container");
-  let filterDropdown = block.querySelector("#filter-dropdown");
-  let categoryDropdown = block.querySelector("#category-dropdown");
+  let noResultDiv = block.querySelector('#articles-not-found-container');
+  let articlesContainer = block.querySelector('#articles-container');
+  let filterDropdown = block.querySelector('#filter-dropdown');
+  let categoryDropdown = block.querySelector('#category-dropdown');
 
-  searchInputField.addEventListener("input", function (event) {
+  searchInputField.addEventListener('input', function (event) {
     const inputValue = event.target.value.trim().toLowerCase();
     let filteredData = [];
     if (inputValue.length > 0) {
@@ -155,11 +155,11 @@ function handleSearching(block, searchInputField, responseData) {
       );
 
       if (filteredData.length === 0) {
-        noResultDiv.style.display = "block";
-        articlesContainer.style.display = "none";
+        noResultDiv.style.display = 'block';
+        articlesContainer.style.display = 'none';
       } else {
-        noResultDiv.style.display = "none";
-        articlesContainer.style.display = "grid";
+        noResultDiv.style.display = 'none';
+        articlesContainer.style.display = 'grid';
       }
     } else {
       filteredData = getFilteredDataBasedOnDropdown(
@@ -167,8 +167,8 @@ function handleSearching(block, searchInputField, responseData) {
         filterDropdown.value,
         categoryDropdown.value
       );
-      noResultDiv.style.display = "none";
-      articlesContainer.style.display = "grid";
+      noResultDiv.style.display = 'none';
+      articlesContainer.style.display = 'grid';
     }
     renderCards(block, filteredData);
     renderPagination(block, filteredData);
@@ -179,17 +179,17 @@ function getFilteredDataBasedOnDropdown(data, filterValue, categoryValue) {
   let filteredData = data.slice();
 
   switch (true) {
-    case filterValue !== "" && categoryValue !== "":
+    case filterValue !== '' && categoryValue !== '':
       const filteredDataByCategory = filterArticlesByCategory(
         filteredData,
         categoryValue
       );
       filteredData = sortArticles(filterValue, filteredDataByCategory);
       break;
-    case filterValue !== "" && categoryValue === "":
+    case filterValue !== '' && categoryValue === '':
       filteredData = sortArticles(filterValue, filteredData);
       break;
-    case filterValue === "" && categoryValue !== "":
+    case filterValue === '' && categoryValue !== '':
       filteredData = filterArticlesByCategory(filteredData, categoryValue);
       break;
     default:
@@ -206,24 +206,24 @@ function renderFiltersAndCategoriesDropdown(
   searchInputField
 ) {
   const filters = getFiltersArrayFromString();
-  const filtersDropdown = block.querySelector("#filter-dropdown");
-  const categoriesDropdown = block.querySelector("#category-dropdown");
+  const filtersDropdown = block.querySelector('#filter-dropdown');
+  const categoriesDropdown = block.querySelector('#category-dropdown');
 
   filters.forEach((filter) => {
-    const option = document.createElement("option");
+    const option = document.createElement('option');
     option.value = filter;
     option.text = formatFilterText(filter);
     filtersDropdown.appendChild(option);
   });
 
   categories.forEach((category) => {
-    const option = document.createElement("option");
+    const option = document.createElement('option');
     option.value = category;
     option.text = formatCategoryText(category);
     categoriesDropdown.appendChild(option);
   });
 
-  filtersDropdown.addEventListener("change", () =>
+  filtersDropdown.addEventListener('change', () =>
     handleDropdownChange(
       block,
       filtersDropdown,
@@ -232,7 +232,7 @@ function renderFiltersAndCategoriesDropdown(
       responseData
     )
   );
-  categoriesDropdown.addEventListener("change", () =>
+  categoriesDropdown.addEventListener('change', () =>
     handleDropdownChange(
       block,
       filtersDropdown,
@@ -254,8 +254,8 @@ function handleDropdownChange(
   const selectedFilter = filtersDropdown.value;
   const selectedCategory = categoriesDropdown.value;
   const inputValue = searchInputField.value.trim().toLowerCase();
-  let noResultDiv = block.querySelector("#articles-not-found-container");
-  let articlesContainer = block.querySelector("#articles-container");
+  let noResultDiv = block.querySelector('#articles-not-found-container');
+  let articlesContainer = block.querySelector('#articles-container');
 
   let filteredAndSortedData = getFilteredDataBasedOnDropdown(
     responseData,
@@ -273,15 +273,15 @@ function handleDropdownChange(
       selectedCategory
     );
     if (filteredAndSortedData.length === 0) {
-      noResultDiv.style.display = "block";
-      articlesContainer.style.display = "none";
+      noResultDiv.style.display = 'block';
+      articlesContainer.style.display = 'none';
     } else {
-      noResultDiv.style.display = "none";
-      articlesContainer.style.display = "grid";
+      noResultDiv.style.display = 'none';
+      articlesContainer.style.display = 'grid';
     }
   } else {
-    noResultDiv.style.display = "none";
-    articlesContainer.style.display = "grid";
+    noResultDiv.style.display = 'none';
+    articlesContainer.style.display = 'grid';
   }
 
   renderCards(block, filteredAndSortedData);
@@ -289,11 +289,11 @@ function handleDropdownChange(
 }
 
 function sortArticles(selectedFilter, data) {
-  if (selectedFilter === "oldest-to-latest") {
+  if (selectedFilter === 'oldest-to-latest') {
     return data.sort(
       (a, b) => new Date(a.articlepublishdate) - new Date(b.articlepublishdate)
     );
-  } else if (selectedFilter === "latest-to-oldest") {
+  } else if (selectedFilter === 'latest-to-oldest') {
     return data.sort(
       (a, b) => new Date(b.articlepublishdate) - new Date(a.articlepublishdate)
     );
@@ -302,23 +302,23 @@ function sortArticles(selectedFilter, data) {
 
 // Render article cards
 function renderCards(block, data) {
-  let articlesContainer = block.querySelector("#articles-container");
+  let articlesContainer = block.querySelector('#articles-container');
   if (!articlesContainer) {
-    articlesContainer = document.createElement("div");
-    articlesContainer.classList.add("articles-container");
-    articlesContainer.id = "articles-container";
+    articlesContainer = document.createElement('div');
+    articlesContainer.classList.add('articles-container');
+    articlesContainer.id = 'articles-container';
     block.appendChild(articlesContainer);
   }
 
-  articlesContainer.innerHTML = "";
+  articlesContainer.innerHTML = '';
 
   const start = (currentPage - 1) * articlesPerPage;
   const end = start + articlesPerPage;
   const paginatedArticles = data.slice(start, end);
 
   paginatedArticles.forEach((article) => {
-    const articleCard = document.createElement("div");
-    articleCard.classList.add("article-card");
+    const articleCard = document.createElement('div');
+    articleCard.classList.add('article-card');
     articleCard.innerHTML = `
 			<a href="#" class="article-single-card">
 				<div class="article-image">
@@ -341,23 +341,23 @@ function renderCards(block, data) {
 }
 
 function createNoResultDiv(block) {
-  const notFoundContainer = document.createElement("div");
-  notFoundContainer.id = "articles-not-found-container";
-  notFoundContainer.style.display = "none";
+  const notFoundContainer = document.createElement('div');
+  notFoundContainer.id = 'articles-not-found-container';
+  notFoundContainer.style.display = 'none';
   notFoundContainer.innerHTML = blogsNotFoundMsg;
   block.appendChild(notFoundContainer);
 }
 
 function createPaginationContainer(block) {
-  let mobilePaginationContainer = block.querySelector("#mobile-pagination-container");
-  let desktopPaginationContainer = block.querySelector("#desktop-pagination-container");
+  let mobilePaginationContainer = block.querySelector('#mobile-pagination-container');
+  let desktopPaginationContainer = block.querySelector('#desktop-pagination-container');
   const categoryContainer = block.querySelector('.blogs-category-dropdown-container');
 
-  if (window.matchMedia("(max-width: 767px)").matches) {
+  if (window.matchMedia('(max-width: 767px)').matches) {
     if (!mobilePaginationContainer) {
-      mobilePaginationContainer = document.createElement("div");
-      mobilePaginationContainer.classList.add("mobile-pagination-container");
-      mobilePaginationContainer.id = "mobile-pagination-container";
+      mobilePaginationContainer = document.createElement('div');
+      mobilePaginationContainer.classList.add('mobile-pagination-container');
+      mobilePaginationContainer.id = 'mobile-pagination-container';
 
       categoryContainer.appendChild(mobilePaginationContainer);
     }
@@ -369,9 +369,9 @@ function createPaginationContainer(block) {
     return mobilePaginationContainer;
   } else {
     if (!desktopPaginationContainer) {
-      desktopPaginationContainer = document.createElement("div");
-      desktopPaginationContainer.classList.add("desktop-pagination-container");
-      desktopPaginationContainer.id = "desktop-pagination-container";
+      desktopPaginationContainer = document.createElement('div');
+      desktopPaginationContainer.classList.add('desktop-pagination-container');
+      desktopPaginationContainer.id = 'desktop-pagination-container';
 
       block.appendChild(desktopPaginationContainer);
     }
@@ -387,16 +387,16 @@ function createPaginationContainer(block) {
 
 function renderPagination(block, data) {
   const paginationContainer = createPaginationContainer(block);
-  paginationContainer.innerHTML = "";
+  paginationContainer.innerHTML = '';
 
   let totalPages = Math.ceil(data.length / articlesPerPage);
 
   if (totalPages > 1) {
     // Left arrow button
-    const leftButton = document.createElement("button");
+    const leftButton = document.createElement('button');
     leftButton.innerHTML = `<img src="/icons/nexticon.svg" alt="Previous" />`
-    leftButton.classList.add("arrow", "left");
-    leftButton.addEventListener("click", () => {
+    leftButton.classList.add('arrow', 'left');
+    leftButton.addEventListener('click', () => {
       if (currentPage > 1) {
         currentPage--;
         renderCards(block, data);
@@ -405,8 +405,8 @@ function renderPagination(block, data) {
     });
     paginationContainer.appendChild(leftButton);
 
-    const pageLinksContainer = document.createElement("div");
-    pageLinksContainer.classList.add("page-links");
+    const pageLinksContainer = document.createElement('div');
+    pageLinksContainer.classList.add('page-links');
 
     // Generate pagination based on device type
     handleDeviceSpecificCode(block, data, totalPages, currentPage, pageLinksContainer);
@@ -414,10 +414,10 @@ function renderPagination(block, data) {
     paginationContainer.appendChild(pageLinksContainer);
 
     // Right arrow button
-    const rightButton = document.createElement("button");
+    const rightButton = document.createElement('button');
     rightButton.innerHTML = `<img src="/icons/nexticon.svg" alt="Next" />`;
-    rightButton.classList.add("arrow", "right");
-    rightButton.addEventListener("click", () => {
+    rightButton.classList.add('arrow', 'right');
+    rightButton.addEventListener('click', () => {
       if (currentPage < totalPages) {
         currentPage++;
         renderCards(block, data);
@@ -436,15 +436,15 @@ function renderPagination(block, data) {
 
 // Function to determine the device view and run the appropriate code
 function handleDeviceSpecificCode(block, data, totalPages, currentPage, pageLinksContainer) {
-  const mobileView = window.matchMedia("(max-width: 767px)");
-  const tabletView = window.matchMedia("(min-width: 767.99px) and (max-width: 1024px)");
+  const mobileView = window.matchMedia('(max-width: 767px)');
+  const tabletView = window.matchMedia('(min-width: 767.99px) and (max-width: 1024px)');
 
   if (mobileView.matches) {
-    let pageLink = document.createElement("span");
+    let pageLink = document.createElement('span');
     pageLink.classList.add('number-node');
     pageLink.innerText = formatNumberWithLeadingZero(currentPage);
-    pageLink.classList.add("active");
-    let totalPageNo = document.createElement("span");
+    pageLink.classList.add('active');
+    let totalPageNo = document.createElement('span');
     totalPageNo.innerText = `/ ${formatNumberWithLeadingZero(totalPages)}`;
 
     pageLinksContainer.appendChild(pageLink);
@@ -453,11 +453,11 @@ function handleDeviceSpecificCode(block, data, totalPages, currentPage, pageLink
   } else {
     // Numbered pages
     for (let i = 1; i <= totalPages; i++) {
-      let pageLink = document.createElement("span");
+      let pageLink = document.createElement('span');
       pageLink.classList.add('number-node');
       pageLink.innerText = formatNumberWithLeadingZero(i);
-      pageLink.classList.toggle("active", i === currentPage);
-      pageLink.addEventListener("click", (event) => {
+      pageLink.classList.toggle('active', i === currentPage);
+      pageLink.addEventListener('click', (event) => {
         event.preventDefault();
         currentPage = i;
         renderCards(block, data);
@@ -506,15 +506,15 @@ function formatCategoryText(category) {
 // Format filter text
 function formatFilterText(filterText) {
   return filterText
-    .replace(/-/g, " ") // Replace hyphens with spaces
+    .replace(/-/g, ' ') // Replace hyphens with spaces
     .replace(/(^\w|\s\w)/g, (m) => m.toUpperCase()); // Capitalize the first letter of every word
 }
 
 // Format date
 function formatDate(serial) {
   const date = excelDateToJSDate(serial);
-  const day = String(date.getDate()).padStart(2, "0"); // Ensure two digits for the day
-  const month = date.toLocaleString("default", { month: "long" }); // Full month name
+  const day = String(date.getDate()).padStart(2, '0'); // Ensure two digits for the day
+  const month = date.toLocaleString('default', { month: 'long' }); // Full month name
   const year = date.getFullYear();
   return `${day} ${month} ${year}`;
 }
@@ -533,13 +533,13 @@ function getFiltersArrayFromString() {
   if (!sortingFilters || sortingFilters.trim().length === 0) {
     return [];
   }
-  return sortingFilters.includes(",")
-    ? sortingFilters.split(",").map((item) => item.trim())
+  return sortingFilters.includes(',')
+    ? sortingFilters.split(',').map((item) => item.trim())
     : [sortingFilters];
 }
 
 // Get data attribute value by name
 function getDataAttributeValueByName(name) {
   const element = document.querySelector(`[data-${name}]`);
-  return element ? element.getAttribute(`data-${name}`) : "";
+  return element ? element.getAttribute(`data-${name}`) : '';
 }
