@@ -94,7 +94,7 @@ export default async function decorate(block) {
   // } catch (error) {
   //   console.error('Error fetching data:', error);
   // }
-  
+
   try {
     const blogsUrls = getBlogsUrls(block);
     if (blogsUrls) {
