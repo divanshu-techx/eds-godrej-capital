@@ -68,7 +68,7 @@ function calculateLoanDetails(p, r, n, m, pie, line) {
   let interestAccumulator = 0;
   const totalMonths = n * 12 + m;
 
-  const emi = (p * r * (1 + r) ** totalMonths) / ((1 + r) ** totalMonths - 1);
+  const emi = Math.round((p * r * (1 + r) ** totalMonths) / ((1 + r) ** totalMonths - 1));
   const totalPayment = emi * totalMonths;
   totalInterest = totalPayment - p;
 
@@ -140,8 +140,8 @@ function displayDetails(P, R, N, M, E, line, pie, block) {
 
   block.querySelector('#mobile_monthly_emi_price').innerText = emi.toLocaleString('en-IN', opts);
 
-  block.querySelector('#le').innerText = `₹ ${Math.max(0, P - E).toLocaleString()}`;
-  block.querySelector('#mobile-le').innerText = `₹ ${Math.max(0, P - E).toLocaleString()}`;
+  block.querySelector('#le').innerText = `₹ ${Math.max(0, P - E).toLocaleString('en-IN')}`;
+  block.querySelector('#mobile-le').innerText = `₹ ${Math.max(0, P - E).toLocaleString('en-IN')}`;
 
   pie.data.datasets[0].data[0] = P;
   pie.data.datasets[0].data[1] = payableInterest;
