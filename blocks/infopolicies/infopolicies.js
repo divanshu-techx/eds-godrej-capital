@@ -130,10 +130,10 @@ function fetchSelectedOptionData(dataPath) {
 }
 
 // Update dropdown options based on the selected tab
-function updateDropdownOptionsOnTabs(parent, data, dropdown) {
-  const selectedValue = dropdown.value;
+function updateDropdownOptionsOnTabs(parent, data, dropdownVal) {
+  const selectedValue = dropdownVal.value;
   // Clear existing options
-  dropdown.innerHTML = '';
+  dropdownVal.innerHTML = '';
   // Add new options based on the selected tab
   if (isMobileView()) {
     data.filter((item) => item.selector === parent).forEach((item) => {
@@ -141,7 +141,7 @@ function updateDropdownOptionsOnTabs(parent, data, dropdown) {
       option.value = item.parent;
       option.innerText = item.parent;
       option.setAttribute('data-path', item.path);
-      dropdown.appendChild(option);
+      dropdownVal.appendChild(option);
 
       if (option.value === selectedValue) {
         option.selected = true;
@@ -154,7 +154,7 @@ function updateDropdownOptionsOnTabs(parent, data, dropdown) {
       option.value = item.selector;
       option.innerText = item.selector;
       option.setAttribute('data-path', item.path);
-      dropdown.appendChild(option);
+      dropdownVal.appendChild(option);
       if (option.value === selectedValue) {
         option.selected = true;
         fetchSelectedOptionData(option.getAttribute('data-path'));
@@ -164,7 +164,7 @@ function updateDropdownOptionsOnTabs(parent, data, dropdown) {
 }
 
 // Populate the tabs and their corresponding contents
-function populateTabsAndContents(data, tabsContainer, tabContentsContainer, dropdown) {
+function populateTabsAndContents(data, tabsContainer, tabContentsContainer, dropdownVal) {
   let parents;
   if (isMobileView()) {
     parents = [...new Set(data.map((item) => item.selector))];
@@ -181,9 +181,9 @@ function populateTabsAndContents(data, tabsContainer, tabContentsContainer, drop
 
     // Append the dropdown to the tabs container
     if (isMobileView()) {
-      dropDownContainer.appendChild(dropdown);
+      dropDownContainer.appendChild(dropdownVal);
     } else {
-      dropDownContainer.appendChild(dropdown);
+      dropDownContainer.appendChild(dropdownVal);
       tabsContainer.appendChild(dropDownContainer);
     }
 
@@ -198,17 +198,17 @@ function populateTabsAndContents(data, tabsContainer, tabContentsContainer, drop
       // tabContent.classList.add('active');
       document.querySelectorAll('.tab').forEach((tabList) => tabList.classList.remove('active'));
       tab.classList.add('active');
-      updateDropdownOptionsOnTabs(parent, data, dropdown);
+      updateDropdownOptionsOnTabs(parent, data, dropdownVal);
     });
   });
 }
 
 // Initialize the first tab and update the dropdown
-function initializeFirstTab(data, dropdown) {
+function initializeFirstTab(data, dropdownVal) {
   const firstTab = document.querySelector('.tab');
   if (firstTab) {
     firstTab.click();
-    const selectedOption = dropdown.options[dropdown.selectedIndex];
+    const selectedOption = dropdownVal.options[dropdownVal.selectedIndex];
     const dataPath = selectedOption.getAttribute('data-path');
     if (dataPath) {
       fetchSelectedOptionData(dataPath);
@@ -217,8 +217,8 @@ function initializeFirstTab(data, dropdown) {
 }
 
 // Update dropdown options when the dropdown value changes
-function updateDropdownOptions(dropdown) {
-  const selectedOption = dropdown.options[dropdown.selectedIndex];
+function updateDropdownOptions(dropdownVal) {
+  const selectedOption = dropdownVal.options[dropdownVal.selectedIndex];
   const selectedValue = selectedOption.value;
   // const dataAttribute = selectedOption.getAttribute('data-path');
   if (selectedOption.value === selectedValue) {
