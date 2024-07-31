@@ -47,8 +47,8 @@ function initBackgroundPosition(classList, breakpoint) {
   //   item.startsWith(`bp-${classPrefix}-`),
   // );
   const backgroudPositionClass = [...classList].find(
-    (item) => item.startsWith(`bp-${classPrefix}-`)
-  );  
+    (item) => item.startsWith(`bp-${classPrefix}-`),
+  );
   let backgroundPositionValue = 'unset';
 
   if (backgroudPositionClass) {
