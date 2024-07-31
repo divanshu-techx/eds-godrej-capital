@@ -45,8 +45,8 @@ export default async function decorate() {
     // Create the tabs and tab contents containers
     const {
       tabsContainer,
-      tabContentsContainer
-    } = createTabsAndContentsContainers(firstChildElement);  
+      tabContentsContainer,
+    } = createTabsAndContentsContainers(firstChildElement);
     // Populate tabs and their contents
     populateTabsAndContents(data, tabsContainer, tabContentsContainer, dropdown);
     // Initialize the first tab and update the dropdown
