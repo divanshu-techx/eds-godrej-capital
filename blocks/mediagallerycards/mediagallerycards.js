@@ -236,7 +236,8 @@ function filterCardsBySearch(searchTerm, block) {
 }
 
 function getYoutubeIdFromUrl(url) {
-  const regex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+  // const regex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+  const regex = /(?:youtube\.com\/(?:[^/\n\s]+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
   const match = url.match(regex);
   return match ? match[1] : null;
 }
@@ -394,7 +395,6 @@ function generateCards(data, block) {
       cardTitle.append(arrowContainer);
       cardLinkDiv.appendChild(cardTitle);
 
-
       cardImageDiv.addEventListener('click', (e) => {
         e.preventDefault();
         pictureGalleryContainer.style.display = 'none';
@@ -541,15 +541,15 @@ function updateNewCard(block, container, cardTitle, url) {
   const prevButton = document.createElement('button');
   const spanArrowLeft = document.createElement('span');
   spanArrowLeft.classList.add('arrow', 'left');
-  prevButton.append(spanArrowLeft)
+  prevButton.append(spanArrowLeft);
   // prevButton.innerText = 'Previous';
   prevButton.classList.add('media-gallery-nav-button', 'prev-button');
   mainCardPictureDiv.insertBefore(prevButton, mainCardPictureDiv.firstChild); // Insert at the beginning
-  mainCardPictureDiv.append(pictuireNavList)
+  mainCardPictureDiv.append(pictuireNavList);
   const nextButton = document.createElement('button');
   const spanArrowRight = document.createElement('span');
   spanArrowRight.classList.add('arrow', 'right');
-  nextButton.append(spanArrowRight)
+  nextButton.append(spanArrowRight);
   // nextButton.innerText = 'Next';
   nextButton.classList.add('media-gallery-nav-button', 'next-button');
   mainCardPictureDiv.appendChild(nextButton); // Insert at the end
@@ -561,7 +561,7 @@ function updateNewCard(block, container, cardTitle, url) {
       currentIndex = (currentIndex - 1 + allChildDiv.length) % allChildDiv.length;
       pictuireNavList.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
       updateActiveElement(currentIndex);
-      console.log(currentIndex, allChildDiv.length)
+      console.log(currentIndex, allChildDiv.length);
       if (currentIndex == 0) {
         prevButton.disabled = true;
       } else {
@@ -634,7 +634,7 @@ function updateNewCard(block, container, cardTitle, url) {
 
 export default async function decorate(block) {
   const apiUrl = getDataAttributeValueByName('apiUrl');
-  const categories = getDataAttributeValueByName('categorytab').split(',').map(cat => cat.trim());
+  const categories = getDataAttributeValueByName('categorytab').split(',').map((cat) => cat.trim());
 
   if (!apiUrl) {
     console.error('API URL attribute not found.');
