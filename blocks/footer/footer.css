@@ -77,8 +77,13 @@ footer .footer-footer-1 .default-content-wrapper ul>li>ul>li a {
   line-height: 30px;
 }
 
+footer .footer-footer-1 .default-content-wrapper ul>li>ul>li a:hover {
+  text-decoration: none;
+}
+
 footer .footer-footer-1 .default-content-wrapper li {
   margin: 2px 0px 24px;
+  cursor: pointer;
 }
 
 footer .footer-footer-1 .default-content-wrapper ul li ul {
