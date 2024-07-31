@@ -52,14 +52,14 @@ function renderBlogs(blogsContainer, doc) {
   const blogCard = document.createElement('div');
   blogCard.classList.add('blog-card');
   blogCard.innerHTML = `
-		<a href="${detailPageUrl}"><img src="${removeHostFromUrl(image)}" alt="${imageAlt}">
-			<div class="blog-content">
-				<p class="article-date">${publishDate}</p>
-				<p class="article-description">${description}</p>
-				<a href="#" class="read-more">${readMoreLabel}</a>
-			</div>
-		</a>
-		`;
+    <a href="${detailPageUrl}"><img src="${removeHostFromUrl(image)}" alt="${imageAlt}">
+      <div class="blog-content">
+        <p class="article-date">${publishDate}</p>
+        <p class="article-description">${description}</p>
+        <a href="#" class="read-more">${readMoreLabel}</a>
+      </div>
+    </a>
+    `;
   blogsContainer.appendChild(blogCard);
 }
 
@@ -94,7 +94,7 @@ export default async function decorate(block) {
   // } catch (error) {
   //   console.error('Error fetching data:', error);
   // }
-
+  
   try {
     const blogsUrls = getBlogsUrls(block);
     if (blogsUrls) {
