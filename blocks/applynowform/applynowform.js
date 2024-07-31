@@ -1,3 +1,6 @@
+import { createForm, generatePayload, handleSubmitError } from '../form/form.js';
+import { getDataAttributes } from '../utils/common.js';
+
 function getDataAttributeValueByName(name) {
   const element = document.querySelector(`[data-${name}]`);
   return element ? element.getAttribute(`data-${name}`) : '';
@@ -6,9 +9,6 @@ function getMetaTagsContentValueByName(name) {
   const el = document.querySelector(`meta[property="og:${name}"]`);
   return el ? el.getAttribute('content') : '';
 }
-import { createForm, generatePayload, handleSubmitError } from '../../blocks/form/form.js';
-//import { sampleRUM } from '../../scripts/aem.js';
-import { getDataAttributes } from '../utils/common.js';
 
 const VALIDATION_DATA = [
   {
