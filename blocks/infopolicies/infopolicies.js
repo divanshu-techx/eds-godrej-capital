@@ -36,13 +36,15 @@ export default async function decorate() {
     const infopoliciesEle = document.getElementsByClassName('infopolicies');
     let firstChildElement;
     if (infopoliciesEle.length > 0) {
-      firstChildElement = infopoliciesEle[0];
+      // firstChildElement = infopoliciesEle[0];
+      [firstChildElement] = infopoliciesEle;
     }
 
     // Create the dropdown element once
     dropdown = createDropdown();
     // Create the tabs and tab contents containers
-    const { tabsContainer, tabContentsContainer } = createTabsAndContentsContainers(firstChildElement);
+    const { tabsContainer, tabContentsContainer } =
+    createTabsAndContentsContainers(firstChildElement);
     // Populate tabs and their contents
     populateTabsAndContents(data, tabsContainer, tabContentsContainer, dropdown);
     // Initialize the first tab and update the dropdown
@@ -194,7 +196,7 @@ function populateTabsAndContents(data, tabsContainer, tabContentsContainer, drop
       // document.querySelectorAll('.tab-content').forEach((content) =>
       // content.classList.remove('active'));
       // tabContent.classList.add('active');
-      document.querySelectorAll('.tab').forEach((tab) => tab.classList.remove('active'));
+      document.querySelectorAll('.tab').forEach((tabList) => tabList.classList.remove('active'));
       tab.classList.add('active');
       updateDropdownOptionsOnTabs(parent, data, dropdown);
     });
