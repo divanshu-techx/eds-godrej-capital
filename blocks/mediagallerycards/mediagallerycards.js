@@ -31,21 +31,22 @@ function sortCards(sortBy, block) {
       const cards = Array.from(container.getElementsByClassName('card-media-gallery'));
 
       cards.sort((a, b) => {
-        const publishDateA = parseInt(a.getAttribute('data-publishdate'));
-        const publishDateB = parseInt(b.getAttribute('data-publishdate'));
+        const publishDateA = parseInt(a.getAttribute('data-publishdate', 10));
+        const publishDateB = parseInt(b.getAttribute('data-publishdate', 10));
 
         if (sortBy === 'ascending') {
           return publishDateA - publishDateB;
         } else if (sortBy === 'descending') {
           return publishDateB - publishDateA;
-        } else {
-          return 0; // Default case if no valid sort option is selected
         }
+        // else {
+        //   return 0; // Default case if no valid sort option is selected
+        // }
       });
 
       // Clear the container and re-append sorted cards
       container.innerHTML = '';
-      cards.forEach(card => container.appendChild(card));
+      cards.forEach((card) => container.appendChild(card));
     }
   };
 
@@ -89,7 +90,7 @@ function createFilter(categories, block) {
   searchIconImgTag.alt = 'search-icon';
   searchIconImgTag.classList.add('search-icon-img');
 
-  searchDiv.append(searchIconImgTag)
+  searchDiv.append(searchIconImgTag);
   // Create a search input
   const searchInput = document.createElement('input');
   searchInput.type = 'text';
@@ -119,7 +120,7 @@ function createFilter(categories, block) {
   const sortOptions = sortByLabelDropDownLabel.split(', ');
   const sortValues = ['descending', 'ascending'];
   sortOptions.forEach((option, index) => {
-    // const cleanOption = option.replace(/\(|\)/g, ''); 
+    // const cleanOption = option.replace(/\(|\)/g, '');
     const sortOption = document.createElement('option');
     sortOption.value = sortValues[index];
     sortOption.textContent = option;
@@ -143,9 +144,9 @@ function showCategoryContent(category, block) {
   const allTabs = block.querySelectorAll('.media-tab');
   const pictureContainer = block.querySelector('.main-picture-div');
   const videoContainer = block.querySelector('.other-category-container');
-  let noResultsMessage = block.querySelector('.no-results');
+  // let noResultsMessage = block.querySelector('.no-results');
 
-  allTabs.forEach(tab => {
+  allTabs.forEach((tab) => {
     if (tab.getAttribute('data-category') === category) {
       tab.classList.add('active');
     } else {
@@ -195,7 +196,7 @@ function filterCardsBySearch(searchTerm, block) {
     });
 
     // Remove noResultsMessage if it exists
-    let noResultsMessage = block.querySelector('.no-results');
+    const noResultsMessage = block.querySelector('.no-results');
     if (noResultsMessage) {
       noResultsMessage.remove();
     }
@@ -319,7 +320,7 @@ function fetchAndAppendContent(block, url, container, cardTitle) {
         container.innerHTML = '<p>No main content found.</p>';
       }
       // console.log(container);
-      updateNewCard(block, container, cardTitle, url)
+      updateNewCard(block, container, cardTitle, url);
       console.log(mainContent);
     })
     .catch(error => {
