@@ -25,7 +25,7 @@ const VALIDATION_DATA = [
     fieldName: 'Mobile',
     regexPattern: /^[6789]\d{9}$/,
     validationMessage: getDataAttributeValueByName('mobilevalidationerrormessage'),
-  }
+  },
 ];
 
 export function ApiCall(METHOD, url, data) {
@@ -161,7 +161,7 @@ export async function handleVerify(payload, userMobileNumber, block) {
       );
       if (response.status) {
         window.location.href = getDataAttributeValueByName('thankupageurl');
-      } else if (response.status == false) {
+      } else if (response.status === false) {
         const existingErrorMessage = block.querySelector('#error-message');
         if (existingErrorMessage) {
           existingErrorMessage.remove();
@@ -342,7 +342,7 @@ function changesScreenChange(el, dataAttrObj, initialContent) {
 function addChangeEventOnCheckboxes(block) {
   const checkboxes = block.querySelectorAll('.step1.field-wrapper.checkbox-wrapper.selection-wrapper input[type="checkbox"]');
 
-  checkboxes.forEach(checkbox => {
+  checkboxes.forEach((checkbox) => {
     checkbox.addEventListener('change', (e) => {
       const parentWrapper = checkbox.closest('.step1.field-wrapper.checkbox-wrapper.selection-wrapper');
       // const label = parentWrapper.querySelector('label').textContent;
@@ -359,7 +359,6 @@ function addChangeEventOnCheckboxes(block) {
 }
 
 export default async function decorate(block) {
-
   const container = block.closest('.applynowform-container');
   const attributesObj = getDataAttributes(container);
   const formLink = block.querySelector('a[href$=".json"]');
@@ -390,7 +389,7 @@ export default async function decorate(block) {
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const valid = form.checkValidity();
+   //const valid = form.checkValidity();
     if (validateFormInput(VALIDATION_DATA, block)) {
       handleSubmit(form);
       const registrationFormEl = block.querySelectorAll('.step1');
@@ -416,19 +415,16 @@ export default async function decorate(block) {
       categoryParam = categoryParam.replace(/_/g, ' ');
       if (categoryParam) {
         const checkboxes = block.querySelectorAll('input[type="checkbox"][name="loanType"]');
-        checkboxes.forEach((checkbox => {
-          if (checkbox.getAttribute('value').toLowerCase() == categoryParam.toLowerCase()) {
+        checkboxes.forEach(((checkbox) => {
+          if (checkbox.getAttribute('value').toLowerCase() === categoryParam.toLowerCase()) {
             checkbox.checked = true;
-            checkbox.parentNode.classList.add('checked')
+            checkbox.parentNode.classList.add('checked');
           }
-        }))
+        }));
       }
-
     } catch (error) {
     }
-
   }
-
   function validateForm() {
     const fields = document.querySelectorAll('#form-box input[type="text"]');
     let isAnyFieldEmpty = false;
@@ -525,13 +521,13 @@ function disableSubmitUntilFillForm(block) {
   const validators = {
     text: value => /^[a-zA-Z\s]*$/.test(value.trim()),
     tel: value => /^[6789]\d{9}$/.test(value.trim()),
-    email: value => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value.trim())
+    email: value => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value.trim()),
   };
 
   const errorMessages = {
     text: getDataAttributeValueByName('namevalidationerrormessage'),
     tel: getDataAttributeValueByName('mobilevalidationerrormessage'),
-    email: getDataAttributeValueByName('emailvalidationerrormessage')
+    email: getDataAttributeValueByName('emailvalidationerrormessage'),
   };
 
   function createErrorElement(input) {
@@ -574,13 +570,13 @@ function disableSubmitUntilFillForm(block) {
   }
 
   function validateForm() {
-    let isInputFilled = inputs.every(input => input.type === 'checkbox' || validateInput(input, false));
-    let isCheckboxChecked = inputs.some(input => input.type === 'checkbox' && input.checked);
+    let isInputFilled = inputs.every((input) => input.type === 'checkbox' || validateInput(input, false));
+    let isCheckboxChecked = inputs.some((input) => input.type === 'checkbox' && input.checked);
 
     submitButton.disabled = !(isInputFilled && isCheckboxChecked);
   }
 
-  inputs.forEach(input => {
+  inputs.forEach((input) => {
     let hasFocused = false;
 
     input.addEventListener('focus', () => {
