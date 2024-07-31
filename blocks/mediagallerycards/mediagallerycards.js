@@ -396,7 +396,7 @@ function updateNewCard(block, container, cardTitle, url) {
       pictuireNavList.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
       updateActiveElement(currentIndex);
       console.log(currentIndex, allChildDiv.length);
-      if (currentIndex == 0) {
+      if (currentIndex === 0) {
         prevButton.disabled = true;
       } else {
         prevButton.disabled = false;
@@ -410,7 +410,7 @@ function updateNewCard(block, container, cardTitle, url) {
       currentIndex = (currentIndex + 1) % allChildDiv.length;
       pictuireNavList.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
       updateActiveElement(currentIndex);
-      if (currentIndex == allChildDiv.length - 1) {
+      if (currentIndex === allChildDiv.length - 1) {
         nextButton.disabled = true;
       } else {
         nextButton.disabled = false;
@@ -463,19 +463,18 @@ function updateNewCard(block, container, cardTitle, url) {
   const videoDivs = document.querySelectorAll('.other-category-wrapper .card-media-gallery');
   const videoDivLendth = videoDivs.length;
   countCards.textContent = `${pictureLength} Images ${videoDivLendth} Videos`;
-
 }
 
 // Function to fetch and append content to pictureGalleryContainer
 function fetchAndAppendContent(block, url, container, cardTitle) {
   fetch(url)
-    .then(response => {
+    .then((response) => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
       return response.text();
     })
-    .then(data => {
+    .then((data) => {
       const parser = new DOMParser();
       const doc = parser.parseFromString(data, 'text/html');
       const mainContent = doc.querySelector('main');
@@ -489,7 +488,7 @@ function fetchAndAppendContent(block, url, container, cardTitle) {
       updateNewCard(block, container, cardTitle, url);
       console.log(mainContent);
     })
-    .catch(error => {
+    .catch((error) => {
       console.error('There was a problem with the fetch operation:', error);
       // Optionally, show an error message to the user
       container.innerHTML = '<p>Failed to load content. Please try again later.</p>';
