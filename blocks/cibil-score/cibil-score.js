@@ -16,11 +16,27 @@ function addInitialClassess(innerdiv) {
     childDivs.forEach((element, index) => {
         if (index == 0) {
             element.classList.add("cibil-score-content");
+            addToolTipAndCibilScore(element, 860)
         } else {
             element.classList.add("cibil-score-meter");
             cibilMeter(element)
         }
     });
+}
+function addToolTipAndCibilScore(el, score) {
+    const cibilScoreDiv = el.querySelectorAll('p')[1];
+    cibilScoreDiv.appendChild(div({ class: 'cibil-score-info-container' },
+        div({ class: 'score-container' }, span({ class: 'cibil-score-value' }, score)),
+        div({ class: 'tooltip-container' },
+            img({ class: 'info-btn-icon', src: '../../icons/iwithcircle.png', alt: 'i-icon' }),
+            div({ class: 'score-info-container' },
+                div({ class: 'score-info-content' },
+                    div({ class: 'score-grade-content' },
+                        span({ class: 'color excellent' }), span({ class: 'grade-text' }, 'Excellent'), span({ class: 'score-range' }, '800-900')
+                    )
+                ))
+        )
+    ))
 }
 function cibilMeter(el) {
     el.appendChild(
