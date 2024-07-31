@@ -57,91 +57,6 @@ function sortCards(sortBy, block) {
   sortAndAppendCards(otherCategoryWrapper);
 }
 
-function createFilter(categories, block) {
-  const searchInputPlaceholder = getDataAttributeValueByName('searchInputPlaceholder');
-  const tabContainer = document.createElement('div');
-
-  const sortByLabel = getDataAttributeValueByName('sortByLabel');
-  const sortByLabelDropDownLabel = getDataAttributeValueByName('sortByLabelDropDownLabel');
-  const searchIcon = getDataAttributeValueByName('searchicon');
-  tabContainer.classList.add('media-gallery-filter');
-  const tabsDiv = document.createElement('div');
-  tabsDiv.classList.add('tabs-wrapper-media-gallery');
-
-  categories.forEach((category, index) => {
-    const tab = document.createElement('button');
-    tab.classList.add('media-tab');
-    tab.setAttribute('data-category', category);
-    tab.textContent = category;
-    tab.addEventListener('click', () => {
-      showCategoryContent(category, block, tab);
-    });
-
-    // Set the first tab as active by default
-    if (index === 0) {
-      tab.classList.add('active');
-    }
-
-    tabsDiv.appendChild(tab);
-  });
-
-  const searchDiv = document.createElement('div');
-  searchDiv.classList.add('seach-input-media-gallery');
-  const searchIconImgTag = document.createElement('img');
-  searchIconImgTag.src = searchIcon;
-  searchIconImgTag.alt = 'search-icon';
-  searchIconImgTag.classList.add('search-icon-img');
-
-  searchDiv.append(searchIconImgTag);
-  // Create a search input
-  const searchInput = document.createElement('input');
-  searchInput.type = 'text';
-  searchInput.placeholder = searchInputPlaceholder;
-  searchInput.classList.add('media-search-input');
-  searchInput.addEventListener('input', () => {
-    filterCardsBySearch(searchInput.value, block);
-  });
-  searchDiv.appendChild(searchInput);
-
-  // Create a dropdown for sorting
-  const sortDiv = document.createElement('div');
-  sortDiv.classList.add('sort-input-media-gallery');
-
-  const sortDropdown = document.createElement('select');
-  sortDropdown.id = 'sortDropdown';
-  sortDropdown.classList.add('media-sort-dropdown');
-
-  // Create the default option
-  const defaultOption = document.createElement('option');
-  defaultOption.value = '';
-  defaultOption.textContent = sortByLabel;
-  defaultOption.disabled = true;
-  defaultOption.selected = true;
-  sortDropdown.appendChild(defaultOption);
-
-  const sortOptions = sortByLabelDropDownLabel.split(', ');
-  const sortValues = ['descending', 'ascending'];
-  sortOptions.forEach((option, index) => {
-    // const cleanOption = option.replace(/\(|\)/g, '');
-    const sortOption = document.createElement('option');
-    sortOption.value = sortValues[index];
-    sortOption.textContent = option;
-    sortDropdown.appendChild(sortOption);
-  });
-  sortDropdown.addEventListener('change', () => {
-    sortCards(sortDropdown.value, block);
-  });
-
-  sortDiv.appendChild(sortDropdown);
-
-  const SearchDropDiv = document.createElement('div');
-  SearchDropDiv.classList.add('search-sortBy-filter');
-  SearchDropDiv.append(searchDiv, sortDiv);
-  // Add search input and tabs to the block
-  tabContainer.append(tabsDiv, SearchDropDiv);
-  block.insertBefore(tabContainer, block.firstChild);
-}
-
 function showCategoryContent(category, block) {
   const allTabs = block.querySelectorAll('.media-tab');
   const pictureContainer = block.querySelector('.main-picture-div');
@@ -235,6 +150,91 @@ function filterCardsBySearch(searchTerm, block) {
   }
 }
 
+function createFilter(categories, block) {
+  const searchInputPlaceholder = getDataAttributeValueByName('searchInputPlaceholder');
+  const tabContainer = document.createElement('div');
+
+  const sortByLabel = getDataAttributeValueByName('sortByLabel');
+  const sortByLabelDropDownLabel = getDataAttributeValueByName('sortByLabelDropDownLabel');
+  const searchIcon = getDataAttributeValueByName('searchicon');
+  tabContainer.classList.add('media-gallery-filter');
+  const tabsDiv = document.createElement('div');
+  tabsDiv.classList.add('tabs-wrapper-media-gallery');
+
+  categories.forEach((category, index) => {
+    const tab = document.createElement('button');
+    tab.classList.add('media-tab');
+    tab.setAttribute('data-category', category);
+    tab.textContent = category;
+    tab.addEventListener('click', () => {
+      showCategoryContent(category, block, tab);
+    });
+
+    // Set the first tab as active by default
+    if (index === 0) {
+      tab.classList.add('active');
+    }
+
+    tabsDiv.appendChild(tab);
+  });
+
+  const searchDiv = document.createElement('div');
+  searchDiv.classList.add('seach-input-media-gallery');
+  const searchIconImgTag = document.createElement('img');
+  searchIconImgTag.src = searchIcon;
+  searchIconImgTag.alt = 'search-icon';
+  searchIconImgTag.classList.add('search-icon-img');
+
+  searchDiv.append(searchIconImgTag);
+  // Create a search input
+  const searchInput = document.createElement('input');
+  searchInput.type = 'text';
+  searchInput.placeholder = searchInputPlaceholder;
+  searchInput.classList.add('media-search-input');
+  searchInput.addEventListener('input', () => {
+    filterCardsBySearch(searchInput.value, block);
+  });
+  searchDiv.appendChild(searchInput);
+
+  // Create a dropdown for sorting
+  const sortDiv = document.createElement('div');
+  sortDiv.classList.add('sort-input-media-gallery');
+
+  const sortDropdown = document.createElement('select');
+  sortDropdown.id = 'sortDropdown';
+  sortDropdown.classList.add('media-sort-dropdown');
+
+  // Create the default option
+  const defaultOption = document.createElement('option');
+  defaultOption.value = '';
+  defaultOption.textContent = sortByLabel;
+  defaultOption.disabled = true;
+  defaultOption.selected = true;
+  sortDropdown.appendChild(defaultOption);
+
+  const sortOptions = sortByLabelDropDownLabel.split(', ');
+  const sortValues = ['descending', 'ascending'];
+  sortOptions.forEach((option, index) => {
+    // const cleanOption = option.replace(/\(|\)/g, '');
+    const sortOption = document.createElement('option');
+    sortOption.value = sortValues[index];
+    sortOption.textContent = option;
+    sortDropdown.appendChild(sortOption);
+  });
+  sortDropdown.addEventListener('change', () => {
+    sortCards(sortDropdown.value, block);
+  });
+
+  sortDiv.appendChild(sortDropdown);
+
+  const SearchDropDiv = document.createElement('div');
+  SearchDropDiv.classList.add('search-sortBy-filter');
+  SearchDropDiv.append(searchDiv, sortDiv);
+  // Add search input and tabs to the block
+  tabContainer.append(tabsDiv, SearchDropDiv);
+  block.insertBefore(tabContainer, block.firstChild);
+}
+
 function getYoutubeIdFromUrl(url) {
   // const regex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
   const regex = /(?:youtube\.com\/(?:[^/\n\s]+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
@@ -303,6 +303,167 @@ function openModal(videoLink) {
 
   // Append modal to document body
   document.body.appendChild(modal);
+}
+
+function updateNewCard(block, container, cardTitle, url) {
+  const mainCardDiv = container.querySelector(':scope > div');
+  mainCardDiv.classList.add('mainNewCardDiv');
+
+  const mainCardPictureDiv = mainCardDiv.querySelector(':scope > div');
+  mainCardPictureDiv.classList.add('mainCardPictureDiv');
+
+  const newTopDiv = document.createElement('div');
+  newTopDiv.classList.add('redirectDiv-media-gallery');
+
+  const backPage = document.createElement('div');
+  backPage.classList.add('back-page');
+
+  const backAnchor = document.createElement('a');
+  backAnchor.href = url;
+  backAnchor.classList.add('back-link-media-gallery');
+  backAnchor.textContent = cardTitle;
+  backPage.appendChild(backAnchor);
+
+  const totalImgVid = document.createElement('div');
+  totalImgVid.classList.add('total-img-video-media-gallery');
+
+  const countCards = document.createElement('p');
+  totalImgVid.appendChild(countCards);
+
+  newTopDiv.append(backPage, totalImgVid);
+
+  mainCardDiv.insertBefore(newTopDiv, mainCardPictureDiv);
+
+  // Create upperPictureDiv and insert it into mainCardDiv (not mainCardPictureDiv)
+  const upperPictureDiv = document.createElement('div');
+  upperPictureDiv.classList.add('upperPictureDiv');
+  mainCardDiv.insertBefore(upperPictureDiv, mainCardPictureDiv); // Insert before mainCardPictureDiv
+
+  const allChildDiv = mainCardPictureDiv.querySelectorAll(':scope > div');
+  const pictuireNavList = document.createElement('div');
+  pictuireNavList.classList.add('pictuire-nav-list');
+
+  let currentIndex = 0;
+
+  // Set the first new-card-picture-div as active by default
+  allChildDiv[currentIndex].classList.add('active');
+  const initialClone = allChildDiv[currentIndex].cloneNode(true);
+  upperPictureDiv.appendChild(initialClone);
+
+  function updateActiveElement(index) {
+    allChildDiv.forEach((el) => el.classList.remove('active'));
+    allChildDiv[index].classList.add('active');
+
+    const clone = allChildDiv[index].cloneNode(true);
+    upperPictureDiv.innerHTML = '';
+    upperPictureDiv.appendChild(clone);
+
+    // allChildDiv[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  // Add click event listener to each new-card-picture-div
+  allChildDiv.forEach((element, index) => {
+    element.classList.add('new-card-picture-div');
+    element.addEventListener('click', () => {
+      currentIndex = index;
+      updateActiveElement(currentIndex);
+    });
+    pictuireNavList.append(element);
+  });
+
+  // Create Previous and Next buttons
+  const prevButton = document.createElement('button');
+  const spanArrowLeft = document.createElement('span');
+  spanArrowLeft.classList.add('arrow', 'left');
+  prevButton.append(spanArrowLeft);
+  // prevButton.innerText = 'Previous';
+  prevButton.classList.add('media-gallery-nav-button', 'prev-button');
+  mainCardPictureDiv.insertBefore(prevButton, mainCardPictureDiv.firstChild); // Insert at the beginning
+  mainCardPictureDiv.append(pictuireNavList);
+  const nextButton = document.createElement('button');
+  const spanArrowRight = document.createElement('span');
+  spanArrowRight.classList.add('arrow', 'right');
+  nextButton.append(spanArrowRight);
+  // nextButton.innerText = 'Next';
+  nextButton.classList.add('media-gallery-nav-button', 'next-button');
+  mainCardPictureDiv.appendChild(nextButton); // Insert at the end
+  function getScrollAmount() {
+    return window.innerWidth > 1024 ? 140 : 40; // Adjust values as needed
+  }
+  prevButton.addEventListener('click', () => {
+    if (currentIndex > 0) {
+      currentIndex = (currentIndex - 1 + allChildDiv.length) % allChildDiv.length;
+      pictuireNavList.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+      updateActiveElement(currentIndex);
+      console.log(currentIndex, allChildDiv.length);
+      if (currentIndex == 0) {
+        prevButton.disabled = true;
+      } else {
+        prevButton.disabled = false;
+      }
+      nextButton.disabled = false;
+    }
+  });
+
+  nextButton.addEventListener('click', () => {
+    if (currentIndex < allChildDiv.length - 1) {
+      currentIndex = (currentIndex + 1) % allChildDiv.length;
+      pictuireNavList.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+      updateActiveElement(currentIndex);
+      if (currentIndex == allChildDiv.length - 1) {
+        nextButton.disabled = true;
+      } else {
+        nextButton.disabled = false;
+      }
+      prevButton.disabled = false;
+    }
+  });
+
+  // Event listener for backAnchor
+  backAnchor.addEventListener('click', (e) => {
+    e.preventDefault();
+    // Select the elements you want to modify
+    const pictureGalleryContainer = block.querySelector('.picture-gallery-container');
+    const newContentCard = block.querySelector('.new-content-card');
+
+    // Ensure that picture-gallery-container is displayed as block
+    if (pictureGalleryContainer) {
+      pictureGalleryContainer.style.display = 'flex';
+    }
+
+    // Ensure that new-content-card is hidden and remove the active class
+    if (newContentCard) {
+      newContentCard.style.display = 'none';
+      newContentCard.classList.remove('active');
+    }
+  });
+
+  // Event listener for picture-gallery-container
+  const pictureGalleryContainer = block.querySelector('.picture-gallery-container');
+  if (pictureGalleryContainer) {
+    pictureGalleryContainer.addEventListener('click', () => {
+      // Select the elements you want to modify
+      const newContentCard = block.querySelector('.new-content-card');
+      const galleryContainer = block.querySelector('.picture-gallery-container');
+
+      // Ensure that new-content-card is displayed as block
+      if (newContentCard) {
+        newContentCard.style.display = 'block';
+      }
+
+      // Ensure that picture-gallery-container is hidden
+      if (galleryContainer) {
+        galleryContainer.style.display = 'none';
+      }
+    });
+  }
+
+  const pictureDivs = block.querySelectorAll('.new-card-picture-div');
+  const pictureLength = pictureDivs.length;
+  const videoDivs = document.querySelectorAll('.other-category-wrapper .card-media-gallery');
+  const videoDivLendth = videoDivs.length;
+  countCards.textContent = `${pictureLength} Images ${videoDivLendth} Videos`;
+
 }
 
 // Function to fetch and append content to pictureGalleryContainer
@@ -469,167 +630,6 @@ function generateCards(data, block) {
 
   // Append the main parent div to the block
   block.appendChild(mainParentDiv);
-}
-
-function updateNewCard(block, container, cardTitle, url) {
-  const mainCardDiv = container.querySelector(':scope > div');
-  mainCardDiv.classList.add('mainNewCardDiv');
-
-  const mainCardPictureDiv = mainCardDiv.querySelector(':scope > div');
-  mainCardPictureDiv.classList.add('mainCardPictureDiv');
-
-  const newTopDiv = document.createElement('div');
-  newTopDiv.classList.add('redirectDiv-media-gallery');
-
-  const backPage = document.createElement('div');
-  backPage.classList.add('back-page');
-
-  const backAnchor = document.createElement('a');
-  backAnchor.href = url;
-  backAnchor.classList.add('back-link-media-gallery');
-  backAnchor.textContent = cardTitle;
-  backPage.appendChild(backAnchor);
-
-  const totalImgVid = document.createElement('div');
-  totalImgVid.classList.add('total-img-video-media-gallery');
-
-  const countCards = document.createElement('p');
-  totalImgVid.appendChild(countCards);
-
-  newTopDiv.append(backPage, totalImgVid);
-
-  mainCardDiv.insertBefore(newTopDiv, mainCardPictureDiv);
-
-  // Create upperPictureDiv and insert it into mainCardDiv (not mainCardPictureDiv)
-  const upperPictureDiv = document.createElement('div');
-  upperPictureDiv.classList.add('upperPictureDiv');
-  mainCardDiv.insertBefore(upperPictureDiv, mainCardPictureDiv); // Insert before mainCardPictureDiv
-
-  const allChildDiv = mainCardPictureDiv.querySelectorAll(':scope > div');
-  const pictuireNavList = document.createElement('div');
-  pictuireNavList.classList.add('pictuire-nav-list');
-
-  let currentIndex = 0;
-
-  // Set the first new-card-picture-div as active by default
-  allChildDiv[currentIndex].classList.add('active');
-  const initialClone = allChildDiv[currentIndex].cloneNode(true);
-  upperPictureDiv.appendChild(initialClone);
-
-  function updateActiveElement(index) {
-    allChildDiv.forEach((el) => el.classList.remove('active'));
-    allChildDiv[index].classList.add('active');
-
-    const clone = allChildDiv[index].cloneNode(true);
-    upperPictureDiv.innerHTML = '';
-    upperPictureDiv.appendChild(clone);
-
-    // allChildDiv[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
-
-  // Add click event listener to each new-card-picture-div
-  allChildDiv.forEach((element, index) => {
-    element.classList.add('new-card-picture-div');
-    element.addEventListener('click', () => {
-      currentIndex = index;
-      updateActiveElement(currentIndex);
-    });
-    pictuireNavList.append(element);
-  });
-
-  // Create Previous and Next buttons
-  const prevButton = document.createElement('button');
-  const spanArrowLeft = document.createElement('span');
-  spanArrowLeft.classList.add('arrow', 'left');
-  prevButton.append(spanArrowLeft);
-  // prevButton.innerText = 'Previous';
-  prevButton.classList.add('media-gallery-nav-button', 'prev-button');
-  mainCardPictureDiv.insertBefore(prevButton, mainCardPictureDiv.firstChild); // Insert at the beginning
-  mainCardPictureDiv.append(pictuireNavList);
-  const nextButton = document.createElement('button');
-  const spanArrowRight = document.createElement('span');
-  spanArrowRight.classList.add('arrow', 'right');
-  nextButton.append(spanArrowRight);
-  // nextButton.innerText = 'Next';
-  nextButton.classList.add('media-gallery-nav-button', 'next-button');
-  mainCardPictureDiv.appendChild(nextButton); // Insert at the end
-  function getScrollAmount() {
-    return window.innerWidth > 1024 ? 140 : 40; // Adjust values as needed
-  }
-  prevButton.addEventListener('click', () => {
-    if (currentIndex > 0) {
-      currentIndex = (currentIndex - 1 + allChildDiv.length) % allChildDiv.length;
-      pictuireNavList.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
-      updateActiveElement(currentIndex);
-      console.log(currentIndex, allChildDiv.length);
-      if (currentIndex == 0) {
-        prevButton.disabled = true;
-      } else {
-        prevButton.disabled = false;
-      }
-      nextButton.disabled = false;
-    }
-  });
-
-  nextButton.addEventListener('click', () => {
-    if (currentIndex < allChildDiv.length - 1) {
-      currentIndex = (currentIndex + 1) % allChildDiv.length;
-      pictuireNavList.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
-      updateActiveElement(currentIndex);
-      if (currentIndex == allChildDiv.length - 1) {
-        nextButton.disabled = true;
-      } else {
-        nextButton.disabled = false;
-      }
-      prevButton.disabled = false;
-    }
-  });
-
-  // Event listener for backAnchor
-  backAnchor.addEventListener('click', (e) => {
-    e.preventDefault();
-    // Select the elements you want to modify
-    const pictureGalleryContainer = block.querySelector('.picture-gallery-container');
-    const newContentCard = block.querySelector('.new-content-card');
-
-    // Ensure that picture-gallery-container is displayed as block
-    if (pictureGalleryContainer) {
-      pictureGalleryContainer.style.display = 'flex';
-    }
-
-    // Ensure that new-content-card is hidden and remove the active class
-    if (newContentCard) {
-      newContentCard.style.display = 'none';
-      newContentCard.classList.remove('active');
-    }
-  });
-
-  // Event listener for picture-gallery-container
-  const pictureGalleryContainer = block.querySelector('.picture-gallery-container');
-  if (pictureGalleryContainer) {
-    pictureGalleryContainer.addEventListener('click', () => {
-      // Select the elements you want to modify
-      const newContentCard = block.querySelector('.new-content-card');
-      const galleryContainer = block.querySelector('.picture-gallery-container');
-
-      // Ensure that new-content-card is displayed as block
-      if (newContentCard) {
-        newContentCard.style.display = 'block';
-      }
-
-      // Ensure that picture-gallery-container is hidden
-      if (galleryContainer) {
-        galleryContainer.style.display = 'none';
-      }
-    });
-  }
-
-  const pictureDivs = block.querySelectorAll('.new-card-picture-div');
-  const pictureLength = pictureDivs.length;
-  const videoDivs = document.querySelectorAll('.other-category-wrapper .card-media-gallery');
-  const videoDivLendth = videoDivs.length;
-  countCards.textContent = `${pictureLength} Images ${videoDivLendth} Videos`;
-
 }
 
 export default async function decorate(block) {
