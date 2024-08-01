@@ -33,12 +33,12 @@ export default async function decorate(block) {
   newAnchor.href = linkUrl;
   newAnchor.title = 'Play Video';
 
-  // insert link in play image also 
+  // insert link in play image also
   if (linkUrl && pictureElement) {
-    let imgElement = pictureElement.querySelector('img');
+    const imgElement = pictureElement.querySelector('img');
 
     if (imgElement) {
-      let newAnchor = document.createElement('a');
+      const newAnchor = document.createElement('a');
       newAnchor.href = linkUrl;
       newAnchor.title = 'Play Video';
 
@@ -51,28 +51,28 @@ export default async function decorate(block) {
 
   const clickable = block.querySelectorAll('.button, a');
 
-  clickable.forEach(el => {
+  clickable.forEach((el) => {
     el.addEventListener('click', function (event) {
       event.preventDefault();
 
       const videoUrl = el.getAttribute('href');
 
       const isBackgroundVideo = el.classList.contains('video-bg') || el.closest('.video-bg');
-      const parent = el.parentNode;
+      // const parent = el.parentNode;
 
       // Extract the text content from the anchor tag
-      const textContent = el.textContent;
+      // const textContent = el.textContent;
 
       if (isBackgroundVideo) {
         if (videoUrl) {
-          let mainTeaser = document.querySelector('.main-video-teaser');
-          let existingVideo = mainTeaser.querySelector('.video-bg');
+          const mainTeaser = document.querySelector('.main-video-teaser');
+          const existingVideo = mainTeaser.querySelector('.video-bg');
           if (existingVideo) {
             existingVideo.remove();
           }
 
           if (isYouTubeURL(videoUrl)) {
-            let frame = document.createElement('iframe');
+            const frame = document.createElement('iframe');
             frame.src = getYouTubeEmbedURL(videoUrl);
             frame.style.position = 'absolute';
             frame.style.width = '100%';
@@ -85,18 +85,18 @@ export default async function decorate(block) {
             playBtn.style.display = 'none';
             pauseBtn.style.display = 'none';
           } else {
-            let backgroundVideo = document.createElement('video');
+            const backgroundVideo = document.createElement('video');
             backgroundVideo.className = 'video-bg';
             backgroundVideo.muted = true;
 
-            let videoSourceElement = document.createElement('source');
+            const videoSourceElement = document.createElement('source');
             videoSourceElement.src = videoUrl;
             videoSourceElement.type = 'video/mp4';
             backgroundVideo.appendChild(videoSourceElement);
 
             mainTeaser.appendChild(backgroundVideo);
             backgroundVideo.load();
-            backgroundVideo.play().catch(error => console.error('Error playing background video:', error));
+            backgroundVideo.play().catch((error) => console.error('Error playing background video:', error));
 
             backgroundVideo.style.position = 'absolute';
             backgroundVideo.style.top = '0';
@@ -120,7 +120,7 @@ export default async function decorate(block) {
         }
         // Remove links from both image and text content
         const links = block.querySelectorAll('a');
-        links.forEach(link => {
+        links.forEach((link) => {
           const parent = link.parentNode;
           while (link.firstChild) {
             parent.insertBefore(link.firstChild, link);
@@ -145,7 +145,7 @@ export default async function decorate(block) {
 function getImageForBreakpoint(imagesList, onChange = () => { }) {
   const mobileMQ = window.matchMedia('(max-width: 743px)');
   const tabletMQ = window.matchMedia(
-    '(min-width: 744px) and (max-width: 1199px)'
+    '(min-width: 744px) and (max-width: 1199px)',
   );
   const desktopMQ = window.matchMedia('(min-width: 1200px)');
 
@@ -184,7 +184,7 @@ function prepareBackgroundImage(block) {
   const onBackgroundImgChange = (imgEl, backgroundTarget, breakpoint) => {
     const backgroundPostionStyles = initBackgroundPosition(
       block.classList,
-      breakpoint
+      breakpoint,
     );
     const backgroundSrc = imgEl.currentSrc;
     backgroundTarget.style.backgroundImage = `url(${backgroundSrc})`;
@@ -223,7 +223,7 @@ function initBackgroundPosition(classList, breakpoint) {
   };
   const classPrefix = classPrefixes[breakpoint];
   const backgroudPositionClass = [...classList].find((item) =>
-    item.startsWith(`bp-${classPrefix}-`)
+    item.startsWith(`bp-${classPrefix}-`),
   );
   let backgroundPositionValue = 'unset';
 
@@ -240,12 +240,12 @@ function initBackgroundPosition(classList, breakpoint) {
 
   return backgroundPositionValue;
 }
-//function to identify youtube link
+// function to identify youtube link
 function isYouTubeURL(url) {
   const youtubePattern = /^(https?:\/\/)?(www\.)?(youtube\.com\/(?:embed\/|v\/|watch\?v=)|youtu\.be\/)[\w-]+/;
   return youtubePattern.test(url);
 }
-//function to convert youtube link to embed form
+// function to convert youtube link to embed form
 function getYouTubeEmbedURL(url) {
   const urlObj = new URL(url);
   let videoId = '';
@@ -259,7 +259,7 @@ function getYouTubeEmbedURL(url) {
 
   return videoId ? `https://www.youtube.com/embed/${videoId}` : '';
 }
-//Video Modal for Mp4 video and other 
+// Video Modal for Mp4 video and other
 function createModal(videoUrl) {
   let existingModal = document.querySelector('.custom-video-modal');
   if (existingModal) {
@@ -297,17 +297,17 @@ function createModal(videoUrl) {
     modal.style.display = 'none';
     videoPlayer.pause();
     videoPlayer.src = '';
-  }
+  };
 
   window.onclick = function (event) {
-    if (event.target == modal) {
+    if (event.target === modal) {
       modal.style.display = 'none';
       videoPlayer.pause();
       videoPlayer.src = '';
     }
-  }
+  };
 }
-//Video Model for YouTube Video
+// Video Model for YouTube Video
 function youtubeModel(videoUrl) {
   if (!isYouTubeURL(videoUrl)) {
     console.error('Invalid YouTube URL');
@@ -317,7 +317,7 @@ function youtubeModel(videoUrl) {
   const embedUrl = getYouTubeEmbedURL(videoUrl);
 
   // Remove any existing YouTube modal
-  let existingModal = document.querySelector('.youtube-modal');
+  const existingModal = document.querySelector('.youtube-modal');
   if (existingModal) {
     existingModal.remove();
   }
@@ -348,13 +348,12 @@ function youtubeModel(videoUrl) {
   // Close modal on close button click
   closeBtn.onclick = function () {
     modal.style.display = 'none';
-  }
+  };
 
   // Close modal on clicking outside of the content area
   window.onclick = function (event) {
-    if (event.target == modal) {
+    if (event.target === modal) {
       modal.style.display = 'none';
     }
-  }
+  };
 }
-
