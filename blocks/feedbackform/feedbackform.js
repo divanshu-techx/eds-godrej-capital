@@ -33,7 +33,7 @@ export default async function decorate(block) {
   collapseBtnIcon.classList.add('collapse-btn-icon');
   // collapseBtnIcon.src = '../../icons/greater-then-icon.png'
   collapseBtnIcon.setAttribute('src', '../../icons/greater-then-icon.png');
-  collapseButton.appendChild(collapseBtnIcon)
+  collapseButton.appendChild(collapseBtnIcon);
   // collapseButton.textContent = '>';
   parentContainerDiv.appendChild(collapseButton);
 
@@ -69,7 +69,7 @@ function forEmptyDiv(headingTitleDiv, headingDescriptionDiv, dynamicDiv) {
 function createContainer(className) {
   const containerDiv = document.createElement('div');
   containerDiv.className = className;
-  return containerDiv
+  return containerDiv;
 }
 
 // function create buttons
@@ -94,7 +94,7 @@ function extractValuesOfSectionMetadata(blockEle) {
     laterButtonLabel: blockEle.getAttribute('data-laterButtonLabel'),
     reviewsubmitButtonLabel: blockEle.getAttribute('data-reviewsubmitButtonLabel'),
     reviewDescription: blockEle.getAttribute('data-reviewDescription'),
-    formJsonApi: blockEle.getAttribute('data-jsonFormApi')
+    formJsonApi: blockEle.getAttribute('data-jsonFormApi'),
   };
 }
 
@@ -139,21 +139,21 @@ function showFeedBackPopUp(block, dynamicDiv, parentContainerDiv, form, feedback
 
 function forCreateRatingRadioBtn(dynamicDiv, feedbackAttributes, parentContainerDiv, block, form) {
   // for rating points
-  var ratingNumber;
+  let ratingNumber;
   const ratingContainer = createContainer('ratingContainer');
   const ratingDiv = createContainer('ratingDiv');
   const lessMoreLikeLabelDiv = createContainer('lessMoreLikeLabelDiv');
   const submitRatingButton = createButton(feedbackAttributes.reviewsubmitButtonLabel, 'feedback-rating-button');
   submitRatingButton.disabled = true;
 
-  let minLimit = parseInt(feedbackAttributes.minReviewCount),
-    maxLimit = parseInt(feedbackAttributes.maxReviewCount);
+  let minLimit = parseInt(feedbackAttributes.minReviewCount, 10),
+    maxLimit = parseInt(feedbackAttributes.maxReviewCount, 10);
 
   for (let i = minLimit; i <= maxLimit; i++) {
-    let label = document.createElement('label');
+    const label = document.createElement('label');
     label.textContent = i + ' ';
 
-    let input = document.createElement('input');
+    const input = document.createElement('input');
     input.type = 'radio';
     input.name = 'rating';
     input.value = i;
@@ -161,7 +161,7 @@ function forCreateRatingRadioBtn(dynamicDiv, feedbackAttributes, parentContainer
     label.appendChild(input);
     ratingDiv.appendChild(label);
 
-    input.addEventListener('change', function () {
+    input.addEventListener('change', () => {
       // Enable the submit button if any radio button is checked
       ratingNumber = input.value;
       submitRatingButton.disabled = false;
@@ -198,20 +198,20 @@ function forCreateRatingRadioBtn(dynamicDiv, feedbackAttributes, parentContainer
   block.appendChild(parentContainerDiv);
 
   // Add the event listener here
-  laterBtn.addEventListener('click', function () {
+  laterBtn.addEventListener('click', () => {
     parentContainerDiv.style.display = 'none';
     block.querySelector('.feedback-title-btn').style = 'display: block';
   });
 
-  submitRatingButton.addEventListener('click', function () {
+  submitRatingButton.addEventListener('click', () => {
     showFeedBackPopUp(block, dynamicDiv, parentContainerDiv, form, feedbackAttributes);
     forFeedback(block);
-  })
+  });
 }
 
 // Function to reset checkboxes
 function resetCheckboxes(checkboxes) {
-  checkboxes.forEach(checkbox => {
+  checkboxes.forEach((checkbox) => {
     checkbox.checked = false;
   });
 }
@@ -256,10 +256,10 @@ function forFeedback(block) {
         resetCheckboxes(checkboxes);
         const otherCheckbox = block.querySelector('input[value="Other"]');
         // Attach change event listeners to each checkbox
-        checkboxes.forEach(checkbox => {
-          checkbox.addEventListener('change', function () {
+        checkboxes.forEach((checkbox) => {
+          checkbox.addEventListener('change', () => {
             // Check if any checkbox is checked
-            const anyChecked = Array.from(checkboxes).some(cb => cb.checked);
+            const anyChecked = Array.from(checkboxes).some((cb) => cb.checked);
             // Enable or disable the button based on the checkbox state
             button.disabled = !anyChecked;
 
@@ -277,11 +277,11 @@ function forFeedback(block) {
         });
       }
       // feedback submit buttn click event
-      button.addEventListener('click', function (event) {
+      button.addEventListener('click', (event) => {
         event.preventDefault();
-        let getCheckValue = clickEventOnFeedbackSubmitBtn(fieldset, block, descriptionDiv);
+        const getCheckValue = clickEventOnFeedbackSubmitBtn(fieldset, block, descriptionDiv);
         if (getCheckValue[0]) {
-          let checkedFeildArr = getCheckValue[1];
+          const checkedFeildArr = getCheckValue[1];
           forFormFields(block, descriptionDiv, submitDiv, checkedFeildArr);
         } else {
           console.log('further functionality not occur');
@@ -294,21 +294,21 @@ function forFeedback(block) {
 // function for feedback submit button click event
 function clickEventOnFeedbackSubmitBtn(fieldset, block, descriptionDiv) {
   const checkedCheckboxes = fieldset.querySelectorAll('input[type="checkbox"]:checked');
-  const checkedValues = Array.from(checkedCheckboxes).map(checkbox => checkbox.value);
+  const checkedValues = Array.from(checkedCheckboxes).map((checkbox) => checkbox.value);
 
   if (descriptionDiv.style.display === 'block') {
     const textAreaDiv = descriptionDiv.querySelector('textarea');
     const descLimit = descriptionDiv.querySelector('label').textContent;
-    let descArr = descLimit.split('/');
-    let descMinLimit = parseInt(descArr[0]);
-    let descMaxLimit = parseInt(descArr[1]);
-    var descriptionReview = textAreaDiv.value;
+    const descArr = descLimit.split('/');
+    const descMinLimit = parseInt(descArr[0], 10);
+    const descMaxLimit = parseInt(descArr[1], 10);
+    const descriptionReview = textAreaDiv.value;
 
     const emptyErrorMsg = block.querySelector('.description-empty-err-msg');
     const limitErrorMsg = block.querySelector('.description-limit-err-msg');
 
     // Hide error messages when the user starts typing
-    textAreaDiv.addEventListener('input', function () {
+    textAreaDiv.addEventListener('input', () => {
       emptyErrorMsg.style.display = 'none';
       limitErrorMsg.style.display = 'none';
     });
@@ -329,7 +329,7 @@ function clickEventOnFeedbackSubmitBtn(fieldset, block, descriptionDiv) {
 // function to reset the input fields
 function resetInputField(formContainerDiv) {
   const inputFieldsDivs = formContainerDiv.querySelectorAll('.feedback-input-field');
-  inputFieldsDivs.forEach(element => {
+  inputFieldsDivs.forEach((element) => {
     const inputField = element.querySelector('input');
     if (inputField) {
       inputField.value = '';
@@ -358,7 +358,7 @@ function forFormFields(block, descriptionDiv, submitDiv, checkedFeildArr) {
   resetInputField(formContainerDiv);
   // Hide all elements with class 'feedback-error-msg' inside formContainerDiv
   const errorMessages = formContainerDiv.querySelectorAll('.feedback-error-msg');
-  errorMessages.forEach(element => {
+  errorMessages.forEach((element) => {
     element.style.display = 'none';
   });
 
@@ -368,12 +368,12 @@ function forFormFields(block, descriptionDiv, submitDiv, checkedFeildArr) {
   const formSubmitBtnEle = formBtnContainer.querySelector('.field-wrapper.submit-wrapper.feedback-submit-btn');
   const formSubmitBtn = formSubmitBtnEle.querySelector('button');
 
-  skipBtn.addEventListener('click', function (event) {
+  skipBtn.addEventListener('click', (event) => {
     event.preventDefault();
     showThankYouPopUp(block);
   });
 
-  formSubmitBtn.addEventListener('click', function (event) {
+  formSubmitBtn.addEventListener('click', (event) => {
     event.preventDefault();
     if (validateForm(formContainerDiv)) {
       showThankYouPopUp(block);
@@ -388,15 +388,15 @@ function validateForm(formContainerDiv) {
   const inputFieldsDivs = formContainerDiv.querySelectorAll('.feedback-input-field');
   let isFormValid = true;
 
-  inputFieldsDivs.forEach(element => {
+  inputFieldsDivs.forEach((element) => {
     const inputField = element.querySelector('input');
     const errorMsg = element.nextElementSibling;
 
     // Attach input event listener to hide error message when user starts typing
     inputField.addEventListener('input', () => {
       errorMsg.style.display = 'none';
-      inputField.classList.remove('error-msg-active')
-      errorMsg.classList.remove('error-msg-show')
+      inputField.classList.remove('error-msg-active');
+      errorMsg.classList.remove('error-msg-show');
     });
 
     if (inputField && errorMsg) {
@@ -409,28 +409,27 @@ function validateForm(formContainerDiv) {
       // Check if the input field is empty or does not match the regex pattern
       if (value === '') {
         errorMsg.style.display = 'block';
-        inputField.classList.add('error-msg-active')
-        errorMsg.classList.add('error-msg-show')
+        inputField.classList.add('error-msg-active');
+        errorMsg.classList.add('error-msg-show');
         isFormValid = false;
       } else if (inputField.name === 'fullName' && !nameRegex.test(value)) {
-
         errorMsg.style.display = 'block';
-        inputField.classList.add('error-msg-active')
-        errorMsg.classList.add('error-msg-show')
+        inputField.classList.add('error-msg-active');
+        errorMsg.classList.add('error-msg-show');
         isFormValid = false;
       } else if (inputField.name === 'mobileNumber' && !mobileRegex.test(value)) {
         errorMsg.style.display = 'block';
-        inputField.classList.add('error-msg-active')
-        errorMsg.classList.add('error-msg-show')
+        inputField.classList.add('error-msg-active');
+        errorMsg.classList.add('error-msg-show');
         isFormValid = false;
       } else if (inputField.name === 'emailId' && !emailRegex.test(value)) {
         errorMsg.style.display = 'block';
-        inputField.classList.add('error-msg-active')
-        errorMsg.classList.add('error-msg-show')
+        inputField.classList.add('error-msg-active');
+        errorMsg.classList.add('error-msg-show');
         isFormValid = false;
       } else {
-        inputField.classList.remove('error-msg-active')
-        errorMsg.classList.remove('error-msg-show')
+        inputField.classList.remove('error-msg-active');
+        errorMsg.classList.remove('error-msg-show');
         errorMsg.style.display = 'none';
       }
     }
