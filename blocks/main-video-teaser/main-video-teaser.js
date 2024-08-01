@@ -345,11 +345,11 @@ export default async function decorate(block) {
         });
       } else if (videoUrl) {
         // call to their model for pop up mode
-          if (isYouTubeURL(videoUrl)) {
-            youtubeModel(videoUrl);
-          } else {
-            createModal(videoUrl);
-          }
+        if (isYouTubeURL(videoUrl)) {
+          youtubeModel(videoUrl);
+        } else {
+          createModal(videoUrl);
+        }
       }
     });
   });
