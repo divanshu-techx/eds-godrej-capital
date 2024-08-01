@@ -30,12 +30,11 @@ export function handleErrorMessages(condition, fieldset, errorMessageText) {
       fieldset.insertAdjacentElement('afterend', errorMessage);
     }
     return false;
-  } else {
-    if (errorMessage && errorMessage.classList.contains('error-message')) {
-      errorMessage.remove();
-    }
-    return true;
   }
+  if (errorMessage && errorMessage.classList.contains('error-message')) {
+    errorMessage.remove();
+  }
+  return true;
 }
 
 // Function to validate name
@@ -59,7 +58,6 @@ export function validateNameField(nameField, errorMessage) {
   return true;
 }
 
-
 // Function to validate email
 export function validateEmail(emailField, errorMessage) {
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -69,7 +67,6 @@ export function validateEmail(emailField, errorMessage) {
   }
   handleErrorMessages(true, emailField);
   return true;
-
 }
 
 // Function to validate mobile number
