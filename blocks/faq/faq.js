@@ -1,9 +1,8 @@
-import { getDataAttributes } from '../utils/common.js'
+import { getDataAttributes } from '../utils/common.js';
 
 export default async function decorate(block) {
   const container = block.closest('.faq-container');
   const attributeObj = getDataAttributes(container);
-
 
   //   let bannerDataArray;
   const upperContainer = document.createElement('div');
@@ -17,7 +16,6 @@ export default async function decorate(block) {
   const lowerContainer = document.createElement('div');
   lowerContainer.className = 'lowerContainer';
   block.appendChild(lowerContainer);
-
 
   // Create search container div
   const searchContainer = document.createElement('div');
@@ -56,22 +54,17 @@ export default async function decorate(block) {
   searchContainer.append(searchIconContainer)
   searchContainer.appendChild(inputField);
 
-
   try {
-
     const quesAnsUrl = attributeObj.quesansurl;
     const quesAnsData = await fetchData(quesAnsUrl);
     const productPageUrl = attributeObj.productpageurl;
     const productPageData = await fetchData(productPageUrl);
-
-
     const dropdown = renderCategoryDropdown(quesAnsData, upperContainer);
 
     // Initial render of tabs based on the initial category
     renderTabs(quesAnsData, dropdown.value, '', tagsContainer);
     renderCategoryDetails(productPageData, dropdown.value, productPageDiv);
     renderQA(quesAnsData, dropdown.value, '', quesAnsDiv, '');
-
 
     quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
 
@@ -80,7 +73,6 @@ export default async function decorate(block) {
       renderCategoryDetails(productPageData, dropdown.value, productPageDiv);
       renderQA(quesAnsData, dropdown.value, '', quesAnsDiv, '');
       quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
-
     });
 
     inputField.addEventListener('input', function (event) {
@@ -103,7 +95,6 @@ export default async function decorate(block) {
       }
       quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
     });
-
   } catch (error) {
     console.error('Error fetching data:', error);
   }
@@ -111,7 +102,6 @@ export default async function decorate(block) {
 
 function quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv) {
   const buttons = Array.from(tagsContainer.children);
-
   buttons.forEach((button, index) => {
     if (index === 0) {
       button.classList.add('active-tab')
@@ -126,7 +116,6 @@ function quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv) {
 
   });
 }
-
 
 async function fetchData(apiUrl) {
   try {
@@ -183,7 +172,6 @@ function renderCategoryDropdown(data, containerSelector) {
     dropdown.options[0].selected = true;
   }
   return dropdown;
-
 }
 
 // Function to render tabs based on selected category
@@ -231,12 +219,9 @@ function renderCategoryDetails(data, selectedCategory, containerSelector) {
   if (categoryData) {
     const detailsHTML = `
     <div class="banner-container">
-
-
     <div class="img-container">
     <img src="${categoryData.Image}" class="banner-image" alt="${categoryData.category}">
     </div>
-
     <div class="content-container">
             <div class="heading-container">
               <h3>${categoryData.category}</h3>
@@ -250,18 +235,10 @@ function renderCategoryDetails(data, selectedCategory, containerSelector) {
             <div class="btn-container"> 
             <a href="${categoryData.ApplyNowLink}" target="_blank" class="apply-now btn-details">${categoryData.ApplyNow}</a>
             <a href="${categoryData.KnowMoreLink}" target="_blank"  class="know-more btn-details">${categoryData.KnowMore}</a>
-      
               </div>
-             
-             
-            
-              
     </div>
     </div>
-    
-      
             `;
-
     containerSelector.innerHTML = detailsHTML;
   }
 }
@@ -285,7 +262,6 @@ function renderQA(data, selectedCategory, tagsName, containerSelector, inputValu
       renderTabs(filteredData, '', normalizedSearchTerm, tagsContainer);
     }
   }
-
 
   filteredData.forEach(item => {
     const qaItem = document.createElement('div');
@@ -332,4 +308,5 @@ function renderQA(data, selectedCategory, tagsName, containerSelector, inputValu
       }
     });
   });
-} 
+}
+
