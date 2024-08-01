@@ -53,6 +53,7 @@ function initializetabs() {
       defaultOption.textContent = 'Select Product';
       defaultOption.value = '';
       defaultOption.selected = true;
+      defaultOption.disabled=true;
       secDropdownContainer.appendChild(defaultOption);
 
       let initialTabIndex = 0; // Default to the first tab
