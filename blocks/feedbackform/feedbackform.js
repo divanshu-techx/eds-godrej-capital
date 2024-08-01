@@ -327,7 +327,7 @@ function forCreateRatingRadioBtn(dynamicDiv, feedbackAttributes, parentContainer
   const minLimit = parseInt(feedbackAttributes.minReviewCount, 10);
   const maxLimit = parseInt(feedbackAttributes.maxReviewCount, 10);
 
-  for (let i = minLimit; i <= maxLimit; i++) {
+  for (let i = minLimit; i <= maxLimit; i += 1) {
     const label = document.createElement('label');
     // label.textContent = i + ' ';
     label.textContent = `${i} `;
