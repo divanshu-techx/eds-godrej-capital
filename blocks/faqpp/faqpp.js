@@ -78,7 +78,7 @@ function renderTags(tags, container) {
   const tagBtnContainer = document.createElement('div');
   tagBtnContainer.classList.add('tags-btn-container');
 
-  tags.forEach((selectedTag) => {
+  tags.forEach((tag) => {
     const button = document.createElement('button');
     button.className = 'tag-button';
     button.textContent = tag;
@@ -97,11 +97,11 @@ function renderQA(data, selectedCategory, selectedTag, container) {
   if (selectedCategory) {
     filteredData = data.filter((item) => item.category.toLowerCase() === selectedCategory);
   } else {
-    // filteredData = data.filter((item) => normalizeTags(item.tags).includes(selectedTag.toLowerCase()));
-    filteredData = data.filter((item) => 
-      normalizeTags(item.tags)
-        .includes(selectedTag.toLowerCase())
-    );    
+    // filteredData = data.filter((item) =>
+    // normalizeTags(item.tags).includes(selectedTag.toLowerCase()));
+    filteredData = data.filter((item) => {
+      return normalizeTags(item.tags).includes(selectedTag.toLowerCase());
+    });      
   }
 
   // Create and append Q&A items to the container
@@ -226,7 +226,11 @@ export default async function decorate(block) {
     }
 
     // Filter Q&A data based on the selected category
-    const filteredData = quesAnsData.filter((item) => item.category.toLowerCase() === selectedCategory);
+    //const filteredData = quesAnsData.filter((item) =>
+    // item.category.toLowerCase() === selectedCategory);
+    const filteredData = quesAnsData.filter(
+      (item) => item.category.toLowerCase() === selectedCategory
+    );
 
     // Extract unique tags from the filtered data and render them
     const tags = [...new Set(filteredData.flatMap((item) => normalizeTags(item.tags)))];
