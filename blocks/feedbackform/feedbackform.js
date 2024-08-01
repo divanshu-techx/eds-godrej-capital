@@ -57,7 +57,7 @@ function forWelcomeContainer(feedbackAttributes, headingTitleDiv, headingDescrip
   block.appendChild(parentContainerDiv);
 }
 
-// function on click of submit rating button and show feedback pop up 
+// function on click of submit rating button and show feedback pop up
 function showFeedBackPopUp(block, dynamicDiv, parentContainerDiv, form, feedbackAttributes) {
   dynamicDiv.innerHTML = '';
   dynamicDiv.appendChild(form);
@@ -195,6 +195,7 @@ function validateForm(formContainerDiv) {
 
 // function for form when it show on click of feedback submit button
 function forFormFields(block, descriptionDiv, submitDiv, checkedFeildArr) {
+  console.log(checkedFeildArr);
   block.querySelector('.headingContainerDiv').style = 'display:none';
   block.querySelector('.feedback-checkbox-fieldset.field-wrapper.fieldset-wrapper').style = 'display:none';
   descriptionDiv.style = 'display:none';
@@ -309,7 +310,7 @@ function forFeedback(block) {
 
 function forCreateRatingRadioBtn(dynamicDiv, feedbackAttributes, parentContainerDiv, block, form) {
   // for rating points
-  let ratingNumber;
+  var ratingNumber;
   const ratingContainer = createContainer('ratingContainer');
   const ratingDiv = createContainer('ratingDiv');
   const lessMoreLikeLabelDiv = createContainer('lessMoreLikeLabelDiv');
@@ -421,8 +422,14 @@ export default async function decorate(block) {
   document.getElementById('feedback-title-btn').addEventListener('click', function () {
     forEmptyDiv(headingTitleDiv, headingDescriptionDiv, dynamicDiv);
 
-    forWelcomeContainer(feedbackAttributes, headingTitleDiv, headingDescriptionDiv,
-      headingContainerDiv, parentContainerDiv, block);
+    forWelcomeContainer(
+      feedbackAttributes,
+      headingTitleDiv,
+      headingDescriptionDiv,
+      headingContainerDiv,
+      parentContainerDiv,
+      block,
+    );
 
     forCreateRatingRadioBtn(dynamicDiv, feedbackAttributes, parentContainerDiv, block, form);
     parentContainerDiv.style = 'display:block';
@@ -430,10 +437,9 @@ export default async function decorate(block) {
     this.style = 'display:none';
   });
 
-  collapseButton.addEventListener('click', function () {
+  collapseButton.addEventListener('click', () => {
     parentContainerDiv.classList.remove('visible-parent');
     // parentContainerDiv.style.display = 'none';
     document.getElementById('feedback-title-btn').style.display = 'block';
   });
 }
-
