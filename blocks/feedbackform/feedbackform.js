@@ -1,86 +1,5 @@
 import { createForm } from '/blocks/form/form.js';
 
-export default async function decorate(block) {
-  const blockEle = block.closest('.section.feedbackform-container');
-
-  const feedbackAttributes = extractValuesOfSectionMetadata(blockEle);
-
-  const formJsonApi = feedbackAttributes.formJsonApi;
-  const form = await createForm(formJsonApi);
-
-  const feedbackBtn = createButton(feedbackAttributes.feedbackTitleButton, 'feedback-title-btn');
-  block.appendChild(feedbackBtn);
-
-  // create parent container div
-  const parentContainerDiv = createContainer('parentContainerDiv');
-
-  // create heading container div which contain title and description
-  const headingContainerDiv = createContainer('headingContainerDiv');
-
-  // create heading title div
-  const headingTitleDiv = createContainer('headingTitleDiv');
-
-  // create heading description div
-  const headingDescriptionDiv = createContainer('headingDescriptionDiv');
-
-  // create a dynamic div which have data change accordingly btn click
-  const dynamicDiv = createContainer('dynamicDiv');
-
-  // Create collapse button
-  const collapseButton = document.createElement('button');
-  collapseButton.className = 'collapse-button';
-  const collapseBtnIcon = document.createElement('img');
-  collapseBtnIcon.classList.add('collapse-btn-icon');
-  // collapseBtnIcon.src = '../../icons/greater-then-icon.png'
-  collapseBtnIcon.setAttribute('src', '../../icons/greater-then-icon.png');
-  collapseButton.appendChild(collapseBtnIcon);
-  // collapseButton.textContent = '>';
-  parentContainerDiv.appendChild(collapseButton);
-
-  // feedback click event
-  document.getElementById('feedback-title-btn').addEventListener('click', function () {
-    forEmptyDiv(headingTitleDiv, headingDescriptionDiv, dynamicDiv);
-
-    forWelcomeContainer(feedbackAttributes, headingTitleDiv, headingDescriptionDiv,
-      headingContainerDiv, parentContainerDiv, block);
-
-    forCreateRatingRadioBtn(dynamicDiv, feedbackAttributes, parentContainerDiv, block, form);
-    parentContainerDiv.style = 'display:block';
-    parentContainerDiv.classList.add('visible-parent');
-    this.style = 'display:none';
-  });
-
-  collapseButton.addEventListener('click', function () {
-    parentContainerDiv.classList.remove('visible-parent');
-    // parentContainerDiv.style.display = 'none';
-    document.getElementById('feedback-title-btn').style.display = 'block';
-  });
-
-}
-
-// function for empty div
-function forEmptyDiv(headingTitleDiv, headingDescriptionDiv, dynamicDiv) {
-  headingTitleDiv.innerHTML = '';
-  headingDescriptionDiv.innerHTML = '';
-  dynamicDiv.innerHTML = '';
-}
-
-// function create div's
-function createContainer(className) {
-  const containerDiv = document.createElement('div');
-  containerDiv.className = className;
-  return containerDiv;
-}
-
-// function create buttons
-function createButton(feedBackValue, idValue) {
-  const button = document.createElement('button');
-  button.textContent = feedBackValue;
-  button.id = idValue;
-  button.className = idValue;
-  return button;
-}
-
 // get value from section metadata
 function extractValuesOfSectionMetadata(blockEle) {
   return {
@@ -96,6 +15,29 @@ function extractValuesOfSectionMetadata(blockEle) {
     reviewDescription: blockEle.getAttribute('data-reviewDescription'),
     formJsonApi: blockEle.getAttribute('data-jsonFormApi'),
   };
+}
+
+// function create buttons
+function createButton(feedBackValue, idValue) {
+  const button = document.createElement('button');
+  button.textContent = feedBackValue;
+  button.id = idValue;
+  button.className = idValue;
+  return button;
+}
+
+// function create div's
+function createContainer(className) {
+  const containerDiv = document.createElement('div');
+  containerDiv.className = className;
+  return containerDiv;
+}
+
+// function for empty div
+function forEmptyDiv(headingTitleDiv, headingDescriptionDiv, dynamicDiv) {
+  headingTitleDiv.innerHTML = '';
+  headingDescriptionDiv.innerHTML = '';
+  dynamicDiv.innerHTML = '';
 }
 
 // to show welcome container div first view on feedback click
@@ -137,82 +79,156 @@ function showFeedBackPopUp(block, dynamicDiv, parentContainerDiv, form, feedback
   block.appendChild(parentContainerDiv);
 }
 
-function forCreateRatingRadioBtn(dynamicDiv, feedbackAttributes, parentContainerDiv, block, form) {
-  // for rating points
-  let ratingNumber;
-  const ratingContainer = createContainer('ratingContainer');
-  const ratingDiv = createContainer('ratingDiv');
-  const lessMoreLikeLabelDiv = createContainer('lessMoreLikeLabelDiv');
-  const submitRatingButton = createButton(feedbackAttributes.reviewsubmitButtonLabel, 'feedback-rating-button');
-  submitRatingButton.disabled = true;
-
-  let minLimit = parseInt(feedbackAttributes.minReviewCount, 10),
-    maxLimit = parseInt(feedbackAttributes.maxReviewCount, 10);
-
-  for (let i = minLimit; i <= maxLimit; i++) {
-    const label = document.createElement('label');
-    label.textContent = i + ' ';
-
-    const input = document.createElement('input');
-    input.type = 'radio';
-    input.name = 'rating';
-    input.value = i;
-
-    label.appendChild(input);
-    ratingDiv.appendChild(label);
-
-    input.addEventListener('change', () => {
-      // Enable the submit button if any radio button is checked
-      ratingNumber = input.value;
-      submitRatingButton.disabled = false;
-    });
-  }
-
-  const lessLiskely = document.createElement('p');
-  lessLiskely.textContent = feedbackAttributes.lessLikelyLabel;
-  lessLiskely.className = 'lessLikely';
-  lessMoreLikeLabelDiv.appendChild(lessLiskely);
-
-  const moreLikely = document.createElement('p');
-  moreLikely.textContent = feedbackAttributes.moreLikelyLabel;
-  moreLikely.className = 'moreLikely';
-  lessMoreLikeLabelDiv.appendChild(moreLikely);
-
-  ratingContainer.appendChild(ratingDiv);
-  ratingContainer.appendChild(lessMoreLikeLabelDiv);
-
-  // create div container for button which contain later and submit button
-  const laterButtonContainer = createContainer('laterButtonContainer');
-
-  const laterBtn = document.createElement('p');
-  laterBtn.textContent = feedbackAttributes.laterButtonLabel;
-  laterBtn.className = 'feedback-later-btn';
-
-  laterButtonContainer.appendChild(laterBtn);
-  laterButtonContainer.appendChild(submitRatingButton);
-
-  dynamicDiv.appendChild(ratingContainer);
-  dynamicDiv.appendChild(laterButtonContainer);
-
-  parentContainerDiv.appendChild(dynamicDiv);
-  block.appendChild(parentContainerDiv);
-
-  // Add the event listener here
-  laterBtn.addEventListener('click', () => {
-    parentContainerDiv.style.display = 'none';
-    block.querySelector('.feedback-title-btn').style = 'display: block';
-  });
-
-  submitRatingButton.addEventListener('click', () => {
-    showFeedBackPopUp(block, dynamicDiv, parentContainerDiv, form, feedbackAttributes);
-    forFeedback(block);
-  });
-}
-
 // Function to reset checkboxes
 function resetCheckboxes(checkboxes) {
   checkboxes.forEach((checkbox) => {
     checkbox.checked = false;
+  });
+}
+
+// function for feedback submit button click event
+function clickEventOnFeedbackSubmitBtn(fieldset, block, descriptionDiv) {
+  const checkedCheckboxes = fieldset.querySelectorAll('input[type="checkbox"]:checked');
+  const checkedValues = Array.from(checkedCheckboxes).map((checkbox) => checkbox.value);
+
+  if (descriptionDiv.style.display === 'block') {
+    const textAreaDiv = descriptionDiv.querySelector('textarea');
+    const descLimit = descriptionDiv.querySelector('label').textContent;
+    const descArr = descLimit.split('/');
+    const descMinLimit = parseInt(descArr[0], 10);
+    const descMaxLimit = parseInt(descArr[1], 10);
+    const descriptionReview = textAreaDiv.value;
+
+    const emptyErrorMsg = block.querySelector('.description-empty-err-msg');
+    const limitErrorMsg = block.querySelector('.description-limit-err-msg');
+
+    // Hide error messages when the user starts typing
+    textAreaDiv.addEventListener('input', () => {
+      emptyErrorMsg.style.display = 'none';
+      limitErrorMsg.style.display = 'none';
+    });
+
+    if (!descriptionReview) {
+      emptyErrorMsg.style.display = 'block';
+      return false;
+    } else {
+      if (!(descriptionReview.length > descMinLimit && descriptionReview.length <= descMaxLimit)) {
+        limitErrorMsg.style.display = 'block';
+        return false;
+      }
+    }
+  }
+  return [true, checkedValues];
+}
+
+// function to reset the input fields
+function resetInputField(formContainerDiv) {
+  const inputFieldsDivs = formContainerDiv.querySelectorAll('.feedback-input-field');
+  inputFieldsDivs.forEach((element) => {
+    const inputField = element.querySelector('input');
+    if (inputField) {
+      inputField.value = '';
+    }
+  });
+}
+
+// function forThankyou Pop up is shown when user click on skip button or submit button
+function showThankYouPopUp(block) {
+  const thankyouDiv = block.parentElement.nextElementSibling;
+  thankyouDiv.style = 'display:block';
+  block.querySelector('.parentContainerDiv').style = 'display:none';
+}
+
+// function for form validation
+function validateForm(formContainerDiv) {
+  const inputFieldsDivs = formContainerDiv.querySelectorAll('.feedback-input-field');
+  let isFormValid = true;
+
+  inputFieldsDivs.forEach((element) => {
+    const inputField = element.querySelector('input');
+    const errorMsg = element.nextElementSibling;
+
+    // Attach input event listener to hide error message when user starts typing
+    inputField.addEventListener('input', () => {
+      errorMsg.style.display = 'none';
+      inputField.classList.remove('error-msg-active');
+      errorMsg.classList.remove('error-msg-show');
+    });
+
+    if (inputField && errorMsg) {
+      const value = inputField.value.trim();
+
+      const nameRegex = /^[a-zA-Z\s]{2,50}$/;
+      const mobileRegex = /^[0-9]{10}$/;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      // Check if the input field is empty or does not match the regex pattern
+      if (value === '') {
+        errorMsg.style.display = 'block';
+        inputField.classList.add('error-msg-active');
+        errorMsg.classList.add('error-msg-show');
+        isFormValid = false;
+      } else if (inputField.name === 'fullName' && !nameRegex.test(value)) {
+        errorMsg.style.display = 'block';
+        inputField.classList.add('error-msg-active');
+        errorMsg.classList.add('error-msg-show');
+        isFormValid = false;
+      } else if (inputField.name === 'mobileNumber' && !mobileRegex.test(value)) {
+        errorMsg.style.display = 'block';
+        inputField.classList.add('error-msg-active');
+        errorMsg.classList.add('error-msg-show');
+        isFormValid = false;
+      } else if (inputField.name === 'emailId' && !emailRegex.test(value)) {
+        errorMsg.style.display = 'block';
+        inputField.classList.add('error-msg-active');
+        errorMsg.classList.add('error-msg-show');
+        isFormValid = false;
+      } else {
+        inputField.classList.remove('error-msg-active');
+        errorMsg.classList.remove('error-msg-show');
+        errorMsg.style.display = 'none';
+      }
+    }
+  });
+  return isFormValid;
+}
+
+// function for form when it show on click of feedback submit button
+function forFormFields(block, descriptionDiv, submitDiv, checkedFeildArr) {
+  block.querySelector('.headingContainerDiv').style = 'display:none';
+  block.querySelector('.feedback-checkbox-fieldset.field-wrapper.fieldset-wrapper').style = 'display:none';
+  descriptionDiv.style = 'display:none';
+  submitDiv.style = 'display:none';
+
+  const formContainerDiv = block.querySelector('.feedback-form-fieldset.field-wrapper.fieldset-wrapper');
+  formContainerDiv.style = 'display:block';
+  const formBtnContainer = block.querySelector('.button-fieldset.field-wrapper.fieldset-wrapper');
+  formBtnContainer.style = 'display:block';
+  resetInputField(formContainerDiv);
+  // Hide all elements with class 'feedback-error-msg' inside formContainerDiv
+  const errorMessages = formContainerDiv.querySelectorAll('.feedback-error-msg');
+  errorMessages.forEach((element) => {
+    element.style.display = 'none';
+  });
+
+  const skipBtnDiv = formBtnContainer.querySelector('.feedback-skip-btn');
+  const skipBtn = skipBtnDiv.querySelector('button');
+
+  const formSubmitBtnEle = formBtnContainer.querySelector('.field-wrapper.submit-wrapper.feedback-submit-btn');
+  const formSubmitBtn = formSubmitBtnEle.querySelector('button');
+
+  skipBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    showThankYouPopUp(block);
+  });
+
+  formSubmitBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    if (validateForm(formContainerDiv)) {
+      showThankYouPopUp(block);
+    } else {
+      console.log('form is not submitted some error');
+    }
   });
 }
 
@@ -291,149 +307,133 @@ function forFeedback(block) {
   }
 }
 
-// function for feedback submit button click event
-function clickEventOnFeedbackSubmitBtn(fieldset, block, descriptionDiv) {
-  const checkedCheckboxes = fieldset.querySelectorAll('input[type="checkbox"]:checked');
-  const checkedValues = Array.from(checkedCheckboxes).map((checkbox) => checkbox.value);
+function forCreateRatingRadioBtn(dynamicDiv, feedbackAttributes, parentContainerDiv, block, form) {
+  // for rating points
+  let ratingNumber;
+  const ratingContainer = createContainer('ratingContainer');
+  const ratingDiv = createContainer('ratingDiv');
+  const lessMoreLikeLabelDiv = createContainer('lessMoreLikeLabelDiv');
+  const submitRatingButton = createButton(feedbackAttributes.reviewsubmitButtonLabel, 'feedback-rating-button');
+  submitRatingButton.disabled = true;
 
-  if (descriptionDiv.style.display === 'block') {
-    const textAreaDiv = descriptionDiv.querySelector('textarea');
-    const descLimit = descriptionDiv.querySelector('label').textContent;
-    const descArr = descLimit.split('/');
-    const descMinLimit = parseInt(descArr[0], 10);
-    const descMaxLimit = parseInt(descArr[1], 10);
-    const descriptionReview = textAreaDiv.value;
+  let minLimit = parseInt(feedbackAttributes.minReviewCount, 10),
+    maxLimit = parseInt(feedbackAttributes.maxReviewCount, 10);
 
-    const emptyErrorMsg = block.querySelector('.description-empty-err-msg');
-    const limitErrorMsg = block.querySelector('.description-limit-err-msg');
+  for (let i = minLimit; i <= maxLimit; i++) {
+    const label = document.createElement('label');
+    label.textContent = i + ' ';
 
-    // Hide error messages when the user starts typing
-    textAreaDiv.addEventListener('input', () => {
-      emptyErrorMsg.style.display = 'none';
-      limitErrorMsg.style.display = 'none';
+    const input = document.createElement('input');
+    input.type = 'radio';
+    input.name = 'rating';
+    input.value = i;
+
+    label.appendChild(input);
+    ratingDiv.appendChild(label);
+
+    input.addEventListener('change', () => {
+      // Enable the submit button if any radio button is checked
+      ratingNumber = input.value;
+      submitRatingButton.disabled = false;
     });
-
-    if (!descriptionReview) {
-      emptyErrorMsg.style.display = 'block';
-      return false;
-    } else {
-      if (!(descriptionReview.length > descMinLimit && descriptionReview.length <= descMaxLimit)) {
-        limitErrorMsg.style.display = 'block';
-        return false;
-      }
-    }
   }
-  return [true, checkedValues];
-}
 
-// function to reset the input fields
-function resetInputField(formContainerDiv) {
-  const inputFieldsDivs = formContainerDiv.querySelectorAll('.feedback-input-field');
-  inputFieldsDivs.forEach((element) => {
-    const inputField = element.querySelector('input');
-    if (inputField) {
-      inputField.value = '';
-    }
+  const lessLiskely = document.createElement('p');
+  lessLiskely.textContent = feedbackAttributes.lessLikelyLabel;
+  lessLiskely.className = 'lessLikely';
+  lessMoreLikeLabelDiv.appendChild(lessLiskely);
+
+  const moreLikely = document.createElement('p');
+  moreLikely.textContent = feedbackAttributes.moreLikelyLabel;
+  moreLikely.className = 'moreLikely';
+  lessMoreLikeLabelDiv.appendChild(moreLikely);
+
+  ratingContainer.appendChild(ratingDiv);
+  ratingContainer.appendChild(lessMoreLikeLabelDiv);
+
+  // create div container for button which contain later and submit button
+  const laterButtonContainer = createContainer('laterButtonContainer');
+
+  const laterBtn = document.createElement('p');
+  laterBtn.textContent = feedbackAttributes.laterButtonLabel;
+  laterBtn.className = 'feedback-later-btn';
+
+  laterButtonContainer.appendChild(laterBtn);
+  laterButtonContainer.appendChild(submitRatingButton);
+
+  dynamicDiv.appendChild(ratingContainer);
+  dynamicDiv.appendChild(laterButtonContainer);
+
+  parentContainerDiv.appendChild(dynamicDiv);
+  block.appendChild(parentContainerDiv);
+
+  // Add the event listener here
+  laterBtn.addEventListener('click', () => {
+    parentContainerDiv.style.display = 'none';
+    block.querySelector('.feedback-title-btn').style = 'display: block';
+  });
+
+  submitRatingButton.addEventListener('click', () => {
+    showFeedBackPopUp(block, dynamicDiv, parentContainerDiv, form, feedbackAttributes);
+    forFeedback(block);
   });
 }
 
-// function forThankyou Pop up is shown when user click on skip button or submit button
-function showThankYouPopUp(block) {
-  const thankyouDiv = block.parentElement.nextElementSibling;
-  thankyouDiv.style = 'display:block';
-  block.querySelector('.parentContainerDiv').style = 'display:none';
+export default async function decorate(block) {
+  const blockEle = block.closest('.section.feedbackform-container');
+
+  const feedbackAttributes = extractValuesOfSectionMetadata(blockEle);
+
+  // const formJsonApi = feedbackAttributes.formJsonApi;
+  const { formJsonApi } = feedbackAttributes;
+  const form = await createForm(formJsonApi);
+
+  const feedbackBtn = createButton(feedbackAttributes.feedbackTitleButton, 'feedback-title-btn');
+  block.appendChild(feedbackBtn);
+
+  // create parent container div
+  const parentContainerDiv = createContainer('parentContainerDiv');
+
+  // create heading container div which contain title and description
+  const headingContainerDiv = createContainer('headingContainerDiv');
+
+  // create heading title div
+  const headingTitleDiv = createContainer('headingTitleDiv');
+
+  // create heading description div
+  const headingDescriptionDiv = createContainer('headingDescriptionDiv');
+
+  // create a dynamic div which have data change accordingly btn click
+  const dynamicDiv = createContainer('dynamicDiv');
+
+  // Create collapse button
+  const collapseButton = document.createElement('button');
+  collapseButton.className = 'collapse-button';
+  const collapseBtnIcon = document.createElement('img');
+  collapseBtnIcon.classList.add('collapse-btn-icon');
+  // collapseBtnIcon.src = '../../icons/greater-then-icon.png'
+  collapseBtnIcon.setAttribute('src', '../../icons/greater-then-icon.png');
+  collapseButton.appendChild(collapseBtnIcon);
+  // collapseButton.textContent = '>';
+  parentContainerDiv.appendChild(collapseButton);
+
+  // feedback click event
+  document.getElementById('feedback-title-btn').addEventListener('click', function () {
+    forEmptyDiv(headingTitleDiv, headingDescriptionDiv, dynamicDiv);
+
+    forWelcomeContainer(feedbackAttributes, headingTitleDiv, headingDescriptionDiv,
+      headingContainerDiv, parentContainerDiv, block);
+
+    forCreateRatingRadioBtn(dynamicDiv, feedbackAttributes, parentContainerDiv, block, form);
+    parentContainerDiv.style = 'display:block';
+    parentContainerDiv.classList.add('visible-parent');
+    this.style = 'display:none';
+  });
+
+  collapseButton.addEventListener('click', function () {
+    parentContainerDiv.classList.remove('visible-parent');
+    // parentContainerDiv.style.display = 'none';
+    document.getElementById('feedback-title-btn').style.display = 'block';
+  });
 }
 
-// function for form when it show on click of feedback submit button
-function forFormFields(block, descriptionDiv, submitDiv, checkedFeildArr) {
-  block.querySelector('.headingContainerDiv').style = 'display:none';
-  block.querySelector('.feedback-checkbox-fieldset.field-wrapper.fieldset-wrapper').style = 'display:none';
-  descriptionDiv.style = 'display:none';
-  submitDiv.style = 'display:none';
-
-  const formContainerDiv = block.querySelector('.feedback-form-fieldset.field-wrapper.fieldset-wrapper');
-  formContainerDiv.style = 'display:block';
-  const formBtnContainer = block.querySelector('.button-fieldset.field-wrapper.fieldset-wrapper');
-  formBtnContainer.style = 'display:block';
-  resetInputField(formContainerDiv);
-  // Hide all elements with class 'feedback-error-msg' inside formContainerDiv
-  const errorMessages = formContainerDiv.querySelectorAll('.feedback-error-msg');
-  errorMessages.forEach((element) => {
-    element.style.display = 'none';
-  });
-
-  const skipBtnDiv = formBtnContainer.querySelector('.feedback-skip-btn');
-  const skipBtn = skipBtnDiv.querySelector('button');
-
-  const formSubmitBtnEle = formBtnContainer.querySelector('.field-wrapper.submit-wrapper.feedback-submit-btn');
-  const formSubmitBtn = formSubmitBtnEle.querySelector('button');
-
-  skipBtn.addEventListener('click', (event) => {
-    event.preventDefault();
-    showThankYouPopUp(block);
-  });
-
-  formSubmitBtn.addEventListener('click', (event) => {
-    event.preventDefault();
-    if (validateForm(formContainerDiv)) {
-      showThankYouPopUp(block);
-    } else {
-      console.log('form is not submitted some error');
-    }
-  });
-}
-
-// function for form validation
-function validateForm(formContainerDiv) {
-  const inputFieldsDivs = formContainerDiv.querySelectorAll('.feedback-input-field');
-  let isFormValid = true;
-
-  inputFieldsDivs.forEach((element) => {
-    const inputField = element.querySelector('input');
-    const errorMsg = element.nextElementSibling;
-
-    // Attach input event listener to hide error message when user starts typing
-    inputField.addEventListener('input', () => {
-      errorMsg.style.display = 'none';
-      inputField.classList.remove('error-msg-active');
-      errorMsg.classList.remove('error-msg-show');
-    });
-
-    if (inputField && errorMsg) {
-      const value = inputField.value.trim();
-
-      const nameRegex = /^[a-zA-Z\s]{2,50}$/;
-      const mobileRegex = /^[0-9]{10}$/;
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-      // Check if the input field is empty or does not match the regex pattern
-      if (value === '') {
-        errorMsg.style.display = 'block';
-        inputField.classList.add('error-msg-active');
-        errorMsg.classList.add('error-msg-show');
-        isFormValid = false;
-      } else if (inputField.name === 'fullName' && !nameRegex.test(value)) {
-        errorMsg.style.display = 'block';
-        inputField.classList.add('error-msg-active');
-        errorMsg.classList.add('error-msg-show');
-        isFormValid = false;
-      } else if (inputField.name === 'mobileNumber' && !mobileRegex.test(value)) {
-        errorMsg.style.display = 'block';
-        inputField.classList.add('error-msg-active');
-        errorMsg.classList.add('error-msg-show');
-        isFormValid = false;
-      } else if (inputField.name === 'emailId' && !emailRegex.test(value)) {
-        errorMsg.style.display = 'block';
-        inputField.classList.add('error-msg-active');
-        errorMsg.classList.add('error-msg-show');
-        isFormValid = false;
-      } else {
-        inputField.classList.remove('error-msg-active');
-        errorMsg.classList.remove('error-msg-show');
-        errorMsg.style.display = 'none';
-      }
-    }
-  });
-
-  return isFormValid;
-}
