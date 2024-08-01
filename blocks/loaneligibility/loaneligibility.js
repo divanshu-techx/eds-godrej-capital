@@ -139,6 +139,16 @@ function displayDetails(P, R, N, M, E, line, pie, block) {
   block.querySelector('#MonthlyEmiPrice').innerText = emi.toLocaleString('en-IN', opts);
 
   block.querySelector('#mobile_monthly_emi_price').innerText = emi.toLocaleString('en-IN', opts);
+  
+  // Calculate the loan eligibility using the formula
+  // var loanEligibility = (P - E) *
+  // (Math.pow(1 + r, totalMonths) - 1) /
+  // (r * Math.pow(1 + r, totalMonths));
+  // loanEligibility = Math.round(Math.max(loanEligibility, 0));
+  // console.log(loanEligibility);
+
+  //   block.querySelector('#le').innerText = `₹ ${loanEligibility.toLocaleString('en-IN')}`;
+  //   block.querySelector('#mobile-le').innerText = `₹ ${loanEligibility.toLocaleString('en-IN')}`;
 
   block.querySelector('#le').innerText = `₹ ${Math.max(0, P - E).toLocaleString('en-IN')}`;
   block.querySelector('#mobile-le').innerText = `₹ ${Math.max(0, P - E).toLocaleString('en-IN')}`;
@@ -206,6 +216,7 @@ function initialize(block) {
   const mobileyear = getDataAttributeValueByName('Mobile-year');
   const mobilemonths = getDataAttributeValueByName('Mobile-month');
   const selectProductPlaceHolder = getDataAttributeValueByName('select-product-place-holder');
+  console.log(selectProductPlaceHolder);
 
   //  Create a select element
   const selectProduct = document.createElement('select');
@@ -213,7 +224,10 @@ function initialize(block) {
   const mobileSelect = document.querySelector('.sec-tab-dropdown');
   //   Loop through the array and create option elements
   option = document.createElement('option');
+  option.value=' ';
   option.text = selectProductPlaceHolder;
+  option.disabled = true;
+  option.selected = true;
   selectProduct.appendChild(option);
 
   //  Split the string into an array of loan options
@@ -778,9 +792,26 @@ function initialize(block) {
       loanAmtError.style.display = 'none';
     }
   });
+  loanAmtSlider.addEventListener('input', function () {
+    if (parseFloat(this.value) < parseFloat(loanAmountMinValue)
+      || parseFloat(this.value) > parseFloat(loanAmountMaxValue)) {
+      loanAmtError.style.display = 'block';
+    } else {
+      loanAmtError.style.display = 'none';
+    }
+  });
 
   //  error for existing emi
   exisitingEmiText.addEventListener('input', function () {
+    if (parseFloat(this.value) < parseFloat(existingEmiMin)
+      || parseFloat(this.value) > parseFloat(existingEmiMax)) {
+      exisitingEmiError.style.display = 'block';
+    } else {
+      exisitingEmiError.style.display = 'none';
+    }
+  });
+
+  exisitingEmiAmountSlider.addEventListener('input', function () {
     if (parseFloat(this.value) < parseFloat(existingEmiMin)
       || parseFloat(this.value) > parseFloat(existingEmiMax)) {
       exisitingEmiError.style.display = 'block';
@@ -799,6 +830,15 @@ function initialize(block) {
     }
   });
 
+  intRateSlider.addEventListener('input', function () {
+    if (parseFloat(this.value) < parseFloat(interestRateMinValue)
+      || parseFloat(this.value) > parseFloat(interestRateMaxValue)) {
+      interestRateError.style.display = 'block';
+    } else {
+      interestRateError.style.display = 'none';
+    }
+  });
+
   //  error for year
   loanPeriodText.addEventListener('input', function () {
     if (parseFloat(this.value) < parseFloat(tenureMinYearValue)
@@ -809,8 +849,26 @@ function initialize(block) {
     }
   });
 
+  loanPeriodSlider.addEventListener('input', function () {
+    if (parseFloat(this.value) < parseFloat(tenureMinYearValue)
+      || parseFloat(this.value) > parseFloat(tenureMaxYearValue)) {
+      loanPeriodError.style.display = 'block';
+    } else {
+      loanPeriodError.style.display = 'none';
+    }
+  });
+
   // error for month
   loanPeriodTextMonth.addEventListener('input', function () {
+    if (parseFloat(this.value) < parseFloat(tenureMinMonthValue)
+      || parseFloat(this.value) > parseFloat(tenureMaxMonthValue)) {
+      loanPeriodMonthError.style.display = 'block';
+    } else {
+      loanPeriodMonthError.style.display = 'none';
+    }
+  });
+
+  loanPeriodSliderMonth.addEventListener('input', function () {
     if (parseFloat(this.value) < parseFloat(tenureMinMonthValue)
       || parseFloat(this.value) > parseFloat(tenureMaxMonthValue)) {
       loanPeriodMonthError.style.display = 'block';
@@ -843,7 +901,7 @@ function initialize(block) {
     console.log('desk btn click');
     console.log(productValue);
     if (productValue) {
-      url = `${desktopRedirectionPath}?product=${encodeURIComponent(productValue)}`;
+      url = `${desktopRedirectionPath}?category=${encodeURIComponent(productValue)}`;
       window.location.href = url;
     } else {
       url = desktopRedirectionPath;
@@ -857,7 +915,7 @@ function initialize(block) {
     if (productValue) {
       const formattedProductValue = productValue.toLowerCase().replace(/\s+/g, '-');
       //url = `${mobileredirection}?product=${encodeURIComponent(formattedProductValue)}`;
-      url = `${applyMobileRedirectionPath}?product=${encodeURIComponent(formattedProductValue)}`;
+      url = `${applyMobileRedirectionPath}?category=${encodeURIComponent(formattedProductValue)}`;
       window.location.href = url;
     } else {
       url = applyMobileRedirectionPath;

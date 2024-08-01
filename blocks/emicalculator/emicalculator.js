@@ -153,6 +153,7 @@ function displayDetails(P, R, N, M, pie, block) {
   // line.update(); // Uncomment if you want to update the line chart
 }
 
+
 function initialize(block) {
   const loanAmountMaxValue = getDataAttributeValueByName('loan-amount-max-value');
   const loanAmountMinValue = getDataAttributeValueByName('loan-amount-min-value');
@@ -539,8 +540,16 @@ function initialize(block) {
   tenureMonthsDetail.appendChild(loanPeriodMonthError);
 
   // Event listeners for input elements to validate input values
+
   //error for loan amount
   loan_amt_text.addEventListener('input', function () {
+    if (removeCommaAndConvertToInt(this.value) < removeCommaAndConvertToInt(loanAmountMinValue) || removeCommaAndConvertToInt(this.value) > removeCommaAndConvertToInt(loanAmountMaxValue)) {
+      loanAmtError.style.display = 'block';
+    } else {
+      loanAmtError.style.display = 'none';
+    }
+  });
+  loan_amt_slider.addEventListener('input', function () {
     if (removeCommaAndConvertToInt(this.value) < removeCommaAndConvertToInt(loanAmountMinValue) || removeCommaAndConvertToInt(this.value) > removeCommaAndConvertToInt(loanAmountMaxValue)) {
       loanAmtError.style.display = 'block';
     } else {
@@ -550,6 +559,13 @@ function initialize(block) {
 
   //error for loan amount
   int_rate_text.addEventListener('input', function () {
+    if (parseFloat(this.value) < parseFloat(interestrate_minvalue) || parseFloat(this.value) > parseFloat(interestrate_maxvalue)) {
+      interestRateError.style.display = 'block';
+    } else {
+      interestRateError.style.display = 'none';
+    }
+  });
+  int_rate_slider.addEventListener('input', function () {
     if (parseFloat(this.value) < parseFloat(interestrate_minvalue) || parseFloat(this.value) > parseFloat(interestrate_maxvalue)) {
       interestRateError.style.display = 'block';
     } else {
@@ -566,8 +582,24 @@ function initialize(block) {
     }
   });
 
+  loan_period_slider.addEventListener('input', function () {
+    if (parseFloat(this.value) < parseFloat(tenure_min_yearvalue) || parseFloat(this.value) > parseFloat(tenure_max_yearvalue)) {
+      loanPeriodError.style.display = 'block';
+    } else {
+      loanPeriodError.style.display = 'none';
+    }
+  });
+
   //error for month
   loan_period_text_month.addEventListener('input', function () {
+    if (parseFloat(this.value) < parseFloat(tenure_min_monthvalue) || parseFloat(this.value) > parseFloat(tenure_max_monthvalue)) {
+      loanPeriodMonthError.style.display = 'block';
+    } else {
+      loanPeriodMonthError.style.display = 'none';
+    }
+  });
+
+  loan_period_slider_month.addEventListener('input', function () {
     if (parseFloat(this.value) < parseFloat(tenure_min_monthvalue) || parseFloat(this.value) > parseFloat(tenure_max_monthvalue)) {
       loanPeriodMonthError.style.display = 'block';
     } else {
