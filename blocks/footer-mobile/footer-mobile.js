@@ -3,7 +3,7 @@ export default async function decorate(block) {
 
   // Create overlay element
   const overlay = document.createElement('div');
-  overlay.classList.add('overlay');
+  overlay.classList.add('overlay', 'overlay-footer-mobile');
   document.body.appendChild(overlay);
 
   // Constants for header and footer height
@@ -29,8 +29,8 @@ export default async function decorate(block) {
 
     dropdown.style.height = `${halfRemainingHeight}px`;
     dropdown.style.width = '-webkit-fill-available';
-    overlay.style.height = `${halfRemainingHeight + headerHeight}px`; // Extend to cover header
-    overlay.style.top = `0`; // Start from the top of the viewport
+    overlay.style.height = `${halfRemainingHeight + headerHeight}px`;
+    overlay.style.top = `0`;
   }
 
   allDivs.forEach((div, index) => {
