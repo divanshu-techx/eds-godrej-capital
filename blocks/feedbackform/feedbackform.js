@@ -1,4 +1,6 @@
-import { createForm } from '/blocks/form/form.js';
+import { createForm } from '../form/form.js';
+
+var ratingNumber;
 
 // get value from section metadata
 function extractValuesOfSectionMetadata(blockEle) {
@@ -310,19 +312,20 @@ function forFeedback(block) {
 
 function forCreateRatingRadioBtn(dynamicDiv, feedbackAttributes, parentContainerDiv, block, form) {
   // for rating points
-  var ratingNumber;
+  // var ratingNumber;
   const ratingContainer = createContainer('ratingContainer');
   const ratingDiv = createContainer('ratingDiv');
   const lessMoreLikeLabelDiv = createContainer('lessMoreLikeLabelDiv');
   const submitRatingButton = createButton(feedbackAttributes.reviewsubmitButtonLabel, 'feedback-rating-button');
   submitRatingButton.disabled = true;
 
-  let minLimit = parseInt(feedbackAttributes.minReviewCount, 10),
-    maxLimit = parseInt(feedbackAttributes.maxReviewCount, 10);
+  const minLimit = parseInt(feedbackAttributes.minReviewCount, 10);
+  const maxLimit = parseInt(feedbackAttributes.maxReviewCount, 10);
 
   for (let i = minLimit; i <= maxLimit; i++) {
     const label = document.createElement('label');
-    label.textContent = i + ' ';
+    // label.textContent = i + ' ';
+    label.textContent = `${i} `;
 
     const input = document.createElement('input');
     input.type = 'radio';
