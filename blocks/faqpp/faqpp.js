@@ -52,10 +52,10 @@ export default async function decorate(block) {
     }
 
     // Filter Q&A data based on the selected category
-    const filteredData = quesAnsData.filter(item => item.category.toLowerCase() === selectedCategory);
+    const filteredData = quesAnsData.filter((item) => item.category.toLowerCase() === selectedCategory);
 
     // Extract unique tags from the filtered data and render them
-    const tags = [...new Set(filteredData.flatMap(item => normalizeTags(item.tags)))];
+    const tags = [...new Set(filteredData.flatMap((item) => normalizeTags(item.tags)))];
     renderTags(tags, faqTabs);
 
     // Render Q&A items based on the selected category
@@ -88,7 +88,8 @@ async function fetchData(apiUrl) {
 
 // Function to retrieve the value of a URL parameter by name
 function getParameterByName(name, url = window.location.href) {
-  name = name.replace(/[\[\]]/g, '\\$&');
+  // name = name.replace(/[\[\]]/g, '\\$&');
+  name = name.replace(/[[\]]/g, '\\$&');
   const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`);
   const results = regex.exec(url);
   if (!results) return null;
@@ -97,9 +98,9 @@ function getParameterByName(name, url = window.location.href) {
 }
 
 // Function to normalize category by converting to lowercase and replacing spaces with underscores
-function normalizeCategory(category) {
-  return category.toLowerCase().replace(/ /g, '_');
-}
+// function normalizeCategory(category) {
+//   return category.toLowerCase().replace(/ /g, '_');
+// }
 
 // Function to normalize tags by trimming whitespace, converting to lowercase, and splitting by commas
 function normalizeTags(tags) {
@@ -131,13 +132,13 @@ function renderQA(data, selectedCategory, selectedTag, container) {
 
   // Filter data based on the selected category or tag
   if (selectedCategory) {
-    filteredData = data.filter(item => item.category.toLowerCase() === selectedCategory);
+    filteredData = data.filter((item) => item.category.toLowerCase() === selectedCategory);
   } else {
-    filteredData = data.filter(item => normalizeTags(item.tags).includes(selectedTag.toLowerCase()));
+    filteredData = data.filter((item) => normalizeTags(item.tags).includes(selectedTag.toLowerCase()));
   }
 
   // Create and append Q&A items to the container
-  filteredData.forEach(item => {
+  filteredData.forEach((item) => {
     const qaItem = document.createElement('div');
     qaItem.className = 'qa-item';
 
@@ -188,7 +189,7 @@ function renderQA(data, selectedCategory, selectedTag, container) {
 
 // Function to create the 'Can't Find' element
 function createCantFindEl() {
-  let cannotFindDiv = document.createElement('div');
+  const cannotFindDiv = document.createElement('div');
   cannotFindDiv.className = 'cannot-find-container';
 
   const cannotFindText = document.createElement('p');
@@ -231,8 +232,8 @@ function quesAnsChangeOnTags(faqTabs, quesAnsData, faqAccordion) {
   const buttons = faqTabs.querySelectorAll('.tags-btn-container .tag-button');
   buttons.forEach(function (button, index) {
     if (index === 0) button.classList.add('active-tag');
-    button.addEventListener('click', function (event) {
-      buttons.forEach(btn => btn.classList.remove('active-tag'));
+    button.addEventListener('click', (event) => {
+      buttons.forEach((btn) => btn.classList.remove('active-tag'));
       this.classList.add('active-tag');
 
       const clickedButton = event.target;
