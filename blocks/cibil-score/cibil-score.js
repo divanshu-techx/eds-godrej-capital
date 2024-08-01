@@ -32,7 +32,19 @@ function addToolTipAndCibilScore(el, score) {
             div({ class: 'score-info-container' },
                 div({ class: 'score-info-content' },
                     div({ class: 'score-grade-content' },
-                        span({ class: 'color excellent' }), span({ class: 'grade-text' }, 'Excellent'), span({ class: 'score-range' }, '800-900')
+                        span({ class: 'color excellent' }), span({ class: 'grade-text' }, 'Excellent'), span({ class: 'score-range' }, '800 - 900')
+                    ),
+                    div({ class: 'score-grade-content' },
+                        span({ class: 'color very-good' }), span({ class: 'grade-text' }, 'Very Good'), span({ class: 'score-range' }, '750 - 799')
+                    ),
+                    div({ class: 'score-grade-content' },
+                        span({ class: 'color good' }), span({ class: 'grade-text' }, 'Good'), span({ class: 'score-range' }, '670 - 749')
+                    ),
+                    div({ class: 'score-grade-content' },
+                        span({ class: 'color average' }), span({ class: 'grade-text' }, 'Average'), span({ class: 'score-range' }, '580 - 669')
+                    ),
+                    div({ class: 'score-grade-content' },
+                        span({ class: 'color poor' }), span({ class: 'grade-text' }, 'Poor'), span({ class: 'score-range' }, '300 - 579')
                     )
                 ))
         )

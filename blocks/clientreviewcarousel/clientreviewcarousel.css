@@ -110,6 +110,12 @@
   }
 }
 
+@media(min-width:1200px) {
+  .clientreviewcarousel-container .default-content-wrapper * {
+    top: 5px;
+  }
+}
+
 @media(max-width:600px) {
   .clientreviewcarousel-container .default-content-wrapper * {
     font-size: 20px;

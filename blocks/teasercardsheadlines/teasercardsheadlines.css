@@ -6,6 +6,7 @@
 .section.teasercardsheadlines-container {
     padding: 0;
     position: relative;
+    padding-top: 22px;
 }
 
 .desktop-picture {
@@ -70,7 +71,7 @@
         display: none;
     }
 
-    .our-leadership .teasercardsheadlines.block .desktop-picture img{
+    .our-leadership .teasercardsheadlines.block .desktop-picture img {
         max-height: 400px;
     }
 }
@@ -100,8 +101,8 @@
     }
 
     .teaser-content img {
-        width: 105px!important;
-        height: 40px!important;
+        width: 105px !important;
+        height: 40px !important;
     }
 
     .teaser-content {
@@ -117,18 +118,22 @@ a {
     margin: 0;
     padding: 0;
 }
+
 .teaser-content img {
     width: 204px;
     height: 80px;
 }
+
 .teasercardsheadlines.block div:last-child {
     max-width: 1200px;
     margin: auto;
     width: 100%;
 }
+
 .teaser-content {
     padding-top: 3rem;
 }
+
 .teaser-content .button-container .button {
     display: inline-block;
     padding: 5px 10px;
@@ -137,5 +142,9 @@ a {
     border-radius: 2px;
     font-size: 12px;
     text-decoration: none;
-    margin-top:10px;
+    margin-top: 10px;
+}
+
+.teaser-content .button-container .button:hover {
+    background-color: #00A2FF;
 }
