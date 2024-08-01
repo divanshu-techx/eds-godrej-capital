@@ -343,19 +343,14 @@ export default async function decorate(block) {
           }
           parent.removeChild(link);
         });
-      } else {
+      } else if (videoUrl) {
         // call to their model for pop up mode
-        if (videoUrl) {
           if (isYouTubeURL(videoUrl)) {
             youtubeModel(videoUrl);
           } else {
             createModal(videoUrl);
           }
-        }
       }
     });
   });
 }
-
-
-
