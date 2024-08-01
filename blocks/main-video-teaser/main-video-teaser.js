@@ -3,6 +3,79 @@ const MEDIA_BREAKPOINTS = {
   TABLET: 'TABLET',
   DESKTOP: 'DESKTOP',
 };
+
+// function to identify youtube link
+function isYouTubeURL(url) {
+  const youtubePattern = /^(https?:\/\/)?(www\.)?(youtube\.com\/(?:embed\/|v\/|watch\?v=)|youtu\.be\/)[\w-]+/;
+  return youtubePattern.test(url);
+}
+
+// function to convert youtube link to embed form
+function getYouTubeEmbedURL(url) {
+  const urlObj = new URL(url);
+  let videoId = '';
+
+  if (urlObj.hostname === 'youtube.com') {
+    const params = new URLSearchParams(urlObj.search);
+    videoId = params.get('v');
+  } else if (urlObj.hostname === 'youtu.be') {
+    videoId = urlObj.pathname.substring(1);
+  }
+
+  return videoId ? `https://www.youtube.com/embed/${videoId}` : '';
+}
+
+// Video Model for YouTube Video
+function youtubeModel(videoUrl) {
+  if (!isYouTubeURL(videoUrl)) {
+    console.error('Invalid YouTube URL');
+    return;
+  }
+
+  const embedUrl = getYouTubeEmbedURL(videoUrl);
+
+  // Remove any existing YouTube modal
+  const existingModal = document.querySelector('.youtube-modal');
+  if (existingModal) {
+    existingModal.remove();
+  }
+
+  // Modal HTML
+  const modalHtml = `
+    <div id="youtubeModal" class="youtube-modal">
+      <div class="youtube-modal-content">
+        <span class="youtube-modal-close">&times;</span>
+        <div class="youtube-video-container">
+          <iframe src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Append modal HTML to the body
+  const modalDiv = document.createElement('div');
+  modalDiv.innerHTML = modalHtml;
+  document.body.appendChild(modalDiv);
+
+  const modal = document.getElementById('youtubeModal');
+  const closeBtn = modal.querySelector('.youtube-modal-close');
+
+  // Show the modal
+  modal.style.display = 'block';
+
+  // Close modal on close button click
+  closeBtn.onclick = function () {
+    modal.style.display = 'none';
+  };
+
+  // Close modal on clicking outside of the content area
+  window.onclick = function (event) {
+    if (event.target === modal) {
+      modal.style.display = 'none';
+    }
+  };
+}
+
 // Main Function
 export default async function decorate(block) {
   prepareBackgroundImage(block);
@@ -38,14 +111,14 @@ export default async function decorate(block) {
     const imgElement = pictureElement.querySelector('img');
 
     if (imgElement) {
-      const newAnchor = document.createElement('a');
-      newAnchor.href = linkUrl;
-      newAnchor.title = 'Play Video';
+      const newAnchorEle = document.createElement('a');
+      newAnchorEle.href = linkUrl;
+      newAnchorEle.title = 'Play Video';
 
       console.log(imgElement.parentNode);
 
-      imgElement.parentNode.insertBefore(newAnchor, imgElement);
-      newAnchor.appendChild(imgElement);
+      imgElement.parentNode.insertBefore(newAnchorEle, imgElement);
+      newAnchorEle.appendChild(imgElement);
     }
   }
 
@@ -240,28 +313,10 @@ function initBackgroundPosition(classList, breakpoint) {
 
   return backgroundPositionValue;
 }
-// function to identify youtube link
-function isYouTubeURL(url) {
-  const youtubePattern = /^(https?:\/\/)?(www\.)?(youtube\.com\/(?:embed\/|v\/|watch\?v=)|youtu\.be\/)[\w-]+/;
-  return youtubePattern.test(url);
-}
-// function to convert youtube link to embed form
-function getYouTubeEmbedURL(url) {
-  const urlObj = new URL(url);
-  let videoId = '';
 
-  if (urlObj.hostname === 'youtube.com') {
-    const params = new URLSearchParams(urlObj.search);
-    videoId = params.get('v');
-  } else if (urlObj.hostname === 'youtu.be') {
-    videoId = urlObj.pathname.substring(1);
-  }
-
-  return videoId ? `https://www.youtube.com/embed/${videoId}` : '';
-}
 // Video Modal for Mp4 video and other
 function createModal(videoUrl) {
-  let existingModal = document.querySelector('.custom-video-modal');
+  const existingModal = document.querySelector('.custom-video-modal');
   if (existingModal) {
     existingModal.remove();
   }
@@ -307,53 +362,4 @@ function createModal(videoUrl) {
     }
   };
 }
-// Video Model for YouTube Video
-function youtubeModel(videoUrl) {
-  if (!isYouTubeURL(videoUrl)) {
-    console.error('Invalid YouTube URL');
-    return;
-  }
 
-  const embedUrl = getYouTubeEmbedURL(videoUrl);
-
-  // Remove any existing YouTube modal
-  const existingModal = document.querySelector('.youtube-modal');
-  if (existingModal) {
-    existingModal.remove();
-  }
-
-  // Modal HTML
-  const modalHtml = `
-    <div id="youtubeModal" class="youtube-modal">
-      <div class="youtube-modal-content">
-        <span class="youtube-modal-close">&times;</span>
-        <div class="youtube-video-container">
-          <iframe src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-      </div>
-    </div>
-  `;
-
-  // Append modal HTML to the body
-  const modalDiv = document.createElement('div');
-  modalDiv.innerHTML = modalHtml;
-  document.body.appendChild(modalDiv);
-
-  const modal = document.getElementById('youtubeModal');
-  const closeBtn = modal.querySelector('.youtube-modal-close');
-
-  // Show the modal
-  modal.style.display = 'block';
-
-  // Close modal on close button click
-  closeBtn.onclick = function () {
-    modal.style.display = 'none';
-  };
-
-  // Close modal on clicking outside of the content area
-  window.onclick = function (event) {
-    if (event.target === modal) {
-      modal.style.display = 'none';
-    }
-  };
-}
