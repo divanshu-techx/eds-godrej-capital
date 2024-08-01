@@ -76,6 +76,55 @@ function youtubeModel(videoUrl) {
   };
 }
 
+// Video Modal for Mp4 video and other
+function createModal(videoUrl) {
+  const existingModal = document.querySelector('.custom-video-modal');
+  if (existingModal) {
+    existingModal.remove();
+  }
+
+  const modalHtml = `
+    <div id="customVideoModal" class="custom-video-modal">
+      <div class="custom-video-modal-content">
+        <span class="custom-video-modal-close">&times;</span>
+        <div class="custom-video-container">
+          <video id="videoPlayer" controls autoplay name="media">
+            <source id="videoSource" src="" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  `;
+
+  const modalDiv = document.createElement('div');
+  modalDiv.innerHTML = modalHtml;
+  document.body.appendChild(modalDiv);
+
+  const videoSource = document.getElementById('videoSource');
+
+  const modal = document.getElementById('customVideoModal');
+  const span = modal.querySelector('.custom-video-modal-close');
+  const videoPlayer = document.getElementById('videoPlayer');
+
+  videoSource.src = videoUrl;
+  modal.style.display = 'block';
+  videoPlayer.load();
+
+  span.onclick = function () {
+    modal.style.display = 'none';
+    videoPlayer.pause();
+    videoPlayer.src = '';
+  };
+
+  window.onclick = function (event) {
+    if (event.target === modal) {
+      modal.style.display = 'none';
+      videoPlayer.pause();
+      videoPlayer.src = '';
+    }
+  };
+}
+
 // Main Function
 export default async function decorate(block) {
   prepareBackgroundImage(block);
@@ -293,6 +342,7 @@ function initBackgroundPosition(classList, breakpoint) {
   const backgroudPositionClass = [...classList].find((item) =>
     item.startsWith(`bp-${classPrefix}-`),
   );
+
   let backgroundPositionValue = 'unset';
 
   if (backgroudPositionClass) {
@@ -308,53 +358,3 @@ function initBackgroundPosition(classList, breakpoint) {
 
   return backgroundPositionValue;
 }
-
-// Video Modal for Mp4 video and other
-function createModal(videoUrl) {
-  const existingModal = document.querySelector('.custom-video-modal');
-  if (existingModal) {
-    existingModal.remove();
-  }
-
-  const modalHtml = `
-    <div id="customVideoModal" class="custom-video-modal">
-      <div class="custom-video-modal-content">
-        <span class="custom-video-modal-close">&times;</span>
-        <div class="custom-video-container">
-          <video id="videoPlayer" controls autoplay name="media">
-            <source id="videoSource" src="" type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  `;
-
-  const modalDiv = document.createElement('div');
-  modalDiv.innerHTML = modalHtml;
-  document.body.appendChild(modalDiv);
-
-  const videoSource = document.getElementById('videoSource');
-
-  const modal = document.getElementById('customVideoModal');
-  const span = modal.querySelector('.custom-video-modal-close');
-  const videoPlayer = document.getElementById('videoPlayer');
-
-  videoSource.src = videoUrl;
-  modal.style.display = 'block';
-  videoPlayer.load();
-
-  span.onclick = function () {
-    modal.style.display = 'none';
-    videoPlayer.pause();
-    videoPlayer.src = '';
-  };
-
-  window.onclick = function (event) {
-    if (event.target === modal) {
-      modal.style.display = 'none';
-      videoPlayer.pause();
-      videoPlayer.src = '';
-    }
-  };
-}
-
