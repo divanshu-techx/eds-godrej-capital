@@ -1,3 +1,9 @@
+// Function to retrieve the value of a data attribute by name
+function getDataAttributeValueByName(name) {
+  const element = document.querySelector(`[data-${name}]`);
+  return element ? element.getAttribute(`data-${name}`) : '';
+}
+
 const quesAnsUrl = getDataAttributeValueByName('quesansurl');
 const faqDesktopTitle = getDataAttributeValueByName('desktopTitle');
 const faqMobileTitle = getDataAttributeValueByName('mobileTitle');
@@ -5,73 +11,34 @@ const cannotFindLabel = getDataAttributeValueByName('cannotfindlabel');
 const viewAllLabel = getDataAttributeValueByName('viewallbuttonlabel');
 const viewAllRedirection = getDataAttributeValueByName('viewallbuttonredirection');
 
-// Main function to decorate the FAQ block
-export default async function decorate(block) {
-  // Create FAQ container and append to the block
-  const faqmobileTitlediv = document.createElement('div');
-  faqmobileTitlediv.className = 'faq-container-titleMobile';
-  faqmobileTitlediv.textContent = faqMobileTitle;
-  block.appendChild(faqmobileTitlediv);
-  const faqContainer = document.createElement('div');
-  faqContainer.className = 'faq-container';
-  block.appendChild(faqContainer);
-
-  // Create FAQ tabs container and append to the FAQ container
-  const faqTabs = document.createElement('div');
-  faqTabs.className = 'faq-tabs';
-  faqContainer.appendChild(faqTabs);
-
-  // Create title container and append to the FAQ tabs
-  const titleContainer = document.createElement('div');
-  titleContainer.className = 'main-title';
-  const title = document.createElement('h2');
-  title.classList.add('title');
-  changeTiltleWithScreens(title);
-  window.addEventListener('resize', () => { changeTiltleWithScreens(title) });
-
-  titleContainer.append(title);
-  faqTabs.append(titleContainer);
-
-  // Create and append 'Can't Find' element to the FAQ tabs
-  const cantFindEl1 = createCantFindEl();
-  faqTabs.append(cantFindEl1);
-
-  // Create FAQ accordion container and append to the FAQ container
-  const faqAccordion = document.createElement('div');
-  faqAccordion.className = 'faq-accordion';
-  faqContainer.appendChild(faqAccordion);
-
-  try {
-    // Fetch Q&A data from the API
-    const quesAnsData = await fetchData(quesAnsUrl);
-
-    // Get the selected category from the URL parameter or data attribute
-    let selectedCategory = getParameterByName('category');
-    if (selectedCategory === null || selectedCategory === '') {
-      selectedCategory = getDataAttributeValueByName('productPageName').toLowerCase();
-    }
-
-    // Filter Q&A data based on the selected category
-    const filteredData = quesAnsData.filter((item) => item.category.toLowerCase() === selectedCategory);
-
-    // Extract unique tags from the filtered data and render them
-    const tags = [...new Set(filteredData.flatMap((item) => normalizeTags(item.tags)))];
-    renderTags(tags, faqTabs);
-
-    // Render Q&A items based on the selected category
-    renderQA(filteredData, selectedCategory, '', faqAccordion);
-
-    // Handle Q&A changes based on tag selection
-    quesAnsChangeOnTags(faqTabs, quesAnsData, faqAccordion);
-  } catch (error) {
-    console.error('Error fetching data:', error);
+// Function to change title based on screen size
+function changeTiltleWithScreens(title) {
+  if (window.matchMedia('(max-width: 600px)').matches) {
+    title.textContent = faqMobileTitle;
+  } else {
+    title.textContent = faqDesktopTitle;
   }
 }
 
-// Function to retrieve the value of a data attribute by name
-function getDataAttributeValueByName(name) {
-  const element = document.querySelector(`[data-${name}]`);
-  return element ? element.getAttribute(`data-${name}`) : '';
+// Function to create the 'Can't Find' element
+function createCantFindEl() {
+  const cannotFindDiv = document.createElement('div');
+  cannotFindDiv.className = 'cannot-find-container';
+
+  const cannotFindText = document.createElement('p');
+  cannotFindText.classList.add('cannot-find-text');
+  cannotFindText.textContent = cannotFindLabel;
+  cannotFindDiv.append(cannotFindText);
+
+  const viewAllDiv = document.createElement('div');
+  viewAllDiv.className = 'view-all-label';
+  viewAllDiv.textContent = viewAllLabel;
+  viewAllDiv.onclick = () => {
+    window.location.href = viewAllRedirection;
+  };
+  cannotFindDiv.appendChild(viewAllDiv);
+
+  return cannotFindDiv;
 }
 
 // Function to fetch data from the provided API URL
@@ -96,11 +63,6 @@ function getParameterByName(name, url = window.location.href) {
   if (!results[2]) return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' ')).replace(/_/g, ' ');
 }
-
-// Function to normalize category by converting to lowercase and replacing spaces with underscores
-// function normalizeCategory(category) {
-//   return category.toLowerCase().replace(/ /g, '_');
-// }
 
 // Function to normalize tags by trimming whitespace, converting to lowercase, and splitting by commas
 function normalizeTags(tags) {
@@ -187,36 +149,6 @@ function renderQA(data, selectedCategory, selectedTag, container) {
   });
 }
 
-// Function to create the 'Can't Find' element
-function createCantFindEl() {
-  const cannotFindDiv = document.createElement('div');
-  cannotFindDiv.className = 'cannot-find-container';
-
-  const cannotFindText = document.createElement('p');
-  cannotFindText.classList.add('cannot-find-text');
-  cannotFindText.textContent = cannotFindLabel;
-  cannotFindDiv.append(cannotFindText);
-
-  const viewAllDiv = document.createElement('div');
-  viewAllDiv.className = 'view-all-label';
-  viewAllDiv.textContent = viewAllLabel;
-  viewAllDiv.onclick = () => {
-    window.location.href = viewAllRedirection;
-  };
-  cannotFindDiv.appendChild(viewAllDiv);
-
-  return cannotFindDiv;
-}
-
-// Function to change title based on screen size
-function changeTiltleWithScreens(title) {
-  if (window.matchMedia('(max-width: 600px)').matches) {
-    title.textContent = faqMobileTitle;
-  } else {
-    title.textContent = faqDesktopTitle;
-  }
-}
-
 // Function to handle Q&A change based on selected tags
 function quesAnsChangeOnTags(faqTabs, quesAnsData, faqAccordion) {
   let selectedCategory = getParameterByName('category');
@@ -241,3 +173,73 @@ function quesAnsChangeOnTags(faqTabs, quesAnsData, faqAccordion) {
     });
   });
 }
+
+
+// Main function to decorate the FAQ block
+export default async function decorate(block) {
+  // Create FAQ container and append to the block
+  const faqmobileTitlediv = document.createElement('div');
+  faqmobileTitlediv.className = 'faq-container-titleMobile';
+  faqmobileTitlediv.textContent = faqMobileTitle;
+  block.appendChild(faqmobileTitlediv);
+  const faqContainer = document.createElement('div');
+  faqContainer.className = 'faq-container';
+  block.appendChild(faqContainer);
+
+  // Create FAQ tabs container and append to the FAQ container
+  const faqTabs = document.createElement('div');
+  faqTabs.className = 'faq-tabs';
+  faqContainer.appendChild(faqTabs);
+
+  // Create title container and append to the FAQ tabs
+  const titleContainer = document.createElement('div');
+  titleContainer.className = 'main-title';
+  const title = document.createElement('h2');
+  title.classList.add('title');
+  changeTiltleWithScreens(title);
+  window.addEventListener('resize', () => { changeTiltleWithScreens(title) });
+
+  titleContainer.append(title);
+  faqTabs.append(titleContainer);
+
+  // Create and append 'Can't Find' element to the FAQ tabs
+  const cantFindEl1 = createCantFindEl();
+  faqTabs.append(cantFindEl1);
+
+  // Create FAQ accordion container and append to the FAQ container
+  const faqAccordion = document.createElement('div');
+  faqAccordion.className = 'faq-accordion';
+  faqContainer.appendChild(faqAccordion);
+
+  try {
+    // Fetch Q&A data from the API
+    const quesAnsData = await fetchData(quesAnsUrl);
+
+    // Get the selected category from the URL parameter or data attribute
+    let selectedCategory = getParameterByName('category');
+    if (selectedCategory === null || selectedCategory === '') {
+      selectedCategory = getDataAttributeValueByName('productPageName').toLowerCase();
+    }
+
+    // Filter Q&A data based on the selected category
+    const filteredData = quesAnsData.filter((item) => item.category.toLowerCase() === selectedCategory);
+
+    // Extract unique tags from the filtered data and render them
+    const tags = [...new Set(filteredData.flatMap((item) => normalizeTags(item.tags)))];
+    renderTags(tags, faqTabs);
+
+    // Render Q&A items based on the selected category
+    renderQA(filteredData, selectedCategory, '', faqAccordion);
+
+    // Handle Q&A changes based on tag selection
+    quesAnsChangeOnTags(faqTabs, quesAnsData, faqAccordion);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
+
+// Function to normalize category by converting to lowercase and replacing spaces with underscores
+// function normalizeCategory(category) {
+//   return category.toLowerCase().replace(/ /g, '_');
+// }
+
