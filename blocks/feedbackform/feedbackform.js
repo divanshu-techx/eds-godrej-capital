@@ -1,7 +1,5 @@
 import { createForm } from '../form/form.js';
 
-var ratingNumber;
-
 // get value from section metadata
 function extractValuesOfSectionMetadata(blockEle) {
   return {
@@ -113,11 +111,9 @@ function clickEventOnFeedbackSubmitBtn(fieldset, block, descriptionDiv) {
     if (!descriptionReview) {
       emptyErrorMsg.style.display = 'block';
       return false;
-    } else {
-      if (!(descriptionReview.length > descMinLimit && descriptionReview.length <= descMaxLimit)) {
-        limitErrorMsg.style.display = 'block';
-        return false;
-      }
+    } else if (!(descriptionReview.length > descMinLimit && descriptionReview.length <= descMaxLimit)) {
+      limitErrorMsg.style.display = 'block';
+      return false;
     }
   }
   return [true, checkedValues];
@@ -239,6 +235,21 @@ function forFormFields(block, descriptionDiv, submitDiv, checkedFeildArr) {
 function forFeedback(block) {
   const submitDiv = block.querySelector('.feedback-checkbox-class.field-wrapper.submit-wrapper');
   const descriptionDiv = block.querySelector('.feedback-description.field-wrapper.text-area-wrapper');
+  const fieldset = block.querySelector('#form-feedback-checkbox');
+  if (!submitDiv) {
+    return;
+  }
+
+  const button = submitDiv.querySelector('button');
+  if (!button) {
+    return;
+  }
+
+  button.disabled = true;
+
+  if (!fieldset) {
+    return;
+  }
 
   // set attribute in mobile field
   const mobileNoDiv = block.querySelector('#form-mobilenumber');
@@ -259,55 +270,41 @@ function forFeedback(block) {
     this.value = this.value.replace(/[^a-zA-Z]/g, '');
   });
 
-  if (!submitDiv) {
-    return;
-  } else {
-    const button = submitDiv.querySelector('button');
-    if (!button) {
-      return;
-    } else {
-      button.disabled = true;
-      const fieldset = block.querySelector('#form-feedback-checkbox');
-      if (!fieldset) {
-        return;
-      } else {
-        const checkboxes = fieldset.querySelectorAll('input[type="checkbox"]');
-        resetCheckboxes(checkboxes);
-        const otherCheckbox = block.querySelector('input[value="Other"]');
-        // Attach change event listeners to each checkbox
-        checkboxes.forEach((checkbox) => {
-          checkbox.addEventListener('change', () => {
-            // Check if any checkbox is checked
-            const anyChecked = Array.from(checkboxes).some((cb) => cb.checked);
-            // Enable or disable the button based on the checkbox state
-            button.disabled = !anyChecked;
+  const checkboxes = fieldset.querySelectorAll('input[type="checkbox"]');
+  resetCheckboxes(checkboxes);
+  const otherCheckbox = block.querySelector('input[value="Other"]');
+  // Attach change event listeners to each checkbox
+  checkboxes.forEach((checkbox) => {
+    checkbox.addEventListener('change', () => {
+      // Check if any checkbox is checked
+      const anyChecked = Array.from(checkboxes).some((cb) => cb.checked);
+      // Enable or disable the button based on the checkbox state
+      button.disabled = !anyChecked;
 
-            // Show or hide the description div based on the 'Other' checkbox
-            if (checkbox === otherCheckbox && checkbox.checked) {
-              descriptionDiv.style.display = 'block';
-              descriptionDiv.querySelector('textarea').value = '';
-            } else if (!otherCheckbox.checked) {
-              // If 'Other' checkbox is unchecked, hide description box
-              descriptionDiv.style.display = 'none';
-              block.querySelector('.description-empty-err-msg').style = 'display:none';
-              block.querySelector('.description-limit-err-msg').style = 'display:none';
-            }
-          });
-        });
+      // Show or hide the description div based on the 'Other' checkbox
+      if (checkbox === otherCheckbox && checkbox.checked) {
+        descriptionDiv.style.display = 'block';
+        descriptionDiv.querySelector('textarea').value = '';
+      } else if (!otherCheckbox.checked) {
+        // If 'Other' checkbox is unchecked, hide description box
+        descriptionDiv.style.display = 'none';
+        block.querySelector('.description-empty-err-msg').style = 'display:none';
+        block.querySelector('.description-limit-err-msg').style = 'display:none';
       }
-      // feedback submit buttn click event
-      button.addEventListener('click', (event) => {
-        event.preventDefault();
-        const getCheckValue = clickEventOnFeedbackSubmitBtn(fieldset, block, descriptionDiv);
-        if (getCheckValue[0]) {
-          const checkedFeildArr = getCheckValue[1];
-          forFormFields(block, descriptionDiv, submitDiv, checkedFeildArr);
-        } else {
-          console.log('further functionality not occur');
-        }
-      });
+    });
+  });
+
+  // feedback submit buttn click event
+  button.addEventListener('click', (event) => {
+    event.preventDefault();
+    const getCheckValue = clickEventOnFeedbackSubmitBtn(fieldset, block, descriptionDiv);
+    if (getCheckValue[0]) {
+      const checkedFeildArr = getCheckValue[1];
+      forFormFields(block, descriptionDiv, submitDiv, checkedFeildArr);
+    } else {
+      console.log('further functionality not occur');
     }
-  }
+  });
 }
 
 function forCreateRatingRadioBtn(dynamicDiv, feedbackAttributes, parentContainerDiv, block, form) {
@@ -337,7 +334,7 @@ function forCreateRatingRadioBtn(dynamicDiv, feedbackAttributes, parentContainer
 
     input.addEventListener('change', () => {
       // Enable the submit button if any radio button is checked
-      ratingNumber = input.value;
+      // ratingNumber = input.value;
       submitRatingButton.disabled = false;
     });
   }
