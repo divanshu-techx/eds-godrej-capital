@@ -99,9 +99,9 @@ function renderQA(data, selectedCategory, selectedTag, container) {
   } else {
     // filteredData = data.filter((item) =>
     // normalizeTags(item.tags).includes(selectedTag.toLowerCase()));
-    filteredData = data.filter((item) =>
-      normalizeTags(item.tags).includes(selectedTag.toLowerCase()),
-    );        
+    filteredData = data.filter(item =>
+      normalizeTags(item.tags).includes(selectedTag.toLowerCase())
+    );
   }
 
   // Create and append Q&A items to the container
