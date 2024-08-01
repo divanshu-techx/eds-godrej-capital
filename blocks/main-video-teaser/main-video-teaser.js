@@ -1,10 +1,9 @@
-
 const MEDIA_BREAKPOINTS = {
   MOBILE: 'MOBILE',
   TABLET: 'TABLET',
   DESKTOP: 'DESKTOP',
 };
-//Main Function
+// Main Function
 export default async function decorate(block) {
   prepareBackgroundImage(block);
 
@@ -18,22 +17,21 @@ export default async function decorate(block) {
   const contentEl = block.querySelector(':scope > div > div');
   contentEl.classList.add('mainteaservideo-banner__content');
 
-  let mainEle = document.querySelectorAll('.main-video-teaser p picture');
+  const mainEle = document.querySelectorAll('.main-video-teaser p picture');
 
-  let playBtn = mainEle[0].parentElement;
-  let pauseBtn = mainEle[1].parentElement;
+  const playBtn = mainEle[0].parentElement;
+  const pauseBtn = mainEle[1].parentElement;
   pauseBtn.style.display = 'none';
   playBtn.classList.add('play-action');
   pauseBtn.classList.add('pause-action');
   const clickableElements = block.querySelectorAll('.button, a');
-  let clickableElement = clickableElements[0];
-  let linkUrl = clickableElement.href;
-  let pictureElement = playBtn.querySelector('picture');
+  const clickableElement = clickableElements[0];
+  const linkUrl = clickableElement.href;
+  const pictureElement = playBtn.querySelector('picture');
 
-  let newAnchor = document.createElement('a');
+  const newAnchor = document.createElement('a');
   newAnchor.href = linkUrl;
   newAnchor.title = 'Play Video';
-
 
   // insert link in play image also 
   if (linkUrl && pictureElement) {
@@ -51,8 +49,6 @@ export default async function decorate(block) {
     }
   }
 
-
-
   const clickable = block.querySelectorAll('.button, a');
 
   clickable.forEach(el => {
@@ -63,9 +59,6 @@ export default async function decorate(block) {
 
       const isBackgroundVideo = el.classList.contains('video-bg') || el.closest('.video-bg');
       const parent = el.parentNode;
-
-
-
 
       // Extract the text content from the anchor tag
       const textContent = el.textContent;
@@ -148,8 +141,6 @@ export default async function decorate(block) {
     });
   });
 }
-
-
 
 function getImageForBreakpoint(imagesList, onChange = () => { }) {
   const mobileMQ = window.matchMedia('(max-width: 743px)');
@@ -292,7 +283,6 @@ function createModal(videoUrl) {
   modalDiv.innerHTML = modalHtml;
   document.body.appendChild(modalDiv);
 
-
   const videoSource = document.getElementById('videoSource');
 
   const modal = document.getElementById('customVideoModal');
@@ -367,3 +357,4 @@ function youtubeModel(videoUrl) {
     }
   }
 }
+
