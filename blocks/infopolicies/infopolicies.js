@@ -69,6 +69,69 @@ function createTabsAndContentsContainers(infoPoliciesEle) {
   return { tabsContainer, tabContentsContainer };
 }
 
+// Fetch and display data for the selected option
+function fetchSelectedOptionData(dataPath) {
+  const mainUrl = dataPath;
+  fetch(mainUrl)
+    .then((response) => response.text())
+    .then((data) => {
+      const parser = new DOMParser();
+      const htmlDoc = parser.parseFromString(data, 'text/html');
+      // Get the content inside the <main> tag
+      const mainContent = htmlDoc.querySelector('main').innerHTML;
+      // Handle the fetched data as needed, e.g., update target element
+      const tabContentsDiv = document.getElementById('tab-contents');
+      tabContentsDiv.innerHTML = mainContent;
+      // Add accordion functionality to elements with class 'accordion'
+      const accordions = tabContentsDiv.querySelectorAll('.accordion > div > div:first-child');
+      accordions.forEach((header) => {
+        header.classList.add('accordion-header');
+        header.nextElementSibling.classList.add('accordion-content');
+        header.addEventListener('click', () => {
+          header.classList.toggle('active');
+          header.nextElementSibling.classList.toggle('active');
+        });
+      });
+    })
+    .catch((error) => {
+      console.error('Error fetching data:', error);
+    });
+}
+
+// Update dropdown options based on the selected tab
+function updateDropdownOptionsOnTabs(parent, data, dropdownVal) {
+  const selectedValue = dropdownVal.value;
+  // Clear existing options
+  dropdownVal.innerHTML = '';
+  // Add new options based on the selected tab
+  if (isMobileView()) {
+    data.filter((item) => item.selector === parent).forEach((item) => {
+      const option = document.createElement('option');
+      option.value = item.parent;
+      option.innerText = item.parent;
+      option.setAttribute('data-path', item.path);
+      dropdownVal.appendChild(option);
+
+      if (option.value === selectedValue) {
+        option.selected = true;
+        fetchSelectedOptionData(option.getAttribute('data-path'));
+      }
+    });
+  } else {
+    data.filter((item) => item.parent === parent).forEach((item) => {
+      const option = document.createElement('option');
+      option.value = item.selector;
+      option.innerText = item.selector;
+      option.setAttribute('data-path', item.path);
+      dropdownVal.appendChild(option);
+      if (option.value === selectedValue) {
+        option.selected = true;
+        fetchSelectedOptionData(option.getAttribute('data-path'));
+      }
+    });
+  }
+}
+
 // Populate the tabs and their corresponding contents
 function populateTabsAndContents(data, tabsContainer, tabContentsContainer, dropdownVal) {
   let parents;
@@ -109,35 +172,6 @@ function populateTabsAndContents(data, tabsContainer, tabContentsContainer, drop
   });
 }
 
-// Fetch and display data for the selected option
-function fetchSelectedOptionData(dataPath) {
-  const mainUrl = dataPath;
-  fetch(mainUrl)
-    .then((response) => response.text())
-    .then((data) => {
-      const parser = new DOMParser();
-      const htmlDoc = parser.parseFromString(data, 'text/html');
-      // Get the content inside the <main> tag
-      const mainContent = htmlDoc.querySelector('main').innerHTML;
-      // Handle the fetched data as needed, e.g., update target element
-      const tabContentsDiv = document.getElementById('tab-contents');
-      tabContentsDiv.innerHTML = mainContent;
-      // Add accordion functionality to elements with class 'accordion'
-      const accordions = tabContentsDiv.querySelectorAll('.accordion > div > div:first-child');
-      accordions.forEach((header) => {
-        header.classList.add('accordion-header');
-        header.nextElementSibling.classList.add('accordion-content');
-        header.addEventListener('click', () => {
-          header.classList.toggle('active');
-          header.nextElementSibling.classList.toggle('active');
-        });
-      });
-    })
-    .catch((error) => {
-      console.error('Error fetching data:', error);
-    });
-}
-
 // Initialize the first tab and update the dropdown
 function initializeFirstTab(data, dropdownVal) {
   const firstTab = document.querySelector('.tab');
@@ -148,6 +182,17 @@ function initializeFirstTab(data, dropdownVal) {
     if (dataPath) {
       fetchSelectedOptionData(dataPath);
     }
+  }
+}
+
+// Update dropdown options when the dropdown value changes
+function updateDropdownOptions(dropdownVal) {
+  const selectedOption = dropdownVal.options[dropdownVal.selectedIndex];
+  const selectedValue = selectedOption.value;
+  // const dataAttribute = selectedOption.getAttribute('data-path');
+  if (selectedOption.value === selectedValue) {
+    selectedOption.selected = true;
+    fetchSelectedOptionData(selectedOption.getAttribute('data-path'));
   }
 }
 
@@ -182,49 +227,4 @@ export default async function decorate() {
   dropdown.addEventListener('change', () => {
     updateDropdownOptions(dropdown);
   });
-}
-
-// Update dropdown options based on the selected tab
-function updateDropdownOptionsOnTabs(parent, data, dropdownVal) {
-  const selectedValue = dropdownVal.value;
-  // Clear existing options
-  dropdownVal.innerHTML = '';
-  // Add new options based on the selected tab
-  if (isMobileView()) {
-    data.filter((item) => item.selector === parent).forEach((item) => {
-      const option = document.createElement('option');
-      option.value = item.parent;
-      option.innerText = item.parent;
-      option.setAttribute('data-path', item.path);
-      dropdownVal.appendChild(option);
-
-      if (option.value === selectedValue) {
-        option.selected = true;
-        fetchSelectedOptionData(option.getAttribute('data-path'));
-      }
-    });
-  } else {
-    data.filter((item) => item.parent === parent).forEach((item) => {
-      const option = document.createElement('option');
-      option.value = item.selector;
-      option.innerText = item.selector;
-      option.setAttribute('data-path', item.path);
-      dropdownVal.appendChild(option);
-      if (option.value === selectedValue) {
-        option.selected = true;
-        fetchSelectedOptionData(option.getAttribute('data-path'));
-      }
-    });
-  }
-}
-
-// Update dropdown options when the dropdown value changes
-function updateDropdownOptions(dropdownVal) {
-  const selectedOption = dropdownVal.options[dropdownVal.selectedIndex];
-  const selectedValue = selectedOption.value;
-  // const dataAttribute = selectedOption.getAttribute('data-path');
-  if (selectedOption.value === selectedValue) {
-    selectedOption.selected = true;
-    fetchSelectedOptionData(selectedOption.getAttribute('data-path'));
-  }
 }
