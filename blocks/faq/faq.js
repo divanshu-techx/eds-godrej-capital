@@ -11,23 +11,6 @@ async function fetchData(apiUrl) {
   }
 }
 
-function quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv) {
-  const buttons = Array.from(tagsContainer.children);
-  buttons.forEach((button, index) => {
-    if (index === 0) {
-      button.classList.add('active-tab');
-    }
-
-    button.addEventListener('click', function (event) {
-      buttons.forEach((btn) => btn.classList.remove('active-tab'));
-      this.classList.add('active-tab');
-      const clickedButton = event.target;
-      renderQA(quesAnsData, '', clickedButton.innerHTML, quesAnsDiv, '');
-    });
-
-  });
-}
-
 function normalizeCategory(category) {
   return category.toLowerCase().replace(/\s+/g, '_');
 }
@@ -207,6 +190,23 @@ function renderQA(data, selectedCategory, tagsName, containerSelector, inputValu
         this.nextElementSibling.style.display = 'block';
       }
     });
+  });
+}
+
+function quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv) {
+  const buttons = Array.from(tagsContainer.children);
+  buttons.forEach((button, index) => {
+    if (index === 0) {
+      button.classList.add('active-tab');
+    }
+
+    button.addEventListener('click', function (event) {
+      buttons.forEach((btn) => btn.classList.remove('active-tab'));
+      this.classList.add('active-tab');
+      const clickedButton = event.target;
+      renderQA(quesAnsData, '', clickedButton.innerHTML, quesAnsDiv, '');
+    });
+
   });
 }
 
