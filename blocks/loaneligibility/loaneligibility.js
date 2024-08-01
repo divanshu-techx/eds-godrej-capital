@@ -141,17 +141,17 @@ function displayDetails(P, R, N, M, E, line, pie, block) {
   block.querySelector('#mobile_monthly_emi_price').innerText = emi.toLocaleString('en-IN', opts);
   
   // Calculate the loan eligibility using the formula
-  // var loanEligibility = (P - E) *
-  // (Math.pow(1 + r, totalMonths) - 1) /
-  // (r * Math.pow(1 + r, totalMonths));
-  // loanEligibility = Math.round(Math.max(loanEligibility, 0));
-  // console.log(loanEligibility);
+  var loanEligibility = (P - E) *
+  (Math.pow(1 + r, totalMonths) - 1) /
+  (r * Math.pow(1 + r, totalMonths));
+  loanEligibility = Math.round(Math.max(loanEligibility, 0));
+  console.log(loanEligibility);
 
-  //   block.querySelector('#le').innerText = `₹ ${loanEligibility.toLocaleString('en-IN')}`;
-  //   block.querySelector('#mobile-le').innerText = `₹ ${loanEligibility.toLocaleString('en-IN')}`;
+    block.querySelector('#le').innerText = `₹ ${loanEligibility.toLocaleString('en-IN')}`;
+    block.querySelector('#mobile-le').innerText = `₹ ${loanEligibility.toLocaleString('en-IN')}`;
 
-  block.querySelector('#le').innerText = `₹ ${Math.max(0, P - E).toLocaleString('en-IN')}`;
-  block.querySelector('#mobile-le').innerText = `₹ ${Math.max(0, P - E).toLocaleString('en-IN')}`;
+  // block.querySelector('#le').innerText = `₹ ${Math.max(0, P - E).toLocaleString('en-IN')}`;
+  // block.querySelector('#mobile-le').innerText = `₹ ${Math.max(0, P - E).toLocaleString('en-IN')}`;
 
   pie.data.datasets[0].data[0] = P;
   pie.data.datasets[0].data[1] = payableInterest;
@@ -551,7 +551,7 @@ function initialize(block) {
       self.target.value = formatNumberToIndianCommas(self.target.value);
     }
     P = removeCommaAndConvertToInt(self.target.value);
-    displayDetails(P, R, N, M, pie, block);
+    displayDetails(P, R, N, M, E, line, pie, block);
   });
 
   // Event listener to allow only numeric input
@@ -601,7 +601,7 @@ function initialize(block) {
       self.target.value = formatNumberToIndianCommas(self.target.value);
     }
     P = removeCommaAndConvertToInt(self.target.value);
-    displayDetails(P, R, N, M, pie, block);
+    displayDetails(P, R, N, M, E, line, pie, block);
   });
 
   intRateSlider.addEventListener('change', (self) => {
@@ -878,11 +878,13 @@ function initialize(block) {
   });
 
   // Set the product type in the apply button data attributes.
+  if(selectProduct){
   selectProduct.addEventListener('input', function () {
     const selectedValue = this.value;
     const applyButton = document.getElementById('apply-btn-le');
     applyButton.setAttribute('data-product', selectedValue);
   });
+}
 
   if (mobileSelect) {
     mobileSelect.addEventListener('input', function () {
@@ -901,7 +903,8 @@ function initialize(block) {
     console.log('desk btn click');
     console.log(productValue);
     if (productValue) {
-      url = `${desktopRedirectionPath}?category=${encodeURIComponent(productValue)}`;
+      const formattedProductValue = productValue.replace(/-/g, '_');
+      url = `${desktopRedirectionPath}?category=${encodeURIComponent(formattedProductValue)}`;
       window.location.href = url;
     } else {
       url = desktopRedirectionPath;
@@ -913,7 +916,7 @@ function initialize(block) {
   document.getElementById('apply-btn-loan').addEventListener('click', function () {
     const productValue = this.getAttribute('data-product');
     if (productValue) {
-      const formattedProductValue = productValue.toLowerCase().replace(/\s+/g, '-');
+      const formattedProductValue = productValue.toLowerCase().replace(/\s+/g, '_');
       //url = `${mobileredirection}?product=${encodeURIComponent(formattedProductValue)}`;
       url = `${applyMobileRedirectionPath}?category=${encodeURIComponent(formattedProductValue)}`;
       window.location.href = url;
