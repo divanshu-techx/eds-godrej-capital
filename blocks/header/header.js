@@ -228,39 +228,6 @@ export default async function decorate(block) {
     // Create the main ul element
     const mainUl = document.createElement('ul');
 
-    // Iterate over the keys in the response object
-    Object.keys(response).forEach((key, index) => {
-      if (response.hasOwnProperty(key)) {
-        const parentName = key.split('_')[0];
-        const parentPath = key.split('_')[1];
-        const li = document.createElement('li');
-        li.className = 'listElement';
-        if (index === 0) li.classList.add('active');
-        const a = document.createElement('a');
-        a.textContent = parentName;
-        a.href = parentPath;
-        a.className = 'anchorPath';
-        a.addEventListener('mouseover', (event) => {
-          event.preventDefault();
-          const allListItems = mainUl.querySelectorAll('li');
-          allListItems.forEach((item) => item.classList.remove('active'));
-          li.classList.add('active');
-          updateSecondElementDiv(response[key]);
-        });
-
-        li.appendChild(a);
-        mainUl.appendChild(li);
-      }
-    });
-
-    const firstKey = Object.keys(response)[0];
-    updateSecondElementDiv(response[firstKey]);
-    firstElementChildDiv.appendChild(mainUl);
-    parentContainerDiv.appendChild(firstElementChildDiv);
-    parentContainerDiv.appendChild(secondElementDiv);
-    parentContainerDiv.appendChild(thirdElementDiv);
-    belowNavMainContainer.appendChild(parentContainerDiv);
-
     // Function to update secondElementDiv with items
     function updateSecondElementDiv(items) {
       secondElementDiv.innerHTML = '';
@@ -297,6 +264,39 @@ export default async function decorate(block) {
       });
       secondElementDiv.appendChild(nestedUl);
     }
+
+    // Iterate over the keys in the response object
+    Object.keys(response).forEach((key, index) => {
+      if (response.hasOwnProperty(key)) {
+        const parentName = key.split('_')[0];
+        const parentPath = key.split('_')[1];
+        const li = document.createElement('li');
+        li.className = 'listElement';
+        if (index === 0) li.classList.add('active');
+        const a = document.createElement('a');
+        a.textContent = parentName;
+        a.href = parentPath;
+        a.className = 'anchorPath';
+        a.addEventListener('mouseover', (event) => {
+          event.preventDefault();
+          const allListItems = mainUl.querySelectorAll('li');
+          allListItems.forEach((item) => item.classList.remove('active'));
+          li.classList.add('active');
+          updateSecondElementDiv(response[key]);
+        });
+
+        li.appendChild(a);
+        mainUl.appendChild(li);
+      }
+    });
+
+    const firstKey = Object.keys(response)[0];
+    updateSecondElementDiv(response[firstKey]);
+    firstElementChildDiv.appendChild(mainUl);
+    parentContainerDiv.appendChild(firstElementChildDiv);
+    parentContainerDiv.appendChild(secondElementDiv);
+    parentContainerDiv.appendChild(thirdElementDiv);
+    belowNavMainContainer.appendChild(parentContainerDiv);
   }
 
   // function to render nav elements div for child depth is 1
