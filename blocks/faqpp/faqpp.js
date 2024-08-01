@@ -99,9 +99,9 @@ function renderQA(data, selectedCategory, selectedTag, container) {
   } else {
     // filteredData = data.filter((item) =>
     // normalizeTags(item.tags).includes(selectedTag.toLowerCase()));
-    filteredData = data.filter((item) => {
-      return normalizeTags(item.tags).includes(selectedTag.toLowerCase());
-    });      
+    filteredData = data.filter((item) =>
+      normalizeTags(item.tags).includes(selectedTag.toLowerCase()),
+    );        
   }
 
   // Create and append Q&A items to the container
@@ -226,10 +226,10 @@ export default async function decorate(block) {
     }
 
     // Filter Q&A data based on the selected category
-    //const filteredData = quesAnsData.filter((item) =>
+    // const filteredData = quesAnsData.filter((item) =>
     // item.category.toLowerCase() === selectedCategory);
     const filteredData = quesAnsData.filter(
-      (item) => item.category.toLowerCase() === selectedCategory
+      (item) => item.category.toLowerCase() === selectedCategory,
     );
 
     // Extract unique tags from the filtered data and render them
