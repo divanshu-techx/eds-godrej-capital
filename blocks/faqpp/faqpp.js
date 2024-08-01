@@ -64,12 +64,13 @@ function getParameterByName(name, url = window.location.href) {
   return decodeURIComponent(results[2].replace(/\+/g, ' ')).replace(/_/g, ' ');
 }
 
-// Function to normalize tags by trimming whitespace, converting to lowercase, and splitting by commas
+// Function to normalize tags by trimming whitespace,
+// converting to lowercase, and splitting by commas
 function normalizeTags(tags) {
   if (!tags || tags.trim().length === 0) {
     return [];
   }
-  return tags.includes(',') ? tags.split(',').map(tag => tag.trim().toLowerCase()) : [tags.trim().toLowerCase()];
+  return tags.includes(',') ? tags.split(',').map((tag) => tag.trim().toLowerCase()) : [tags.trim().toLowerCase()];
 }
 
 // Function to render tags as buttons within the container
@@ -77,7 +78,7 @@ function renderTags(tags, container) {
   const tagBtnContainer = document.createElement('div');
   tagBtnContainer.classList.add('tags-btn-container');
 
-  tags.forEach((tag, index) => {
+  tags.forEach((selectedTag) => {
     const button = document.createElement('button');
     button.className = 'tag-button';
     button.textContent = tag;
@@ -96,7 +97,11 @@ function renderQA(data, selectedCategory, selectedTag, container) {
   if (selectedCategory) {
     filteredData = data.filter((item) => item.category.toLowerCase() === selectedCategory);
   } else {
-    filteredData = data.filter((item) => normalizeTags(item.tags).includes(selectedTag.toLowerCase()));
+    // filteredData = data.filter((item) => normalizeTags(item.tags).includes(selectedTag.toLowerCase()));
+    filteredData = data.filter((item) => 
+      normalizeTags(item.tags)
+        .includes(selectedTag.toLowerCase())
+    );    
   }
 
   // Create and append Q&A items to the container
@@ -136,7 +141,7 @@ function renderQA(data, selectedCategory, selectedTag, container) {
     question.addEventListener('click', function () {
       const isActive = this.classList.contains('active');
 
-      accordionHeaders.forEach(header => {
+      accordionHeaders.forEach((header) => {
         header.classList.remove('active');
         header.nextElementSibling.style.display = 'none';
       });
@@ -157,7 +162,7 @@ function quesAnsChangeOnTags(faqTabs, quesAnsData, faqAccordion) {
   }
   let filteredData = [];
   if (selectedCategory) {
-    filteredData = quesAnsData.filter(item => item.category.toLowerCase() === selectedCategory);
+    filteredData = quesAnsData.filter((item) => item.category.toLowerCase() === selectedCategory);
   }
 
   // Add click event to tag buttons for filtering Q&A items
@@ -173,7 +178,6 @@ function quesAnsChangeOnTags(faqTabs, quesAnsData, faqAccordion) {
     });
   });
 }
-
 
 // Main function to decorate the FAQ block
 export default async function decorate(block) {
@@ -197,7 +201,7 @@ export default async function decorate(block) {
   const title = document.createElement('h2');
   title.classList.add('title');
   changeTiltleWithScreens(title);
-  window.addEventListener('resize', () => { changeTiltleWithScreens(title) });
+  window.addEventListener('resize', () => { changeTiltleWithScreens(title); });
 
   titleContainer.append(title);
   faqTabs.append(titleContainer);
@@ -237,9 +241,7 @@ export default async function decorate(block) {
     console.error('Error fetching data:', error);
   }
 }
-
 // Function to normalize category by converting to lowercase and replacing spaces with underscores
 // function normalizeCategory(category) {
 //   return category.toLowerCase().replace(/ /g, '_');
 // }
-
