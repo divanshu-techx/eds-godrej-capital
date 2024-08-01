@@ -41,7 +41,14 @@ function forEmptyDiv(headingTitleDiv, headingDescriptionDiv, dynamicDiv) {
 }
 
 // to show welcome container div first view on feedback click
-function forWelcomeContainer(feedbackAttributes, headingTitleDiv, headingDescriptionDiv, headingContainerDiv, parentContainerDiv, block) {
+function forWelcomeContainer(
+  feedbackAttributes,
+  headingTitleDiv,
+  headingDescriptionDiv,
+  headingContainerDiv,
+  parentContainerDiv,
+  block,
+) {
   const headingTitle = document.createElement('h4');
   headingTitle.textContent = feedbackAttributes.feedbackTitle;
   headingTitle.className = 'headingTitle';
@@ -111,7 +118,8 @@ function clickEventOnFeedbackSubmitBtn(fieldset, block, descriptionDiv) {
     if (!descriptionReview) {
       emptyErrorMsg.style.display = 'block';
       return false;
-    } else if (!(descriptionReview.length > descMinLimit && descriptionReview.length <= descMaxLimit)) {
+    }
+    if (!(descriptionReview.length > descMinLimit && descriptionReview.length <= descMaxLimit)) {
       limitErrorMsg.style.display = 'block';
       return false;
     }
