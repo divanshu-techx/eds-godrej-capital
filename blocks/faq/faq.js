@@ -28,9 +28,9 @@ export default async function decorate(block) {
 
   const notFoundDiv = document.createElement('div');
   notFoundDiv.id = 'faq-not-found';
-  const warningText = document.createElement('p')
-  warningText.innerHTML = 'Sorry, Couldn’t find what you’re looking for.'
-  notFoundDiv.appendChild(warningText)
+  const warningText = document.createElement('p');
+  warningText.innerHTML = 'Sorry, Couldn’t find what you’re looking for.';
+  notFoundDiv.appendChild(warningText);
   notFoundDiv.style.display = 'none';
   middleContainer.appendChild(notFoundDiv);
 
@@ -49,9 +49,9 @@ export default async function decorate(block) {
   inputField.placeholder = 'What are you looking for?';
   const searchIconContainer = document.createElement('div');
   searchIconContainer.classList.add('icon-container');
-  searchIconContainer.innerHTML = `<img src=${attributeObj.searchicon} alt=${'attributeObj.seachiconalttext'} class='icon'>`
+  searchIconContainer.innerHTML = `<img src=${attributeObj.searchicon} alt=${'attributeObj.seachiconalttext'} class='icon'>`;
 
-  searchContainer.append(searchIconContainer)
+  searchContainer.append(searchIconContainer);
   searchContainer.appendChild(inputField);
 
   try {
@@ -104,12 +104,12 @@ function quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv) {
   const buttons = Array.from(tagsContainer.children);
   buttons.forEach((button, index) => {
     if (index === 0) {
-      button.classList.add('active-tab')
+      button.classList.add('active-tab');
     }
 
     button.addEventListener('click', function (event) {
-      buttons.forEach(btn => btn.classList.remove('active-tab'));
-      this.classList.add('active-tab')
+      buttons.forEach((btn) => btn.classList.remove('active-tab'));
+      this.classList.add('active-tab');
       const clickedButton = event.target;
       renderQA(quesAnsData, '', clickedButton.innerHTML, quesAnsDiv, '');
     });
@@ -133,7 +133,7 @@ function normalizeCategory(category) {
 }
 
 function normalizeTags(tags) {
-  return tags.split(',').map(tag => tag.trim().toLowerCase());
+  return tags.split(',').map((tag) => tag.trim().toLowerCase());
 }
 
 function normalizeText(text) {
@@ -141,14 +141,14 @@ function normalizeText(text) {
 }
 
 function renderCategoryDropdown(data, containerSelector) {
-  const categories = [...new Set(data.map(item => item.category))];
+  const categories = [...new Set(data.map((item) => item.category))];
   const dropdown = document.createElement('select');
   dropdown.className = 'category-dropdown';
   dropdown.id = 'faq-loan-category-dropdown';
 
-  categories.forEach(category => {
+  categories.forEach((category) => {
     const option = document.createElement('option');
-    option.classList.add('category-dropdown-option')
+    option.classList.add('category-dropdown-option');
     option.value = normalizeCategory(category);
     option.textContent = category;
     dropdown.appendChild(option);
@@ -161,7 +161,7 @@ function renderCategoryDropdown(data, containerSelector) {
   const selectedCategory = urlParams.get('category');
   if (selectedCategory) {
     const categoryOption = Array.from(dropdown.options).find(
-      option => option.value === normalizeCategory(selectedCategory)
+      (option) => option.value === normalizeCategory(selectedCategory),
     );
     if (categoryOption) {
       categoryOption.selected = true;
@@ -181,9 +181,9 @@ function renderTabs(data, selectedCategory, inputValue, tagsContainer) {
   const notFoundEle = document.getElementById('faq-not-found');
   const faqLoanCategoryDropdown = document.getElementById('faq-loan-category-dropdown');
   if (inputValue.length >= 3) {
-    const tagFilteredData = data.filter(item => normalizeTags(item.tags));
+    const tagFilteredData = data.filter((item) => normalizeTags(item.tags));
     if (tagFilteredData.length > 0) {
-      const categoryFilteredData = data.filter(item => normalizeCategory(item.category).includes(selectedCategory.toLowerCase()));
+      const categoryFilteredData = data.filter((item) => normalizeCategory(item.category).includes(selectedCategory.toLowerCase()));
       filteredData = [...new Set([...tagFilteredData, ...categoryFilteredData])];
       notFoundEle.style.display = 'none';
       faqLoanCategoryDropdown.style.display = 'block';
@@ -195,14 +195,14 @@ function renderTabs(data, selectedCategory, inputValue, tagsContainer) {
       tagsContainer.style.display = 'none';
     }
   } else {
-    filteredData = data.filter(item => normalizeCategory(item.category) === selectedCategory.toLowerCase());
+    filteredData = data.filter((item) => normalizeCategory(item.category) === selectedCategory.toLowerCase());
     notFoundEle.style.display = 'none';
     faqLoanCategoryDropdown.style.display = 'block';
     tagsContainer.style.display = 'flex';
   }
 
-  const tags = [...new Set(filteredData.flatMap(item => item.tags.split(',').map(tag => tag.trim())))];
-  tags.forEach(tag => {
+  const tags = [...new Set(filteredData.flatMap((item) => item.tags.split(',').map((tag) => tag.trim())))];
+  tags.forEach((tag) => {
     const button = document.createElement('button');
     button.className = 'tab-button';
     button.textContent = tag.trim();
@@ -214,7 +214,7 @@ function renderTabs(data, selectedCategory, inputValue, tagsContainer) {
 function renderCategoryDetails(data, selectedCategory, containerSelector) {
   containerSelector.innerHTML = '';
 
-  const categoryData = data.find(item => normalizeCategory(item.category) === selectedCategory);
+  const categoryData = data.find((item) => normalizeCategory(item.category) === selectedCategory);
 
   if (categoryData) {
     const detailsHTML = `
@@ -230,7 +230,7 @@ function renderCategoryDetails(data, selectedCategory, containerSelector) {
              <p>${categoryData.description}</p>
             </div>
             <div class="details-container">
-               <ul>${categoryData.FaqBulletsPoint.split('\n').map(point => `<li>${point}</li>`).join('')}</ul>
+               <ul>${categoryData.FaqBulletsPoint.split('\n').map((point) => `<li>${point}</li>`).join('')}</ul>
                </div>
             <div class="btn-container"> 
             <a href="${categoryData.ApplyNowLink}" target="_blank" class="apply-now btn-details">${categoryData.ApplyNow}</a>
@@ -247,33 +247,33 @@ function renderQA(data, selectedCategory, tagsName, containerSelector, inputValu
   containerSelector.innerHTML = '';
   var filteredData;
   if (selectedCategory) {
-    filteredData = data.filter(item => normalizeCategory(item.category) === selectedCategory);
+    filteredData = data.filter((item) => normalizeCategory(item.category) === selectedCategory);
   } else {
     if (tagsName) {
-      filteredData = data.filter(item => normalizeTags(item.tags).includes(tagsName.toLowerCase()));
+      filteredData = data.filter((item) => normalizeTags(item.tags).includes(tagsName.toLowerCase()));
     }
     if (inputValue && inputValue.length >= 3) {
       const normalizedSearchTerm = normalizeText(inputValue);
-      filteredData = data.filter(item =>
-        normalizeText(item.question).includes(normalizedSearchTerm) ||
-        normalizeText(item.answer).includes(normalizedSearchTerm)
+      filteredData = data.filter((item) =>
+        normalizeText(item.question).includes(normalizedSearchTerm)
+       || normalizeText(item.answer).includes(normalizedSearchTerm),
       );
       const tagsContainer = document.querySelector('.tags-button');
       renderTabs(filteredData, '', normalizedSearchTerm, tagsContainer);
     }
   }
 
-  filteredData.forEach(item => {
+  filteredData.forEach((item) => {
     const qaItem = document.createElement('div');
     qaItem.className = 'qa-item';
 
     const question = document.createElement('h4');
-    question.classList.add('faq-heading')
+    question.classList.add('faq-heading');
     question.textContent = item.question;
     qaItem.appendChild(question);
 
     const answer = document.createElement('p');
-    answer.classList.add('faq-description')
+    answer.classList.add('faq-description');
     answer.textContent = item.answer;
     qaItem.appendChild(answer);
 
@@ -296,7 +296,7 @@ function renderQA(data, selectedCategory, tagsName, containerSelector, inputValu
       const isActive = this.classList.contains('active');
 
       // Close all panels
-      accordionHeaders.forEach(header => {
+      accordionHeaders.forEach((header) => {
         header.classList.remove('active');
         header.nextElementSibling.style.display = 'none';
       });
@@ -309,4 +309,3 @@ function renderQA(data, selectedCategory, tagsName, containerSelector, inputValu
     });
   });
 }
-
