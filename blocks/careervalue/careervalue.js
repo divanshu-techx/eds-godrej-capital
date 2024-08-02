@@ -37,9 +37,7 @@ export default async function decorate(block) {
       moveSlide(1);
     });
     let currentSlide = 0;
-    function moveSlide(n) {
-      showSlide(currentSlide + n);
-    }
+
     function showSlide(index) {
       if (index >= slideCards.children.length) {
         currentSlide = 0;
@@ -75,6 +73,10 @@ export default async function decorate(block) {
       }
     }
     moveSlide(0);
+
+    function moveSlide(n) {
+      showSlide(currentSlide + n);
+    }
     let startX = 0;
     let endX = 0;
     slideCards.addEventListener('touchstart', (e) => {
