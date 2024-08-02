@@ -81,7 +81,7 @@ function updateLinks() {
           const gtmValue = url.searchParams.get('gtm');
 
           // Add data attribute with the gtm value
-          link.setAttribute('id', gtmValue);
+          link.setAttribute('data-gtm', gtmValue);
 
           // Remove the gtm query parameter from the URL
           url.searchParams.delete('gtm');
@@ -100,7 +100,7 @@ function updateButtonWithGtm() {
         const gtmValue = redirectionUrl.searchParams.get('gtm');
 
         // Add data attribute with the gtm value
-        button.setAttribute('id', gtmValue);
+        button.setAttribute('data-gtm', gtmValue)
 
         // Remove the gtm query parameter from the URL
         redirectionUrl.searchParams.delete('gtm');

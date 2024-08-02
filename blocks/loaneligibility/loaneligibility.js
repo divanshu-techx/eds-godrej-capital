@@ -68,7 +68,7 @@ function calculateLoanDetails(p, r, n, m, pie, line) {
   let interestAccumulator = 0;
   const totalMonths = n * 12 + m;
 
-  const emi = (p * r * (1 + r) ** totalMonths) / ((1 + r) ** totalMonths - 1);
+  const emi = Math.round((p * r * (1 + r) ** totalMonths) / ((1 + r) ** totalMonths - 1));
   const totalPayment = emi * totalMonths;
   totalInterest = totalPayment - p;
 
@@ -139,9 +139,19 @@ function displayDetails(P, R, N, M, E, line, pie, block) {
   block.querySelector('#MonthlyEmiPrice').innerText = emi.toLocaleString('en-IN', opts);
 
   block.querySelector('#mobile_monthly_emi_price').innerText = emi.toLocaleString('en-IN', opts);
+  
+  // Calculate the loan eligibility using the formula
+  var loanEligibility = (P - E) *
+  (Math.pow(1 + r, totalMonths) - 1) /
+  (r * Math.pow(1 + r, totalMonths));
+  loanEligibility = Math.round(Math.max(loanEligibility, 0));
+  console.log(loanEligibility);
 
-  block.querySelector('#le').innerText = `₹ ${Math.max(0, P - E).toLocaleString()}`;
-  block.querySelector('#mobile-le').innerText = `₹ ${Math.max(0, P - E).toLocaleString()}`;
+    block.querySelector('#le').innerText = `₹ ${loanEligibility.toLocaleString('en-IN')}`;
+    block.querySelector('#mobile-le').innerText = `₹ ${loanEligibility.toLocaleString('en-IN')}`;
+
+  // block.querySelector('#le').innerText = `₹ ${Math.max(0, P - E).toLocaleString('en-IN')}`;
+  // block.querySelector('#mobile-le').innerText = `₹ ${Math.max(0, P - E).toLocaleString('en-IN')}`;
 
   pie.data.datasets[0].data[0] = P;
   pie.data.datasets[0].data[1] = payableInterest;
@@ -206,6 +216,7 @@ function initialize(block) {
   const mobileyear = getDataAttributeValueByName('Mobile-year');
   const mobilemonths = getDataAttributeValueByName('Mobile-month');
   const selectProductPlaceHolder = getDataAttributeValueByName('select-product-place-holder');
+  console.log(selectProductPlaceHolder);
 
   //  Create a select element
   const selectProduct = document.createElement('select');
@@ -213,7 +224,10 @@ function initialize(block) {
   const mobileSelect = document.querySelector('.sec-tab-dropdown');
   //   Loop through the array and create option elements
   option = document.createElement('option');
+  option.value=' ';
   option.text = selectProductPlaceHolder;
+  option.disabled = true;
+  option.selected = true;
   selectProduct.appendChild(option);
 
   //  Split the string into an array of loan options
@@ -537,7 +551,7 @@ function initialize(block) {
       self.target.value = formatNumberToIndianCommas(self.target.value);
     }
     P = removeCommaAndConvertToInt(self.target.value);
-    displayDetails(P, R, N, M, pie, block);
+    displayDetails(P, R, N, M, E, line, pie, block);
   });
 
   // Event listener to allow only numeric input
@@ -587,7 +601,7 @@ function initialize(block) {
       self.target.value = formatNumberToIndianCommas(self.target.value);
     }
     P = removeCommaAndConvertToInt(self.target.value);
-    displayDetails(P, R, N, M, pie, block);
+    displayDetails(P, R, N, M, E, line, pie, block);
   });
 
   intRateSlider.addEventListener('change', (self) => {
@@ -778,9 +792,26 @@ function initialize(block) {
       loanAmtError.style.display = 'none';
     }
   });
+  loanAmtSlider.addEventListener('input', function () {
+    if (parseFloat(this.value) < parseFloat(loanAmountMinValue)
+      || parseFloat(this.value) > parseFloat(loanAmountMaxValue)) {
+      loanAmtError.style.display = 'block';
+    } else {
+      loanAmtError.style.display = 'none';
+    }
+  });
 
   //  error for existing emi
   exisitingEmiText.addEventListener('input', function () {
+    if (parseFloat(this.value) < parseFloat(existingEmiMin)
+      || parseFloat(this.value) > parseFloat(existingEmiMax)) {
+      exisitingEmiError.style.display = 'block';
+    } else {
+      exisitingEmiError.style.display = 'none';
+    }
+  });
+
+  exisitingEmiAmountSlider.addEventListener('input', function () {
     if (parseFloat(this.value) < parseFloat(existingEmiMin)
       || parseFloat(this.value) > parseFloat(existingEmiMax)) {
       exisitingEmiError.style.display = 'block';
@@ -799,8 +830,26 @@ function initialize(block) {
     }
   });
 
+  intRateSlider.addEventListener('input', function () {
+    if (parseFloat(this.value) < parseFloat(interestRateMinValue)
+      || parseFloat(this.value) > parseFloat(interestRateMaxValue)) {
+      interestRateError.style.display = 'block';
+    } else {
+      interestRateError.style.display = 'none';
+    }
+  });
+
   //  error for year
   loanPeriodText.addEventListener('input', function () {
+    if (parseFloat(this.value) < parseFloat(tenureMinYearValue)
+      || parseFloat(this.value) > parseFloat(tenureMaxYearValue)) {
+      loanPeriodError.style.display = 'block';
+    } else {
+      loanPeriodError.style.display = 'none';
+    }
+  });
+
+  loanPeriodSlider.addEventListener('input', function () {
     if (parseFloat(this.value) < parseFloat(tenureMinYearValue)
       || parseFloat(this.value) > parseFloat(tenureMaxYearValue)) {
       loanPeriodError.style.display = 'block';
@@ -819,18 +868,31 @@ function initialize(block) {
     }
   });
 
+  loanPeriodSliderMonth.addEventListener('input', function () {
+    if (parseFloat(this.value) < parseFloat(tenureMinMonthValue)
+      || parseFloat(this.value) > parseFloat(tenureMaxMonthValue)) {
+      loanPeriodMonthError.style.display = 'block';
+    } else {
+      loanPeriodMonthError.style.display = 'none';
+    }
+  });
+
   // Set the product type in the apply button data attributes.
+  if(selectProduct){
   selectProduct.addEventListener('input', function () {
     const selectedValue = this.value;
     const applyButton = document.getElementById('apply-btn-le');
     applyButton.setAttribute('data-product', selectedValue);
   });
+}
 
   if (mobileSelect) {
     mobileSelect.addEventListener('input', function () {
       const selectedText = mobileSelect.options[mobileSelect.selectedIndex].text;
+      console.log(selectedText);
 
       const applyMobile = document.getElementById('apply-btn-loan');
+      console.log(applyMobile);
       applyMobile.setAttribute('data-product', selectedText);
     });
   }
@@ -841,7 +903,8 @@ function initialize(block) {
     console.log('desk btn click');
     console.log(productValue);
     if (productValue) {
-      url = `${desktopRedirectionPath}?product=${encodeURIComponent(productValue)}`;
+      const formattedProductValue = productValue.replace(/-/g, '_');
+      url = `${desktopRedirectionPath}?category=${encodeURIComponent(formattedProductValue)}`;
       window.location.href = url;
     } else {
       url = desktopRedirectionPath;
@@ -853,9 +916,9 @@ function initialize(block) {
   document.getElementById('apply-btn-loan').addEventListener('click', function () {
     const productValue = this.getAttribute('data-product');
     if (productValue) {
-      const formattedProductValue = productValue.toLowerCase().replace(/\s+/g, '-');
+      const formattedProductValue = productValue.toLowerCase().replace(/\s+/g, '_');
       //url = `${mobileredirection}?product=${encodeURIComponent(formattedProductValue)}`;
-      url = `${applyMobileRedirectionPath}?product=${encodeURIComponent(formattedProductValue)}`;
+      url = `${applyMobileRedirectionPath}?category=${encodeURIComponent(formattedProductValue)}`;
       window.location.href = url;
     } else {
       url = applyMobileRedirectionPath;

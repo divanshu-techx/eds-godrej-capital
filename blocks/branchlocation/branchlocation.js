@@ -146,7 +146,7 @@ function debounce(func, wait) {
  */
 function renderFilters(locations, filterContainer, attributeObj) {
   // Create filter dropdown
-
+  console.log(attributeObj)
   filterContainer.appendChild(
     div(
       { class: 'filters' },
@@ -159,7 +159,7 @@ function renderFilters(locations, filterContainer, attributeObj) {
         div({ class: 'city-container' }, label({ for: 'citySelect' }, attributeObj.selectcitylabel),
           citySelect,),
         div({ class: 'pincode-container' }, label({ for: 'pincodeInput' }, attributeObj.pincodelabel),
-          div({ class: 'input-img-container' }, img({ class: '-icon', src: attributeObj.mapbuttonicon }), pincodeInput)),
+          div({ class: 'input-img-container' }, img({ class: '-icon', src: attributeObj.locationmapicon }), pincodeInput)),
 
       )
 
