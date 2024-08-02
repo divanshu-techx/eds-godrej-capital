@@ -93,58 +93,58 @@ const validateAndShowError = (value, min, max, errorElement) => {
   }
 };
 function calculateTax(income, principal, interest, age) {
-  const cessRate = parseFloat(getDataAttributeValueByName("cess-rate")) / 100;
+  const cessRate = parseFloat(getDataAttributeValueByName('cess-rate')) / 100;
   const principalDeductionLimit = parseFloat(getDataAttributeValueByName('Principal-deduction-limit'));
   const interestDeductionLimit = parseFloat(getDataAttributeValueByName('Interest-deduction-limit'));
 
-  const tax_bracket_limit_first=parseFloat(getDataAttributeValueByName('Tax-bracket-limit-first'));
-  const tax_bracket_limit_first_tax_rate=parseFloat(getDataAttributeValueByName('Tax-bracket-limit-first-tax-rate'))/100;
+  const taxBracketLimitFirst = parseFloat(getDataAttributeValueByName('Tax-bracket-limit-first'));
+  const taxBracketLimitFirstTaxRate = parseFloat(getDataAttributeValueByName('Tax-bracket-limit-first-tax-rate'))/100;
 
-  const tax_bracket_limit_second=parseFloat(getDataAttributeValueByName('Tax-bracket-limit-second'));
-  const tax_bracket_limit_second_tax_rate=parseFloat(getDataAttributeValueByName('Tax-bracket-limit-second-tax-rate'))/100;
+  const taxBracketLimitSecond = parseFloat(getDataAttributeValueByName('Tax-bracket-limit-second'));
+  const taxBracketLimitSecondTaxRate = parseFloat(getDataAttributeValueByName('Tax-bracket-limit-second-tax-rate'))/100;
 
-  const tax_bracket_limit_third=parseFloat(getDataAttributeValueByName('Tax-bracket-limit-third'));
-  const tax_bracket_limit_third_tax_rate=parseFloat(getDataAttributeValueByName('Tax-bracket-limit-third-tax-rate'))/100;
+  const taxBracketLimitThird = parseFloat(getDataAttributeValueByName('Tax-bracket-limit-third'));
+  const taxBracketLimitThirdTaxRate = parseFloat(getDataAttributeValueByName('Tax-bracket-limit-third-tax-rate'))/100;
 
 
-  const first_age=parseFloat(getDataAttributeValueByName('First-age'));
-  const sec_age=parseFloat(getDataAttributeValueByName('Second-age'));
+  const firstAge = parseFloat(getDataAttributeValueByName('First-age'));
+  const secAge = parseFloat(getDataAttributeValueByName('Second-age'));
 
-  const second_age_tax_slab=parseFloat(getDataAttributeValueByName('Second-age-tax-slab'));
+  const secondAgeTaxSlab = parseFloat(getDataAttributeValueByName('Second-age-tax-slab'));
 
   // Function to calculate tax based on income slabs
   function calculateBasicTax(income) {
     let tax = 0;
-    if (income > tax_bracket_limit_third) {
-      tax += (income - tax_bracket_limit_third) * tax_bracket_limit_third_tax_rate;
-      income = tax_bracket_limit_third;
+    if (income > taxBracketLimitThird) {
+      tax += (income - taxBracketLimitThird) * taxBracketLimitThirdTaxRate;
+      income = taxBracketLimitThird;
     }
-    if (income > tax_bracket_limit_second) {
-      tax += (income - tax_bracket_limit_second) * tax_bracket_limit_second_tax_rate;
-      income = tax_bracket_limit_second;
+    if (income > taxBracketLimitSecond) {
+      tax += (income - taxBracketLimitSecond) * taxBracketLimitSecondTaxRate;
+      income = taxBracketLimitSecond;
     }
-    if (income > tax_bracket_limit_first) {
-      tax += (income - tax_bracket_limit_first) * tax_bracket_limit_first_tax_rate;
+    if (income > taxBracketLimitFirst) {
+      tax += (income - taxBracketLimitFirst) * taxBracketLimitFirstTaxRate;
     }
     return tax;
   }
 
   // Tax Slabs based on age
   function getTaxSlabs(age) {
-    if (age > first_age) {
+    if (age > firstAge) {
       return {
-        taxSlabs: [tax_bracket_limit_first, tax_bracket_limit_second, tax_bracket_limit_third],
-        rates: [tax_bracket_limit_first_tax_rate, tax_bracket_limit_second_tax_rate, tax_bracket_limit_third_tax_rate],
+        taxSlabs: [taxBracketLimitFirst, taxBracketLimitSecond, taxBracketLimitThird],
+        rates: [taxBracketLimitFirstTaxRate, taxBracketLimitSecondTaxRate, taxBracketLimitThirdTaxRate],
       };
-    } else if (age > sec_age) {
+    } else if (age > secAge) {
       return {
-        taxSlabs: [second_age_tax_slab, tax_bracket_limit_second, tax_bracket_limit_third],
-        rates: [tax_bracket_limit_first_tax_rate, tax_bracket_limit_second_tax_rate, tax_bracket_limit_third_tax_rate],
+        taxSlabs: [secondAgeTaxSlab, taxBracketLimitSecond, taxBracketLimitThird],
+        rates: [taxBracketLimitFirstTaxRate, taxBracketLimitSecondTaxRate, taxBracketLimitThirdTaxRate],
       };
     } else {
       return {
-        taxSlabs: [tax_bracket_limit_first, tax_bracket_limit_second, tax_bracket_limit_third],
-        rates: [tax_bracket_limit_first_tax_rate, tax_bracket_limit_second_tax_rate, tax_bracket_limit_third_tax_rate],
+        taxSlabs: [taxBracketLimitFirst, taxBracketLimitSecond, taxBracketLimitThird],
+        rates: [taxBracketLimitFirstTaxRate, taxBracketLimitSecondTaxRate, taxBracketLimitThirdTaxRate],
       };
     }
   }
