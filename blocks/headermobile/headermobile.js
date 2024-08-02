@@ -7,7 +7,7 @@ function addInitialStrurcture(block) {
     if (summary.querySelector(' p >picture img')) {
       summary.classList.add('accordian-item-label-pictuire');
     }
-    var body = row.children[1];
+    let body = row.children[1];
     if (body) {
       body.className = 'header-accordion-item-body';
       if (!body.hasChildNodes()) {
@@ -26,7 +26,7 @@ function addInitialStrurcture(block) {
 
 function addingHeaderMobFunctionlity(block) {
   const accordionBodies = block.querySelectorAll('.header-accordion-item-body > ol > li , .header-accordion-item-body > ul > li');
-  accordionBodies.forEach(item => {
+  accordionBodies.forEach((item) => {
     const childOl = item.querySelector('ol, ul');
     if (childOl) {
       item.classList.add('has-children');

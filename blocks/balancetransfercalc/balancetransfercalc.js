@@ -1,4 +1,3 @@
-
 function formatNumberToIndianCommas(number) {
   // Convert the number to a string
   const numStr = number.toString();
@@ -23,15 +22,16 @@ function numberToWords(num) {
   const suffixes = [
     [1e7, 'Crores'],
     [1e5, 'Lakhs'],
-    [1e3, 'Thousands']
+    [1e3, 'Thousands'],
   ];
 
-  for (let i = 0; i < suffixes.length; i++) {
+  for (let i = 0; i < suffixes.length; i += 1) {
     const [divisor, suffix] = suffixes[i];
     if (num >= divisor) {
       return `${Math.floor(num / divisor)} ${suffix}`;
     }
   }
+  return num;
 }
 function updateCalculations(block) {
   // Retrieve and parse input values
@@ -54,13 +54,19 @@ function updateCalculations(block) {
   const finalPLInterestRate = newInterestRate / 1200;
 
   // Calculate existing EMI per month for remaining tenure
-  const existingEmi = (finalprincipal * finalELInterestRate * Math.pow(1 + finalELInterestRate, finaltenure)) /
-    (Math.pow(1 + finalELInterestRate, finaltenure) - 1);
+  const baseRate = 1 + finalELInterestRate;
+  const compoundedRate = baseRate ** finaltenure;
+  const existingEmi = (
+    finalprincipal * finalELInterestRate * compoundedRate
+  ) / (compoundedRate - 1);
 
   // Calculate proposed EMI per month for new tenure
-  const proposedEmi = (finalprincipal * finalPLInterestRate * Math.pow(1 + finalPLInterestRate, finalPLTenure)) /
-    (Math.pow(1 + finalPLInterestRate, finalPLTenure) - 1);
+  const rate = 1 + finalPLInterestRate;
+  const ratePowerTenure = rate ** finalPLTenure;
 
+  const proposedEmi = (
+    finalprincipal * finalPLInterestRate * ratePowerTenure
+  ) / (ratePowerTenure - 1);
   // Calculate total savings in cash outflow and savings in EMI
   let totalSavinginCashoutflow = (existingEmi * finaltenure) - (proposedEmi * finalPLTenure);
   totalSavinginCashoutflow = totalSavinginCashoutflow < 0 ? 0 : totalSavinginCashoutflow;
@@ -95,7 +101,7 @@ function allowOnlyNumericAndDecimal(input) {
 
     const parts = this.value.split('.');
     if (parts.length > 2) {
-      this.value = parts[0] + '.' + parts.slice(1).join('');
+      this.value = `${parts[0]}.${parts.slice(1).join('')}`;
     }
   });
 }
@@ -104,32 +110,32 @@ function getCalcAttribute() {
     principalOutstanding: {
       label: getDataAttributeValueByName('principal-outstanding-label'),
       min: parseFloat(getDataAttributeValueByName('principal-outstanding-min')),
-      max: parseFloat(getDataAttributeValueByName('principal-outstanding-max'))
+      max: parseFloat(getDataAttributeValueByName('principal-outstanding-max')),
     },
     balanceTenureYear: {
       label: getDataAttributeValueByName('balance-tenure-year-label'),
       min: parseFloat(getDataAttributeValueByName('balance-tenure-year-min')),
-      max: parseFloat(getDataAttributeValueByName('balance-tenure-year-max'))
+      max: parseFloat(getDataAttributeValueByName('balance-tenure-year-max')),
     },
     existingInterest: {
       label: getDataAttributeValueByName('existing-interest-label'),
       min: parseFloat(getDataAttributeValueByName('existing-interest-min')),
-      max: parseFloat(getDataAttributeValueByName('existing-interest-max'))
+      max: parseFloat(getDataAttributeValueByName('existing-interest-max')),
     },
     proposedInterestRate: {
       label: getDataAttributeValueByName('proposed-interest-rate-label'),
       min: parseFloat(getDataAttributeValueByName('proposed-interest-rate-min')),
-      max: parseFloat(getDataAttributeValueByName('proposed-interest-rate-max'))
+      max: parseFloat(getDataAttributeValueByName('proposed-interest-rate-max')),
     },
     proposedLoanTenureYear: {
       label: getDataAttributeValueByName('proposed-loan-tenure-year-label'),
       min: parseFloat(getDataAttributeValueByName('proposed-loan-tenure-year-min')),
-      max: parseFloat(getDataAttributeValueByName('proposed-loan-tenure-year-max'))
+      max: parseFloat(getDataAttributeValueByName('proposed-loan-tenure-year-max')),
     },
     proposedLoanTenureMonth: {
       label: getDataAttributeValueByName('proposed-loan-tenure-month-label'),
       min: parseFloat(getDataAttributeValueByName('proposed-loan-tenure-month-min')),
-      max: parseFloat(getDataAttributeValueByName('proposed-loan-tenure-month-max'))
+      max: parseFloat(getDataAttributeValueByName('proposed-loan-tenure-month-max')),
     },
     totalSavingCashOutflowOutput: getDataAttributeValueByName('total-saving-cash-outflow-output'),
     savingsInEmiOutput: getDataAttributeValueByName('savings-in-emi-output'),
@@ -138,14 +144,14 @@ function getCalcAttribute() {
     applyNowLabel: getDataAttributeValueByName('apply-now-label'),
     rupeeSymbols: {
       hindi: getDataAttributeValueByName('rupee-symbol-hindi'),
-      english: getDataAttributeValueByName('rupee-symbol-en')
+      english: getDataAttributeValueByName('rupee-symbol-en'),
     },
     percentSymbol: getDataAttributeValueByName('percent-symbol'),
     monthSymbol: getDataAttributeValueByName('month-symbol'),
     yearSymbol: getDataAttributeValueByName('year-symbol'),
     redirectionPath: getDataAttributeValueByName('redirection-balance-path'),
     proposed_loan_label: getDataAttributeValueByName('proposed-loan-label'),
-    existing_loan_label: getDataAttributeValueByName('existing-loan-label')
+    existing_loan_label: getDataAttributeValueByName('existing-loan-label'),
   };
   return calculatorAttributes;
 }
@@ -307,17 +313,17 @@ function getHTML(calculatorAttributes) {
   return htmlCode;
 }
 // Function to update the range input colors
-function updateRangeColors(block) {
+function updateRangeColors() {
   const isMobileView = window.matchMedia('(max-width: 767px)').matches;
-  const mobileColor = '#f4f4f4';  //  color for mobile view
-  const desktopColor = '#fff'; // White color for desktop view
+  const mobileColor = '#f4f4f4';
+  const desktopColor = '#fff';
 
   const rangeInputs = document.querySelectorAll('input[type=range]');
-  rangeInputs.forEach(input => {
+  rangeInputs.forEach((input) => {
     const min = parseFloat(input.min);
     const max = parseFloat(input.max);
     const val = parseFloat(input.value);
-    const normalizedValue = (val - min) / (max - min) * 100;
+    const normalizedValue = ((val - min) / (max - min)) * 100;
     const endColor = isMobileView ? mobileColor : desktopColor;
     input.style.background = `linear-gradient(to right, #8CB133 ${normalizedValue}%, ${endColor} ${normalizedValue}%)`;
   });
@@ -325,25 +331,24 @@ function updateRangeColors(block) {
 
 // Wrap your main functionality in the decorate function
 export default async function decorate(block) {
-
   const calculatorAttributes = getCalcAttribute();
   const htmlCode = getHTML(calculatorAttributes);
   block.innerHTML += htmlCode;
 
   // Event listeners for range inputs (excluding principalOutstanding)
   const sliders = block.querySelectorAll('input[type=range]:not(#principalOutstanding)');
-  sliders.forEach(slider => {
-    slider.addEventListener('change', function () {
-      const displayId = slider.id + 'Display';
+  sliders.forEach((slider) => {
+    slider.addEventListener('change', () => {
+      const displayId = `${slider.id}Display`;
       const displayInput = block.querySelector(`#${displayId}`);
-      const errorSpanId = slider.id + 'Error';
+      const errorSpanId = `${slider.id}Error`;
       const errorSpan = block.querySelector(`#${errorSpanId}`);
 
       const min = parseFloat(slider.min);
       const max = parseFloat(slider.max);
 
       const value = parseFloat(slider.value);
-      if (!isNaN(value) && value >= min && value <= max) {
+      if (!Number.isNaN(value) && value >= min && value <= max) {
         updateCalculations(block);
         // updateRangeColors(block); // Uncomment if needed
         displayInput.value = slider.value;
@@ -353,29 +358,29 @@ export default async function decorate(block) {
       }
     });
 
-    slider.addEventListener('input', function () {
-      updateRangeColors(block);
+    slider.addEventListener('input', () => {
+      updateRangeColors();
     });
   });
 
   // Event listeners for text inputs (including principalOutstandingDisplay)
   const textInputs = block.querySelectorAll('input[type=text]');
-  textInputs.forEach(input => {
+  textInputs.forEach((input) => {
     if (!input.id.includes('principalOutstandingDisplay')) {
-      input.addEventListener('blur', function () {
+      input.addEventListener('blur', () => {
         const rangeId = input.id.replace('Display', '');
         const rangeInput = block.querySelector(`#${rangeId}`);
-        const errorSpanId = rangeId + 'Error';
+        const errorSpanId = `${rangeId}Error`;
         const errorSpan = block.querySelector(`#${errorSpanId}`);
 
         const min = parseFloat(rangeInput.min);
         const max = parseFloat(rangeInput.max);
 
         const value = parseFloat(input.value);
-        if (!isNaN(value) && value >= min && value <= max) {
+        if (!Number.isNaN(value) && value >= min && value <= max) {
           rangeInput.value = input.value;
           updateCalculations(block);
-          updateRangeColors(block);
+          updateRangeColors();
           errorSpan.textContent = '';
         } else {
           errorSpan.textContent = `Enter a value between ${min} and ${max}`;
@@ -390,51 +395,46 @@ export default async function decorate(block) {
   const principalOutstandingError = block.querySelector('#principalOutstandingError');
 
   // Event listener for principalOutstandingDisplay input blur event
-  principalOutstandingDisplay.addEventListener('blur', function () {
+  principalOutstandingDisplay.addEventListener('blur', () => {
     const min = parseFloat(principalOutstanding.min);
     const max = parseFloat(principalOutstanding.max);
 
     const rawValue = principalOutstandingDisplay.value.replace(/,/g, ''); // Remove existing commas
     const value = parseFloat(rawValue);
 
-    if (!isNaN(value) && value >= min && value <= max) {
+    if (!Number.isNaN(value) && value >= min && value <= max) {
       principalOutstanding.value = value;
       updateCalculations(block);
       principalOutstandingDisplay.value = formatNumberToIndianCommas(rawValue);
       principalOutstandingError.textContent = '';
-      updateRangeColors(block);
+      updateRangeColors();
     } else {
       principalOutstandingError.textContent = `Enter a value between ${min} and ${max}`;
     }
   });
 
   // Event listener for principalOutstanding range input change event
-  principalOutstanding.addEventListener('change', function () {
+  principalOutstanding.addEventListener('change', () => {
     const rawValue = principalOutstanding.value;
     principalOutstandingDisplay.value = formatNumberToIndianCommas(rawValue);
     updateCalculations(block);
     // updateRangeColors(block);
   });
   principalOutstanding.addEventListener('input', () => {
-    updateRangeColors(block);
-  })
-
-
+    updateRangeColors();
+  });
 
   const applyNowButton = block.querySelector('#balnance-apply-now');
   applyNowButton.addEventListener('click', () => {
     window.location.href = calculatorAttributes.redirectionPath;
-  })
+  });
 
   // Allow only numeric and decimal input
   const inputs = block.querySelectorAll('input[type="text"]');
-  inputs.forEach(input => allowOnlyNumericAndDecimal(input));
+  inputs.forEach((input) => allowOnlyNumericAndDecimal(input));
 
   updateCalculations(block);
-  updateRangeColors(block);
+  updateRangeColors();
 }
 window.addEventListener('resize', updateRangeColors);
 window.addEventListener('load', updateRangeColors);
-
-
-

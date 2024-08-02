@@ -2,7 +2,7 @@ import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
 const isDesktop = window.matchMedia('(min-width: 900px)');
-var navElement = document.getElementById('nav');
+// var navElement = document.getElementById('nav');
 function closeOnEscape(e) {
   if (e.code === 'Escape') {
     const nav = document.getElementById('nav');
@@ -158,12 +158,12 @@ export default async function decorate(block) {
   navWrapper.append(nav);
   block.append(navWrapper);
 
-  const api = getDataAttributeValueByName('globalnavigationapiurl');
-
   function getDataAttributeValueByName(name) {
     const element = document.querySelector(`[data-${name}]`);
     return element ? element.getAttribute(`data-${name}`) : null;
   }
+
+  const api = getDataAttributeValueByName('globalnavigationapiurl');
 
   let responseData = [];
 
@@ -213,7 +213,7 @@ export default async function decorate(block) {
   }
 
   // function to render nav elements div for child depth is 2
-  function getChildResponseDataForDepthTwo(response, itemCount) {
+  function getChildResponseDataForDepthTwo(response) {
     if (!response || Object.keys(response).length === 0) {
       belowNavMainContainer.innerHTML = '';
       return;
@@ -227,39 +227,6 @@ export default async function decorate(block) {
 
     // Create the main ul element
     const mainUl = document.createElement('ul');
-
-    // Iterate over the keys in the response object
-    Object.keys(response).forEach((key, index) => {
-      if (response.hasOwnProperty(key)) {
-        const parentName = key.split('_')[0];
-        const parentPath = key.split('_')[1];
-        const li = document.createElement('li');
-        li.className = 'listElement';
-        if (index === 0) li.classList.add('active');
-        const a = document.createElement('a');
-        a.textContent = parentName;
-        a.href = parentPath;
-        a.className = 'anchorPath';
-        a.addEventListener('mouseover', (event) => {
-          event.preventDefault();
-          const allListItems = mainUl.querySelectorAll('li');
-          allListItems.forEach((item) => item.classList.remove('active'));
-          li.classList.add('active');
-          updateSecondElementDiv(response[key]);
-        });
-
-        li.appendChild(a);
-        mainUl.appendChild(li);
-      }
-    });
-
-    const firstKey = Object.keys(response)[0];
-    updateSecondElementDiv(response[firstKey]);
-    firstElementChildDiv.appendChild(mainUl);
-    parentContainerDiv.appendChild(firstElementChildDiv);
-    parentContainerDiv.appendChild(secondElementDiv);
-    parentContainerDiv.appendChild(thirdElementDiv);
-    belowNavMainContainer.appendChild(parentContainerDiv);
 
     // Function to update secondElementDiv with items
     function updateSecondElementDiv(items) {
@@ -297,6 +264,39 @@ export default async function decorate(block) {
       });
       secondElementDiv.appendChild(nestedUl);
     }
+
+    // Iterate over the keys in the response object
+    Object.keys(response).forEach((key, index) => {
+      if (response.hasOwnProperty(key)) {
+        const parentName = key.split('_')[0];
+        const parentPath = key.split('_')[1];
+        const li = document.createElement('li');
+        li.className = 'listElement';
+        if (index === 0) li.classList.add('active');
+        const a = document.createElement('a');
+        a.textContent = parentName;
+        a.href = parentPath;
+        a.className = 'anchorPath';
+        a.addEventListener('mouseover', (event) => {
+          event.preventDefault();
+          const allListItems = mainUl.querySelectorAll('li');
+          allListItems.forEach((item) => item.classList.remove('active'));
+          li.classList.add('active');
+          updateSecondElementDiv(response[key]);
+        });
+
+        li.appendChild(a);
+        mainUl.appendChild(li);
+      }
+    });
+
+    const firstKey = Object.keys(response)[0];
+    updateSecondElementDiv(response[firstKey]);
+    firstElementChildDiv.appendChild(mainUl);
+    parentContainerDiv.appendChild(firstElementChildDiv);
+    parentContainerDiv.appendChild(secondElementDiv);
+    parentContainerDiv.appendChild(thirdElementDiv);
+    belowNavMainContainer.appendChild(parentContainerDiv);
   }
 
   // function to render nav elements div for child depth is 1
@@ -349,7 +349,7 @@ export default async function decorate(block) {
       }
     }
 
-    if (itemCount != 0) {
+    if (itemCount !== 0) {
       secondElementDiv.appendChild(mainUl);
       parentContainerDiv.appendChild(secondElementDiv);
     }
@@ -359,7 +359,7 @@ export default async function decorate(block) {
   }
 
   // function to render nav elements div for child depth is zero
-  function getChildResponseDataForDepthZero(responseData) {
+  function getChildResponseDataForDepthZero(responseArr) {
     parentContainerDiv.innerHTML = '';
     firstElementChildDiv.innerHTML = '';
     secondElementDiv.innerHTML = '';
@@ -376,41 +376,41 @@ export default async function decorate(block) {
 
     customerSupportDiv.innerHTML = `
         <li class="customersupport">
-            <a href="${responseData.customersupportlink}" class="customer-support-anchor">
-              ${responseData.customersupport}
+            <a href="${responseArr.customersupportlink}" class="customer-support-anchor">
+              ${responseArr.customersupport}
             </a>      
         </li>
   
         <li class="selfservice">
-                  <h4 class="self-service-heading">${responseData.selfservices}</h4>
+                  <h4 class="self-service-heading">${responseArr.selfservices}</h4>
             <ul class="self-service-ul">
                 <li class="self-service-li">
-                   <a href="${responseData.branchlocaterlink}">${responseData.branchlocater}</a>
+                   <a href="${responseArr.branchlocaterlink}">${responseArr.branchlocater}</a>
                 </li>
                  <li class="self-service-li">
-                   <a href="${responseData.trackstatuslink}">${responseData.trackstatus}</a>
+                   <a href="${responseArr.trackstatuslink}">${responseArr.trackstatus}</a>
                 </li>
                  <li class="self-service-li">
-                   <a href="${responseData.faqlink}">${responseData.faq}</a>
+                   <a href="${responseArr.faqlink}">${responseArr.faq}</a>
                 </li>
             </ul>
         </li>
   
         <li class="grievancecontainer">
-             <h4 class="grievance-heading">${responseData.grievanceredressal}</h4>
+             <h4 class="grievance-heading">${responseArr.grievanceredressal}</h4>
             <ul class="grievance-ul">
                  <li class="self-service-li">
-                   <a href="${responseData.godrejhousingfinancelink}">${responseData.godrejhousingfinance}</a>
+                   <a href="${responseArr.godrejhousingfinancelink}">${responseArr.godrejhousingfinance}</a>
                 <li class="self-service-li">
-                   <a href="${responseData.godrejfinancelink}">${responseData.godrejfinance}</a>
+                   <a href="${responseArr.godrejfinancelink}">${responseArr.godrejfinance}</a>
                 </li>
             </ul>      
         </li>
   
         <li class="contactuscontainer">
-            <h4 class="contact-heading">${responseData.contactus}</h4>
-            <p class="contact-mobile-number">${responseData.mobilenumber}</p>
-            <p class="contact-mail">${responseData.mail}</p>          
+            <h4 class="contact-heading">${responseArr.contactus}</h4>
+            <p class="contact-mobile-number">${responseArr.mobilenumber}</p>
+            <p class="contact-mail">${responseArr.mail}</p>          
         </li>
          `;
     firstElementChildDiv.appendChild(customerSupportDiv);
@@ -419,21 +419,21 @@ export default async function decorate(block) {
     freeCreditDiv.innerHTML = `
             <div class="free-credit-container">
                 <div class="free-credit-internaldiv">
-                <img src="${responseData.freecrediticon}" class="free-credit-icon"><a class="free-credit-heading" href="${responseData.freecreditscorelink}">${responseData.freecreditscore}</a></div>
-                <p class="free-credit-description">${responseData.freecreditscoredescription}</p>
-                <a class="free-credit-score" href="${responseData.checkcreditscorelink}">${responseData.checkcreditscore}</a>
+                <img src="${responseArr.freecrediticon}" class="free-credit-icon"><a class="free-credit-heading" href="${responseArr.freecreditscorelink}">${responseArr.freecreditscore}</a></div>
+                <p class="free-credit-description">${responseArr.freecreditscoredescription}</p>
+                <a class="free-credit-score" href="${responseArr.checkcreditscorelink}">${responseArr.checkcreditscore}</a>
             </div>
             <div class="whatsUp-container">
-                <h3 class="whatsUp-heading">${responseData.whatsupsupport}</h3>
-                <p class="whatsUp-desciption">${responseData.whatsupdescription}</p>
-                <img src="${responseData.whatsupicon}" alt="QR Code" class="whatsUp-icon">
+                <h3 class="whatsUp-heading">${responseArr.whatsupsupport}</h3>
+                <p class="whatsUp-desciption">${responseArr.whatsupdescription}</p>
+                <img src="${responseArr.whatsupicon}" alt="QR Code" class="whatsUp-icon">
             </div>
         `;
     secondElementDiv.appendChild(freeCreditDiv);
     parentContainerDiv.appendChild(secondElementDiv);
 
     imageContainerDiv.innerHTML = `
-            <img src="${responseData.mainimage}" alt="Main Image" class="main-image">
+            <img src="${responseArr.mainimage}" alt="Main Image" class="main-image">
         `;
     thirdElementDiv.appendChild(imageContainerDiv);
     parentContainerDiv.appendChild(thirdElementDiv);
@@ -479,11 +479,11 @@ export default async function decorate(block) {
         return response.json();
       })
       .then((response) => {
-        const itemCount = parseInt(depth);
+        const itemCount = parseInt(depth, 10);
         const childResponseData = response.data;
         const transformedData = transformResponseData(childResponseData);
         if (itemCount === 2) {
-          getChildResponseDataForDepthTwo(transformedData, itemCount);
+          getChildResponseDataForDepthTwo(transformedData);
         } else if (itemCount === 1) {
           getChildResponseDataForDepthOne(transformedData, itemCount);
         } else {
