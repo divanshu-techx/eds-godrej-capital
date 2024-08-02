@@ -1,5 +1,13 @@
 import ffetch from '../../scripts/ffetch.js';
+
 var categories;
+
+// Retrieve the value of a data attribute by name
+function getDataAttributeValueByName(name) {
+  const element = document.querySelector(`[data-${name}]`);
+  return element ? element.getAttribute(`data-${name}`) : '';
+}
+
 // Retrieve configurable values from data attributes
 const queryIndexApiUrl = getDataAttributeValueByName('queryindexurl');
 // Selectors for DOM elements
@@ -47,7 +55,8 @@ function renderCards(data, contentContainer) {
 
 // Filter and render content based on the selected category
 function renderFilteredContent(category, responseData, contentContainer) {
-  const filteredData = responseData.filter((item) => item.category.toLowerCase().split(',').includes(category.toLowerCase()),
+  const filteredData = responseData.filter(
+    (item) => item.category.toLowerCase().split(',').includes(category.toLowerCase()),
   );
   renderCards(filteredData, contentContainer);
 }
@@ -61,12 +70,6 @@ function addEventListeners(tabs, responseData, contentContainer) {
       renderFilteredContent(tab.dataset.tabName, responseData, contentContainer);
     });
   });
-}
-
-// Retrieve the value of a data attribute by name
-function getDataAttributeValueByName(name) {
-  const element = document.querySelector(`[data-${name}]`);
-  return element ? element.getAttribute(`data-${name}`) : '';
 }
 
 function getTabNamesFromMetadata() {
@@ -141,4 +144,3 @@ export default async function decorate(block) {
     console.error('Error fetching data:', err);
   }
 }
-
