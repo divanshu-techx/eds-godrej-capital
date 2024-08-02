@@ -135,7 +135,7 @@ function calculateTax(income, principal, interest, age) {
         rates: [
           taxBracketLimitFirstTaxRate,
           taxBracketLimitSecondTaxRate,
-          taxBracketLimitThirdTaxRate
+          taxBracketLimitThirdTaxRate,
         ],
       };
     }
@@ -145,7 +145,7 @@ function calculateTax(income, principal, interest, age) {
         rates: [
           taxBracketLimitFirstTaxRate,
           taxBracketLimitSecondTaxRate,
-          taxBracketLimitThirdTaxRate
+          taxBracketLimitThirdTaxRate,
         ],
       };
     }
@@ -154,7 +154,7 @@ function calculateTax(income, principal, interest, age) {
       rates: [
         taxBracketLimitFirstTaxRate,
         taxBracketLimitSecondTaxRate,
-        taxBracketLimitThirdTaxRate
+        taxBracketLimitThirdTaxRate,
       ],
     };
   }
@@ -184,9 +184,9 @@ function calculateTax(income, principal, interest, age) {
   // Calculate tax benefits
   const taxBenefits = Math.round(taxBefore - taxAfter);
   return {
-    taxBefore: taxBefore,
-    taxAfter: taxAfter,
-    taxBenefits: taxBenefits,
+    taxBefore,
+    taxAfter,
+    taxBenefits,
   };
 }
 
@@ -245,8 +245,15 @@ function updateDisplay() {
     document.getElementById('interestError'),
   );
   // Calculate taxes
-  const { taxBefore, taxAfter, taxBenefits } = calculateTax(
-    income, principal, interest, age,
+  const {
+    taxBefore,
+    taxAfter,
+    taxBenefits
+  } = calculateTax(
+    income,
+    principal,
+    interest,
+    age,
   );
 
   document.getElementById(
