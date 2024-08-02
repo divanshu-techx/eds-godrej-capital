@@ -6,6 +6,7 @@ const queryIndexApiUrl = getDataAttributeValueByName('queryindexurl');
 const SELECTORS = {
   tabsSelector: '.tab',
 };
+
 // API URLs
 const API_URL = {
   Different_Home_Loan_Url: queryIndexApiUrl,
