@@ -19,10 +19,10 @@ function numberToWords(num) {
   const suffixes = [
     [1e7, 'Crores'],
     [1e5, 'Lakhs'],
-    [1e3, 'Thousands'],
+    [1e3, 'Thousands']
   ];
 
-  for (let i = 0; i < suffixes.length; i += 1) {
+  for (let i = 0; i < suffixes.length; i++) {
     const [divisor, suffix] = suffixes[i];
     if (num >= divisor) {
       return `${Math.floor(num / divisor)} ${suffix}`;
@@ -139,16 +139,14 @@ function displayDetails(P, R, N, M, E, line, pie, block) {
   block.querySelector('#MonthlyEmiPrice').innerText = emi.toLocaleString('en-IN', opts);
 
   block.querySelector('#mobile_monthly_emi_price').innerText = emi.toLocaleString('en-IN', opts);
-
+  
   // Calculate the loan eligibility using the formula
   var loanEligibility = (P - E) *
-    (Math.pow(1 + r, totalMonths) - 1) /
-    (r * Math.pow(1 + r, totalMonths));
+  (Math.pow(1 + r, totalMonths) - 1) /
+  (r * Math.pow(1 + r, totalMonths));
   loanEligibility = Math.round(Math.max(loanEligibility, 0));
-  console.log(loanEligibility);
-
-  block.querySelector('#le').innerText = `₹ ${loanEligibility.toLocaleString('en-IN')}`;
-  block.querySelector('#mobile-le').innerText = `₹ ${loanEligibility.toLocaleString('en-IN')}`;
+    block.querySelector('#le').innerText = `₹ ${loanEligibility.toLocaleString('en-IN')}`;
+    block.querySelector('#mobile-le').innerText = `₹ ${loanEligibility.toLocaleString('en-IN')}`;
 
   // block.querySelector('#le').innerText = `₹ ${Math.max(0, P - E).toLocaleString('en-IN')}`;
   // block.querySelector('#mobile-le').innerText = `₹ ${Math.max(0, P - E).toLocaleString('en-IN')}`;
@@ -216,7 +214,6 @@ function initialize(block) {
   const mobileyear = getDataAttributeValueByName('Mobile-year');
   const mobilemonths = getDataAttributeValueByName('Mobile-month');
   const selectProductPlaceHolder = getDataAttributeValueByName('select-product-place-holder');
-  console.log(selectProductPlaceHolder);
 
   //  Create a select element
   const selectProduct = document.createElement('select');
@@ -224,7 +221,7 @@ function initialize(block) {
   const mobileSelect = document.querySelector('.sec-tab-dropdown');
   //   Loop through the array and create option elements
   option = document.createElement('option');
-  option.value = ' ';
+  option.value=' ';
   option.text = selectProductPlaceHolder;
   option.disabled = true;
   option.selected = true;
@@ -248,7 +245,7 @@ function initialize(block) {
       'div',
       { class: 'detail-select' },
       createElement('div', { class: 'detail-select-child', style: 'color: #3b3b3b' }, selectProductLabel),
-      selectProduct,
+      selectProduct
 
     ),
   );
@@ -435,7 +432,7 @@ function initialize(block) {
       ),
       createElement('div', { id: 'CI', style: 'color: #3B3B3B; font-size: 24px; font-weight:400;' }),
     ),
-  );
+  )
 
   const breakup = createElement('div', { class: 'breakup breadup-loaneli' },
     createElement('div', { class: 'chartDetails' },
@@ -443,12 +440,12 @@ function initialize(block) {
       createElement('div', { id: 'canvasItems-loanele' },
         createElement('div', { class: 'intrest' },
           createElement('div', { style: 'color: #000;font-size:14px;font-weight:300;' }, interestratelabel),
-          createElement('div', { id: 'Rate' }),
+          createElement('div', { id: 'Rate' })
         ),
         createElement('div', { class: 'tenure' },
           createElement('div', { style: 'color: #000;font-size:14px;font-weight:300;' }, totaltenurelabel),
           createElement('span', { id: 'year_tenure' }), yearlabel, tenureseparator,
-          createElement('span', { id: 'month_Tenure' }), monthlabel,
+          createElement('span', { id: 'month_Tenure' }), monthlabel
         ),
       ), loanDetailsUpper),
   );
@@ -490,16 +487,16 @@ function initialize(block) {
           createElement('div', { style: 'color: #111111;font-size:14px;font-weight:500;' }, totaltenurelabel),
           createElement('div', { class: 'mobile-tenure-monthYear' },
             createElement('span', { id: 'mobile_year_tenure' }), mobileyear, ' ',
-            createElement('span', { id: 'mobile_month_Tenure' }), mobilemonths,
+            createElement('span', { id: 'mobile_month_Tenure' }), mobilemonths
           ),
         ),
         createElement('div', { class: 'mobile-tenure-amount' },
           createElement('div', { class: 'mobile-tenure-amount-label' }, totalamountlabel),
-          createElement('div', { id: 'mobile_CT', class: 'mobile-tenure-amount-detail' }),
+          createElement('div', { id: 'mobile_CT', class: 'mobile-tenure-amount-detail' })
         ),
         createElement('div', { class: 'mobile-tenure-interest' },
           createElement('div', { class: 'mobile-tenure-interest-label' }, interestpayablelabel),
-          createElement('div', { id: 'mobile_CI', style: 'color: #757575;font-size:12px;font-weight:400;' }),
+          createElement('div', { id: 'mobile_CI', style: 'color: #757575;font-size:12px;font-weight:400;' })
         ),
       ),
       createElement('div', { class: 'mobile-breakup-right' },
@@ -509,13 +506,13 @@ function initialize(block) {
             createElement('span', { id: 'mobile_interest_rate', class: 'mobile-tenure-interest-rate' }),
           ),
           createElement('div', { class: 'mobile-tenure-emi-details' },
-            createElement('h2', { id: 'mobile_monthly_emi_price', class: 'mobile-tenure-emi-price' }),
-          ),
+            createElement('h2', { id: 'mobile_monthly_emi_price', class: 'mobile-tenure-emi-price' },),
+          )
         ),
         createElement('div', { class: 'mobile-tenure-apply' },
-          createElement('button', { id: 'apply-btn-loan', 'data-path': mobileredirection }, applynowbutton),
-        ),
-      ),
+          createElement('button', { id: 'apply-btn-loan', 'data-path': mobileredirection }, applynowbutton)
+        )
+      )
     ),
   );
 
@@ -555,28 +552,26 @@ function initialize(block) {
   });
 
   // Event listener to allow only numeric input
-  loanAmtText.addEventListener('input', function () {
-    // let value = this.value;
-    let { value } = this;
+  loanAmtText.addEventListener('input', function (event) {
+    let value = this.value;
     value = value.replace(/[^\d.]/g, ''); // Remove non-numeric characters except '.'
     this.value = value;
   });
 
-  loanAmtSlider.addEventListener('input', function () {
-    // let value = this.value;
-    let { value } = this;
+  loanAmtSlider.addEventListener('input', function (event) {
+    let value = this.value;
     value = value.replace(/[^\d.]/g, ''); // Remove non-numeric characters except '.'
     this.value = value;
   });
 
-  exisitingEmiAmountSlider.addEventListener('input', function () {
-    let { value } = this;
+  exisitingEmiAmountSlider.addEventListener('input', function (event) {
+    let value = this.value;
     value = value.replace(/[^\d.]/g, ''); // Remove non-numeric characters except '.'
     this.value = value;
   });
 
-  exisitingEmiText.addEventListener('input', function () {
-    let { value } = this;
+  exisitingEmiText.addEventListener('input', function (event) {
+    let value = this.value;
     value = value.replace(/[^\d.]/g, ''); // Remove non-numeric characters except '.'
     this.value = value;
   });
@@ -657,9 +652,9 @@ function initialize(block) {
     displayDetails(P, R, N, M, E, line, pie, block);
   });
 
-  // for slider color event listener
+  //for slider color event listener
   loanAmtSlider.addEventListener('input', function () {
-    const { value } = this;
+    const value = this.value;
     const maxValue = this.max; // Get the maximum value of the range input
     const percentage = (value / maxValue) * 100;
     if (window.innerWidth <= 768) {
@@ -667,24 +662,21 @@ function initialize(block) {
     } else {
       this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
     }
-  });
+  })
 
   loanAmtText.addEventListener('input', function () {
-    // const value = this.value;
-    const { value } = this;
+    const value = this.value;
     const maxValue = this.max; // Get the maximum value of the range input
     const percentage = (value / maxValue) * 100;
-    // console.log(value);
     if (window.innerWidth <= 768) {
       loanAmtSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
     } else {
       loanAmtSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
     }
-  });
+  })
 
   intRateSlider.addEventListener('input', function () {
-    // const value = this.value;
-    const { value } = this;
+    const value = this.value;
     const percentage = ((value - interestRateMinValue) / (interestRateMaxValue - interestRateMinValue)) * 100;
 
     // Update the background gradient with the calculated percentage
@@ -696,7 +688,7 @@ function initialize(block) {
   });
 
   intRateText.addEventListener('input', function () {
-    const { value } = this;
+    const value = this.value;
     const percentage = ((value - interestRateMinValue) / (interestRateMaxValue - interestRateMinValue)) * 100;
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
@@ -707,8 +699,7 @@ function initialize(block) {
   });
 
   loanPeriodSlider.addEventListener('input', function () {
-    // const value = this.value;
-    const { value } = this;
+    const value = this.value;
     const percentage = ((value - tenureMinYearValue) / (tenureMaxYearValue - tenureMinYearValue)) * 100;
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
@@ -719,8 +710,7 @@ function initialize(block) {
   });
 
   loanPeriodText.addEventListener('input', function () {
-    // const value = this.value;
-    const { value } = this;
+    const value = this.value;
     const percentage = ((value - tenureMinYearValue) / (tenureMaxYearValue - tenureMinYearValue)) * 100;
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
@@ -731,8 +721,7 @@ function initialize(block) {
   });
 
   loanPeriodSliderMonth.addEventListener('input', function () {
-    // const value = this.value;
-    const { value } = this;
+    const value = this.value;
     const percentage = ((value - tenureMinMonthValue) / (tenureMaxMonthValue - tenureMinMonthValue)) * 100;
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
@@ -743,8 +732,7 @@ function initialize(block) {
   });
 
   loanPeriodTextMonth.addEventListener('input', function () {
-    // const value = this.value;
-    const { value } = this;
+    const value = this.value;
     const percentage = ((value - tenureMinMonthValue) / (tenureMaxMonthValue - tenureMinMonthValue)) * 100;
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
@@ -755,8 +743,7 @@ function initialize(block) {
   });
 
   exisitingEmiAmountSlider.addEventListener('input', function () {
-    // const value = this.value;
-    const { value } = this;
+    const value = this.value;
     const percentage = ((value - existingEmiMin) / (existingEmiMax - existingEmiMin)) * 100;
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
@@ -767,8 +754,7 @@ function initialize(block) {
   });
 
   exisitingEmiText.addEventListener('input', function () {
-    // const value = this.value;
-    const { value } = this;
+    const value = this.value;
     const percentage = ((value - existingEmiMin) / (existingEmiMax - existingEmiMin)) * 100;
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
@@ -791,6 +777,7 @@ function initialize(block) {
   tenureYearsDetail.appendChild(loanPeriodError);
   tenureMonthsDetail.appendChild(loanPeriodMonthError);
   existingEmi.appendChild(exisitingEmiError);
+
 
   //  error for loan amount
   loanAmtText.addEventListener('input', function () {
@@ -887,21 +874,18 @@ function initialize(block) {
   });
 
   // Set the product type in the apply button data attributes.
-  if (selectProduct) {
-    selectProduct.addEventListener('input', function () {
-      const selectedValue = this.value;
-      const applyButton = document.getElementById('apply-btn-le');
-      applyButton.setAttribute('data-product', selectedValue);
-    });
-  }
+  if(selectProduct){
+  selectProduct.addEventListener('input', function () {
+    const selectedValue = this.value;
+    const applyButton = document.getElementById('apply-btn-le');
+    applyButton.setAttribute('data-product', selectedValue);
+  });
+}
 
   if (mobileSelect) {
-    mobileSelect.addEventListener('input', () => {
+    mobileSelect.addEventListener('input', function () {
       const selectedText = mobileSelect.options[mobileSelect.selectedIndex].text;
-      console.log(selectedText);
-
       const applyMobile = document.getElementById('apply-btn-loan');
-      console.log(applyMobile);
       applyMobile.setAttribute('data-product', selectedText);
     });
   }
@@ -909,8 +893,6 @@ function initialize(block) {
   //  Handle button click event to redirect with query parameter
   document.getElementById('apply-btn-le').addEventListener('click', function () {
     const productValue = this.getAttribute('data-product');
-    console.log('desk btn click');
-    console.log(productValue);
     if (productValue) {
       const formattedProductValue = productValue.replace(/-/g, '_');
       url = `${desktopRedirectionPath}?category=${encodeURIComponent(formattedProductValue)}`;
@@ -1007,7 +989,7 @@ function initialize(block) {
         cutoutPercentage: 30,
         responsive: true,
         maintainAspectRatio: false,
-      },
+      }
     },
   });
 
