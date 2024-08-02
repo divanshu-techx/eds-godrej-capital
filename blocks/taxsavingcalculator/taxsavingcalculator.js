@@ -9,13 +9,13 @@ function numberToWords(num) {
     [1e3, 'Thousands'],
   ];
 
-  for (let i = 0; i < suffixes.length; i+=1) {
+  for (let i = 0; i < suffixes.length; i += 1) {
     const [divisor, suffix] = suffixes[i];
     if (num >= divisor) {
       return `${Math.floor(num / divisor)} ${suffix}`;
     }
   }
-  return number;
+  return num;
 }
 function formatNumberToIndianCommas(number) {
   // Convert the number to a string
@@ -92,6 +92,164 @@ const validateAndShowError = (value, min, max, errorElement) => {
     errorElement.style.display = 'none';
   }
 };
+function calculateTax(income, principal, interest, age) {
+  const cessRate = parseFloat(getDataAttributeValueByName("cess-rate")) / 100;
+  const principalDeductionLimit = parseFloat(getDataAttributeValueByName('Principal-deduction-limit'));
+  const interestDeductionLimit = parseFloat(getDataAttributeValueByName('Interest-deduction-limit'));
+
+  const tax_bracket_limit_first=parseFloat(getDataAttributeValueByName('Tax-bracket-limit-first'));
+  const tax_bracket_limit_first_tax_rate=parseFloat(getDataAttributeValueByName('Tax-bracket-limit-first-tax-rate'))/100;
+
+  const tax_bracket_limit_second=parseFloat(getDataAttributeValueByName('Tax-bracket-limit-second'));
+  const tax_bracket_limit_second_tax_rate=parseFloat(getDataAttributeValueByName('Tax-bracket-limit-second-tax-rate'))/100;
+
+  const tax_bracket_limit_third=parseFloat(getDataAttributeValueByName('Tax-bracket-limit-third'));
+  const tax_bracket_limit_third_tax_rate=parseFloat(getDataAttributeValueByName('Tax-bracket-limit-third-tax-rate'))/100;
+
+
+  const first_age=parseFloat(getDataAttributeValueByName('First-age'));
+  const sec_age=parseFloat(getDataAttributeValueByName('Second-age'));
+
+  const second_age_tax_slab=parseFloat(getDataAttributeValueByName('Second-age-tax-slab'));
+
+  // Function to calculate tax based on income slabs
+  function calculateBasicTax(income) {
+    let tax = 0;
+    if (income > tax_bracket_limit_third) {
+      tax += (income - tax_bracket_limit_third) * tax_bracket_limit_third_tax_rate;
+      income = tax_bracket_limit_third;
+    }
+    if (income > tax_bracket_limit_second) {
+      tax += (income - tax_bracket_limit_second) * tax_bracket_limit_second_tax_rate;
+      income = tax_bracket_limit_second;
+    }
+    if (income > tax_bracket_limit_first) {
+      tax += (income - tax_bracket_limit_first) * tax_bracket_limit_first_tax_rate;
+    }
+    return tax;
+  }
+
+  // Tax Slabs based on age
+  function getTaxSlabs(age) {
+    if (age > first_age) {
+      return {
+        taxSlabs: [tax_bracket_limit_first, tax_bracket_limit_second, tax_bracket_limit_third],
+        rates: [tax_bracket_limit_first_tax_rate, tax_bracket_limit_second_tax_rate, tax_bracket_limit_third_tax_rate],
+      };
+    } else if (age > sec_age) {
+      return {
+        taxSlabs: [second_age_tax_slab, tax_bracket_limit_second, tax_bracket_limit_third],
+        rates: [tax_bracket_limit_first_tax_rate, tax_bracket_limit_second_tax_rate, tax_bracket_limit_third_tax_rate],
+      };
+    } else {
+      return {
+        taxSlabs: [tax_bracket_limit_first, tax_bracket_limit_second, tax_bracket_limit_third],
+        rates: [tax_bracket_limit_first_tax_rate, tax_bracket_limit_second_tax_rate, tax_bracket_limit_third_tax_rate],
+      };
+    }
+  }
+
+  const { taxSlabs, rates } = getTaxSlabs(age);
+
+  // Calculate tax before loan deductions
+  const basicTaxBefore = calculateBasicTax(income, taxSlabs, rates);
+  const cessBefore = basicTaxBefore * cessRate;
+  const taxBefore = Math.round(basicTaxBefore + cessBefore);
+
+  // Restrict principal and interest deductions to their respective limits
+  const annualPrincipal = Math.min(principal, principalDeductionLimit);
+  const annualInterest = Math.min(interest, interestDeductionLimit);
+
+  // Calculate taxable income after loan deductions
+  const taxableIncomeAfter = Math.max(
+    0,
+    income - annualPrincipal - annualInterest,
+  );
+
+  // Calculate tax after loan deductions
+  const basicTaxAfter = calculateBasicTax(taxableIncomeAfter, taxSlabs, rates);
+  const cessAfter = basicTaxAfter * cessRate;
+  const taxAfter = Math.round(basicTaxAfter + cessAfter);
+
+  // Calculate tax benefits
+  const taxBenefits = Math.round(taxBefore - taxAfter);
+
+  return {
+    taxBefore: taxBefore,
+    taxAfter: taxAfter,
+    taxBenefits: taxBenefits,
+  };
+}
+
+function updateDisplay() {
+  const age = parseFloat(document.getElementById('age').textContent);
+  const income = parseFloat(
+    document.getElementById('income').textContent.replace(/\D/g, ''),
+  );
+  const principal = parseFloat(
+    document.getElementById('principal').textContent.replace(/\D/g, ''),
+  );
+  const interest = parseFloat(
+    document.getElementById('interest').textContent.replace(/\D/g, ''),
+  );
+
+  // Validation
+  const ageMin = parseFloat(document.getElementById('age').dataset.min);
+  const ageMax = parseFloat(document.getElementById('age').dataset.max);
+  const incomeMin = parseFloat(document.getElementById('income').dataset.min);
+  const incomeMax = parseFloat(document.getElementById('income').dataset.max);
+  const principalMin = parseFloat(
+    document.getElementById('principal').dataset.min,
+  );
+  const principalMax = parseFloat(
+    document.getElementById('principal').dataset.max,
+  );
+  const interestMin = parseFloat(
+    document.getElementById('interest').dataset.min,
+  );
+  const interestMax = parseFloat(
+    document.getElementById('interest').dataset.max,
+  );
+
+  validateAndShowError(
+    age,
+    ageMin,
+    ageMax,
+    document.getElementById('ageError'),
+  );
+  validateAndShowError(
+    income,
+    incomeMin,
+    incomeMax,
+    document.getElementById('incomeError'),
+  );
+  validateAndShowError(
+    principal,
+    principalMin,
+    principalMax,
+    document.getElementById('principalError'),
+  );
+  validateAndShowError(
+    interest,
+    interestMin,
+    interestMax,
+    document.getElementById('interestError'),
+  );
+  // Calculate taxes
+  const { taxBefore, taxAfter, taxBenefits } = calculateTax(
+    income, principal, interest, age,
+  );
+
+  document.getElementById(
+    'taxBefore',
+  ).textContent = `₹ ${formatNumberToIndianCommas(taxBefore)}`;
+  document.getElementById(
+    'taxAfter',
+  ).textContent = `₹ ${formatNumberToIndianCommas(taxAfter)}`;
+  document.getElementById(
+    'taxBenefits',
+  ).textContent = `₹ ${formatNumberToIndianCommas(taxBenefits)}`;
+}
 
 function getHtmlData(newMetaData) {
   const htmlCode = `
@@ -340,164 +498,6 @@ function initializeEventListeners(block) {
       updateDisplay(); // Call updateDisplay function after the value is changed
     });
   });
-}
-function calculateTax(income, principal, interest, age) {
-  const cessRate = parseFloat(getDataAttributeValueByName("cess-rate")) / 100;
-  const principalDeductionLimit = parseFloat(getDataAttributeValueByName('Principal-deduction-limit'));
-  const interestDeductionLimit = parseFloat(getDataAttributeValueByName('Interest-deduction-limit'));
-
-  const tax_bracket_limit_first=parseFloat(getDataAttributeValueByName('Tax-bracket-limit-first'));
-  const tax_bracket_limit_first_tax_rate=parseFloat(getDataAttributeValueByName('Tax-bracket-limit-first-tax-rate'))/100;
-
-  const tax_bracket_limit_second=parseFloat(getDataAttributeValueByName('Tax-bracket-limit-second'));
-  const tax_bracket_limit_second_tax_rate=parseFloat(getDataAttributeValueByName('Tax-bracket-limit-second-tax-rate'))/100;
-
-  const tax_bracket_limit_third=parseFloat(getDataAttributeValueByName('Tax-bracket-limit-third'));
-  const tax_bracket_limit_third_tax_rate=parseFloat(getDataAttributeValueByName('Tax-bracket-limit-third-tax-rate'))/100;
-
-
-  const first_age=parseFloat(getDataAttributeValueByName('First-age'));
-  const sec_age=parseFloat(getDataAttributeValueByName('Second-age'));
-
-  const second_age_tax_slab=parseFloat(getDataAttributeValueByName('Second-age-tax-slab'));
-
-  // Function to calculate tax based on income slabs
-  function calculateBasicTax(income) {
-    let tax = 0;
-    if (income > tax_bracket_limit_third) {
-      tax += (income - tax_bracket_limit_third) * tax_bracket_limit_third_tax_rate;
-      income = tax_bracket_limit_third;
-    }
-    if (income > tax_bracket_limit_second) {
-      tax += (income - tax_bracket_limit_second) * tax_bracket_limit_second_tax_rate;
-      income = tax_bracket_limit_second;
-    }
-    if (income > tax_bracket_limit_first) {
-      tax += (income - tax_bracket_limit_first) * tax_bracket_limit_first_tax_rate;
-    }
-    return tax;
-  }
-
-  // Tax Slabs based on age
-  function getTaxSlabs(age) {
-    if (age > first_age) {
-      return {
-        taxSlabs: [tax_bracket_limit_first, tax_bracket_limit_second, tax_bracket_limit_third],
-        rates: [tax_bracket_limit_first_tax_rate, tax_bracket_limit_second_tax_rate, tax_bracket_limit_third_tax_rate],
-      };
-    } else if (age > sec_age) {
-      return {
-        taxSlabs: [second_age_tax_slab, tax_bracket_limit_second, tax_bracket_limit_third],
-        rates: [tax_bracket_limit_first_tax_rate, tax_bracket_limit_second_tax_rate, tax_bracket_limit_third_tax_rate],
-      };
-    } else {
-      return {
-        taxSlabs: [tax_bracket_limit_first, tax_bracket_limit_second, tax_bracket_limit_third],
-        rates: [tax_bracket_limit_first_tax_rate, tax_bracket_limit_second_tax_rate, tax_bracket_limit_third_tax_rate],
-      };
-    }
-  }
-
-  const { taxSlabs, rates } = getTaxSlabs(age);
-
-  // Calculate tax before loan deductions
-  const basicTaxBefore = calculateBasicTax(income, taxSlabs, rates);
-  const cessBefore = basicTaxBefore * cessRate;
-  const taxBefore = Math.round(basicTaxBefore + cessBefore);
-
-  // Restrict principal and interest deductions to their respective limits
-  const annualPrincipal = Math.min(principal, principalDeductionLimit);
-  const annualInterest = Math.min(interest, interestDeductionLimit);
-
-  // Calculate taxable income after loan deductions
-  const taxableIncomeAfter = Math.max(
-    0,
-    income - annualPrincipal - annualInterest,
-  );
-
-  // Calculate tax after loan deductions
-  const basicTaxAfter = calculateBasicTax(taxableIncomeAfter, taxSlabs, rates);
-  const cessAfter = basicTaxAfter * cessRate;
-  const taxAfter = Math.round(basicTaxAfter + cessAfter);
-
-  // Calculate tax benefits
-  const taxBenefits = Math.round(taxBefore - taxAfter);
-
-  return {
-    taxBefore: taxBefore,
-    taxAfter: taxAfter,
-    taxBenefits: taxBenefits,
-  };
-}
-
-function updateDisplay() {
-  const age = parseFloat(document.getElementById('age').textContent);
-  const income = parseFloat(
-    document.getElementById('income').textContent.replace(/\D/g, ''),
-  );
-  const principal = parseFloat(
-    document.getElementById('principal').textContent.replace(/\D/g, ''),
-  );
-  const interest = parseFloat(
-    document.getElementById('interest').textContent.replace(/\D/g, ''),
-  );
-
-  // Validation
-  const ageMin = parseFloat(document.getElementById('age').dataset.min);
-  const ageMax = parseFloat(document.getElementById('age').dataset.max);
-  const incomeMin = parseFloat(document.getElementById('income').dataset.min);
-  const incomeMax = parseFloat(document.getElementById('income').dataset.max);
-  const principalMin = parseFloat(
-    document.getElementById('principal').dataset.min,
-  );
-  const principalMax = parseFloat(
-    document.getElementById('principal').dataset.max,
-  );
-  const interestMin = parseFloat(
-    document.getElementById('interest').dataset.min,
-  );
-  const interestMax = parseFloat(
-    document.getElementById('interest').dataset.max,
-  );
-
-  validateAndShowError(
-    age,
-    ageMin,
-    ageMax,
-    document.getElementById('ageError'),
-  );
-  validateAndShowError(
-    income,
-    incomeMin,
-    incomeMax,
-    document.getElementById('incomeError'),
-  );
-  validateAndShowError(
-    principal,
-    principalMin,
-    principalMax,
-    document.getElementById('principalError'),
-  );
-  validateAndShowError(
-    interest,
-    interestMin,
-    interestMax,
-    document.getElementById('interestError'),
-  );
-  // Calculate taxes
-  const { taxBefore, taxAfter, taxBenefits } = calculateTax(
-    income, principal, interest, age,
-  );
-
-  document.getElementById(
-    'taxBefore',
-  ).textContent = `₹ ${formatNumberToIndianCommas(taxBefore)}`;
-  document.getElementById(
-    'taxAfter',
-  ).textContent = `₹ ${formatNumberToIndianCommas(taxAfter)}`;
-  document.getElementById(
-    'taxBenefits',
-  ).textContent = `₹ ${formatNumberToIndianCommas(taxBenefits)}`;
 }
 
 function setupApplyNowButton(newMetaData) {
