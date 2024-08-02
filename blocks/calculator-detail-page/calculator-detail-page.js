@@ -51,7 +51,7 @@ export default async function decorate(block) {
       paragraph.parentNode.replaceChild(divElement, paragraph);
     });
   });
-  Array.from(block.children).forEach(child => {
+  Array.from(block.children).forEach((child) => {
     addClassToElementAndDescendants(child, 'calculator-detail-page_v1');
   });
 }

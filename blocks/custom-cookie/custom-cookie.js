@@ -5,11 +5,11 @@ function setCookie(name, value, days) {
   // const expires = 'expires=' + date.toUTCString();
   // document.cookie = name + '=' + value + ';' + expires + ';path=/';
   const expires = `expires=${date.toUTCString()}`;
-  document.cookie = `${name}=${value};${expires};path=/`;  
+  document.cookie = `${name}=${value};${expires};path=/`;
 }
 // Function to get the value of a cookie based on its name
 function getCookie(name) {
-  //const nameEQ = name + '=';
+  // const nameEQ = name + '=';
   const nameEQ = `${name}=`;
   const ca = document.cookie.split(';');
   for (let i = 0; i < ca.length; i += 1) {
@@ -19,6 +19,11 @@ function getCookie(name) {
   }
   return null;
 }
+
+function hideCookieBlock(block) {
+  block.style.display = 'none';
+}
+
 function addClass(block) {
   const defaultclass = ['custom-cookieHeading', 'custom-cookieHeadingDescription', 'custom-cookieDescription-top', 'custom-cookieDescription', 'function-cookie', 'function-cookie-description', 'perform-cookie', 'perform-cookie-description', 'custom-cookieButton'];
   const allDiv = Array.from(block.querySelectorAll(':scope > div'));
@@ -155,7 +160,7 @@ function addAction(block) {
   if (acceptBtn) {
     acceptBtn.addEventListener('click', () => {
       const toggleButtons = block.querySelectorAll('.switch-button');
-      const toggleStates = Array.from(toggleButtons).map(button => button.classList.contains('active'));
+      const toggleStates = Array.from(toggleButtons).map((button) => button.classList.contains('active'));
       setCookie('cookiesAccepted-customization', 'true', 365);
       setCookie('toggleStates', JSON.stringify(toggleStates), 365);
       hideCookieBlock(block);
@@ -175,9 +180,7 @@ function addAction(block) {
     console.log('There is no close button present.');
   }
 }
-function hideCookieBlock(block) {
-  block.style.display = 'none';
-}
+
 export default function decorate(block) {
   addClass(block);
   const cookiesAccepted = getCookie('cookiesAccepted-customization');

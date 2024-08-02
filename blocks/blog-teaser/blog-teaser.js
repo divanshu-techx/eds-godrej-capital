@@ -7,7 +7,7 @@ const MEDIA_BREAKPOINTS = {
 function getImageForBreakpoint(imagesList, onChange = () => { }) {
   const mobileMQ = window.matchMedia('(max-width: 743px)');
   const tabletMQ = window.matchMedia(
-    '(min-width: 744px) and (max-width: 1199px)'
+    '(min-width: 744px) and (max-width: 1199px)',
   );
   const desktopMQ = window.matchMedia('(min-width: 1200px)');
 
@@ -19,12 +19,9 @@ function getImageForBreakpoint(imagesList, onChange = () => { }) {
       onChange(picture, breakpoint);
     }
   };
-  const onMobileChange = (mq) =>
-    onBreakpointChange(mq, mobilePic, MEDIA_BREAKPOINTS.MOBILE);
-  const onTabletChange = (mq) =>
-    onBreakpointChange(mq, tabletPic, MEDIA_BREAKPOINTS.TABLET);
-  const onDesktopChange = (mq) =>
-    onBreakpointChange(mq, desktopPic, MEDIA_BREAKPOINTS.DESKTOP);
+  const onMobileChange = (mq) => onBreakpointChange(mq, mobilePic, MEDIA_BREAKPOINTS.MOBILE);
+  const onTabletChange = (mq) => onBreakpointChange(mq, tabletPic, MEDIA_BREAKPOINTS.TABLET);
+  const onDesktopChange = (mq) => onBreakpointChange(mq, desktopPic, MEDIA_BREAKPOINTS.DESKTOP);
 
   mobileMQ.addEventListener('change', onMobileChange);
   tabletMQ.addEventListener('change', onTabletChange);
@@ -46,7 +43,7 @@ function prepareBackgroundImage(block) {
   const onBackgroundImgChange = (imgEl, backgroundTarget, breakpoint) => {
     const backgroundPostionStyles = initBackgroundPosition(
       block.classList,
-      breakpoint
+      breakpoint,
     );
     const backgroundSrc = imgEl.currentSrc;
     backgroundTarget.style.backgroundImage = `url(${backgroundSrc})`;
@@ -84,8 +81,7 @@ function initBackgroundPosition(classList, breakpoint) {
     [MEDIA_BREAKPOINTS.DESKTOP]: 'l',
   };
   const classPrefix = classPrefixes[breakpoint];
-  const backgroudPositionClass = [...classList].find((item) =>
-    item.startsWith(`bp-${classPrefix}-`)
+  const backgroudPositionClass = [...classList].find((item) => item.startsWith(`bp-${classPrefix}-`),
   );
   let backgroundPositionValue = 'bottom';
 

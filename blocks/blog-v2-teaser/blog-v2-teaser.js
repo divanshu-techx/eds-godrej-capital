@@ -7,24 +7,20 @@ const MEDIA_BREAKPOINTS = {
 function getImageForBreakpoint(imagesList, onChange = () => { }) {
   const mobileMQ = window.matchMedia('(max-width: 743px)');
   const tabletMQ = window.matchMedia(
-    '(min-width: 744px) and (max-width: 1199px)'
+    '(min-width: 744px) and (max-width: 1199px)',
   );
   const desktopMQ = window.matchMedia('(min-width: 1200px)');
 
-  const [mobilePic, tabletPic, desktopPic] =
-    imagesList.querySelectorAll('picture');
+  const [mobilePic, tabletPic, desktopPic] = imagesList.querySelectorAll('picture');
 
   const onBreakpointChange = (mq, picture, breakpoint) => {
     if (mq.matches) {
       onChange(picture, breakpoint);
     }
   };
-  const onMobileChange = (mq) =>
-    onBreakpointChange(mq, mobilePic, MEDIA_BREAKPOINTS.MOBILE);
-  const onTabletChange = (mq) =>
-    onBreakpointChange(mq, tabletPic, MEDIA_BREAKPOINTS.TABLET);
-  const onDesktopChange = (mq) =>
-    onBreakpointChange(mq, desktopPic, MEDIA_BREAKPOINTS.DESKTOP);
+  const onMobileChange = (mq) => onBreakpointChange(mq, mobilePic, MEDIA_BREAKPOINTS.MOBILE);
+  const onTabletChange = (mq) => onBreakpointChange(mq, tabletPic, MEDIA_BREAKPOINTS.TABLET);
+  const onDesktopChange = (mq) => onBreakpointChange(mq, desktopPic, MEDIA_BREAKPOINTS.DESKTOP);
 
   mobileMQ.addEventListener('change', onMobileChange);
   tabletMQ.addEventListener('change', onTabletChange);
@@ -46,7 +42,7 @@ function prepareBackgroundImage(block) {
   const onBackgroundImgChange = (imgEl, backgroundTarget, breakpoint) => {
     const backgroundPostionStyles = initBackgroundPosition(
       block.classList,
-      breakpoint
+      breakpoint,
     );
     const backgroundSrc = imgEl.currentSrc;
     backgroundTarget.style.backgroundImage = `url(${backgroundSrc})`;
@@ -84,8 +80,7 @@ function initBackgroundPosition(classList, breakpoint) {
     [MEDIA_BREAKPOINTS.DESKTOP]: 'l',
   };
   const classPrefix = classPrefixes[breakpoint];
-  const backgroudPositionClass = [...classList].find((item) =>
-    item.startsWith(`bp-${classPrefix}-`)
+  const backgroudPositionClass = [...classList].find((item) => item.startsWith(`bp-${classPrefix}-`),
   );
   let backgroundPositionValue = 'bottom';
 
@@ -107,8 +102,7 @@ export default async function decorate(block) {
   prepareBackgroundImage(block);
   const headings = block.querySelectorAll('h1, h2, h3, h4, h5, h6');
 
-  [...headings].forEach((heading) =>
-    heading.classList.add('banner_v2_title_blog')
+  [...headings].forEach((heading) => heading.classList.add('banner_v2_title_blog'),
   );
 
   block.parentElement.classList.add('full-width-blog');
