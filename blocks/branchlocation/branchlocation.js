@@ -153,8 +153,8 @@ function renderFilters(locations, filterContainer, attributeObj) {
         },
         div({ class: 'state-container' }, label({ for: 'stateSelect' }, attributeObj.selectstatelabel), stateSelect),
         div({ class: 'city-container' }, label({ for: 'citySelect' }, attributeObj.selectcitylabel), citySelect),
-        div({ class: 'pincode-container' }, label({ for: 'pincodeInput' }, attributeObj.pincodelabel),
-          div({ class: 'input-img-container' }, img({ class: '-icon', src: attributeObj.locationmapicon }), pincodeInput)),
+        div(
+          { class: 'pincode-container' }, label({ for: 'pincodeInput' }, attributeObj.pincodelabel), div({ class: 'input-img-container' }, img({ class: '-icon', src: attributeObj.locationmapicon }), pincodeInput)),
       ),
     ),
   );
