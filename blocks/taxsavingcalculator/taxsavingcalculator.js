@@ -494,7 +494,7 @@ function initializeEventListeners(block) {
         }
 
         // Update the corresponding range input's value and background
-        const id = span.id;
+        const { id } = span;
         // console.log(id);
         const rangeElement = document.getElementById(`${id}Range`);
         rangeElement.value = numericValue;
@@ -540,7 +540,7 @@ function updateRangeColor() {
 }
 
 export default async function decorate(block) {
-  let metadata = {
+  const metadata = {
     ageTitle: '',
     ageMin: '',
     ageMax: '',
@@ -554,8 +554,8 @@ export default async function decorate(block) {
     interestMinAnnual: '',
     interestMaxAnnual: '',
   };
-  let newMetaData = await getMetaData(metadata);
-  let htmlCode = getHtmlData(newMetaData);
+  const newMetaData = await getMetaData(metadata);
+  const htmlCode = getHtmlData(newMetaData);
   block.innerHTML += htmlCode;
 
   initializeEventListeners(block);
