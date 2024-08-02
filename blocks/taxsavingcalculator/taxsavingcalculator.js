@@ -9,12 +9,13 @@ function numberToWords(num) {
     [1e3, 'Thousands'],
   ];
 
-  for (let i = 0; i < suffixes.length; i++) {
+  for (let i = 0; i < suffixes.length; i+=1) {
     const [divisor, suffix] = suffixes[i];
     if (num >= divisor) {
       return `${Math.floor(num / divisor)} ${suffix}`;
     }
   }
+  return number;
 }
 function formatNumberToIndianCommas(number) {
   // Convert the number to a string
@@ -242,7 +243,7 @@ function initializeEventListeners(block) {
   block.querySelector('#age').addEventListener('blur', function () {
     const value = parseFloat(this.textContent);
     const ageRange = block.querySelector('#ageRange');
-    ageRange.value = isNaN(value)
+    ageRange.value = Number.isNaN(value)
       ? ageRange.min
       : Math.min(Math.max(value, ageRange.min), ageRange.max);
     const percentage = ((ageRange.value - ageRange.min)
@@ -255,7 +256,7 @@ function initializeEventListeners(block) {
   block.querySelector('#income').addEventListener('blur', function () {
     const value = parseFloat(this.textContent.replace(/\D/g, ''));
     const incomeRange = block.querySelector('#incomeRange');
-    incomeRange.value = isNaN(value)
+    incomeRange.value = Number.isNaN(value)
       ? incomeRange.min
       : Math.min(Math.max(value, incomeRange.min), incomeRange.max);
     const percentage = ((incomeRange.value - incomeRange.min)
@@ -269,7 +270,7 @@ function initializeEventListeners(block) {
   block.querySelector('#principal').addEventListener('blur', function () {
     const value = parseFloat(this.textContent.replace(/\D/g, ''));
     const principalRange = block.querySelector('#principalRange');
-    principalRange.value = isNaN(value)
+    principalRange.value = Number.isNaN(value)
       ? principalRange.min
       : Math.min(Math.max(value, principalRange.min), principalRange.max);
     const percentage = ((principalRange.value - principalRange.min)
@@ -283,7 +284,7 @@ function initializeEventListeners(block) {
   block.querySelector('#interest').addEventListener('blur', function () {
     const value = parseFloat(this.textContent.replace(/\D/g, ''));
     const interestRange = block.querySelector('#interestRange');
-    interestRange.value = isNaN(value)
+    interestRange.value = Number.isNaN(value)
       ? interestRange.min
       : Math.min(Math.max(value, interestRange.min), interestRange.max);
     const percentage = ((interestRange.value - interestRange.min)
