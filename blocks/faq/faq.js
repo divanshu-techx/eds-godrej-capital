@@ -285,7 +285,7 @@ export default async function decorate(block) {
       quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
     });
 
-    inputField.addEventListener('input', function (event) {
+    inputField.addEventListener('input', (event) => {
       const inputValue = event.target.value.trim();
       if (inputValue.length >= 3) {
         renderQA(quesAnsData, '', '', quesAnsDiv, inputValue);
