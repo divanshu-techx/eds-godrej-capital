@@ -183,6 +183,12 @@
     line-height: 14.08px;
     text-align: left;
 }
+.supportcards-column-third  a{
+    color: #3B3B3B;
+}
+.supportcards-column-third a:hover{
+    color: #3CB8FF;
+}
 
 .supportcards-column-third .col-third-parent-4{
     display: flex;

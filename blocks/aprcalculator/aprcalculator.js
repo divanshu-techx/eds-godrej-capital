@@ -229,37 +229,52 @@ function addRangeInputListeners(block) {
 
 // Function to add event listeners to text inputs
 function addTextInputListeners(block) {
-  const textInputs = block.querySelectorAll('input[type=text]:not(#interestRateApr)');
-  textInputs.forEach(input => {
-    input.addEventListener('input', function () {
-      const numericValue = parseFloat(this.value.replace(/[^\d.-]/g, ''));
-      if (!isNaN(numericValue)) {
-        const rangeId = `${this.id}Range`;
-        const rangeInput = block.querySelector(`#${rangeId}`);
-        if (rangeInput) {
-          rangeInput.value = numericValue;
-          updateAPR(block);
-          updateRangeColors(block);
-        }
-      }
+    const textInputs = block.querySelectorAll('input[type=text]:not(#interestRateApr)');
+    textInputs.forEach(input => {
+        input.addEventListener('input', function () {
+            const numericValue = parseFloat(this.value.replace(/[^\d.-]/g, ''));
+            console.log(numericValue);
+            if (!isNaN(numericValue)) {
+                const rangeId = `${this.id}Range`;
+                const rangeInput = block.querySelector(`#${rangeId}`);
+                if (rangeInput) {
+                    rangeInput.value = numericValue;
+                    updateAPR(block);
+                    updateRangeColors(block);
+                }
+            } else {
+                const rangeId = `${this.id}Range`;
+                const rangeInput = block.querySelector(`#${rangeId}`);
+                if (rangeInput) {
+                    rangeInput.value = rangeInput.min;
+                    updateAPR(block);
+                    updateRangeColors(block);
+                }
+            }
+        });
     });
-  });
 
-  const interestRateInput = block.querySelector('#interestRateApr');
-  interestRateInput.addEventListener('change', function () {
-    let numericValue = parseFloat(this.value.replace(/[^\d.]/g, ''));
-    if (!isNaN(numericValue)) {
-      numericValue = Math.min(Math.max(numericValue, 0), 20);
-      const rangeInput = block.querySelector('#interestRateAprRange');
-      if (rangeInput) {
-        rangeInput.value = numericValue.toFixed(1);
-        updateAPR(block);
-        updateRangeColors(block);
-      }
-    } else {
-      this.value = " ";
-    }
-  });
+    const interestRateInput = block.querySelector('#interestRateApr');
+    interestRateInput.addEventListener('change', function () {
+        let numericValue = parseFloat(this.value.replace(/[^\d.]/g, ''));
+        if (!isNaN(numericValue)) {
+            numericValue = Math.min(Math.max(numericValue, 0));
+            const rangeInput = block.querySelector('#interestRateAprRange');
+            if (rangeInput) {
+                rangeInput.value = numericValue.toFixed(1);
+                updateAPR(block);
+                updateRangeColors(block);
+            }
+        }else{
+            const rangeId = `${this.id}Range`;
+            const rangeInput = block.querySelector(`#${rangeId}`);
+            if (rangeInput) {
+                rangeInput.value = rangeInput.min;
+                updateAPR(block);
+                updateRangeColors(block);
+            }
+        }
+    });
 }
 
 function setApplyNowButton(block, attribute) {
