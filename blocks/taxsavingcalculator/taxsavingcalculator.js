@@ -132,18 +132,30 @@ function calculateTax(income, principal, interest, age) {
     if (finalAge > firstAge) {
       return {
         taxSlabs: [taxBracketLimitFirst, taxBracketLimitSecond, taxBracketLimitThird],
-        rates: [taxBracketLimitFirstTaxRate, taxBracketLimitSecondTaxRate, taxBracketLimitThirdTaxRate],
+        rates: [
+          taxBracketLimitFirstTaxRate,
+          taxBracketLimitSecondTaxRate,
+          taxBracketLimitThirdTaxRate
+        ],
       };
     }
     if (finalAge > secAge) {
       return {
         taxSlabs: [secondAgeTaxSlab, taxBracketLimitSecond, taxBracketLimitThird],
-        rates: [taxBracketLimitFirstTaxRate, taxBracketLimitSecondTaxRate, taxBracketLimitThirdTaxRate],
+        rates: [
+          taxBracketLimitFirstTaxRate,
+          taxBracketLimitSecondTaxRate,
+          taxBracketLimitThirdTaxRate
+        ],
       };
     }
     return {
       taxSlabs: [taxBracketLimitFirst, taxBracketLimitSecond, taxBracketLimitThird],
-      rates: [taxBracketLimitFirstTaxRate, taxBracketLimitSecondTaxRate, taxBracketLimitThirdTaxRate],
+      rates: [
+        taxBracketLimitFirstTaxRate,
+        taxBracketLimitSecondTaxRate,
+        taxBracketLimitThirdTaxRate
+      ],
     };
   }
 
@@ -461,7 +473,7 @@ function initializeEventListeners(block) {
         // Get the text content and remove leading/trailing whitespace
         const numericValue = parseFloat(value.replace(/\D/g, ''));
 
-        if (!isNaN(numericValue)) {
+        if (!Number.isNaN(numericValue)) {
           const formattedValue = numericValue.toString(); // Format numeric value
           this.textContent = formattedValue; // Update span content with formatted numeric value
           // Set cursor position to the end of the span

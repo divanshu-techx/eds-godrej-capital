@@ -145,8 +145,6 @@ function displayDetails(P, R, N, M, E, line, pie, block) {
   (Math.pow(1 + r, totalMonths) - 1) /
   (r * Math.pow(1 + r, totalMonths));
   loanEligibility = Math.round(Math.max(loanEligibility, 0));
-  console.log(loanEligibility);
-
     block.querySelector('#le').innerText = `₹ ${loanEligibility.toLocaleString('en-IN')}`;
     block.querySelector('#mobile-le').innerText = `₹ ${loanEligibility.toLocaleString('en-IN')}`;
 
@@ -216,7 +214,6 @@ function initialize(block) {
   const mobileyear = getDataAttributeValueByName('Mobile-year');
   const mobilemonths = getDataAttributeValueByName('Mobile-month');
   const selectProductPlaceHolder = getDataAttributeValueByName('select-product-place-holder');
-  console.log(selectProductPlaceHolder);
 
   //  Create a select element
   const selectProduct = document.createElement('select');
@@ -671,7 +668,6 @@ function initialize(block) {
     const value = this.value;
     const maxValue = this.max; // Get the maximum value of the range input
     const percentage = (value / maxValue) * 100;
-    // console.log(value);
     if (window.innerWidth <= 768) {
       loanAmtSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
     } else {
@@ -889,10 +885,7 @@ function initialize(block) {
   if (mobileSelect) {
     mobileSelect.addEventListener('input', function () {
       const selectedText = mobileSelect.options[mobileSelect.selectedIndex].text;
-      console.log(selectedText);
-
       const applyMobile = document.getElementById('apply-btn-loan');
-      console.log(applyMobile);
       applyMobile.setAttribute('data-product', selectedText);
     });
   }
@@ -900,8 +893,6 @@ function initialize(block) {
   //  Handle button click event to redirect with query parameter
   document.getElementById('apply-btn-le').addEventListener('click', function () {
     const productValue = this.getAttribute('data-product');
-    console.log('desk btn click');
-    console.log(productValue);
     if (productValue) {
       const formattedProductValue = productValue.replace(/-/g, '_');
       url = `${desktopRedirectionPath}?category=${encodeURIComponent(formattedProductValue)}`;
