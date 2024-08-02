@@ -309,15 +309,15 @@ function getHTML(calculatorAttributes) {
 // Function to update the range input colors
 function updateRangeColors() {
   const isMobileView = window.matchMedia('(max-width: 767px)').matches;
-  const mobileColor = '#f4f4f4';  //  color for mobile view
-  const desktopColor = '#fff'; // White color for desktop view
+  const mobileColor = '#f4f4f4';
+  const desktopColor = '#fff';
 
   const rangeInputs = document.querySelectorAll('input[type=range]');
-  rangeInputs.forEach(input => {
+  rangeInputs.forEach((input) => {
     const min = parseFloat(input.min);
     const max = parseFloat(input.max);
     const val = parseFloat(input.value);
-    const normalizedValue = (val - min) / (max - min) * 100;
+    const normalizedValue = ((val - min) / (max - min)) * 100;
     const endColor = isMobileView ? mobileColor : desktopColor;
     input.style.background = `linear-gradient(to right, #8CB133 ${normalizedValue}%, ${endColor} ${normalizedValue}%)`;
   });
@@ -325,14 +325,13 @@ function updateRangeColors() {
 
 // Wrap your main functionality in the decorate function
 export default async function decorate(block) {
-
   const calculatorAttributes = getCalcAttribute();
   const htmlCode = getHTML(calculatorAttributes);
   block.innerHTML += htmlCode;
 
   // Event listeners for range inputs (excluding principalOutstanding)
   const sliders = block.querySelectorAll('input[type=range]:not(#principalOutstanding)');
-  sliders.forEach(slider => {
+  sliders.forEach((slider) => {
     slider.addEventListener('change', () => {
       const displayId = `${slider.id}Display`;
       const displayInput = block.querySelector(`#${displayId}`);
@@ -353,14 +352,14 @@ export default async function decorate(block) {
       }
     });
 
-    slider.addEventListener('input', function () {
+    slider.addEventListener('input', () => {
       updateRangeColors();
     });
   });
 
   // Event listeners for text inputs (including principalOutstandingDisplay)
   const textInputs = block.querySelectorAll('input[type=text]');
-  textInputs.forEach(input => {
+  textInputs.forEach((input) => {
     if (!input.id.includes('principalOutstandingDisplay')) {
       input.addEventListener('blur', function () {
         const rangeId = input.id.replace('Display', '');
