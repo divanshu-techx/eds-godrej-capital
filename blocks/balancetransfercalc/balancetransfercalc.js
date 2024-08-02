@@ -56,7 +56,6 @@ function updateCalculations(block) {
   // Calculate existing EMI per month for remaining tenure
   const baseRate = 1 + finalELInterestRate;
   const compoundedRate = baseRate ** finaltenure;
-  
   const existingEmi = (
     finalprincipal * finalELInterestRate * compoundedRate
   ) / (compoundedRate - 1);
