@@ -5,9 +5,7 @@ import {
   img,
 } from '../utils/dom-helper.js';
 import createMap from '../utils/google-map.js';
-
-import { getDataAttributes } from '../utils/common.js'
-
+import { getDataAttributes } from '../utils/common.js';
 
 /**
  * loads and decorates the header, mainly the nav
@@ -15,7 +13,6 @@ import { getDataAttributes } from '../utils/common.js'
  */
 
 const stateToCities = {};
-
 const stateSelect = select({ id: 'stateSelect' });
 const citySelect = select({ id: 'citySelect' });
 const pincodeInput = input({
@@ -23,7 +20,6 @@ const pincodeInput = input({
   type: 'text',
   placeholder: 'Enter Pincode',
 });
-
 
 function updateMapCard(item, label) {
   document.getElementById('mapCardTitle').textContent = item.location;
@@ -146,23 +142,20 @@ function debounce(func, wait) {
  */
 function renderFilters(locations, filterContainer, attributeObj) {
   // Create filter dropdown
-  console.log(attributeObj)
+
   filterContainer.appendChild(
     div(
       { class: 'filters' },
       div({ class: 'heading-container' }, h2({ class: 'heading' }, attributeObj.findthenearestlabel)),
-      div({
-        class: 'inputs-container'
+      div(
+        {
+        class: 'inputs-container',
       },
-        div({ class: 'state-container' }, label({ for: 'stateSelect' }, attributeObj.selectstatelabel),
-          stateSelect,),
-        div({ class: 'city-container' }, label({ for: 'citySelect' }, attributeObj.selectcitylabel),
-          citySelect,),
-        div({ class: 'pincode-container' }, label({ for: 'pincodeInput' }, attributeObj.pincodelabel),
-          div({ class: 'input-img-container' }, img({ class: '-icon', src: attributeObj.locationmapicon }), pincodeInput)),
-
-      )
-
+      div({ class: 'state-container' }, label({ for: 'stateSelect' }, attributeObj.selectstatelabel), stateSelect),
+      div({ class: 'city-container' }, label({ for: 'citySelect' }, attributeObj.selectcitylabel), citySelect),
+      div({ class: 'pincode-container' }, label({ for: 'pincodeInput' }, attributeObj.pincodelabel),
+      div({ class: 'input-img-container' }, img({ class: '-icon', src: attributeObj.locationmapicon }), pincodeInput)),
+      ),
     ),
   );
 
@@ -194,11 +187,12 @@ function initialize(entries, block) {
   const container = block.closest('.branchlocation-container');
 
   const attributeObj = getDataAttributes(container);
-  const mapContainer = div({ class: "google-map" },
-    div({ id: 'map-canvas', style: 'height: 400px;' })
-  )
-  const filterContainer = div({ class: "filters-dropdown" });
-  const branchlocator = div({ class: "branch-locator" });
+  const mapContainer = div(
+    { class: 'google-map' },
+    div({ id: 'map-canvas', style: 'height: 400px;' }),
+  );
+  const filterContainer = div({ class: 'filters-dropdown' });
+  const branchlocator = div({ class: 'branch-locator' });
   pincodeInput.placeholder = attributeObj.pincodelabel;
   block.append(filterContainer);
   block.append(mapContainer);
@@ -240,12 +234,11 @@ function loadGoogleMaps(callback) {
 }
 
 export default async function decorate(block) {
-  let mainContainer = block.closest('.branchlocation-container');
-  let locationUrl = mainContainer.getAttribute('data-locationUrl');
+  const mainContainer = block.closest('.branchlocation-container');
+  const locationUrl = mainContainer.getAttribute('data-locationUrl');
   // Load Google Maps API
   loadGoogleMaps(async () => {
     const allentries = await ffetch(locationUrl).all();
     initialize(allentries, block);
   });
-
 }

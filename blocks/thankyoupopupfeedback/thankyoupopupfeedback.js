@@ -8,7 +8,7 @@ export default async function decorate(block) {
   closeButton.className = 'close-button';
 
   // Add click event to close the popup
-  closeButton.addEventListener('click', function () {
+  closeButton.addEventListener('click', () => {
     document.querySelector('.feedback-title-btn').style = 'display:block';
     const popup = block.parentElement;
     if (popup) {

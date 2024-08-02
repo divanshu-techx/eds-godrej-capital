@@ -7,7 +7,7 @@ export default function decorate(block) {
     document.querySelector('.usptabsblock-container').style.display = 'none';
   }
   const parentDivs = block.querySelectorAll(':scope > div');
-  parentDivs.forEach(parentDiv => {
+  parentDivs.forEach((parentDiv) => {
     parentDiv.classList.add('usp-details-parent');
     const pictureDiv = parentDiv.querySelector('div picture');
     if (pictureDiv) {
@@ -18,5 +18,4 @@ export default function decorate(block) {
       contentDiv.parentElement.classList.add('uspcontentdetails');
     }
   });
-
 }

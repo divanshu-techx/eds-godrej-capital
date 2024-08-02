@@ -16,6 +16,31 @@ const CREATE_SELECTOR_CLASS = {
   tabsContainer: 'tabs-loans-container',
   titleContainer: 'different-loans-title',
 };
+
+// Add event listeners to tabs for filtering content
+function addEventListeners(tabs, responseData, contentContainer) {
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      tabs.forEach((t) => t.classList.remove('active'));
+      tab.classList.add('active');
+      renderFilteredContent(tab.dataset.tabName, responseData, contentContainer);
+    });
+  });
+}
+
+// Retrieve the value of a data attribute by name
+function getDataAttributeValueByName(name) {
+  const element = document.querySelector(`[data-${name}]`);
+  return element ? element.getAttribute(`data-${name}`) : '';
+}
+function getTabNamesFromMetadata() {
+  const tabsName = getDataAttributeValueByName('tabs-name-ordering');
+  if (!tabsName || tabsName.trim().length === 0) {
+    return [];
+  }
+  return tabsName.includes(',') ? tabsName.split(',') : [tabsName];
+}
+
 // Main function to decorate the block
 export default async function decorate(block) {
   try {
@@ -48,8 +73,8 @@ async function fetchData() {
 // Extract distinct categories from the data
 function getDistinctCategories(data) {
   const categoriesSet = new Set();
-  data.forEach(item => {
-    item.category.split(',').map(cat => categoriesSet.add(cat.trim().toLowerCase()));
+  data.forEach((item) => {
+    item.category.split(',').map((cat) => categoriesSet.add(cat.trim().toLowerCase()));
   });
   return Array.from(categoriesSet);
 }
@@ -61,7 +86,7 @@ function createTabs(block, categories) {
   const buttonsContainer = document.createElement('div');
   buttonsContainer.classList.add('buttons-container');
   tabsContainer.appendChild(buttonsContainer);
-  categories.forEach(category => {
+  categories.forEach((category) => {
     const tab = document.createElement('button');
     tab.classList.add('tab');
     tab.textContent = category.charAt(0).toUpperCase() + category.slice(1);
@@ -77,19 +102,12 @@ function createContentContainer(block) {
   block.appendChild(contentContainer);
   return contentContainer;
 }
-// Filter and render content based on the selected category
-function renderFilteredContent(category, responseData, contentContainer) {
-  const filteredData = responseData.filter(item =>
-    item.category.toLowerCase().split(',').includes(category.toLowerCase())
-  );
-  renderCards(filteredData, contentContainer);
-}
 // Render cards based on the filtered data
 function renderCards(data, contentContainer) {
   contentContainer.innerHTML = ''; // Clear existing content
-  data.forEach(item => {
+  data.forEach((item) => {
     const itemElement = document.createElement('a');
-    itemElement.href = item.path;
+    itemElement.href = item.detailpageredirection;
     itemElement.classList.add('loan-card');
     const imageElement = document.createElement('img');
     imageElement.src = item.image;
@@ -110,25 +128,9 @@ function renderCards(data, contentContainer) {
     contentContainer.appendChild(itemElement);
   });
 }
-// Add event listeners to tabs for filtering content
-function addEventListeners(tabs, responseData, contentContainer) {
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      renderFilteredContent(tab.dataset.tabName, responseData, contentContainer);
-    });
-  });
-}
-// Retrieve the value of a data attribute by name
-function getDataAttributeValueByName(name) {
-  const element = document.querySelector(`[data-${name}]`);
-  return element ? element.getAttribute(`data-${name}`) : '';
-}
-function getTabNamesFromMetadata() {
-  const tabsName = getDataAttributeValueByName('tabs-name-ordering');
-  if (!tabsName || tabsName.trim().length === 0) {
-    return [];
-  }
-  return tabsName.includes(',') ? tabsName.split(',') : [tabsName];
+// Filter and render content based on the selected category
+function renderFilteredContent(category, responseData, contentContainer) {
+  const filteredData = responseData.filter((item) => item.category.toLowerCase().split(',').includes(category.toLowerCase()),
+  );
+  renderCards(filteredData, contentContainer);
 }

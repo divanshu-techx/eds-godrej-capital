@@ -53,17 +53,17 @@ export default async function decorate(block) {
         const isExpanded = secondDiv.style.display === 'block';
         hideAllDropdowns(secondDiv); // Hide all other dropdowns
         allDivs.forEach((el) => {
-          el.classList.remove('active-el')
-        })
+          el.classList.remove('active-el');
+        });
         if (isExpanded) {
-          this.parentElement.classList.remove('active-el')
+          this.parentElement.classList.remove('active-el');
 
           secondDiv.style.display = 'none';
           secondDiv.classList.remove('open'); // Remove fade-in effect
           overlay.classList.remove('open'); // Hide the overlay
           firstDiv.style.backgroundColor = '';
         } else {
-          this.parentElement.classList.add('active-el')
+          this.parentElement.classList.add('active-el');
           adjustDropdownSize(secondDiv);
           secondDiv.style.display = 'block';
           secondDiv.classList.add('open');
@@ -85,7 +85,7 @@ export default async function decorate(block) {
             innerOl.style.display = isExpanded ? 'none' : 'block';
             this.classList.add('open-list');
             if (isExpanded) {
-              this.classList.remove('open-list')
+              this.classList.remove('open-list');
             }
           });
         }
@@ -93,7 +93,7 @@ export default async function decorate(block) {
     }
   });
 
-  document.addEventListener('click', function (event) {
+  document.addEventListener('click', (event) => {
     if (!event.target.closest('.tooltip-trigger')) {
       hideAllDropdowns();
     }
