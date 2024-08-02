@@ -1,3 +1,33 @@
+async function fetchData(apiUrl) {
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    return data.data;
+  } catch (error) {
+    return null;
+  }
+}
+
+function getDataAttributeValueByName(name) {
+  const element = document.querySelector(`[data-${name}]`);
+  return element ? element.getAttribute(`data-${name}`) : null;
+}
+
+// Initialize the block
+function excelDateToJSDate(serial) {
+  const excelEpoch = new Date(1900, 0, 1);
+  const date = new Date(excelEpoch.getTime() + (serial - 2) * 24 * 60 * 60 * 1000);
+  return date;
+}
+
+function formatDate(serial) {
+  const date = excelDateToJSDate(serial);
+  const day = String(date.getDate()).padStart(2, '0'); // Ensure two digits for the day
+  const month = date.toLocaleString('default', { month: 'long' }); // Full month name
+  const year = date.getFullYear();
+  return `${day} ${month} ${year}`;
+}
+
 export default async function decorate(block) {
   let responseData = [];
   const inputFieldPlaceholder = getDataAttributeValueByName('inputFieldPlaceholder');
@@ -22,7 +52,7 @@ export default async function decorate(block) {
   tabsAndControlsContainer.className = 'tabs-and-controls-container';
 
   // Fetch data
-  let data = await fetchData(apiUrl);
+  const data = await fetchData(apiUrl);
   if (!data) {
     return;
   }
@@ -32,10 +62,10 @@ export default async function decorate(block) {
   tabsContainer.className = 'news-and-release-tabs';
 
   // If tabsNames is empty, create tabs based on unique categories in the data
-  let capitalizedTabNames = tabsNames.length > 0
+  const capitalizedTabNames = tabsNames.length > 0
     ? tabsNames.map((tabName) => tabName.charAt(0).toUpperCase() + tabName.slice(1))
     : Array.from(new Set(data.map((item) => item.category.charAt(0).toUpperCase()
-     + item.category.slice(1))));
+      + item.category.slice(1))));
 
   // Create tabs based on provided or extracted tab names
   capitalizedTabNames.forEach((tabName, index) => {
@@ -106,12 +136,12 @@ export default async function decorate(block) {
   const scrollLeftButton = document.createElement('button');
   scrollLeftButton.className = 'scroll-button left';
   // scrollLeftButton.textContent = '<';
-  scrollLeftButton.innerHTML = `<img src='/icons/nexticon.svg' alt='Previous' />`; // Custom icon
+  scrollLeftButton.innerHTML = '<img src="/icons/nexticon.svg" alt="Previous" />'; // Custom icon
 
   const scrollRightButton = document.createElement('button');
   scrollRightButton.className = 'scroll-button right';
   // scrollRightButton.textContent = '>';
-  scrollRightButton.innerHTML = `<img src='/icons/nexticon.svg' alt='next' />`;
+  scrollRightButton.innerHTML = '<img src="/icons/nexticon.svg" alt="next" />';
 
   paginationWrapper.appendChild(scrollLeftButton);
   paginationWrapper.appendChild(paginationContainer);
@@ -147,7 +177,7 @@ export default async function decorate(block) {
         descriptionElement.textContent = item.description;
         const publishDateElement = document.createElement('p');
         publishDateElement.classList.add('publish-date');
-        let formattedDate = formatDate(item.publishdate);
+        const formattedDate = formatDate(item.publishdate);
         publishDateElement.textContent = formattedDate;
 
         const readArticleElement = document.createElement('a');
@@ -218,8 +248,11 @@ export default async function decorate(block) {
     document.querySelectorAll('.tab').forEach((tab) => tab.classList.remove('active'));
     document.getElementById(`tab-${tabName}`).classList.add('active');
 
-    const filteredData = data.filter((item
-    ) => item.category.toLowerCase() === tabName.toLowerCase());
+    // const filteredData = data.filter((item,
+    // ) => item.category.toLowerCase() === tabName.toLowerCase());
+    const filteredData = data.filter((item) => (
+      item.category.toLowerCase() === tabName.toLowerCase()
+    ));
     responseData = filteredData;
     sortData();
     renderPage(1);
@@ -249,7 +282,7 @@ export default async function decorate(block) {
   scrollLeftButton.addEventListener('click', () => {
     const currentPageSpan = document.querySelector('.pagination .active-pagination');
     if (currentPageSpan) {
-      const currentPage = parseInt(currentPageSpan.textContent);
+      const currentPage = parseInt(currentPageSpan.textContent, 10);
       if (currentPage > 1) {
         renderPage(currentPage - 1);
         paginationContainer.scrollLeft -= paginationContainer.clientWidth;
@@ -260,7 +293,7 @@ export default async function decorate(block) {
   scrollRightButton.addEventListener('click', () => {
     const currentPageSpan = document.querySelector('.pagination .active-pagination');
     if (currentPageSpan) {
-      const currentPage = parseInt(currentPageSpan.textContent);
+      const currentPage = parseInt(currentPageSpan.textContent, 10);
       const totalPages = Math.ceil(responseData.length / itemsPerPage);
       if (currentPage < totalPages) {
         renderPage(currentPage + 1);
@@ -268,34 +301,4 @@ export default async function decorate(block) {
       }
     }
   });
-
-  // Initialize the block
-  function excelDateToJSDate(serial) {
-    const excelEpoch = new Date(1900, 0, 1);
-    const date = new Date(excelEpoch.getTime() + (serial - 2) * 24 * 60 * 60 * 1000);
-    return date;
-  }
-
-  function formatDate(serial) {
-    const date = excelDateToJSDate(serial);
-    const day = String(date.getDate()).padStart(2, '0'); // Ensure two digits for the day
-    const month = date.toLocaleString('default', { month: 'long' }); // Full month name
-    const year = date.getFullYear();
-    return `${day} ${month} ${year}`;
-  }
-
-  function getDataAttributeValueByName(name) {
-    const element = document.querySelector(`[data-${name}]`);
-    return element ? element.getAttribute(`data-${name}`) : null;
-  }
-
-  async function fetchData(apiUrl) {
-    try {
-      const response = await fetch(apiUrl);
-      const data = await response.json();
-      return data.data;
-    } catch (error) {
-      return null;
-    }
-  }
 }

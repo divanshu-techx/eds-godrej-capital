@@ -4,7 +4,7 @@ export default async function decorate(block) {
     div.classList.add('hdfc-life-child-div');
   });
   const childDivssecond = block.querySelectorAll(
-    ':scope > .hdfc-life-child-div'
+    ':scope > .hdfc-life-child-div',
   );
   childDivssecond.forEach((div) => {
     div.addEventListener('click', () => {
