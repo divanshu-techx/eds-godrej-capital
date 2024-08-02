@@ -139,16 +139,16 @@ function displayDetails(P, R, N, M, E, line, pie, block) {
   block.querySelector('#MonthlyEmiPrice').innerText = emi.toLocaleString('en-IN', opts);
 
   block.querySelector('#mobile_monthly_emi_price').innerText = emi.toLocaleString('en-IN', opts);
-  
+
   // Calculate the loan eligibility using the formula
   var loanEligibility = (P - E) *
-  (Math.pow(1 + r, totalMonths) - 1) /
-  (r * Math.pow(1 + r, totalMonths));
+    (Math.pow(1 + r, totalMonths) - 1) /
+    (r * Math.pow(1 + r, totalMonths));
   loanEligibility = Math.round(Math.max(loanEligibility, 0));
   console.log(loanEligibility);
 
-    block.querySelector('#le').innerText = `₹ ${loanEligibility.toLocaleString('en-IN')}`;
-    block.querySelector('#mobile-le').innerText = `₹ ${loanEligibility.toLocaleString('en-IN')}`;
+  block.querySelector('#le').innerText = `₹ ${loanEligibility.toLocaleString('en-IN')}`;
+  block.querySelector('#mobile-le').innerText = `₹ ${loanEligibility.toLocaleString('en-IN')}`;
 
   // block.querySelector('#le').innerText = `₹ ${Math.max(0, P - E).toLocaleString('en-IN')}`;
   // block.querySelector('#mobile-le').innerText = `₹ ${Math.max(0, P - E).toLocaleString('en-IN')}`;
@@ -224,7 +224,7 @@ function initialize(block) {
   const mobileSelect = document.querySelector('.sec-tab-dropdown');
   //   Loop through the array and create option elements
   option = document.createElement('option');
-  option.value=' ';
+  option.value = ' ';
   option.text = selectProductPlaceHolder;
   option.disabled = true;
   option.selected = true;
@@ -878,13 +878,13 @@ function initialize(block) {
   });
 
   // Set the product type in the apply button data attributes.
-  if(selectProduct){
-  selectProduct.addEventListener('input', function () {
-    const selectedValue = this.value;
-    const applyButton = document.getElementById('apply-btn-le');
-    applyButton.setAttribute('data-product', selectedValue);
-  });
-}
+  if (selectProduct) {
+    selectProduct.addEventListener('input', function () {
+      const selectedValue = this.value;
+      const applyButton = document.getElementById('apply-btn-le');
+      applyButton.setAttribute('data-product', selectedValue);
+    });
+  }
 
   if (mobileSelect) {
     mobileSelect.addEventListener('input', function () {
@@ -1004,3 +1004,4 @@ function initialize(block) {
 
   displayDetails(P, R, N, M, E, line, pie, block);
 }
+
