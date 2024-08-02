@@ -60,7 +60,7 @@ function renderCategoryDropdown(data, containerSelector) {
 // Function to render tabs based on selected category
 function renderTabs(data, selectedCategory, inputValue, tagsContainer) {
   tagsContainer.innerHTML = '';
-  var filteredData;
+  let filteredData;
   const notFoundEle = document.getElementById('faq-not-found');
   const faqLoanCategoryDropdown = document.getElementById('faq-loan-category-dropdown');
   if (inputValue.length >= 3) {
@@ -128,7 +128,7 @@ function renderCategoryDetails(data, selectedCategory, containerSelector) {
 
 function renderQA(data, selectedCategory, tagsName, containerSelector, inputValue) {
   containerSelector.innerHTML = '';
-  var filteredData;
+  let filteredData;
   if (selectedCategory) {
     filteredData = data.filter((item) => normalizeCategory(item.category) === selectedCategory);
   } else {
@@ -139,7 +139,7 @@ function renderQA(data, selectedCategory, tagsName, containerSelector, inputValu
       const normalizedSearchTerm = normalizeText(inputValue);
       filteredData = data.filter((item) =>
         normalizeText(item.question).includes(normalizedSearchTerm)
-       || normalizeText(item.answer).includes(normalizedSearchTerm),
+        || normalizeText(item.answer).includes(normalizedSearchTerm),
       );
       const tagsContainer = document.querySelector('.tags-button');
       renderTabs(filteredData, '', normalizedSearchTerm, tagsContainer);
@@ -206,7 +206,6 @@ function quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv) {
       const clickedButton = event.target;
       renderQA(quesAnsData, '', clickedButton.innerHTML, quesAnsDiv, '');
     });
-
   });
 }
 
@@ -289,18 +288,17 @@ export default async function decorate(block) {
       const inputValue = event.target.value.trim();
       if (inputValue.length >= 3) {
         renderQA(quesAnsData, '', '', quesAnsDiv, inputValue);
-      } else {
-        if (inputValue.length < 3) {
-          renderTabs(quesAnsData, dropdown.value, inputValue, tagsContainer);
-          quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
-          const tagsButtonDiv = block.querySelector('.tags-button');
-          const activeTabButton = tagsButtonDiv.querySelector('.tab-button.active-tab');
-          const activeTab = activeTabButton.innerHTML;
-          if (!activeTab) {
-            return;
-          } else {
-            renderQA(quesAnsData, '', activeTab, quesAnsDiv, '');
-          }
+      }
+      if (inputValue.length < 3) {
+        renderTabs(quesAnsData, dropdown.value, inputValue, tagsContainer);
+        quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
+        const tagsButtonDiv = block.querySelector('.tags-button');
+        const activeTabButton = tagsButtonDiv.querySelector('.tab-button.active-tab');
+        const activeTab = activeTabButton.innerHTML;
+        if (!activeTab) {
+          return;
+        } else {
+          renderQA(quesAnsData, '', activeTab, quesAnsDiv, '');
         }
       }
       quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
