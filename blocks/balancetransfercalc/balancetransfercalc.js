@@ -54,12 +54,21 @@ function updateCalculations(block) {
   const finalPLInterestRate = newInterestRate / 1200;
 
   // Calculate existing EMI per month for remaining tenure
-  const existingEmi = (finalprincipal * finalELInterestRate * Math.pow(1 + finalELInterestRate, finaltenure)) /
-    (Math.pow(1 + finalELInterestRate, finaltenure) - 1);
-
+  const baseRate = 1 + finalELInterestRate;
+  const compoundedRate = baseRate ** finaltenure;
+  
+  const existingEmi = (
+    finalprincipal * finalELInterestRate * compoundedRate
+  ) / (compoundedRate - 1);
+  
   // Calculate proposed EMI per month for new tenure
-  const proposedEmi = (finalprincipal * finalPLInterestRate * Math.pow(1 + finalPLInterestRate, finalPLTenure)) /
-    (Math.pow(1 + finalPLInterestRate, finalPLTenure) - 1);
+  const rate = 1 + finalPLInterestRate;
+  const ratePowerTenure = rate ** finalPLTenure;
+  
+  const proposedEmi = (
+    finalprincipal * finalPLInterestRate * ratePowerTenure
+  ) / (ratePowerTenure - 1);
+  
 
   // Calculate total savings in cash outflow and savings in EMI
   let totalSavinginCashoutflow = (existingEmi * finaltenure) - (proposedEmi * finalPLTenure);
@@ -361,7 +370,7 @@ export default async function decorate(block) {
   const textInputs = block.querySelectorAll('input[type=text]');
   textInputs.forEach((input) => {
     if (!input.id.includes('principalOutstandingDisplay')) {
-      input.addEventListener('blur', function () {
+      input.addEventListener('blur', () => {
         const rangeId = input.id.replace('Display', '');
         const rangeInput = block.querySelector(`#${rangeId}`);
         const errorSpanId = `${rangeId}Error`;
