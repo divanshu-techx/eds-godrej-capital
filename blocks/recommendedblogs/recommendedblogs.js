@@ -35,7 +35,13 @@ function createBlogContainer(block) {
   block.appendChild(blogsContainer);
   return blogsContainer;
 }
+function addLeadingZero(dateString) {
+	const [day, month, year] = dateString.split(' ');
+	const formattedDay = day.length === 1 ? '0' + day : day;
 
+	// Return the formatted date string
+	return `${formattedDay} ${month} ${year}`;
+}
 function createNoResultDiv(block) {
   const notFoundContainer = document.createElement('div');
   notFoundContainer.id = 'blogs-not-found-container';
@@ -71,7 +77,7 @@ function renderBlogs(blogsContainer, doc) {
   blogCard.innerHTML = `
 		<a href="${detailPageUrl}"><img src="${removeHostFromUrl(image)}" alt="${imageAlt}">
 			<div class="blog-content">
-				<p class="article-date">${publishDate}</p>
+				<p class="article-date">${addLeadingZero(publishDate)}</p>
 				<p class="article-description">${description}</p>
 				<a href="#" class="read-more">${readMoreLabel}</a>
 			</div>

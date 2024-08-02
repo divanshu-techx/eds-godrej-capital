@@ -284,7 +284,8 @@ input[type="range"] {
 
 /* Error message */
 .error-message {
-	color: red;
+	color: #F50076;
+	font-size: 14px;
 	display: none;
 }
 
