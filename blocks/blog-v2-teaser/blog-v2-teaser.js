@@ -10,7 +10,7 @@ function initBackgroundPosition(classList, breakpoint) {
     [MEDIA_BREAKPOINTS.DESKTOP]: 'l',
   };
   const classPrefix = classPrefixes[breakpoint];
-  const backgroudPositionClass = [...classList].find((item) => item.startsWith(`bp-${classPrefix}-`),);
+  const backgroudPositionClass = [...classList].find((item) => item.startsWith(`bp-${classPrefix}-`));
   let backgroundPositionValue = 'bottom';
   if (backgroudPositionClass) {
     let [, , xPosition, yPosition] = backgroudPositionClass.split('-');
@@ -97,7 +97,7 @@ function prepareBackgroundImage(block) {
 export default async function decorate(block) {
   prepareBackgroundImage(block);
   const headings = block.querySelectorAll('h1, h2, h3, h4, h5, h6');
-  [...headings].forEach((heading) => heading.classList.add('banner_v2_title_blog'),);
+  [...headings].forEach((heading) => heading.classList.add('banner_v2_title_blog'));
   block.parentElement.classList.add('full-width-blog');
   const contentElWrapper = block.querySelector(':scope > div');
   contentElWrapper.classList.add('blog_v2_banner_content-wrapper');

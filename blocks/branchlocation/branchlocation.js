@@ -5,9 +5,7 @@ import {
   img,
 } from '../utils/dom-helper.js';
 import createMap from '../utils/google-map.js';
-
-import { getDataAttributes } from '../utils/common.js'
-
+import { getDataAttributes } from '../utils/common.js';
 
 /**
  * loads and decorates the header, mainly the nav
@@ -15,7 +13,6 @@ import { getDataAttributes } from '../utils/common.js'
  */
 
 const stateToCities = {};
-
 const stateSelect = select({ id: 'stateSelect' });
 const citySelect = select({ id: 'citySelect' });
 const pincodeInput = input({
@@ -23,7 +20,6 @@ const pincodeInput = input({
   type: 'text',
   placeholder: 'Enter Pincode',
 });
-
 
 function updateMapCard(item, label) {
   document.getElementById('mapCardTitle').textContent = item.location;
@@ -151,13 +147,14 @@ function renderFilters(locations, filterContainer, attributeObj) {
     div(
       { class: 'filters' },
       div({ class: 'heading-container' }, h2({ class: 'heading' }, attributeObj.findthenearestlabel)),
-      div({
-        class: 'inputs-container'
+      div(
+        {
+        class: 'inputs-container',
       },
-        div({ class: 'state-container' }, label({ for: 'stateSelect' }, attributeObj.selectstatelabel), stateSelect,),
-        div({ class: 'city-container' }, label({ for: 'citySelect' }, attributeObj.selectcitylabel), citySelect,),
-        div({ class: 'pincode-container' }, label({ for: 'pincodeInput' }, attributeObj.pincodelabel),
-        div({ class: 'input-img-container' }, img({ class: '-icon', src: attributeObj.mapbuttonicon }), pincodeInput)),
+      div({ class: 'state-container' }, label({ for: 'stateSelect' }, attributeObj.selectstatelabel), stateSelect),
+      div({ class: 'city-container' }, label({ for: 'citySelect' }, attributeObj.selectcitylabel), citySelect),
+      div({ class: 'pincode-container' }, label({ for: 'pincodeInput' }, attributeObj.pincodelabel),
+      div({ class: 'input-img-container' }, img({ class: '-icon', src: attributeObj.locationmapicon }), pincodeInput)),
       ),
     ),
   );
