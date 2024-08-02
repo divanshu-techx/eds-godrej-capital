@@ -248,7 +248,7 @@ function updateDisplay() {
   const {
     taxBefore,
     taxAfter,
-    taxBenefits
+    taxBenefits,
   } = calculateTax(
     income,
     principal,
