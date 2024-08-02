@@ -99,10 +99,8 @@ function calculateTax(income, principal, interest, age) {
 
   const taxBracketLimitFirst = parseFloat(getDataAttributeValueByName('Tax-bracket-limit-first'));
   const taxBracketLimitFirstTaxRate = parseFloat(getDataAttributeValueByName('Tax-bracket-limit-first-tax-rate')) / 100;
-
   const taxBracketLimitSecond = parseFloat(getDataAttributeValueByName('Tax-bracket-limit-second'));
   const taxBracketLimitSecondTaxRate = parseFloat(getDataAttributeValueByName('Tax-bracket-limit-second-tax-rate')) / 100;
-
   const taxBracketLimitThird = parseFloat(getDataAttributeValueByName('Tax-bracket-limit-third'));
   const taxBracketLimitThirdTaxRate = parseFloat(getDataAttributeValueByName('Tax-bracket-limit-third-tax-rate')) / 100;
 
@@ -114,7 +112,7 @@ function calculateTax(income, principal, interest, age) {
   // Function to calculate tax based on income slabs
   function calculateBasicTax(incomeTax) {
     let tax = 0;
-    let currentIncomeTax=incomeTax;
+    let currentIncomeTax = incomeTax;
     if (currentIncomeTax > taxBracketLimitThird) {
       tax += (currentIncomeTax - taxBracketLimitThird) * taxBracketLimitThirdTaxRate;
       currentIncomeTax = taxBracketLimitThird;
@@ -137,20 +135,18 @@ function calculateTax(income, principal, interest, age) {
         rates: [taxBracketLimitFirstTaxRate, taxBracketLimitSecondTaxRate, taxBracketLimitThirdTaxRate],
       };
     }
-    
     if (finalAge > secAge) {
       return {
         taxSlabs: [secondAgeTaxSlab, taxBracketLimitSecond, taxBracketLimitThird],
         rates: [taxBracketLimitFirstTaxRate, taxBracketLimitSecondTaxRate, taxBracketLimitThirdTaxRate],
       };
     }
-    
     return {
       taxSlabs: [taxBracketLimitFirst, taxBracketLimitSecond, taxBracketLimitThird],
       rates: [taxBracketLimitFirstTaxRate, taxBracketLimitSecondTaxRate, taxBracketLimitThirdTaxRate],
     };
   }
-  
+
   const { taxSlabs, rates } = getTaxSlabs(age);
 
   // Calculate tax before loan deductions
