@@ -183,7 +183,6 @@ function calculateTax(income, principal, interest, age) {
 
   // Calculate tax benefits
   const taxBenefits = Math.round(taxBefore - taxAfter);
-
   return {
     taxBefore: taxBefore,
     taxAfter: taxAfter,
