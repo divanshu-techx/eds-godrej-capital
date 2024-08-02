@@ -60,16 +60,14 @@ function updateCalculations(block) {
   const existingEmi = (
     finalprincipal * finalELInterestRate * compoundedRate
   ) / (compoundedRate - 1);
-  
+
   // Calculate proposed EMI per month for new tenure
   const rate = 1 + finalPLInterestRate;
   const ratePowerTenure = rate ** finalPLTenure;
-  
+
   const proposedEmi = (
     finalprincipal * finalPLInterestRate * ratePowerTenure
   ) / (ratePowerTenure - 1);
-  
-
   // Calculate total savings in cash outflow and savings in EMI
   let totalSavinginCashoutflow = (existingEmi * finaltenure) - (proposedEmi * finalPLTenure);
   totalSavinginCashoutflow = totalSavinginCashoutflow < 0 ? 0 : totalSavinginCashoutflow;
