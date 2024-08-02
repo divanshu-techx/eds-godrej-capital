@@ -137,10 +137,14 @@ function renderQA(data, selectedCategory, tagsName, containerSelector, inputValu
     }
     if (inputValue && inputValue.length >= 3) {
       const normalizedSearchTerm = normalizeText(inputValue);
-      filteredData = data.filter((item) =>
-        normalizeText(item.question).includes(normalizedSearchTerm)
-        || normalizeText(item.answer).includes(normalizedSearchTerm),
-      );
+      // filteredData = data.filter((item) =>
+      //   normalizeText(item.question).includes(normalizedSearchTerm)
+      //   || normalizeText(item.answer).includes(normalizedSearchTerm),
+      // );
+      filteredData = data.filter(
+        (item) => normalizeText(item.question).includes(normalizedSearchTerm)
+          || normalizeText(item.answer).includes(normalizedSearchTerm)
+      );      
       const tagsContainer = document.querySelector('.tags-button');
       renderTabs(filteredData, '', normalizedSearchTerm, tagsContainer);
     }
@@ -297,9 +301,8 @@ export default async function decorate(block) {
         const activeTab = activeTabButton.innerHTML;
         if (!activeTab) {
           return;
-        } else {
-          renderQA(quesAnsData, '', activeTab, quesAnsDiv, '');
         }
+        renderQA(quesAnsData, '', activeTab, quesAnsDiv, '');
       }
       quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
     });
