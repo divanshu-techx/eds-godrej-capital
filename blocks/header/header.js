@@ -496,6 +496,7 @@ export default async function decorate(block) {
   }
 
   function getResponseData(filteredData) {
+    console.log(filteredData);
     const ul = document.createElement('ul');
 
     filteredData.forEach((item) => {
@@ -503,7 +504,7 @@ export default async function decorate(block) {
       li.className = 'listElement';
 
       const a = document.createElement('a');
-      a.href = '#.html';
+      a.href = item.ProductPagePath;
       a.textContent = item.HeadingName;
       a.setAttribute('data-path', item.ChildPageUrl);
       a.setAttribute('data-depth', item.depth);
