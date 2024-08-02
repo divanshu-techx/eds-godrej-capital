@@ -128,7 +128,7 @@ export default async function decorate(block) {
   try {
     const responseData = await fetchData();
     const tabsNameArray = getTabNamesFromMetadata();
-    var tabsContainer;
+    let tabsContainer;
     if (tabsNameArray.length > 0) {
       tabsContainer = createTabs(block, tabsNameArray);
     } else {
