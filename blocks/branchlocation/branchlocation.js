@@ -149,12 +149,12 @@ function renderFilters(locations, filterContainer, attributeObj) {
       div({ class: 'heading-container' }, h2({ class: 'heading' }, attributeObj.findthenearestlabel)),
       div(
         {
-        class: 'inputs-container',
-      },
-      div({ class: 'state-container' }, label({ for: 'stateSelect' }, attributeObj.selectstatelabel), stateSelect),
-      div({ class: 'city-container' }, label({ for: 'citySelect' }, attributeObj.selectcitylabel), citySelect),
-      div({ class: 'pincode-container' }, label({ for: 'pincodeInput' }, attributeObj.pincodelabel),
-      div({ class: 'input-img-container' }, img({ class: '-icon', src: attributeObj.locationmapicon }), pincodeInput)),
+          class: 'inputs-container',
+        },
+        div({ class: 'state-container' }, label({ for: 'stateSelect' }, attributeObj.selectstatelabel), stateSelect),
+        div({ class: 'city-container' }, label({ for: 'citySelect' }, attributeObj.selectcitylabel), citySelect),
+        div({ class: 'pincode-container' }, label({ for: 'pincodeInput' }, attributeObj.pincodelabel),
+          div({ class: 'input-img-container' }, img({ class: '-icon', src: attributeObj.locationmapicon }), pincodeInput)),
       ),
     ),
   );
