@@ -133,18 +133,17 @@ function renderQA(data, selectedCategory, tagsName, containerSelector, inputValu
     filteredData = data.filter((item) => normalizeCategory(item.category) === selectedCategory);
   } else {
     if (tagsName) {
-      filteredData = data.filter((item) => normalizeTags(item.tags).includes(tagsName.toLowerCase()));
+      // filteredData = data.filter((item) => normalizeTags(item.tags).includes(tagsName.toLowerCase()));
+      filteredData = data.filter((item) =>
+        normalizeTags(item.tags).includes(tagsName.toLowerCase())
+      );      
     }
     if (inputValue && inputValue.length >= 3) {
       const normalizedSearchTerm = normalizeText(inputValue);
-      // filteredData = data.filter((item) =>
-      //   normalizeText(item.question).includes(normalizedSearchTerm)
-      //   || normalizeText(item.answer).includes(normalizedSearchTerm),
-      // );
       filteredData = data.filter(
         (item) => normalizeText(item.question).includes(normalizedSearchTerm)
-          || normalizeText(item.answer).includes(normalizedSearchTerm)
-      );      
+          || normalizeText(item.answer).includes(normalizedSearchTerm),
+      ); 
       const tagsContainer = document.querySelector('.tags-button');
       renderTabs(filteredData, '', normalizedSearchTerm, tagsContainer);
     }
