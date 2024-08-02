@@ -234,11 +234,20 @@ function addTextInputListeners(block) {
     textInputs.forEach(input => {
         input.addEventListener('input', function () {
             const numericValue = parseFloat(this.value.replace(/[^\d.-]/g, ''));
+            console.log(numericValue);
             if (!isNaN(numericValue)) {
                 const rangeId = `${this.id}Range`;
                 const rangeInput = block.querySelector(`#${rangeId}`);
                 if (rangeInput) {
                     rangeInput.value = numericValue;
+                    updateAPR(block);
+                    updateRangeColors(block);
+                }
+            } else {
+                const rangeId = `${this.id}Range`;
+                const rangeInput = block.querySelector(`#${rangeId}`);
+                if (rangeInput) {
+                    rangeInput.value = rangeInput.min;
                     updateAPR(block);
                     updateRangeColors(block);
                 }
@@ -250,7 +259,7 @@ function addTextInputListeners(block) {
     interestRateInput.addEventListener('change', function () {
         let numericValue = parseFloat(this.value.replace(/[^\d.]/g, ''));
         if (!isNaN(numericValue)) {
-            numericValue = Math.min(Math.max(numericValue, 0), 20);
+            numericValue = Math.min(Math.max(numericValue, 0));
             const rangeInput = block.querySelector('#interestRateAprRange');
             if (rangeInput) {
                 rangeInput.value = numericValue.toFixed(1);
@@ -258,7 +267,13 @@ function addTextInputListeners(block) {
                 updateRangeColors(block);
             }
         }else{
-            this.value=" ";
+            const rangeId = `${this.id}Range`;
+            const rangeInput = block.querySelector(`#${rangeId}`);
+            if (rangeInput) {
+                rangeInput.value = rangeInput.min;
+                updateAPR(block);
+                updateRangeColors(block);
+            }
         }
     });
 }
