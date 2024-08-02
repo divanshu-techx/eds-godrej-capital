@@ -19,7 +19,7 @@ function numberToWords(num) {
   const suffixes = [
     [1e7, 'Crores'],
     [1e5, 'Lakhs'],
-    [1e3, 'Thousands']
+    [1e3, 'Thousands'],
   ];
 
   for (let i = 0; i < suffixes.length; i += 1) {
@@ -248,7 +248,7 @@ function initialize(block) {
       'div',
       { class: 'detail-select' },
       createElement('div', { class: 'detail-select-child', style: 'color: #3b3b3b' }, selectProductLabel),
-      selectProduct
+      selectProduct,
 
     ),
   );
