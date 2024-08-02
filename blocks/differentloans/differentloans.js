@@ -134,4 +134,3 @@ function renderFilteredContent(category, responseData, contentContainer) {
   );
   renderCards(filteredData, contentContainer);
 }
-

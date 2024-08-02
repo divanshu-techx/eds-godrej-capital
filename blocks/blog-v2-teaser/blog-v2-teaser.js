@@ -3,7 +3,28 @@ const MEDIA_BREAKPOINTS = {
   TABLET: 'TABLET',
   DESKTOP: 'DESKTOP',
 };
+function initBackgroundPosition(classList, breakpoint) {
+  const classPrefixes = {
+    [MEDIA_BREAKPOINTS.MOBILE]: 's',
+    [MEDIA_BREAKPOINTS.TABLET]: 'm',
+    [MEDIA_BREAKPOINTS.DESKTOP]: 'l',
+  };
+  const classPrefix = classPrefixes[breakpoint];
+  const backgroudPositionClass = [...classList].find((item) => item.startsWith(`bp-${classPrefix}-`),);
+  let backgroundPositionValue = 'bottom';
+  if (backgroudPositionClass) {
+    let [, , xPosition, yPosition] = backgroudPositionClass.split('-');
 
+    // workaround, '-' character classes are not supported
+    // so for '-45px' we need to put 'm45px'
+    xPosition = xPosition.replace('m', '-');
+    yPosition = yPosition.replace('m', '-');
+
+    backgroundPositionValue = `${xPosition} ${yPosition}`;
+  }
+
+  return backgroundPositionValue;
+}
 function getImageForBreakpoint(imagesList, onChange = () => { }) {
   const mobileMQ = window.matchMedia('(max-width: 743px)');
   const tabletMQ = window.matchMedia(
@@ -73,40 +94,11 @@ function prepareBackgroundImage(block) {
   getImageForBreakpoint(listOfPictures, onBreakpointChange);
 }
 
-function initBackgroundPosition(classList, breakpoint) {
-  const classPrefixes = {
-    [MEDIA_BREAKPOINTS.MOBILE]: 's',
-    [MEDIA_BREAKPOINTS.TABLET]: 'm',
-    [MEDIA_BREAKPOINTS.DESKTOP]: 'l',
-  };
-  const classPrefix = classPrefixes[breakpoint];
-  const backgroudPositionClass = [...classList].find((item) => item.startsWith(`bp-${classPrefix}-`),
-  );
-  let backgroundPositionValue = 'bottom';
-
-  if (backgroudPositionClass) {
-    let [, , xPosition, yPosition] = backgroudPositionClass.split('-');
-
-    // workaround, '-' character classes are not supported
-    // so for '-45px' we need to put 'm45px'
-    xPosition = xPosition.replace('m', '-');
-    yPosition = yPosition.replace('m', '-');
-
-    backgroundPositionValue = `${xPosition} ${yPosition}`;
-  }
-
-  return backgroundPositionValue;
-}
-
 export default async function decorate(block) {
   prepareBackgroundImage(block);
   const headings = block.querySelectorAll('h1, h2, h3, h4, h5, h6');
-
-  [...headings].forEach((heading) => heading.classList.add('banner_v2_title_blog'),
-  );
-
+  [...headings].forEach((heading) => heading.classList.add('banner_v2_title_blog'),);
   block.parentElement.classList.add('full-width-blog');
-
   const contentElWrapper = block.querySelector(':scope > div');
   contentElWrapper.classList.add('blog_v2_banner_content-wrapper');
   const contentEl = block.querySelector(':scope > div > div');
@@ -148,8 +140,7 @@ export default async function decorate(block) {
 
     const buttonContainerWrapper = document.createElement('div');
     buttonContainerWrapper.classList.add('button-container-combined');
-    const buttonContainers =
-      contentContainer.querySelectorAll('.button-container');
+    const buttonContainers = contentContainer.querySelectorAll('.button-container');
     buttonContainers.forEach((buttonContainer, index) => {
       buttonContainerWrapper.appendChild(buttonContainer);
       buttonContainer.classList.contains('button-container');

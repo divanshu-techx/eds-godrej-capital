@@ -154,15 +154,11 @@ function renderFilters(locations, filterContainer, attributeObj) {
       div({
         class: 'inputs-container'
       },
-        div({ class: 'state-container' }, label({ for: 'stateSelect' }, attributeObj.selectstatelabel),
-          stateSelect,),
-        div({ class: 'city-container' }, label({ for: 'citySelect' }, attributeObj.selectcitylabel),
-          citySelect,),
+        div({ class: 'state-container' }, label({ for: 'stateSelect' }, attributeObj.selectstatelabel), stateSelect,),
+        div({ class: 'city-container' }, label({ for: 'citySelect' }, attributeObj.selectcitylabel), citySelect,),
         div({ class: 'pincode-container' }, label({ for: 'pincodeInput' }, attributeObj.pincodelabel),
-          div({ class: 'input-img-container' }, img({ class: '-icon', src: attributeObj.mapbuttonicon }), pincodeInput)),
-
-      )
-
+        div({ class: 'input-img-container' }, img({ class: '-icon', src: attributeObj.mapbuttonicon }), pincodeInput)),
+      ),
     ),
   );
 
@@ -194,11 +190,12 @@ function initialize(entries, block) {
   const container = block.closest('.branchlocation-container');
 
   const attributeObj = getDataAttributes(container);
-  const mapContainer = div({ class: "google-map" },
-    div({ id: 'map-canvas', style: 'height: 400px;' })
-  )
-  const filterContainer = div({ class: "filters-dropdown" });
-  const branchlocator = div({ class: "branch-locator" });
+  const mapContainer = div(
+    { class: 'google-map' },
+    div({ id: 'map-canvas', style: 'height: 400px;' }),
+  );
+  const filterContainer = div({ class: 'filters-dropdown' });
+  const branchlocator = div({ class: 'branch-locator' });
   pincodeInput.placeholder = attributeObj.pincodelabel;
   block.append(filterContainer);
   block.append(mapContainer);
@@ -240,12 +237,11 @@ function loadGoogleMaps(callback) {
 }
 
 export default async function decorate(block) {
-  let mainContainer = block.closest('.branchlocation-container');
-  let locationUrl = mainContainer.getAttribute('data-locationUrl');
+  const mainContainer = block.closest('.branchlocation-container');
+  const locationUrl = mainContainer.getAttribute('data-locationUrl');
   // Load Google Maps API
   loadGoogleMaps(async () => {
     const allentries = await ffetch(locationUrl).all();
     initialize(allentries, block);
   });
-
 }
