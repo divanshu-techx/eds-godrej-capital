@@ -513,9 +513,9 @@ function initialize(block) {
           )
         ),
         createElement('div', { class: 'mobile-tenure-apply' },
-          createElement('button', { id: 'apply-btn-loan', 'data-path': mobileredirection }, applynowbutton)
-        )
-      )
+          createElement('button', { id: 'apply-btn-loan', 'data-path': mobileredirection }, applynowbutton),
+        ),
+      ),
     ),
   );
 
@@ -556,25 +556,27 @@ function initialize(block) {
 
   // Event listener to allow only numeric input
   loanAmtText.addEventListener('input', function (event) {
-    let value = this.value;
+    // let value = this.value;
+    let { value } = this;
     value = value.replace(/[^\d.]/g, ''); // Remove non-numeric characters except '.'
     this.value = value;
   });
 
   loanAmtSlider.addEventListener('input', function (event) {
-    let value = this.value;
+    // let value = this.value;
+    let { value } = this;
     value = value.replace(/[^\d.]/g, ''); // Remove non-numeric characters except '.'
     this.value = value;
   });
 
   exisitingEmiAmountSlider.addEventListener('input', function (event) {
-    let value = this.value;
+    let { value } = this;
     value = value.replace(/[^\d.]/g, ''); // Remove non-numeric characters except '.'
     this.value = value;
   });
 
   exisitingEmiText.addEventListener('input', function (event) {
-    let value = this.value;
+    let { value } = this;
     value = value.replace(/[^\d.]/g, ''); // Remove non-numeric characters except '.'
     this.value = value;
   });
@@ -657,7 +659,7 @@ function initialize(block) {
 
   //for slider color event listener
   loanAmtSlider.addEventListener('input', function () {
-    const value = this.value;
+    const { value } = this;
     const maxValue = this.max; // Get the maximum value of the range input
     const percentage = (value / maxValue) * 100;
     if (window.innerWidth <= 768) {
@@ -668,7 +670,8 @@ function initialize(block) {
   })
 
   loanAmtText.addEventListener('input', function () {
-    const value = this.value;
+    // const value = this.value;
+    const { value } = this;
     const maxValue = this.max; // Get the maximum value of the range input
     const percentage = (value / maxValue) * 100;
     // console.log(value);
@@ -680,7 +683,8 @@ function initialize(block) {
   })
 
   intRateSlider.addEventListener('input', function () {
-    const value = this.value;
+    // const value = this.value;
+    const { value } = this;
     const percentage = ((value - interestRateMinValue) / (interestRateMaxValue - interestRateMinValue)) * 100;
 
     // Update the background gradient with the calculated percentage
@@ -692,7 +696,7 @@ function initialize(block) {
   });
 
   intRateText.addEventListener('input', function () {
-    const value = this.value;
+    const { value } = this;
     const percentage = ((value - interestRateMinValue) / (interestRateMaxValue - interestRateMinValue)) * 100;
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
@@ -703,7 +707,8 @@ function initialize(block) {
   });
 
   loanPeriodSlider.addEventListener('input', function () {
-    const value = this.value;
+    // const value = this.value;
+    const { value } = this;
     const percentage = ((value - tenureMinYearValue) / (tenureMaxYearValue - tenureMinYearValue)) * 100;
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
@@ -714,7 +719,8 @@ function initialize(block) {
   });
 
   loanPeriodText.addEventListener('input', function () {
-    const value = this.value;
+    // const value = this.value;
+    const { value } = this;
     const percentage = ((value - tenureMinYearValue) / (tenureMaxYearValue - tenureMinYearValue)) * 100;
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
@@ -725,7 +731,8 @@ function initialize(block) {
   });
 
   loanPeriodSliderMonth.addEventListener('input', function () {
-    const value = this.value;
+    // const value = this.value;
+    const { value } = this;
     const percentage = ((value - tenureMinMonthValue) / (tenureMaxMonthValue - tenureMinMonthValue)) * 100;
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
@@ -736,7 +743,8 @@ function initialize(block) {
   });
 
   loanPeriodTextMonth.addEventListener('input', function () {
-    const value = this.value;
+    // const value = this.value;
+    const { value } = this;
     const percentage = ((value - tenureMinMonthValue) / (tenureMaxMonthValue - tenureMinMonthValue)) * 100;
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
@@ -758,7 +766,8 @@ function initialize(block) {
   });
 
   exisitingEmiText.addEventListener('input', function () {
-    const value = this.value;
+    // const value = this.value;
+    const { value } = this;
     const percentage = ((value - existingEmiMin) / (existingEmiMax - existingEmiMin)) * 100;
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
@@ -781,7 +790,6 @@ function initialize(block) {
   tenureYearsDetail.appendChild(loanPeriodError);
   tenureMonthsDetail.appendChild(loanPeriodMonthError);
   existingEmi.appendChild(exisitingEmiError);
-
 
   //  error for loan amount
   loanAmtText.addEventListener('input', function () {
@@ -887,7 +895,7 @@ function initialize(block) {
   }
 
   if (mobileSelect) {
-    mobileSelect.addEventListener('input', function () {
+    mobileSelect.addEventListener('input', () => {
       const selectedText = mobileSelect.options[mobileSelect.selectedIndex].text;
       console.log(selectedText);
 
@@ -998,10 +1006,9 @@ function initialize(block) {
         cutoutPercentage: 30,
         responsive: true,
         maintainAspectRatio: false,
-      }
+      },
     },
   });
 
   displayDetails(P, R, N, M, E, line, pie, block);
 }
-
