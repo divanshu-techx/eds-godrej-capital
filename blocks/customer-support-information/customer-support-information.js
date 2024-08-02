@@ -1,7 +1,7 @@
 export default async function decorate(block) {
   const divElements = block.querySelectorAll('.customer-support-information > div');
-  divElements.forEach((div, index) => {
-    div.classList.add(`custom-title-icon`);
+  divElements.forEach((div) => {
+    div.classList.add('custom-title-icon');
   });
   // for mobile view
   const accordionWrappers = document.getElementsByClassName('accordion-support-wrapper');

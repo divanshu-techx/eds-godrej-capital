@@ -1,6 +1,13 @@
 // eslint-disable-next-line import/no-unresolved
 import { toClassName } from '../../scripts/aem.js';
 import { p } from '../utils/dom-helper.js';
+
+// Retrieve the value of a data attribute by name
+function getDataAttributeValueByName(name) {
+  const element = document.querySelector(`[data-${name}]`);
+  return element ? element.getAttribute(`data-${name}`) : '';
+}
+
 const mobileTitle = getDataAttributeValueByName('mobileTitle');
 const selectDocument = getDataAttributeValueByName('selectDocument');
 function hasWrapper(el) {
@@ -121,9 +128,4 @@ export default async function decorate(block) {
       }
     }
   });
-}
-// Retrieve the value of a data attribute by name
-function getDataAttributeValueByName(name) {
-  const element = document.querySelector(`[data-${name}]`);
-  return element ? element.getAttribute(`data-${name}`) : '';
 }
