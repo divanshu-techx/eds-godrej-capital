@@ -22,7 +22,7 @@ function numberToWords(num) {
     [1e3, 'Thousands']
   ];
 
-  for (let i = 0; i < suffixes.length; i++) {
+  for (let i = 0; i < suffixes.length; i += 1) {
     const [divisor, suffix] = suffixes[i];
     if (num >= divisor) {
       return `${Math.floor(num / divisor)} ${suffix}`;
@@ -435,7 +435,7 @@ function initialize(block) {
       ),
       createElement('div', { id: 'CI', style: 'color: #3B3B3B; font-size: 24px; font-weight:400;' }),
     ),
-  )
+  );
 
   const breakup = createElement('div', { class: 'breakup breadup-loaneli' },
     createElement('div', { class: 'chartDetails' },
@@ -443,12 +443,12 @@ function initialize(block) {
       createElement('div', { id: 'canvasItems-loanele' },
         createElement('div', { class: 'intrest' },
           createElement('div', { style: 'color: #000;font-size:14px;font-weight:300;' }, interestratelabel),
-          createElement('div', { id: 'Rate' })
+          createElement('div', { id: 'Rate' }),
         ),
         createElement('div', { class: 'tenure' },
           createElement('div', { style: 'color: #000;font-size:14px;font-weight:300;' }, totaltenurelabel),
           createElement('span', { id: 'year_tenure' }), yearlabel, tenureseparator,
-          createElement('span', { id: 'month_Tenure' }), monthlabel
+          createElement('span', { id: 'month_Tenure' }), monthlabel,
         ),
       ), loanDetailsUpper),
   );
@@ -490,16 +490,16 @@ function initialize(block) {
           createElement('div', { style: 'color: #111111;font-size:14px;font-weight:500;' }, totaltenurelabel),
           createElement('div', { class: 'mobile-tenure-monthYear' },
             createElement('span', { id: 'mobile_year_tenure' }), mobileyear, ' ',
-            createElement('span', { id: 'mobile_month_Tenure' }), mobilemonths
+            createElement('span', { id: 'mobile_month_Tenure' }), mobilemonths,
           ),
         ),
         createElement('div', { class: 'mobile-tenure-amount' },
           createElement('div', { class: 'mobile-tenure-amount-label' }, totalamountlabel),
-          createElement('div', { id: 'mobile_CT', class: 'mobile-tenure-amount-detail' })
+          createElement('div', { id: 'mobile_CT', class: 'mobile-tenure-amount-detail' }),
         ),
         createElement('div', { class: 'mobile-tenure-interest' },
           createElement('div', { class: 'mobile-tenure-interest-label' }, interestpayablelabel),
-          createElement('div', { id: 'mobile_CI', style: 'color: #757575;font-size:12px;font-weight:400;' })
+          createElement('div', { id: 'mobile_CI', style: 'color: #757575;font-size:12px;font-weight:400;' }),
         ),
       ),
       createElement('div', { class: 'mobile-breakup-right' },
@@ -509,8 +509,8 @@ function initialize(block) {
             createElement('span', { id: 'mobile_interest_rate', class: 'mobile-tenure-interest-rate' }),
           ),
           createElement('div', { class: 'mobile-tenure-emi-details' },
-            createElement('h2', { id: 'mobile_monthly_emi_price', class: 'mobile-tenure-emi-price' },),
-          )
+            createElement('h2', { id: 'mobile_monthly_emi_price', class: 'mobile-tenure-emi-price' }),
+          ),
         ),
         createElement('div', { class: 'mobile-tenure-apply' },
           createElement('button', { id: 'apply-btn-loan', 'data-path': mobileredirection }, applynowbutton),
@@ -555,27 +555,27 @@ function initialize(block) {
   });
 
   // Event listener to allow only numeric input
-  loanAmtText.addEventListener('input', function (event) {
+  loanAmtText.addEventListener('input', function () {
     // let value = this.value;
     let { value } = this;
     value = value.replace(/[^\d.]/g, ''); // Remove non-numeric characters except '.'
     this.value = value;
   });
 
-  loanAmtSlider.addEventListener('input', function (event) {
+  loanAmtSlider.addEventListener('input', function () {
     // let value = this.value;
     let { value } = this;
     value = value.replace(/[^\d.]/g, ''); // Remove non-numeric characters except '.'
     this.value = value;
   });
 
-  exisitingEmiAmountSlider.addEventListener('input', function (event) {
+  exisitingEmiAmountSlider.addEventListener('input', function () {
     let { value } = this;
     value = value.replace(/[^\d.]/g, ''); // Remove non-numeric characters except '.'
     this.value = value;
   });
 
-  exisitingEmiText.addEventListener('input', function (event) {
+  exisitingEmiText.addEventListener('input', function () {
     let { value } = this;
     value = value.replace(/[^\d.]/g, ''); // Remove non-numeric characters except '.'
     this.value = value;
@@ -657,7 +657,7 @@ function initialize(block) {
     displayDetails(P, R, N, M, E, line, pie, block);
   });
 
-  //for slider color event listener
+  // for slider color event listener
   loanAmtSlider.addEventListener('input', function () {
     const { value } = this;
     const maxValue = this.max; // Get the maximum value of the range input
@@ -667,7 +667,7 @@ function initialize(block) {
     } else {
       this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
     }
-  })
+  });
 
   loanAmtText.addEventListener('input', function () {
     // const value = this.value;
@@ -680,7 +680,7 @@ function initialize(block) {
     } else {
       loanAmtSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
     }
-  })
+  });
 
   intRateSlider.addEventListener('input', function () {
     // const value = this.value;
@@ -755,7 +755,8 @@ function initialize(block) {
   });
 
   exisitingEmiAmountSlider.addEventListener('input', function () {
-    const value = this.value;
+    // const value = this.value;
+    const { value } = this;
     const percentage = ((value - existingEmiMin) / (existingEmiMax - existingEmiMin)) * 100;
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
