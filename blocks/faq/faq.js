@@ -66,7 +66,9 @@ function renderTabs(data, selectedCategory, inputValue, tagsContainer) {
   if (inputValue.length >= 3) {
     const tagFilteredData = data.filter((item) => normalizeTags(item.tags));
     if (tagFilteredData.length > 0) {
-      const categoryFilteredData = data.filter((item) => normalizeCategory(item.category).includes(selectedCategory.toLowerCase()));
+      const categoryFilteredData = data.filter(
+        (item) => normalizeCategory(item.category).includes(selectedCategory.toLowerCase()),
+      );
       filteredData = [...new Set([...tagFilteredData, ...categoryFilteredData])];
       notFoundEle.style.display = 'none';
       faqLoanCategoryDropdown.style.display = 'block';
@@ -78,7 +80,9 @@ function renderTabs(data, selectedCategory, inputValue, tagsContainer) {
       tagsContainer.style.display = 'none';
     }
   } else {
-    filteredData = data.filter((item) => normalizeCategory(item.category) === selectedCategory.toLowerCase());
+    filteredData = data.filter(
+      (item) => normalizeCategory(item.category) === selectedCategory.toLowerCase(),
+    );
     notFoundEle.style.display = 'none';
     faqLoanCategoryDropdown.style.display = 'block';
     tagsContainer.style.display = 'flex';
@@ -137,14 +141,14 @@ function renderQA(data, selectedCategory, tagsName, containerSelector, inputValu
       // .includes(tagsName.toLowerCase()));
       filteredData = data.filter(
         (item) => normalizeTags(item.tags).includes(tagsName.toLowerCase()),
-      );            
+      );
     }
     if (inputValue && inputValue.length >= 3) {
       const normalizedSearchTerm = normalizeText(inputValue);
       filteredData = data.filter(
         (item) => normalizeText(item.question).includes(normalizedSearchTerm)
           || normalizeText(item.answer).includes(normalizedSearchTerm),
-      ); 
+      );
       const tagsContainer = document.querySelector('.tags-button');
       renderTabs(filteredData, '', normalizedSearchTerm, tagsContainer);
     }
