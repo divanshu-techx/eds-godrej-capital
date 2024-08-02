@@ -114,16 +114,17 @@ function calculateTax(income, principal, interest, age) {
   // Function to calculate tax based on income slabs
   function calculateBasicTax(incomeTax) {
     let tax = 0;
-    if (incomeTax > taxBracketLimitThird) {
-      tax += (incomeTax - taxBracketLimitThird) * taxBracketLimitThirdTaxRate;
-      incomeTax = taxBracketLimitThird;
+    let currentIncomeTax=incomeTax;
+    if (currentIncomeTax > taxBracketLimitThird) {
+      tax += (currentIncomeTax - taxBracketLimitThird) * taxBracketLimitThirdTaxRate;
+      currentIncomeTax = taxBracketLimitThird;
     }
-    if (incomeTax > taxBracketLimitSecond) {
-      tax += (incomeTax - taxBracketLimitSecond) * taxBracketLimitSecondTaxRate;
-      incomeTax = taxBracketLimitSecond;
+    if (currentIncomeTax > taxBracketLimitSecond) {
+      tax += (currentIncomeTax - taxBracketLimitSecond) * taxBracketLimitSecondTaxRate;
+      currentIncomeTax = taxBracketLimitSecond;
     }
-    if (incomeTax > taxBracketLimitFirst) {
-      tax += (incomeTax - taxBracketLimitFirst) * taxBracketLimitFirstTaxRate;
+    if (currentIncomeTax > taxBracketLimitFirst) {
+      tax += (currentIncomeTax - taxBracketLimitFirst) * taxBracketLimitFirstTaxRate;
     }
     return tax;
   }
@@ -135,19 +136,21 @@ function calculateTax(income, principal, interest, age) {
         taxSlabs: [taxBracketLimitFirst, taxBracketLimitSecond, taxBracketLimitThird],
         rates: [taxBracketLimitFirstTaxRate, taxBracketLimitSecondTaxRate, taxBracketLimitThirdTaxRate],
       };
-    } else if (finalAge > secAge) {
+    }
+    
+    if (finalAge > secAge) {
       return {
         taxSlabs: [secondAgeTaxSlab, taxBracketLimitSecond, taxBracketLimitThird],
         rates: [taxBracketLimitFirstTaxRate, taxBracketLimitSecondTaxRate, taxBracketLimitThirdTaxRate],
       };
-    } else {
-      return {
-        taxSlabs: [taxBracketLimitFirst, taxBracketLimitSecond, taxBracketLimitThird],
-        rates: [taxBracketLimitFirstTaxRate, taxBracketLimitSecondTaxRate, taxBracketLimitThirdTaxRate],
-      };
     }
+    
+    return {
+      taxSlabs: [taxBracketLimitFirst, taxBracketLimitSecond, taxBracketLimitThird],
+      rates: [taxBracketLimitFirstTaxRate, taxBracketLimitSecondTaxRate, taxBracketLimitThirdTaxRate],
+    };
   }
-
+  
   const { taxSlabs, rates } = getTaxSlabs(age);
 
   // Calculate tax before loan deductions
