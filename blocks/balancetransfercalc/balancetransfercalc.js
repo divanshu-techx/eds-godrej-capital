@@ -95,7 +95,7 @@ function allowOnlyNumericAndDecimal(input) {
 
     const parts = this.value.split('.');
     if (parts.length > 2) {
-      this.value = parts[0] + '.' + parts.slice(1).join('');
+      this.value = `${parts[0]}.${parts.slice(1).join('')}`;
     }
   });
 }
@@ -138,14 +138,14 @@ function getCalcAttribute() {
     applyNowLabel: getDataAttributeValueByName('apply-now-label'),
     rupeeSymbols: {
       hindi: getDataAttributeValueByName('rupee-symbol-hindi'),
-      english: getDataAttributeValueByName('rupee-symbol-en')
+      english: getDataAttributeValueByName('rupee-symbol-en'),
     },
     percentSymbol: getDataAttributeValueByName('percent-symbol'),
     monthSymbol: getDataAttributeValueByName('month-symbol'),
     yearSymbol: getDataAttributeValueByName('year-symbol'),
     redirectionPath: getDataAttributeValueByName('redirection-balance-path'),
     proposed_loan_label: getDataAttributeValueByName('proposed-loan-label'),
-    existing_loan_label: getDataAttributeValueByName('existing-loan-label')
+    existing_loan_label: getDataAttributeValueByName('existing-loan-label'),
   };
   return calculatorAttributes;
 }
@@ -333,10 +333,10 @@ export default async function decorate(block) {
   // Event listeners for range inputs (excluding principalOutstanding)
   const sliders = block.querySelectorAll('input[type=range]:not(#principalOutstanding)');
   sliders.forEach(slider => {
-    slider.addEventListener('change', function () {
-      const displayId = slider.id + 'Display';
+    slider.addEventListener('change', () => {
+      const displayId = `${slider.id}Display`;
       const displayInput = block.querySelector(`#${displayId}`);
-      const errorSpanId = slider.id + 'Error';
+      const errorSpanId = `${slider.id}Error`;
       const errorSpan = block.querySelector(`#${errorSpanId}`);
 
       const min = parseFloat(slider.min);
@@ -365,7 +365,7 @@ export default async function decorate(block) {
       input.addEventListener('blur', function () {
         const rangeId = input.id.replace('Display', '');
         const rangeInput = block.querySelector(`#${rangeId}`);
-        const errorSpanId = rangeId + 'Error';
+        const errorSpanId = `${rangeId}Error`;
         const errorSpan = block.querySelector(`#${errorSpanId}`);
 
         const min = parseFloat(rangeInput.min);
@@ -390,7 +390,7 @@ export default async function decorate(block) {
   const principalOutstandingError = block.querySelector('#principalOutstandingError');
 
   // Event listener for principalOutstandingDisplay input blur event
-  principalOutstandingDisplay.addEventListener('blur', function () {
+  principalOutstandingDisplay.addEventListener('blur', () => {
     const min = parseFloat(principalOutstanding.min);
     const max = parseFloat(principalOutstanding.max);
 
@@ -409,7 +409,7 @@ export default async function decorate(block) {
   });
 
   // Event listener for principalOutstanding range input change event
-  principalOutstanding.addEventListener('change', function () {
+  principalOutstanding.addEventListener('change', () => {
     const rawValue = principalOutstanding.value;
     principalOutstandingDisplay.value = formatNumberToIndianCommas(rawValue);
     updateCalculations(block);
@@ -417,21 +417,19 @@ export default async function decorate(block) {
   });
   principalOutstanding.addEventListener('input', () => {
     updateRangeColors();
-  })
+  });
+
   const applyNowButton = block.querySelector('#balnance-apply-now');
   applyNowButton.addEventListener('click', () => {
     window.location.href = calculatorAttributes.redirectionPath;
-  })
+  });
 
   // Allow only numeric and decimal input
   const inputs = block.querySelectorAll('input[type="text"]');
-  inputs.forEach(input => allowOnlyNumericAndDecimal(input));
+  inputs.forEach((input) => allowOnlyNumericAndDecimal(input));
 
   updateCalculations(block);
   updateRangeColors();
 }
 window.addEventListener('resize', updateRangeColors);
 window.addEventListener('load', updateRangeColors);
-
-
-
