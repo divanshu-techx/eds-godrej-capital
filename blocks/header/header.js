@@ -496,7 +496,6 @@ export default async function decorate(block) {
   }
 
   function getResponseData(filteredData) {
-    console.log(filteredData);
     const ul = document.createElement('ul');
 
     filteredData.forEach((item) => {
