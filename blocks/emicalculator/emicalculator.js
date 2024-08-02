@@ -297,6 +297,7 @@ function initialize(block) {
     createElement('div', { class: 'chart-details' },
       createElement('button', { id: 'apply-btn', 'data-path': redirectionApplyPath }, apply_now_label),
     ),
+    
   );
 
     breakup.append(loanDetails);
