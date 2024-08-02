@@ -563,7 +563,6 @@ export default async function decorate(block) {
   setupApplyNowButton(newMetaData);
   updateRangeColor();
 }
-
 window.updateRange = updateRange;
 window.updateDisplay = updateDisplay;
 window.addEventListener('resize', updateRangeColor);
