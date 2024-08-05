@@ -4,7 +4,7 @@ export default function decorate(block) {
     return;
   }
   const parentDivs = block.querySelectorAll(':scope > div');
-  parentDivs.forEach(parentDiv => {
+  parentDivs.forEach((parentDiv) => {
     // Add the contentandpictureparent class to the parent div
     parentDiv.classList.add('detailsparent');
 

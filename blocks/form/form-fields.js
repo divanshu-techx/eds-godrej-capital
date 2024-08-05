@@ -82,7 +82,7 @@ const createSelect = async (fd) => {
   }
 
   if (fd.Options) {
-    let options = [];
+    const options = [];
     const resp = await fetch(fd.Options);
     const json = await resp.json();
     json.data.forEach((opt) => {

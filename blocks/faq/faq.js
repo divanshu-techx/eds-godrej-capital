@@ -1,132 +1,4 @@
-import { getDataAttributes } from '../utils/common.js'
-
-export default async function decorate(block) {
-  const container = block.closest('.faq-container');
-  const attributeObj = getDataAttributes(container);
-
-
-  //   let bannerDataArray;
-  const upperContainer = document.createElement('div');
-  upperContainer.className = 'upperContainer';
-  block.appendChild(upperContainer);
-
-  const middleContainer = document.createElement('div');
-  middleContainer.className = 'middleContainer';
-  block.appendChild(middleContainer);
-
-  const lowerContainer = document.createElement('div');
-  lowerContainer.className = 'lowerContainer';
-  block.appendChild(lowerContainer);
-
-
-  // Create search container div
-  const searchContainer = document.createElement('div');
-  searchContainer.className = 'search-container';
-  upperContainer.appendChild(searchContainer);
-
-  const tagsContainer = document.createElement('div');
-  tagsContainer.className = 'tags-button';
-  middleContainer.appendChild(tagsContainer);
-
-  const notFoundDiv = document.createElement('div');
-  notFoundDiv.id = 'faq-not-found';
-  const warningText = document.createElement('p')
-  warningText.innerHTML = 'Sorry, Couldn’t find what you’re looking for.'
-  notFoundDiv.appendChild(warningText)
-  notFoundDiv.style.display = 'none';
-  middleContainer.appendChild(notFoundDiv);
-
-  const productPageDiv = document.createElement('div');
-  productPageDiv.className = 'product-page';
-  lowerContainer.appendChild(productPageDiv);
-
-  const quesAnsDiv = document.createElement('div');
-  quesAnsDiv.className = 'ques-ans';
-  lowerContainer.appendChild(quesAnsDiv);
-
-  // Create input field
-  const inputField = document.createElement('input');
-  inputField.type = 'text';
-  inputField.className = 'input-field';
-  inputField.placeholder = 'What are you looking for?';
-  const searchIconContainer = document.createElement('div');
-  searchIconContainer.classList.add('icon-container');
-  searchIconContainer.innerHTML = `<img src=${attributeObj.searchicon} alt=${'attributeObj.seachiconalttext'} class='icon'>`
-
-  searchContainer.append(searchIconContainer)
-  searchContainer.appendChild(inputField);
-
-
-  try {
-
-    const quesAnsUrl = attributeObj.quesansurl;
-    const quesAnsData = await fetchData(quesAnsUrl);
-    const productPageUrl = attributeObj.productpageurl;
-    const productPageData = await fetchData(productPageUrl);
-
-
-    const dropdown = renderCategoryDropdown(quesAnsData, upperContainer);
-
-    // Initial render of tabs based on the initial category
-    renderTabs(quesAnsData, dropdown.value, '', tagsContainer);
-    renderCategoryDetails(productPageData, dropdown.value, productPageDiv);
-    renderQA(quesAnsData, dropdown.value, '', quesAnsDiv, '');
-
-
-    quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
-
-    dropdown.addEventListener('change', () => {
-      renderTabs(quesAnsData, dropdown.value, '', tagsContainer);
-      renderCategoryDetails(productPageData, dropdown.value, productPageDiv);
-      renderQA(quesAnsData, dropdown.value, '', quesAnsDiv, '');
-      quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
-
-    });
-
-    inputField.addEventListener('input', function (event) {
-      const inputValue = event.target.value.trim();
-      if (inputValue.length >= 3) {
-        renderQA(quesAnsData, '', '', quesAnsDiv, inputValue);
-      } else {
-        if (inputValue.length < 3) {
-          renderTabs(quesAnsData, dropdown.value, inputValue, tagsContainer);
-          quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
-          const tagsButtonDiv = block.querySelector('.tags-button');
-          const activeTabButton = tagsButtonDiv.querySelector('.tab-button.active-tab');
-          const activeTab = activeTabButton.innerHTML;
-          if (!activeTab) {
-            return;
-          } else {
-            renderQA(quesAnsData, '', activeTab, quesAnsDiv, '');
-          }
-        }
-      }
-      quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
-    });
-
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-}
-
-function quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv) {
-  const buttons = Array.from(tagsContainer.children);
-
-  buttons.forEach((button, index) => {
-    if (index === 0) {
-      button.classList.add('active-tab')
-    }
-
-    button.addEventListener('click', function (event) {
-      buttons.forEach(btn => btn.classList.remove('active-tab'));
-      this.classList.add('active-tab')
-      const clickedButton = event.target;
-      renderQA(quesAnsData, '', clickedButton.innerHTML, quesAnsDiv, '');
-    });
-
-  });
-}
-
+import { getDataAttributes } from '../utils/common.js';
 
 async function fetchData(apiUrl) {
   try {
@@ -144,7 +16,7 @@ function normalizeCategory(category) {
 }
 
 function normalizeTags(tags) {
-  return tags.split(',').map(tag => tag.trim().toLowerCase());
+  return tags.split(',').map((tag) => tag.trim().toLowerCase());
 }
 
 function normalizeText(text) {
@@ -152,14 +24,14 @@ function normalizeText(text) {
 }
 
 function renderCategoryDropdown(data, containerSelector) {
-  const categories = [...new Set(data.map(item => item.category))];
+  const categories = [...new Set(data.map((item) => item.category))];
   const dropdown = document.createElement('select');
   dropdown.className = 'category-dropdown';
   dropdown.id = 'faq-loan-category-dropdown';
 
-  categories.forEach(category => {
+  categories.forEach((category) => {
     const option = document.createElement('option');
-    option.classList.add('category-dropdown-option')
+    option.classList.add('category-dropdown-option');
     option.value = normalizeCategory(category);
     option.textContent = category;
     dropdown.appendChild(option);
@@ -172,7 +44,7 @@ function renderCategoryDropdown(data, containerSelector) {
   const selectedCategory = urlParams.get('category');
   if (selectedCategory) {
     const categoryOption = Array.from(dropdown.options).find(
-      option => option.value === normalizeCategory(selectedCategory)
+      (option) => option.value === normalizeCategory(selectedCategory),
     );
     if (categoryOption) {
       categoryOption.selected = true;
@@ -183,19 +55,20 @@ function renderCategoryDropdown(data, containerSelector) {
     dropdown.options[0].selected = true;
   }
   return dropdown;
-
 }
 
 // Function to render tabs based on selected category
 function renderTabs(data, selectedCategory, inputValue, tagsContainer) {
   tagsContainer.innerHTML = '';
-  var filteredData;
+  let filteredData;
   const notFoundEle = document.getElementById('faq-not-found');
   const faqLoanCategoryDropdown = document.getElementById('faq-loan-category-dropdown');
   if (inputValue.length >= 3) {
-    const tagFilteredData = data.filter(item => normalizeTags(item.tags));
+    const tagFilteredData = data.filter((item) => normalizeTags(item.tags));
     if (tagFilteredData.length > 0) {
-      const categoryFilteredData = data.filter(item => normalizeCategory(item.category).includes(selectedCategory.toLowerCase()));
+      const categoryFilteredData = data.filter(
+        (item) => normalizeCategory(item.category).includes(selectedCategory.toLowerCase()),
+      );
       filteredData = [...new Set([...tagFilteredData, ...categoryFilteredData])];
       notFoundEle.style.display = 'none';
       faqLoanCategoryDropdown.style.display = 'block';
@@ -207,14 +80,16 @@ function renderTabs(data, selectedCategory, inputValue, tagsContainer) {
       tagsContainer.style.display = 'none';
     }
   } else {
-    filteredData = data.filter(item => normalizeCategory(item.category) === selectedCategory.toLowerCase());
+    filteredData = data.filter(
+      (item) => normalizeCategory(item.category) === selectedCategory.toLowerCase(),
+    );
     notFoundEle.style.display = 'none';
     faqLoanCategoryDropdown.style.display = 'block';
     tagsContainer.style.display = 'flex';
   }
 
-  const tags = [...new Set(filteredData.flatMap(item => item.tags.split(',').map(tag => tag.trim())))];
-  tags.forEach(tag => {
+  const tags = [...new Set(filteredData.flatMap((item) => item.tags.split(',').map((tag) => tag.trim())))];
+  tags.forEach((tag) => {
     const button = document.createElement('button');
     button.className = 'tab-button';
     button.textContent = tag.trim();
@@ -226,17 +101,14 @@ function renderTabs(data, selectedCategory, inputValue, tagsContainer) {
 function renderCategoryDetails(data, selectedCategory, containerSelector) {
   containerSelector.innerHTML = '';
 
-  const categoryData = data.find(item => normalizeCategory(item.category) === selectedCategory);
+  const categoryData = data.find((item) => normalizeCategory(item.category) === selectedCategory);
 
   if (categoryData) {
     const detailsHTML = `
     <div class="banner-container">
-
-
     <div class="img-container">
     <img src="${categoryData.Image}" class="banner-image" alt="${categoryData.category}">
     </div>
-
     <div class="content-container">
             <div class="heading-container">
               <h3>${categoryData.category}</h3>
@@ -245,59 +117,54 @@ function renderCategoryDetails(data, selectedCategory, containerSelector) {
              <p>${categoryData.description}</p>
             </div>
             <div class="details-container">
-               <ul>${categoryData.FaqBulletsPoint.split('\n').map(point => `<li>${point}</li>`).join('')}</ul>
+               <ul>${categoryData.FaqBulletsPoint.split('\n').map((point) => `<li>${point}</li>`).join('')}</ul>
                </div>
             <div class="btn-container"> 
             <a href="${categoryData.ApplyNowLink}" target="_blank" class="apply-now btn-details">${categoryData.ApplyNow}</a>
             <a href="${categoryData.KnowMoreLink}" target="_blank"  class="know-more btn-details">${categoryData.KnowMore}</a>
-      
               </div>
-             
-             
-            
-              
     </div>
     </div>
-    
-      
             `;
-
     containerSelector.innerHTML = detailsHTML;
   }
 }
 
 function renderQA(data, selectedCategory, tagsName, containerSelector, inputValue) {
   containerSelector.innerHTML = '';
-  var filteredData;
+  let filteredData;
   if (selectedCategory) {
-    filteredData = data.filter(item => normalizeCategory(item.category) === selectedCategory);
+    filteredData = data.filter((item) => normalizeCategory(item.category) === selectedCategory);
   } else {
     if (tagsName) {
-      filteredData = data.filter(item => normalizeTags(item.tags).includes(tagsName.toLowerCase()));
+      // filteredData = data.filter((item) => normalizeTags(item.tags)
+      // .includes(tagsName.toLowerCase()));
+      filteredData = data.filter(
+        (item) => normalizeTags(item.tags).includes(tagsName.toLowerCase()),
+      );
     }
     if (inputValue && inputValue.length >= 3) {
       const normalizedSearchTerm = normalizeText(inputValue);
-      filteredData = data.filter(item =>
-        normalizeText(item.question).includes(normalizedSearchTerm) ||
-        normalizeText(item.answer).includes(normalizedSearchTerm)
+      filteredData = data.filter(
+        (item) => normalizeText(item.question).includes(normalizedSearchTerm)
+          || normalizeText(item.answer).includes(normalizedSearchTerm),
       );
       const tagsContainer = document.querySelector('.tags-button');
       renderTabs(filteredData, '', normalizedSearchTerm, tagsContainer);
     }
   }
 
-
-  filteredData.forEach(item => {
+  filteredData.forEach((item) => {
     const qaItem = document.createElement('div');
     qaItem.className = 'qa-item';
 
     const question = document.createElement('h4');
-    question.classList.add('faq-heading')
+    question.classList.add('faq-heading');
     question.textContent = item.question;
     qaItem.appendChild(question);
 
     const answer = document.createElement('p');
-    answer.classList.add('faq-description')
+    answer.classList.add('faq-description');
     answer.textContent = item.answer;
     qaItem.appendChild(answer);
 
@@ -320,7 +187,7 @@ function renderQA(data, selectedCategory, tagsName, containerSelector, inputValu
       const isActive = this.classList.contains('active');
 
       // Close all panels
-      accordionHeaders.forEach(header => {
+      accordionHeaders.forEach((header) => {
         header.classList.remove('active');
         header.nextElementSibling.style.display = 'none';
       });
@@ -332,4 +199,118 @@ function renderQA(data, selectedCategory, tagsName, containerSelector, inputValu
       }
     });
   });
-} 
+}
+
+function quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv) {
+  const buttons = Array.from(tagsContainer.children);
+  buttons.forEach((button, index) => {
+    if (index === 0) {
+      button.classList.add('active-tab');
+    }
+
+    button.addEventListener('click', function (event) {
+      buttons.forEach((btn) => btn.classList.remove('active-tab'));
+      this.classList.add('active-tab');
+      const clickedButton = event.target;
+      renderQA(quesAnsData, '', clickedButton.innerHTML, quesAnsDiv, '');
+    });
+  });
+}
+
+export default async function decorate(block) {
+  const container = block.closest('.faq-container');
+  const attributeObj = getDataAttributes(container);
+
+  //   let bannerDataArray;
+  const upperContainer = document.createElement('div');
+  upperContainer.className = 'upperContainer';
+  block.appendChild(upperContainer);
+
+  const middleContainer = document.createElement('div');
+  middleContainer.className = 'middleContainer';
+  block.appendChild(middleContainer);
+
+  const lowerContainer = document.createElement('div');
+  lowerContainer.className = 'lowerContainer';
+  block.appendChild(lowerContainer);
+
+  // Create search container div
+  const searchContainer = document.createElement('div');
+  searchContainer.className = 'search-container';
+  upperContainer.appendChild(searchContainer);
+
+  const tagsContainer = document.createElement('div');
+  tagsContainer.className = 'tags-button';
+  middleContainer.appendChild(tagsContainer);
+
+  const notFoundDiv = document.createElement('div');
+  notFoundDiv.id = 'faq-not-found';
+  const warningText = document.createElement('p');
+  warningText.innerHTML = 'Sorry, Couldn’t find what you’re looking for.';
+  notFoundDiv.appendChild(warningText);
+  notFoundDiv.style.display = 'none';
+  middleContainer.appendChild(notFoundDiv);
+
+  const productPageDiv = document.createElement('div');
+  productPageDiv.className = 'product-page';
+  lowerContainer.appendChild(productPageDiv);
+
+  const quesAnsDiv = document.createElement('div');
+  quesAnsDiv.className = 'ques-ans';
+  lowerContainer.appendChild(quesAnsDiv);
+
+  // Create input field
+  const inputField = document.createElement('input');
+  inputField.type = 'text';
+  inputField.className = 'input-field';
+  inputField.placeholder = 'What are you looking for?';
+  const searchIconContainer = document.createElement('div');
+  searchIconContainer.classList.add('icon-container');
+  searchIconContainer.innerHTML = `<img src=${attributeObj.searchicon} alt=${'attributeObj.seachiconalttext'} class='icon'>`;
+
+  searchContainer.append(searchIconContainer);
+  searchContainer.appendChild(inputField);
+
+  try {
+    const quesAnsUrl = attributeObj.quesansurl;
+    const quesAnsData = await fetchData(quesAnsUrl);
+    const productPageUrl = attributeObj.productpageurl;
+    const productPageData = await fetchData(productPageUrl);
+    const dropdown = renderCategoryDropdown(quesAnsData, upperContainer);
+
+    // Initial render of tabs based on the initial category
+    renderTabs(quesAnsData, dropdown.value, '', tagsContainer);
+    renderCategoryDetails(productPageData, dropdown.value, productPageDiv);
+    renderQA(quesAnsData, dropdown.value, '', quesAnsDiv, '');
+
+    quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
+
+    dropdown.addEventListener('change', () => {
+      renderTabs(quesAnsData, dropdown.value, '', tagsContainer);
+      renderCategoryDetails(productPageData, dropdown.value, productPageDiv);
+      renderQA(quesAnsData, dropdown.value, '', quesAnsDiv, '');
+      quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
+    });
+
+    inputField.addEventListener('input', (event) => {
+      const inputValue = event.target.value.trim();
+      if (inputValue.length >= 3) {
+        renderQA(quesAnsData, '', '', quesAnsDiv, inputValue);
+      }
+      if (inputValue.length < 3) {
+        renderTabs(quesAnsData, dropdown.value, inputValue, tagsContainer);
+        quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
+        const tagsButtonDiv = block.querySelector('.tags-button');
+        const activeTabButton = tagsButtonDiv.querySelector('.tab-button.active-tab');
+        const activeTab = activeTabButton.innerHTML;
+        if (!activeTab) {
+          return;
+        }
+        renderQA(quesAnsData, '', activeTab, quesAnsDiv, '');
+      }
+      quesAnsChangeOnTags(tagsContainer, quesAnsData, quesAnsDiv);
+    });
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}

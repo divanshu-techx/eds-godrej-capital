@@ -421,4 +421,8 @@
 /* for .existing input label and proposed input label */
 .inputBalance .proposedLoan-input-label,.existgingLoan-input-label{
   margin-top: 0em;
+  font-family: Work Sans;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: left;
 }

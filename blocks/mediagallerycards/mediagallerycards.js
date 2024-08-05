@@ -31,27 +31,122 @@ function sortCards(sortBy, block) {
       const cards = Array.from(container.getElementsByClassName('card-media-gallery'));
 
       cards.sort((a, b) => {
-        const publishDateA = parseInt(a.getAttribute('data-publishdate'));
-        const publishDateB = parseInt(b.getAttribute('data-publishdate'));
+        // const publishDateA = parseInt(a.getAttribute('data-publishdate'));
+        // const publishDateB = parseInt(b.getAttribute('data-publishdate'));
+        const publishDateA = parseInt(a.getAttribute('data-publishdate'), 10);
+        const publishDateB = parseInt(b.getAttribute('data-publishdate'), 10);
 
         if (sortBy === 'ascending') {
           return publishDateA - publishDateB;
-        } else if (sortBy === 'descending') {
-          return publishDateB - publishDateA;
-        } else {
-          return 0; // Default case if no valid sort option is selected
         }
+        if (sortBy === 'descending') {
+          return publishDateB - publishDateA;
+        }
+        return 0; // Default case if no valid sort option is selected
       });
 
       // Clear the container and re-append sorted cards
       container.innerHTML = '';
-      cards.forEach(card => container.appendChild(card));
+      cards.forEach((card) => container.appendChild(card));
     }
   };
 
   // Sort and update each category container
   sortAndAppendCards(pictureGalleryContainer);
   sortAndAppendCards(otherCategoryWrapper);
+}
+
+function showCategoryContent(category, block) {
+  const allTabs = block.querySelectorAll('.media-tab');
+  const pictureContainer = block.querySelector('.main-picture-div');
+  const videoContainer = block.querySelector('.other-category-container');
+  // let noResultsMessage = block.querySelector('.no-results');
+
+  allTabs.forEach((tab) => {
+    if (tab.getAttribute('data-category') === category) {
+      tab.classList.add('active');
+    } else {
+      tab.classList.remove('active');
+    }
+  });
+
+  // Show the content related to the active tab
+  if (category === 'Videos') {
+    pictureContainer.style.display = 'none';
+    videoContainer.style.display = 'block';
+  } else if (category === 'Picture Gallery') {
+    pictureContainer.style.display = 'block';
+    videoContainer.style.display = 'none';
+  }
+
+  // // Check if the containers have visible content
+  // const hasPictureContent = pictureContainer.querySelector(
+  // '.card-media-gallery')?.children.length > 0;
+  // const hasVideoContent = videoContainer.querySelector(
+  // '.card-media-gallery')?.children.length > 0;
+
+  // // If no content is visible, show the no results message
+  // if (!hasPictureContent && !hasVideoContent) {
+  //     if (!noResultsMessage) {
+  //         noResultsMessage = document.createElement('div');
+  //         noResultsMessage.className = 'no-results';
+  //         noResultsMessage.textContent = 'No results found';
+  //         block.appendChild(noResultsMessage);
+  //     }
+  //     noResultsMessage.style.display = 'block';
+  // } else {
+  //     if (noResultsMessage) {
+  //         noResultsMessage.style.display = 'none';
+  //     }
+  // }
+}
+
+function filterCardsBySearch(searchTerm, block) {
+  const allCards = block.querySelectorAll('.card-media-gallery');
+  const lowerCaseSearchTerm = searchTerm.trim().toLowerCase(); // Trim and convert to lowercase
+  let resultsFound = false;
+
+  // Check if searchTerm has at least 3 characters
+  if (lowerCaseSearchTerm.length < 3) {
+    // Reset all cards to be visible if searchTerm length is less than 3
+    allCards.forEach((card) => {
+      card.style.display = 'block';
+    });
+
+    // Remove noResultsMessage if it exists
+    const noResultsMessage = block.querySelector('.no-results');
+    if (noResultsMessage) {
+      noResultsMessage.remove();
+    }
+    return; // Exit function early
+  }
+
+  allCards.forEach((card) => {
+    const cardContent = card.textContent.toLowerCase();
+    if (cardContent.includes(lowerCaseSearchTerm)) {
+      card.style.display = 'block';
+      resultsFound = true;
+    } else {
+      card.style.display = 'none';
+    }
+  });
+
+  // Create noResultsMessage if it doesn't exist
+  let noResultsMessage = block.querySelector('.no-results');
+  if (!noResultsMessage) {
+    noResultsMessage = document.createElement('div');
+    noResultsMessage.className = 'no-results';
+    noResultsMessage.textContent = 'No results found';
+    noResultsMessage.style.display = 'none';
+    block.appendChild(noResultsMessage);
+  }
+
+  // Display or hide noResultsMessage based on resultsFound
+  if (resultsFound) {
+    noResultsMessage.style.display = 'none';
+  } else {
+    noResultsMessage.style.display = 'block';
+  }
 }
 
 function createFilter(categories, block) {
@@ -89,7 +184,7 @@ function createFilter(categories, block) {
   searchIconImgTag.alt = 'search-icon';
   searchIconImgTag.classList.add('search-icon-img');
 
-  searchDiv.append(searchIconImgTag)
+  searchDiv.append(searchIconImgTag);
   // Create a search input
   const searchInput = document.createElement('input');
   searchInput.type = 'text';
@@ -119,7 +214,7 @@ function createFilter(categories, block) {
   const sortOptions = sortByLabelDropDownLabel.split(', ');
   const sortValues = ['descending', 'ascending'];
   sortOptions.forEach((option, index) => {
-    // const cleanOption = option.replace(/\(|\)/g, ''); 
+    // const cleanOption = option.replace(/\(|\)/g, '');
     const sortOption = document.createElement('option');
     sortOption.value = sortValues[index];
     sortOption.textContent = option;
@@ -139,99 +234,10 @@ function createFilter(categories, block) {
   block.insertBefore(tabContainer, block.firstChild);
 }
 
-function showCategoryContent(category, block) {
-  const allTabs = block.querySelectorAll('.media-tab');
-  const pictureContainer = block.querySelector('.main-picture-div');
-  const videoContainer = block.querySelector('.other-category-container');
-  let noResultsMessage = block.querySelector('.no-results');
-
-  allTabs.forEach(tab => {
-    if (tab.getAttribute('data-category') === category) {
-      tab.classList.add('active');
-    } else {
-      tab.classList.remove('active');
-    }
-  });
-
-  // Show the content related to the active tab
-  if (category === 'Videos') {
-    pictureContainer.style.display = 'none';
-    videoContainer.style.display = 'block';
-  } else if (category === 'Picture Gallery') {
-    pictureContainer.style.display = 'block';
-    videoContainer.style.display = 'none';
-  }
-
-  // // Check if the containers have visible content
-  // const hasPictureContent = pictureContainer.querySelector('.card-media-gallery')?.children.length > 0;
-  // const hasVideoContent = videoContainer.querySelector('.card-media-gallery')?.children.length > 0;
-
-  // // If no content is visible, show the no results message
-  // if (!hasPictureContent && !hasVideoContent) {
-  //     if (!noResultsMessage) {
-  //         noResultsMessage = document.createElement('div');
-  //         noResultsMessage.className = 'no-results';
-  //         noResultsMessage.textContent = 'No results found';
-  //         block.appendChild(noResultsMessage);
-  //     }
-  //     noResultsMessage.style.display = 'block';
-  // } else {
-  //     if (noResultsMessage) {
-  //         noResultsMessage.style.display = 'none';
-  //     }
-  // }
-}
-
-function filterCardsBySearch(searchTerm, block) {
-  const allCards = block.querySelectorAll('.card-media-gallery');
-  const lowerCaseSearchTerm = searchTerm.trim().toLowerCase(); // Trim and convert to lowercase
-  let resultsFound = false;
-
-  // Check if searchTerm has at least 3 characters
-  if (lowerCaseSearchTerm.length < 3) {
-    // Reset all cards to be visible if searchTerm length is less than 3
-    allCards.forEach(card => {
-      card.style.display = 'block';
-    });
-
-    // Remove noResultsMessage if it exists
-    let noResultsMessage = block.querySelector('.no-results');
-    if (noResultsMessage) {
-      noResultsMessage.remove();
-    }
-    return; // Exit function early
-  }
-
-  allCards.forEach(card => {
-    const cardContent = card.textContent.toLowerCase();
-    if (cardContent.includes(lowerCaseSearchTerm)) {
-      card.style.display = 'block';
-      resultsFound = true;
-    } else {
-      card.style.display = 'none';
-    }
-  });
-
-  // Create noResultsMessage if it doesn't exist
-  let noResultsMessage = block.querySelector('.no-results');
-  if (!noResultsMessage) {
-    noResultsMessage = document.createElement('div');
-    noResultsMessage.className = 'no-results';
-    noResultsMessage.textContent = 'No results found';
-    noResultsMessage.style.display = 'none';
-    block.appendChild(noResultsMessage);
-  }
-
-  // Display or hide noResultsMessage based on resultsFound
-  if (resultsFound) {
-    noResultsMessage.style.display = 'none';
-  } else {
-    noResultsMessage.style.display = 'block';
-  }
-}
-
 function getYoutubeIdFromUrl(url) {
-  const regex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+  // const regex = /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)
+  // \/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+  const regex = /(?:youtube\.com\/(?:[^/\n\s]+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
   const match = url.match(regex);
   return match ? match[1] : null;
 }
@@ -299,16 +305,177 @@ function openModal(videoLink) {
   document.body.appendChild(modal);
 }
 
+function updateNewCard(block, container, cardTitle, url) {
+  const mainCardDiv = container.querySelector(':scope > div');
+  mainCardDiv.classList.add('mainNewCardDiv');
+
+  const mainCardPictureDiv = mainCardDiv.querySelector(':scope > div');
+  mainCardPictureDiv.classList.add('mainCardPictureDiv');
+
+  const newTopDiv = document.createElement('div');
+  newTopDiv.classList.add('redirectDiv-media-gallery');
+
+  const backPage = document.createElement('div');
+  backPage.classList.add('back-page');
+
+  const backAnchor = document.createElement('a');
+  backAnchor.href = url;
+  backAnchor.classList.add('back-link-media-gallery');
+  backAnchor.textContent = cardTitle;
+  backPage.appendChild(backAnchor);
+
+  const totalImgVid = document.createElement('div');
+  totalImgVid.classList.add('total-img-video-media-gallery');
+
+  const countCards = document.createElement('p');
+  totalImgVid.appendChild(countCards);
+
+  newTopDiv.append(backPage, totalImgVid);
+
+  mainCardDiv.insertBefore(newTopDiv, mainCardPictureDiv);
+
+  // Create upperPictureDiv and insert it into mainCardDiv (not mainCardPictureDiv)
+  const upperPictureDiv = document.createElement('div');
+  upperPictureDiv.classList.add('upperPictureDiv');
+  mainCardDiv.insertBefore(upperPictureDiv, mainCardPictureDiv); // Insert before mainCardPictureDiv
+
+  const allChildDiv = mainCardPictureDiv.querySelectorAll(':scope > div');
+  const pictuireNavList = document.createElement('div');
+  pictuireNavList.classList.add('pictuire-nav-list');
+
+  let currentIndex = 0;
+
+  // Set the first new-card-picture-div as active by default
+  allChildDiv[currentIndex].classList.add('active');
+  const initialClone = allChildDiv[currentIndex].cloneNode(true);
+  upperPictureDiv.appendChild(initialClone);
+
+  function updateActiveElement(index) {
+    allChildDiv.forEach((el) => el.classList.remove('active'));
+    allChildDiv[index].classList.add('active');
+
+    const clone = allChildDiv[index].cloneNode(true);
+    upperPictureDiv.innerHTML = '';
+    upperPictureDiv.appendChild(clone);
+
+    // allChildDiv[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  // Add click event listener to each new-card-picture-div
+  allChildDiv.forEach((element, index) => {
+    element.classList.add('new-card-picture-div');
+    element.addEventListener('click', () => {
+      currentIndex = index;
+      updateActiveElement(currentIndex);
+    });
+    pictuireNavList.append(element);
+  });
+
+  // Create Previous and Next buttons
+  const prevButton = document.createElement('button');
+  const spanArrowLeft = document.createElement('span');
+  spanArrowLeft.classList.add('arrow', 'left');
+  prevButton.append(spanArrowLeft);
+  // prevButton.innerText = 'Previous';
+  prevButton.classList.add('media-gallery-nav-button', 'prev-button');
+  // Insert at the beginning
+  mainCardPictureDiv.insertBefore(prevButton, mainCardPictureDiv.firstChild);
+  mainCardPictureDiv.append(pictuireNavList);
+  const nextButton = document.createElement('button');
+  const spanArrowRight = document.createElement('span');
+  spanArrowRight.classList.add('arrow', 'right');
+  nextButton.append(spanArrowRight);
+  // nextButton.innerText = 'Next';
+  nextButton.classList.add('media-gallery-nav-button', 'next-button');
+  mainCardPictureDiv.appendChild(nextButton); // Insert at the end
+  function getScrollAmount() {
+    return window.innerWidth > 1024 ? 140 : 40; // Adjust values as needed
+  }
+  prevButton.addEventListener('click', () => {
+    if (currentIndex > 0) {
+      currentIndex = (currentIndex - 1 + allChildDiv.length) % allChildDiv.length;
+      pictuireNavList.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+      updateActiveElement(currentIndex);
+      console.log(currentIndex, allChildDiv.length);
+      if (currentIndex === 0) {
+        prevButton.disabled = true;
+      } else {
+        prevButton.disabled = false;
+      }
+      nextButton.disabled = false;
+    }
+  });
+
+  nextButton.addEventListener('click', () => {
+    if (currentIndex < allChildDiv.length - 1) {
+      currentIndex = (currentIndex + 1) % allChildDiv.length;
+      pictuireNavList.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+      updateActiveElement(currentIndex);
+      if (currentIndex === allChildDiv.length - 1) {
+        nextButton.disabled = true;
+      } else {
+        nextButton.disabled = false;
+      }
+      prevButton.disabled = false;
+    }
+  });
+
+  // Event listener for backAnchor
+  backAnchor.addEventListener('click', (e) => {
+    e.preventDefault();
+    // Select the elements you want to modify
+    const pictureGalleryContainer = block.querySelector('.picture-gallery-container');
+    const newContentCard = block.querySelector('.new-content-card');
+
+    // Ensure that picture-gallery-container is displayed as block
+    if (pictureGalleryContainer) {
+      pictureGalleryContainer.style.display = 'flex';
+    }
+
+    // Ensure that new-content-card is hidden and remove the active class
+    if (newContentCard) {
+      newContentCard.style.display = 'none';
+      newContentCard.classList.remove('active');
+    }
+  });
+
+  // Event listener for picture-gallery-container
+  const pictureGalleryContainer = block.querySelector('.picture-gallery-container');
+  if (pictureGalleryContainer) {
+    pictureGalleryContainer.addEventListener('click', () => {
+      // Select the elements you want to modify
+      const newContentCard = block.querySelector('.new-content-card');
+      const galleryContainer = block.querySelector('.picture-gallery-container');
+
+      // Ensure that new-content-card is displayed as block
+      if (newContentCard) {
+        newContentCard.style.display = 'block';
+      }
+
+      // Ensure that picture-gallery-container is hidden
+      if (galleryContainer) {
+        galleryContainer.style.display = 'none';
+      }
+    });
+  }
+
+  const pictureDivs = block.querySelectorAll('.new-card-picture-div');
+  const pictureLength = pictureDivs.length;
+  const videoDivs = document.querySelectorAll('.other-category-wrapper .card-media-gallery');
+  const videoDivLendth = videoDivs.length;
+  countCards.textContent = `${pictureLength} Images ${videoDivLendth} Videos`;
+}
+
 // Function to fetch and append content to pictureGalleryContainer
 function fetchAndAppendContent(block, url, container, cardTitle) {
   fetch(url)
-    .then(response => {
+    .then((response) => {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
       return response.text();
     })
-    .then(data => {
+    .then((data) => {
       const parser = new DOMParser();
       const doc = parser.parseFromString(data, 'text/html');
       const mainContent = doc.querySelector('main');
@@ -319,10 +486,10 @@ function fetchAndAppendContent(block, url, container, cardTitle) {
         container.innerHTML = '<p>No main content found.</p>';
       }
       // console.log(container);
-      updateNewCard(block, container, cardTitle, url)
+      updateNewCard(block, container, cardTitle, url);
       console.log(mainContent);
     })
-    .catch(error => {
+    .catch((error) => {
       console.error('There was a problem with the fetch operation:', error);
       // Optionally, show an error message to the user
       container.innerHTML = '<p>Failed to load content. Please try again later.</p>';
@@ -356,7 +523,7 @@ function generateCards(data, block) {
   const otherCategoryWrapper = document.createElement('div');
   otherCategoryWrapper.classList.add('other-category-wrapper');
 
-  data.data.forEach(item => {
+  data.data.forEach((item) => {
     const card = document.createElement('div');
     card.classList.add('card-media-gallery');
     card.setAttribute('data-category', item.category);
@@ -388,7 +555,6 @@ function generateCards(data, block) {
       arrowContainer.classList.add('arrow-right');
       cardTitle.append(arrowContainer);
       cardLinkDiv.appendChild(cardTitle);
-
 
       cardImageDiv.addEventListener('click', (e) => {
         e.preventDefault();
@@ -466,170 +632,9 @@ function generateCards(data, block) {
   block.appendChild(mainParentDiv);
 }
 
-function updateNewCard(block, container, cardTitle, url) {
-  const mainCardDiv = container.querySelector(':scope > div');
-  mainCardDiv.classList.add('mainNewCardDiv');
-
-  const mainCardPictureDiv = mainCardDiv.querySelector(':scope > div');
-  mainCardPictureDiv.classList.add('mainCardPictureDiv');
-
-  const newTopDiv = document.createElement('div');
-  newTopDiv.classList.add('redirectDiv-media-gallery');
-
-  const backPage = document.createElement('div');
-  backPage.classList.add('back-page');
-
-  const backAnchor = document.createElement('a');
-  backAnchor.href = url;
-  backAnchor.classList.add('back-link-media-gallery');
-  backAnchor.textContent = cardTitle;
-  backPage.appendChild(backAnchor);
-
-  const totalImgVid = document.createElement('div');
-  totalImgVid.classList.add('total-img-video-media-gallery');
-
-  const countCards = document.createElement('p');
-  totalImgVid.appendChild(countCards);
-
-  newTopDiv.append(backPage, totalImgVid);
-
-  mainCardDiv.insertBefore(newTopDiv, mainCardPictureDiv);
-
-  // Create upperPictureDiv and insert it into mainCardDiv (not mainCardPictureDiv)
-  const upperPictureDiv = document.createElement('div');
-  upperPictureDiv.classList.add('upperPictureDiv');
-  mainCardDiv.insertBefore(upperPictureDiv, mainCardPictureDiv); // Insert before mainCardPictureDiv
-
-  const allChildDiv = mainCardPictureDiv.querySelectorAll(':scope > div');
-  const pictuireNavList = document.createElement('div');
-  pictuireNavList.classList.add('pictuire-nav-list');
-
-  let currentIndex = 0;
-
-  // Set the first new-card-picture-div as active by default
-  allChildDiv[currentIndex].classList.add('active');
-  const initialClone = allChildDiv[currentIndex].cloneNode(true);
-  upperPictureDiv.appendChild(initialClone);
-
-  function updateActiveElement(index) {
-    allChildDiv.forEach(el => el.classList.remove('active'));
-    allChildDiv[index].classList.add('active');
-
-    const clone = allChildDiv[index].cloneNode(true);
-    upperPictureDiv.innerHTML = '';
-    upperPictureDiv.appendChild(clone);
-
-    // allChildDiv[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
-
-  // Add click event listener to each new-card-picture-div
-  allChildDiv.forEach((element, index) => {
-    element.classList.add('new-card-picture-div');
-    element.addEventListener('click', () => {
-      currentIndex = index;
-      updateActiveElement(currentIndex);
-    });
-    pictuireNavList.append(element);
-  });
-
-  // Create Previous and Next buttons
-  const prevButton = document.createElement('button');
-  const spanArrowLeft = document.createElement('span');
-  spanArrowLeft.classList.add('arrow', 'left');
-  prevButton.append(spanArrowLeft)
-  // prevButton.innerText = 'Previous';
-  prevButton.classList.add('media-gallery-nav-button', 'prev-button');
-  mainCardPictureDiv.insertBefore(prevButton, mainCardPictureDiv.firstChild); // Insert at the beginning
-  mainCardPictureDiv.append(pictuireNavList)
-  const nextButton = document.createElement('button');
-  const spanArrowRight = document.createElement('span');
-  spanArrowRight.classList.add('arrow', 'right');
-  nextButton.append(spanArrowRight)
-  // nextButton.innerText = 'Next';
-  nextButton.classList.add('media-gallery-nav-button', 'next-button');
-  mainCardPictureDiv.appendChild(nextButton); // Insert at the end
-  function getScrollAmount() {
-    return window.innerWidth > 1024 ? 140 : 40; // Adjust values as needed
-  }
-  prevButton.addEventListener('click', () => {
-    if (currentIndex > 0) {
-      currentIndex = (currentIndex - 1 + allChildDiv.length) % allChildDiv.length;
-      pictuireNavList.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
-      updateActiveElement(currentIndex);
-      console.log(currentIndex, allChildDiv.length)
-      if (currentIndex == 0) {
-        prevButton.disabled = true;
-      } else {
-        prevButton.disabled = false;
-      }
-      nextButton.disabled = false;
-    }
-  });
-
-  nextButton.addEventListener('click', () => {
-    if (currentIndex < allChildDiv.length - 1) {
-      currentIndex = (currentIndex + 1) % allChildDiv.length;
-      pictuireNavList.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
-      updateActiveElement(currentIndex);
-      if (currentIndex == allChildDiv.length - 1) {
-        nextButton.disabled = true;
-      } else {
-        nextButton.disabled = false;
-      }
-      prevButton.disabled = false;
-    }
-  });
-
-  // Event listener for backAnchor
-  backAnchor.addEventListener('click', (e) => {
-    e.preventDefault();
-    // Select the elements you want to modify
-    const pictureGalleryContainer = block.querySelector('.picture-gallery-container');
-    const newContentCard = block.querySelector('.new-content-card');
-
-    // Ensure that picture-gallery-container is displayed as block
-    if (pictureGalleryContainer) {
-      pictureGalleryContainer.style.display = 'flex';
-    }
-
-    // Ensure that new-content-card is hidden and remove the active class
-    if (newContentCard) {
-      newContentCard.style.display = 'none';
-      newContentCard.classList.remove('active');
-    }
-  });
-
-  // Event listener for picture-gallery-container
-  const pictureGalleryContainer = block.querySelector('.picture-gallery-container');
-  if (pictureGalleryContainer) {
-    pictureGalleryContainer.addEventListener('click', () => {
-      // Select the elements you want to modify
-      const newContentCard = block.querySelector('.new-content-card');
-      const galleryContainer = block.querySelector('.picture-gallery-container');
-
-      // Ensure that new-content-card is displayed as block
-      if (newContentCard) {
-        newContentCard.style.display = 'block';
-      }
-
-      // Ensure that picture-gallery-container is hidden
-      if (galleryContainer) {
-        galleryContainer.style.display = 'none';
-      }
-    });
-  }
-
-  const pictureDivs = block.querySelectorAll('.new-card-picture-div');
-  const pictureLength = pictureDivs.length;
-  const videoDivs = document.querySelectorAll('.other-category-wrapper .card-media-gallery');
-  const videoDivLendth = videoDivs.length;
-  countCards.textContent = `${pictureLength} Images ${videoDivLendth} Videos`;
-
-}
-
 export default async function decorate(block) {
   const apiUrl = getDataAttributeValueByName('apiUrl');
-  const categories = getDataAttributeValueByName('categorytab').split(',').map(cat => cat.trim());
+  const categories = getDataAttributeValueByName('categorytab').split(',').map((cat) => cat.trim());
 
   if (!apiUrl) {
     console.error('API URL attribute not found.');

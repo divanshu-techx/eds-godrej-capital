@@ -5,8 +5,7 @@ export default async function decorate(block) {
   }
   // Add the custom class to the main block
   const parentDivs = block.querySelectorAll(':scope > div');
-  console.log(parentDivs);
-  parentDivs.forEach(parentDiv => {
+  parentDivs.forEach((parentDiv) => {
     // Add the contentandpictureparent class to the parent div
     parentDiv.classList.add('parent-details');
     // Select the first div (content) and the second div (picture) within each direct child div

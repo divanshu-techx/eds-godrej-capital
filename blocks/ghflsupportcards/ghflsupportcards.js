@@ -7,11 +7,11 @@ function getChildNames(parentId) {
   });
 }
 getChildNames('ghfl-cards');
-let element = document.querySelectorAll('.ghfl-cards-child')[1];
+const element = document.querySelectorAll('.ghfl-cards-child')[1];
 element.classList.add('newDiv');
-let pictureElement = element.querySelector('picture');
-let img = pictureElement.querySelector('img').src;
-let ImgEle = element.querySelectorAll('div')[1];
+const pictureElement = element.querySelector('picture');
+const img = pictureElement.querySelector('img').src;
+const ImgEle = element.querySelectorAll('div')[1];
 ImgEle.style.backgroundImage = `url(${img})`;
 ImgEle.style.width = '317px';
 ImgEle.style.height = '281px';
@@ -24,4 +24,4 @@ ImgEle.style.backgroundPosition = 'center center';
 ImgEle.parentElement.style.overflow = 'hidden';
 
 element.removeChild(element.firstElementChild);
-console.log(element.querySelector('picture'))
+console.log(element.querySelector('picture'));

@@ -1,3 +1,9 @@
+// Retrieve the value of a data attribute by name
+function getDataAttributeValueByName(name) {
+  const element = document.querySelector(`[data-${name}]`);
+  return element ? element.getAttribute(`data-${name}`) : '';
+}
+
 export default async function decorate(block) {
   const crossBtn = getDataAttributeValueByName('close-button');
   const anchors = block.querySelectorAll('.button');
@@ -49,7 +55,6 @@ export default async function decorate(block) {
           return;
         }
 
-
         // Insert the .profiles div into the button container
         const buttonContainer = anchor.parentElement;
         buttonContainer.innerHTML = '';
@@ -99,14 +104,11 @@ export default async function decorate(block) {
         popup.style.maxHeight = '80%';
         // popup.style.overflow = 'auto';
         document.body.appendChild(popup);
-
         const popupContent = document.createElement('div');
         popupContent.innerHTML = popcontenta;
         popupContent.classList.add('popup-content');
         popup.appendChild(popupContent);
-
-
-        //cross icon added to span
+        // cross icon added to span
         const crossspan = document.createElement('span');
         if (crossBtn) {
           crossspan.innerText = crossBtn;
@@ -116,7 +118,7 @@ export default async function decorate(block) {
         // span added to popup div
         const crossicon = document.createElement('div');
         crossicon.classList.add('closeicon');
-        crossicon.appendChild(crossspan)
+        crossicon.appendChild(crossspan);
         popup.appendChild(crossicon);
 
         // Function to show the popup
@@ -147,11 +149,3 @@ export default async function decorate(block) {
       });
   });
 }
-
-// Retrieve the value of a data attribute by name
-function getDataAttributeValueByName(name) {
-  const element = document.querySelector(`[data-${name}]`);
-  return element ? element.getAttribute(`data-${name}`) : '';
-}
-
-

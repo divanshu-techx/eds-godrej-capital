@@ -1,5 +1,4 @@
 export default async function decorate() {
-
   if (!document.querySelector('.fragmentcards')) {
     return;
   }
@@ -64,11 +63,8 @@ export default async function decorate() {
           forQueryContainer.children[2].classList.add('work-timings');
         }
       }
-
-
     })
     .catch((error) => {
       console.error('Error fetching the HTML:', error);
     });
-
 }
