@@ -13,10 +13,10 @@ function numberToWords(num) {
   const suffixes = [
     [1e7, 'Crores'],
     [1e5, 'Lakhs'],
-    [1e3, 'Thousands']
+    [1e3, 'Thousands'],
   ];
 
-  for (let i = 0; i < suffixes.length; i+=1) {
+  for (let i = 0; i < suffixes.length; i += 1) {
     const [divisor, suffix] = suffixes[i];
     if (num >= divisor) {
       return `${Math.floor(num / divisor)} ${suffix}`;
@@ -50,7 +50,7 @@ function fetchAttributes() {
     yearSymbol: getDataAttributeValueByName('year-symbol'),
     applyNowLabel: getDataAttributeValueByName('apply-now-label'),
     annualPercentLabel: getDataAttributeValueByName('annual-percent-label'),
-    redirectionPath: getDataAttributeValueByName('redirection-path-apr')
+    redirectionPath: getDataAttributeValueByName('redirection-path-apr'),
   };
 }
 
@@ -154,16 +154,16 @@ function renderHTML(attributes) {
 
 // Function to update range input colors
 function updateRangeColors() {
-  const isMobileView = window.matchMedia("(max-width: 767px)").matches;
-  const mobileColor = '#f4f4f4';  //  color for mobile view
+  const isMobileView = window.matchMedia('(max-width: 767px)').matches;
+  const mobileColor = '#f4f4f4'; //  color for mobile view
   const desktopColor = '#fff'; // White color for desktop view
 
   const rangeInputs = document.querySelectorAll('input[type=range]');
-  rangeInputs.forEach(input => {
+  rangeInputs.forEach((input) => {
     const min = parseFloat(input.min);
     const max = parseFloat(input.max);
     const val = parseFloat(input.value);
-    const normalizedValue = (val - min) / (max - min) * 100;
+    const normalizedValue = ((val - min) / (max - min)) * 100;
     const endColor = isMobileView ? mobileColor : desktopColor;
     input.style.background = `linear-gradient(to right, #8CB133 ${normalizedValue}%, ${endColor} ${normalizedValue}%)`;
   });
@@ -194,8 +194,8 @@ function updateAPR(block) {
 
   let charges = parseFloat(loanamt - loanOrigin);
   let pmt = formulajs.PMT(ROI / 1200, periods, loanamt);
-  pmt = pmt * -1;
-  charges = charges * -1;
+  pmt *= -1;
+  charges *= -1;
   let apr = formulajs.RATE(periods, pmt, charges) * 12;
 
   if (apr == "Infinity" || isNaN(apr) || apr == "-Infinity") {
