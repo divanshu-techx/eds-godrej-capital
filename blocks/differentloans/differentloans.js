@@ -31,7 +31,7 @@ function renderCards(data, contentContainer) {
   contentContainer.innerHTML = ''; // Clear existing content
   data.forEach((item) => {
     const itemElement = document.createElement('a');
-    itemElement.href = item.path;
+    itemElement.href = item.detailpageredirection;
     itemElement.classList.add('loan-card');
     const imageElement = document.createElement('img');
     imageElement.src = item.image;
