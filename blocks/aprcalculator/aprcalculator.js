@@ -16,7 +16,7 @@ function numberToWords(num) {
     [1e3, 'Thousands']
   ];
 
-  for (let i = 0; i < suffixes.length; i++) {
+  for (let i = 0; i < suffixes.length; i+=1) {
     const [divisor, suffix] = suffixes[i];
     if (num >= divisor) {
       return `${Math.floor(num / divisor)} ${suffix}`;
