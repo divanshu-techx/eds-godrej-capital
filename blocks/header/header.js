@@ -409,8 +409,8 @@ export default async function decorate(block) {
   
         <li class="contactuscontainer">
             <h4 class="contact-heading">${responseArr.contactus}</h4>
-            <p class="contact-mobile-number">${responseArr.mobilenumber}</p>
-            <p class="contact-mail">${responseArr.mail}</p>          
+            <a class="contact-mobile-number" href=tel:${responseArr.mobilenumber}>${responseArr.mobilenumber}</a>
+            <a class="contact-mail" href=mailto:${responseArr.mail}>${responseArr.mail}</a>          
         </li>
          `;
     firstElementChildDiv.appendChild(customerSupportDiv);
