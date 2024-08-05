@@ -370,8 +370,6 @@ export default async function decorate(block) {
       input.addEventListener('blur', () => {
         const rangeId = input.id.replace('Display', '');
         const rangeInput = block.querySelector(`#${rangeId}`);
-        const errorSpanId = `${rangeId}Error`;
-        const errorSpan = block.querySelector(`#${errorSpanId}`);
 
         const min = parseFloat(rangeInput.min);
         const max = parseFloat(rangeInput.max);
@@ -381,9 +379,11 @@ export default async function decorate(block) {
           rangeInput.value = input.value;
           updateCalculations(block);
           updateRangeColors();
-          errorSpan.textContent = '';
         } else {
-          errorSpan.textContent = `Enter a value between ${min} and ${max}`;
+          input.value=min;
+          rangeInput.value=min;
+          updateCalculations(block);
+          updateRangeColors();
         }
       });
     }
@@ -392,7 +392,6 @@ export default async function decorate(block) {
   // Event listener for principalOutstandingDisplay input
   const principalOutstandingDisplay = block.querySelector('#principalOutstandingDisplay');
   const principalOutstanding = block.querySelector('#principalOutstanding');
-  const principalOutstandingError = block.querySelector('#principalOutstandingError');
 
   // Event listener for principalOutstandingDisplay input blur event
   principalOutstandingDisplay.addEventListener('blur', () => {
@@ -406,10 +405,12 @@ export default async function decorate(block) {
       principalOutstanding.value = value;
       updateCalculations(block);
       principalOutstandingDisplay.value = formatNumberToIndianCommas(rawValue);
-      principalOutstandingError.textContent = '';
       updateRangeColors();
     } else {
-      principalOutstandingError.textContent = `Enter a value between ${min} and ${max}`;
+      principalOutstanding.value=min;
+      principalOutstandingDisplay.value=min;
+      updateCalculations(block);
+      updateRangeColors();
     }
   });
 
