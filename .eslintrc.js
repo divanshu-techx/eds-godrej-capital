@@ -3,6 +3,7 @@ module.exports = {
   extends: 'airbnb-base',
   globals: {
     Chart: 'readonly',
+    formulajs: 'readonly',
   },
   env: {
     browser: true,
