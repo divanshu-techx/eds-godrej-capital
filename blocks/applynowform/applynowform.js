@@ -389,7 +389,7 @@ export default async function decorate(block) {
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-   //const valid = form.checkValidity();
+    // const valid = form.checkValidity();
     if (validateFormInput(VALIDATION_DATA, block)) {
       handleSubmit(form);
       const registrationFormEl = block.querySelectorAll('.step1');
@@ -423,6 +423,7 @@ export default async function decorate(block) {
         }));
       }
     } catch (error) {
+      console.error('error not retrived');
     }
   }
   function validateForm() {
@@ -475,7 +476,7 @@ export default async function decorate(block) {
 
 function validateFormInput(rules, block) {
   // Clear previous error messages
-  block.querySelectorAll('.error-message').forEach(el => el.remove());
+  block.querySelectorAll('.error-message').forEach((el) => el.remove());
   let isValid = true;
   rules.forEach((rule) => {
     const inputField = block.querySelector(`[name="${rule.fieldName}"]`);
@@ -489,13 +490,12 @@ function validateFormInput(rules, block) {
 
       // Append the error message to the corresponding field's parent node
       inputField.parentNode.appendChild(errorDiv);
-
     }
   });
 
   const checboxes = block.querySelectorAll('.step1.field-wrapper input[type="checkbox"]');
   let isChecked = false;
-  for (let index = 0; index < checboxes.length; index++) {
+  for (let index = 0; index < checboxes.length; index += 1) {
     if (checboxes[index].checked === true) {
       isChecked = true;
     }
@@ -514,9 +514,9 @@ function disableSubmitUntilFillForm(block) {
   const submitButton = block.querySelector('.step1.submit-registration button');
 
   const validators = {
-    text: value => /^[a-zA-Z\s]*$/.test(value.trim()),
-    tel: value => /^[6789]\d{9}$/.test(value.trim()),
-    email: value => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value.trim()),
+    text: (value) => /^[a-zA-Z\s]*$/.test(value.trim()),
+    tel: (value) => /^[6789]\d{9}$/.test(value.trim()),
+    email: (value) => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value.trim()),
   };
 
   const errorMessages = {
@@ -565,8 +565,8 @@ function disableSubmitUntilFillForm(block) {
   }
 
   function validateForm() {
-    let isInputFilled = inputs.every((input) => input.type === 'checkbox' || validateInput(input, false));
-    let isCheckboxChecked = inputs.some((input) => input.type === 'checkbox' && input.checked);
+    const isInputFilled = inputs.every((input) => input.type === 'checkbox' || validateInput(input, false));
+    const isCheckboxChecked = inputs.some((input) => input.type === 'checkbox' && input.checked);
 
     submitButton.disabled = !(isInputFilled && isCheckboxChecked);
   }

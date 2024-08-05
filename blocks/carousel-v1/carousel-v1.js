@@ -146,13 +146,13 @@ function bindEvents(block) {
   if (prevButton) {
     prevButton.addEventListener('click', () => {
       const activeSlide = parseInt(block.dataset.activeSlide, 10);
-      showSlide(block, isNaN(activeSlide) ? 0 : activeSlide - 1);
+      showSlide(block, Number.isNaN(activeSlide) ? 0 : activeSlide - 1);
     });
   }
   if (nextButton) {
     nextButton.addEventListener('click', () => {
       const activeSlide = parseInt(block.dataset.activeSlide, 10);
-      showSlide(block, isNaN(activeSlide) ? 0 : activeSlide + 1);
+      showSlide(block, Number.isNaN(activeSlide) ? 0 : activeSlide + 1);
     });
   }
   const slideObserver = new IntersectionObserver((entries) => {
@@ -238,7 +238,8 @@ async function createCarousel(block, rows, targetId) {
       indicator.innerHTML = `<button type="button"><span>${placeholders.showSlide || 'Show Slide'} ${idx + 1} ${placeholders.of || 'of'} ${rows.length}</span></button>`;
       if (styleType === 'homepage-carousel-secondary') {
         // Append indicator to slideIndicators
-        slideIndicators.insertBefore(indicator, nextButton); // Insert each indicator before the next button
+        // Insert each indicator before the next button
+        slideIndicators.insertBefore(indicator, nextButton);
       } else {
         slideIndicators.append(indicator);
       }
