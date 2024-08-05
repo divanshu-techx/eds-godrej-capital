@@ -1,3 +1,5 @@
+import { fetchPlaceholders } from '../../scripts/aem.js';
+
 /**
  * Groups teaser elements by their data-teaser-target-id values within a given main element.
  *
@@ -52,14 +54,7 @@ function groupTeasersByTargetId(mainSelector) {
   delete groupedTeasers._processed;
   return groupedTeasers;
 }
-import { fetchPlaceholders } from '../../scripts/aem.js';
-export default async function decorate(block) {
-  const carouselContainer = block.closest('.carousel-v1-container');
-  const targetId = carouselContainer.getAttribute('data-teaser-target-id');
-  // Select the main element
-  let teaser = groupTeasersByTargetId('main');
-  createCarousel(block, teaser[targetId], targetId);
-}
+
 async function createCarousel(block, rows, targetId) {
   carouselId += 1;
   const placeholders = await fetchPlaceholders();
@@ -70,7 +65,7 @@ async function createCarousel(block, rows, targetId) {
   mainElement.setAttribute('id', `carousel-v1-${carouselId}`);
   let summaryContent = carouselContainer.getAttribute('data-summary');
   // Append teaser containers to the main wrapper
-  rows.forEach(teaser => {
+  rows.forEach((teaser) => {
     mainElement.appendChild(teaser);
   });
   block.setAttribute('role', 'region');
@@ -118,7 +113,7 @@ async function createCarousel(block, rows, targetId) {
   // Append slideIndicators to slideIndicatorsNav
   slideIndicatorsNav.append(slideIndicators);
   // Append slideIndicatorsNav to block
-  block.append(progressBar)
+  block.append(progressBar);
   block.append(summaryWrapper);
   if (rows.length > 1)
     block.append(slideIndicatorsNav);
@@ -157,6 +152,15 @@ async function createCarousel(block, rows, targetId) {
     }
   });
 }
+
+export default async function decorate(block) {
+  const carouselContainer = block.closest('.carousel-v1-container');
+  const targetId = carouselContainer.getAttribute('data-teaser-target-id');
+  // Select the main element
+  let teaser = groupTeasersByTargetId('main');
+  createCarousel(block, teaser[targetId], targetId);
+}
+
 let carouselId = 0;
 function createSlide(row, slideIndex, carouselId) {
   const slide = document.createElement('li');

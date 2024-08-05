@@ -5,7 +5,7 @@
 //     childDiv.classList.add(`career-child-${i}`);
 //     // console.log(childDiv.length);
 //     if(childDiv.children){
-//         let innerChildDiv = childDiv.children;     
+//         let innerChildDiv = childDiv.children;
 //         for(let j = 0;j<innerChildDiv.length;j++){
 //             innerChildDiv[j].classList.add(`career-inner-child-${i}-${j}`);
 //         }
