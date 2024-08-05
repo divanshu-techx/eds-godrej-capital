@@ -328,6 +328,46 @@ function updateRangeColors() {
     input.style.background = `linear-gradient(to right, #8CB133 ${normalizedValue}%, ${endColor} ${normalizedValue}%)`;
   });
 }
+function toggleInputBox(block){
+  const loanTenureYearsApr = block.querySelector('#newLoanTenureDisplay');
+  const loanTenureYearsAprRange = block.querySelector('#newLoanTenure');
+  const loanTenureMonthsAprRange = block.querySelector('#newLoanTenureMonths');
+  const loanTenureMonthsApr = block.querySelector('#newLoanTenureMonthsDisplay');
+
+  loanTenureYearsApr.addEventListener('input',function(){
+      const maxValue=loanTenureYearsAprRange.max;
+      const value=this.value;
+
+      if (maxValue == value) {
+          loanTenureMonthsAprRange.disabled=true;
+          loanTenureMonthsApr.disabled=true;
+          loanTenureMonthsAprRange.value=loanTenureMonthsAprRange.min;
+          loanTenureMonthsApr.value=loanTenureMonthsAprRange.min;
+          updateCalculations(block);
+          updateRangeColors();
+      } else {
+          loanTenureMonthsAprRange.disabled=false;
+          loanTenureMonthsApr.disabled=false;
+      }
+  })
+
+  loanTenureYearsAprRange.addEventListener('change',function(){
+      const maxValue=loanTenureYearsAprRange.max;
+      const value=this.value;
+
+      if (maxValue == value) {
+          loanTenureMonthsAprRange.disabled=true;
+          loanTenureMonthsApr.disabled=true;
+          loanTenureMonthsAprRange.value=loanTenureMonthsAprRange.min;
+          loanTenureMonthsApr.value=loanTenureMonthsAprRange.min;
+          updateCalculations(block);
+          updateRangeColors();
+      } else {
+          loanTenureMonthsAprRange.disabled=false;
+          loanTenureMonthsApr.disabled=false;
+      }
+  })
+}
 
 // Wrap your main functionality in the decorate function
 export default async function decorate(block) {
@@ -380,8 +420,8 @@ export default async function decorate(block) {
           updateCalculations(block);
           updateRangeColors();
         } else {
-          input.value=min;
-          rangeInput.value=min;
+          input.value = min;
+          rangeInput.value = min;
           updateCalculations(block);
           updateRangeColors();
         }
@@ -407,8 +447,8 @@ export default async function decorate(block) {
       principalOutstandingDisplay.value = formatNumberToIndianCommas(rawValue);
       updateRangeColors();
     } else {
-      principalOutstanding.value=min;
-      principalOutstandingDisplay.value=min;
+      principalOutstanding.value = min;
+      principalOutstandingDisplay.value = min;
       updateCalculations(block);
       updateRangeColors();
     }
@@ -436,6 +476,7 @@ export default async function decorate(block) {
 
   updateCalculations(block);
   updateRangeColors();
+  toggleInputBox(block);
 }
 window.addEventListener('resize', updateRangeColors);
 window.addEventListener('load', updateRangeColors);
