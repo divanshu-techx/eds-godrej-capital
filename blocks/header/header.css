@@ -304,6 +304,7 @@ header nav .nav-sections .belowNavMainContainer .thirdElementDiv .columns p a {
 
 header nav .nav-sections .belowNavMainContainer .thirdElementDiv .columns p a:hover {
   text-decoration: none;
+  background-color: #00A2FF;
 }
 
 .listElement {
@@ -608,7 +609,7 @@ header nav .nav-tools input[type=text] {
 }
 
 .header .section .default-content-wrapper .button-container a {
-  background: var(--color-sky-dark);
+  background: #3CB8FF;
   border-radius: 2px;
   box-sizing: border-box;
   padding: 12px 20px;
@@ -869,7 +870,8 @@ header nav .nav-tools input[type=text] {
   color: #3b3b3b;
 }
 
-.contactuscontainer p {
+.contactuscontainer p,
+.contactuscontainer a {
   font-size: 14px;
   font-weight: 400;
   color: #3b3b3b;
@@ -982,5 +984,13 @@ header nav .nav-tools input[type=text] {
   background: #3CB8FF;
 } */
 .header .section .default-content-wrapper .button-container a:hover {
-  background: #3CB8FF;
+  background: #00A2FF;
+}
+
+.customerSupportDiv a:hover {
+  color: #3CB8FF;
+}
+
+.belowNavMainContainer.show .firstElementChildDiv .customersupport a:hover {
+  color: #3CB8FF;
 }
