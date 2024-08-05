@@ -3,7 +3,10 @@
 	margin: 0;
 	font-size: 10px;
 	color: #696969;
+	margin-inline: 40px;
+	padding-right: 50px;
 	padding-left: 50px;
+	text-align: center;
 	padding-bottom: 40px;
 }
 
@@ -14,7 +17,7 @@
 		line-height: 9.38px;
 		margin-top: 5px;
 		background: #F4F4F4;
-		padding:unset;
+		padding: unset;
 	}
 
 	.section.eligibilitytabs-container {
@@ -28,10 +31,10 @@
 	font-size: 10px;
 	color: #696969;
 	max-width: 1200px;
-    margin: auto;
-	padding-top: 20px;
+	margin: auto;
 }
-@media(width <=600px){
+
+@media(width <=600px) {
 	.section.eligibilitytabs-container .default-content-wrapper {
 		background: #F4F4F4;
 		margin: 0;
@@ -39,15 +42,16 @@
 		color: #696969;
 		max-width: 1200px;
 		margin: auto;
-		padding:none;
+		padding: none;
 	}
+
 	.section.eligibilitytabs-container .default-content-wrapper h2 {
-        display: none;
-    }
-    
-    .section.eligibilitytabs-container .default-content-wrapper .mobile-title {
-        display: block;
-    }
+		display: none;
+	}
+
+	.section.eligibilitytabs-container .default-content-wrapper .mobile-title {
+		display: block;
+	}
 }
 
 .section.eligibilitytabs-container .default-content-wrapper .eligibility-class {
@@ -132,13 +136,29 @@
 .tabs-panel table tbody tr:first-child td {
 	font-size: 16px;
 	color: #3b3b3b;
-	font-weight: 500 !important;
+
 }
 
 .tabs-panel tbody tr:not(:first-child) td {
 	font-size: 16px;
 	color: #000000;
 	font-weight: 300;
+}
+
+.tabs-panel tbody tr td strong {
+	font-weight: 500;
+}
+
+.tabs-panel tbody tr td p {
+	line-height: 16px;
+	font-size: 1rem;
+	margin-bottom: 5px;
+	margin-top: 0;
+}
+
+.tabs-panel tbody tr td p:first-of-type {
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 @media (max-width: 600px) {

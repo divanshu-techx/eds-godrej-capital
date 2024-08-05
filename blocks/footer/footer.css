@@ -77,8 +77,13 @@ footer .footer-footer-1 .default-content-wrapper ul>li>ul>li a {
   line-height: 30px;
 }
 
+footer .footer-footer-1 .default-content-wrapper ul>li>ul>li a:hover {
+  text-decoration: none;
+}
+
 footer .footer-footer-1 .default-content-wrapper li {
   margin: 2px 0px 24px;
+  cursor: pointer;
 }
 
 footer .footer-footer-1 .default-content-wrapper ul li ul {
@@ -195,12 +200,21 @@ footer .third-section-wrapper .third-section_part-subparts p>strong {
   color: var(--color-black);
 }
 
-footer .third-section-wrapper .third-section_part-subparts p {
+
+footer .third-section-wrapper .third-section_part-subparts p.button-container a {
   font-size: var(--body-font-size-s);
+  color: var(--color-black);
   font-weight: 300;
   line-height: 30px;
   cursor: pointer;
+  padding: 0;
 }
+
+footer .third-section-wrapper .third-section_part-subparts p.button-container a:hover {
+  background-color: unset;
+}
+
+
 
 footer .third-section-wrapper .third-section_part-subparts p:has(strong) {
   margin-top: 25px;
@@ -329,6 +343,10 @@ footer .partitionfirstcolumn-container .partitionfirstcolumn div p>strong {
 }
 
 @media (width <=900px) {
+  .mobilesubfooter-container .default-content-wrapper .button-container a.button {
+    padding-top: 0;
+  }
+
   .secfooter.block {
     margin-bottom: 120px;
     padding: 40px 0;
@@ -348,4 +366,12 @@ footer .partitionfirstcolumn .button-container a.button {
 
 footer .partitionfirstcolumn .button-container a.button:hover {
   background-color: unset;
+}
+
+footer .partitionfirstcolumn .godrej-social-account .social-media1{
+  cursor: pointer;
+}
+
+footer .partitionfirstcolumn .godrej-icon{
+  cursor: pointer;
 }

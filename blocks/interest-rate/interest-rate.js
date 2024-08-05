@@ -1,18 +1,15 @@
-import { initializeCustomSelect } from '../utils/drop-down.js';
-
+// import { initializeCustomSelect } from '../utils/drop-down.js';
 function getDataAttributeValueByName(name) {
   const element = document.querySelector(`[data-${name}]`);
   return element ? element.getAttribute(`data-${name}`) : null;
 }
-
 const dataUrl = getDataAttributeValueByName('queryIndexUrl');
 const mainTitle = getDataAttributeValueByName('interestRateTitle');
 const viewCompleteLabel = getDataAttributeValueByName('viewCompleteLabel');
-console.log(viewCompleteLabel)
+console.log(viewCompleteLabel);
 const disclaimerContent = getDataAttributeValueByName('disclaimer');
 
 async function fetchData(apiUrl) {
-
   try {
     const response = await fetch(apiUrl);
     const data = await response.json();
@@ -26,21 +23,16 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
   if (!selectedTab || !selectedOption) {
     return;
   }
-
   const filteredData = data.filter(
     (item) => item.document_type === selectedTab && item.profession_type === selectedOption,
   );
-
   if (filteredData.length === 0) {
     return;
   }
-
   // Clear previous data
   tabpanel.innerHTML = '';
-
   filteredData.forEach((item) => {
     let sectionIndex = 1;
-
     // Create a container for the sections
     const sectionsContainer = document.createElement('div');
     sectionsContainer.className = 'sections-container';
@@ -58,13 +50,13 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
       // Create paragraph element for title with bold styling
       const titleElement = document.createElement('p');
       titleElement.textContent = title;
-      titleElement.classList.add('sections-title')
+      titleElement.classList.add('sections-title');
 
       sectionElement.appendChild(titleElement);
 
       // Create paragraph element for description
       const descriptionElement = document.createElement('p');
-      descriptionElement.classList.add('sections-description')
+      descriptionElement.classList.add('sections-description');
       descriptionElement.textContent = description.trim();
       sectionElement.appendChild(descriptionElement);
 
@@ -78,7 +70,6 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
         if (bulletPointsList.length > 0) {
           const listElement = document.createElement('ul');
 
-
           // Show only the first 3 bullet points initially
           const initialBulletPoints = bulletPointsList.slice(0, 3);
           initialBulletPoints.forEach((bullet) => {
@@ -86,9 +77,7 @@ function renderData(data, selectedTab, selectedOption, tabpanel) {
             listItem.textContent = bullet;
             listElement.appendChild(listItem);
           });
-
           sectionElement.appendChild(listElement);
-
           // Add "Read More" button if there are more than 3 bullet points
           if (bulletPointsList.length > 3) {
             const readMoreButton = document.createElement('button');
@@ -121,7 +110,7 @@ function handleTabClick(event, data, tablist, tabpanel, dropdown) {
   const tabsBtn = tablist.querySelectorAll('.tabs-tab');
 
   tabsBtn.forEach((btn) => {
-    btn.classList.remove('active-tab')
+    btn.classList.remove('active-tab');
     btn.setAttribute('aria-selected', 'false');
     // btn.style.backgroundColor = 'white';
     // btn.style.color = 'black';
@@ -173,9 +162,9 @@ function createDropdownForTabs(tabNames, tablist, data, tabpanel, dropdown) {
 }
 
 function handleViewportChange(tablist, tabsListDropdown) {
-  const tabsWrapper = document.querySelector('.tabs-list-wrapper');
-  const tabsListLabel = tabsWrapper.querySelector('.tabs-list-label');
-  const tabsDropdownLabel = tabsWrapper.querySelector('.tabs-dropdown-label');
+  // const tabsWrapper = document.querySelector('.tabs-list-wrapper');
+  // const tabsListLabel = tabsWrapper.querySelector('.tabs-list-label');
+  // const tabsDropdownLabel = tabsWrapper.querySelector('.tabs-dropdown-label');
   const allCards = document.querySelectorAll('.interest-card');
   const mobileCardContainer = document.querySelector('.mobile-card-container');
 
@@ -193,13 +182,11 @@ function handleViewportChange(tablist, tabsListDropdown) {
       }
     });
   } else {
-
-    tablist.style.display = "flex";
-    tabsListDropdown.style.display = "none";
+    tablist.style.display = 'flex';
+    tabsListDropdown.style.display = 'none';
     // tabsListLabel.style.display = "block"; // Show "Select Documents" label
     allCards.forEach((card) => {
-      card.style.display = "block";
-
+      card.style.display = 'block';
     });
     mobileCardContainer.innerHTML = ''; // Clear mobile card container
   }
@@ -221,14 +208,14 @@ async function decorate() {
   const documentsDiv = document.createElement('div');
   documentsDiv.classList.add('documentDiv');
   const disclaimer = document.createElement('div');
-  disclaimer.classList.add('disclaimer')
+  disclaimer.classList.add('disclaimer');
   disclaimer.textContent = disclaimerContent;
 
   if (interestRateBlock) {
     const divs = interestRateBlock.querySelectorAll(':scope > div');
 
     divs.forEach((div, index) => {
-      if (index == 0) {
+      if (index === 0) {
         div.classList.add('other-card');
         allCards.appendChild(div);
       } else {
@@ -238,22 +225,21 @@ async function decorate() {
         div.classList.add('interest-card');
         maindiv.appendChild(div);
         const inrestCardsChildrens = div.querySelectorAll('div');
-        inrestCardsChildrens.forEach((el, index) => {
-          if (index === 0) {
-            el.classList.add('title-container')
-            el.childNodes[0].classList.add('title')
+        inrestCardsChildrens.forEach((el, indexCards) => {
+          if (indexCards === 0) {
+            el.classList.add('title-container');
+            el.childNodes[0].classList.add('title');
           }
-          if (index === 1) {
-            el.classList.add('intrest-container')
+          if (indexCards === 1) {
+            el.classList.add('intrest-container');
             el.children[0].classList.add('intrest');
           }
 
-          if (index === 2) {
-            el.classList.add('time-period-container')
+          if (indexCards === 2) {
+            el.classList.add('time-period-container');
             el.children[0].classList.add('time-period');
           }
-        })
-
+        });
       }
     });
   }
@@ -281,7 +267,7 @@ async function decorate() {
   categoryWrapper.appendChild(dropdown);
 
   // Create a wrapper for "Select Documents" label and dropdown
-  const mergeWrapper = document.createElement('div');
+  // const mergeWrapper = document.createElement('div');
   const documentsWrapper = document.createElement('div');
   documentsWrapper.className = 'documents-wrapper';
   const tabListLabel = document.createElement('label');
@@ -328,8 +314,8 @@ async function decorate() {
   const categoryDocWrapper = document.createElement('div');
   categoryDocWrapper.classList.add('category-document-wrapper');
   categoryDocWrapper.appendChild(documentsWrapper);
-  categoryDocWrapper.appendChild(categoryWrapper)
-  //tabListWrapper.appendChild(documentsWrapper);
+  categoryDocWrapper.appendChild(categoryWrapper);
+  // tabListWrapper.appendChild(documentsWrapper);
   tabListWrapper.appendChild(categoryDocWrapper); // Append documentsWrapper to tabListWrapper
   documentsDiv.appendChild(tabListWrapper);
   documentsDiv.appendChild(tabpanel);

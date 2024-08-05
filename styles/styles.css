@@ -245,7 +245,7 @@ a.button:hover,
 a.button:focus,
 button:hover,
 button:focus {
-  background-color: #3CB8FF;
+  /* background-color: #3CB8FF; */
   cursor: pointer;
 }
 
@@ -312,7 +312,7 @@ h6 {
   text-align: center;
   margin: 0;
   font-weight: 500;
-  /* color:var(--color-charcoal-black); */
+  color: var(--color-charcoal-black);
 }
 
 /* padding variation  */

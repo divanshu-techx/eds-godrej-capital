@@ -1,62 +1,62 @@
 // Function to get data attribute value by name
 function getDataAttributeValueByName(name) {
-    const element = document.querySelector(`[data-${name}]`);
-    return element ? element.getAttribute(`data-${name}`) : '';
+  const element = document.querySelector(`[data-${name}]`);
+  return element ? element.getAttribute(`data-${name}`) : '';
 }
 
 // Function to convert numbers to words
 function numberToWords(num) {
-    if (num < 1000) {
-        return num.toString();
-    }
-
-    const suffixes = [
-        [1e7, 'Crores'],
-        [1e5, 'Lakhs'],
-        [1e3, 'Thousands']
-    ];
-
-    for (let i = 0; i < suffixes.length; i++) {
-        const [divisor, suffix] = suffixes[i];
-        if (num >= divisor) {
-            return `${Math.floor(num / divisor)} ${suffix}`;
-        }
-    }
+  if (num < 1000) {
     return num.toString();
+  }
+
+  const suffixes = [
+    [1e7, 'Crores'],
+    [1e5, 'Lakhs'],
+    [1e3, 'Thousands'],
+  ];
+
+  for (let i = 0; i < suffixes.length; i += 1) {
+    const [divisor, suffix] = suffixes[i];
+    if (num >= divisor) {
+      return `${Math.floor(num / divisor)} ${suffix}`;
+    }
+  }
+  return num.toString();
 }
 
 // Function to fetch all data attributes
 function fetchAttributes() {
-    return {
-        loanAmountTitle: getDataAttributeValueByName('loan-amount-title'),
-        loanAmountMin: parseFloat(getDataAttributeValueByName('loan-amount-min')),
-        loanAmountMax: parseFloat(getDataAttributeValueByName('loan-amount-max')),
-        interestTitle: getDataAttributeValueByName('interest-title'),
-        interestMin: parseFloat(getDataAttributeValueByName('interest-min')),
-        interestMax: parseFloat(getDataAttributeValueByName('interest-max')),
-        yearTitle: getDataAttributeValueByName('year-title'),
-        yearMin: parseFloat(getDataAttributeValueByName('year-min')),
-        yearMax: parseFloat(getDataAttributeValueByName('year-max')),
-        monthTitle: getDataAttributeValueByName('month-title'),
-        monthMin: parseFloat(getDataAttributeValueByName('month-min')),
-        monthMax: parseFloat(getDataAttributeValueByName('month-max')),
-        originationChargesTitle: getDataAttributeValueByName('origination-charges-title'),
-        originationChargesMin: parseFloat(getDataAttributeValueByName('origination-charges-min')),
-        originationChargesMax: parseFloat(getDataAttributeValueByName('origination-charges-max')),
-        textSize: parseFloat(getDataAttributeValueByName('font-size')),
-        rupeeSymbol: getDataAttributeValueByName('rupee-symbol'),
-        monthSymbol: getDataAttributeValueByName('month-symbol'),
-        percentSymbol: getDataAttributeValueByName('percent-symbol'),
-        yearSymbol: getDataAttributeValueByName('year-symbol'),
-        applyNowLabel: getDataAttributeValueByName('apply-now-label'),
-        annualPercentLabel: getDataAttributeValueByName('annual-percent-label'),
-        redirectionPath: getDataAttributeValueByName('redirection-path-apr')
-    };
+  return {
+    loanAmountTitle: getDataAttributeValueByName('loan-amount-title'),
+    loanAmountMin: parseFloat(getDataAttributeValueByName('loan-amount-min')),
+    loanAmountMax: parseFloat(getDataAttributeValueByName('loan-amount-max')),
+    interestTitle: getDataAttributeValueByName('interest-title'),
+    interestMin: parseFloat(getDataAttributeValueByName('interest-min')),
+    interestMax: parseFloat(getDataAttributeValueByName('interest-max')),
+    yearTitle: getDataAttributeValueByName('year-title'),
+    yearMin: parseFloat(getDataAttributeValueByName('year-min')),
+    yearMax: parseFloat(getDataAttributeValueByName('year-max')),
+    monthTitle: getDataAttributeValueByName('month-title'),
+    monthMin: parseFloat(getDataAttributeValueByName('month-min')),
+    monthMax: parseFloat(getDataAttributeValueByName('month-max')),
+    originationChargesTitle: getDataAttributeValueByName('origination-charges-title'),
+    originationChargesMin: parseFloat(getDataAttributeValueByName('origination-charges-min')),
+    originationChargesMax: parseFloat(getDataAttributeValueByName('origination-charges-max')),
+    textSize: parseFloat(getDataAttributeValueByName('font-size')),
+    rupeeSymbol: getDataAttributeValueByName('rupee-symbol'),
+    monthSymbol: getDataAttributeValueByName('month-symbol'),
+    percentSymbol: getDataAttributeValueByName('percent-symbol'),
+    yearSymbol: getDataAttributeValueByName('year-symbol'),
+    applyNowLabel: getDataAttributeValueByName('apply-now-label'),
+    annualPercentLabel: getDataAttributeValueByName('annual-percent-label'),
+    redirectionPath: getDataAttributeValueByName('redirection-path-apr'),
+  };
 }
 
 // Function to render HTML content
 function renderHTML(attributes) {
-    return `
+  return `
         <div class="calculator-container">
             <div class="inputs">
                 <div class="inputBoxApr">
@@ -153,62 +153,78 @@ function renderHTML(attributes) {
 }
 
 // Function to update range input colors
-function updateRangeColors(block) {
-    const isMobileView = window.matchMedia("(max-width: 767px)").matches;
-    const mobileColor = '#f4f4f4';  //  color for mobile view
-    const desktopColor = '#fff'; // White color for desktop view
- 
-    const rangeInputs = document.querySelectorAll('input[type=range]');
-    rangeInputs.forEach(input => {
-        const min = parseFloat(input.min);
-        const max = parseFloat(input.max);
-        const val = parseFloat(input.value);
-        const normalizedValue = (val - min) / (max - min) * 100;
-        const endColor = isMobileView ? mobileColor : desktopColor;
-        input.style.background = `linear-gradient(to right, #8CB133 ${normalizedValue}%, ${endColor} ${normalizedValue}%)`;
-    });
-}
- 
+function updateRangeColors() {
+  const isMobileView = window.matchMedia('(max-width: 767px)').matches;
+  const mobileColor = '#f4f4f4'; //  color for mobile view
+  const desktopColor = '#fff'; // White color for desktop view
 
-// Function to update APR calculations and display
+  const rangeInputs = document.querySelectorAll('input[type=range]');
+  rangeInputs.forEach((input) => {
+    const min = parseFloat(input.min);
+    const max = parseFloat(input.max);
+    const val = parseFloat(input.value);
+    const normalizedValue = ((val - min) / (max - min)) * 100;
+    const endColor = isMobileView ? mobileColor : desktopColor;
+    input.style.background = `linear-gradient(to right, #8CB133 ${normalizedValue}%, ${endColor} ${normalizedValue}%)`;
+  });
+}
+
 function updateAPR(block) {
-    const loanAmount = parseFloat(block.querySelector('#loanAmountAprRange').value);
-    const interestRate = parseFloat(parseFloat(block.querySelector('#interestRateAprRange').value).toFixed(1));
-    const loanTenureYears = parseFloat(block.querySelector('#loanTenureYearsAprRange').value);
-    const loanTenureMonths = parseFloat(block.querySelector('#loanTenureMonthsAprRange').value);
-    const originationCharges = parseFloat(block.querySelector('#loanOriginationChargesAprRange').value);
+  // Extract values from the form fields
+  const loanAmount = parseFloat(block.querySelector('#loanAmountAprRange').value);
+  const interestRate = parseFloat(parseFloat(block.querySelector('#interestRateAprRange').value).toFixed(1));
+  const loanTenureYears = parseFloat(block.querySelector('#loanTenureYearsAprRange').value);
+  const loanTenureMonths = parseFloat(block.querySelector('#loanTenureMonthsAprRange').value);
+  const originationCharges = parseFloat(block.querySelector('#loanOriginationChargesAprRange').value);
 
-    block.querySelector('#loanAmountApr').value = loanAmount.toLocaleString('en-IN');
-    block.querySelector('#interestRateApr').value = interestRate;
-    block.querySelector('#loanTenureYearsApr').value = loanTenureYears;
-    block.querySelector('#loanTenureMonthsApr').value = loanTenureMonths;
-    block.querySelector('#loanOriginationChargesApr').value = originationCharges.toLocaleString('en-IN');
+  block.querySelector('#loanAmountApr').value = loanAmount.toLocaleString('en-IN');
+  block.querySelector('#interestRateApr').value = interestRate;
+  block.querySelector('#loanTenureYearsApr').value = loanTenureYears;
+  block.querySelector('#loanTenureMonthsApr').value = loanTenureMonths;
+  block.querySelector('#loanOriginationChargesApr').value = originationCharges.toLocaleString('en-IN');
 
-    const totalLoanTenure = loanTenureYears * 12 + loanTenureMonths;
-    const monthlyInterestRate = interestRate / 100 / 12;
-    const monthlyEMI = loanAmount * monthlyInterestRate * Math.pow((1 + monthlyInterestRate), totalLoanTenure) /
-        (Math.pow((1 + monthlyInterestRate), totalLoanTenure) - 1);
-    const totalPayment = monthlyEMI * totalLoanTenure;
-    const totalCost = totalPayment + originationCharges;
-    const apr = (totalCost / loanAmount - 1) / (totalLoanTenure / 12) * 100;
+  // Convert tenure to months
+  const totalTenureMonths = (loanTenureYears * 12) + loanTenureMonths;
 
-    block.querySelector('#aprDisplay').textContent = `${apr.toFixed(2)}%`;
+  // Calculate APR
+  const loanamt = loanAmount;
+  const periods = totalTenureMonths;
+  const ROI = interestRate;
+  const loanOrigin = originationCharges; // Original charges as provided
+
+  let charges = parseFloat(loanamt - loanOrigin);
+  let pmt = formulajs.PMT(ROI / 1200, periods, loanamt);
+  pmt *= -1;
+  charges *= -1;
+  let apr = formulajs.RATE(periods, pmt, charges) * 12;
+
+  if (apr == "Infinity" || isNaN(apr) || apr == "-Infinity") {
+    apr = ROI / 100;
+  }
+  if (!loanamt && !periods && !charges) {
+    apr = 0;
+  }
+  apr = apr * 100;
+  apr = apr > 24 ? 24 : apr < 6 ? 6 : apr;
+  apr = apr.toFixed(2) + "%";
+
+  // Update the UI with the calculated APR
+  block.querySelector('#aprDisplay').textContent = apr;
 }
 
-// Function to add event listeners to range inputs
 function addRangeInputListeners(block) {
-    const rangeInputs = block.querySelectorAll('input[type=range]');
-    rangeInputs.forEach(input => {
-        input.addEventListener('input', function () {
-            const textInputId = this.id.replace('Range', '');
-            const textInput = document.getElementById(textInputId);
-            if (textInput) {
-                textInput.value = this.value.toLocaleString();
-                updateRangeColors(block);
-            }
-            updateAPR(block);
-        });
+  const rangeInputs = block.querySelectorAll('input[type=range]');
+  rangeInputs.forEach(input => {
+    input.addEventListener('input', function () {
+      const textInputId = this.id.replace('Range', '');
+      const textInput = document.getElementById(textInputId);
+      if (textInput) {
+        textInput.value = this.value.toLocaleString();
+        updateRangeColors();
+      }
+      updateAPR(block);
     });
+  });
 }
 
 // Function to add event listeners to text inputs
@@ -217,14 +233,18 @@ function addTextInputListeners(block) {
     textInputs.forEach(input => {
         input.addEventListener('input', function () {
             const numericValue = parseFloat(this.value.replace(/[^\d.-]/g, ''));
+            const rangeId = `${this.id}Range`;
+            const rangeInput = block.querySelector(`#${rangeId}`);
             if (!isNaN(numericValue)) {
-                const rangeId = `${this.id}Range`;
-                const rangeInput = block.querySelector(`#${rangeId}`);
                 if (rangeInput) {
                     rangeInput.value = numericValue;
                     updateAPR(block);
-                    updateRangeColors(block);
+                    updateRangeColors();
                 }
+            } else {
+                    rangeInput.value = rangeInput.min;
+                    updateAPR(block);
+                    updateRangeColors();
             }
         });
     });
@@ -233,34 +253,40 @@ function addTextInputListeners(block) {
     interestRateInput.addEventListener('change', function () {
         let numericValue = parseFloat(this.value.replace(/[^\d.]/g, ''));
         if (!isNaN(numericValue)) {
-            numericValue = Math.min(Math.max(numericValue, 0), 20);
+            numericValue = Math.min(Math.max(numericValue, 0));
             const rangeInput = block.querySelector('#interestRateAprRange');
             if (rangeInput) {
                 rangeInput.value = numericValue.toFixed(1);
                 updateAPR(block);
-                updateRangeColors(block);
+                updateRangeColors();
             }
         }else{
-            this.value=" ";
+            const rangeId = `${this.id}Range`;
+            const rangeInput = block.querySelector(`#${rangeId}`);
+            if (rangeInput) {
+                rangeInput.value = rangeInput.min;
+                updateAPR(block);
+                updateRangeColors();
+            }
         }
     });
 }
 
-function setApplyNowButton(block,attribute){
-    const applyNow=block.querySelector('#apply-btn-apr');
-    applyNow.addEventListener('click',()=>{
-        window.location.href=attribute.redirectionPath;
-    })
+function setApplyNowButton(block, attribute) {
+  const applyNow = block.querySelector('#apply-btn-apr');
+  applyNow.addEventListener('click', () => {
+    window.location.href = attribute.redirectionPath;
+  })
 }
 // Main function to decorate the block
 export default async function decorate(block) {
-    const attributes = fetchAttributes();
-    block.innerHTML = renderHTML(attributes);
-    updateRangeColors(block);
-    updateAPR(block);
-    addRangeInputListeners(block);
-    addTextInputListeners(block);
-    setApplyNowButton(block,attributes);
+  const attributes = fetchAttributes();
+  block.innerHTML = renderHTML(attributes);
+  updateRangeColors();
+  updateAPR(block);
+  addRangeInputListeners(block);
+  addTextInputListeners(block);
+  setApplyNowButton(block, attributes);
 }
-window.addEventListener('resize',updateRangeColors);
-window.addEventListener('load',updateRangeColors);
+window.addEventListener('resize', updateRangeColors);
+window.addEventListener('load', updateRangeColors);
