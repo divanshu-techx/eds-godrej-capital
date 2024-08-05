@@ -96,8 +96,8 @@ fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper::before {
 .tracking-carousel-form .tracking-form-wrapper fieldset{
     border:none;
     display: flex;
-    background-color: #f4f4f4;
-    border-radius: 4px;
+    /* background-color: #f4f4f4; */
+    /* border-radius: 4px; */
 }
 
 .tracking-form-wrapper .tracking-form fieldset legend{
@@ -175,5 +175,25 @@ fieldset#residentType .radio-wrapper:nth-of-type(2) {
 .tracking-form #apply-now-btn:focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba(60, 184, 255, 0.5);
+}
+
+.tracking-form .form2.field-wrapper.plaintext-wrapper p{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18.77px;
+    text-align: center;
+    color:#3b3b3b;
+    margin-bottom: 0px;
+}
+
+@media(max-width:1200px){
+    .tracking-form .form2.field-wrapper.plaintext-wrapper p{
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 14.08px;
+        text-align: center;
+        color:#3b3b3b;
+        margin-bottom: 0px;
+    }
 }
 
