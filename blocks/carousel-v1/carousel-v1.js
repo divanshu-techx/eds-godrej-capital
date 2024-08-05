@@ -55,7 +55,6 @@ function groupTeasersByTargetId(mainSelector) {
   return groupedTeasers;
 }
 
-
 let carouselId = 0;
 function createSlide(row, slideIndex, carouselId) {
   const slide = document.createElement('li');
@@ -72,17 +71,7 @@ function createSlide(row, slideIndex, carouselId) {
   }
   return slide;
 }
-let autoSlideTimer;
-function startAutoSlide(block) {
-  autoSlideTimer = setInterval(() => {
-    const currentSlideIndex = parseInt(block.dataset.activeSlide, 10);
-    showSlide(block, currentSlideIndex + 1);
-  }, 10000); // 10 seconds
-}
-function resetAutoSlide(block) {
-  clearInterval(autoSlideTimer);
-  startAutoSlide(block);
-}
+
 function updateProgressBar(currentSlideIndex, totalSlides, block) {
   const progressBar = block.querySelector('.carousel-v1-progress-bar');
   if (!progressBar) return;
@@ -129,6 +118,17 @@ function showSlide(block, slideIndex = 0) {
   block.dataset.activeSlide = realSlideIndex;
   updateProgressBar(realSlideIndex, slides.length, block);
   resetAutoSlide(block);
+}
+let autoSlideTimer;
+function startAutoSlide(block) {
+  autoSlideTimer = setInterval(() => {
+    const currentSlideIndex = parseInt(block.dataset.activeSlide, 10);
+    showSlide(block, currentSlideIndex + 1);
+  }, 10000); // 10 seconds
+}
+function resetAutoSlide(block) {
+  clearInterval(autoSlideTimer);
+  startAutoSlide(block);
 }
 function bindEvents(block) {
   const slides = block.querySelectorAll('.carousel-v1-slides > li');
