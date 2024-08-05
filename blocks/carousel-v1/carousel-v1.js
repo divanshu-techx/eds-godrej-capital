@@ -26,10 +26,10 @@ function groupTeasersByTargetId(mainSelector) {
     // Get the data attribute value
     const id = container.getAttribute('data-teaser-target-id');
     // Check if the container already processed (ensure to reset groups before processing)
-    if (!groups._processed) {
-      groups._processed = new Set();
+    if (!groups.processed) {
+      groups.processed = new Set();
     }
-    if (groups._processed.has(container)) {
+    if (groups.processed.has(container)) {
       console.warn(`Skipping already processed container with id: ${id}`);
       return groups;
     }
@@ -47,11 +47,11 @@ function groupTeasersByTargetId(mainSelector) {
     // Add the teaser element to the group
     groups[id].push(teaser);
     // Mark this container as processed
-    groups._processed.add(container);
+    groups.processed.add(container);
     return groups;
   }, {});
   // Clean up the helper property
-  delete groupedTeasers._processed;
+  delete groupedTeasers.processed;
   return groupedTeasers;
 }
 
@@ -257,7 +257,7 @@ async function createCarousel(block, rows, targetId) {
     startAutoSlide(block);
   }
   const teaserContainers = document.querySelectorAll(`[data-teaser-target-id=${targetId}]`);
-  teaserContainers.forEach(container => {
+  teaserContainers.forEach((container) => {
     if (container.innerHTML.trim() === '') {
       container.remove();
     }
