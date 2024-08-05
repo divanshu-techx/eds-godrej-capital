@@ -259,8 +259,8 @@ function addTextInputListeners(block) {
         rangeInput.value = numericValue.toFixed(1);
         updateAPR(block);
         updateRangeColors();
-        }
-    }else{
+      }
+    } else {
       const rangeId = `${this.id}Range`;
       const rangeInput = block.querySelector(`#${rangeId}`);
       if (rangeInput) {
