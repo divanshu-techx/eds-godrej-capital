@@ -91,7 +91,7 @@ async function createCarousel(block, rows, targetId) {
   summaryWrapper.appendChild(summary);
   const progressBar = document.createElement('div');
   progressBar.classList.add('carousel-v1-progress-bar-container');
-  progressBar.innerHTML = `<div class="carousel-v1-progress-bar"></div>`;
+  progressBar.innerHTML = '<div class="carousel-v1-progress-bar"></div>';
   // Create the <ol> element for slide indicators
   const slideIndicators = document.createElement('ol');
   slideIndicators.classList.add('carousel-v1-slide-indicators');
@@ -105,8 +105,8 @@ async function createCarousel(block, rows, targetId) {
   nextButton.className = 'slide-next';
   nextButton.setAttribute('aria-label', placeholders.nextSlide || 'Next Slide');
   // Append navigation buttons to the slideIndicators
-  let styleType = carouselContainer.getAttribute('data-teaser-target-id');
-  if (styleType == 'homepage-carousel-secondary') {
+  const styleType = carouselContainer.getAttribute('data-teaser-target-id');
+  if (styleType === 'homepage-carousel-secondary') {
     slideIndicators.appendChild(prevButton);
     slideIndicators.appendChild(nextButton);
   }
@@ -176,6 +176,22 @@ function createSlide(row, slideIndex, carouselId) {
     slide.setAttribute('aria-labelledby', labeledBy.getAttribute('id'));
   }
   return slide;
+}
+function showSlide(block, slideIndex = 0) {
+  const slides = block.querySelectorAll('.carousel-v1-slide');
+  let realSlideIndex = slideIndex < 0 ? slides.length - 1 : slideIndex;
+  if (slideIndex >= slides.length) realSlideIndex = 0;
+  const activeSlide = slides[realSlideIndex];
+  activeSlide.querySelectorAll('a').forEach((link) => link.removeAttribute('tabindex'));
+  block.querySelector('.carousel-v1-slides').scrollTo({
+    top: 10,
+    left: activeSlide.offsetLeft,
+    behavior: 'smooth',
+  });
+  // Update active slide index in the dataset for reference
+  block.dataset.activeSlide = realSlideIndex;
+  updateProgressBar(realSlideIndex, slides.length, block);
+  resetAutoSlide(block);
 }
 function bindEvents(block) {
   const slides = block.querySelectorAll('.carousel-v1-slides > li');
@@ -254,19 +270,4 @@ function resetAutoSlide(block) {
   clearInterval(autoSlideTimer);
   startAutoSlide(block);
 }
-function showSlide(block, slideIndex = 0) {
-  const slides = block.querySelectorAll('.carousel-v1-slide');
-  let realSlideIndex = slideIndex < 0 ? slides.length - 1 : slideIndex;
-  if (slideIndex >= slides.length) realSlideIndex = 0;
-  const activeSlide = slides[realSlideIndex];
-  activeSlide.querySelectorAll('a').forEach((link) => link.removeAttribute('tabindex'));
-  block.querySelector('.carousel-v1-slides').scrollTo({
-    top: 10,
-    left: activeSlide.offsetLeft,
-    behavior: 'smooth',
-  });
-  // Update active slide index in the dataset for reference
-  block.dataset.activeSlide = realSlideIndex;
-  updateProgressBar(realSlideIndex, slides.length, block);
-  resetAutoSlide(block);
-}
+
