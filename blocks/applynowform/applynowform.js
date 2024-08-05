@@ -389,7 +389,7 @@ export default async function decorate(block) {
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-   //const valid = form.checkValidity();
+    //const valid = form.checkValidity();
     if (validateFormInput(VALIDATION_DATA, block)) {
       handleSubmit(form);
       const registrationFormEl = block.querySelectorAll('.step1');
@@ -511,10 +511,11 @@ function validateFormInput(rules, block) {
 
 function disableSubmitUntilFillForm(block) {
   const inputs = Array.from(block.querySelectorAll('.step1.field-wrapper input'));
+  console.log(inputs)
   const submitButton = block.querySelector('.step1.submit-registration button');
 
   const validators = {
-    text: value => /^[a-zA-Z\s]*$/.test(value.trim()),
+    text: value => /^[A-Za-z\s]+$/.test(value.trim()),
     tel: value => /^[6789]\d{9}$/.test(value.trim()),
     email: value => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value.trim()),
   };
@@ -551,7 +552,7 @@ function disableSubmitUntilFillForm(block) {
     const value = input.value.trim();
     const type = input.type;
     let isValid = type in validators ? validators[type](value) : true;
-
+    console.log(`Validating ${type}: ${value} -> ${isValid}`);
     if (type === 'tel' && !/^\d*$/.test(value)) {
       isValid = false;
     }
@@ -588,7 +589,8 @@ function disableSubmitUntilFillForm(block) {
     input.addEventListener('input', () => {
       if (input.type === 'tel') {
         input.value = input.value.replace(/[^\d]/g, '').slice(0, 10); // Allow only digits and limit to 10 characters
-      } else if (input.type === 'text') {
+      }
+      if (input.type === 'text') {
         input.value = input.value.replace(/[^a-zA-Z\s]/g, '').replace(/\s{2,}/g, ' ');
       }
       validateForm();
