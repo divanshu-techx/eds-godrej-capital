@@ -75,15 +75,21 @@ main .section.quick-tools-component {
 }
 
 .quicktool-item-text p,
-.quicktool-item-text div {
+.quicktool-item-text div,
+.quicktool-item-text p a {
     text-align: center;
     font-size: 12px;
     font-family: 'Work Sans';
     font-weight: 300;
+    color: #3B3B3B;
 }
 
 
 .quick-apply .quicktool-item-text p span,
 .quick-apply .quicktool-item-text div span {
     display: block;
+}
+
+.quicktool-item-text p a.button {
+    padding: 0;
 }

@@ -103,6 +103,10 @@
     background-color: #DF0303;
 }
 
+.score-info-container .score-info-content .score-grade-content .grade-text {
+    width: 84px;
+}
+
 .cibil-score .cibil-score-content p:nth-of-type(3) {
     font-family: Work Sans;
     font-size: 14px;
