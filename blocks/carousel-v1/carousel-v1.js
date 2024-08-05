@@ -236,7 +236,7 @@ async function createCarousel(block, rows, targetId) {
       indicator.classList.add('carousel-v1-slide-indicator');
       indicator.dataset.targetSlide = idx;
       indicator.innerHTML = `<button type="button"><span>${placeholders.showSlide || 'Show Slide'} ${idx + 1} ${placeholders.of || 'of'} ${rows.length}</span></button>`;
-      if (styleType == 'homepage-carousel-secondary') {
+      if (styleType === 'homepage-carousel-secondary') {
         // Append indicator to slideIndicators
         slideIndicators.insertBefore(indicator, nextButton); // Insert each indicator before the next button
       } else {
