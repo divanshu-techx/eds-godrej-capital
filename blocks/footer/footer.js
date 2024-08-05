@@ -7,7 +7,13 @@ const isDesktop = window.matchMedia('(min-width: 900px)');
  * loads and decorates the footer
  * @param {Element} block The footer block element
  */
+
+function getDataAttributeValueByName(name) {
+  const element = document.querySelector(`[data-${name}]`);
+  return element ? element.getAttribute(`data-${name}`) : '';
+}
 export default async function decorate(block) {
+  console.log(block);
   // load footer as fragment
   const footerMeta = getMetadata('footer');
   const footerPath = footerMeta
@@ -54,5 +60,61 @@ export default async function decorate(block) {
   enterinsidediv.forEach((elm) => {
     elm.classList.add('third-section_part-subparts');
   });
+  
   block.append(footer);
+
+  const partionBlockClass=['godrej-icon','godrej-address','godrej-phone-contact','godrej-email','godrej-social-account'];
+  const partitionBlock=block.querySelector('.partitionfirstcolumn');
+  const partionAll=partitionBlock.querySelectorAll(':Scope>div');
+  console.log(partionAll);
+  partionAll.forEach((elm,i)=>{
+    elm.classList.add(partionBlockClass[i]);
+  })
+
+  const godrejIcon=block.querySelector('.godrej-icon');
+
+  const godrejIconLink=getDataAttributeValueByName('godrejIconLink');
+  const godrejYoutubeLink=getDataAttributeValueByName('godrejYoutubeLink');
+  const godrejFacebookLink=getDataAttributeValueByName('godrejFacebookLink');
+  const godrejLinkdInLink=getDataAttributeValueByName('godrejLinkdInLink');
+  const godrejInstaLink=getDataAttributeValueByName('godrejInstaLink');
+  const godrejTwitterLink=getDataAttributeValueByName('godrejTwitterLink');
+
+
+  godrejIcon.addEventListener('click',()=>{
+    window.location.href=godrejIconLink;
+  })
+
+  const godrejSocial=block.querySelectorAll('.godrej-social-account > div >p');
+  godrejSocial.forEach((elm,i)=>{
+    elm.classList.add(`social-media${i}`)
+  })
+
+  const socialIconclass = ['godrej-twitter','godrej-youtube','godrej-facebook','godrej-linkdin','godrej-insta']
+  const socialMediaIcons = block.querySelectorAll('.social-media1 > picture');
+  socialMediaIcons.forEach((elm , i) => {
+    elm.classList.add(socialIconclass[i]);
+  })
+
+  const godrejTwitter = block.querySelector('.godrej-twitter');
+  const godrejYoutube = block.querySelector('.godrej-youtube');
+  const godrejFacebook = block.querySelector('.godrej-facebook');
+  const godrejLinkdIn = block.querySelector('.godrej-linkdin');
+  const godrejInsta = block.querySelector('.godrej-insta');
+
+  godrejTwitter.addEventListener('click',()=>{
+    window.location.href=godrejTwitterLink;
+  })
+  godrejYoutube.addEventListener('click',()=>{
+    window.location.href=godrejYoutubeLink;
+  })
+  godrejFacebook.addEventListener('click',()=>{
+    window.location.href=godrejFacebookLink;
+  })
+  godrejLinkdIn.addEventListener('click',()=>{
+    window.location.href=godrejLinkdInLink;
+  })
+  godrejInsta.addEventListener('click',()=>{
+    window.location.href=godrejInstaLink;
+  })
 }

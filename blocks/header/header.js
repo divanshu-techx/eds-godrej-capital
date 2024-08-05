@@ -98,6 +98,7 @@ function toggleMenu(nav, navSections, navMobile, forceExpanded = null) {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
+  console.log(block);
   // load nav as fragment
   const navMeta = getMetadata('nav');
   const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
@@ -119,6 +120,12 @@ export default async function decorate(block) {
   });
 
   const navBrand = nav.querySelector('.nav-brand');
+  const navBrandLink=document.createElement('a');
+  navBrandLink.classList.add('nav-brand-link');
+
+  const navBrandImage=navBrand.querySelector(':scope .default-content-wrapper > picture');
+  console.log(navBrandImage);
+  
   const brandLink = navBrand.querySelector('.button');
   if (brandLink) {
     brandLink.className = '';
@@ -160,7 +167,7 @@ export default async function decorate(block) {
 
   function getDataAttributeValueByName(name) {
     const element = document.querySelector(`[data-${name}]`);
-    return element ? element.getAttribute(`data-${name}`) : null;
+    return element ? element.getAttribute(`data-${name}`) : '';
   }
 
   const api = getDataAttributeValueByName('globalnavigationapiurl');
@@ -600,4 +607,10 @@ export default async function decorate(block) {
   }
 
   getApiResponse(api);
+
+  
+  const redirectPath = getDataAttributeValueByName('redirectionPath');
+  navBrandImage.addEventListener('click',()=>{
+    window.location.href=redirectPath;
+  })
 }
