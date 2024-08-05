@@ -380,8 +380,8 @@ export default async function decorate(block) {
           updateCalculations(block);
           updateRangeColors();
         } else {
-          input.value=min;
-          rangeInput.value=min;
+          input.value = min;
+          rangeInput.value = min;
           updateCalculations(block);
           updateRangeColors();
         }
@@ -407,8 +407,8 @@ export default async function decorate(block) {
       principalOutstandingDisplay.value = formatNumberToIndianCommas(rawValue);
       updateRangeColors();
     } else {
-      principalOutstanding.value=min;
-      principalOutstandingDisplay.value=min;
+      principalOutstanding.value = min;
+      principalOutstandingDisplay.value = min;
       updateCalculations(block);
       updateRangeColors();
     }
