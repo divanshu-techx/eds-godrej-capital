@@ -153,7 +153,7 @@ function renderHTML(attributes) {
 }
 
 // Function to update range input colors
-function updateRangeColors(block) {
+function updateRangeColors() {
   const isMobileView = window.matchMedia("(max-width: 767px)").matches;
   const mobileColor = '#f4f4f4';  //  color for mobile view
   const desktopColor = '#fff'; // White color for desktop view
@@ -220,7 +220,7 @@ function addRangeInputListeners(block) {
       const textInput = document.getElementById(textInputId);
       if (textInput) {
         textInput.value = this.value.toLocaleString();
-        updateRangeColors(block);
+        updateRangeColors();
       }
       updateAPR(block);
     });
@@ -233,23 +233,18 @@ function addTextInputListeners(block) {
     textInputs.forEach(input => {
         input.addEventListener('input', function () {
             const numericValue = parseFloat(this.value.replace(/[^\d.-]/g, ''));
-            console.log(numericValue);
+            const rangeId = `${this.id}Range`;
+            const rangeInput = block.querySelector(`#${rangeId}`);
             if (!isNaN(numericValue)) {
-                const rangeId = `${this.id}Range`;
-                const rangeInput = block.querySelector(`#${rangeId}`);
                 if (rangeInput) {
                     rangeInput.value = numericValue;
                     updateAPR(block);
-                    updateRangeColors(block);
+                    updateRangeColors();
                 }
             } else {
-                const rangeId = `${this.id}Range`;
-                const rangeInput = block.querySelector(`#${rangeId}`);
-                if (rangeInput) {
                     rangeInput.value = rangeInput.min;
                     updateAPR(block);
-                    updateRangeColors(block);
-                }
+                    updateRangeColors();
             }
         });
     });
@@ -263,7 +258,7 @@ function addTextInputListeners(block) {
             if (rangeInput) {
                 rangeInput.value = numericValue.toFixed(1);
                 updateAPR(block);
-                updateRangeColors(block);
+                updateRangeColors();
             }
         }else{
             const rangeId = `${this.id}Range`;
@@ -271,7 +266,7 @@ function addTextInputListeners(block) {
             if (rangeInput) {
                 rangeInput.value = rangeInput.min;
                 updateAPR(block);
-                updateRangeColors(block);
+                updateRangeColors();
             }
         }
     });
@@ -287,7 +282,7 @@ function setApplyNowButton(block, attribute) {
 export default async function decorate(block) {
   const attributes = fetchAttributes();
   block.innerHTML = renderHTML(attributes);
-  updateRangeColors(block);
+  updateRangeColors();
   updateAPR(block);
   addRangeInputListeners(block);
   addTextInputListeners(block);
