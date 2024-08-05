@@ -119,6 +119,11 @@ export default async function decorate(block) {
   });
 
   const navBrand = nav.querySelector('.nav-brand');
+  const navBrandLink=document.createElement('a');
+  navBrandLink.classList.add('nav-brand-link');
+
+  const navBrandImage=navBrand.querySelector(':scope .default-content-wrapper > picture');
+  
   const brandLink = navBrand.querySelector('.button');
   if (brandLink) {
     brandLink.className = '';
@@ -160,7 +165,7 @@ export default async function decorate(block) {
 
   function getDataAttributeValueByName(name) {
     const element = document.querySelector(`[data-${name}]`);
-    return element ? element.getAttribute(`data-${name}`) : null;
+    return element ? element.getAttribute(`data-${name}`) : '';
   }
 
   const api = getDataAttributeValueByName('globalnavigationapiurl');
@@ -409,8 +414,8 @@ export default async function decorate(block) {
   
         <li class="contactuscontainer">
             <h4 class="contact-heading">${responseArr.contactus}</h4>
-            <p class="contact-mobile-number">${responseArr.mobilenumber}</p>
-            <p class="contact-mail">${responseArr.mail}</p>          
+            <a class="contact-mobile-number" href=tel:${responseArr.mobilenumber}>${responseArr.mobilenumber}</a>
+            <a class="contact-mail" href=mailto:${responseArr.mail}>${responseArr.mail}</a>          
         </li>
          `;
     firstElementChildDiv.appendChild(customerSupportDiv);
@@ -503,7 +508,7 @@ export default async function decorate(block) {
       li.className = 'listElement';
 
       const a = document.createElement('a');
-      a.href = '#.html';
+      a.href = item.ProductPagePath;
       a.textContent = item.HeadingName;
       a.setAttribute('data-path', item.ChildPageUrl);
       a.setAttribute('data-depth', item.depth);
@@ -600,4 +605,10 @@ export default async function decorate(block) {
   }
 
   getApiResponse(api);
+
+  
+  const redirectPath = getDataAttributeValueByName('redirectionPath');
+  navBrandImage.addEventListener('click',()=>{
+    window.location.href=redirectPath;
+  })
 }

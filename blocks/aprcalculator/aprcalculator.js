@@ -13,10 +13,10 @@ function numberToWords(num) {
   const suffixes = [
     [1e7, 'Crores'],
     [1e5, 'Lakhs'],
-    [1e3, 'Thousands']
+    [1e3, 'Thousands'],
   ];
 
-  for (let i = 0; i < suffixes.length; i++) {
+  for (let i = 0; i < suffixes.length; i += 1) {
     const [divisor, suffix] = suffixes[i];
     if (num >= divisor) {
       return `${Math.floor(num / divisor)} ${suffix}`;
@@ -50,7 +50,7 @@ function fetchAttributes() {
     yearSymbol: getDataAttributeValueByName('year-symbol'),
     applyNowLabel: getDataAttributeValueByName('apply-now-label'),
     annualPercentLabel: getDataAttributeValueByName('annual-percent-label'),
-    redirectionPath: getDataAttributeValueByName('redirection-path-apr')
+    redirectionPath: getDataAttributeValueByName('redirection-path-apr'),
   };
 }
 
@@ -153,17 +153,17 @@ function renderHTML(attributes) {
 }
 
 // Function to update range input colors
-function updateRangeColors(block) {
-  const isMobileView = window.matchMedia("(max-width: 767px)").matches;
-  const mobileColor = '#f4f4f4';  //  color for mobile view
+function updateRangeColors() {
+  const isMobileView = window.matchMedia('(max-width: 767px)').matches;
+  const mobileColor = '#f4f4f4'; //  color for mobile view
   const desktopColor = '#fff'; // White color for desktop view
 
   const rangeInputs = document.querySelectorAll('input[type=range]');
-  rangeInputs.forEach(input => {
+  rangeInputs.forEach((input) => {
     const min = parseFloat(input.min);
     const max = parseFloat(input.max);
     const val = parseFloat(input.value);
-    const normalizedValue = (val - min) / (max - min) * 100;
+    const normalizedValue = ((val - min) / (max - min)) * 100;
     const endColor = isMobileView ? mobileColor : desktopColor;
     input.style.background = `linear-gradient(to right, #8CB133 ${normalizedValue}%, ${endColor} ${normalizedValue}%)`;
   });
@@ -194,19 +194,19 @@ function updateAPR(block) {
 
   let charges = parseFloat(loanamt - loanOrigin);
   let pmt = formulajs.PMT(ROI / 1200, periods, loanamt);
-  pmt = pmt * -1;
-  charges = charges * -1;
+  pmt *= -1;
+  charges *= -1;
   let apr = formulajs.RATE(periods, pmt, charges) * 12;
 
-  if (apr == "Infinity" || isNaN(apr) || apr == "-Infinity") {
+  if (apr === 'Infinity' || Number.isNaN(apr) || apr === '-Infinity') {
     apr = ROI / 100;
   }
   if (!loanamt && !periods && !charges) {
     apr = 0;
   }
-  apr = apr * 100;
-  apr = apr > 24 ? 24 : apr < 6 ? 6 : apr;
-  apr = apr.toFixed(2) + "%";
+  apr *= 100;
+  apr = Math.max(6, Math.min(apr, 24));
+  apr = `${apr.toFixed(2)}%`;
 
   // Update the UI with the calculated APR
   block.querySelector('#aprDisplay').textContent = apr;
@@ -214,13 +214,13 @@ function updateAPR(block) {
 
 function addRangeInputListeners(block) {
   const rangeInputs = block.querySelectorAll('input[type=range]');
-  rangeInputs.forEach(input => {
+  rangeInputs.forEach((input) => {
     input.addEventListener('input', function () {
       const textInputId = this.id.replace('Range', '');
       const textInput = document.getElementById(textInputId);
       if (textInput) {
         textInput.value = this.value.toLocaleString();
-        updateRangeColors(block);
+        updateRangeColors();
       }
       updateAPR(block);
     });
@@ -230,17 +230,21 @@ function addRangeInputListeners(block) {
 // Function to add event listeners to text inputs
 function addTextInputListeners(block) {
   const textInputs = block.querySelectorAll('input[type=text]:not(#interestRateApr)');
-  textInputs.forEach(input => {
+  textInputs.forEach((input) => {
     input.addEventListener('input', function () {
       const numericValue = parseFloat(this.value.replace(/[^\d.-]/g, ''));
-      if (!isNaN(numericValue)) {
-        const rangeId = `${this.id}Range`;
-        const rangeInput = block.querySelector(`#${rangeId}`);
+      const rangeId = `${this.id}Range`;
+      const rangeInput = block.querySelector(`#${rangeId}`);
+      if (!Number.isNaN(numericValue)) {
         if (rangeInput) {
           rangeInput.value = numericValue;
           updateAPR(block);
-          updateRangeColors(block);
+          updateRangeColors();
         }
+      } else {
+        rangeInput.value = rangeInput.min;
+        updateAPR(block);
+        updateRangeColors();
       }
     });
   });
@@ -248,16 +252,22 @@ function addTextInputListeners(block) {
   const interestRateInput = block.querySelector('#interestRateApr');
   interestRateInput.addEventListener('change', function () {
     let numericValue = parseFloat(this.value.replace(/[^\d.]/g, ''));
-    if (!isNaN(numericValue)) {
-      numericValue = Math.min(Math.max(numericValue, 0), 20);
+    if (!Number.isNaN(numericValue)) {
+      numericValue = Math.min(Math.max(numericValue, 0));
       const rangeInput = block.querySelector('#interestRateAprRange');
       if (rangeInput) {
         rangeInput.value = numericValue.toFixed(1);
         updateAPR(block);
-        updateRangeColors(block);
+        updateRangeColors();
       }
     } else {
-      this.value = " ";
+      const rangeId = `${this.id}Range`;
+      const rangeInput = block.querySelector(`#${rangeId}`);
+      if (rangeInput) {
+        rangeInput.value = rangeInput.min;
+        updateAPR(block);
+        updateRangeColors();
+      }
     }
   });
 }
@@ -266,17 +276,61 @@ function setApplyNowButton(block, attribute) {
   const applyNow = block.querySelector('#apply-btn-apr');
   applyNow.addEventListener('click', () => {
     window.location.href = attribute.redirectionPath;
-  })
+  });
 }
+
+function toggleInputBox(block){
+    const loanTenureYearsApr = block.querySelector('#loanTenureYearsApr');
+    const loanTenureYearsAprRange = block.querySelector('#loanTenureYearsAprRange');
+    const loanTenureMonthsAprRange = block.querySelector('#loanTenureMonthsAprRange');
+    const loanTenureMonthsApr = block.querySelector('#loanTenureMonthsApr');
+
+    loanTenureYearsApr.addEventListener('input',function(){
+        const maxValue=loanTenureYearsAprRange.max;
+        const value=this.value;
+
+        if (maxValue == value) {
+            loanTenureMonthsAprRange.disabled=true;
+            loanTenureMonthsApr.disabled=true;
+            loanTenureMonthsAprRange.value=loanTenureMonthsAprRange.min;
+            loanTenureMonthsApr.value=loanTenureMonthsAprRange.min;
+        } else {
+            loanTenureMonthsAprRange.disabled=false;
+            loanTenureMonthsApr.disabled=false;
+        }
+        updateRangeColors();
+        updateAPR(block);
+    })
+
+    loanTenureYearsAprRange.addEventListener('change',function(){
+        const maxValue=loanTenureYearsAprRange.max;
+        const value=this.value;
+
+        if (maxValue == value) {
+            loanTenureMonthsAprRange.disabled=true;
+            loanTenureMonthsApr.disabled=true;
+            loanTenureMonthsAprRange.value=loanTenureMonthsAprRange.min;
+            loanTenureMonthsApr.value=loanTenureMonthsAprRange.min;
+
+        } else {
+            loanTenureMonthsAprRange.disabled=false;
+            loanTenureMonthsApr.disabled=false;
+        }
+        updateRangeColors();
+        updateAPR(block);
+    })
+}
+
 // Main function to decorate the block
 export default async function decorate(block) {
   const attributes = fetchAttributes();
   block.innerHTML = renderHTML(attributes);
-  updateRangeColors(block);
+  updateRangeColors();
   updateAPR(block);
   addRangeInputListeners(block);
   addTextInputListeners(block);
   setApplyNowButton(block, attributes);
+  toggleInputBox(block)
 }
 window.addEventListener('resize', updateRangeColors);
 window.addEventListener('load', updateRangeColors);

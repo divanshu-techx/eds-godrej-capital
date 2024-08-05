@@ -490,6 +490,7 @@ function validateFormInput(rules, block) {
 
       // Append the error message to the corresponding field's parent node
       inputField.parentNode.appendChild(errorDiv);
+
     }
   });
 
@@ -588,7 +589,8 @@ function disableSubmitUntilFillForm(block) {
     input.addEventListener('input', () => {
       if (input.type === 'tel') {
         input.value = input.value.replace(/[^\d]/g, '').slice(0, 10); // Allow only digits and limit to 10 characters
-      } else if (input.type === 'text') {
+      }
+      if (input.type === 'text') {
         input.value = input.value.replace(/[^a-zA-Z\s]/g, '').replace(/\s{2,}/g, ' ');
       }
       validateForm();

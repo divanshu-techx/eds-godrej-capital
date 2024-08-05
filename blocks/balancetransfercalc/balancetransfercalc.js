@@ -328,6 +328,46 @@ function updateRangeColors() {
     input.style.background = `linear-gradient(to right, #8CB133 ${normalizedValue}%, ${endColor} ${normalizedValue}%)`;
   });
 }
+function toggleInputBox(block){
+  const loanTenureYearsApr = block.querySelector('#newLoanTenureDisplay');
+  const loanTenureYearsAprRange = block.querySelector('#newLoanTenure');
+  const loanTenureMonthsAprRange = block.querySelector('#newLoanTenureMonths');
+  const loanTenureMonthsApr = block.querySelector('#newLoanTenureMonthsDisplay');
+
+  loanTenureYearsApr.addEventListener('input',function(){
+      const maxValue=loanTenureYearsAprRange.max;
+      const value=this.value;
+
+      if (maxValue == value) {
+          loanTenureMonthsAprRange.disabled=true;
+          loanTenureMonthsApr.disabled=true;
+          loanTenureMonthsAprRange.value=loanTenureMonthsAprRange.min;
+          loanTenureMonthsApr.value=loanTenureMonthsAprRange.min;
+          updateCalculations(block);
+          updateRangeColors();
+      } else {
+          loanTenureMonthsAprRange.disabled=false;
+          loanTenureMonthsApr.disabled=false;
+      }
+  })
+
+  loanTenureYearsAprRange.addEventListener('change',function(){
+      const maxValue=loanTenureYearsAprRange.max;
+      const value=this.value;
+
+      if (maxValue == value) {
+          loanTenureMonthsAprRange.disabled=true;
+          loanTenureMonthsApr.disabled=true;
+          loanTenureMonthsAprRange.value=loanTenureMonthsAprRange.min;
+          loanTenureMonthsApr.value=loanTenureMonthsAprRange.min;
+          updateCalculations(block);
+          updateRangeColors();
+      } else {
+          loanTenureMonthsAprRange.disabled=false;
+          loanTenureMonthsApr.disabled=false;
+      }
+  })
+}
 
 // Wrap your main functionality in the decorate function
 export default async function decorate(block) {
@@ -370,8 +410,6 @@ export default async function decorate(block) {
       input.addEventListener('blur', () => {
         const rangeId = input.id.replace('Display', '');
         const rangeInput = block.querySelector(`#${rangeId}`);
-        const errorSpanId = `${rangeId}Error`;
-        const errorSpan = block.querySelector(`#${errorSpanId}`);
 
         const min = parseFloat(rangeInput.min);
         const max = parseFloat(rangeInput.max);
@@ -381,9 +419,11 @@ export default async function decorate(block) {
           rangeInput.value = input.value;
           updateCalculations(block);
           updateRangeColors();
-          errorSpan.textContent = '';
         } else {
-          errorSpan.textContent = `Enter a value between ${min} and ${max}`;
+          input.value = min;
+          rangeInput.value = min;
+          updateCalculations(block);
+          updateRangeColors();
         }
       });
     }
@@ -392,7 +432,6 @@ export default async function decorate(block) {
   // Event listener for principalOutstandingDisplay input
   const principalOutstandingDisplay = block.querySelector('#principalOutstandingDisplay');
   const principalOutstanding = block.querySelector('#principalOutstanding');
-  const principalOutstandingError = block.querySelector('#principalOutstandingError');
 
   // Event listener for principalOutstandingDisplay input blur event
   principalOutstandingDisplay.addEventListener('blur', () => {
@@ -406,10 +445,12 @@ export default async function decorate(block) {
       principalOutstanding.value = value;
       updateCalculations(block);
       principalOutstandingDisplay.value = formatNumberToIndianCommas(rawValue);
-      principalOutstandingError.textContent = '';
       updateRangeColors();
     } else {
-      principalOutstandingError.textContent = `Enter a value between ${min} and ${max}`;
+      principalOutstanding.value = min;
+      principalOutstandingDisplay.value = min;
+      updateCalculations(block);
+      updateRangeColors();
     }
   });
 
@@ -435,6 +476,7 @@ export default async function decorate(block) {
 
   updateCalculations(block);
   updateRangeColors();
+  toggleInputBox(block);
 }
 window.addEventListener('resize', updateRangeColors);
 window.addEventListener('load', updateRangeColors);

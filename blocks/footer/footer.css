@@ -367,3 +367,11 @@ footer .partitionfirstcolumn .button-container a.button {
 footer .partitionfirstcolumn .button-container a.button:hover {
   background-color: unset;
 }
+
+footer .partitionfirstcolumn .godrej-social-account .social-media1{
+  cursor: pointer;
+}
+
+footer .partitionfirstcolumn .godrej-icon{
+  cursor: pointer;
+}
