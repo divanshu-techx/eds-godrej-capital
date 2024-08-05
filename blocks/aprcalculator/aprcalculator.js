@@ -198,15 +198,15 @@ function updateAPR(block) {
   charges *= -1;
   let apr = formulajs.RATE(periods, pmt, charges) * 12;
 
-  if (apr == "Infinity" || isNaN(apr) || apr == "-Infinity") {
+  if (apr === 'Infinity' || Number.isNaN(apr) || apr === '-Infinity') {
     apr = ROI / 100;
   }
   if (!loanamt && !periods && !charges) {
     apr = 0;
   }
-  apr = apr * 100;
-  apr = apr > 24 ? 24 : apr < 6 ? 6 : apr;
-  apr = apr.toFixed(2) + "%";
+  apr *= 100;
+  apr = Math.max(6, Math.min(apr, 24));
+  apr = `${apr.toFixed(2)}%`;
 
   // Update the UI with the calculated APR
   block.querySelector('#aprDisplay').textContent = apr;
@@ -214,7 +214,7 @@ function updateAPR(block) {
 
 function addRangeInputListeners(block) {
   const rangeInputs = block.querySelectorAll('input[type=range]');
-  rangeInputs.forEach(input => {
+  rangeInputs.forEach((input) => {
     input.addEventListener('input', function () {
       const textInputId = this.id.replace('Range', '');
       const textInput = document.getElementById(textInputId);
@@ -229,54 +229,54 @@ function addRangeInputListeners(block) {
 
 // Function to add event listeners to text inputs
 function addTextInputListeners(block) {
-    const textInputs = block.querySelectorAll('input[type=text]:not(#interestRateApr)');
-    textInputs.forEach(input => {
-        input.addEventListener('input', function () {
-            const numericValue = parseFloat(this.value.replace(/[^\d.-]/g, ''));
-            const rangeId = `${this.id}Range`;
-            const rangeInput = block.querySelector(`#${rangeId}`);
-            if (!isNaN(numericValue)) {
-                if (rangeInput) {
-                    rangeInput.value = numericValue;
-                    updateAPR(block);
-                    updateRangeColors();
-                }
-            } else {
-                    rangeInput.value = rangeInput.min;
-                    updateAPR(block);
-                    updateRangeColors();
-            }
-        });
-    });
-
-    const interestRateInput = block.querySelector('#interestRateApr');
-    interestRateInput.addEventListener('change', function () {
-        let numericValue = parseFloat(this.value.replace(/[^\d.]/g, ''));
-        if (!isNaN(numericValue)) {
-            numericValue = Math.min(Math.max(numericValue, 0));
-            const rangeInput = block.querySelector('#interestRateAprRange');
-            if (rangeInput) {
-                rangeInput.value = numericValue.toFixed(1);
-                updateAPR(block);
-                updateRangeColors();
-            }
-        }else{
-            const rangeId = `${this.id}Range`;
-            const rangeInput = block.querySelector(`#${rangeId}`);
-            if (rangeInput) {
-                rangeInput.value = rangeInput.min;
-                updateAPR(block);
-                updateRangeColors();
-            }
+  const textInputs = block.querySelectorAll('input[type=text]:not(#interestRateApr)');
+  textInputs.forEach((input) => {
+    input.addEventListener('input', function () {
+      const numericValue = parseFloat(this.value.replace(/[^\d.-]/g, ''));
+      const rangeId = `${this.id}Range`;
+      const rangeInput = block.querySelector(`#${rangeId}`);
+      if (!Number.isNaN(numericValue)) {
+        if (rangeInput) {
+          rangeInput.value = numericValue;
+          updateAPR(block);
+          updateRangeColors();
         }
+      } else {
+        rangeInput.value = rangeInput.min;
+        updateAPR(block);
+        updateRangeColors();
+      }
     });
+  });
+
+  const interestRateInput = block.querySelector('#interestRateApr');
+  interestRateInput.addEventListener('change', function () {
+    let numericValue = parseFloat(this.value.replace(/[^\d.]/g, ''));
+    if (!Number.isNaN(numericValue)) {
+      numericValue = Math.min(Math.max(numericValue, 0));
+      const rangeInput = block.querySelector('#interestRateAprRange');
+      if (rangeInput) {
+        rangeInput.value = numericValue.toFixed(1);
+        updateAPR(block);
+        updateRangeColors();
+      }
+    } else {
+      const rangeId = `${this.id}Range`;
+      const rangeInput = block.querySelector(`#${rangeId}`);
+      if (rangeInput) {
+        rangeInput.value = rangeInput.min;
+        updateAPR(block);
+        updateRangeColors();
+      }
+    }
+  });
 }
 
 function setApplyNowButton(block, attribute) {
   const applyNow = block.querySelector('#apply-btn-apr');
   applyNow.addEventListener('click', () => {
     window.location.href = attribute.redirectionPath;
-  })
+  });
 }
 // Main function to decorate the block
 export default async function decorate(block) {

@@ -98,7 +98,6 @@ function toggleMenu(nav, navSections, navMobile, forceExpanded = null) {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
-  console.log(block);
   // load nav as fragment
   const navMeta = getMetadata('nav');
   const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
@@ -124,7 +123,6 @@ export default async function decorate(block) {
   navBrandLink.classList.add('nav-brand-link');
 
   const navBrandImage=navBrand.querySelector(':scope .default-content-wrapper > picture');
-  console.log(navBrandImage);
   
   const brandLink = navBrand.querySelector('.button');
   if (brandLink) {

@@ -13,7 +13,6 @@ function getDataAttributeValueByName(name) {
   return element ? element.getAttribute(`data-${name}`) : '';
 }
 export default async function decorate(block) {
-  console.log(block);
   // load footer as fragment
   const footerMeta = getMetadata('footer');
   const footerPath = footerMeta
@@ -66,7 +65,6 @@ export default async function decorate(block) {
   const partionBlockClass=['godrej-icon','godrej-address','godrej-phone-contact','godrej-email','godrej-social-account'];
   const partitionBlock=block.querySelector('.partitionfirstcolumn');
   const partionAll=partitionBlock.querySelectorAll(':Scope>div');
-  console.log(partionAll);
   partionAll.forEach((elm,i)=>{
     elm.classList.add(partionBlockClass[i]);
   })
