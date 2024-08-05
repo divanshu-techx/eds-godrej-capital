@@ -55,6 +55,117 @@ function groupTeasersByTargetId(mainSelector) {
   return groupedTeasers;
 }
 
+
+let carouselId = 0;
+function createSlide(row, slideIndex, carouselId) {
+  const slide = document.createElement('li');
+  slide.dataset.slideIndex = slideIndex;
+  slide.setAttribute('id', `carousel-${carouselId}-slide-${slideIndex}`);
+  slide.classList.add('carousel-v1-slide');
+  row.querySelectorAll(':scope > div').forEach((column, colIdx) => {
+    column.classList.add(`carousel-slide-v1-${colIdx === 0 ? 'image' : 'content'}`);
+    slide.append(column);
+  });
+  const labeledBy = slide.querySelector('h1, h2, h3, h4, h5, h6');
+  if (labeledBy) {
+    slide.setAttribute('aria-labelledby', labeledBy.getAttribute('id'));
+  }
+  return slide;
+}
+let autoSlideTimer;
+function startAutoSlide(block) {
+  autoSlideTimer = setInterval(() => {
+    const currentSlideIndex = parseInt(block.dataset.activeSlide, 10);
+    showSlide(block, currentSlideIndex + 1);
+  }, 10000); // 10 seconds
+}
+function resetAutoSlide(block) {
+  clearInterval(autoSlideTimer);
+  startAutoSlide(block);
+}
+function updateProgressBar(currentSlideIndex, totalSlides, block) {
+  const progressBar = block.querySelector('.carousel-v1-progress-bar');
+  if (!progressBar) return;
+  const progressPercentage = ((currentSlideIndex + 1) / totalSlides) * 100;
+  progressBar.style.width = `${progressPercentage}%`;
+}
+function updateActiveSlide(slide) {
+  const block = slide.closest('.carousel-v1');
+  const slideIndex = parseInt(slide.dataset.slideIndex, 10);
+  block.dataset.activeSlide = slideIndex;
+  const slides = block.querySelectorAll('.carousel-v1-slide');
+  slides.forEach((aSlide, idx) => {
+    aSlide.setAttribute('aria-hidden', idx !== slideIndex);
+    aSlide.querySelectorAll('a').forEach((link) => {
+      if (idx !== slideIndex) {
+        link.setAttribute('tabindex', '-1');
+      } else {
+        link.removeAttribute('tabindex');
+      }
+    });
+  });
+  const indicators = block.querySelectorAll('.carousel-v1-slide-indicator');
+  indicators.forEach((indicator, idx) => {
+    if (idx !== slideIndex) {
+      indicator.querySelector('button').removeAttribute('disabled');
+    } else {
+      indicator.querySelector('button').setAttribute('disabled', 'true');
+    }
+  });
+  updateProgressBar(slideIndex, slides.length, block);
+}
+function showSlide(block, slideIndex = 0) {
+  const slides = block.querySelectorAll('.carousel-v1-slide');
+  let realSlideIndex = slideIndex < 0 ? slides.length - 1 : slideIndex;
+  if (slideIndex >= slides.length) realSlideIndex = 0;
+  const activeSlide = slides[realSlideIndex];
+  activeSlide.querySelectorAll('a').forEach((link) => link.removeAttribute('tabindex'));
+  block.querySelector('.carousel-v1-slides').scrollTo({
+    top: 10,
+    left: activeSlide.offsetLeft,
+    behavior: 'smooth',
+  });
+  // Update active slide index in the dataset for reference
+  block.dataset.activeSlide = realSlideIndex;
+  updateProgressBar(realSlideIndex, slides.length, block);
+  resetAutoSlide(block);
+}
+function bindEvents(block) {
+  const slides = block.querySelectorAll('.carousel-v1-slides > li');
+  const totalSlides = slides.length;
+  const slideIndicators = block.querySelectorAll('.carousel-v1-slide-indicator');
+  if (!slideIndicators) return;
+  slideIndicators.forEach((button) => {
+    button.addEventListener('click', (e) => {
+      const slideIndicator = e.currentTarget;
+      showSlide(block, parseInt(slideIndicator.dataset.targetSlide, 10));
+    });
+  });
+  const prevButton = block.querySelector('.slide-prev');
+  const nextButton = block.querySelector('.slide-next');
+  if (prevButton) {
+    prevButton.addEventListener('click', () => {
+      const activeSlide = parseInt(block.dataset.activeSlide, 10);
+      showSlide(block, isNaN(activeSlide) ? 0 : activeSlide - 1);
+    });
+  }
+  if (nextButton) {
+    nextButton.addEventListener('click', () => {
+      const activeSlide = parseInt(block.dataset.activeSlide, 10);
+      showSlide(block, isNaN(activeSlide) ? 0 : activeSlide + 1);
+    });
+  }
+  const slideObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) updateActiveSlide(entry.target);
+    });
+  }, { threshold: 0.5 });
+  block.querySelectorAll('.carousel-v1-slide').forEach((slide) => {
+    slideObserver.observe(slide);
+  });
+  updateProgressBar(0, totalSlides, block);
+}
+
 async function createCarousel(block, rows, targetId) {
   carouselId += 1;
   const placeholders = await fetchPlaceholders();
@@ -160,114 +271,3 @@ export default async function decorate(block) {
   let teaser = groupTeasersByTargetId('main');
   createCarousel(block, teaser[targetId], targetId);
 }
-
-let carouselId = 0;
-function createSlide(row, slideIndex, carouselId) {
-  const slide = document.createElement('li');
-  slide.dataset.slideIndex = slideIndex;
-  slide.setAttribute('id', `carousel-${carouselId}-slide-${slideIndex}`);
-  slide.classList.add('carousel-v1-slide');
-  row.querySelectorAll(':scope > div').forEach((column, colIdx) => {
-    column.classList.add(`carousel-slide-v1-${colIdx === 0 ? 'image' : 'content'}`);
-    slide.append(column);
-  });
-  const labeledBy = slide.querySelector('h1, h2, h3, h4, h5, h6');
-  if (labeledBy) {
-    slide.setAttribute('aria-labelledby', labeledBy.getAttribute('id'));
-  }
-  return slide;
-}
-function showSlide(block, slideIndex = 0) {
-  const slides = block.querySelectorAll('.carousel-v1-slide');
-  let realSlideIndex = slideIndex < 0 ? slides.length - 1 : slideIndex;
-  if (slideIndex >= slides.length) realSlideIndex = 0;
-  const activeSlide = slides[realSlideIndex];
-  activeSlide.querySelectorAll('a').forEach((link) => link.removeAttribute('tabindex'));
-  block.querySelector('.carousel-v1-slides').scrollTo({
-    top: 10,
-    left: activeSlide.offsetLeft,
-    behavior: 'smooth',
-  });
-  // Update active slide index in the dataset for reference
-  block.dataset.activeSlide = realSlideIndex;
-  updateProgressBar(realSlideIndex, slides.length, block);
-  resetAutoSlide(block);
-}
-function bindEvents(block) {
-  const slides = block.querySelectorAll('.carousel-v1-slides > li');
-  const totalSlides = slides.length;
-  const slideIndicators = block.querySelectorAll('.carousel-v1-slide-indicator');
-  if (!slideIndicators) return;
-  slideIndicators.forEach((button) => {
-    button.addEventListener('click', (e) => {
-      const slideIndicator = e.currentTarget;
-      showSlide(block, parseInt(slideIndicator.dataset.targetSlide, 10));
-    });
-  });
-  const prevButton = block.querySelector('.slide-prev');
-  const nextButton = block.querySelector('.slide-next');
-  if (prevButton) {
-    prevButton.addEventListener('click', () => {
-      const activeSlide = parseInt(block.dataset.activeSlide, 10);
-      showSlide(block, isNaN(activeSlide) ? 0 : activeSlide - 1);
-    });
-  }
-  if (nextButton) {
-    nextButton.addEventListener('click', () => {
-      const activeSlide = parseInt(block.dataset.activeSlide, 10);
-      showSlide(block, isNaN(activeSlide) ? 0 : activeSlide + 1);
-    });
-  }
-  const slideObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) updateActiveSlide(entry.target);
-    });
-  }, { threshold: 0.5 });
-  block.querySelectorAll('.carousel-v1-slide').forEach((slide) => {
-    slideObserver.observe(slide);
-  });
-  updateProgressBar(0, totalSlides, block);
-}
-function updateProgressBar(currentSlideIndex, totalSlides, block) {
-  const progressBar = block.querySelector('.carousel-v1-progress-bar');
-  if (!progressBar) return;
-  const progressPercentage = ((currentSlideIndex + 1) / totalSlides) * 100;
-  progressBar.style.width = `${progressPercentage}%`;
-}
-function updateActiveSlide(slide) {
-  const block = slide.closest('.carousel-v1');
-  const slideIndex = parseInt(slide.dataset.slideIndex, 10);
-  block.dataset.activeSlide = slideIndex;
-  const slides = block.querySelectorAll('.carousel-v1-slide');
-  slides.forEach((aSlide, idx) => {
-    aSlide.setAttribute('aria-hidden', idx !== slideIndex);
-    aSlide.querySelectorAll('a').forEach((link) => {
-      if (idx !== slideIndex) {
-        link.setAttribute('tabindex', '-1');
-      } else {
-        link.removeAttribute('tabindex');
-      }
-    });
-  });
-  const indicators = block.querySelectorAll('.carousel-v1-slide-indicator');
-  indicators.forEach((indicator, idx) => {
-    if (idx !== slideIndex) {
-      indicator.querySelector('button').removeAttribute('disabled');
-    } else {
-      indicator.querySelector('button').setAttribute('disabled', 'true');
-    }
-  });
-  updateProgressBar(slideIndex, slides.length, block);
-}
-let autoSlideTimer;
-function startAutoSlide(block) {
-  autoSlideTimer = setInterval(() => {
-    const currentSlideIndex = parseInt(block.dataset.activeSlide, 10);
-    showSlide(block, currentSlideIndex + 1);
-  }, 10000); // 10 seconds
-}
-function resetAutoSlide(block) {
-  clearInterval(autoSlideTimer);
-  startAutoSlide(block);
-}
-
