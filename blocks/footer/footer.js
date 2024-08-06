@@ -106,38 +106,38 @@ export default async function decorate(block) {
   enterinsidediv.forEach((elm) => {
     elm.classList.add('third-section_part-subparts');
   });
-  
+
   block.append(footer);
 
-  const partionBlockClass=['godrej-icon','godrej-address','godrej-phone-contact','godrej-email','godrej-social-account'];
-  const partitionBlock=block.querySelector('.partitionfirstcolumn');
-  const partionAll=partitionBlock.querySelectorAll(':Scope>div');
-  partionAll.forEach((elm,i)=>{
+  const partionBlockClass = ['godrej-icon', 'godrej-address', 'godrej-phone-contact', 'godrej-email', 'godrej-social-account'];
+  const partitionBlock = block.querySelector('.partitionfirstcolumn');
+  const partionAll = partitionBlock.querySelectorAll(':Scope>div');
+  partionAll.forEach((elm, i) => {
     elm.classList.add(partionBlockClass[i]);
   })
 
-  const godrejIcon=block.querySelector('.godrej-icon');
+  const godrejIcon = block.querySelector('.godrej-icon');
 
-  const godrejIconLink=getDataAttributeValueByName('godrejIconLink');
-  const godrejYoutubeLink=getDataAttributeValueByName('godrejYoutubeLink');
-  const godrejFacebookLink=getDataAttributeValueByName('godrejFacebookLink');
-  const godrejLinkdInLink=getDataAttributeValueByName('godrejLinkdInLink');
-  const godrejInstaLink=getDataAttributeValueByName('godrejInstaLink');
-  const godrejTwitterLink=getDataAttributeValueByName('godrejTwitterLink');
+  const godrejIconLink = getDataAttributeValueByName('godrejIconLink');
+  const godrejYoutubeLink = getDataAttributeValueByName('godrejYoutubeLink');
+  const godrejFacebookLink = getDataAttributeValueByName('godrejFacebookLink');
+  const godrejLinkdInLink = getDataAttributeValueByName('godrejLinkdInLink');
+  const godrejInstaLink = getDataAttributeValueByName('godrejInstaLink');
+  const godrejTwitterLink = getDataAttributeValueByName('godrejTwitterLink');
 
 
-  godrejIcon.addEventListener('click',()=>{
-    window.location.href=godrejIconLink;
+  godrejIcon.addEventListener('click', () => {
+    window.location.href = godrejIconLink;
   })
 
-  const godrejSocial=block.querySelectorAll('.godrej-social-account > div >p');
-  godrejSocial.forEach((elm,i)=>{
+  const godrejSocial = block.querySelectorAll('.godrej-social-account > div >p');
+  godrejSocial.forEach((elm, i) => {
     elm.classList.add(`social-media${i}`)
   })
 
-  const socialIconclass = ['godrej-twitter','godrej-youtube','godrej-facebook','godrej-linkdin','godrej-insta']
+  const socialIconclass = ['godrej-twitter', 'godrej-youtube', 'godrej-facebook', 'godrej-linkdin', 'godrej-insta']
   const socialMediaIcons = block.querySelectorAll('.social-media1 > picture');
-  socialMediaIcons.forEach((elm , i) => {
+  socialMediaIcons.forEach((elm, i) => {
     elm.classList.add(socialIconclass[i]);
   })
 
@@ -147,20 +147,20 @@ export default async function decorate(block) {
   const godrejLinkdIn = block.querySelector('.godrej-linkdin');
   const godrejInsta = block.querySelector('.godrej-insta');
 
-  godrejTwitter.addEventListener('click',()=>{
-    window.location.href=godrejTwitterLink;
+  godrejTwitter.addEventListener('click', () => {
+    window.location.href = godrejTwitterLink;
   })
-  godrejYoutube.addEventListener('click',()=>{
-    window.location.href=godrejYoutubeLink;
+  godrejYoutube.addEventListener('click', () => {
+    window.location.href = godrejYoutubeLink;
   })
-  godrejFacebook.addEventListener('click',()=>{
-    window.location.href=godrejFacebookLink;
+  godrejFacebook.addEventListener('click', () => {
+    window.location.href = godrejFacebookLink;
   })
-  godrejLinkdIn.addEventListener('click',()=>{
-    window.location.href=godrejLinkdInLink;
+  godrejLinkdIn.addEventListener('click', () => {
+    window.location.href = godrejLinkdInLink;
   })
-  godrejInsta.addEventListener('click',()=>{
-    window.location.href=godrejInstaLink;
+  godrejInsta.addEventListener('click', () => {
+    window.location.href = godrejInstaLink;
   })
   processElements();
 
