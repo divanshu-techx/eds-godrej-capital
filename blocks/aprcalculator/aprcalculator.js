@@ -285,7 +285,7 @@ function toggleInputBox(block) {
   const loanTenureMonthsAprRange = block.querySelector('#loanTenureMonthsAprRange');
   const loanTenureMonthsApr = block.querySelector('#loanTenureMonthsApr');
 
-  loanTenureYearsApr.addEventListener('input' ,function () {
+  loanTenureYearsApr.addEventListener('input', function () {
     const maxValue = loanTenureYearsAprRange.max;
     const { value } = this;
 
@@ -302,7 +302,7 @@ function toggleInputBox(block) {
     updateAPR(block);
   });
 
-  loanTenureYearsAprRange.addEventListener('change',function () {
+  loanTenureYearsAprRange.addEventListener('change', function () {
     const maxValue = loanTenureYearsAprRange.max;
     const { value } = this;
 
