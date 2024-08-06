@@ -1,3 +1,20 @@
+.cibil-score-container.links-container {
+    display: flex;
+    gap: 40px;
+}
+
+.cibil-score-container.links-container .cibil-score-wrapper {
+    width: 60%;
+}
+
+.cibil-score-container.links-container .links-wrapper {
+    background-color: #F4F4F4;
+    padding: 34.5px;
+    box-shadow: 0px 0px 8px 0px #00000040;
+    border-radius: 4px;
+    width: 40%;
+}
+
 .cibil-score .cibil-score-parent {
     display: flex;
     box-shadow: 0px 0px 8px 0px #00000040;
@@ -58,11 +75,20 @@
     position: relative;
 }
 
+.tooltip-container .info-btn-icon {
+    cursor: pointer;
+}
+
 .cibil-score-info-container .score-info-container {
+    display: none;
+    transition: display 0.5s ease-in;
     position: absolute;
     left: -1rem;
 }
 
+.tooltip-container:hover .score-info-container {
+    display: block;
+}
 
 .score-info-content .score-grade-content {
     display: flex;
@@ -269,4 +295,17 @@
 
 .cibil-score-grade.excellent {
     color: #017b30;
+}
+
+.cibil-score-container.links-container .links-wrapper .links {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.cibil-score-container.links-container .links-wrapper .links>div {
+    display: flex;
+    justify-content: space-between;
+    background-color: #FFFFFF;
+    border-radius: 4px;
 }
