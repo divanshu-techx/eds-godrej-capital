@@ -358,124 +358,28 @@ function addChangeEventOnCheckboxes(block) {
   });
 }
 
-export default async function decorate(block) {
-  const container = block.closest('.applynowform-container');
-  const attributesObj = getDataAttributes(container);
-  const formLink = block.querySelector('a[href$=".json"]');
-  if (!formLink) return;
-
-  const form = await createForm(formLink.href);
-  autoFocusEl(form);
-  block.replaceChildren(form);
-
-  const verifyFormEl = block.querySelectorAll('.verify-step');
-  verifyFormEl.forEach((el) => {
-    el.style.display = 'none';
-  });
-
-  const ChangeNoEl = block.querySelector('#change-number');
-  const initialContent = ChangeNoEl.innerText;
-  changesScreenChange(ChangeNoEl, attributesObj, initialContent);
-  window.addEventListener('resize', () => changesScreenChange(ChangeNoEl, attributesObj, initialContent));
-  const tAndCredirectionStepFirst = createRedirection(attributesObj);
-  const tAndCredirectionStepSecond = createRedirection(attributesObj);
-
-  block.querySelector('#form-description').append(tAndCredirectionStepFirst);
-  block.querySelector('#form-message4').append(tAndCredirectionStepSecond);
-  addInitiallychecked(block);
-  addChangeEventOnCheckboxes(block);
-  disableSubmitUntilFillForm(block);
-  changeNumberFunctinality(block);
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-   //const valid = form.checkValidity();
-    if (validateFormInput(VALIDATION_DATA, block)) {
-      handleSubmit(form);
-      const registrationFormEl = block.querySelectorAll('.step1');
-      registrationFormEl.forEach((el) => {
-        el.style.display = 'none';
-      });
-      verifyFormEl.forEach((el) => {
-        el.style.display = 'flex';
-      });
-    } else {
-      const firstInvalidEl = form.querySelector(':invalid:not(fieldset)');
-      if (firstInvalidEl) {
-        firstInvalidEl.focus();
-        firstInvalidEl.scrollIntoView({ behavior: 'smooth' });
-      }
+function addInitiallychecked(block) {
+  const currentUrl = new URL(window.location.href);
+  try {
+    let categoryParam = currentUrl.searchParams.get('category');
+    categoryParam = categoryParam.replace(/_/g, ' ');
+    if (categoryParam) {
+      const checkboxes = block.querySelectorAll('input[type="checkbox"][name="loanType"]');
+      checkboxes.forEach(((checkbox) => {
+        if (checkbox.getAttribute('value').toLowerCase() === categoryParam.toLowerCase()) {
+          checkbox.checked = true;
+          checkbox.parentNode.classList.add('checked');
+        }
+      }));
     }
-  });
-
-  function addInitiallychecked(block) {
-    const currentUrl = new URL(window.location.href);
-    try {
-      let categoryParam = currentUrl.searchParams.get('category');
-      categoryParam = categoryParam.replace(/_/g, ' ');
-      if (categoryParam) {
-        const checkboxes = block.querySelectorAll('input[type="checkbox"][name="loanType"]');
-        checkboxes.forEach(((checkbox) => {
-          if (checkbox.getAttribute('value').toLowerCase() === categoryParam.toLowerCase()) {
-            checkbox.checked = true;
-            checkbox.parentNode.classList.add('checked');
-          }
-        }));
-      }
-    } catch (error) {
-    }
+  } catch (error) {
+    console.error('error not retrived');
   }
-  function validateForm() {
-    const fields = document.querySelectorAll('#form-box input[type="text"]');
-    let isAnyFieldEmpty = false;
-
-    // Remove existing error message if any
-    const existingErrorMessage = document.getElementById('error-message');
-    if (existingErrorMessage) {
-      existingErrorMessage.remove();
-    }
-
-    // Check if any field is empty
-    fields.forEach((field) => {
-      if (field.value.trim() === '') {
-        isAnyFieldEmpty = true;
-      }
-    });
-
-    if (isAnyFieldEmpty) {
-      // Create a new error message
-      const errorMessage = document.createElement('div');
-      errorMessage.id = 'error-message';
-      errorMessage.className = 'error-message';
-      errorMessage.textContent = getDataAttributeValueByName('emptyotpfieldvalidationmessage');
-
-      // Append the error message to the fieldset
-      const formBox = document.getElementById('form-box');
-      formBox.parentNode.insertBefore(errorMessage, formBox.nextSibling);
-      return false; // Form is not valid
-    }
-
-    return true; // Form is valid
-  }
-
-  const verifyFormBtn = document.querySelector('.verify-step.btn-verify-step button');
-  verifyFormBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      const payload = generatePayload(form);
-      if (payload) {
-        handleVerify(generateVerifyOtpPayload(payload), payload.Mobile, block);
-      } else {
-        console.error('error payload is not retrived');
-      }
-      // You can now proceed with the payload
-    }
-  });
 }
 
 function validateFormInput(rules, block) {
   // Clear previous error messages
-  block.querySelectorAll('.error-message').forEach(el => el.remove());
+  block.querySelectorAll('.error-message').forEach((el) => el.remove());
   let isValid = true;
   rules.forEach((rule) => {
     const inputField = block.querySelector(`[name="${rule.fieldName}"]`);
@@ -489,13 +393,12 @@ function validateFormInput(rules, block) {
 
       // Append the error message to the corresponding field's parent node
       inputField.parentNode.appendChild(errorDiv);
-
     }
   });
 
   const checboxes = block.querySelectorAll('.step1.field-wrapper input[type="checkbox"]');
   let isChecked = false;
-  for (let index = 0; index < checboxes.length; index++) {
+  for (let index = 0; index < checboxes.length; index += 1) {
     if (checboxes[index].checked === true) {
       isChecked = true;
     }
@@ -514,9 +417,9 @@ function disableSubmitUntilFillForm(block) {
   const submitButton = block.querySelector('.step1.submit-registration button');
 
   const validators = {
-    text: value => /^[a-zA-Z\s]*$/.test(value.trim()),
-    tel: value => /^[6789]\d{9}$/.test(value.trim()),
-    email: value => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value.trim()),
+    text: (value) => /^[a-zA-Z\s]*$/.test(value.trim()),
+    tel: (value) => /^[6789]\d{9}$/.test(value.trim()),
+    email: (value) => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value.trim()),
   };
 
   const errorMessages = {
@@ -565,8 +468,8 @@ function disableSubmitUntilFillForm(block) {
   }
 
   function validateForm() {
-    let isInputFilled = inputs.every((input) => input.type === 'checkbox' || validateInput(input, false));
-    let isCheckboxChecked = inputs.some((input) => input.type === 'checkbox' && input.checked);
+    const isInputFilled = inputs.every((input) => input.type === 'checkbox' || validateInput(input, false));
+    const isCheckboxChecked = inputs.some((input) => input.type === 'checkbox' && input.checked);
 
     submitButton.disabled = !(isInputFilled && isCheckboxChecked);
   }
@@ -588,7 +491,8 @@ function disableSubmitUntilFillForm(block) {
     input.addEventListener('input', () => {
       if (input.type === 'tel') {
         input.value = input.value.replace(/[^\d]/g, '').slice(0, 10); // Allow only digits and limit to 10 characters
-      } else if (input.type === 'text') {
+      }
+      if (input.type === 'text') {
         input.value = input.value.replace(/[^a-zA-Z\s]/g, '').replace(/\s{2,}/g, ' ');
       }
       validateForm();
@@ -600,4 +504,103 @@ function disableSubmitUntilFillForm(block) {
   });
 
   validateForm();
+}
+
+export default async function decorate(block) {
+  const container = block.closest('.applynowform-container');
+  const attributesObj = getDataAttributes(container);
+  const formLink = block.querySelector('a[href$=".json"]');
+  if (!formLink) return;
+
+  const form = await createForm(formLink.href);
+  autoFocusEl(form);
+  block.replaceChildren(form);
+
+  const verifyFormEl = block.querySelectorAll('.verify-step');
+  verifyFormEl.forEach((el) => {
+    el.style.display = 'none';
+  });
+
+  const ChangeNoEl = block.querySelector('#change-number');
+  const initialContent = ChangeNoEl.innerText;
+  changesScreenChange(ChangeNoEl, attributesObj, initialContent);
+  window.addEventListener('resize', () => changesScreenChange(ChangeNoEl, attributesObj, initialContent));
+  const tAndCredirectionStepFirst = createRedirection(attributesObj);
+  const tAndCredirectionStepSecond = createRedirection(attributesObj);
+
+  block.querySelector('#form-description').append(tAndCredirectionStepFirst);
+  block.querySelector('#form-message4').append(tAndCredirectionStepSecond);
+  addInitiallychecked(block);
+  addChangeEventOnCheckboxes(block);
+  disableSubmitUntilFillForm(block);
+  changeNumberFunctinality(block);
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    // const valid = form.checkValidity();
+    if (validateFormInput(VALIDATION_DATA, block)) {
+      handleSubmit(form);
+      const registrationFormEl = block.querySelectorAll('.step1');
+      registrationFormEl.forEach((el) => {
+        el.style.display = 'none';
+      });
+      verifyFormEl.forEach((el) => {
+        el.style.display = 'flex';
+      });
+    } else {
+      const firstInvalidEl = form.querySelector(':invalid:not(fieldset)');
+      if (firstInvalidEl) {
+        firstInvalidEl.focus();
+        firstInvalidEl.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  });
+
+  
+  function validateForm() {
+    const fields = document.querySelectorAll('#form-box input[type="text"]');
+    let isAnyFieldEmpty = false;
+
+    // Remove existing error message if any
+    const existingErrorMessage = document.getElementById('error-message');
+    if (existingErrorMessage) {
+      existingErrorMessage.remove();
+    }
+
+    // Check if any field is empty
+    fields.forEach((field) => {
+      if (field.value.trim() === '') {
+        isAnyFieldEmpty = true;
+      }
+    });
+
+    if (isAnyFieldEmpty) {
+      // Create a new error message
+      const errorMessage = document.createElement('div');
+      errorMessage.id = 'error-message';
+      errorMessage.className = 'error-message';
+      errorMessage.textContent = getDataAttributeValueByName('emptyotpfieldvalidationmessage');
+
+      // Append the error message to the fieldset
+      const formBox = document.getElementById('form-box');
+      formBox.parentNode.insertBefore(errorMessage, formBox.nextSibling);
+      return false; // Form is not valid
+    }
+
+    return true; // Form is valid
+  }
+
+  const verifyFormBtn = document.querySelector('.verify-step.btn-verify-step button');
+  verifyFormBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      const payload = generatePayload(form);
+      if (payload) {
+        handleVerify(generateVerifyOtpPayload(payload), payload.Mobile, block);
+      } else {
+        console.error('error payload is not retrived');
+      }
+      // You can now proceed with the payload
+    }
+  });
 }

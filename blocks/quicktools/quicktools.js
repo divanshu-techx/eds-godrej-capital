@@ -1,4 +1,5 @@
 export default async function decorate(block) {
+  console.log(block)
   const allDivs = block.querySelectorAll(':scope > div');
 
   allDivs.forEach((div) => {
@@ -19,9 +20,9 @@ export default async function decorate(block) {
             if (splitIndex === -1) {
               splitIndex = middleIndex;
             }
-            const firstPart = text.substring(0, splitIndex).trim();
-            const secondPart = text.substring(splitIndex).trim();
-            textElement.innerHTML = `<span>${firstPart}</span><span>${secondPart}</span>`;
+            // const firstPart = text.substring(0, splitIndex).trim();
+            // const secondPart = text.substring(splitIndex).trim();
+            // textElement.innerHTML = `<span>${firstPart}</span><span>${secondPart}</span>`;
           }
         }
       }
