@@ -50,16 +50,17 @@ function getDataAttributeValueByName(name) {
 
 function createElement(type, attributes = {}, ...children) {
   const element = document.createElement(type);
-  for (const [key, value] of Object.entries(attributes)) {
+  Object.entries(attributes).forEach(([key, value]) => {
     element.setAttribute(key, value);
-  }
-  children.forEach(child => {
+  });
+    
+  children.forEach((child) => {
     if (typeof child === 'string') {
       element.appendChild(document.createTextNode(child));
     } else {
       element.appendChild(child);
     }
-  });  
+  });
   return element;
 }
 
