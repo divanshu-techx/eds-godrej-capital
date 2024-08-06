@@ -215,6 +215,8 @@ button {
     background-color: #3CB8FF;
     color: #fff;
 }
+.primary-button:hover{
+background-color:#00a2ff}
 
 .secondary-button {
     background-color: #6c757d;
