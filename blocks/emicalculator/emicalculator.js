@@ -667,7 +667,7 @@ function initialize(block) {
     // loanAmtText.value = formatNumberWithCommas(self.target.value);
     loanAmtText.value = formatNumberToIndianCommas(self.target.value);
     P = removeCommaAndConvertToInt(self.target.value);
-    const  value  = P;
+    const value = P;
     const maxValue = loanAmtSlider.max; // Get the maximum value of the range input
     const percentage = (value / maxValue) * 100;
     if (window.innerWidth <= 768) {
@@ -678,7 +678,7 @@ function initialize(block) {
     displayDetails(P, R, N, M, pie, block);
   });
 
-  loanAmtText.addEventListener('blur', function (self) {
+  loanAmtText.addEventListener('blur', (self) => {
     if (self.target.value === '') {
       loanAmtSlider.value = loanAmtSlider.min;
       self.target.value = formatNumberToIndianCommas(loanAmtSlider.min);
@@ -687,7 +687,7 @@ function initialize(block) {
       self.target.value = formatNumberToIndianCommas(self.target.value);
     }
     P = removeCommaAndConvertToInt(self.target.value);
-    const value  = P;
+    const value = P;
     const maxValue = loanAmtSlider.max; // Get the maximum value of the range input
     const percentage = (value / maxValue) * 100;
     // console.log(value);
@@ -709,7 +709,7 @@ function initialize(block) {
   intRateSlider.addEventListener('change', function (self) {
     intRateText.value = self.target.value;
     R = parseFloat(self.target.value);
-    const  value  = R;
+    const value = R;
     const percentage = (
       ((value - interestrateMinValue) / (interestrateMaxValue - interestrateMinValue))
       * 100
@@ -725,7 +725,7 @@ function initialize(block) {
     displayDetails(P, R, N, M, pie, block);
   });
 
-  intRateText.addEventListener('blur', function (self) {
+  intRateText.addEventListener('blur', (self) => {
     if (self.target.value === '') {
       intRateSlider.value = intRateSlider.min;
       self.target.value = intRateSlider.min;
@@ -733,7 +733,7 @@ function initialize(block) {
       intRateSlider.value = self.target.value;
     }
     R = parseFloat(self.target.value);
-    const  value  = R;
+    const value = R;
     const percentage = (
       ((value - interestrateMinValue) / (interestrateMaxValue - interestrateMinValue)) * 100
     );
@@ -756,7 +756,7 @@ function initialize(block) {
       loanPeriodTextMonth.value = loanPeriodSliderMonth.min;
       loanPeriodSliderMonth.value = loanPeriodSliderMonth.min;
 
-      const  value  = loanPeriodSliderMonth.min;
+      const value = loanPeriodSliderMonth.min;
       const percentage = (
         ((value - tenureMinYearvalue) / (tenureMaxYearvalue - tenureMinYearvalue))
         * 100
@@ -772,7 +772,7 @@ function initialize(block) {
       loanPeriodTextMonth.disabled = false;
       loanPeriodSliderMonth.disabled  = false;
     }
-    const  value  = N;
+    const value = N;
     const percentage = (
       ((value - tenureMinYearvalue) / (tenureMaxYearvalue - tenureMinYearvalue))
       * 100
@@ -787,7 +787,7 @@ function initialize(block) {
     displayDetails(P, R, N, M, pie, block);
   });
 
-  loanPeriodText.addEventListener('blur', function (self) {
+  loanPeriodText.addEventListener('blur', (self) => {
     if (self.target.value === '') {
       loanPeriodSlider.value = loanPeriodSlider.min;
       self.target.value = loanPeriodSlider.min;
@@ -801,7 +801,7 @@ function initialize(block) {
       loanPeriodTextMonth.value = loanPeriodSliderMonth.min;
       loanPeriodSliderMonth.value = loanPeriodSliderMonth.min;
 
-      const  value  = loanPeriodSliderMonth.min;
+      const value = loanPeriodSliderMonth.min;
       const percentage = (
         ((value - tenureMinYearvalue) / (tenureMaxYearvalue - tenureMinYearvalue))
         * 100
@@ -834,7 +834,7 @@ function initialize(block) {
   loanPeriodSliderMonth.addEventListener('change', function (self) {
     loanPeriodTextMonth.value = self.target.value;
     M = parseFloat(self.target.value);
-    const  value  = M;
+    const value = M;
     const percentage = (
       ((value - tenureMinMonthValue) / (tenureMaxMonthValue - tenureMinMonthValue))
       * 100
@@ -849,7 +849,7 @@ function initialize(block) {
     displayDetails(P, R, N, M, pie, block);
   });
 
-  loanPeriodTextMonth.addEventListener('blur', function (self) {
+  loanPeriodTextMonth.addEventListener('blur', (self) => {
     if (self.target.value === '') {
       loanPeriodSliderMonth.value = loanPeriodSliderMonth.min;
       self.target.value = loanPeriodSliderMonth.min;
@@ -857,7 +857,7 @@ function initialize(block) {
       loanPeriodSliderMonth.value = self.target.value;
     }
     M = parseFloat(self.target.value);
-    const  value  = M;
+    const value = M;
     const percentage = (
       ((value - tenureMinMonthValue) / (tenureMaxMonthValue - tenureMinMonthValue))
       * 100
