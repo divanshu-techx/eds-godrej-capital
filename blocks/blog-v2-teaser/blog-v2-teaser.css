@@ -77,6 +77,24 @@
 
 }
 
+@media (width >= 1600px) {
+    .blog-v2-teaser.left .blog_v2_banner_content-wrapper {
+        padding-left: 9vw;
+        padding-right: 9vw;
+        max-width: unset;
+    }
+
+    .blog-v2-teaser .blog_v2_banner_content {
+        width: 1000px;
+        display: flex;
+        /* margin-left: 25px; */
+        flex-direction: column;
+        /* padding: 20px; */
+        box-sizing: border-box;
+        transition: width 0.3s ease-in-out;
+    }
+}
+
 
 .blog-v2-teaser .blog_v2_banner_content p,
 .blog-v2-teaser .blog_v2_banner_content ul,

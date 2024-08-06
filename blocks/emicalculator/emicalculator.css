@@ -36,7 +36,7 @@
 	}
 }
 
-.footer {
+.loan-details .footer {
 	display: flex;
 	justify-content: space-between;
 }
@@ -722,6 +722,17 @@ input[type="range"]::-moz-range-track {
 	@media (max-width: 768px) {
 		padding: 20px 0px;
 		background-color: #fff;
+	}
+}
+
+
+@media (width >= 1600px) {
+	.view {
+	  max-width: calc(772 / (772 + 554) * 100%)!important;
+	}
+	
+	.breakupdesktop {
+	  max-width: calc(554 / (772 + 554) * 100%)!important;
 	}
 }
 
