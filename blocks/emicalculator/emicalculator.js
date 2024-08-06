@@ -100,7 +100,7 @@ function displayDetails(P, R, N, M, pie, block) {
   block.querySelector('#tenure-rate').innerText = `@ ${R.toLocaleString('en-IN', R)}%`;
   block.querySelector('#monthTenure').innerText = m.toLocaleString('en-IN', m);
   block.querySelector('#mobile-monthTenure').innerText = m.toLocaleString('en-IN', m);
-  block.querySelector('#yearTenure').innerText = n.toLocaleString('en-IN', n + 'Y');
+  block.querySelector('#yearTenure').innerText = `${n.toLocaleString('en-IN', n)}`;
   block.querySelector('#mobile-yearTenure').innerText = n.toLocaleString('en-IN', n);
 
   pie.data.datasets[0].data[0] = P;
@@ -108,7 +108,6 @@ function displayDetails(P, R, N, M, pie, block) {
   pie.update();
   // line.update(); // Uncomment if you want to update the line chart
 }
-
 
 function initialize(block) {
   const loanAmountMaxValue = getDataAttributeValueByName('loan-amount-max-value');
@@ -222,13 +221,13 @@ function initialize(block) {
     ),
     createElement(
       'input',
-          {
-            type: 'range',
-            id: 'interest-rate',
-            min: interestrateMinValue,
-            max: interestrateMaxValue,
-            step: '0.5',
-          },
+      {
+        type: 'range',
+        id: 'interest-rate',
+        min: interestrateMinValue,
+        max: interestrateMaxValue,
+        step: '0.5',
+      },
     ),
     createElement(
       'div',
@@ -331,10 +330,16 @@ function initialize(block) {
             style: 'color: #3b3b3b; font-size:14px;font-weight:400',
           },
         ),
-      ),),
+      ),
+    ),
     createElement(
       'input',
-      { type: 'range', id: 'loan-period-month', min: tenureMinMonthValue, max: tenureMaxMonthValue },
+      {
+        type: 'range',
+        id: 'loan-period-month',
+        min: tenureMinMonthValue,
+        max: tenureMaxMonthValue,
+      },
     ),
     createElement(
       'div',
@@ -543,7 +548,9 @@ function initialize(block) {
           createElement(
             'span',
             { id: 'mobile-yearTenure' },
-          ),'Years', ' ',
+          ),
+          'Years',
+          ' ',
           createElement(
             'span',
             { id: 'mobile-monthTenure' },
