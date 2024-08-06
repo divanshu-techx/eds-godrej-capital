@@ -334,37 +334,37 @@ function toggleInputBox(block){
   const loanTenureMonthsAprRange = block.querySelector('#newLoanTenureMonths');
   const loanTenureMonthsApr = block.querySelector('#newLoanTenureMonthsDisplay');
 
-  loanTenureYearsApr.addEventListener('input',function(){
-      const maxValue=loanTenureYearsAprRange.max;
-      const value=this.value;
+  loanTenureYearsApr.addEventListener('input', function () {
+      const maxValue = loanTenureYearsAprRange.max;
+      const {value }= this;
 
-      if (maxValue == value) {
-          loanTenureMonthsAprRange.disabled=true;
-          loanTenureMonthsApr.disabled=true;
-          loanTenureMonthsAprRange.value=loanTenureMonthsAprRange.min;
-          loanTenureMonthsApr.value=loanTenureMonthsAprRange.min;
+      if (maxValue === value) {
+          loanTenureMonthsAprRange.disabled = true;
+          loanTenureMonthsApr.disabled = true;
+          loanTenureMonthsAprRange.value = loanTenureMonthsAprRange.min;
+          loanTenureMonthsApr.value = loanTenureMonthsAprRange.min;
           updateCalculations(block);
           updateRangeColors();
       } else {
-          loanTenureMonthsAprRange.disabled=false;
-          loanTenureMonthsApr.disabled=false;
+          loanTenureMonthsAprRange.disabled = false;
+          loanTenureMonthsApr.disabled = false;
       }
   })
 
-  loanTenureYearsAprRange.addEventListener('change',function(){
-      const maxValue=loanTenureYearsAprRange.max;
-      const value=this.value;
+  loanTenureYearsAprRange.addEventListener('change', function () {
+      const maxValue = loanTenureYearsAprRange.max;
+      const { value } = this;
 
-      if (maxValue == value) {
-          loanTenureMonthsAprRange.disabled=true;
-          loanTenureMonthsApr.disabled=true;
-          loanTenureMonthsAprRange.value=loanTenureMonthsAprRange.min;
-          loanTenureMonthsApr.value=loanTenureMonthsAprRange.min;
+      if (maxValue === value) {
+          loanTenureMonthsAprRange.disabled = true;
+          loanTenureMonthsApr.disabled = true;
+          loanTenureMonthsAprRange.value = loanTenureMonthsAprRange.min;
+          loanTenureMonthsApr.value = loanTenureMonthsAprRange.min;
           updateCalculations(block);
           updateRangeColors();
       } else {
-          loanTenureMonthsAprRange.disabled=false;
-          loanTenureMonthsApr.disabled=false;
+          loanTenureMonthsAprRange.disabled = false;
+          loanTenureMonthsApr.disabled = false;
       }
   })
 }
