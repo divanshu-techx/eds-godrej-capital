@@ -98,7 +98,7 @@
 
 @media (width>=1600px) {
   .loan-card {
-    flex: 1 0 calc(25% - 16px); /* Keep 4 cards per row */
+    flex: 1 0 calc(20% - 16px); /* Keep 4 cards per row */
   }
 }
 
