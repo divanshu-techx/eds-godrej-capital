@@ -358,6 +358,154 @@ function addChangeEventOnCheckboxes(block) {
   });
 }
 
+function addInitiallychecked(block) {
+  const currentUrl = new URL(window.location.href);
+  try {
+    let categoryParam = currentUrl.searchParams.get('category');
+    categoryParam = categoryParam.replace(/_/g, ' ');
+    if (categoryParam) {
+      const checkboxes = block.querySelectorAll('input[type="checkbox"][name="loanType"]');
+      checkboxes.forEach(((checkbox) => {
+        if (checkbox.getAttribute('value').toLowerCase() === categoryParam.toLowerCase()) {
+          checkbox.checked = true;
+          checkbox.parentNode.classList.add('checked');
+        }
+      }));
+    }
+  } catch (error) {
+    console.error('error not retrived');
+  }
+}
+
+function validateFormInput(rules, block) {
+  // Clear previous error messages
+  block.querySelectorAll('.error-message').forEach((el) => el.remove());
+  let isValid = true;
+  rules.forEach((rule) => {
+    const inputField = block.querySelector(`[name="${rule.fieldName}"]`);
+    const fieldValue = inputField.value;
+    if (!fieldValue || !rule.regexPattern.test(fieldValue)) {
+      isValid = false;
+      // Create error message div
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'error-message';
+      errorDiv.textContent = rule.validationMessage;
+
+      // Append the error message to the corresponding field's parent node
+      inputField.parentNode.appendChild(errorDiv);
+    }
+  });
+
+  const checboxes = block.querySelectorAll('.step1.field-wrapper input[type="checkbox"]');
+  let isChecked = false;
+  for (let index = 0; index < checboxes.length; index += 1) {
+    if (checboxes[index].checked === true) {
+      isChecked = true;
+    }
+  }
+  if (!isChecked) {
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-message';
+    errorDiv.textContent = getDataAttributeValueByName('loantypevalidationerrormessage');
+    checboxes[0].parentNode.parentNode.appendChild(errorDiv);
+  }
+  return (isValid && isChecked);
+}
+
+function disableSubmitUntilFillForm(block) {
+  const inputs = Array.from(block.querySelectorAll('.step1.field-wrapper input'));
+  const submitButton = block.querySelector('.step1.submit-registration button');
+
+  const validators = {
+    text: (value) => /^[a-zA-Z\s]*$/.test(value.trim()),
+    tel: (value) => /^[6789]\d{9}$/.test(value.trim()),
+    email: (value) => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value.trim()),
+  };
+
+  const errorMessages = {
+    text: getDataAttributeValueByName('namevalidationerrormessage'),
+    tel: getDataAttributeValueByName('mobilevalidationerrormessage'),
+    email: getDataAttributeValueByName('emailvalidationerrormessage'),
+  };
+
+  function createErrorElement(input) {
+    let errorElement = input.parentNode.querySelector('.error-message');
+    if (!errorElement) {
+      errorElement = document.createElement('span');
+      errorElement.className = 'error-message';
+      input.parentNode.appendChild(errorElement);
+    }
+    return errorElement;
+  }
+
+  function showErrorMessage(input, message) {
+    const errorElement = createErrorElement(input);
+    errorElement.textContent = message;
+    errorElement.style.display = 'block';
+  }
+
+  function hideErrorMessage(input) {
+    const errorElement = createErrorElement(input);
+    errorElement.textContent = '';
+    errorElement.style.display = 'none';
+  }
+
+  function validateInput(input, showErrors = true) {
+    const value = input.value.trim();
+    const type = input.type;
+    let isValid = type in validators ? validators[type](value) : true;
+
+    if (type === 'tel' && !/^\d*$/.test(value)) {
+      isValid = false;
+    }
+
+    if (isValid) {
+      hideErrorMessage(input);
+    } else if (showErrors) {
+      showErrorMessage(input, errorMessages[type]);
+    }
+    return isValid;
+  }
+
+  function validateForm() {
+    const isInputFilled = inputs.every((input) => input.type === 'checkbox' || validateInput(input, false));
+    const isCheckboxChecked = inputs.some((input) => input.type === 'checkbox' && input.checked);
+
+    submitButton.disabled = !(isInputFilled && isCheckboxChecked);
+  }
+
+  inputs.forEach((input) => {
+    let hasFocused = false;
+
+    input.addEventListener('focus', () => {
+      hasFocused = true;
+    });
+
+    input.addEventListener('blur', () => {
+      if (hasFocused) {
+        validateInput(input);
+        validateForm();
+      }
+    });
+
+    input.addEventListener('input', () => {
+      if (input.type === 'tel') {
+        input.value = input.value.replace(/[^\d]/g, '').slice(0, 10); // Allow only digits and limit to 10 characters
+      }
+      if (input.type === 'text') {
+        input.value = input.value.replace(/[^a-zA-Z\s]/g, '').replace(/\s{2,}/g, ' ');
+      }
+      validateForm();
+    });
+
+    if (input.type === 'checkbox') {
+      input.addEventListener('change', validateForm);
+    }
+  });
+
+  validateForm();
+}
+
 export default async function decorate(block) {
   const container = block.closest('.applynowform-container');
   const attributesObj = getDataAttributes(container);
@@ -389,7 +537,7 @@ export default async function decorate(block) {
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    //const valid = form.checkValidity();
+    // const valid = form.checkValidity();
     if (validateFormInput(VALIDATION_DATA, block)) {
       handleSubmit(form);
       const registrationFormEl = block.querySelectorAll('.step1');
@@ -408,23 +556,7 @@ export default async function decorate(block) {
     }
   });
 
-  function addInitiallychecked(block) {
-    const currentUrl = new URL(window.location.href);
-    try {
-      let categoryParam = currentUrl.searchParams.get('category');
-      categoryParam = categoryParam.replace(/_/g, ' ');
-      if (categoryParam) {
-        const checkboxes = block.querySelectorAll('input[type="checkbox"][name="loanType"]');
-        checkboxes.forEach(((checkbox) => {
-          if (checkbox.getAttribute('value').toLowerCase() === categoryParam.toLowerCase()) {
-            checkbox.checked = true;
-            checkbox.parentNode.classList.add('checked');
-          }
-        }));
-      }
-    } catch (error) {
-    }
-  }
+  
   function validateForm() {
     const fields = document.querySelectorAll('#form-box input[type="text"]');
     let isAnyFieldEmpty = false;
@@ -471,135 +603,4 @@ export default async function decorate(block) {
       // You can now proceed with the payload
     }
   });
-}
-
-function validateFormInput(rules, block) {
-  // Clear previous error messages
-  block.querySelectorAll('.error-message').forEach(el => el.remove());
-  let isValid = true;
-  rules.forEach((rule) => {
-    const inputField = block.querySelector(`[name="${rule.fieldName}"]`);
-    const fieldValue = inputField.value;
-    if (!fieldValue || !rule.regexPattern.test(fieldValue)) {
-      isValid = false;
-      // Create error message div
-      const errorDiv = document.createElement('div');
-      errorDiv.className = 'error-message';
-      errorDiv.textContent = rule.validationMessage;
-
-      // Append the error message to the corresponding field's parent node
-      inputField.parentNode.appendChild(errorDiv);
-
-    }
-  });
-
-  const checboxes = block.querySelectorAll('.step1.field-wrapper input[type="checkbox"]');
-  let isChecked = false;
-  for (let index = 0; index < checboxes.length; index++) {
-    if (checboxes[index].checked === true) {
-      isChecked = true;
-    }
-  }
-  if (!isChecked) {
-    const errorDiv = document.createElement('div');
-    errorDiv.className = 'error-message';
-    errorDiv.textContent = getDataAttributeValueByName('loantypevalidationerrormessage');
-    checboxes[0].parentNode.parentNode.appendChild(errorDiv);
-  }
-  return (isValid && isChecked);
-}
-
-function disableSubmitUntilFillForm(block) {
-  const inputs = Array.from(block.querySelectorAll('.step1.field-wrapper input'));
-  console.log(inputs)
-  const submitButton = block.querySelector('.step1.submit-registration button');
-
-  const validators = {
-    text: value => /^[A-Za-z\s]+$/.test(value.trim()),
-    tel: value => /^[6789]\d{9}$/.test(value.trim()),
-    email: value => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value.trim()),
-  };
-
-  const errorMessages = {
-    text: getDataAttributeValueByName('namevalidationerrormessage'),
-    tel: getDataAttributeValueByName('mobilevalidationerrormessage'),
-    email: getDataAttributeValueByName('emailvalidationerrormessage'),
-  };
-
-  function createErrorElement(input) {
-    let errorElement = input.parentNode.querySelector('.error-message');
-    if (!errorElement) {
-      errorElement = document.createElement('span');
-      errorElement.className = 'error-message';
-      input.parentNode.appendChild(errorElement);
-    }
-    return errorElement;
-  }
-
-  function showErrorMessage(input, message) {
-    const errorElement = createErrorElement(input);
-    errorElement.textContent = message;
-    errorElement.style.display = 'block';
-  }
-
-  function hideErrorMessage(input) {
-    const errorElement = createErrorElement(input);
-    errorElement.textContent = '';
-    errorElement.style.display = 'none';
-  }
-
-  function validateInput(input, showErrors = true) {
-    const value = input.value.trim();
-    const type = input.type;
-    let isValid = type in validators ? validators[type](value) : true;
-    console.log(`Validating ${type}: ${value} -> ${isValid}`);
-    if (type === 'tel' && !/^\d*$/.test(value)) {
-      isValid = false;
-    }
-
-    if (isValid) {
-      hideErrorMessage(input);
-    } else if (showErrors) {
-      showErrorMessage(input, errorMessages[type]);
-    }
-    return isValid;
-  }
-
-  function validateForm() {
-    let isInputFilled = inputs.every((input) => input.type === 'checkbox' || validateInput(input, false));
-    let isCheckboxChecked = inputs.some((input) => input.type === 'checkbox' && input.checked);
-
-    submitButton.disabled = !(isInputFilled && isCheckboxChecked);
-  }
-
-  inputs.forEach((input) => {
-    let hasFocused = false;
-
-    input.addEventListener('focus', () => {
-      hasFocused = true;
-    });
-
-    input.addEventListener('blur', () => {
-      if (hasFocused) {
-        validateInput(input);
-        validateForm();
-      }
-    });
-
-    input.addEventListener('input', () => {
-      if (input.type === 'tel') {
-        input.value = input.value.replace(/[^\d]/g, '').slice(0, 10); // Allow only digits and limit to 10 characters
-      }
-      if (input.type === 'text') {
-        input.value = input.value.replace(/[^a-zA-Z\s]/g, '').replace(/\s{2,}/g, ' ');
-      }
-      validateForm();
-    });
-
-    if (input.type === 'checkbox') {
-      input.addEventListener('change', validateForm);
-    }
-  });
-
-  validateForm();
 }
