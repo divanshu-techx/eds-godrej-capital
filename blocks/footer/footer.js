@@ -7,56 +7,52 @@ const isDesktop = window.matchMedia('(min-width: 900px)');
  * loads and decorates the footer
  * @param {Element} block The footer block element
  */
-
 function getDataAttributeValueByName(name) {
   const element = document.querySelector(`[data-${name}]`);
   return element ? element.getAttribute(`data-${name}`) : '';
 }
 
 function getQueryParams(url) {
-    try {
-        // Create a base URL for relative URLs
-        const baseUrl = window.location.origin;
-        const fullUrl = new URL(url, baseUrl); // Handle relative URLs
-        const params = {};
-        for (const [key, value] of fullUrl.searchParams) {
-            params[key] = value;
-        }
-        return params;
-    } catch (error) {
-        console.error(`Invalid URL: ${url}`, error);
-        return {}; // Return an empty object if the URL is invalid
+  try {
+    // Create a base URL for relative URLs
+    const baseUrl = window.location.origin;
+    // Handle relative URLs
+    const fullUrl = new URL(url, baseUrl);
+    const params = {};
+    for (const [key, value] of fullUrl.searchParams) {
+      params[key] = value;
     }
+    return params;
+  } catch (error) {
+    console.error(`Invalid URL: ${url}`, error);
+    return {}; // Return an empty object if the URL is invalid
+  }
 }
 
 function processElements() {
-    // Get all elements inside the footer
-    const footerElements = document.querySelectorAll('footer *');
+  // Get all elements inside the footer
+  const footerElements = document.querySelectorAll('footer *');
 
-    footerElements.forEach(element => {
-        Array.from(element.attributes).forEach(attr => {
-            if (attr.name.startsWith('data-godrej-') && attr.value.includes('gtm=')) {
-                const url = attr.value;
-
-                const params = getQueryParams(url);
-
-                if (params.gtm) {
-                    // Extract the data attribute name (e.g., data-godrej-twitter)
-                    const dataAttrName = attr.name;
-                    // Derive the class name from the data attribute name (e.g., godrej-twitter)
-                    const className = dataAttrName.slice(5); // Remove 'data-' prefix
-
-                    // Find elements with the derived class name inside the footer
-                    const sameClassElements = document.querySelectorAll(`footer .${className}`);
-
-                    sameClassElements.forEach(sameClassElement => {
-                        // Add new data attribute with gtm value
-                        sameClassElement.setAttribute(`data-gtm`, params.gtm);
-                    });
-                }
-            }
-        });
+  footerElements.forEach(element => {
+    Array.from(element.attributes).forEach((attr) => {
+      if (attr.name.startsWith('data-godrej-') && attr.value.includes('gtm=')) {
+        const url = attr.value;
+        const params = getQueryParams(url);
+        if (params.gtm) {
+          // Extract the data attribute name (e.g., data-godrej-twitter)
+          const dataAttrName = attr.name;
+          // Derive the class name from the data attribute name (e.g., godrej-twitter)
+          const className = dataAttrName.slice(5); // Remove 'data-' prefix
+          // Find elements with the derived class name inside the footer
+          const sameClassElements = document.querySelectorAll(`footer .${className}`);
+          sameClassElements.forEach((sameClassElement) => {
+            // Add new data attribute with gtm value
+            sameClassElement.setAttribute('data-gtm', params.gtm);
+          });
+        }
+      }
     });
+  });
 }
 
 export default async function decorate(block) {
@@ -131,7 +127,7 @@ export default async function decorate(block) {
 
   const godrejSocial = block.querySelectorAll('.godrej-social-account > div >p');
   godrejSocial.forEach((elm, i) => {
-    elm.classList.add(`social-media${i}`)
+    elm.classList.add(`social-media${i}`);
   });
 
   const socialIconclass = ['godrej-twitter', 'godrej-youtube', 'godrej-facebook', 'godrej-linkdin', 'godrej-insta'];
@@ -162,5 +158,4 @@ export default async function decorate(block) {
     window.location.href = godrejInstaLink;
   });
   processElements();
-
 }

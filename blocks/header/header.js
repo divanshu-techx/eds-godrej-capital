@@ -605,9 +605,8 @@ export default async function decorate(block) {
 
   getApiResponse(api);
 
-  
   const redirectPath = getDataAttributeValueByName('redirectionPath');
-  navBrandImage.addEventListener('click',()=>{
-    window.location.href=redirectPath;
-  })
+  navBrandImage.addEventListener('click', () => {
+    window.location.href = redirectPath;
+  });
 }
