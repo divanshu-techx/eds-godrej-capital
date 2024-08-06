@@ -283,12 +283,26 @@ function initialize(block) {
           createElement('div', { class: 'mobile-tenure-emi-label' }, monthlyEmiLabel),
           createElement('div', { id: 'tenure-rate', class: 'mobile-tenure-interest-rate' }),
         ),
-        createElement('div', { class: 'mobile-tenure-emi-details' },
-          createElement('h2', { id: 'tenure-price', class: 'mobile-tenure-emi-price' }),
+        createElement(
+          'div',
+          { class: 'mobile-tenure-emi-details' },
+          createElement(
+            'h2',
+            { 
+              id: 'tenure-price',
+              class: 'mobile-tenure-emi-price'
+            }
+          ),
         ),
       ),
-      createElement('div', { class: 'mobile-tenure-apply' },
-        createElement('button', { id: 'apply-btn-mobile', 'data-path': redirectionApplyPath }, applyNowLabel),
+      createElement(
+        'div',
+        { class: 'mobile-tenure-apply' },
+        createElement(
+          'button',
+          { id: 'apply-btn-mobile', 'data-path': redirectionApplyPath },
+          applyNowLabel
+        ),
       ),
     ),
   );
@@ -301,7 +315,7 @@ function initialize(block) {
   let N;
   let M;
   let pie;
-  let line;
+  // let line;
 
   const loanAmtSlider = block.querySelector('#loan-amount');
   const loanAmtText = block.querySelector('#loan-amt-text');
@@ -316,10 +330,10 @@ function initialize(block) {
 
   desktopApplyButton.addEventListener('click', () => {
     window.location.href = applyRedirectionPath;
-  })
+  });
   mobileApplyButton.addEventListener('click', () => {
     window.location.href = applyRedirectionPath;
-  })
+  });
 
   loanAmtSlider.addEventListener('change', (self) => {
     // loanAmtText.value = formatNumberWithCommas(self.target.value);
@@ -341,19 +355,19 @@ function initialize(block) {
   });
 
   // Event listener to allow only numeric input
-  loanAmtText.addEventListener('input', function (event) {
-    let value = this.value;
+  loanAmtText.addEventListener('input', function () {
+    let { value } = this;
     value = value.replace(/[^\d.]/g, ''); // Remove non-numeric characters except '.'
     this.value = value;
   });
 
   intRateSlider.addEventListener('change', (self) => {
-        intRateText.value = self.target.value;
-        R = parseFloat(self.target.value);
-        displayDetails(P, R, N, M,  pie, block);
-    });
+    intRateText.value = self.target.value;
+    R = parseFloat(self.target.value);
+    displayDetails(P, R, N, M, pie, block);
+  });
 
-    intRateText.addEventListener('blur', (self) => {
+  intRateText.addEventListener('blur', (self) => {
     if (self.target.value === '') {
       intRateSlider.value = intRateSlider.min;
       self.target.value = intRateSlider.min;
@@ -398,9 +412,9 @@ function initialize(block) {
     displayDetails(P, R, N, M, pie, block);
   });
 
-  //for slider color event listener
+  //  for slider color event listener
   loanAmtSlider.addEventListener('input', function () {
-    const value = this.value;
+    const { value } = this;
     const maxValue = this.max; // Get the maximum value of the range input
     const percentage = (value / maxValue) * 100;
     if (window.innerWidth <= 768) {
@@ -408,10 +422,10 @@ function initialize(block) {
     } else {
       this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
     }
-  })
+  });
 
   loanAmtText.addEventListener('input', function () {
-    const value = this.value;
+    const { value } = this;
     const maxValue = this.max; // Get the maximum value of the range input
     const percentage = (value / maxValue) * 100;
     // console.log(value);
@@ -420,11 +434,14 @@ function initialize(block) {
     } else {
       loanAmtSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
     }
-  })
+  });
 
   intRateSlider.addEventListener('input', function () {
-    const value = this.value;
-    const percentage = ((value - interestrateMinValue) / (interestrateMaxValue - interestrateMinValue)) * 100;
+    const { value } = this;
+    const percentage = (
+      ((value - interestrateMinValue) / (interestrateMaxValue - interestrateMinValue))
+      * 100
+    );
 
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
@@ -435,8 +452,10 @@ function initialize(block) {
   });
 
   intRateText.addEventListener('input', function () {
-    const value = this.value;
-    const percentage = ((value - interestrateMinValue) / (interestrateMaxValue - interestrateMinValue)) * 100;
+    const { value } = this;
+    const percentage = (
+      ((value - interestrateMinValue) / (interestrateMaxValue - interestrateMinValue)) * 100
+    );
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
       intRateSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
@@ -446,8 +465,11 @@ function initialize(block) {
   });
 
   loanPeriodSlider.addEventListener('input', function () {
-    const value = this.value;
-    const percentage = ((value - tenureMinYearvalue) / (tenureMaxYearvalue - tenureMinYearvalue)) * 100;
+    const { value } = this;
+    const percentage = (
+      ((value - tenureMinYearvalue) / (tenureMaxYearvalue - tenureMinYearvalue))
+      * 100
+    );
 
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
@@ -458,8 +480,11 @@ function initialize(block) {
   });
 
   loanPeriodText.addEventListener('input', function () {
-    const value = this.value;
-    const percentage = ((value - tenureMinYearvalue) / (tenureMaxYearvalue - tenureMinYearvalue)) * 100;
+    const { value } = this;
+    const percentage = (
+      ((value - tenureMinYearvalue) / (tenureMaxYearvalue - tenureMinYearvalue))
+      * 100
+    );
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
       loanPeriodSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
@@ -468,8 +493,11 @@ function initialize(block) {
     }
   });
   loanPeriodSliderMonth.addEventListener('input', function () {
-    const value = this.value;
-    const percentage = ((value - tenureMinMonthValue) / (tenureMaxMonthValue - tenureMinMonthValue)) * 100;
+    const { value } = this;
+    const percentage = (
+      ((value - tenureMinMonthValue) / (tenureMaxMonthValue - tenureMinMonthValue))
+      * 100
+    );
 
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
@@ -480,8 +508,11 @@ function initialize(block) {
   });
 
   loanPeriodTextMonth.addEventListener('input', function () {
-    const value = this.value;
-    const percentage = ((value - tenureMinMonthValue) / (tenureMaxMonthValue - tenureMinMonthValue)) * 100;
+    const { value } = this;
+    const percentage = (
+      ((value - tenureMinMonthValue) / (tenureMaxMonthValue - tenureMinMonthValue))
+      * 100
+    );
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
       loanPeriodSliderMonth.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
@@ -491,11 +522,11 @@ function initialize(block) {
   });
 
   // Error message spans
-  const loanAmtError = createErrorSpan('Value should be between ' + formatNumberToIndianCommas(loanAmountMinValue) + ' and ' + formatNumberToIndianCommas(loanAmountMaxValue));
-  const interestRateError = createErrorSpan('Value should be between ' + interestrateMinValue + '% and ' + interestrateMaxValue + '%');
-  const loanPeriodError = createErrorSpan('Value should be between ' + tenureMinYearvalue + ' and ' + tenureMaxYearvalue);
-  const loanPeriodMonthError = createErrorSpan('Value should be between ' + tenureMinMonthValue + ' and ' + tenureMaxMonthValue);
-
+  const loanAmtError = createErrorSpan(`Value should be between ${formatNumberToIndianCommas(loanAmountMinValue)}  and  ${formatNumberToIndianCommas(loanAmountMaxValue)}`);
+  const interestRateError = createErrorSpan(`Value should be between  ${interestrateMinValue} % and ${interestrateMaxValue} %`);
+  const loanPeriodError = createErrorSpan(`Value should be between  ${tenureMinYearvalue} and  ${tenureMaxYearvalue}`);
+  const loanPeriodMonthError = createErrorSpan(`Value should be between ${tenureMinMonthValue} and ${tenureMaxMonthValue}`);
+  
   // Append error message spans to their respective input containers
   amountDetail.appendChild(loanAmtError);
   interestDetail.appendChild(interestRateError);
@@ -504,16 +535,22 @@ function initialize(block) {
 
   // Event listeners for input elements to validate input values
 
-  //error for loan amount
+  //  error for loan amount
   loanAmtText.addEventListener('input', function () {
-    if (removeCommaAndConvertToInt(this.value) < removeCommaAndConvertToInt(loanAmountMinValue) || removeCommaAndConvertToInt(this.value) > removeCommaAndConvertToInt(loanAmountMaxValue)) {
+    if (
+      removeCommaAndConvertToInt(this.value) < removeCommaAndConvertToInt(loanAmountMinValue) ||
+      removeCommaAndConvertToInt(this.value) > removeCommaAndConvertToInt(loanAmountMaxValue)
+    ) {
       loanAmtError.style.display = 'block';
     } else {
       loanAmtError.style.display = 'none';
     }
   });
   loanAmtSlider.addEventListener('input', function () {
-    if (removeCommaAndConvertToInt(this.value) < removeCommaAndConvertToInt(loanAmountMinValue) || removeCommaAndConvertToInt(this.value) > removeCommaAndConvertToInt(loanAmountMaxValue)) {
+    if (
+      removeCommaAndConvertToInt(this.value) < removeCommaAndConvertToInt(loanAmountMinValue) ||
+      removeCommaAndConvertToInt(this.value) > removeCommaAndConvertToInt(loanAmountMaxValue)
+    ) {
       loanAmtError.style.display = 'block';
     } else {
       loanAmtError.style.display = 'none';
@@ -522,14 +559,16 @@ function initialize(block) {
 
   //error for loan amount
   intRateText.addEventListener('input', function () {
-    if (parseFloat(this.value) < parseFloat(interestrateMinValue) || parseFloat(this.value) > parseFloat(interestrateMaxValue)) {
+    if (parseFloat(this.value) < parseFloat(interestrateMinValue) ||
+      parseFloat(this.value) > parseFloat(interestrateMaxValue)) {
       interestRateError.style.display = 'block';
     } else {
       interestRateError.style.display = 'none';
     }
   });
   intRateSlider.addEventListener('input', function () {
-    if (parseFloat(this.value) < parseFloat(interestrateMinValue) || parseFloat(this.value) > parseFloat(interestrateMaxValue)) {
+    if (parseFloat(this.value) < parseFloat(interestrateMinValue) ||
+      parseFloat(this.value) > parseFloat(interestrateMaxValue)) {
       interestRateError.style.display = 'block';
     } else {
       interestRateError.style.display = 'none';
@@ -538,7 +577,8 @@ function initialize(block) {
 
   //error for year
   loanPeriodText.addEventListener('input', function () {
-    if (parseFloat(this.value) < parseFloat(tenureMinYearvalue) || parseFloat(this.value) > parseFloat(tenureMaxYearvalue)) {
+    if (parseFloat(this.value) < parseFloat(tenureMinYearvalue) ||
+      parseFloat(this.value) > parseFloat(tenureMaxYearvalue)) {
       loanPeriodError.style.display = 'block';
     } else {
       loanPeriodError.style.display = 'none';
@@ -546,7 +586,8 @@ function initialize(block) {
   });
 
   loanPeriodSlider.addEventListener('input', function () {
-    if (parseFloat(this.value) < parseFloat(tenureMinYearvalue) || parseFloat(this.value) > parseFloat(tenureMaxYearvalue)) {
+    if (parseFloat(this.value) < parseFloat(tenureMinYearvalue) ||
+      parseFloat(this.value) > parseFloat(tenureMaxYearvalue)) {
       loanPeriodError.style.display = 'block';
     } else {
       loanPeriodError.style.display = 'none';
@@ -555,7 +596,8 @@ function initialize(block) {
 
   //error for month
   loanPeriodTextMonth.addEventListener('input', function () {
-    if (parseFloat(this.value) < parseFloat(tenureMinMonthValue) || parseFloat(this.value) > parseFloat(tenureMaxMonthValue)) {
+    if (parseFloat(this.value) < parseFloat(tenureMinMonthValue) ||
+      parseFloat(this.value) > parseFloat(tenureMaxMonthValue)) {
       loanPeriodMonthError.style.display = 'block';
     } else {
       loanPeriodMonthError.style.display = 'none';
@@ -563,7 +605,8 @@ function initialize(block) {
   });
 
   loanPeriodSliderMonth.addEventListener('input', function () {
-    if (parseFloat(this.value) < parseFloat(tenureMinMonthValue) || parseFloat(this.value) > parseFloat(tenureMaxMonthValue)) {
+    if (parseFloat(this.value) < parseFloat(tenureMinMonthValue) ||
+      parseFloat(this.value) > parseFloat(tenureMaxMonthValue)) {
       loanPeriodMonthError.style.display = 'block';
     } else {
       loanPeriodMonthError.style.display = 'none';
@@ -587,40 +630,40 @@ function initialize(block) {
   loanPeriodTextMonth.value = tenureMinMonthValue;
   M = parseFloat(tenureMinMonthValue);
 
-  line = new Chart(document.getElementById('lineChart'), {
-    data: {
-      labels: [],
-      datasets: [
-        {
-          label: 'Principal',
-          backgroundColor: 'rgba(140, 177, 51, 1)',
-          borderColor: 'rgba(140, 177, 51, 1)',
-          data: [],
-        },
-        {
-          label: 'Interest',
-          backgroundColor: 'rgba(59, 59, 59, 1)',
-          borderColor: 'rgba(59, 59, 59, 1)',
-          data: [],
-        },
-      ],
-    },
-    type: 'line',
-    options: {
-      scales: {
-        y: {
-          ticks: {
-            callback: function (val) {
-              return val.toLocaleString('en-IN', {
-                style: 'currency',
-                currency: 'INR',
-              });
-            },
-          },
-        },
-      },
-    },
-  });
+  // line = new Chart(document.getElementById('lineChart'), {
+  //   data: {
+  //     labels: [],
+  //     datasets: [
+  //       {
+  //         label: 'Principal',
+  //         backgroundColor: 'rgba(140, 177, 51, 1)',
+  //         borderColor: 'rgba(140, 177, 51, 1)',
+  //         data: [],
+  //       },
+  //       {
+  //         label: 'Interest',
+  //         backgroundColor: 'rgba(59, 59, 59, 1)',
+  //         borderColor: 'rgba(59, 59, 59, 1)',
+  //         data: [],
+  //       },
+  //     ],
+  //   },
+  //   type: 'line',
+  //   options: {
+  //     scales: {
+  //       y: {
+  //         ticks: {
+  //           callback(val) {
+  //             return val.toLocaleString('en-IN', {
+  //               style: 'currency',
+  //               currency: 'INR',
+  //             });
+  //           },
+  //         },
+  //       },
+  //     },
+  //   },
+  // });
 
   pie = new Chart(document.getElementById('pieChart'), {
     type: 'doughnut',
@@ -639,7 +682,7 @@ function initialize(block) {
       cutoutPercentage: 30,
       responsive: true,
       maintainAspectRatio: false,
-    }
+    },
   });
 
   displayDetails(P, R, N, M, pie, block);
