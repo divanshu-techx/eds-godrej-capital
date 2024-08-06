@@ -21,13 +21,13 @@ export default async function decorate(block) {
     // Create left button with custom icon
     const leftBtn = document.createElement('button');
     leftBtn.classList.add('prev');
-    leftBtn.innerHTML = `<img src='/icons/nexticon.svg' alt='Previous' />`; // Custom icon
+    leftBtn.innerHTML = "<img src='/icons/nexticon.svg' alt='Previous' />"; // Custom icon
     buttonDiv.appendChild(leftBtn);
     buttonDiv.appendChild(pTagDiv);
     // Create right button with custom icon
     const rightBtn = document.createElement('button');
     rightBtn.classList.add('next');
-    rightBtn.innerHTML = `<img src='/icons/nexticon.svg' alt='Next' />`; // Custom icon
+    rightBtn.innerHTML = '<img src="/icons/nexticon.svg" alt="Next" />'; // Custom icon
     buttonDiv.appendChild(rightBtn);
     parentBlockDiv.prepend(buttonDiv);
     leftBtn.addEventListener('click', () => {
