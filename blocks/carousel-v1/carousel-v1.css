@@ -33,7 +33,7 @@
   width: 100%;
   min-height: 500px;
 
-  @media(width <=600px) {
+  @media(width <= 600px) {
     min-height: 525px;
     justify-content: start;
   }
@@ -306,6 +306,19 @@
   }
 }
 
+@media (width >= 1600px) {
+  .hero-carousel-v1 .carousel-slide-content.carousel-slide-v1-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+    max-width: unset;
+    margin: 0 auto;
+    padding-left: 9vw;
+    padding-right: 9vw;
+  }
+}
+
 
 .hero-carousel-v1 .carousel-v1-slide-indicators {
   position: relative;
@@ -451,6 +464,10 @@
   color: #787878;
   font-size: 14px;
   font-weight: 300;
+}
+
+.hero-carousel-secondary .summary-wrapper .summary-content .highlight {
+  color: #F50076;
 }
 
 .hero-carousel-secondary .carousel-v1-progress-bar-container {

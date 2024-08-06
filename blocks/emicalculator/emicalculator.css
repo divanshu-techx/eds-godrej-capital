@@ -36,7 +36,7 @@
 	}
 }
 
-.footer {
+.loan-details .footer {
 	display: flex;
 	justify-content: space-between;
 }
@@ -284,7 +284,8 @@ input[type="range"] {
 
 /* Error message */
 .error-message {
-	color: red;
+	color: #F50076;
+	font-size: 14px;
 	display: none;
 }
 
@@ -312,6 +313,12 @@ input[type="range"] {
 	font-size: 16px;
 	color: rgba(0, 0, 0, 1);
 	border-radius: 4px;
+}
+
+@media(width >= 1600px){
+    .loan-details {
+        max-width: 100%;
+    }
 }
 
 .loan-details {
@@ -721,6 +728,17 @@ input[type="range"]::-moz-range-track {
 	@media (max-width: 768px) {
 		padding: 20px 0px;
 		background-color: #fff;
+	}
+}
+
+
+@media (width >= 1600px) {
+	.view {
+	  max-width: calc(772 / (772 + 554) * 100%)!important;
+	}
+	
+	.breakupdesktop {
+	  max-width: calc(554 / (772 + 554) * 100%)!important;
 	}
 }
 

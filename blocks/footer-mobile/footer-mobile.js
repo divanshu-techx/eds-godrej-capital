@@ -1,11 +1,11 @@
 export default async function decorate(block) {
   const allDivs = block.querySelectorAll(':scope > div');
- 
+
   // Create overlay element
   const overlay = document.createElement('div');
-  overlay.classList.add('overlay');
+  overlay.classList.add('overlay', 'overlay-footer-mobile');
   document.body.appendChild(overlay);
- 
+
   // Constants for header and footer height
   const headerHeight = 70;
   const footerHeight = 100;
@@ -20,32 +20,32 @@ export default async function decorate(block) {
       }
     });
   }
- 
+
   // Function to adjust dropdown height to half the remaining screen height
   function adjustDropdownSize(dropdown) {
     const screenHeight = window.innerHeight;
     const remainingHeight = screenHeight - headerHeight - footerHeight;
     const halfRemainingHeight = remainingHeight / 2;
- 
+
     dropdown.style.height = `${halfRemainingHeight}px`;
     dropdown.style.width = '-webkit-fill-available';
-    overlay.style.height = `${halfRemainingHeight + headerHeight}px`; // Extend to cover header
-    overlay.style.top = `0`; // Start from the top of the viewport
+    overlay.style.height = `${halfRemainingHeight + headerHeight}px`;
+    overlay.style.top = `0`;
   }
- 
+
   allDivs.forEach((div, index) => {
     div.classList.add('footer-element');
     const childDivs = div.querySelectorAll(':scope > div');
- 
+
     if (childDivs.length > 1) {
       const [firstDiv, secondDiv] = childDivs;
- 
+
       if (index === 0) {
         secondDiv.classList.add('products-class');
       } else if (index === 2) {
         secondDiv.classList.add('calculators');
       }
- 
+
       secondDiv.classList.add('dropdown-content');
       secondDiv.style.display = 'none';
       firstDiv.classList.add('tooltip-trigger');
@@ -53,17 +53,17 @@ export default async function decorate(block) {
         const isExpanded = secondDiv.style.display === 'block';
         hideAllDropdowns(secondDiv); // Hide all other dropdowns
         allDivs.forEach((el) => {
-          el.classList.remove('active-el')
-        })
+          el.classList.remove('active-el');
+        });
         if (isExpanded) {
-          this.parentElement.classList.remove('active-el')
- 
+          this.parentElement.classList.remove('active-el');
+
           secondDiv.style.display = 'none';
           secondDiv.classList.remove('open'); // Remove fade-in effect
           overlay.classList.remove('open'); // Hide the overlay
           firstDiv.style.backgroundColor = '';
         } else {
-          this.parentElement.classList.add('active-el')
+          this.parentElement.classList.add('active-el');
           adjustDropdownSize(secondDiv);
           secondDiv.style.display = 'block';
           secondDiv.classList.add('open');
@@ -71,7 +71,7 @@ export default async function decorate(block) {
           firstDiv.style.backgroundColor = '#fff';
         }
       });
- 
+
       const listItems = secondDiv.querySelectorAll('li');
       listItems.forEach((li) => {
         if (li.querySelector('ol')) {
@@ -85,15 +85,15 @@ export default async function decorate(block) {
             innerOl.style.display = isExpanded ? 'none' : 'block';
             this.classList.add('open-list');
             if (isExpanded) {
-              this.classList.remove('open-list')
+              this.classList.remove('open-list');
             }
           });
         }
       });
     }
   });
- 
-  document.addEventListener('click', function (event) {
+
+  document.addEventListener('click', (event) => {
     if (!event.target.closest('.tooltip-trigger')) {
       hideAllDropdowns();
     }

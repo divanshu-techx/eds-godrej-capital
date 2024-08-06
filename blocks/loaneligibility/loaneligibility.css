@@ -33,7 +33,7 @@
 
 }
 
-.footer {
+.loan-details .footer {
     display: flex;
     justify-content: space-between;
 }
@@ -792,8 +792,10 @@ input[type="range"]::-moz-range-track {
     flex-direction: column;
 }
 
-.detail-select {
-    display: none;
+@media(width <=600px){
+    .detail-select {
+        display: none;
+    }  
 }
 
 .details input[type="number"],
@@ -809,6 +811,15 @@ input[type="range"]::-moz-range-track {
     background: #fff;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+}
+
+@media(max-width:767px) {
+
+    .details input[type="number"],
+    .details input[type='text'] {
+        background: #F4F4F4;
+    }
+
 }
 
 .chartDetails {
@@ -828,3 +839,7 @@ input[type="range"]::-moz-range-track {
         background-color: #F4F4F4;
     }
 }
+
+.section.hide-dropdown .detail-select {
+    display: none;
+} 

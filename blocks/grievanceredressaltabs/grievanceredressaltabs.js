@@ -1,13 +1,17 @@
 // eslint-disable-next-line import/no-unresolved
 import { toClassName } from '../../scripts/aem.js';
 
+function getDataAttributeValueByName(name) {
+  const element = document.querySelector(`[data-${name}]`);
+  return element ? element.getAttribute(`data-${name}`) : null;
+}
+
 function hasWrapper(el) {
   return !!el.firstElementChild && window.getComputedStyle(el.firstElementChild).display === 'block';
 }
-
 export default async function decorate(block) {
   // build tablist
-  let btnDiv = document.createElement('div');
+  const btnDiv = document.createElement('div');
   btnDiv.classList.add('grievance-tab-btn');
   const tablist = document.createElement('div');
   tablist.className = 'grievance-tabs-list';
@@ -52,19 +56,12 @@ export default async function decorate(block) {
     tablist.append(btnDiv);
     tab.remove();
   });
-  
-  let tabDiv = document.createElement('div');
+  const tabDiv = document.createElement('div');
   tabDiv.classList.add('grievance-title');
-    let tabTag = document.createElement('h2');
-    let tabTitle = getDataAttributeValueByName('support-table-title');
-    tabTag.innerHTML= tabTitle;
-    tabDiv.appendChild(tabTag);
-    tablist.prepend(tabDiv);
+  const tabTag = document.createElement('h2');
+  const tabTitle = getDataAttributeValueByName('support-table-title');
+  tabTag.innerHTML = tabTitle;
+  tabDiv.appendChild(tabTag);
+  tablist.prepend(tabDiv);
   block.prepend(tablist);
-  
-
-}
-function getDataAttributeValueByName(name) {
-    const element = document.querySelector(`[data-${name}]`);
-    return element ? element.getAttribute(`data-${name}`) : null;
 }

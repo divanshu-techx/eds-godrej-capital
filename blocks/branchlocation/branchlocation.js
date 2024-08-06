@@ -5,9 +5,7 @@ import {
   img,
 } from '../utils/dom-helper.js';
 import createMap from '../utils/google-map.js';
-
-import {getDataAttributes} from '../utils/common.js'
-
+import { getDataAttributes } from '../utils/common.js';
 
 /**
  * loads and decorates the header, mainly the nav
@@ -15,7 +13,6 @@ import {getDataAttributes} from '../utils/common.js'
  */
 
 const stateToCities = {};
-
 const stateSelect = select({ id: 'stateSelect' });
 const citySelect = select({ id: 'citySelect' });
 const pincodeInput = input({
@@ -24,8 +21,7 @@ const pincodeInput = input({
   placeholder: 'Enter Pincode',
 });
 
-
-function updateMapCard(item,label) {
+function updateMapCard(item, label) {
   document.getElementById('mapCardTitle').textContent = item.location;
   document.getElementById('mapCardAddress').textContent = item.address;
   document.getElementById('mapCardPhone').textContent = `${label} ${item.phone}`;
@@ -42,7 +38,7 @@ function updateMapCard(item,label) {
  * @param {Array} filteredLocations - Array of location objects to display.
  * Each object should include properties like 'location', 'address', 'phone', and 'hours'.
  */
-function displayResults(filteredLocations,attributeObj) {
+function displayResults(filteredLocations, attributeObj) {
   const container = document.querySelector('.branch-locator');
   const cardContainer = div({ class: 'address-cards' });
   if (!container) {
@@ -67,7 +63,7 @@ function displayResults(filteredLocations,attributeObj) {
     // Add click listener to the card to create a map on click
     card.addEventListener('click', (event) => {
       createMap(lat, lng, 'map-canvas');
-      updateMapCard(item,attributeObj.phonenumberlabel);
+      updateMapCard(item, attributeObj.phonenumberlabel);
       document.querySelectorAll('.card').forEach((c) => {
         c.classList.remove('active');
       });
@@ -91,7 +87,7 @@ function displayResults(filteredLocations,attributeObj) {
  *
  */
 
-function filterResults(locations,attributeObj) {
+function filterResults(locations, attributeObj) {
   const selectedState = stateSelect.value;
   const selectedCity = citySelect.value;
   const enteredPincode = pincodeInput.value.trim();
@@ -101,14 +97,14 @@ function filterResults(locations,attributeObj) {
       && (!selectedCity || location.city === selectedCity)
       && (!enteredPincode || location.pincode.startsWith(enteredPincode)),
   );
-  displayResults(filteredLocations,attributeObj);
+  displayResults(filteredLocations, attributeObj);
 }
 
 /**
  * Handle state selection and update city options accordingly.
  * @param {Array} entries - All location entries.
  */
-function handleStateChange(entries,attributeObj) {
+function handleStateChange(entries, attributeObj) {
   const selectedState = stateSelect.value;
   const cities = stateToCities[selectedState] || [];
   citySelect.innerHTML = '';
@@ -144,25 +140,21 @@ function debounce(func, wait) {
  *
  * @param {Array} locations - Array of location objects.
  */
-function renderFilters(locations, filterContainer,attributeObj) {
+function renderFilters(locations, filterContainer, attributeObj) {
   // Create filter dropdown
 
   filterContainer.appendChild(
     div(
       { class: 'filters' },
       div({ class: 'heading-container' }, h2({ class: 'heading' }, attributeObj.findthenearestlabel)),
-      div({
-        class: 'inputs-container'
-      },
-        div({ class: 'state-container' }, label({ for: 'stateSelect' }, attributeObj.selectstatelabel),
-          stateSelect,),
-        div({ class: 'city-container' }, label({ for: 'citySelect' }, attributeObj.selectcitylabel),
-          citySelect,),
-        div({ class: 'pincode-container' }, label({ for: 'pincodeInput' }, attributeObj.pincodelabel),
-          div({ class: 'input-img-container' }, img({ class: '-icon', src: attributeObj.mapbuttonicon }), pincodeInput)),
-
-      )
-
+      div(
+        {
+          class: 'inputs-container',
+        },
+        div({ class: 'state-container' }, label({ for: 'stateSelect' }, attributeObj.selectstatelabel), stateSelect),
+        div({ class: 'city-container' }, label({ for: 'citySelect' }, attributeObj.selectcitylabel), citySelect),
+        div({ class: 'pincode-container' }, label({ for: 'pincodeInput' }, attributeObj.pincodelabel), div({ class: 'input-img-container' }, img({ class: '-icon', src: attributeObj.locationmapicon }), pincodeInput)),
+      ),
     ),
   );
 
@@ -183,7 +175,7 @@ function renderFilters(locations, filterContainer,attributeObj) {
     stateSelect.appendChild(option({ value: state }, state));
   });
 
-  filterResults(locations,attributeObj);
+  filterResults(locations, attributeObj);
 }
 
 /**
@@ -191,21 +183,22 @@ function renderFilters(locations, filterContainer,attributeObj) {
  * @param {Array} entries - All location entries.
  */
 function initialize(entries, block) {
-  const container = block.closest(".branchlocation-container");
+  const container = block.closest('.branchlocation-container');
 
   const attributeObj = getDataAttributes(container);
-  const mapContainer = div({ class: "google-map" },
-    div({ id: 'map-canvas', style: 'height: 400px;' })
-  )
-  const filterContainer = div({ class: "filters-dropdown" });
-  const branchlocator = div({ class: "branch-locator" });
+  const mapContainer = div(
+    { class: 'google-map' },
+    div({ id: 'map-canvas', style: 'height: 400px;' }),
+  );
+  const filterContainer = div({ class: 'filters-dropdown' });
+  const branchlocator = div({ class: 'branch-locator' });
   pincodeInput.placeholder = attributeObj.pincodelabel;
   block.append(filterContainer);
   block.append(mapContainer);
   block.append(branchlocator);
   renderFilters(entries, filterContainer, attributeObj);
 
-  stateSelect.addEventListener('change', () => handleStateChange(entries,attributeObj));
+  stateSelect.addEventListener('change', () => handleStateChange(entries, attributeObj));
   citySelect.addEventListener('change', () => filterResults(entries, attributeObj));
   pincodeInput.addEventListener('input', debounce(() => filterResults(entries, attributeObj), 300)); // Debounced input
   const coordinates = entries[0].coordinate;
@@ -240,13 +233,11 @@ function loadGoogleMaps(callback) {
 }
 
 export default async function decorate(block) {
-  let mainContainer = block.closest(".branchlocation-container");
-  let locationUrl = mainContainer.getAttribute("data-locationUrl");
+  const mainContainer = block.closest('.branchlocation-container');
+  const locationUrl = mainContainer.getAttribute('data-locationUrl');
   // Load Google Maps API
   loadGoogleMaps(async () => {
     const allentries = await ffetch(locationUrl).all();
     initialize(allentries, block);
   });
-
 }
-

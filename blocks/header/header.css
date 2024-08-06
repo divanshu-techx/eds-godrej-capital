@@ -36,6 +36,15 @@ header nav {
   font-family: var(--body-font-family);
 }
 
+@media (width >=1600px){
+  header nav {
+    max-width: unset;
+    margin: auto;
+    padding-left: 9vw;
+    padding-right: 9vw;
+  }
+}
+
 header nav[aria-expanded="true"] {
   grid-template:
     'brand hamburger' var(--nav-height) 'sections sections' 1fr
@@ -44,11 +53,19 @@ header nav[aria-expanded="true"] {
   min-height: 100vh;
 }
 
-@media (width >=600px) {
+@media (width >=900px) and (width <= 1599px) {
   header nav {
     padding: 0 2rem;
   }
 }
+
+@media(width >=1600px){
+  header nav{
+    padding-left: 9vw;
+    padding-right: 9vw;
+  }
+}
+
 
 @media (width >=900px) {
   header nav {
@@ -160,6 +177,7 @@ header .nav-brand {
   font-size: var(--heading-font-size-s);
   font-weight: 700;
   line-height: 1;
+  cursor: pointer;
 }
 
 header nav .nav-brand img {
@@ -303,6 +321,7 @@ header nav .nav-sections .belowNavMainContainer .thirdElementDiv .columns p a {
 
 header nav .nav-sections .belowNavMainContainer .thirdElementDiv .columns p a:hover {
   text-decoration: none;
+  background-color: #00A2FF;
 }
 
 .listElement {
@@ -310,7 +329,19 @@ header nav .nav-sections .belowNavMainContainer .thirdElementDiv .columns p a:ho
 }
 
 .listElement.selected {
-  border-bottom: 4px solid #8cb133;
+  position: relative;
+  /* border-bottom: 4px solid #8cb133; */
+}
+
+.listElement.selected a::before {
+
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  bottom: -28px;
+
+  background-color: #8cb133;
 }
 
 .listElement.active a {
@@ -320,6 +351,7 @@ header nav .nav-sections .belowNavMainContainer .thirdElementDiv .columns p a:ho
 .subList.active .anchorPath.anchor_active {
   color: #3CB8FF;
   text-decoration: none;
+  font-weight: 500;
 }
 
 
@@ -410,7 +442,10 @@ header nav .nav-sections .belowNavMainContainer .thirdElementDiv .columns p a:ho
   font-size: 1rem;
   text-wrap: balance;
   color: #000;
-  margin-bottom: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: 500 !important;
+  font-weight: 500 !important;
 }
 
 .thirdElementDiv .columns>div>div:first-child>p:nth-child(2) {
@@ -591,7 +626,7 @@ header nav .nav-tools input[type=text] {
 }
 
 .header .section .default-content-wrapper .button-container a {
-  background: var(--color-sky-dark);
+  background: #3CB8FF;
   border-radius: 2px;
   box-sizing: border-box;
   padding: 12px 20px;
@@ -682,6 +717,16 @@ header nav .nav-tools input[type=text] {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+}
+
+.subheader .subheader-wrapper .default-content-wrapper ul .subheader-list:hover picture img {
+  filter: drop-shadow(0px 1000px 0 #3CB8FF);
+  transform: translateY(-1000px);
+}
+
+.subheader .subheader-wrapper .default-content-wrapper ul .subheader-list:hover a {
+  color: #3CB8FF;
 }
 
 .subheader .default-content-wrapper ul li img {
@@ -700,6 +745,7 @@ header nav .nav-tools input[type=text] {
 .section.nav-mobile {
   display: none;
   grid-area: sections;
+  font-family: 'Poppins';
 }
 
 .thirdElementDiv>main>div {
@@ -841,7 +887,8 @@ header nav .nav-tools input[type=text] {
   color: #3b3b3b;
 }
 
-.contactuscontainer p {
+.contactuscontainer p,
+.contactuscontainer a {
   font-size: 14px;
   font-weight: 400;
   color: #3b3b3b;
@@ -865,8 +912,9 @@ header nav .nav-tools input[type=text] {
   border-radius: 4px;
 }
 
-.listElement.active .anchorPath {
+.firstElementChildDiv .listElement.active .anchorPath {
   position: relative;
+  font-weight: 500;
 }
 
 .listElement.active .anchorPath::after {
@@ -912,4 +960,56 @@ header nav .nav-tools input[type=text] {
   width: 16px;
   height: 16px;
   transform: translateY(-50%);
+}
+
+.firstElementChildDiv .listElement .anchorPath {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 12px;
+}
+
+.parentContainerdiv:not(:has(.firstElementChildDiv)) .secondElementDiv li.listElement a {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 12px;
+}
+
+.secondElementDiv .subList li a {
+  font-weight: 400;
+}
+
+.thirdElementDiv .columns>div>div:first-child>p:nth-child(3) a {
+  background-color: unset;
+  color: #3CB8FF;
+  padding-inline: 0;
+  margin-top: 0;
+  font-size: 14px;
+  text-wrap: balance;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.subheader .subheader-wrapper .default-content-wrapper ul .subheader-list:hover {
+  color: #3CB8FF;
+}
+
+.subheader .subheader-wrapper .default-content-wrapper ul .subheader-list:hover a {
+  color: #3CB8FF;
+}
+
+/* .subheader .subheader-wrapper .default-content-wrapper ul .subheader-list:hover picture{
+  background: #3CB8FF;
+} */
+.header .section .default-content-wrapper .button-container a:hover{
+  background: #3CB8FF;
+}
+
+@media (width >=1600px){
+  .subheader .section >div {
+    /* max-width: unset;
+    margin: auto; */
+    padding-left: 9vw;
+    padding-right: 9vw;
+  }
+>>>>>>>>> Temporary merge branch 2
 }

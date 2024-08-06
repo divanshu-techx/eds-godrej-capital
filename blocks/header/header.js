@@ -2,7 +2,7 @@ import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
 const isDesktop = window.matchMedia('(min-width: 900px)');
-
+// var navElement = document.getElementById('nav');
 function closeOnEscape(e) {
   if (e.code === 'Escape') {
     const nav = document.getElementById('nav');
@@ -119,6 +119,11 @@ export default async function decorate(block) {
   });
 
   const navBrand = nav.querySelector('.nav-brand');
+  const navBrandLink=document.createElement('a');
+  navBrandLink.classList.add('nav-brand-link');
+
+  const navBrandImage=navBrand.querySelector(':scope .default-content-wrapper > picture');
+  
   const brandLink = navBrand.querySelector('.button');
   if (brandLink) {
     brandLink.className = '';
@@ -158,14 +163,12 @@ export default async function decorate(block) {
   navWrapper.append(nav);
   block.append(navWrapper);
 
-  var navElement = document.getElementById("nav");
-
-  const api = getDataAttributeValueByName('globalnavigationapiurl');
-
   function getDataAttributeValueByName(name) {
     const element = document.querySelector(`[data-${name}]`);
-    return element ? element.getAttribute(`data-${name}`) : null;
+    return element ? element.getAttribute(`data-${name}`) : '';
   }
+
+  const api = getDataAttributeValueByName('globalnavigationapiurl');
 
   let responseData = [];
 
@@ -215,7 +218,7 @@ export default async function decorate(block) {
   }
 
   // function to render nav elements div for child depth is 2
-  function getChildResponseDataForDepthTwo(response, itemCount) {
+  function getChildResponseDataForDepthTwo(response) {
     if (!response || Object.keys(response).length === 0) {
       belowNavMainContainer.innerHTML = '';
       return;
@@ -229,6 +232,43 @@ export default async function decorate(block) {
 
     // Create the main ul element
     const mainUl = document.createElement('ul');
+
+    // Function to update secondElementDiv with items
+    function updateSecondElementDiv(items) {
+      secondElementDiv.innerHTML = '';
+      thirdElementDiv.innerHTML = '';
+
+      const nestedUl = document.createElement('ul');
+      nestedUl.classList.add('subList', 'active');
+
+      Object.keys(items).forEach((key, index) => {
+        const item = items[key];
+        const nestedLi = document.createElement('li');
+        nestedLi.className = 'listElement';
+        const anchor = document.createElement('a');
+        anchor.textContent = item.title;
+        anchor.href = item.subPagePath;
+        anchor.classList.add('anchorPath');
+        if (index === 0) anchor.classList.add('anchor_active');
+        anchor.setAttribute('data-path', item.path);
+
+        anchor.addEventListener('mouseover', (event) => {
+          event.preventDefault();
+          const allAnchors = nestedUl.querySelectorAll('a.anchorPath');
+          allAnchors.forEach((anchorItem) => anchorItem.classList.remove('anchor_active'));
+          anchor.classList.add('anchor_active');
+          displayURLContent(item.path);
+        });
+
+        nestedLi.appendChild(anchor);
+        nestedUl.appendChild(nestedLi);
+
+        if (index === 0) {
+          displayURLContent(item.path);
+        }
+      });
+      secondElementDiv.appendChild(nestedUl);
+    }
 
     // Iterate over the keys in the response object
     Object.keys(response).forEach((key, index) => {
@@ -262,43 +302,6 @@ export default async function decorate(block) {
     parentContainerDiv.appendChild(secondElementDiv);
     parentContainerDiv.appendChild(thirdElementDiv);
     belowNavMainContainer.appendChild(parentContainerDiv);
-
-    // Function to update secondElementDiv with items
-    function updateSecondElementDiv(items) {
-      secondElementDiv.innerHTML = '';
-      thirdElementDiv.innerHTML = '';
-
-      const nestedUl = document.createElement('ul');
-      nestedUl.classList.add('subList', 'active');
-
-      Object.keys(items).forEach((key, index) => {
-        const item = items[key];
-        const nestedLi = document.createElement('li');
-        nestedLi.className = 'listElement';
-        const anchor = document.createElement('a');
-        anchor.textContent = item.title;
-        anchor.href = item.subPagePath;
-        anchor.classList.add('anchorPath');
-        if (index === 0) anchor.classList.add('anchor_active');
-        anchor.setAttribute('data-path', item.path);
-
-        anchor.addEventListener('mouseover', (event) => {
-        event.preventDefault();
-        const allAnchors = nestedUl.querySelectorAll('a.anchorPath');
-        allAnchors.forEach((anchorItem) => anchorItem.classList.remove('anchor_active'));
-        anchor.classList.add('anchor_active');
-        displayURLContent(item.path);
-        });
-
-        nestedLi.appendChild(anchor);
-        nestedUl.appendChild(nestedLi);
-
-        if (index === 0) {
-          displayURLContent(item.path);
-        }
-      });
-      secondElementDiv.appendChild(nestedUl);
-    }
   }
 
   // function to render nav elements div for child depth is 1
@@ -318,57 +321,57 @@ export default async function decorate(block) {
     let overallIndex = 0;
 
     for (const key in response) {
-        if (response.hasOwnProperty(key)) {
-            response[key].forEach((item) => {
-                const li = document.createElement('li');
-                li.classList.add('listElement');
+      if (response.hasOwnProperty(key)) {
+        response[key].forEach((item) => {
+          const li = document.createElement('li');
+          li.classList.add('listElement');
 
-                const anchor = document.createElement('a');
-                anchor.textContent = item.title;
-                anchor.href = item.redirectionPath;
-                anchor.classList.add('anchorPath');
-                if (overallIndex === 0) anchor.classList.add('anchor_active');
-                anchor.setAttribute('data-path', item.path);
+          const anchor = document.createElement('a');
+          anchor.textContent = item.title;
+          anchor.href = item.redirectionPath;
+          anchor.classList.add('anchorPath');
+          if (overallIndex === 0) anchor.classList.add('anchor_active');
+          anchor.setAttribute('data-path', item.path);
 
-                li.appendChild(anchor);
-                mainUl.appendChild(li);
+          li.appendChild(anchor);
+          mainUl.appendChild(li);
 
-                anchor.addEventListener('mouseover', (event) => {
-                    event.preventDefault();
-                    const allAnchors = mainUl.querySelectorAll('a.anchorPath');
-                    allAnchors.forEach((anchorItem) => anchorItem.classList.remove('anchor_active'));
-                    anchor.classList.add('anchor_active');
-                    displayURLContent(item.path);
-                });
+          anchor.addEventListener('mouseover', (event) => {
+            event.preventDefault();
+            const allAnchors = mainUl.querySelectorAll('a.anchorPath');
+            allAnchors.forEach((anchorItem) => anchorItem.classList.remove('anchor_active'));
+            anchor.classList.add('anchor_active');
+            displayURLContent(item.path);
+          });
 
-                if (!defaultPathSet) {
-                    displayURLContent(item.path);
-                    defaultPathSet = true;
-                }
+          if (!defaultPathSet) {
+            displayURLContent(item.path);
+            defaultPathSet = true;
+          }
 
-                overallIndex++;
-            });
-        }
+          overallIndex++;
+        });
+      }
     }
 
-    if (itemCount != 0) {
-        secondElementDiv.appendChild(mainUl);
-        parentContainerDiv.appendChild(secondElementDiv);
+    if (itemCount !== 0) {
+      secondElementDiv.appendChild(mainUl);
+      parentContainerDiv.appendChild(secondElementDiv);
     }
 
     parentContainerDiv.appendChild(thirdElementDiv);
     belowNavMainContainer.appendChild(parentContainerDiv);
-}
+  }
 
   // function to render nav elements div for child depth is zero
-  function getChildResponseDataForDepthZero(responseData) {
+  function getChildResponseDataForDepthZero(responseArr) {
     parentContainerDiv.innerHTML = '';
     firstElementChildDiv.innerHTML = '';
     secondElementDiv.innerHTML = '';
     thirdElementDiv.innerHTML = '';
 
     const customerSupportDiv = document.createElement('ul');
-    customerSupportDiv.className = 'customerSupportDiv'; 
+    customerSupportDiv.className = 'customerSupportDiv';
 
     const freeCreditDiv = document.createElement('div');
     freeCreditDiv.className = 'freeCreditDiv';
@@ -378,41 +381,41 @@ export default async function decorate(block) {
 
     customerSupportDiv.innerHTML = `
         <li class="customersupport">
-            <a href="${responseData.customersupportlink}" class="customer-support-anchor">
-              ${responseData.customersupport}
+            <a href="${responseArr.customersupportlink}" class="customer-support-anchor">
+              ${responseArr.customersupport}
             </a>      
         </li>
   
         <li class="selfservice">
-                  <h4 class="self-service-heading">${responseData.selfservices}</h4>
+                  <h4 class="self-service-heading">${responseArr.selfservices}</h4>
             <ul class="self-service-ul">
                 <li class="self-service-li">
-                   <a href="${responseData.branchlocaterlink}">${responseData.branchlocater}</a>
+                   <a href="${responseArr.branchlocaterlink}">${responseArr.branchlocater}</a>
                 </li>
                  <li class="self-service-li">
-                   <a href="${responseData.trackstatuslink}">${responseData.trackstatus}</a>
+                   <a href="${responseArr.trackstatuslink}">${responseArr.trackstatus}</a>
                 </li>
                  <li class="self-service-li">
-                   <a href="${responseData.faqlink}">${responseData.faq}</a>
+                   <a href="${responseArr.faqlink}">${responseArr.faq}</a>
                 </li>
             </ul>
         </li>
   
         <li class="grievancecontainer">
-             <h4 class="grievance-heading">${responseData.grievanceredressal}</h4>
+             <h4 class="grievance-heading">${responseArr.grievanceredressal}</h4>
             <ul class="grievance-ul">
                  <li class="self-service-li">
-                   <a href="${responseData.godrejhousingfinancelink}">${responseData.godrejhousingfinance}</a>
+                   <a href="${responseArr.godrejhousingfinancelink}">${responseArr.godrejhousingfinance}</a>
                 <li class="self-service-li">
-                   <a href="${responseData.godrejfinancelink}">${responseData.godrejfinance}</a>
+                   <a href="${responseArr.godrejfinancelink}">${responseArr.godrejfinance}</a>
                 </li>
             </ul>      
         </li>
   
         <li class="contactuscontainer">
-            <h4 class="contact-heading">${responseData.contactus}</h4>
-            <p class="contact-mobile-number">${responseData.mobilenumber}</p>
-            <p class="contact-mail">${responseData.mail}</p>          
+            <h4 class="contact-heading">${responseArr.contactus}</h4>
+            <a class="contact-mobile-number" href=tel:${responseArr.mobilenumber}>${responseArr.mobilenumber}</a>
+            <a class="contact-mail" href=mailto:${responseArr.mail}>${responseArr.mail}</a>          
         </li>
          `;
     firstElementChildDiv.appendChild(customerSupportDiv);
@@ -421,21 +424,21 @@ export default async function decorate(block) {
     freeCreditDiv.innerHTML = `
             <div class="free-credit-container">
                 <div class="free-credit-internaldiv">
-                <img src="${responseData.freecrediticon}" class="free-credit-icon"><a class="free-credit-heading" href="${responseData.freecreditscorelink}">${responseData.freecreditscore}</a></div>
-                <p class="free-credit-description">${responseData.freecreditscoredescription}</p>
-                <a class="free-credit-score" href="${responseData.checkcreditscorelink}">${responseData.checkcreditscore}</a>
+                <img src="${responseArr.freecrediticon}" class="free-credit-icon"><a class="free-credit-heading" href="${responseArr.freecreditscorelink}">${responseArr.freecreditscore}</a></div>
+                <p class="free-credit-description">${responseArr.freecreditscoredescription}</p>
+                <a class="free-credit-score" href="${responseArr.checkcreditscorelink}">${responseArr.checkcreditscore}</a>
             </div>
             <div class="whatsUp-container">
-                <h3 class="whatsUp-heading">${responseData.whatsupsupport}</h3>
-                <p class="whatsUp-desciption">${responseData.whatsupdescription}</p>
-                <img src="${responseData.whatsupicon}" alt="QR Code" class="whatsUp-icon">
+                <h3 class="whatsUp-heading">${responseArr.whatsupsupport}</h3>
+                <p class="whatsUp-desciption">${responseArr.whatsupdescription}</p>
+                <img src="${responseArr.whatsupicon}" alt="QR Code" class="whatsUp-icon">
             </div>
         `;
     secondElementDiv.appendChild(freeCreditDiv);
     parentContainerDiv.appendChild(secondElementDiv);
 
     imageContainerDiv.innerHTML = `
-            <img src="${responseData.mainimage}" alt="Main Image" class="main-image">
+            <img src="${responseArr.mainimage}" alt="Main Image" class="main-image">
         `;
     thirdElementDiv.appendChild(imageContainerDiv);
     parentContainerDiv.appendChild(thirdElementDiv);
@@ -481,11 +484,11 @@ export default async function decorate(block) {
         return response.json();
       })
       .then((response) => {
-        const itemCount = parseInt(depth);
+        const itemCount = parseInt(depth, 10);
         const childResponseData = response.data;
         const transformedData = transformResponseData(childResponseData);
         if (itemCount === 2) {
-          getChildResponseDataForDepthTwo(transformedData, itemCount);
+          getChildResponseDataForDepthTwo(transformedData);
         } else if (itemCount === 1) {
           getChildResponseDataForDepthOne(transformedData, itemCount);
         } else {
@@ -501,22 +504,22 @@ export default async function decorate(block) {
     const ul = document.createElement('ul');
 
     filteredData.forEach((item) => {
-        const li = document.createElement('li');
-        li.className = 'listElement';
+      const li = document.createElement('li');
+      li.className = 'listElement';
 
-        const a = document.createElement('a');
-        a.href = '#.html';
-        a.textContent = item.HeadingName;
-        a.setAttribute('data-path', item.ChildPageUrl);
-        a.setAttribute('data-depth', item.depth);
-        a.setAttribute('data-navItem', item.HeadingName);
+      const a = document.createElement('a');
+      a.href = item.ProductPagePath;
+      a.textContent = item.HeadingName;
+      a.setAttribute('data-path', item.ChildPageUrl);
+      a.setAttribute('data-depth', item.depth);
+      a.setAttribute('data-navItem', item.HeadingName);
 
-        const apiClass = item.HeadingName.replace(/\s+/g, '-');
-        const customClass = 'anchorClass';
-        a.classList.add(apiClass, customClass);
+      const apiClass = item.HeadingName.replace(/\s+/g, '-');
+      const customClass = 'anchorClass';
+      a.classList.add(apiClass, customClass);
 
-        li.appendChild(a);
-        ul.appendChild(li);
+      li.appendChild(a);
+      ul.appendChild(li);
     });
 
     topNav.appendChild(ul);
@@ -525,64 +528,62 @@ export default async function decorate(block) {
     const listElements = document.querySelectorAll('li.listElement');
 
     navItems.forEach((navItem) => {
-        navItem.addEventListener('mouseover', (event) => {
-            event.preventDefault();
-            const depth = navItem.getAttribute('data-depth');
-            const navListItem = navItem.getAttribute('data-navitem');
-            const childPath = navItem.getAttribute('data-path');
-            getChildApiResponse(childPath, navListItem, depth);
-            const parentListItem = navItem.closest('li');
+      navItem.addEventListener('mouseover', (event) => {
+        event.preventDefault();
+        const depth = navItem.getAttribute('data-depth');
+        const navListItem = navItem.getAttribute('data-navitem');
+        const childPath = navItem.getAttribute('data-path');
+        getChildApiResponse(childPath, navListItem, depth);
+        const parentListItem = navItem.closest('li');
 
-            if (navItem.classList.contains('rotate')) {
-                navItem.classList.remove('rotate');
-                belowNavMainContainer.classList.remove('show');
-            } else {
-                navItems.forEach((item) => item.classList.remove('rotate'));
-                navItem.classList.add('rotate');
-                belowNavMainContainer.classList.add('show');
-            }
+        if (navItem.classList.contains('rotate')) {
+          navItem.classList.remove('rotate');
+          belowNavMainContainer.classList.remove('show');
+        } else {
+          navItems.forEach((item) => item.classList.remove('rotate'));
+          navItem.classList.add('rotate');
+          belowNavMainContainer.classList.add('show');
+        }
 
-            if (parentListItem.classList.contains('selected')) {
-                parentListItem.classList.remove('selected');
-            } else {
-                listElements.forEach((listElement) => listElement.classList.remove('selected'));
-                parentListItem.classList.add('selected');
-            }
-        });
+        if (parentListItem.classList.contains('selected')) {
+          parentListItem.classList.remove('selected');
+        } else {
+          listElements.forEach((listElement) => listElement.classList.remove('selected'));
+          parentListItem.classList.add('selected');
+        }
+      });
     });
 
     let navTimeout;
 
     topNav.addEventListener('mouseleave', () => {
-        navTimeout = setTimeout(() => {
-            belowNavMainContainer.classList.remove('show');
-            navItems.forEach((item) => item.classList.remove('rotate'));
-            listElements.forEach((listElement) => listElement.classList.remove('selected'));
-        }, 200);
-    });
-
-    topNav.addEventListener('mouseenter', () => {
-        clearTimeout(navTimeout);
-    });
-
-    belowNavMainContainer.addEventListener('mouseenter', () => {
-        belowNavMainContainer.classList.add('show');
-        clearTimeout(navTimeout);
-    });
-
-    belowNavMainContainer.addEventListener('mouseleave', () => {
+      navTimeout = setTimeout(() => {
         belowNavMainContainer.classList.remove('show');
         navItems.forEach((item) => item.classList.remove('rotate'));
         listElements.forEach((listElement) => listElement.classList.remove('selected'));
+      }, 200);
     });
-}
 
-  
+    topNav.addEventListener('mouseenter', () => {
+      clearTimeout(navTimeout);
+    });
+
+    belowNavMainContainer.addEventListener('mouseenter', () => {
+      belowNavMainContainer.classList.add('show');
+      clearTimeout(navTimeout);
+    });
+
+    belowNavMainContainer.addEventListener('mouseleave', () => {
+      belowNavMainContainer.classList.remove('show');
+      navItems.forEach((item) => item.classList.remove('rotate'));
+      listElements.forEach((listElement) => listElement.classList.remove('selected'));
+    });
+  }
+
   topNav.addEventListener('mouseenter', () => {
     // Ensure the container remains visible when mouse re-enters the topNav
     belowNavMainContainer.classList.add('show');
   });
-  
 
   function getApiResponse(navListapi) {
     fetch(navListapi, {
@@ -604,4 +605,10 @@ export default async function decorate(block) {
   }
 
   getApiResponse(api);
+
+  
+  const redirectPath = getDataAttributeValueByName('redirectionPath');
+  navBrandImage.addEventListener('click',()=>{
+    window.location.href=redirectPath;
+  })
 }

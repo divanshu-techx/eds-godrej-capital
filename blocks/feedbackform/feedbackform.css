@@ -1,7 +1,7 @@
-button#feedback-title-btn{
+button#feedback-title-btn {
     position: fixed;
     right: 0;
-    top: 63%;
+    top: 75%;
     transform: translateY(-50%) rotate(180deg);
     background-color: #5CB7E3;
     color: white;
@@ -65,14 +65,15 @@ button#feedback-title-btn{
     opacity: 1;
 }
 
-@media(max-width:600px){
+@media(max-width:900px) {
     .parentContainerDiv.visible-parent {
         width: 320px;
-        padding:20px;
+        padding: 20px;
     }
+
     .parentContainerDiv {
         width: 320px;
-        padding:20px;
+        padding: 20px;
     }
 }
 
@@ -86,6 +87,12 @@ button#feedback-title-btn{
     justify-content: space-between;
     align-items: center;
     margin: 20px 0;
+}
+
+@media(max-width:900px) {
+    .ratingDiv {
+        gap: 2px;
+    }
 }
 
 .ratingDiv label {
@@ -175,7 +182,8 @@ input[type="number"] {
     text-orientation: mixed;
     border-radius: 4px;
 }
-@media(max-width:600px){
+
+@media(max-width:600px) {
     .collapse-button {
         width: 25px;
         height: 40px;
@@ -192,8 +200,8 @@ input[type="number"] {
     text-align: center;
 }
 
-@media(max-width:600px){
-    .feedbackform .headingTitleDiv .headingTitle{
+@media(max-width:600px) {
+    .feedbackform .headingTitleDiv .headingTitle {
         font-size: 16px;
         font-weight: 400;
         line-height: 18.77px;
@@ -207,7 +215,8 @@ input[type="number"] {
     line-height: 17.13px;
     color: #000;
 }
-@media(max-width:600px){
+
+@media(max-width:600px) {
     .feedbackform .headingDescriptionDiv .headingDescription {
         font-size: 12px;
         font-weight: 300;
@@ -232,14 +241,23 @@ input[type="number"] {
     text-align: center;
     justify-content: center;
 }
-@media(max-width:600px){
-    .feedbackform .ratingDiv label{
+
+@media(max-width:600px) {
+    .feedbackform .ratingDiv label {
         font-size: 12px;
         font-weight: 400;
         line-height: 14.08px;
         width: 20px;
         height: 20px;
 
+    }
+}
+
+@media(min-width:600px) and (max-width:900px) {
+    .feedbackform .ratingDiv label {
+        font-size: 12px;
+        width: 20px;
+        height: 20px;
     }
 }
 
@@ -264,7 +282,8 @@ input[type="number"] {
 .feedbackform .lessMoreLikeLabelDiv .lessLikely {
     width: 32px;
 }
-@media(max-width:600px){
+
+@media(max-width:600px) {
     .feedbackform .lessMoreLikeLabelDiv .lessLikely {
         text-align: start;
         font-size: 10px;
@@ -276,8 +295,9 @@ input[type="number"] {
 .feedbackform .lessMoreLikeLabelDiv .moreLikely {
     width: 58px;
 }
-@media(max-width:600px){
-    .feedbackform .lessMoreLikeLabelDiv .moreLikely{
+
+@media(max-width:600px) {
+    .feedbackform .lessMoreLikeLabelDiv .moreLikely {
         text-align: end;
         font-size: 10px;
         font-weight: 300;
@@ -329,8 +349,8 @@ input[type="number"] {
     text-decoration: underline;
 }
 
-@media(max-width:600px){
-    .feedbackform .laterButtonContainer .feedback-later-btn{
+@media(max-width:600px) {
+    .feedbackform .laterButtonContainer .feedback-later-btn {
         font-size: 12px;
         font-weight: 400;
         line-height: 14.08px;
@@ -355,13 +375,14 @@ input[type="number"] {
     line-height: 18.77px;
     text-align: left;
 }
-@media(max-width:600px){
+
+@media(max-width:600px) {
     .feedbackform fieldset#form-feedback-checkbox .feedback-checkbox-class.field-wrapper.checkbox-wrapper label {
         font-size: 12px;
         font-weight: 300;
         line-height: 14.08px;
         text-align: left;
-        color:#000;
+        color: #000;
     }
 }
 
@@ -396,8 +417,8 @@ input[type="number"] {
     border-radius: .2ex;
 }
 
-@media(max-width:600px){
-    .feedbackform fieldset#form-feedback-checkbox .feedback-checkbox-class.field-wrapper.checkbox-wrapper:has(input[type="checkbox"]:checked) label::after{
+@media(max-width:600px) {
+    .feedbackform fieldset#form-feedback-checkbox .feedback-checkbox-class.field-wrapper.checkbox-wrapper:has(input[type="checkbox"]:checked) label::after {
         top: 1.5ex;
         left: 0.8ex;
     }
@@ -440,8 +461,17 @@ input[type="radio"],
     border: 1px solid #5CB7E3;
 }
 
-.feedbackform:has(.feedback-description.text-area-wrapper) .parentContainerDiv {
-    max-width: 400px;
+
+@media(max-width:900px) {
+    .feedbackform:has(.feedback-description.text-area-wrapper) .parentContainerDiv {
+        max-width: 332px;
+    }
+}
+
+@media(min-width:900px) {
+    .feedbackform:has(.feedback-description.text-area-wrapper) .parentContainerDiv {
+        max-width: 415px;
+    }
 }
 
 .feedbackform .feedback-description.field-wrapper.text-area-wrapper {
@@ -480,8 +510,8 @@ input[type="radio"],
     color: #000000;
 }
 
-@media(max-width:600px){
-    .feedbackform #form-form-fields .field-wrapper.plainText-wrapper p#form-formlabel{
+@media(max-width:600px) {
+    .feedbackform #form-form-fields .field-wrapper.plainText-wrapper p#form-formlabel {
         font-size: 16px;
         font-weight: 400;
         line-height: 18.77px;
@@ -565,4 +595,3 @@ input[type="radio"],
     background-color: #E8E8E8;
     color: #3B3B3B;
 }
-

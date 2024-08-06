@@ -1,34 +1,51 @@
 const MEDIA_BREAKPOINTS = {
-  MOBILE: "MOBILE",
-  TABLET: "TABLET",
-  DESKTOP: "DESKTOP",
+  MOBILE: 'MOBILE',
+  TABLET: 'TABLET',
+  DESKTOP: 'DESKTOP',
 };
+function initBackgroundPosition(classList, breakpoint) {
+  const classPrefixes = {
+    [MEDIA_BREAKPOINTS.MOBILE]: 's',
+    [MEDIA_BREAKPOINTS.TABLET]: 'm',
+    [MEDIA_BREAKPOINTS.DESKTOP]: 'l',
+  };
+  const classPrefix = classPrefixes[breakpoint];
+  const backgroudPositionClass = [...classList].find((item) => item.startsWith(`bp-${classPrefix}-`));
+  let backgroundPositionValue = 'bottom';
+  if (backgroudPositionClass) {
+    let [, , xPosition, yPosition] = backgroudPositionClass.split('-');
 
-function getImageForBreakpoint(imagesList, onChange = () => {}) {
-  const mobileMQ = window.matchMedia("(max-width: 743px)");
+    // workaround, '-' character classes are not supported
+    // so for '-45px' we need to put 'm45px'
+    xPosition = xPosition.replace('m', '-');
+    yPosition = yPosition.replace('m', '-');
+
+    backgroundPositionValue = `${xPosition} ${yPosition}`;
+  }
+
+  return backgroundPositionValue;
+}
+function getImageForBreakpoint(imagesList, onChange = () => { }) {
+  const mobileMQ = window.matchMedia('(max-width: 743px)');
   const tabletMQ = window.matchMedia(
-    "(min-width: 744px) and (max-width: 1199px)"
+    '(min-width: 744px) and (max-width: 1199px)',
   );
-  const desktopMQ = window.matchMedia("(min-width: 1200px)");
+  const desktopMQ = window.matchMedia('(min-width: 1200px)');
 
-  const [mobilePic, tabletPic, desktopPic] =
-    imagesList.querySelectorAll("picture");
+  const [mobilePic, tabletPic, desktopPic] = imagesList.querySelectorAll('picture');
 
   const onBreakpointChange = (mq, picture, breakpoint) => {
     if (mq.matches) {
       onChange(picture, breakpoint);
     }
   };
-  const onMobileChange = (mq) =>
-    onBreakpointChange(mq, mobilePic, MEDIA_BREAKPOINTS.MOBILE);
-  const onTabletChange = (mq) =>
-    onBreakpointChange(mq, tabletPic, MEDIA_BREAKPOINTS.TABLET);
-  const onDesktopChange = (mq) =>
-    onBreakpointChange(mq, desktopPic, MEDIA_BREAKPOINTS.DESKTOP);
+  const onMobileChange = (mq) => onBreakpointChange(mq, mobilePic, MEDIA_BREAKPOINTS.MOBILE);
+  const onTabletChange = (mq) => onBreakpointChange(mq, tabletPic, MEDIA_BREAKPOINTS.TABLET);
+  const onDesktopChange = (mq) => onBreakpointChange(mq, desktopPic, MEDIA_BREAKPOINTS.DESKTOP);
 
-  mobileMQ.addEventListener("change", onMobileChange);
-  tabletMQ.addEventListener("change", onTabletChange);
-  desktopMQ.addEventListener("change", onDesktopChange);
+  mobileMQ.addEventListener('change', onMobileChange);
+  tabletMQ.addEventListener('change', onTabletChange);
+  desktopMQ.addEventListener('change', onDesktopChange);
 
   if (mobileMQ.matches) {
     onMobileChange(mobileMQ);
@@ -46,7 +63,7 @@ function prepareBackgroundImage(block) {
   const onBackgroundImgChange = (imgEl, backgroundTarget, breakpoint) => {
     const backgroundPostionStyles = initBackgroundPosition(
       block.classList,
-      breakpoint
+      breakpoint,
     );
     const backgroundSrc = imgEl.currentSrc;
     backgroundTarget.style.backgroundImage = `url(${backgroundSrc})`;
@@ -55,8 +72,8 @@ function prepareBackgroundImage(block) {
 
   const onBreakpointChange = (pictureEl, breakpoint) => {
     const pictureClone = pictureEl.cloneNode(true);
-    const img = pictureClone.querySelector("img");
-    pictureClone.classList.add("blog_v2-dlt_picture_blog");
+    const img = pictureClone.querySelector('img');
+    pictureClone.classList.add('blog_v2-dlt_picture_blog');
 
     block.append(pictureClone);
 
@@ -64,105 +81,73 @@ function prepareBackgroundImage(block) {
       onBackgroundImgChange(img, block, breakpoint);
       pictureClone.remove();
     } else {
-      img.addEventListener("load", () => {
+      img.addEventListener('load', () => {
         onBackgroundImgChange(img, block, breakpoint);
         pictureClone.remove();
       });
     }
   };
 
-  const listOfPictures = block.querySelector("ul");
+  const listOfPictures = block.querySelector('ul');
   // removing from DOM - prevent loading all of provided images
   listOfPictures.remove();
   getImageForBreakpoint(listOfPictures, onBreakpointChange);
 }
 
-function initBackgroundPosition(classList, breakpoint) {
-  const classPrefixes = {
-    [MEDIA_BREAKPOINTS.MOBILE]: "s",
-    [MEDIA_BREAKPOINTS.TABLET]: "m",
-    [MEDIA_BREAKPOINTS.DESKTOP]: "l",
-  };
-  const classPrefix = classPrefixes[breakpoint];
-  const backgroudPositionClass = [...classList].find((item) =>
-    item.startsWith(`bp-${classPrefix}-`)
-  );
-  let backgroundPositionValue = "bottom";
-
-  if (backgroudPositionClass) {
-    let [, , xPosition, yPosition] = backgroudPositionClass.split("-");
-
-    // workaround, '-' character classes are not supported
-    // so for '-45px' we need to put 'm45px'
-    xPosition = xPosition.replace("m", "-");
-    yPosition = yPosition.replace("m", "-");
-
-    backgroundPositionValue = `${xPosition} ${yPosition}`;
-  }
-
-  return backgroundPositionValue;
-}
-
 export default async function decorate(block) {
   prepareBackgroundImage(block);
-  const headings = block.querySelectorAll("h1, h2, h3, h4, h5, h6");
-
-  [...headings].forEach((heading) =>
-    heading.classList.add("banner_v2_title_blog")
-  );
-
-  block.parentElement.classList.add("full-width-blog");
-
-  const contentElWrapper = block.querySelector(":scope > div");
-  contentElWrapper.classList.add("blog_v2_banner_content-wrapper");
-  const contentEl = block.querySelector(":scope > div > div");
-  contentEl.classList.add("blog_v2_banner_content");
-  const contentContainer = block.querySelector(".blog_v2_banner_content");
+  const headings = block.querySelectorAll('h1, h2, h3, h4, h5, h6');
+  [...headings].forEach((heading) => heading.classList.add('banner_v2_title_blog'));
+  block.parentElement.classList.add('full-width-blog');
+  const contentElWrapper = block.querySelector(':scope > div');
+  contentElWrapper.classList.add('blog_v2_banner_content-wrapper');
+  const contentEl = block.querySelector(':scope > div > div');
+  contentEl.classList.add('blog_v2_banner_content');
+  const contentContainer = block.querySelector('.blog_v2_banner_content');
   if (contentContainer) {
-    const defaultUlClass = ["upperul", "lowerul"];
-    const allUl = block.querySelectorAll("ul");
+    const defaultUlClass = ['upperul', 'lowerul'];
+    const allUl = block.querySelectorAll('ul');
     allUl.forEach((element, index) => {
       if (index < defaultUlClass.length) {
         element.classList.add(defaultUlClass[index]);
       }
-      const hasLi = element.querySelectorAll("li").length > 0;
+      const hasLi = element.querySelectorAll('li').length > 0;
       if (hasLi) {
-        element.style.display = "block";
+        element.style.display = 'block';
       } else {
-        element.style.display = "none";
+        element.style.display = 'none';
       }
     });
 
-    const allP = block.querySelectorAll("p");
+    const allP = block.querySelectorAll('p');
     const defaultPClass = [
-      "p-description-n1",
-      "p-description-n2",
-      "p-description-n3",
+      'p-description-n1',
+      'p-description-n2',
+      'p-description-n3',
     ];
     allP.forEach((element, index) => {
-      if (element.closest(".button-container")) {
+      if (element.closest('.button-container')) {
         return;
       }
       element.classList.add(defaultPClass[index % defaultPClass.length]);
       const hasContent = element.textContent.trim().length > 0;
       if (hasContent) {
-        element.style.display = "block";
+        element.style.display = 'block';
       } else {
-        element.style.display = "none";
+        element.style.display = 'none';
       }
     });
 
-    const buttonContainerWrapper = document.createElement("div");
-    buttonContainerWrapper.classList.add("button-container-combined");
-    const buttonContainers =
-      contentContainer.querySelectorAll(".button-container");
+    const buttonContainerWrapper = document.createElement('div');
+    buttonContainerWrapper.classList.add('button-container-combined');
+    const buttonContainers = contentContainer.querySelectorAll('.button-container');
     buttonContainers.forEach((buttonContainer, index) => {
       buttonContainerWrapper.appendChild(buttonContainer);
-      buttonContainer.classList.contains("button-container");
+      buttonContainer.classList.contains('button-container');
       buttonContainer.classList.add(`button${index + 1}`);
     });
     contentContainer.appendChild(buttonContainerWrapper);
   } else {
-    console.log("No .overlayteaser-banner__content container found.");
+    console.log('No .overlayteaser-banner__content container found.');
   }
 }

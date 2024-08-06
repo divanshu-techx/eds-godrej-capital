@@ -1,19 +1,47 @@
+async function fetchData(apiUrl) {
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    return data.data;
+  } catch (error) {
+    return null;
+  }
+}
+
+function getDataAttributeValueByName(name) {
+  const element = document.querySelector(`[data-${name}]`);
+  return element ? element.getAttribute(`data-${name}`) : null;
+}
+
+// Initialize the block
+function excelDateToJSDate(serial) {
+  const excelEpoch = new Date(1900, 0, 1);
+  const date = new Date(excelEpoch.getTime() + (serial - 2) * 24 * 60 * 60 * 1000);
+  return date;
+}
+
+function formatDate(serial) {
+  const date = excelDateToJSDate(serial);
+  const day = String(date.getDate()).padStart(2, '0'); // Ensure two digits for the day
+  const month = date.toLocaleString('default', { month: 'long' }); // Full month name
+  const year = date.getFullYear();
+  return `${day} ${month} ${year}`;
+}
+
 export default async function decorate(block) {
   let responseData = [];
   const inputFieldPlaceholder = getDataAttributeValueByName('inputFieldPlaceholder');
   const typeFilter = getDataAttributeValueByName('typeFilter');
   const itemsPerPage = parseInt(getDataAttributeValueByName('itemsPerPage'), 10);
   const noResultFoundMessage = getDataAttributeValueByName('noResultFoundMessage');
-  const apiUrl = getDataAttributeValueByName('apiUrl');; // Change this to the correct attribute name
-  const tabsNames = getDataAttributeValueByName('tabsName')?.split(',').map(name => name.trim()) || [];
+  const apiUrl = getDataAttributeValueByName('apiUrl');
+  const tabsNames = getDataAttributeValueByName('tabsName')?.split(',').map((name) => name.trim()) || [];
   const sortBy = getDataAttributeValueByName('sortByLabel');
   const searchIcon = getDataAttributeValueByName('searchIcon');
 
-
-
   const readArticleLabel = getDataAttributeValueByName('readArticleLabel');
 
-  const sortOptions = typeFilter.split(',').map(option => option.trim());
+  const sortOptions = typeFilter.split(',').map((option) => option.trim());
 
   // Create container
   const container = document.createElement('div');
@@ -24,7 +52,7 @@ export default async function decorate(block) {
   tabsAndControlsContainer.className = 'tabs-and-controls-container';
 
   // Fetch data
-  let data = await fetchData(apiUrl);
+  const data = await fetchData(apiUrl);
   if (!data) {
     return;
   }
@@ -34,9 +62,10 @@ export default async function decorate(block) {
   tabsContainer.className = 'news-and-release-tabs';
 
   // If tabsNames is empty, create tabs based on unique categories in the data
-  let capitalizedTabNames = tabsNames.length > 0
-    ? tabsNames.map(tabName => tabName.charAt(0).toUpperCase() + tabName.slice(1))
-    : Array.from(new Set(data.map(item => item.category.charAt(0).toUpperCase() + item.category.slice(1))));
+  const capitalizedTabNames = tabsNames.length > 0
+    ? tabsNames.map((tabName) => tabName.charAt(0).toUpperCase() + tabName.slice(1))
+    : Array.from(new Set(data.map((item) => item.category.charAt(0).toUpperCase()
+      + item.category.slice(1))));
 
   // Create tabs based on provided or extracted tab names
   capitalizedTabNames.forEach((tabName, index) => {
@@ -65,7 +94,6 @@ export default async function decorate(block) {
   searchIconImg.className = 'search-icon';
   searchInputContainer.appendChild(searchIconImg);
   searchInputContainer.appendChild(searchInput);
-  
 
   const sortDropdownContainer = document.createElement('div');
   sortDropdownContainer.className = 'sort-dropdown-container';
@@ -74,13 +102,13 @@ export default async function decorate(block) {
   sortDropdown.id = 'sortDropdown';
 
   const selectPlaceholder = document.createElement('option');
-  selectPlaceholder.value = "";
+  selectPlaceholder.value = '';
   selectPlaceholder.textContent = sortBy;
   selectPlaceholder.selected = true;
   sortDropdown.appendChild(selectPlaceholder);
 
   // Create options for sort dropdown based on sortOptions
-  sortOptions.forEach(option => {
+  sortOptions.forEach((option) => {
     const optionElement = document.createElement('option');
     optionElement.value = option;
     optionElement.textContent = option;
@@ -108,12 +136,12 @@ export default async function decorate(block) {
   const scrollLeftButton = document.createElement('button');
   scrollLeftButton.className = 'scroll-button left';
   // scrollLeftButton.textContent = '<';
-  scrollLeftButton.innerHTML = `<img src="/icons/nexticon.svg" alt="Previous" />`; // Custom icon
+  scrollLeftButton.innerHTML = '<img src="/icons/nexticon.svg" alt="Previous" />'; // Custom icon
 
   const scrollRightButton = document.createElement('button');
   scrollRightButton.className = 'scroll-button right';
   // scrollRightButton.textContent = '>';
-  scrollRightButton.innerHTML = `<img src="/icons/nexticon.svg" alt="next" />`;
+  scrollRightButton.innerHTML = '<img src="/icons/nexticon.svg" alt="next" />';
 
   paginationWrapper.appendChild(scrollLeftButton);
   paginationWrapper.appendChild(paginationContainer);
@@ -128,7 +156,7 @@ export default async function decorate(block) {
   container.appendChild(paginationWrapper);
   container.appendChild(contentContainer);
 
- block.appendChild(container);
+  block.appendChild(container);
   // Function to render news items
   const getResponseData = (filteredData) => {
     contentContainer.innerHTML = '';
@@ -149,14 +177,16 @@ export default async function decorate(block) {
         descriptionElement.textContent = item.description;
         const publishDateElement = document.createElement('p');
         publishDateElement.classList.add('publish-date');
-        let formattedDate = formatDate(item.publishdate);
+        const formattedDate = formatDate(item.publishdate);
         publishDateElement.textContent = formattedDate;
 
         const readArticleElement = document.createElement('a');
         readArticleElement.classList.add('readArticle_anchor');
         readArticleElement.textContent = readArticleLabel;
-        readArticleElement.href = item.readArticleRedirection; // Set the href to the redirection URL
-        readArticleElement.target = '_blank'; // Open the link in a new tab
+        // Set the href to the redirection URL
+        readArticleElement.href = item.readArticleRedirection;
+        // Open the link in a new tab
+        readArticleElement.target = '_blank';
 
         newsContainerData.appendChild(titleElement);
         newsContainerData.appendChild(descriptionElement);
@@ -184,11 +214,10 @@ export default async function decorate(block) {
         paginationContainer.appendChild(pageSpan);
       }
     }
-    // FOR DISABLE BTN 
+    // FOR DISABLE BTN
     scrollLeftButton.disabled = currentPage === 1;
     scrollRightButton.disabled = currentPage === totalPages;
   };
-
 
   // Function to render items on the current page
   const renderPage = (page = 1) => {
@@ -202,25 +231,28 @@ export default async function decorate(block) {
   };
 
   // Function to sort data based on the selected option
- const sortData = () => {
-   const selectedOption = sortDropdown.value;
-   const regexOldestToLatest = /oldest\s*to\s*latest/i;
-   const regexLatestToOldest = /latest\s*to\s*oldest/i;
-   if (regexLatestToOldest.test(selectedOption)) {
-     responseData.sort((a, b) => new Date(b.publishdate) - new Date(a.publishdate));
-   } else if (regexOldestToLatest.test(selectedOption))
-     responseData.sort((a, b) => new Date(a.publishdate) - new Date(b.publishdate));
-
-   renderPage();
- };
-
+  const sortData = () => {
+    const selectedOption = sortDropdown.value;
+    const regexOldestToLatest = /oldest\s*to\s*latest/i;
+    const regexLatestToOldest = /latest\s*to\s*oldest/i;
+    if (regexLatestToOldest.test(selectedOption)) {
+      responseData.sort((a, b) => new Date(b.publishdate) - new Date(a.publishdate));
+    } else if (regexOldestToLatest.test(selectedOption)) {
+      responseData.sort((a, b) => new Date(a.publishdate) - new Date(b.publishdate));
+    }
+    renderPage();
+  };
 
   // Function to set active tab and fetch data based on category
   const setActiveTab = (tabName) => {
-    document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach((tab) => tab.classList.remove('active'));
     document.getElementById(`tab-${tabName}`).classList.add('active');
 
-    const filteredData = data.filter(item => item.category.toLowerCase() === tabName.toLowerCase());
+    // const filteredData = data.filter((item,
+    // ) => item.category.toLowerCase() === tabName.toLowerCase());
+    const filteredData = data.filter((item) => (
+      item.category.toLowerCase() === tabName.toLowerCase()
+    ));
     responseData = filteredData;
     sortData();
     renderPage(1);
@@ -250,10 +282,10 @@ export default async function decorate(block) {
   scrollLeftButton.addEventListener('click', () => {
     const currentPageSpan = document.querySelector('.pagination .active-pagination');
     if (currentPageSpan) {
-      const currentPage = parseInt(currentPageSpan.textContent);
+      const currentPage = parseInt(currentPageSpan.textContent, 10);
       if (currentPage > 1) {
         renderPage(currentPage - 1);
-        paginationContainer.scrollLeft -= paginationContainer.clientWidth; // Scroll left to previous page
+        paginationContainer.scrollLeft -= paginationContainer.clientWidth;
       }
     }
   });
@@ -261,42 +293,12 @@ export default async function decorate(block) {
   scrollRightButton.addEventListener('click', () => {
     const currentPageSpan = document.querySelector('.pagination .active-pagination');
     if (currentPageSpan) {
-      const currentPage = parseInt(currentPageSpan.textContent);
+      const currentPage = parseInt(currentPageSpan.textContent, 10);
       const totalPages = Math.ceil(responseData.length / itemsPerPage);
       if (currentPage < totalPages) {
         renderPage(currentPage + 1);
-        paginationContainer.scrollLeft += paginationContainer.clientWidth; // Scroll right to next page
+        paginationContainer.scrollLeft += paginationContainer.clientWidth;
       }
     }
   });
-
-  // Initialize the block
-  function excelDateToJSDate(serial) {
-    const excelEpoch = new Date(1900, 0, 1);
-    const date = new Date(excelEpoch.getTime() + (serial - 2) * 24 * 60 * 60 * 1000);
-    return date;
-  }
-
-  function formatDate(serial) {
-    const date = excelDateToJSDate(serial);
-    const day = String(date.getDate()).padStart(2, '0'); // Ensure two digits for the day
-    const month = date.toLocaleString('default', { month: 'long' }); // Full month name
-    const year = date.getFullYear();
-    return `${day} ${month} ${year}`;
-  }
-
-  function getDataAttributeValueByName(name) {
-    const element = document.querySelector(`[data-${name}]`);
-    return element ? element.getAttribute(`data-${name}`) : null;
-  }
-
-  async function fetchData(apiUrl) {
-    try {
-      const response = await fetch(apiUrl);
-      const data = await response.json();
-      return data.data;
-    } catch (error) {
-      return null;
-    }
-  }
 }

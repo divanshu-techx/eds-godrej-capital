@@ -77,19 +77,6 @@
     padding: 0.2em 0.4em;
 }
 
-/* .applynowform .field-wrapper.selection-wrapper {
-    grid-auto-flow: column;
-    justify-content: start;
-    gap: 16px;
-    width: fit-content;
-} */
-
-
-/* .applynowform input[required]+label::after {
-    content: "*";
-    color: firebrick;
-    margin-inline-start: 1ch;
-} */
 
 .applynowform .toggle-wrapper .switch {
     position: relative;
@@ -204,6 +191,14 @@
     margin: 50px auto;
 }
 
+@media(width >= 1600px){
+    .section.applynowform-container  {
+        padding-left: 9vw;
+        padding-right: 9vw;
+        width: calc((734 / (1600 + 734)) * 100%);
+    }
+}
+
 
 .applynowform-container .default-content-wrapper>* {
     text-align: center;
@@ -240,6 +235,7 @@
     font-size: 1rem;
     line-height: 18px;
     margin-bottom: 1rem;
+    color: #585858;
 }
 
 .applynowform-container .field-wrapper.fieldset-wrapper #form-terms {
@@ -361,7 +357,7 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 16px;
-    color: #8CB133;
+    color: #3CB8FF;
     cursor: pointer;
 }
 
@@ -399,6 +395,10 @@
     line-height: 16.42px;
     text-align: left;
     margin-bottom: 8px;
+}
+
+.verify-step.field-wrapper.fieldset-wrapper .error-message {
+    padding-top: 12px;
 }
 
 
@@ -637,6 +637,18 @@ fieldset#form-box .verify-step.field-wrapper.text-wrapper:has(input:not(:placeho
     }
 }
 
+@media (max-width:900px) {
+
+    .applynowform-container .applynowform .verify-step.field-wrapper.fieldset-wrapper #form-description-1 #form-message4,
+    .applynowform-container .field-wrapper.fieldset-wrapper #form-terms #form-description {
+        display: none;
+    }
+
+    .step1.submit-registration.field-wrapper.submit-wrapper {
+        margin-top: 1em;
+    }
+}
+
 .terms-and-condition-re {
     font-family: Work Sans;
     font-size: 12px;
@@ -666,4 +678,17 @@ fieldset#form-box .verify-step.field-wrapper.text-wrapper:has(input:not(:placeho
     -webkit-text-fill-color: #585858;
     -webkit-box-shadow: 0 0 0px 1000px #D4D4D499 inset;
     transition: background-color 5000s ease-in-out 0s;
+}
+
+.applynowform .verify-step .plaintext-wrapper #form-message2 {
+    font-family: Work Sans;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 16.42px;
+    color: #3B3B3B;
+}
+
+.applynowform .verify-step .plaintext-wrapper #form-message2 #otp-seconds {
+    font-weight: 500;
+
 }

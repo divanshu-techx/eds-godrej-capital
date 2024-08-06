@@ -1,35 +1,36 @@
-
 main .section.quick-tools-component {
     padding: 0 !important;
 }
- .quick-tools-component {
+
+.quick-tools-component {
     position: fixed;
     top: 145px;
     z-index: 99;
     right: 0;
+    transform: translateX(122px);
     /* max-width: 105pc;
     margin: 0 auto;  */
 }
- 
+
 @media (max-width: 767px) {
     .quick-tools-component {
         display: none;
     }
 }
- 
+
 .quicktools {
     display: flex;
     flex-direction: column;
 }
- 
+
 .quicktool-item:first-of-type {
     border-top-left-radius: 4px;
 }
- 
+
 .quicktool-item:last-of-type {
     border-bottom-left-radius: 4px;
 }
- 
+
 .quicktool-item {
     display: flex;
     justify-content: start;
@@ -40,20 +41,20 @@ main .section.quick-tools-component {
     height: 60px;
     gap: 20px;
     box-sizing: border-box;
-    transform: translateX(122px);
+    transform: translateX(0px);
 }
- 
+
 .quicktool-item:hover {
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
-    transform: translateX(0px);
+    transform: translateX(-122px);
 }
- 
+
 .quicktool-item-picture {
     width: 24px;
     height: 24px;
 }
- 
+
 .quick-apply {
     display: flex;
     flex-direction: column;
@@ -62,27 +63,33 @@ main .section.quick-tools-component {
     padding: 10px;
     transform: translateX(154px);
 }
- 
+
 .quick-apply .quicktool-item-text {
     display: flex;
     font-size: 12px;
 }
- 
+
 .quicktool-item-picture img {
     width: 24px;
     height: 24px;
 }
- 
+
 .quicktool-item-text p,
-.quicktool-item-text div {
+.quicktool-item-text div,
+.quicktool-item-text p a {
     text-align: center;
     font-size: 12px;
     font-family: 'Work Sans';
     font-weight: 300;
+    color: #3B3B3B;
 }
- 
- 
+
+
 .quick-apply .quicktool-item-text p span,
 .quick-apply .quicktool-item-text div span {
     display: block;
+}
+
+.quicktool-item-text p a.button {
+    padding: 0;
 }
