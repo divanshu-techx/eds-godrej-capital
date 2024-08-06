@@ -161,7 +161,6 @@ export default async function decorate(block) {
   godrejInsta.addEventListener('click', () => {
     window.location.href = godrejInstaLink;
   });
-  })
   processElements();
 
 }
