@@ -1000,16 +1000,8 @@ header nav .nav-tools input[type=text] {
 /* .subheader .subheader-wrapper .default-content-wrapper ul .subheader-list:hover picture{
   background: #3CB8FF;
 } */
-.header .section .default-content-wrapper .button-container a:hover {
-  background: #00A2FF;
-}
-
-.customerSupportDiv a:hover {
-  color: #3CB8FF;
-}
-
-.belowNavMainContainer.show .firstElementChildDiv .customersupport a:hover {
-  color: #3CB8FF;
+.header .section .default-content-wrapper .button-container a:hover{
+  background: #3CB8FF;
 }
 
 @media (width >=1600px){
@@ -1019,4 +1011,5 @@ header nav .nav-tools input[type=text] {
     padding-left: 9vw;
     padding-right: 9vw;
   }
+>>>>>>>>> Temporary merge branch 2
 }
