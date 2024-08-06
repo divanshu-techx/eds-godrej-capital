@@ -277,31 +277,42 @@ function initialize(block) {
         createElement('div', { id: 'tenure-interest', style: 'color: #757575;font-size:12px;font-weight:400;' }),
       ),
     ),
-    createElement('div', { class: 'mobile-breakup-right' },
-      createElement('div', { class: 'mobile-tenure-right' },
-        createElement('div', { class: 'mobile-tenure-emi' },
-          createElement('div', { class: 'mobile-tenure-emi-label' }, monthlyEmiLabel),
-          createElement('div', { id: 'tenure-rate', class: 'mobile-tenure-interest-rate' }),
-        ),
+    createElement(
+      'div',
+      { class: 'mobile-breakup-right' },
+      createElement(
+        'div',
+        { class: 'mobile-tenure-right' },
+        createElement(
+          'div',
+          { class: 'mobile-tenure-emi' },
+          createElement(
+            'div',
+            { class: 'mobile-tenure-emi-label' },
+            monthlyEmiLabel
+          ),
+          createElement(
+            'div',
+            { id: 'tenure-rate', class: 'mobile-tenure-interest-rate' },
+          ),),
         createElement(
           'div',
           { class: 'mobile-tenure-emi-details' },
           createElement(
             'h2',
-            { 
+            {
               id: 'tenure-price',
-              class: 'mobile-tenure-emi-price'
-            }
+              class: 'mobile-tenure-emi-price',
+            },
           ),
-        ),
-      ),
+        ),),
       createElement(
         'div',
         { class: 'mobile-tenure-apply' },
         createElement(
           'button',
           { id: 'apply-btn-mobile', 'data-path': redirectionApplyPath },
-          applyNowLabel
+          applyNowLabel,
         ),
       ),
     ),
@@ -526,7 +537,7 @@ function initialize(block) {
   const interestRateError = createErrorSpan(`Value should be between  ${interestrateMinValue} % and ${interestrateMaxValue} %`);
   const loanPeriodError = createErrorSpan(`Value should be between  ${tenureMinYearvalue} and  ${tenureMaxYearvalue}`);
   const loanPeriodMonthError = createErrorSpan(`Value should be between ${tenureMinMonthValue} and ${tenureMaxMonthValue}`);
-  
+
   // Append error message spans to their respective input containers
   amountDetail.appendChild(loanAmtError);
   interestDetail.appendChild(interestRateError);
@@ -579,7 +590,7 @@ function initialize(block) {
     }
   });
 
-  //error for year
+  // error for year
   loanPeriodText.addEventListener('input', function () {
     if (
       parseFloat(this.value) < parseFloat(tenureMinYearvalue)
@@ -602,7 +613,7 @@ function initialize(block) {
     }
   });
 
-  //error for month
+  // error for month
   loanPeriodTextMonth.addEventListener('input', function () {
     if (
       parseFloat(this.value) < parseFloat(tenureMinMonthValue)
