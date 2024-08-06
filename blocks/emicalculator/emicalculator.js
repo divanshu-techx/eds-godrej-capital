@@ -750,9 +750,9 @@ function initialize(block) {
   loanPeriodSlider.addEventListener('change', function (self) {
     loanPeriodText.value = self.target.value;
     N = parseFloat(self.target.value);
-    if(N >= loanPeriodSlider.max) {
+    if (N >= loanPeriodSlider.max) {
       loanPeriodTextMonth.disabled = true;
-      loanPeriodSliderMonth.disabled  = true;
+      loanPeriodSliderMonth.disabled = true;
       loanPeriodTextMonth.value = loanPeriodSliderMonth.min;
       loanPeriodSliderMonth.value = loanPeriodSliderMonth.min;
 
@@ -761,7 +761,7 @@ function initialize(block) {
         ((value - tenureMinYearvalue) / (tenureMaxYearvalue - tenureMinYearvalue))
         * 100
       );
-  
+
       // Update the background gradient with the calculated percentage
       if (window.innerWidth <= 768) {
         loanPeriodSliderMonth.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
@@ -770,7 +770,7 @@ function initialize(block) {
       }
     } else {
       loanPeriodTextMonth.disabled = false;
-      loanPeriodSliderMonth.disabled  = false;
+      loanPeriodSliderMonth.disabled = false;
     }
     const value = N;
     const percentage = (
@@ -795,9 +795,9 @@ function initialize(block) {
       loanPeriodSlider.value = self.target.value;
     }
     N = parseFloat(self.target.value);
-    if(N >= loanPeriodSlider.max) {
+    if (N >= loanPeriodSlider.max) {
       loanPeriodTextMonth.disabled = true;
-      loanPeriodSliderMonth.disabled  = true;
+      loanPeriodSliderMonth.disabled = true;
       loanPeriodTextMonth.value = loanPeriodSliderMonth.min;
       loanPeriodSliderMonth.value = loanPeriodSliderMonth.min;
 
@@ -806,7 +806,7 @@ function initialize(block) {
         ((value - tenureMinYearvalue) / (tenureMaxYearvalue - tenureMinYearvalue))
         * 100
       );
-  
+
       // Update the background gradient with the calculated percentage
       if (window.innerWidth <= 768) {
         loanPeriodSliderMonth.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
@@ -815,9 +815,9 @@ function initialize(block) {
       }
     } else {
       loanPeriodTextMonth.disabled = false;
-      loanPeriodSliderMonth.disabled  = false;
+      loanPeriodSliderMonth.disabled = false;
     }
-    const  value  = N;
+    const value = N;
     const percentage = (
       ((value - tenureMinYearvalue) / (tenureMaxYearvalue - tenureMinYearvalue))
       * 100
