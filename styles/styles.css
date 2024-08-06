@@ -284,15 +284,33 @@ main .section {
   padding: 16px 26px;
 }
 
-@media (width >=600px) {
+@media (width >= 600px) and (width <= 1599px) {
   main .section {
     padding: 32px 16px;
   }
 }
 
-@media (width >=900px) {
+@media(width >=1600px){
+  main .section {
+    padding-left: 9vw;
+    padding-right: 9vw;
+  }
+  main .section {
+    max-width: unset;
+    margin: auto;
+  }
+}
+
+@media (width >=900px) and (width <= 1599px) {
   .section>div {
     max-width: 1200px;
+    margin: auto;
+  }
+}
+
+@media (width >=1600px){
+  .section>div {
+    max-width: unset;
     margin: auto;
   }
 }

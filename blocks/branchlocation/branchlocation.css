@@ -58,6 +58,13 @@
     padding: 32px 40px;
 }
 
+@media(width >= 1600px){
+    .section.branchlocation-container  {
+        padding-left: 9vw;
+        padding-right: 9vw;
+    }
+}
+
 .branchlocation-wrapper .branchlocation .filters-dropdown .filters {
     display: flex;
     flex-direction: row;

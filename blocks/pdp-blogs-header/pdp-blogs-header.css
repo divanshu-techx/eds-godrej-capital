@@ -52,5 +52,6 @@
 @media(min-width:1199px){
     .section.pdp-blogs-header-container {
         background-color: #f2f2f2;
+        margin-top:40px;
     }
 }

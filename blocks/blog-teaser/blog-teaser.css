@@ -71,6 +71,14 @@
     }
  
 }
+
+@media (width >= 1600px) {
+    .blog-teaser.left .blog_banner__content-wrapper{
+        padding-left: 9vw;
+        padding-right: 9vw;
+        max-width: unset;
+    }
+}
  
  
 .blog-teaser .blog_banner__content p,

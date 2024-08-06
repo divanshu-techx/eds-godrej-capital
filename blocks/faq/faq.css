@@ -250,7 +250,7 @@ color:#5D5D5D;
 /* Style the buttons that are used to open and close the accordion panel */
 .lowerContainer .qa-item h4 {
   background-color: #E8E8E8;
-  color: #3B3B3B;
+  color: #000000;
   cursor: pointer;
   padding: 8px 6px;
   border: none;
@@ -314,13 +314,7 @@ color:#5D5D5D;
 
 }
 
-
-@media (max-width:900px) {
-  .upperContainer .search-container .icon-container .icon {
-    width: 16px;
-    height: 16px;
-  }
-
+@media(width <= 767px){
   .section.faq-container {
     /* margin-top: 100px; */
     border-radius: 20px 20px 0px 0px;
@@ -329,6 +323,16 @@ color:#5D5D5D;
         background-color: #fff;
         padding-bottom: 0px;
   }
+}
+
+
+@media (max-width:900px) {
+  .upperContainer .search-container .icon-container .icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  
 
   .upperContainer {
     flex-direction: column;

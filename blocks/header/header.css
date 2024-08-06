@@ -36,6 +36,15 @@ header nav {
   font-family: var(--body-font-family);
 }
 
+@media (width >=1600px){
+  header nav {
+    max-width: unset;
+    margin: auto;
+    padding-left: 9vw;
+    padding-right: 9vw;
+  }
+}
+
 header nav[aria-expanded="true"] {
   grid-template:
     'brand hamburger' var(--nav-height) 'sections sections' 1fr
@@ -44,11 +53,19 @@ header nav[aria-expanded="true"] {
   min-height: 100vh;
 }
 
-@media (width >=600px) {
+@media (width >=900px) and (width <= 1599px) {
   header nav {
     padding: 0 2rem;
   }
 }
+
+@media(width >=1600px){
+  header nav{
+    padding-left: 9vw;
+    padding-right: 9vw;
+  }
+}
+
 
 @media (width >=900px) {
   header nav {
@@ -983,14 +1000,16 @@ header nav .nav-tools input[type=text] {
 /* .subheader .subheader-wrapper .default-content-wrapper ul .subheader-list:hover picture{
   background: #3CB8FF;
 } */
-.header .section .default-content-wrapper .button-container a:hover {
-  background: #00A2FF;
+.header .section .default-content-wrapper .button-container a:hover{
+  background: #3CB8FF;
 }
 
-.customerSupportDiv a:hover {
-  color: #3CB8FF;
-}
-
-.belowNavMainContainer.show .firstElementChildDiv .customersupport a:hover {
-  color: #3CB8FF;
+@media (width >=1600px){
+  .subheader .section >div {
+    /* max-width: unset;
+    margin: auto; */
+    padding-left: 9vw;
+    padding-right: 9vw;
+  }
+>>>>>>>>> Temporary merge branch 2
 }
