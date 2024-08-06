@@ -1,7 +1,7 @@
 button#feedback-title-btn {
     position: fixed;
     right: 0;
-    top: 63%;
+    top: 75%;
     transform: translateY(-50%) rotate(180deg);
     background-color: #5CB7E3;
     color: white;
