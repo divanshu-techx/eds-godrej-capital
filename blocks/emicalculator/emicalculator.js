@@ -616,8 +616,8 @@ function initialize(block) {
 
   loanPeriodSliderMonth.addEventListener('input', function () {
     if (
-      parseFloat(this.value) < parseFloat(tenureMinMonthValue) ||
-      parseFloat(this.value) > parseFloat(tenureMaxMonthValue)
+      parseFloat(this.value) < parseFloat(tenureMinMonthValue)
+      ||  parseFloat(this.value) > parseFloat(tenureMaxMonthValue)
     ) {
       loanPeriodMonthError.style.display = 'block';
     } else {
