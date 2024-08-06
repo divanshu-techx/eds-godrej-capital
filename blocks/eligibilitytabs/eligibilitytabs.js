@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-unresolved
 import { toClassName } from '../../scripts/aem.js';
-import { p } from '../utils/dom-helper.js';
+// import { p } from '../utils/dom-helper.js';
 
 // Retrieve the value of a data attribute by name
 function getDataAttributeValueByName(name) {
@@ -26,7 +26,7 @@ function createDropdown(tabs, tabpanels, block) {
     select.append(option);
   });
   select.addEventListener('change', () => {
-    const selectedIndex = select.selectedIndex;
+    const { selectedIndex } = select;
     tabpanels.forEach((panel, i) => {
       panel.setAttribute('aria-hidden', i !== selectedIndex);
     });

@@ -2,18 +2,18 @@
 const queryIndexApiUrl = getDataAttributeValueByName('blogs-apiUrl');
 const readTimeIcon = getDataAttributeValueByName('read-time-icon');
 const readTimeIconAltText = getDataAttributeValueByName(
-  'read-time-icon-alt-text'
+  'read-time-icon-alt-text',
 );
 const searchIcon = getDataAttributeValueByName('search-icon');
 const searchIconAltText = getDataAttributeValueByName('search-icon-alt-text');
 const searchPlaceholderText = getDataAttributeValueByName(
-  'search-placeholder-text'
+  'search-placeholder-text',
 );
 const filterLabel = getDataAttributeValueByName('filter-label');
 const productLabel = getDataAttributeValueByName('default-dropdown-label');
 const sortingFilters = getDataAttributeValueByName('sorting-filters');
 const blogsNotFoundMsg = getDataAttributeValueByName('blogs-not-found-msg');
-let articlesPerPage = getDataAttributeValueByName('blogs-per-page');
+const articlesPerPage = getDataAttributeValueByName('blogs-per-page');
 let currentPage = 1;
 
 // Main function to decorate the block
@@ -27,13 +27,13 @@ export default async function decorate(block) {
     console.log(responseData);
     if (responseData) {
       // Extract and render distinct categories and filters
-      let searchInput = block.querySelector('#search-input');
+      const searchInput = block.querySelector('#search-input');
       const categories = getDistinctCategories(responseData);
       renderFiltersAndCategoriesDropdown(
         block,
         categories,
         responseData,
-        searchInput
+        searchInput,
       );
       // Render initial cards
       renderCards(block, responseData);
@@ -135,18 +135,18 @@ function renderSearchSection(block) {
 // Handle search input functionality
 function handleSearching(block, searchInputField, responseData) {
   // Event listener for input in search field
-  let noResultDiv = block.querySelector('#articles-not-found-container');
-  let articlesContainer = block.querySelector('#articles-container');
-  let filterDropdown = block.querySelector('#filter-dropdown');
-  let categoryDropdown = block.querySelector('#category-dropdown');
+  const noResultDiv = block.querySelector('#articles-not-found-container');
+  const articlesContainer = block.querySelector('#articles-container');
+  const filterDropdown = block.querySelector('#filter-dropdown');
+  const categoryDropdown = block.querySelector('#category-dropdown');
 
-  searchInputField.addEventListener('input', function (event) {
+  searchInputField.addEventListener('input', (event) => {
     const inputValue = event.target.value.trim().toLowerCase();
     let filteredData = [];
     if (inputValue.length > 0) {
       const filteredArticlesByUserInput = filterArticlesByDescription(
         responseData,
-        inputValue
+        inputValue,
       );
       filteredData = getFilteredDataBasedOnDropdown(
         filteredArticlesByUserInput,
@@ -165,7 +165,7 @@ function handleSearching(block, searchInputField, responseData) {
       filteredData = getFilteredDataBasedOnDropdown(
         responseData,
         filterDropdown.value,
-        categoryDropdown.value
+        categoryDropdown.value,
       );
       noResultDiv.style.display = 'none';
       articlesContainer.style.display = 'grid';
@@ -182,7 +182,7 @@ function getFilteredDataBasedOnDropdown(data, filterValue, categoryValue) {
     case filterValue !== '' && categoryValue !== '':
       const filteredDataByCategory = filterArticlesByCategory(
         filteredData,
-        categoryValue
+        categoryValue,
       );
       filteredData = sortArticles(filterValue, filteredDataByCategory);
       break;
@@ -203,7 +203,7 @@ function renderFiltersAndCategoriesDropdown(
   block,
   categories,
   responseData,
-  searchInputField
+  searchInputField,
 ) {
   const filters = getFiltersArrayFromString();
   const filtersDropdown = block.querySelector('#filter-dropdown');
@@ -229,8 +229,8 @@ function renderFiltersAndCategoriesDropdown(
       filtersDropdown,
       categoriesDropdown,
       searchInputField,
-      responseData
-    )
+      responseData,
+    ),
   );
   categoriesDropdown.addEventListener('change', () =>
     handleDropdownChange(
@@ -238,8 +238,8 @@ function renderFiltersAndCategoriesDropdown(
       filtersDropdown,
       categoriesDropdown,
       searchInputField,
-      responseData
-    )
+      responseData,
+    ),
   );
 }
 
@@ -249,28 +249,28 @@ function handleDropdownChange(
   filtersDropdown,
   categoriesDropdown,
   searchInputField,
-  responseData
+  responseData,
 ) {
   const selectedFilter = filtersDropdown.value;
   const selectedCategory = categoriesDropdown.value;
   const inputValue = searchInputField.value.trim().toLowerCase();
-  let noResultDiv = block.querySelector('#articles-not-found-container');
-  let articlesContainer = block.querySelector('#articles-container');
+  const noResultDiv = block.querySelector('#articles-not-found-container');
+  const articlesContainer = block.querySelector('#articles-container');
 
   let filteredAndSortedData = getFilteredDataBasedOnDropdown(
     responseData,
     selectedFilter,
-    selectedCategory
+    selectedCategory,
   );
   if (inputValue.length > 0) {
-    let filterDataBasedOnInput = filterArticlesByDescription(
+    const filterDataBasedOnInput = filterArticlesByDescription(
       responseData,
-      inputValue
+      inputValue,
     );
     filteredAndSortedData = getFilteredDataBasedOnDropdown(
       filterDataBasedOnInput,
       selectedFilter,
-      selectedCategory
+      selectedCategory,
     );
     if (filteredAndSortedData.length === 0) {
       noResultDiv.style.display = 'block';
@@ -291,11 +291,11 @@ function handleDropdownChange(
 function sortArticles(selectedFilter, data) {
   if (selectedFilter === 'oldest-to-latest') {
     return data.sort(
-      (a, b) => new Date(a.articlepublishdate) - new Date(b.articlepublishdate)
+      (a, b) => new Date(a.articlepublishdate) - new Date(b.articlepublishdate),
     );
   } else if (selectedFilter === 'latest-to-oldest') {
     return data.sort(
-      (a, b) => new Date(b.articlepublishdate) - new Date(a.articlepublishdate)
+      (a, b) => new Date(b.articlepublishdate) - new Date(a.articlepublishdate),
     );
   }
 }
@@ -320,22 +320,22 @@ function renderCards(block, data) {
     const articleCard = document.createElement('div');
     articleCard.classList.add('article-card');
     articleCard.innerHTML = `
-			<a href="#" class="article-single-card">
-				<div class="article-image">
-					<img src="${article.image}" alt="${article.imagealt}">
-				</div>
-				<div class="article-content">
-					<div class="date-time-article">
-						<div class="article-date">${formatDate(article.articlepublishdate)}</div>
-						<div class="article-read-time">
-							<img src="${readTimeIcon}" alt="${readTimeIconAltText}">
-							<span class="read-time">${article.readtime}</span>
-						</div>
-					</div>		
-					<div class="description-article">${article.description}</div>
-				</div>
-			</a>
-		`;
+      <a href="#" class="article-single-card">
+        <div class="article-image">
+          <img src="${article.image}" alt="${article.imagealt}">
+        </div>
+        <div class="article-content">
+          <div class="date-time-article">
+            <div class="article-date">${formatDate(article.articlepublishdate)}</div>
+            <div class="article-read-time">
+              <img src="${readTimeIcon}" alt="${readTimeIconAltText}">
+              <span class="read-time">${article.readtime}</span>
+            </div>
+          </div>		
+          <div class="description-article">${article.description}</div>
+        </div>
+      </a>
+    `;
     articlesContainer.appendChild(articleCard);
   });
 }
@@ -389,12 +389,12 @@ function renderPagination(block, data) {
   const paginationContainer = createPaginationContainer(block);
   paginationContainer.innerHTML = '';
 
-  let totalPages = Math.ceil(data.length / articlesPerPage);
+  const totalPages = Math.ceil(data.length / articlesPerPage);
 
   if (totalPages > 1) {
     // Left arrow button
     const leftButton = document.createElement('button');
-    leftButton.innerHTML = `<img src="/icons/nexticon.svg" alt="Previous" />`
+    leftButton.innerHTML = `<img src='/icons/nexticon.svg' alt='Previous' />`;
     leftButton.classList.add('arrow', 'left');
     leftButton.addEventListener('click', () => {
       if (currentPage > 1) {
@@ -415,7 +415,7 @@ function renderPagination(block, data) {
 
     // Right arrow button
     const rightButton = document.createElement('button');
-    rightButton.innerHTML = `<img src="/icons/nexticon.svg" alt="Next" />`;
+    rightButton.innerHTML = `<img src='/icons/nexticon.svg' alt='Next' />`;
     rightButton.classList.add('arrow', 'right');
     rightButton.addEventListener('click', () => {
       if (currentPage < totalPages) {
@@ -435,16 +435,16 @@ function renderPagination(block, data) {
 }
 
 // Function to determine the device view and run the appropriate code
-function handleDeviceSpecificCode(block, data, totalPages, currentPage, pageLinksContainer) {
+function handleDeviceSpecificCode(block, data, totalPages, currentPageEle, pageLinksContainer) {
   const mobileView = window.matchMedia('(max-width: 767px)');
-  const tabletView = window.matchMedia('(min-width: 767.99px) and (max-width: 1024px)');
+  // const tabletView = window.matchMedia('(min-width: 767.99px) and (max-width: 1024px)');
 
   if (mobileView.matches) {
-    let pageLink = document.createElement('span');
+    const pageLink = document.createElement('span');
     pageLink.classList.add('number-node');
-    pageLink.innerText = formatNumberWithLeadingZero(currentPage);
+    pageLink.innerText = formatNumberWithLeadingZero(currentPageEle);
     pageLink.classList.add('active');
-    let totalPageNo = document.createElement('span');
+    const totalPageNo = document.createElement('span');
     totalPageNo.innerText = `/ ${formatNumberWithLeadingZero(totalPages)}`;
 
     pageLinksContainer.appendChild(pageLink);
@@ -452,14 +452,14 @@ function handleDeviceSpecificCode(block, data, totalPages, currentPage, pageLink
 
   } else {
     // Numbered pages
-    for (let i = 1; i <= totalPages; i++) {
-      let pageLink = document.createElement('span');
+    for (let i = 1; i <= totalPages; i += 1) {
+      const pageLink = document.createElement('span');
       pageLink.classList.add('number-node');
       pageLink.innerText = formatNumberWithLeadingZero(i);
-      pageLink.classList.toggle('active', i === currentPage);
+      pageLink.classList.toggle('active', i === currentPageEle);
       pageLink.addEventListener('click', (event) => {
         event.preventDefault();
-        currentPage = i;
+        currentPageEle = i;
         renderCards(block, data);
         renderPagination(block, data);
       });
@@ -485,7 +485,7 @@ function getDistinctCategories(data) {
 // Filter articles by description
 function filterArticlesByDescription(data, input) {
   return data.filter((article) =>
-    article.description.toLowerCase().includes(input.toLowerCase())
+    article.description.toLowerCase().includes(input.toLowerCase()),
   );
 }
 
@@ -493,7 +493,7 @@ function filterArticlesByDescription(data, input) {
 function filterArticlesByCategory(data, selectedCategory) {
   const filteredArticles = data.filter(
     (article) =>
-      article.category.toLowerCase() === selectedCategory.toLowerCase()
+      article.category.toLowerCase() === selectedCategory.toLowerCase(),
   );
   return filteredArticles;
 }
@@ -523,7 +523,7 @@ function formatDate(serial) {
 function excelDateToJSDate(serial) {
   const excelEpoch = new Date(1900, 0, 1);
   const date = new Date(
-    excelEpoch.getTime() + (serial - 2) * 24 * 60 * 60 * 1000
+    excelEpoch.getTime() + (serial - 2) * 24 * 60 * 60 * 1000,
   );
   return date;
 }

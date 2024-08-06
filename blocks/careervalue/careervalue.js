@@ -1,14 +1,14 @@
 export default async function decorate(block) {
   function handleMobileView() {
-    let slideCards = document.querySelector('.career-value-cards');
-    let parentBlockDiv = document.querySelector('.careervalue-wrapper');
+    const slideCards = document.querySelector('.career-value-cards');
+    const parentBlockDiv = document.querySelector('.careervalue-wrapper');
     const buttonDiv = document.createElement('div');
     buttonDiv.classList.add('btn-container');
-    let slideCount = slideCards.children.length;
+    const slideCount = slideCards.children.length;
     const pTagDiv = document.createElement('div');
     pTagDiv.classList.add('numberChart');
-    for (let i = 1; i <= slideCount; i++) {
-      let countChart = document.createElement('span');
+    for (let i = 1; i <= slideCount; i += 1) {
+      const countChart = document.createElement('span');
       countChart.innerHTML = `0${i}`;
       countChart.classList.add(`card-0${i}`);
       pTagDiv.append(countChart);
@@ -19,15 +19,15 @@ export default async function decorate(block) {
       });
     });
     // Create left button with custom icon
-    let leftBtn = document.createElement('button');
+    const leftBtn = document.createElement('button');
     leftBtn.classList.add('prev');
-    leftBtn.innerHTML = `<img src="/icons/nexticon.svg" alt="Previous" />`; // Custom icon
+    leftBtn.innerHTML = `<img src='/icons/nexticon.svg' alt='Previous' />`; // Custom icon
     buttonDiv.appendChild(leftBtn);
     buttonDiv.appendChild(pTagDiv);
     // Create right button with custom icon
-    let rightBtn = document.createElement('button');
+    const rightBtn = document.createElement('button');
     rightBtn.classList.add('next');
-    rightBtn.innerHTML = `<img src="/icons/nexticon.svg" alt="Next" />`; // Custom icon
+    rightBtn.innerHTML = `<img src='/icons/nexticon.svg' alt='Next' />`; // Custom icon
     buttonDiv.appendChild(rightBtn);
     parentBlockDiv.prepend(buttonDiv);
     leftBtn.addEventListener('click', () => {
@@ -37,9 +37,7 @@ export default async function decorate(block) {
       moveSlide(1);
     });
     let currentSlide = 0;
-    function moveSlide(n) {
-      showSlide(currentSlide + n);
-    }
+
     function showSlide(index) {
       if (index >= slideCards.children.length) {
         currentSlide = 0;
@@ -48,15 +46,15 @@ export default async function decorate(block) {
       } else {
         currentSlide = index;
       }
-      let parentNumber = document.querySelector('.numberChart');
-      for (let i = 0; i < parentNumber.children.length; i++) {
+      const parentNumber = document.querySelector('.numberChart');
+      for (let i = 0; i < parentNumber.children.length; i += 1) {
         parentNumber.children[i].classList.remove('currentnode', 'underline');
       }
       parentNumber.children[currentSlide].classList.add(
         'currentnode',
-        'underline'
+        'underline',
       );
-      for (let j = 0; j < block.children.length; j++) {
+      for (let j = 0; j < block.children.length; j += 1) {
         block.children[j].classList.remove('show');
         block.children[j].classList.add('hidecards');
       }
@@ -75,6 +73,10 @@ export default async function decorate(block) {
       }
     }
     moveSlide(0);
+
+    function moveSlide(n) {
+      showSlide(currentSlide + n);
+    }
     let startX = 0;
     let endX = 0;
     slideCards.addEventListener('touchstart', (e) => {
@@ -124,13 +126,13 @@ export default async function decorate(block) {
     }
   }
   // Add classes to block and its children
-  let blockDiv = block.children;
-  for (let i = 0; i < blockDiv.length; i++) {
-    let childDiv = blockDiv[i];
+  const blockDiv = block.children;
+  for (let i = 0; i < blockDiv.length; i += 1) {
+    const childDiv = blockDiv[i];
     childDiv.classList.add('career-child-cards');
     if (childDiv.children) {
-      let innerChildDiv = childDiv.children;
-      for (let j = 0; j < innerChildDiv.length; j++) {
+      const innerChildDiv = childDiv.children;
+      for (let j = 0; j < innerChildDiv.length; j += 1) {
         innerChildDiv[j].classList.add('career-inner-child-cards');
       }
     }

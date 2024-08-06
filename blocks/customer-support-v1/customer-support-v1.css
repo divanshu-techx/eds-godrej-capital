@@ -70,6 +70,10 @@
   .cards:hover p {
     color: #ffff;
   }
+
+  .cards:hover p a.button {
+    color: #FFFFFF;
+  }
 }
 
 @media (max-width: 900px) {
@@ -104,7 +108,8 @@
   }
 }
 
-.cards p {
+.cards p,
+.cards p a {
   margin: 0;
   font-size: var(--body-font-size-xs);
   text-align: left;
@@ -115,6 +120,14 @@
 
     font-size: var(--body-font-size-default);
   }
+}
+
+.cards p a.button {
+  padding: 0;
+}
+
+.cards p a.button:hover {
+  color: #FFFFFF;
 }
 
 .cards-remove {

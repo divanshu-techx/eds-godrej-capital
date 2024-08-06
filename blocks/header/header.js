@@ -98,7 +98,6 @@ function toggleMenu(nav, navSections, navMobile, forceExpanded = null) {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
-  console.log(block);
   // load nav as fragment
   const navMeta = getMetadata('nav');
   const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
@@ -124,7 +123,6 @@ export default async function decorate(block) {
   navBrandLink.classList.add('nav-brand-link');
 
   const navBrandImage=navBrand.querySelector(':scope .default-content-wrapper > picture');
-  console.log(navBrandImage);
   
   const brandLink = navBrand.querySelector('.button');
   if (brandLink) {
@@ -416,8 +414,8 @@ export default async function decorate(block) {
   
         <li class="contactuscontainer">
             <h4 class="contact-heading">${responseArr.contactus}</h4>
-            <p class="contact-mobile-number">${responseArr.mobilenumber}</p>
-            <p class="contact-mail">${responseArr.mail}</p>          
+            <a class="contact-mobile-number" href=tel:${responseArr.mobilenumber}>${responseArr.mobilenumber}</a>
+            <a class="contact-mail" href=mailto:${responseArr.mail}>${responseArr.mail}</a>          
         </li>
          `;
     firstElementChildDiv.appendChild(customerSupportDiv);
