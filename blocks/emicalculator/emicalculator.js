@@ -557,18 +557,22 @@ function initialize(block) {
     }
   });
 
-  //error for loan amount
+  //  error for loan amount
   intRateText.addEventListener('input', function () {
-    if (parseFloat(this.value) < parseFloat(interestrateMinValue) ||
-      parseFloat(this.value) > parseFloat(interestrateMaxValue)) {
+    if (
+      parseFloat(this.value) < parseFloat(interestrateMinValue) ||
+      parseFloat(this.value) > parseFloat(interestrateMaxValue)
+    ) {
       interestRateError.style.display = 'block';
     } else {
       interestRateError.style.display = 'none';
     }
   });
   intRateSlider.addEventListener('input', function () {
-    if (parseFloat(this.value) < parseFloat(interestrateMinValue) ||
-      parseFloat(this.value) > parseFloat(interestrateMaxValue)) {
+    if (
+      parseFloat(this.value) < parseFloat(interestrateMinValue) ||
+      parseFloat(this.value) > parseFloat(interestrateMaxValue)
+    ) {
       interestRateError.style.display = 'block';
     } else {
       interestRateError.style.display = 'none';
@@ -577,8 +581,10 @@ function initialize(block) {
 
   //error for year
   loanPeriodText.addEventListener('input', function () {
-    if (parseFloat(this.value) < parseFloat(tenureMinYearvalue) ||
-      parseFloat(this.value) > parseFloat(tenureMaxYearvalue)) {
+    if (
+      parseFloat(this.value) < parseFloat(tenureMinYearvalue) ||
+      parseFloat(this.value) > parseFloat(tenureMaxYearvalue)
+    ) {
       loanPeriodError.style.display = 'block';
     } else {
       loanPeriodError.style.display = 'none';
@@ -586,8 +592,10 @@ function initialize(block) {
   });
 
   loanPeriodSlider.addEventListener('input', function () {
-    if (parseFloat(this.value) < parseFloat(tenureMinYearvalue) ||
-      parseFloat(this.value) > parseFloat(tenureMaxYearvalue)) {
+    if (
+      parseFloat(this.value) < parseFloat(tenureMinYearvalue) ||
+      parseFloat(this.value) > parseFloat(tenureMaxYearvalue)
+    ) {
       loanPeriodError.style.display = 'block';
     } else {
       loanPeriodError.style.display = 'none';
@@ -596,8 +604,10 @@ function initialize(block) {
 
   //error for month
   loanPeriodTextMonth.addEventListener('input', function () {
-    if (parseFloat(this.value) < parseFloat(tenureMinMonthValue) ||
-      parseFloat(this.value) > parseFloat(tenureMaxMonthValue)) {
+    if (
+      parseFloat(this.value) < parseFloat(tenureMinMonthValue) ||
+      parseFloat(this.value) > parseFloat(tenureMaxMonthValue)
+    ) {
       loanPeriodMonthError.style.display = 'block';
     } else {
       loanPeriodMonthError.style.display = 'none';
@@ -605,8 +615,10 @@ function initialize(block) {
   });
 
   loanPeriodSliderMonth.addEventListener('input', function () {
-    if (parseFloat(this.value) < parseFloat(tenureMinMonthValue) ||
-      parseFloat(this.value) > parseFloat(tenureMaxMonthValue)) {
+    if (
+      parseFloat(this.value) < parseFloat(tenureMinMonthValue) ||
+      parseFloat(this.value) > parseFloat(tenureMaxMonthValue)
+    ) {
       loanPeriodMonthError.style.display = 'block';
     } else {
       loanPeriodMonthError.style.display = 'none';
