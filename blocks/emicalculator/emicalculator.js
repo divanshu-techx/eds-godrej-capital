@@ -53,17 +53,17 @@ function createElement(type, attributes = {}, ...children) {
   for (const [key, value] of Object.entries(attributes)) {
     element.setAttribute(key, value);
   }
-  for (const child of children) {
+  children.forEach(child => {
     if (typeof child === 'string') {
       element.appendChild(document.createTextNode(child));
     } else {
       element.appendChild(child);
     }
-  }
+  });  
   return element;
 }
 
-//error message
+//  error message
 function createErrorSpan(message) {
   return createElement('span', { class: 'error-message', style: 'color: red; display: none;' }, message);
 }
@@ -82,8 +82,8 @@ function displayDetails(P, R, N, M, pie, block) {
   const m = parseFloat(M);
   const totalMonths = n * 12 + m;
 
-  const num = P * r * Math.pow(1 + r, totalMonths);
-  const denom = Math.pow(1 + r, totalMonths) - 1;
+  const num = P * r * (1 + r) ** totalMonths;
+  const denom = (1 + r) ** totalMonths - 1;
   const emi = Math.round(num / denom);
   const payableInterest = Math.round(calculateLoanDetails(P, emi, n, m));
 
