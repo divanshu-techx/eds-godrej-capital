@@ -118,23 +118,17 @@ function displayDetails(P, R, N, M, E, line, pie, block) {
 
   block.querySelector('#mobile_CT').innerText = (P + payableInterest).toLocaleString('en-IN', opts);
 
-  block.querySelector('#Rate').innerText =
-    `${R.toLocaleString('en-IN')} %`;
+  block.querySelector('#Rate').innerText = `${R.toLocaleString('en-IN')} %`;
 
-  block.querySelector('#mobile_interest_rate').innerText =
-    '@' + R.toLocaleString('en-IN', R) + '%';
+  block.querySelector('#mobile_interest_rate').innerText = '@' + R.toLocaleString('en-IN', R) + '%';
 
-  block.querySelector('#month_Tenure').innerText =
-    `${M.toLocaleString('en-IN')}`;
+  block.querySelector('#month_Tenure').innerText = `${M.toLocaleString('en-IN')}`;
 
-  block.querySelector('#mobile_month_Tenure').innerText =
-    `${M.toLocaleString('en-IN')}`;
+  block.querySelector('#mobile_month_Tenure').innerText = `${M.toLocaleString('en-IN')}`;
 
-  block.querySelector('#year_tenure').innerText =
-    `${N.toLocaleString('en-IN')}`;
+  block.querySelector('#year_tenure').innerText = `${N.toLocaleString('en-IN')}`;
 
-  block.querySelector('#mobile_year_tenure').innerText =
-    `${N.toLocaleString('en-IN')}`;
+  block.querySelector('#mobile_year_tenure').innerText = `${N.toLocaleString('en-IN')}`;
 
   block.querySelector('#MonthlyEmiPrice').innerText = emi.toLocaleString('en-IN', opts);
 
