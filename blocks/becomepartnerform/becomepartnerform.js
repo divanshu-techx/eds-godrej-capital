@@ -281,7 +281,7 @@ function generateRequestBody(formPayload, isOtpGeneration, otp, selectedProducts
     location: formPayload.location,
     products: selectedProducts,
     eventType: isOtpGeneration ? 'OTP_GENERATE' : 'OTP_VERIFY',
-    otp: otp
+    otp: otp,
   };
   return customPayload;
 }
@@ -326,7 +326,6 @@ function handlSelectOnTabAndMob(block) {
   const dropdowns = block.querySelectorAll('.form1 #form-loancategoryplaceholder , .form1 #form-selectlocationplaceholder');
   dropdowns.forEach((dropdown) => {
     const fieldsetWrapper = dropdown.closest('.form1').nextElementSibling.querySelector('fieldset');
-    console.log(fieldsetWrapper)
 
     if (fieldsetWrapper) {
       fieldsetWrapper.classList.add('hide-options');
@@ -336,14 +335,12 @@ function handlSelectOnTabAndMob(block) {
         fieldsetWrapper.classList.toggle('hide-options');
       });
     }
-  })
-
+  });
 }
 
 function otpsEforcements(block) {
   const otpFieldsEls = block.querySelectorAll('#form-otpfieldset input[type="text"]');
   otpFieldsEls.forEach((otpFieldEl, index) => {
-
     otpFieldEl.addEventListener('input', function () {
       if (/^\d$/.test(otpFieldEl.value)) {
         otpFieldEl.parentNode.classList.add('filled');
