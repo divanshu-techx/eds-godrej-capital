@@ -715,7 +715,7 @@ function initialize(block) {
     } else {
       loanAmtSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
     }
-  
+
     displayDetails(P, R, N, M, pie, block);
   });
 
@@ -816,7 +816,7 @@ function initialize(block) {
   });
 
   loanPeriodSlider.addEventListener('change', (self) => {
-    const {value} = self.target;
+    const { value } = self.target;
     if (value >= loanPeriodSlider.max) {
       M = loanPeriodSliderMonth.min;
       displayDetails(P, R, N, M, pie, block);
