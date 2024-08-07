@@ -33,7 +33,7 @@ function processElements() {
   // Get all elements inside the footer
   const footerElements = document.querySelectorAll('footer *');
 
-  footerElements.forEach(element => {
+  footerElements.forEach((element) => {
     Array.from(element.attributes).forEach((attr) => {
       if (attr.name.startsWith('data-godrej-') && attr.value.includes('gtm=')) {
         const url = attr.value;
