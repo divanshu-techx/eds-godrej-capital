@@ -737,7 +737,7 @@ function initialize(block) {
   const loanPeriodText = block.querySelector('#loanPeriodText');
   const loanPeriodSliderMonth = block.querySelector('#loanPeriodMonth');
   const loanPeriodTextMonth = block.querySelector('#loanPeriodMonthText');
-  
+
   // Error message spans
   const loanAmtError = createErrorSpan(`Value should be between ${formatNumberToIndianCommas(loanAmountMinValue)} and ${formatNumberToIndianCommas(loanAmountMaxValue)}`);
   const interestRateError = createErrorSpan(`Value should be between ${interestRateMinValue}% and ${interestRateMaxValue}%`);
@@ -994,7 +994,10 @@ function initialize(block) {
     loanPeriodTextMonth.value = self.target.value;
     M = parseFloat(self.target.value);
     const value = M;
-    const percentage = ((value - tenureMinMonthValue) / (tenureMaxMonthValue - tenureMinMonthValue)) * 100;
+    const percentage = (
+      (value - tenureMinMonthValue) /
+      (tenureMaxMonthValue - tenureMinMonthValue)
+    ) * 100;
 
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
@@ -1019,7 +1022,12 @@ function initialize(block) {
       loanPeriodMonthError.style.display = 'none';
     }
     const value = M;
-    const percentage = ((value - tenureMinMonthValue) / (tenureMaxMonthValue - tenureMinMonthValue)) * 100;
+    const percentage = (
+      (value - tenureMinMonthValue) /
+      (tenureMaxMonthValue - tenureMinMonthValue)
+    )
+    * 100;
+
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
       loanPeriodSliderMonth.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
