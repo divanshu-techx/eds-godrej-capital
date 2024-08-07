@@ -663,7 +663,7 @@ function initialize(block) {
     window.location.href = applyRedirectionPath;
   });
 
-  loanAmtSlider.addEventListener('change', function (self) {
+  loanAmtSlider.addEventListener('input', function (self) {
     // loanAmtText.value = formatNumberWithCommas(self.target.value);
     loanAmtText.value = formatNumberToIndianCommas(self.target.value);
     P = removeCommaAndConvertToInt(self.target.value);
@@ -675,29 +675,44 @@ function initialize(block) {
     } else {
       this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
     }
-    displayDetails(P, R, N, M, pie, block);
   });
+
+  loanAmtSlider.addEventListener('change', () => {
+    displayDetails(P, R, N, M, pie, block);
+  })
 
   loanAmtText.addEventListener('blur', (self) => {
     if (self.target.value === '') {
       loanAmtSlider.value = loanAmtSlider.min;
       self.target.value = formatNumberToIndianCommas(loanAmtSlider.min);
     } else {
-      loanAmtSlider.value = removeCommaAndConvertToInt(self.target.value);
-      self.target.value = formatNumberToIndianCommas(self.target.value);
+      let N = removeCommaAndConvertToInt(self.target.value);
+      const maxValue = loanAmtSlider.max;
+  
+      if (N >= maxValue) {
+        N = maxValue;
+        // Hide the error message
+        loanAmtError.style.display = 'none';
+      }
+  
+      loanAmtSlider.value = N;
+      self.target.value = formatNumberToIndianCommas(N);
     }
+  
     P = removeCommaAndConvertToInt(self.target.value);
     const value = P;
     const maxValue = loanAmtSlider.max; // Get the maximum value of the range input
     const percentage = (value / maxValue) * 100;
-    // console.log(value);
+  
     if (window.innerWidth <= 768) {
       loanAmtSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
     } else {
       loanAmtSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
     }
+    
     displayDetails(P, R, N, M, pie, block);
   });
+  
 
   // Event listener to allow only numeric input
   loanAmtText.addEventListener('input', function () {
@@ -706,7 +721,7 @@ function initialize(block) {
     this.value = value;
   });
 
-  intRateSlider.addEventListener('change', function (self) {
+  intRateSlider.addEventListener('input', function (self) {
     intRateText.value = self.target.value;
     R = parseFloat(self.target.value);
     const value = R;
@@ -721,9 +736,11 @@ function initialize(block) {
     } else {
       this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
     }
-
-    displayDetails(P, R, N, M, pie, block);
   });
+
+  intRateSlider.addEventListener('change', () => {
+    displayDetails(P, R, N, M, pie, block);
+  })
 
   intRateText.addEventListener('blur', (self) => {
     if (self.target.value === '') {
@@ -733,6 +750,13 @@ function initialize(block) {
       intRateSlider.value = self.target.value;
     }
     R = parseFloat(self.target.value);
+    R = R >= intRateSlider.max ? intRateSlider.max : R;
+
+    if (R >= intRateSlider.max) {
+      intRateText.value = intRateSlider.max;
+      interestRateError.style.display = 'none';
+    }
+
     const value = R;
     const percentage = (
       ((value - interestrateMinValue) / (interestrateMaxValue - interestrateMinValue)) * 100
@@ -747,7 +771,7 @@ function initialize(block) {
     displayDetails(P, R, N, M, pie, block);
   });
 
-  loanPeriodSlider.addEventListener('change', function (self) {
+  loanPeriodSlider.addEventListener('input', function (self) {
     loanPeriodText.value = self.target.value;
     N = parseFloat(self.target.value);
     if (N >= loanPeriodSlider.max) {
@@ -784,8 +808,11 @@ function initialize(block) {
     } else {
       this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
     }
-    displayDetails(P, R, N, M, pie, block);
   });
+
+  loanPeriodSlider.addEventListener('change', () => {
+    displayDetails(P, R, N, M, pie, block);
+  })
 
   loanPeriodText.addEventListener('blur', (self) => {
     if (self.target.value === '') {
@@ -795,7 +822,10 @@ function initialize(block) {
       loanPeriodSlider.value = self.target.value;
     }
     N = parseFloat(self.target.value);
+    N = N >= loanPeriodSlider.max ? loanPeriodSlider.max : N;
     if (N >= loanPeriodSlider.max) {
+      loanPeriodText.value = loanPeriodSlider.max;
+      loanPeriodError.style.display = 'none';
       loanPeriodTextMonth.disabled = true;
       loanPeriodSliderMonth.disabled = true;
       loanPeriodTextMonth.value = loanPeriodSliderMonth.min;
@@ -831,7 +861,7 @@ function initialize(block) {
     displayDetails(P, R, N, M, pie, block);
   });
 
-  loanPeriodSliderMonth.addEventListener('change', function (self) {
+  loanPeriodSliderMonth.addEventListener('input', function (self) {
     loanPeriodTextMonth.value = self.target.value;
     M = parseFloat(self.target.value);
     const value = M;
@@ -846,8 +876,11 @@ function initialize(block) {
     } else {
       this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
     }
-    displayDetails(P, R, N, M, pie, block);
   });
+
+  loanPeriodSliderMonth.addEventListener('change', () => {
+    displayDetails(P, R, N, M, pie, block);
+  })
 
   loanPeriodTextMonth.addEventListener('blur', (self) => {
     if (self.target.value === '') {
@@ -857,6 +890,12 @@ function initialize(block) {
       loanPeriodSliderMonth.value = self.target.value;
     }
     M = parseFloat(self.target.value);
+    M = M >= loanPeriodSliderMonth.max ? loanPeriodSliderMonth.max : M;
+
+    if (M >= loanPeriodSliderMonth.max) {
+      loanPeriodTextMonth.value = loanPeriodSliderMonth.max;
+      loanPeriodMonthError.style.display = 'none';
+    }
     const value = M;
     const percentage = (
       ((value - tenureMinMonthValue) / (tenureMaxMonthValue - tenureMinMonthValue))
