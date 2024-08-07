@@ -25,8 +25,11 @@ function createLabel(fd) {
   if (fd.Label) {
     label = document.createElement('label');
     label.id = generateFieldId(fd, '-label');
-    label.textContent = fd.Label;
+    // label.textContent = '';
     label.setAttribute('for', fd.Id);
+    
+    // custom method to set the label text content
+    modifyLabel(fd, label);
   }
   return label;
 }
@@ -55,7 +58,10 @@ const createHeading = (fd) => {
 const createPlaintext = (fd) => {
   const fieldWrapper = createFieldWrapper(fd);
   const text = document.createElement('p');
-  text.textContent = fd.Value || fd.Label;
+  // text.textContent = fd.Value || fd.Label;
+
+  // custom method to set the label text content
+  modifyLabel(fd, text);
   text.id = fd.Id;
   fieldWrapper.append(text);
   return { field: text, fieldWrapper };
@@ -156,7 +162,10 @@ const createFieldset = (fd) => {
 
   if (fd.Label) {
     const legend = document.createElement('legend');
-    legend.textContent = fd.Label;
+    // legend.textContent = fd.Label;
+
+    // custom method to set the legend text content
+    modifyLabel(fd, legend);
     field.append(legend);
   }
 
@@ -218,6 +227,80 @@ const FIELD_CREATOR_FUNCTIONS = {
   checkbox: createCheckbox,
   radio: createRadio,
 };
+
+function modifyLabel(fd, label) {
+  const splitTexts = getArraySplitByComma(fd.SplitTexts);
+  const splitTextsAnchorPath = getArraySplitByComma(fd.SplitTextsAnchorPath);
+  const splitTextsId = getArraySplitByComma(fd.SplitTextsId);
+  let labelText = fd.Label;
+  let i = 0;
+
+  while (true) {
+    const textPattern = `{text${i + 1}}`;
+    const isTextPatternMatch = labelText !== '' ? labelText.includes(textPattern) : false;
+
+    const linkPattern = `{link${i + 1}}`;
+    const isLinkPatternMatch = labelText !== '' ? labelText.includes(linkPattern) : false;
+
+    if (!isTextPatternMatch && !isLinkPatternMatch) {
+      break; // Exit loop if neither pattern matches
+    }
+
+    if (isTextPatternMatch) {
+      const textContent = getValueAtIndex(splitTexts, i);
+      const id = getValueAtIndex(splitTextsId, i);
+      if (textContent !== '') {
+        const span = document.createElement('span');
+        span.textContent = textContent;
+        if (id !== '') {
+          span.id = id;
+        }
+        // Replace text pattern with span.outerHTML
+        labelText = labelText.replace(textPattern, span.outerHTML);
+      }
+    }
+
+    if (isLinkPatternMatch) {
+      const textContent = getValueAtIndex(splitTexts, i);
+      const id = getValueAtIndex(splitTextsId, i);
+      const redirectPath = getValueAtIndex(splitTextsAnchorPath, i);
+      if (textContent !== '') {
+        const anchor = document.createElement('a');
+        anchor.textContent = textContent;
+        if (id !== '') {
+          anchor.id = id;
+        }
+        anchor.href = redirectPath === '' ? 'javascript:void(0)' : redirectPath;
+        anchor.target = '_blank';
+        // Replace link pattern with anchor.outerHTML
+        labelText = labelText.replace(linkPattern, anchor.outerHTML);
+      }
+    }
+
+    i++;
+  }
+  // Set the final processed HTML to the labelElement
+  label.innerHTML = labelText;
+
+  return labelText;
+}
+
+function getArraySplitByComma(field) {
+  if (field == null) {
+    return [];  // Return an empty array if field is null or undefined
+  }
+
+  return field.split(',').map(item => item.trim()).filter(item => item.length > 0);
+}
+
+function getValueAtIndex(array, index) {
+  // Check if array is valid and index is within bounds
+  if (Array.isArray(array) && index >= 0 && index < array.length) {
+    return array[index];
+  } else {
+    return '';
+  }
+}
 
 // Function to create a form field based on its type
 export default async function createField(fd, form) {
