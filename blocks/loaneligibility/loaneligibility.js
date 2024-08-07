@@ -737,7 +737,6 @@ function initialize(block) {
   const loanPeriodText = block.querySelector('#loanPeriodText');
   const loanPeriodSliderMonth = block.querySelector('#loanPeriodMonth');
   const loanPeriodTextMonth = block.querySelector('#loanPeriodMonthText');
-
   // Error message spans
   const loanAmtError = createErrorSpan(`Value should be between ${formatNumberToIndianCommas(loanAmountMinValue)} and ${formatNumberToIndianCommas(loanAmountMaxValue)}`);
   const interestRateError = createErrorSpan(`Value should be between ${interestRateMinValue}% and ${interestRateMaxValue}%`);
@@ -868,11 +867,7 @@ function initialize(block) {
     intRateText.value = self.target.value;
     R = parseFloat(self.target.value);
     const value = this.value;
-    const percentage = ((
-      (value - interestRateMinValue) /
-      (interestRateMaxValue - interestRateMinValue)
-    ) * 100
-  );
+    const percentage = ((value - interestRateMinValue) / (interestRateMaxValue - interestRateMinValue)) * 100;
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
       this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
@@ -900,12 +895,7 @@ function initialize(block) {
       interestRateError.style.display = 'none';
     }
     const value = R;
-    const percentage = (
-      (
-      (value - interestRateMinValue) /
-      (interestRateMaxValue - interestRateMinValue)
-    ) * 100
-  );
+    const percentage = ((value - interestRateMinValue) / (interestRateMaxValue - interestRateMinValue)) * 100;
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
       intRateSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
@@ -926,12 +916,7 @@ function initialize(block) {
       loanPeriodSliderMonth.value = loanPeriodSliderMonth.min;
 
       const value = loanPeriodSliderMonth.min;
-      const percentage = (
-        (
-        (value - tenureMinYearValue) /
-        (tenureMaxYearValue - tenureMinYearValue)
-      ) * 100
-    );
+      const percentage = ((value - tenureMinYearValue) / (tenureMaxYearValue - tenureMinYearValue)) * 100;
 
       // Update the background gradient with the calculated percentage
       if (window.innerWidth <= 768) {
@@ -944,13 +929,7 @@ function initialize(block) {
       loanPeriodSliderMonth.disabled = false;
     }
     const value = N;
-    const percentage = (
-      (
-      (value - tenureMinYearValue) /
-      (tenureMaxYearValue - tenureMinYearValue)
-    )
-    * 100
-  );
+    const percentage = ((value - tenureMinYearValue) / (tenureMaxYearValue - tenureMinYearValue)) * 100;
 
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
@@ -961,7 +940,7 @@ function initialize(block) {
   });
 
   loanPeriodSlider.addEventListener('change', (self) => {
-    const { value } = self.target;
+    const value = self.target.value;
     if (value >= loanPeriodSlider.max) {
       M = loanPeriodSliderMonth.min;
       displayDetails(P, R, N, M, E, line, pie, block);
@@ -987,13 +966,7 @@ function initialize(block) {
       loanPeriodSliderMonth.value = loanPeriodSliderMonth.min;
 
       const value = loanPeriodSliderMonth.min;
-      const percentage = (
-        (
-        (value - tenureMinYearValue) /
-        (tenureMaxYearValue - tenureMinYearValue)
-      )
-      * 100
-    );
+      const percentage = ((value - tenureMinYearValue) / (tenureMaxYearValue - tenureMinYearValue)) * 100;
 
       // Update the background gradient with the calculated percentage
       if (window.innerWidth <= 768) {
@@ -1006,12 +979,7 @@ function initialize(block) {
       loanPeriodSliderMonth.disabled = false;
     }
     const value = N;
-    const percentage = (
-      (
-      (value - tenureMinYearValue) /
-      (tenureMaxYearValue - tenureMinYearValue)
-    ) * 100
-  );
+    const percentage = ((value - tenureMinYearValue) / (tenureMaxYearValue - tenureMinYearValue)) * 100;
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
       loanPeriodSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
@@ -1021,16 +989,11 @@ function initialize(block) {
     displayDetails(P, R, N, M, E, line, pie, block);
   });
 
-  loanPeriodSliderMonth.addEventListener('input', function (self) {
+  loanPeriodSliderMonth.addEventListener('input', function(self){
     loanPeriodTextMonth.value = self.target.value;
     M = parseFloat(self.target.value);
     const value = M;
-    const percentage = (
-      (
-      (value - tenureMinMonthValue) /
-      (tenureMaxMonthValue - tenureMinMonthValue)
-      ) * 100
-      );
+    const percentage = ((value - tenureMinMonthValue) / (tenureMaxMonthValue - tenureMinMonthValue)) * 100;
 
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
@@ -1055,14 +1018,7 @@ function initialize(block) {
       loanPeriodMonthError.style.display = 'none';
     }
     const value = M;
-    const percentage = (
-      (
-      (value - tenureMinMonthValue) /
-      (tenureMaxMonthValue - tenureMinMonthValue)
-    )
-    * 100
-  );
-
+    const percentage = ((value - tenureMinMonthValue) / (tenureMaxMonthValue - tenureMinMonthValue)) * 100;
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
       loanPeriodSliderMonth.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
