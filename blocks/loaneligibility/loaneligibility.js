@@ -119,38 +119,34 @@ function displayDetails(P, R, N, M, E, line, pie, block) {
   block.querySelector('#mobile_CT').innerText = (P + payableInterest).toLocaleString('en-IN', opts);
 
   block.querySelector('#Rate').innerText =
-    R.toLocaleString('en-IN', R) + '%';
+    `${R.toLocaleString('en-IN')} %`;
 
   block.querySelector('#mobile_interest_rate').innerText =
     '@' + R.toLocaleString('en-IN', R) + '%';
 
   block.querySelector('#month_Tenure').innerText =
-    M.toLocaleString('en-IN', M + 'M');
+    `${M.toLocaleString('en-IN')}`;
 
   block.querySelector('#mobile_month_Tenure').innerText =
-    M.toLocaleString('en-IN', M + 'M');
+    `${M.toLocaleString('en-IN')}`;
 
   block.querySelector('#year_tenure').innerText =
-    N.toLocaleString('en-IN', N + 'Y');
+    `${N.toLocaleString('en-IN')}`;
 
   block.querySelector('#mobile_year_tenure').innerText =
-    N.toLocaleString('en-IN', N + 'Y');
+    `${N.toLocaleString('en-IN')}`;
 
   block.querySelector('#MonthlyEmiPrice').innerText = emi.toLocaleString('en-IN', opts);
 
   block.querySelector('#mobile_monthly_emi_price').innerText = emi.toLocaleString('en-IN', opts);
-  
+
   // Calculate the loan eligibility using the formula
   var loanEligibility = (P - E) *
-  (Math.pow(1 + r, totalMonths) - 1) /
-  (r * Math.pow(1 + r, totalMonths));
+  ((1 + r) ** totalMonths - 1) /
+  (r * (1 + r) ** totalMonths);
   loanEligibility = Math.round(Math.max(loanEligibility, 0));
-    block.querySelector('#le').innerText = `₹ ${loanEligibility.toLocaleString('en-IN')}`;
-    block.querySelector('#mobile-le').innerText = `₹ ${loanEligibility.toLocaleString('en-IN')}`;
-
-  // block.querySelector('#le').innerText = `₹ ${Math.max(0, P - E).toLocaleString('en-IN')}`;
-  // block.querySelector('#mobile-le').innerText = `₹ ${Math.max(0, P - E).toLocaleString('en-IN')}`;
-
+  block.querySelector('#le').innerText = `₹ ${loanEligibility.toLocaleString('en-IN')}`;
+  block.querySelector('#mobile-le').innerText = `₹ ${loanEligibility.toLocaleString('en-IN')}`;
   pie.data.datasets[0].data[0] = P;
   pie.data.datasets[0].data[1] = payableInterest;
   pie.update();
@@ -982,7 +978,7 @@ function initialize(block) {
       loanPeriodTextMonth.value = loanPeriodSliderMonth.min;
       loanPeriodSliderMonth.value = loanPeriodSliderMonth.min;
 
-      let value = loanPeriodSliderMonth.min;
+      const value = loanPeriodSliderMonth.min;
       const percentage = (
         ((value - tenureMinYearValue) / (tenureMaxYearValue - tenureMinYearValue))
         * 100
