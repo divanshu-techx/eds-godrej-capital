@@ -2,7 +2,7 @@ function startTimer(block) {
     return setInterval(() => {
       const rightSwip = block.querySelector('.swip-right');
       rightSwip.click();
-    }, 500000);
+    }, 5000);
   }
   
   let timer;
