@@ -299,12 +299,40 @@ main .section {
     max-width: unset;
     margin: auto;
   }
+
+  .section.global-padding{
+    padding-top:40px;
+    padding-bottom:40px;
+  }
+
+  .section.global-padding .default-content-wrapper:not(:last-child){
+    padding-top:20px;
+  }
+
+  .section.no-padding{
+    padding-top:0px;
+    padding-bottom:0px;
+  }
 }
 
 @media (width >=900px) and (width <= 1599px) {
   .section>div {
     max-width: 1200px;
     margin: auto;
+  }
+
+  .section.no-padding{
+    padding-top:0px;
+    padding-bottom:0px;
+  }
+
+  .section.global-padding .default-content-wrapper:not(:last-child){
+    padding-top:20px;
+  }
+
+  .section.global-padding{
+    padding-top:40px;
+    padding-bottom:40px;
   }
 }
 
@@ -340,7 +368,7 @@ main .section.padding-none {
 
 /* no padding top and bottom  */
 main .section.padding-left-right-only {
-  padding: 0px 26px;
+  padding: 20px 26px 4px 26px;
 }
 
 main .section.padding-v1 {
