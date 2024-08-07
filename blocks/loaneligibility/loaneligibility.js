@@ -141,10 +141,12 @@ function displayDetails(P, R, N, M, E, line, pie, block) {
   block.querySelector('#mobile_monthly_emi_price').innerText = emi.toLocaleString('en-IN', opts);
 
   // Calculate the loan eligibility using the formula
-  var loanEligibility = (P - E) *
-  ((1 + r) ** totalMonths - 1) /
-  (r * (1 + r) ** totalMonths);
+  let loanEligibility = (P - E) * (
+    ((1 + r) ** totalMonths - 1) /
+    (r * (1 + r) ** totalMonths)
+  );
   loanEligibility = Math.round(Math.max(loanEligibility, 0));
+
   block.querySelector('#le').innerText = `₹ ${loanEligibility.toLocaleString('en-IN')}`;
   block.querySelector('#mobile-le').innerText = `₹ ${loanEligibility.toLocaleString('en-IN')}`;
   pie.data.datasets[0].data[0] = P;
