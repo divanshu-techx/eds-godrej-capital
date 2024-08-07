@@ -141,7 +141,7 @@ function displayDetails(P, R, N, M, E, line, pie, block) {
     ) / (
       r * (1 + r) ** totalMonths
     )
-  );  
+  );
   loanEligibility = Math.round(Math.max(loanEligibility, 0));
 
   block.querySelector('#le').innerText = `₹ ${loanEligibility.toLocaleString('en-IN')}`;
