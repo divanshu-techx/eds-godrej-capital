@@ -157,14 +157,7 @@ function displayDetails(P, R, N, M, E, line, pie, block) {
   // line.update();
 }
 
-// Decorate Function
-export default async function decorate(block) {
-  initialize(block);
-}
-
 function initialize(block) {
-
-  ///
   // const container = document.querySelector('.loaneligibility');
   let i;
   let option;
@@ -221,7 +214,7 @@ function initialize(block) {
   const mobileSelect = document.querySelector('.sec-tab-dropdown');
   //   Loop through the array and create option elements
   option = document.createElement('option');
-  option.value=' ';
+  option.value = ' ';
   option.text = selectProductPlaceHolder;
   option.disabled = true;
   option.selected = true;
@@ -245,8 +238,7 @@ function initialize(block) {
       'div',
       { class: 'detail-select' },
       createElement('div', { class: 'detail-select-child', style: 'color: #3b3b3b' }, selectProductLabel),
-      selectProduct
-
+      selectProduct,
     ),
   );
 
@@ -430,7 +422,7 @@ function initialize(block) {
     { class: 'loan-details-upper' },
     createElement(
       'div',
-      {class: 'chart-details chart-details-loaneli' },
+      { class: 'chart-details chart-details-loaneli' },
       createElement(
         'div',
         { class: 'chart-detail-adjust' },
@@ -459,7 +451,7 @@ function initialize(block) {
     ),
     createElement(
       'div',
-      {class: 'chart-details chart-details-loaneli' },
+      { class: 'chart-details chart-details-loaneli' },
       createElement(
         'div',
         { class: 'chart-detail-adjust' },
@@ -485,7 +477,7 @@ function initialize(block) {
         },
       ),
     ),
-  )
+  );
 
   const breakup = createElement(
     'div',
@@ -533,7 +525,9 @@ function initialize(block) {
           ),
           monthlabel,
         ),
-      ), loanDetailsUpper),
+      ),
+      loanDetailsUpper,
+    ),
   );
 
   const loaneligibilityDetails = createElement(
@@ -544,7 +538,7 @@ function initialize(block) {
       { class: 'chart-details' },
       createElement(
         'div',
-        {style: 'color: #fff; margin-right:10px;font-size:16px;font-weight:400;' },
+        { style: 'color: #fff; margin-right:10px;font-size:16px;font-weight:400;' },
         loaneligibilitylabel,
       ),
       createElement(
@@ -988,7 +982,7 @@ function initialize(block) {
       loanPeriodTextMonth.value = loanPeriodSliderMonth.min;
       loanPeriodSliderMonth.value = loanPeriodSliderMonth.min;
 
-      const value = loanPeriodSliderMonth.min;
+      let value = loanPeriodSliderMonth.min;
       const percentage = (
         ((value - tenureMinYearValue) / (tenureMaxYearValue - tenureMinYearValue))
         * 100
@@ -1000,6 +994,7 @@ function initialize(block) {
       } else {
         loanPeriodSliderMonth.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
       }
+      M = value;
     } else {
       loanPeriodTextMonth.disabled = false;
       loanPeriodSliderMonth.disabled = false;
@@ -1288,4 +1283,9 @@ function initialize(block) {
   });
 
   displayDetails(P, R, N, M, E, line, pie, block);
+}
+
+// Decorate Function
+export default async function decorate(block) {
+  initialize(block);
 }

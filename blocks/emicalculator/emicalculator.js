@@ -853,6 +853,7 @@ function initialize(block) {
       } else {
         loanPeriodSliderMonth.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
       }
+      M = value;
     } else {
       loanPeriodTextMonth.disabled = false;
       loanPeriodSliderMonth.disabled = false;
