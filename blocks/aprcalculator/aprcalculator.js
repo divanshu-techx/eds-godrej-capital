@@ -279,46 +279,45 @@ function setApplyNowButton(block, attribute) {
   });
 }
 
-function toggleInputBox(block){
-    const loanTenureYearsApr = block.querySelector('#loanTenureYearsApr');
-    const loanTenureYearsAprRange = block.querySelector('#loanTenureYearsAprRange');
-    const loanTenureMonthsAprRange = block.querySelector('#loanTenureMonthsAprRange');
-    const loanTenureMonthsApr = block.querySelector('#loanTenureMonthsApr');
+function toggleInputBox(block) {
+  const loanTenureYearsApr = block.querySelector('#loanTenureYearsApr');
+  const loanTenureYearsAprRange = block.querySelector('#loanTenureYearsAprRange');
+  const loanTenureMonthsAprRange = block.querySelector('#loanTenureMonthsAprRange');
+  const loanTenureMonthsApr = block.querySelector('#loanTenureMonthsApr');
 
-    loanTenureYearsApr.addEventListener('input',function(){
-        const maxValue=loanTenureYearsAprRange.max;
-        const value=this.value;
+  loanTenureYearsApr.addEventListener('input', function () {
+    const maxValue = loanTenureYearsAprRange.max;
+    const { value } = this;
 
-        if (maxValue == value) {
-            loanTenureMonthsAprRange.disabled=true;
-            loanTenureMonthsApr.disabled=true;
-            loanTenureMonthsAprRange.value=loanTenureMonthsAprRange.min;
-            loanTenureMonthsApr.value=loanTenureMonthsAprRange.min;
-        } else {
-            loanTenureMonthsAprRange.disabled=false;
-            loanTenureMonthsApr.disabled=false;
-        }
-        updateRangeColors();
-        updateAPR(block);
-    })
+    if (maxValue === value) {
+      loanTenureMonthsAprRange.disabled = true;
+      loanTenureMonthsApr.disabled = true;
+      loanTenureMonthsAprRange.value = loanTenureMonthsAprRange.min;
+      loanTenureMonthsApr.value = loanTenureMonthsAprRange.min;
+    } else {
+      loanTenureMonthsAprRange.disabled = false;
+      loanTenureMonthsApr.disabled = false;
+    }
+    updateRangeColors();
+    updateAPR(block);
+  });
 
-    loanTenureYearsAprRange.addEventListener('change',function(){
-        const maxValue=loanTenureYearsAprRange.max;
-        const value=this.value;
+  loanTenureYearsAprRange.addEventListener('change', function () {
+    const maxValue = loanTenureYearsAprRange.max;
+    const { value } = this;
 
-        if (maxValue == value) {
-            loanTenureMonthsAprRange.disabled=true;
-            loanTenureMonthsApr.disabled=true;
-            loanTenureMonthsAprRange.value=loanTenureMonthsAprRange.min;
-            loanTenureMonthsApr.value=loanTenureMonthsAprRange.min;
-
-        } else {
-            loanTenureMonthsAprRange.disabled=false;
-            loanTenureMonthsApr.disabled=false;
-        }
-        updateRangeColors();
-        updateAPR(block);
-    })
+    if (maxValue === value) {
+      loanTenureMonthsAprRange.disabled = true;
+      loanTenureMonthsApr.disabled = true;
+      loanTenureMonthsAprRange.value = loanTenureMonthsAprRange.min;
+      loanTenureMonthsApr.value = loanTenureMonthsAprRange.min;
+    } else {
+      loanTenureMonthsAprRange.disabled = false;
+      loanTenureMonthsApr.disabled = false;
+    }
+    updateRangeColors();
+    updateAPR(block);
+  });
 }
 
 // Main function to decorate the block
@@ -330,7 +329,7 @@ export default async function decorate(block) {
   addRangeInputListeners(block);
   addTextInputListeners(block);
   setApplyNowButton(block, attributes);
-  toggleInputBox(block)
+  toggleInputBox(block);
 }
 window.addEventListener('resize', updateRangeColors);
 window.addEventListener('load', updateRangeColors);

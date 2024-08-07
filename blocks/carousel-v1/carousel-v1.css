@@ -857,3 +857,5 @@
 .carousel-slide-content .button-container button.primary-button:first-of-type {
   background: #3CB8FF;
 }
+.carousel-slide-content .button-container button.primary-button:first-of-type:hover{
+background-color:#00a2ff}

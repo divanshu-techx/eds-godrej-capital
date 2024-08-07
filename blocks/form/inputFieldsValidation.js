@@ -91,3 +91,42 @@ export function validateLoanProducts(locationDropdown, errorMessage) {
   handleErrorMessages(true, locationDropdown);
   return true;
 }
+
+// Function to disable or enable the submit button based on form validation
+export function toggleSubmitButton(block, formSelector, submitButton) {
+  const inputs = Array.from(block.querySelectorAll(`${formSelector} input, ${formSelector} select, ${formSelector} textarea`));
+
+  // Check if all inputs are valid
+  const allValid = inputs.every(input => {
+    if (input.type === 'checkbox') {
+      // Check if at least one radio button in the group is selected
+      const radioGroup = block.querySelectorAll(`${formSelector} input[type="checkbox"]`);
+      return Array.from(radioGroup).some(radio => radio.checked);
+    } else if (input.type === 'text' || input.type === 'email' || input.type === 'tel' || input.tagName === 'SELECT' || input.tagName === 'TEXTAREA') {
+      return input.value.trim() !== '';
+    }
+    return true;
+  });
+
+  // Enable or disable the submit button
+  submitButton.disabled = !allValid;
+}
+
+// Initialize form validation with disabling the submit button initially
+export function initFormValidation(block, formSelector, submitButtonSelector) {
+  const submitButton = block.querySelector(submitButtonSelector);
+
+  // Initially disable the submit button
+  submitButton.disabled = true;
+
+  // Add event listeners to all form inputs to check their state
+  block.querySelectorAll(`${formSelector} input, ${formSelector} select, ${formSelector} textarea`).forEach(input => {
+    const eventType = input.type === 'checkbox' ? 'change' : 'input';
+    input.addEventListener(eventType, () => {
+      toggleSubmitButton(block, formSelector, submitButton);
+    });
+  });
+  // If you want to check on page load as well
+  toggleSubmitButton(block, formSelector, submitButton);
+}
+
