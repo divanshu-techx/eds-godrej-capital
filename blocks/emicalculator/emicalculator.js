@@ -663,14 +663,12 @@ function initialize(block) {
     window.location.href = applyRedirectionPath;
   });
 
-  
   // Error message spans
   const loanAmtError = createErrorSpan(`Value should be between ${formatNumberToIndianCommas(loanAmountMinValue)}  and  ${formatNumberToIndianCommas(loanAmountMaxValue)}`);
   const interestRateError = createErrorSpan(`Value should be between  ${interestrateMinValue} % and ${interestrateMaxValue} %`);
   const loanPeriodError = createErrorSpan(`Value should be between  ${tenureMinYearvalue} and  ${tenureMaxYearvalue}`);
   const loanPeriodMonthError = createErrorSpan(`Value should be between ${tenureMinMonthValue} and ${tenureMaxMonthValue}`);
-
-
+  
   loanAmtSlider.addEventListener('input', function (self) {
     // loanAmtText.value = formatNumberWithCommas(self.target.value);
     loanAmtText.value = formatNumberToIndianCommas(self.target.value);
