@@ -1018,7 +1018,10 @@ function initialize(block) {
       loanPeriodMonthError.style.display = 'none';
     }
     const value = M;
-    const percentage = ((value - tenureMinMonthValue) / (tenureMaxMonthValue - tenureMinMonthValue)) * 100;
+    const percentage = (
+      ((value - tenureMinMonthValue) / (tenureMaxMonthValue - tenureMinMonthValue))
+      * 100
+    );
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
       loanPeriodSliderMonth.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
