@@ -6,7 +6,6 @@ const formSheetUrl = getDataAttributeValueByName('sheeturl');
 const thankYouPageUrl = getDataAttributeValueByName('thankyoupageurl');
 
 export default async function decorate(block) {
-
   const formLink = block.querySelector('a[href$=".json"]');
   if (!formLink) return;
 
@@ -19,8 +18,8 @@ export default async function decorate(block) {
 
   // Add change event for checkboxes
   addChangeEventOnCheckboxes(block);
-  handlSelectOnTabAndMob(block)
-  otpsEforcements(block)
+  handlSelectOnTabAndMob(block);
+  otpsEforcements(block);
   const editNumberInputEle = block.querySelector('#form-mobilenumber');
   editNumberInputEle.setAttribute('readonly', true);
 
@@ -29,14 +28,13 @@ export default async function decorate(block) {
   // handle edit mobile number
   block.querySelector('#form-editmobilenumber').addEventListener('click', (e) => {
     toggleFormVisibility('.form2', '.form1', block);
-  })
+  });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-
   fetch(formSheetUrl)
-    .then(response => response.json())
-    .then(data => {
+    .then((response) => response.json())
+    .then((data) => {
       const dropdown = document.getElementById('categoryDropdown');
       const tabsContainer = document.getElementById('tabs-container');
       const contentContainer = document.getElementById('content-container');
@@ -66,22 +64,20 @@ document.addEventListener('DOMContentLoaded', () => {
           const contentDiv = document.createElement('div');
           contentDiv.className = 'content';
           contentDiv.style.display = index === 0 ? 'block' : 'none';
-          contentDiv.innerHTML = `<h3>${doc.title}</h3><p>${doc.description}</p><ul>${doc.documents.map(d => `<li>${d}</li>`).join('')}</ul>`;
+          contentDiv.innerHTML = `<h3>${doc.title}</h3><p>${doc.description}</p><ul>${doc.documents.map((d) => `<li>${d}</li>`).join('')}</ul>`;
           contentContainer.appendChild(contentDiv);
 
           tabDiv.addEventListener('click', function () {
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach((tab) => tab.classList.remove('active'));
             this.classList.add('active');
             document.querySelectorAll('.content').forEach((content, contentIndex) => {
-              content.style.display = contentIndex == index ? 'block' : 'none';
+              content.style.display = contentIndex === index ? 'block' : 'none';
             });
           });
         });
       };
-
       dropdown.addEventListener('change', updateTabsAndContent);
       updateTabsAndContent();
-
 
     })
     .catch(error => console.error('Error fetching data:', error));
@@ -264,7 +260,7 @@ function makeAjaxRequest(method, url, requestBody) {
       type: method,
       url: url,
       headers: {
-        "Content-Type": "application/json"
+        'Content-Typ': 'application/json'
       },
       data: JSON.stringify(requestBody),
       success: function (response) {
@@ -284,7 +280,7 @@ function generateRequestBody(formPayload, isOtpGeneration, otp, selectedProducts
     mobile: formPayload.userMobileNumder,
     location: formPayload.location,
     products: selectedProducts,
-    eventType: isOtpGeneration ? "OTP_GENERATE" : "OTP_VERIFY",
+    eventType: isOtpGeneration ? 'OTP_GENERATE' : 'OTP_VERIFY',
     otp: otp
   };
   return customPayload;
@@ -309,7 +305,7 @@ function startTimer(block, form) {
       resendButton.disabled = false; // Enable resend button
       timerElement.innerText = "Didn't receive any OTP?"; // Reset timer text
     }
-    count--; // Decrement count
+    count =- 1; // Decrement count
   }, 1000); // Update every second (1000 milliseconds)
 
   resendButton.addEventListener('click', async (e) => {
@@ -365,6 +361,4 @@ function otpsEforcements(block) {
       }
     });
   });
-
 }
-
