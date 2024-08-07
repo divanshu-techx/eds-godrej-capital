@@ -1,5 +1,5 @@
 import { createForm, generatePayload } from '../../blocks/form/form.js';
-import { restrictNameInputs, restrictPhoneNumberInputs, validateNameField, validateEmail, validateMobileNumber, validateLoanProducts, handleErrorMessages } from '../form/inputFieldsValidation.js';
+import { restrictNameInputs, restrictPhoneNumberInputs, validateNameField, validateEmail, validateMobileNumber, validateLoanProducts, handleErrorMessages, initFormValidation } from '../form/inputFieldsValidation.js';
 
 const apiUrl = getDataAttributeValueByName('otpapiurl');
 const formSheetUrl = getDataAttributeValueByName('sheeturl');
@@ -20,6 +20,7 @@ export default async function decorate(block) {
   // Add change event for checkboxes
   addChangeEventOnCheckboxes(block);
   handlSelectOnTabAndMob(block)
+  initFormValidation(block, '.form1', '.form1 #submit-btn');
   otpsEforcements(block)
   const editNumberInputEle = block.querySelector('#form-mobilenumber');
   editNumberInputEle.setAttribute('readonly', true);
@@ -330,8 +331,6 @@ function handlSelectOnTabAndMob(block) {
   const dropdowns = block.querySelectorAll('.form1 #form-loancategoryplaceholder , .form1 #form-selectlocationplaceholder');
   dropdowns.forEach((dropdown) => {
     const fieldsetWrapper = dropdown.closest('.form1').nextElementSibling.querySelector('fieldset');
-    console.log(fieldsetWrapper)
-
     if (fieldsetWrapper) {
       fieldsetWrapper.classList.add('hide-options');
 
