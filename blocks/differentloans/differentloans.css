@@ -4,6 +4,10 @@
   justify-content: center;
 }
 
+.section .tabs-loans-container{
+  margin-bottom: 24px;
+}
+
 .tab {
   padding: 10px;
   cursor: pointer;

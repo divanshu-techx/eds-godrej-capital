@@ -330,9 +330,17 @@ main .section {
     padding-top:20px;
   }
 
+  .section.global-title-padding{
+    padding:0;
+  }
+
   .section.global-padding{
     padding-top:40px;
     padding-bottom:40px;
+  }
+
+  .section.global-block-padding{
+    padding-bottom:36px;
   }
 }
 
@@ -340,6 +348,14 @@ main .section {
   .section>div {
     max-width: unset;
     margin: auto;
+  }
+
+  .section.global-title-padding{
+    padding:0;
+  }
+
+  .section.global-block-padding{
+    padding-bottom:36px;
   }
 }
 
