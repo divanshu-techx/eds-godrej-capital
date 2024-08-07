@@ -183,7 +183,7 @@
 
 .interest-rate-container .interest-rate-wrapper .interest-rate .interest-card .title-container .title,
 .interest-rate-container .interest-rate-wrapper .interest-rate .interest-card .time-period-container .time-period {
-
+  color:#ffffff;
   font-size: 12px;
   font-weight: 400;
   line-height: 14.08px;
@@ -192,6 +192,7 @@
 }
 
 .interest-rate-container .interest-rate-wrapper .interest-rate .interest-card .intrest-container .intrest {
+  color:#ffffff;
   font-size: 40px;
   font-weight: 300;
   line-height: 46.92px;
