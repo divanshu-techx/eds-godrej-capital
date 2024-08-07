@@ -838,17 +838,17 @@ function initialize(block) {
       exisitingEmiAmountSlider.value = exisitingEmiAmountSlider.min;
       self.target.value = formatNumberToIndianCommas(exisitingEmiAmountSlider.min);
     } else {
-      let N = removeCommaAndConvertToInt(self.target.value);
+      let finalexistingEmi = removeCommaAndConvertToInt(self.target.value);
       const maxValue = exisitingEmiAmountSlider.max;
 
-      if (N >= maxValue) {
-        N = maxValue;
+      if (finalexistingEmi >= maxValue) {
+        finalexistingEmi = maxValue;
         // Hide the error message
         exisitingEmiError.style.display = 'none';
       }
 
-      exisitingEmiAmountSlider.value = N;
-      self.target.value = formatNumberToIndianCommas(N);
+      exisitingEmiAmountSlider.value = finalexistingEmi;
+      self.target.value = formatNumberToIndianCommas(finalexistingEmi);
     }
     E = removeCommaAndConvertToInt(self.target.value);
     const value = E;
@@ -866,7 +866,7 @@ function initialize(block) {
   intRateSlider.addEventListener('input', function (self) {
     intRateText.value = self.target.value;
     R = parseFloat(self.target.value);
-    const {value} = this;
+    const { value } = this;
     const percentage = (
       ((value - interestRateMinValue) / (interestRateMaxValue - interestRateMinValue))
       * 100
