@@ -1,6 +1,11 @@
 main .section.campaign-page-carousel-container{
     padding:unset;
 }
+
+main .section.campaign-page-carousel-container > div{
+    max-width: unset;
+}
+
 .carousel-items-container {
     position: relative;
     width: 100%;
@@ -51,6 +56,12 @@ main .section.campaign-page-carousel-container{
     object-fit: fill;
     height: 500px;
 }
+
+.campaign-page-carousel .image-item {
+    width: 100%;
+    object-fit: fill;
+    height: 500px;
+}
 @media(max-width:1199px){
    .campaign-page-carousel .image-item img {
        width: 100%;
@@ -60,9 +71,9 @@ main .section.campaign-page-carousel-container{
 
 .campaign-page-carousel .text-item {
     position: absolute;
-    width: 90%;
-    top: 50%;
-    left: 50%;
+    width: 50%;
+    top: 34%;
+    left: 34%;
     transform: translate(-50%, -50%);
     color: #fff;
     padding: 20px;
@@ -70,20 +81,36 @@ main .section.campaign-page-carousel-container{
 }
 
 
+@media (min-width: 1024px) and (max-width: 1599px) {
+    .campaign-page-carousel .text-item {
+        left: 31%;
+    }
+}
+
+
 .campaign-page-carousel .text-item h3,
 .campaign-page-carousel .text-item h2 {
    margin: 0;
    text-align: start;
-   font-size: 20px;
+   font-size: 32px;
    font-weight: 300;
    line-height: 23.46px;
 }
 
+.campaign-page-carousel .text-item p {
+    margin-bottom: 5px;
+    font-size: 36px;
+    font-weight: 300;
+    line-height: 42.23px;
+    text-align: left;
+
+}
+
 .campaign-page-carousel .text-item h1{
    margin:0;
-   font-size: 32px;
+   font-size: 54px;
    font-weight: 600;
-   line-height: 28.8px;
+   line-height: 48.8px;
 
 }
 
@@ -94,6 +121,11 @@ main .section.campaign-page-carousel-container{
 
 .campaign-page-carousel .text-item ul li {
    list-style-type: disc; 
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18.77px;
+    text-align: left;
+
 }
 
 .campaign-page-carousel .text-item ul li::marker {
@@ -149,8 +181,14 @@ main .section.campaign-page-carousel-container{
     position: absolute;
     bottom: 10px;
     width: 100%;
-    top: 185px;
-    right: 36%;
+    bottom: 195px;
+    right: 38%;
+}
+
+@media (min-width: 1024px) and (max-width: 1599px) {
+    .campaign-page-carousel .swip-pagination {
+        right: 40%;
+    }
 }
 
 .campaign-page-carousel .swiper-pagination-bullet {
