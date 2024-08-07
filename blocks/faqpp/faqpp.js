@@ -45,9 +45,9 @@ export default async function decorate(block) {
     }
 
     // Filter Q&A data based on the selected category
-    const filteredData = quesAnsData.filter(item => item.category.toLowerCase() === selectedCategory);
+    const filteredData = quesAnsData.filter((item) => item.category.toLowerCase() === selectedCategory);
     // Extract unique tags from the filtered data and render them
-    const tags = [...new Set(filteredData.flatMap(item => normalizeTags(item.tags)))];
+    const tags = [...new Set(filteredData.flatMap((item) => normalizeTags(item.tags)))];
     renderTags(tags, faqTabs);
     // Render Q&A items based on the selected category
     renderQA(filteredData, selectedCategory, '', faqAccordion);
@@ -96,7 +96,7 @@ function normalizeTags(tags) {
   if (!tags || tags.trim().length === 0) {
     return [];
   }
-  return tags.includes(',') ? tags.split(',').map(tag => tag.trim().toLowerCase()) : [tags.trim().toLowerCase()];
+  return tags.includes(',') ? tags.split(',').map((tag) => tag.trim().toLowerCase()) : [tags.trim().toLowerCase()];
 }
 
 // Function to render tags as buttons within the container
@@ -118,13 +118,13 @@ function renderQA(data, selectedCategory, selectedTag, container) {
   let filteredData;
   // Filter data based on the selected category or tag
   if (selectedCategory) {
-    filteredData = data.filter(item => item.category.toLowerCase() === selectedCategory);
+    filteredData = data.filter((item) => item.category.toLowerCase() === selectedCategory);
   } else {
-    filteredData = data.filter(item => normalizeTags(item.tags).includes(selectedTag.toLowerCase()));
+    filteredData = data.filter((item) => normalizeTags(item.tags).includes(selectedTag.toLowerCase()));
   }
 
   // Create and append Q&A items to the container
-  filteredData.forEach(item => {
+  filteredData.forEach((item) => {
     const qaItem = document.createElement('div');
     qaItem.className = 'qa-item';
     const question = document.createElement('h4');
@@ -152,7 +152,7 @@ function renderQA(data, selectedCategory, selectedTag, container) {
     }
     question.addEventListener('click', function () {
       const isActive = this.classList.contains('active');
-      accordionHeaders.forEach(header => {
+      accordionHeaders.forEach((header) => {
         header.classList.remove('active');
         header.nextElementSibling.style.display = 'none';
       });
@@ -201,7 +201,7 @@ function quesAnsChangeOnTags(faqTabs, quesAnsData, faqAccordion) {
 
   let filteredData = [];
   if (selectedCategory) {
-    filteredData = quesAnsData.filter(item => item.category.toLowerCase() === selectedCategory);
+    filteredData = quesAnsData.filter((item) => item.category.toLowerCase() === selectedCategory);
   }
 
   // Add click event to tag buttons for filtering Q&A items
@@ -209,7 +209,7 @@ function quesAnsChangeOnTags(faqTabs, quesAnsData, faqAccordion) {
   buttons.forEach(function (button, index) {
     if (index === 0) button.classList.add('active-tag');
     button.addEventListener('click', function (event) {
-      buttons.forEach(btn => btn.classList.remove('active-tag'));
+      buttons.forEach((btn) => btn.classList.remove('active-tag'));
       this.classList.add('active-tag');
       const clickedButton = event.target;
       renderQA(filteredData, '', clickedButton.innerHTML, faqAccordion);
