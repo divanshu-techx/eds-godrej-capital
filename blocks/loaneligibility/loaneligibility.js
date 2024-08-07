@@ -728,7 +728,12 @@ function initialize(block) {
     }
   });
 
-  loanPeriodSlider.addEventListener('change', () => {
+  loanPeriodSlider.addEventListener('change', (self) => {
+    const value = self.target.value;
+    if(value >= loanPeriodSlider.max) {
+      M = loanPeriodSliderMonth.min;
+      displayDetails(P, R, N, M, E, line, pie, block);
+    }
     displayDetails(P, R, N, M, E, line, pie, block);
   })
 

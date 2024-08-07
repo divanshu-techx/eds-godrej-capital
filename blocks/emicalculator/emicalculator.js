@@ -663,6 +663,14 @@ function initialize(block) {
     window.location.href = applyRedirectionPath;
   });
 
+  
+  // Error message spans
+  const loanAmtError = createErrorSpan(`Value should be between ${formatNumberToIndianCommas(loanAmountMinValue)}  and  ${formatNumberToIndianCommas(loanAmountMaxValue)}`);
+  const interestRateError = createErrorSpan(`Value should be between  ${interestrateMinValue} % and ${interestrateMaxValue} %`);
+  const loanPeriodError = createErrorSpan(`Value should be between  ${tenureMinYearvalue} and  ${tenureMaxYearvalue}`);
+  const loanPeriodMonthError = createErrorSpan(`Value should be between ${tenureMinMonthValue} and ${tenureMaxMonthValue}`);
+
+
   loanAmtSlider.addEventListener('input', function (self) {
     // loanAmtText.value = formatNumberWithCommas(self.target.value);
     loanAmtText.value = formatNumberToIndianCommas(self.target.value);
@@ -679,24 +687,24 @@ function initialize(block) {
 
   loanAmtSlider.addEventListener('change', () => {
     displayDetails(P, R, N, M, pie, block);
-  })
+  });
 
   loanAmtText.addEventListener('blur', (self) => {
     if (self.target.value === '') {
       loanAmtSlider.value = loanAmtSlider.min;
       self.target.value = formatNumberToIndianCommas(loanAmtSlider.min);
     } else {
-      let N = removeCommaAndConvertToInt(self.target.value);
+      let finalLoan = removeCommaAndConvertToInt(self.target.value);
       const maxValue = loanAmtSlider.max;
-  
-      if (N >= maxValue) {
-        N = maxValue;
+
+      if (finalLoan >= maxValue) {
+        finalLoan = maxValue;
         // Hide the error message
         loanAmtError.style.display = 'none';
       }
   
-      loanAmtSlider.value = N;
-      self.target.value = formatNumberToIndianCommas(N);
+      loanAmtSlider.value = finalLoan;
+      self.target.value = formatNumberToIndianCommas(finalLoan);
     }
   
     P = removeCommaAndConvertToInt(self.target.value);
@@ -810,9 +818,14 @@ function initialize(block) {
     }
   });
 
-  loanPeriodSlider.addEventListener('change', () => {
+  loanPeriodSlider.addEventListener('change', (self) => {
+    const value = self.target.value;
+    if(value >= loanPeriodSlider.max) {
+      M = loanPeriodSliderMonth.min;
+      displayDetails(P, R, N, M, pie, block);
+    }
     displayDetails(P, R, N, M, pie, block);
-  })
+  });
 
   loanPeriodText.addEventListener('blur', (self) => {
     if (self.target.value === '') {
@@ -909,12 +922,6 @@ function initialize(block) {
     }
     displayDetails(P, R, N, M, pie, block);
   });
-
-  // Error message spans
-  const loanAmtError = createErrorSpan(`Value should be between ${formatNumberToIndianCommas(loanAmountMinValue)}  and  ${formatNumberToIndianCommas(loanAmountMaxValue)}`);
-  const interestRateError = createErrorSpan(`Value should be between  ${interestrateMinValue} % and ${interestrateMaxValue} %`);
-  const loanPeriodError = createErrorSpan(`Value should be between  ${tenureMinYearvalue} and  ${tenureMaxYearvalue}`);
-  const loanPeriodMonthError = createErrorSpan(`Value should be between ${tenureMinMonthValue} and ${tenureMaxMonthValue}`);
 
   // Append error message spans to their respective input containers
   amountDetail.appendChild(loanAmtError);
