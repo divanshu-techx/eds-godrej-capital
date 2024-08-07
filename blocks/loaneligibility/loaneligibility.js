@@ -533,21 +533,50 @@ function initialize(block) {
   const loanPeriodSliderMonth = block.querySelector('#loanPeriodMonth');
   const loanPeriodTextMonth = block.querySelector('#loanPeriodMonthText');
 
-  loanAmtSlider.addEventListener('change', (self) => {
+  loanAmtSlider.addEventListener('input', function(self){
     // loan_amt_text.value = formatNumberWithCommas(self.target.value);
     loanAmtText.value = formatNumberToIndianCommas(self.target.value);
     P = removeCommaAndConvertToInt(self.target.value);
-    displayDetails(P, R, N, M, E, line, pie, block);
+    const value = P;
+    const maxValue = loanAmtSlider.max; // Get the maximum value of the range input
+    const percentage = (value / maxValue) * 100;
+    if (window.innerWidth <= 768) {
+      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+    } else {
+      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+    }
   });
+  loanAmtSlider.addEventListener('change', () => {
+    displayDetails(P, R, N, M, E, line, pie, block);
+  })
   loanAmtText.addEventListener('blur', (self) => {
     if (self.target.value === '') {
       loanAmtSlider.value = loanAmtSlider.min;
       self.target.value = formatNumberToIndianCommas(loanAmtSlider.min);
     } else {
-      loanAmtSlider.value = removeCommaAndConvertToInt(self.target.value);
-      self.target.value = formatNumberToIndianCommas(self.target.value);
+      let N = removeCommaAndConvertToInt(self.target.value);
+      const maxValue = loanAmtSlider.max;
+  
+      if (N >= maxValue) {
+        N = maxValue;
+        // Hide the error message
+        loanAmtError.style.display = 'none';
+      }
+  
+      loanAmtSlider.value = N;
+      self.target.value = formatNumberToIndianCommas(N);
     }
+  
     P = removeCommaAndConvertToInt(self.target.value);
+    const value = P;
+    const maxValue = loanAmtSlider.max; // Get the maximum value of the range input
+    const percentage = (value / maxValue) * 100;
+  
+    if (window.innerWidth <= 768) {
+      loanAmtSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+    } else {
+      loanAmtSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+    }
     displayDetails(P, R, N, M, E, line, pie, block);
   });
 
@@ -576,36 +605,69 @@ function initialize(block) {
     this.value = value;
   });
 
-  exisitingEmiAmountSlider.addEventListener('change', (self) => {
+  exisitingEmiAmountSlider.addEventListener('input', function (self){
     exisitingEmiText.value = formatNumberToIndianCommas(self.target.value);
     E = removeCommaAndConvertToInt(self.target.value);
-    displayDetails(P, R, N, M, E, line, pie, block);
+    const value = E;
+    const maxValue = exisitingEmiAmountSlider.max; // Get the maximum value of the range input
+    const percentage = (value / maxValue) * 100;
+    if (window.innerWidth <= 768) {
+      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+    } else {
+      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+    }
   });
 
-  // exisitingEmiText.addEventListener('blur', (self) => {
-  //   const valueWithoutCommas = removeCommaAndConvertToInt(self.target.value);
-  //   exisitingEmiAmountSlider.value = valueWithoutCommas;
-  //   exisitingEmiText.value = formatNumberToIndianCommas(valueWithoutCommas);
-  //   E = valueWithoutCommas;
-  //   displayDetails(P, R, N, M, E, line, pie, block);
-  // });
+  exisitingEmiAmountSlider.addEventListener('change',()=>{
+    displayDetails(P, R, N, M, E, line, pie, block);
+  })
+
   exisitingEmiText.addEventListener('blur', (self) => {
     if (self.target.value === '') {
       exisitingEmiAmountSlider.value = exisitingEmiAmountSlider.min;
       self.target.value = formatNumberToIndianCommas(exisitingEmiAmountSlider.min);
     } else {
-      exisitingEmiAmountSlider.value = removeCommaAndConvertToInt(self.target.value);
-      self.target.value = formatNumberToIndianCommas(self.target.value);
+      let N = removeCommaAndConvertToInt(self.target.value);
+      const maxValue = exisitingEmiAmountSlider.max;
+  
+      if (N >= maxValue) {
+        N = maxValue;
+        // Hide the error message
+        exisitingEmiError.style.display = 'none';
+      }
+  
+      exisitingEmiAmountSlider.value = N;
+      self.target.value = formatNumberToIndianCommas(N);
     }
-    P = removeCommaAndConvertToInt(self.target.value);
+    E = removeCommaAndConvertToInt(self.target.value);
+    const value = E;
+    const maxValue = exisitingEmiAmountSlider.max; // Get the maximum value of the range input
+    const percentage = (value / maxValue) * 100;
+  
+    if (window.innerWidth <= 768) {
+      exisitingEmiAmountSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+    } else {
+      exisitingEmiAmountSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+    }
     displayDetails(P, R, N, M, E, line, pie, block);
   });
 
-  intRateSlider.addEventListener('change', (self) => {
+  intRateSlider.addEventListener('input', function (self){
     intRateText.value = self.target.value;
     R = parseFloat(self.target.value);
-    displayDetails(P, R, N, M, E, line, pie, block);
+    const value = this.value;
+    const percentage = ((value - interestRateMinValue) / (interestRateMaxValue - interestRateMinValue)) * 100;
+    // Update the background gradient with the calculated percentage
+    if (window.innerWidth <= 768) {
+      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+    } else {
+      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+    }
   });
+
+  intRateSlider.addEventListener('change', () => {
+    displayDetails(P, R, N, M, E, line, pie, block);
+  })
 
   intRateText.addEventListener('blur', (self) => {
     if (self.target.value === '') {
@@ -615,14 +677,65 @@ function initialize(block) {
       intRateSlider.value = self.target.value;
     }
     R = parseFloat(self.target.value);
+    R = R >= intRateSlider.max ? intRateSlider.max : R;
+
+    if (R >= intRateSlider.max) {
+      intRateText.value = intRateSlider.max;
+      interestRateError.style.display = 'none';
+    }
+    const value = R;
+    const percentage = ((value - interestRateMinValue) / (interestRateMaxValue - interestRateMinValue)) * 100;
+    // Update the background gradient with the calculated percentage
+    if (window.innerWidth <= 768) {
+      intRateSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+    } else {
+      intRateSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+    }
+
     displayDetails(P, R, N, M, E, line, pie, block);
   });
 
-  loanPeriodSlider.addEventListener('change', (self) => {
+  loanPeriodSlider.addEventListener('input', function (self) {
     loanPeriodText.value = self.target.value;
     N = parseFloat(self.target.value);
-    displayDetails(P, R, N, M, E, line, pie, block);
+    if (N >= loanPeriodSlider.max) {
+      loanPeriodTextMonth.disabled = true;
+      loanPeriodSliderMonth.disabled = true;
+      loanPeriodTextMonth.value = loanPeriodSliderMonth.min;
+      loanPeriodSliderMonth.value = loanPeriodSliderMonth.min;
+
+      const value = loanPeriodSliderMonth.min;
+      const percentage = ((value - tenureMinYearValue) / (tenureMaxYearValue - tenureMinYearValue)) * 100;
+
+      // Update the background gradient with the calculated percentage
+      if (window.innerWidth <= 768) {
+        loanPeriodSliderMonth.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+      } else {
+        loanPeriodSliderMonth.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+      }
+    } else {
+      loanPeriodTextMonth.disabled = false;
+      loanPeriodSliderMonth.disabled = false;
+    }
+    const value = N;
+    const percentage = ((value - tenureMinYearValue) / (tenureMaxYearValue - tenureMinYearValue)) * 100;
+
+    // Update the background gradient with the calculated percentage
+    if (window.innerWidth <= 768) {
+      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+    } else {
+      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+    }
   });
+
+  loanPeriodSlider.addEventListener('change', (self) => {
+    const value = self.target.value;
+    if(value >= loanPeriodSlider.max) {
+      M = loanPeriodSliderMonth.min;
+      displayDetails(P, R, N, M, E, line, pie, block);
+    }
+    displayDetails(P, R, N, M, E, line, pie, block);
+  })
 
   loanPeriodText.addEventListener('blur', (self) => {
     if (self.target.value === '') {
@@ -632,13 +745,51 @@ function initialize(block) {
       loanPeriodSlider.value = self.target.value;
     }
     N = parseFloat(self.target.value);
+    N = N >= loanPeriodSlider.max ? loanPeriodSlider.max : N;
+    if (N >= loanPeriodSlider.max) {
+      loanPeriodText.value = loanPeriodSlider.max;
+      loanPeriodError.style.display = 'none';
+      loanPeriodTextMonth.disabled = true;
+      loanPeriodSliderMonth.disabled = true;
+      loanPeriodTextMonth.value = loanPeriodSliderMonth.min;
+      loanPeriodSliderMonth.value = loanPeriodSliderMonth.min;
+
+      const value = loanPeriodSliderMonth.min;
+      const percentage = ((value - tenureMinYearValue) / (tenureMaxYearValue - tenureMinYearValue)) * 100;
+
+      // Update the background gradient with the calculated percentage
+      if (window.innerWidth <= 768) {
+        loanPeriodSliderMonth.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+      } else {
+        loanPeriodSliderMonth.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+      }
+    } else {
+      loanPeriodTextMonth.disabled = false;
+      loanPeriodSliderMonth.disabled = false;
+    }
+    const value = N;
+    const percentage = ((value - tenureMinYearValue) / (tenureMaxYearValue - tenureMinYearValue)) * 100;
+    // Update the background gradient with the calculated percentage
+    if (window.innerWidth <= 768) {
+      loanPeriodSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+    } else {
+      loanPeriodSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+    }
     displayDetails(P, R, N, M, E, line, pie, block);
   });
 
-  loanPeriodSliderMonth.addEventListener('change', (self) => {
+  loanPeriodSliderMonth.addEventListener('input', function(self){
     loanPeriodTextMonth.value = self.target.value;
     M = parseFloat(self.target.value);
-    displayDetails(P, R, N, M, E, line, pie, block);
+    const value = M;
+    const percentage = ((value - tenureMinMonthValue) / (tenureMaxMonthValue - tenureMinMonthValue)) * 100;
+
+    // Update the background gradient with the calculated percentage
+    if (window.innerWidth <= 768) {
+      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
+    } else {
+      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+    }
   });
 
   loanPeriodTextMonth.addEventListener('blur', (self) => {
@@ -649,90 +800,13 @@ function initialize(block) {
       loanPeriodSliderMonth.value = self.target.value;
     }
     M = parseFloat(self.target.value);
-    displayDetails(P, R, N, M, E, line, pie, block);
-  });
+    M = M >= loanPeriodSliderMonth.max ? loanPeriodSliderMonth.max : M;
 
-  //for slider color event listener
-  loanAmtSlider.addEventListener('input', function () {
-    const value = this.value;
-    const maxValue = this.max; // Get the maximum value of the range input
-    const percentage = (value / maxValue) * 100;
-    if (window.innerWidth <= 768) {
-      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
-    } else {
-      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
+    if (M >= loanPeriodSliderMonth.max) {
+      loanPeriodTextMonth.value = loanPeriodSliderMonth.max;
+      loanPeriodMonthError.style.display = 'none';
     }
-  })
-
-  loanAmtText.addEventListener('input', function () {
-    const value = this.value;
-    const maxValue = this.max; // Get the maximum value of the range input
-    const percentage = (value / maxValue) * 100;
-    if (window.innerWidth <= 768) {
-      loanAmtSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
-    } else {
-      loanAmtSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
-    }
-  })
-
-  intRateSlider.addEventListener('input', function () {
-    const value = this.value;
-    const percentage = ((value - interestRateMinValue) / (interestRateMaxValue - interestRateMinValue)) * 100;
-
-    // Update the background gradient with the calculated percentage
-    if (window.innerWidth <= 768) {
-      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
-    } else {
-      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
-    }
-  });
-
-  intRateText.addEventListener('input', function () {
-    const value = this.value;
-    const percentage = ((value - interestRateMinValue) / (interestRateMaxValue - interestRateMinValue)) * 100;
-    // Update the background gradient with the calculated percentage
-    if (window.innerWidth <= 768) {
-      intRateSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
-    } else {
-      intRateSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
-    }
-  });
-
-  loanPeriodSlider.addEventListener('input', function () {
-    const value = this.value;
-    const percentage = ((value - tenureMinYearValue) / (tenureMaxYearValue - tenureMinYearValue)) * 100;
-    // Update the background gradient with the calculated percentage
-    if (window.innerWidth <= 768) {
-      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
-    } else {
-      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
-    }
-  });
-
-  loanPeriodText.addEventListener('input', function () {
-    const value = this.value;
-    const percentage = ((value - tenureMinYearValue) / (tenureMaxYearValue - tenureMinYearValue)) * 100;
-    // Update the background gradient with the calculated percentage
-    if (window.innerWidth <= 768) {
-      loanPeriodSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
-    } else {
-      loanPeriodSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
-    }
-  });
-
-  loanPeriodSliderMonth.addEventListener('input', function () {
-    const value = this.value;
-    const percentage = ((value - tenureMinMonthValue) / (tenureMaxMonthValue - tenureMinMonthValue)) * 100;
-    // Update the background gradient with the calculated percentage
-    if (window.innerWidth <= 768) {
-      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
-    } else {
-      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
-    }
-  });
-
-  loanPeriodTextMonth.addEventListener('input', function () {
-    const value = this.value;
+    const value = M;
     const percentage = ((value - tenureMinMonthValue) / (tenureMaxMonthValue - tenureMinMonthValue)) * 100;
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
@@ -740,29 +814,12 @@ function initialize(block) {
     } else {
       loanPeriodSliderMonth.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
     }
+    displayDetails(P, R, N, M, E, line, pie, block);
   });
 
-  exisitingEmiAmountSlider.addEventListener('input', function () {
-    const value = this.value;
-    const percentage = ((value - existingEmiMin) / (existingEmiMax - existingEmiMin)) * 100;
-    // Update the background gradient with the calculated percentage
-    if (window.innerWidth <= 768) {
-      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
-    } else {
-      this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
-    }
-  });
-
-  exisitingEmiText.addEventListener('input', function () {
-    const value = this.value;
-    const percentage = ((value - existingEmiMin) / (existingEmiMax - existingEmiMin)) * 100;
-    // Update the background gradient with the calculated percentage
-    if (window.innerWidth <= 768) {
-      exisitingEmiAmountSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
-    } else {
-      exisitingEmiAmountSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
-    }
-  });
+  loanPeriodSliderMonth.addEventListener('change', () => {
+    displayDetails(P, R, N, M, E, line, pie, block);
+  })
 
   //   Error message spans
   const loanAmtError = createErrorSpan(`Value should be between ${formatNumberToIndianCommas(loanAmountMinValue)} and ${formatNumberToIndianCommas(loanAmountMaxValue)}`);

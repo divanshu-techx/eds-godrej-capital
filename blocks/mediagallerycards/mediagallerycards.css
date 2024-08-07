@@ -641,6 +641,13 @@
   }
 }
 
+@media(width >= 1600px){
+  .section.mediagallerycards-container {
+    padding-left: 9vw;
+    padding-right: 9vw;
+  }
+}
+
 @media(min-width:1042px) {
   .total-img-video-media-gallery p {
     display: block;

@@ -33,7 +33,7 @@
   width: 100%;
   min-height: 500px;
 
-  @media(width <=600px) {
+  @media(width <= 600px) {
     min-height: 525px;
     justify-content: start;
   }
@@ -303,6 +303,19 @@
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
+  }
+}
+
+@media (width >= 1600px) {
+  .hero-carousel-v1 .carousel-slide-content.carousel-slide-v1-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+    max-width: unset;
+    margin: 0 auto;
+    padding-left: 9vw;
+    padding-right: 9vw;
   }
 }
 
@@ -844,3 +857,5 @@
 .carousel-slide-content .button-container button.primary-button:first-of-type {
   background: #3CB8FF;
 }
+.carousel-slide-content .button-container button.primary-button:first-of-type:hover{
+background-color:#00a2ff}

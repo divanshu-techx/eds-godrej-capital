@@ -641,5 +641,5 @@
 .swiper-button-next[aria-disabled="true"] {
   background-color: #E8E8E8;
   color: inherit;
-  cursor: not-allowed;
+  /* cursor: not-allowed; */
 }

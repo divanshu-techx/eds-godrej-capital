@@ -19,6 +19,18 @@ footer .footer {
   margin: auto;
 }
 
+@media(width >=1600px){
+  footer .footer{
+    padding-left: 9vw;
+    padding-right: 9vw;
+  }
+
+  footer .footer {
+    max-width: unset;
+    margin: auto;
+  }
+}
+
 footer .footer p {
   margin: 0;
   font-size: 14px;
@@ -317,6 +329,15 @@ footer .partitionfirstcolumn-container .partitionfirstcolumn div p>strong {
 .default-content-wrapper {
   margin: 0 auto;
   padding: 0;
+}
+
+@media(width >=1600px){
+  .mobilesubfooter-container .mobilesubfooter-wrapper,
+  .highlight-desktop-footer .default-content-wrapper {
+  margin: 0 auto;
+  padding-left: 9vw;
+  padding-right: 9vw;
+}
 }
 
 .mobilesubfooter-container .default-content-wrapper p,

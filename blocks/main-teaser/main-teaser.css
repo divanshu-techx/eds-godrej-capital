@@ -70,6 +70,22 @@
         justify-content: start;
     }
 
+    .main-teaser.left.campaign .mainteaser-banner__content-wrapper {
+        padding-top: 70px;
+        display: flex;
+        justify-content: start;
+        padding-left: 9vw;
+        padding-right: 9vw;
+    }
+
+}
+
+@media (width >= 1600px) {
+    .main-teaser.left .mainteaser-banner__content-wrapper{
+        padding-left: 9vw;
+        padding-right: 9vw;
+        max-width: unset;
+    }
 }
 
 
@@ -163,11 +179,25 @@
         margin: 0;
     }
 
+    .main-teaser.campaign .mainteaser-banner__content ul {
+        display: block;
+        /* flex-wrap: wrap; */
+        padding: 0;
+        margin: 0;
+    }
+
     .main-teaser.row-wise .mainteaser-banner__content ul li {
         width: 48%;
         margin-bottom: 10px;
         box-sizing: border-box;
         padding: 5px;
+    }
+    
+    .main-teaser.campaign .mainteaser-banner__content ul li {
+        width: 48%;
+        margin-bottom: 0;
+        box-sizing: border-box;
+        padding: 0;
     }
 }
 
@@ -233,4 +263,17 @@
         margin: 0 auto;
         padding: 10px;
     }
+}
+
+/* for variation campaign page .campaign */
+.main-teaser.campaign{
+    height: 685px;
+    display: flex;
+    justify-content: space-around;
+    background-color: #c9c9c9;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+    align-items: unset;
 }

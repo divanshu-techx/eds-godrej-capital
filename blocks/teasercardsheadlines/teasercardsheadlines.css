@@ -130,6 +130,19 @@ a {
     width: 100%;
 }
 
+@media (width >= 1600px) {
+    .teasercardsheadlines.block .teaser-content{
+        padding-left: 9vw;
+        padding-right: 9vw;
+        max-width: unset;
+    }
+    .teasercardsheadlines.block div:last-child {
+        max-width: unset;
+        margin: auto;
+        width: 100%;
+    }
+}
+
 .teaser-content {
     padding-top: 3rem;
 }
