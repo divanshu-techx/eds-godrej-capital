@@ -268,7 +268,12 @@ header nav .nav-sections .belowNavMainContainer {
   margin: 0 auto;
   padding-top: 0;
   margin-left: -150px;
+}
 
+@media(width >= 1600px){
+  header nav .nav-sections .belowNavMainContainer {
+    max-width:1556px;
+  }
 }
 
 header nav .nav-sections .belowNavMainContainer .parentContainerdiv {
@@ -416,6 +421,12 @@ header nav .nav-sections .belowNavMainContainer .thirdElementDiv .columns p a:ho
   background-color: #fff;
 }
 
+@media(width >= 1600px){
+  .thirdElementDiv {
+    width: unset;
+  }
+}
+
 .thirdElementDiv .columns {
   width: 100%;
 }
@@ -503,6 +514,12 @@ header nav .nav-sections .firstElementChildDiv ul {
 .firstElementChildDiv li {
   background-color: var(--color-white);
   padding: 12px 60px 12px 40px;
+}
+
+@media(width >= 1600px){
+  .firstElementChildDiv li {
+    padding: 18px 85px 18px 85px;
+  }
 }
 
 header nav .nav-sections ul>li>ul {
@@ -767,6 +784,12 @@ header nav .nav-tools input[type=text] {
   box-sizing: border-box;
 }
 
+@media(width >= 1600px){
+  .belowNavMainContainer.show .secondElementDiv .free-credit-container {
+    width: 280px;
+  }
+}
+
 .belowNavMainContainer.show .secondElementDiv .free-credit-container a {
   display: inline-block;
   vertical-align: middle;
@@ -788,6 +811,12 @@ header nav .nav-tools input[type=text] {
   gap: 10px;
   padding: 20px;
   box-sizing: border-box;
+}
+
+@media(width >= 1600px){
+  .belowNavMainContainer.show .secondElementDiv .freeCreditDiv { 
+    align-items: center;
+  }
 }
 
 .belowNavMainContainer.show .secondElementDiv .free-credit-internaldiv {
@@ -829,6 +858,12 @@ header nav .nav-tools input[type=text] {
   width: 240px;
   border-radius: 4px;
   background: var(--SILVER, #F4F4F4);
+}
+
+@media(width >= 1600px){
+  .belowNavMainContainer.show .secondElementDiv .whatsUp-container {
+    width: 280px;
+  }
 }
 
 .belowNavMainContainer.show .secondElementDiv .whatsUp-container .whatsUp-heading {
@@ -940,11 +975,22 @@ header nav .nav-tools input[type=text] {
   padding: 12px 60px 12px 40px;
   position: relative;
   border-bottom: 1px solid #b8b8b8;
-  ;
+}
+
+@media(width >= 1600px){
+  .parentContainerdiv:not(:has(.firstElementChildDiv)) .secondElementDiv li.listElement  {
+    padding:18px 85px 18px 85px;
+  }
 }
 
 .parentContainerdiv:not(:has(.firstElementChildDiv)) .secondElementDiv li.listElement a {
   width: 200px;
+}
+
+@media(width >= 1600px){
+  .parentContainerdiv:not(:has(.firstElementChildDiv)) .secondElementDiv li.listElement a {
+    min-width: 240px;
+  }
 }
 
 
@@ -1011,5 +1057,4 @@ header nav .nav-tools input[type=text] {
     padding-left: 9vw;
     padding-right: 9vw;
   }
->>>>>>>>> Temporary merge branch 2
 }
