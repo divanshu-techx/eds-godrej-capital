@@ -342,6 +342,7 @@ main .section {
   .section.global-block-padding{
     padding-bottom:36px;
   }
+
 }
 
 @media (width >=1600px){
