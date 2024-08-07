@@ -25,7 +25,7 @@ export default async function decorate(block) {
   const title = document.createElement('h2');
   title.classList.add('title');
   changeTiltleWithScreens(title);
-  window.addEventListener('resize', () => { changeTiltleWithScreens(title) });
+  window.addEventListener('resize', () => { changeTiltleWithScreens(title); });
   titleContainer.append(title);
   faqTabs.append(titleContainer);
   // Create and append 'Can't Find' element to the FAQ tabs
