@@ -87,7 +87,7 @@ export default async function decorate(block) {
       },
     },
   });
-  swiper.on('slideChange', function () {
+  swiper.on('slideChange', () =>  {
     document.querySelector('.swiper-button-prev').setAttribute('aria-disabled', swiper.isBeginning ? 'true' : 'false');
     document.querySelector('.swiper-button-next').setAttribute('aria-disabled', swiper.isEnd ? 'true' : 'false');
   });

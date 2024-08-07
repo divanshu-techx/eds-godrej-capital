@@ -57,14 +57,14 @@ function addAction(block) {
   if (customizeBtn) {
     const main = document.querySelector('main');
     const customCookie = main.querySelector('.custom-cookie-usage');
-    customizeBtn.addEventListener('click', function () {
+    customizeBtn.addEventListener('click', () => {
       showCookieModalCustom(customCookie);
     });
   } else {
     console.log('There is no customize button present.');
   }
   if (rejectBtn) {
-    rejectBtn.addEventListener('click', function () {
+    rejectBtn.addEventListener('click', () => {
       setCookie('cookiesAccepted', 'false', 365);
       hideCookieModal(block);
     });
@@ -72,7 +72,7 @@ function addAction(block) {
     console.log('There is no reject button present.');
   }
   if (acceptBtn) {
-    acceptBtn.addEventListener('click', function () {
+    acceptBtn.addEventListener('click', () => {
       setCookie('cookiesAccepted', 'true', 365);
       hideCookieModal(block);
     });
