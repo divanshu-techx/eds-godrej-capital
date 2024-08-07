@@ -663,13 +663,11 @@ function initialize(block) {
     window.location.href = applyRedirectionPath;
   });
 
-  
   // Error message spans
   const loanAmtError = createErrorSpan(`Value should be between ${formatNumberToIndianCommas(loanAmountMinValue)}  and  ${formatNumberToIndianCommas(loanAmountMaxValue)}`);
   const interestRateError = createErrorSpan(`Value should be between  ${interestrateMinValue} % and ${interestrateMaxValue} %`);
   const loanPeriodError = createErrorSpan(`Value should be between  ${tenureMinYearvalue} and  ${tenureMaxYearvalue}`);
   const loanPeriodMonthError = createErrorSpan(`Value should be between ${tenureMinMonthValue} and ${tenureMaxMonthValue}`);
-
 
   loanAmtSlider.addEventListener('input', function (self) {
     // loanAmtText.value = formatNumberWithCommas(self.target.value);
@@ -702,25 +700,24 @@ function initialize(block) {
         // Hide the error message
         loanAmtError.style.display = 'none';
       }
-  
+
       loanAmtSlider.value = finalLoan;
       self.target.value = formatNumberToIndianCommas(finalLoan);
     }
-  
+
     P = removeCommaAndConvertToInt(self.target.value);
     const value = P;
     const maxValue = loanAmtSlider.max; // Get the maximum value of the range input
     const percentage = (value / maxValue) * 100;
-  
+
     if (window.innerWidth <= 768) {
       loanAmtSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
     } else {
       loanAmtSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
     }
-    
+
     displayDetails(P, R, N, M, pie, block);
   });
-  
 
   // Event listener to allow only numeric input
   loanAmtText.addEventListener('input', function () {
@@ -748,7 +745,7 @@ function initialize(block) {
 
   intRateSlider.addEventListener('change', () => {
     displayDetails(P, R, N, M, pie, block);
-  })
+  });
 
   intRateText.addEventListener('blur', (self) => {
     if (self.target.value === '') {
@@ -819,8 +816,8 @@ function initialize(block) {
   });
 
   loanPeriodSlider.addEventListener('change', (self) => {
-    const value = self.target.value;
-    if(value >= loanPeriodSlider.max) {
+    const { value } = self.target;
+    if (value >= loanPeriodSlider.max) {
       M = loanPeriodSliderMonth.min;
       displayDetails(P, R, N, M, pie, block);
     }
@@ -856,6 +853,7 @@ function initialize(block) {
       } else {
         loanPeriodSliderMonth.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
       }
+      M = value;
     } else {
       loanPeriodTextMonth.disabled = false;
       loanPeriodSliderMonth.disabled = false;
@@ -893,7 +891,7 @@ function initialize(block) {
 
   loanPeriodSliderMonth.addEventListener('change', () => {
     displayDetails(P, R, N, M, pie, block);
-  })
+  });
 
   loanPeriodTextMonth.addEventListener('blur', (self) => {
     if (self.target.value === '') {
