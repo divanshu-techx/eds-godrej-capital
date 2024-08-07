@@ -7,8 +7,8 @@ function formatNumberToIndianCommas(number) {
   return decimalPart ? `${formattedNumber}.${decimalPart}` : formattedNumber;
 }
 function removeCommaAndConvertToInt(numberString) {
-  let cleanedString = numberString.replace(/,/g, '');
-  let numberInt = parseInt(cleanedString, 10);
+  const cleanedString = numberString.replace(/,/g, '');
+  const numberInt = parseInt(cleanedString, 10);
   return numberInt;
 }
 function numberToWords(num) {
@@ -22,18 +22,14 @@ function numberToWords(num) {
     [1e3, 'Thousands']
   ];
 
-  for (let i = 0; i < suffixes.length; i++) {
+  for (let i = 0; i < suffixes.length; i+=1) {
     const [divisor, suffix] = suffixes[i];
     if (num >= divisor) {
       return `${Math.floor(num / divisor)} ${suffix}`;
     }
   }
+  return num;
 }
-//  error message
-function createErrorSpan(message) {
-  return createElement('span', { class: 'error-message', style: 'color: red; display: none;' }, message);
-}
-
 function createElement(type, attributes = {}, ...children) {
   const element = document.createElement(type);
 
@@ -50,6 +46,10 @@ function createElement(type, attributes = {}, ...children) {
   });
 
   return element;
+}
+//  error message
+function createErrorSpan(message) {
+  return createElement('span', { class: 'error-message', style: 'color: red; display: none;' }, message);
 }
 
 function getDataAttributeValueByName(name) {
@@ -120,8 +120,8 @@ function displayDetails(P, R, N, M, E, line, pie, block) {
 
   block.querySelector('#Rate').innerText = `${R.toLocaleString('en-IN')} %`;
 
-  block.querySelector('#mobile_interest_rate').innerText = '@' + R.toLocaleString('en-IN', R) + '%';
-
+  block.querySelector('#mobile_interest_rate').innerText = `@${R.toLocaleString('en-IN')}%`;
+  
   block.querySelector('#month_Tenure').innerText = `${M.toLocaleString('en-IN')}`;
 
   block.querySelector('#mobile_month_Tenure').innerText = `${M.toLocaleString('en-IN')}`;
