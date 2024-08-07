@@ -558,13 +558,19 @@ function initialize(block) {
   );
   const loanDetails = createElement(
     'div',
-    { class: 'loan-details' },
+    {
+      class: 'loan-details',
+    },
     createElement(
       'div',
-      { class: 'chart-details' },
+      {
+        class: 'chart-details',
+      },
       createElement(
         'div',
-        { style: 'color: #000;font-weight:400;font-size:16px;' },
+        {
+          style: 'color: #000;font-weight:400;font-size:16px;',
+        },
         totalamountlabel,
       ),
       createElement(
@@ -574,7 +580,8 @@ function initialize(block) {
           style: 'color: #3B3B3B; font-size: 24px;font-weight:500;',
         },
       ),
-    ), footer,
+    ),
+    footer,
     createElement(
       'div',
       { class: 'chart-details' },
@@ -595,9 +602,13 @@ function initialize(block) {
 
   breakup.append(loaneligibilityDetails, loanDetails);
 
-  //mobile breakup
-  const mobileBreakup = createElement('div', { class: 'mobile-loaneligible' },
-    createElement('div', { class: 'mobile-loaneligibale' },
+  // mobile breakup
+  const mobileBreakup = createElement(
+    'div',
+    { class: 'mobile-loaneligible' },
+    createElement(
+      'div',
+      { class: 'mobile-loaneligibale' },
       createElement(
         'h3',
         { class: 'mobile-loan-eligible-label' },
@@ -765,17 +776,17 @@ function initialize(block) {
       loanAmtSlider.value = loanAmtSlider.min;
       self.target.value = formatNumberToIndianCommas(loanAmtSlider.min);
     } else {
-      let N = removeCommaAndConvertToInt(self.target.value);
+      let finalLoanAmt = removeCommaAndConvertToInt(self.target.value);
       const maxValue = loanAmtSlider.max;
 
-      if (N >= maxValue) {
-        N = maxValue;
+      if (finalLoanAmt >= maxValue) {
+        finalLoanAmt = maxValue;
         // Hide the error message
         loanAmtError.style.display = 'none';
       }
 
-      loanAmtSlider.value = N;
-      self.target.value = formatNumberToIndianCommas(N);
+      loanAmtSlider.value = finalLoanAmt;
+      self.target.value = formatNumberToIndianCommas(finalLoanAmt);
     }
 
     P = removeCommaAndConvertToInt(self.target.value);
@@ -793,25 +804,25 @@ function initialize(block) {
 
   // Event listener to allow only numeric input
   loanAmtText.addEventListener('input', function () {
-    let value = this.value;
+    let { value } = this;
     value = value.replace(/[^\d.]/g, ''); // Remove non-numeric characters except '.'
     this.value = value;
   });
 
   loanAmtSlider.addEventListener('input', function () {
-    let value = this.value;
+    let { value } = this;
     value = value.replace(/[^\d.]/g, ''); // Remove non-numeric characters except '.'
     this.value = value;
   });
 
   exisitingEmiAmountSlider.addEventListener('input', function () {
-    let value = this.value;
+    let { value } = this;
     value = value.replace(/[^\d.]/g, ''); // Remove non-numeric characters except '.'
     this.value = value;
   });
 
   exisitingEmiText.addEventListener('input', function () {
-    let value = this.value;
+    let { value } = this;
     value = value.replace(/[^\d.]/g, ''); // Remove non-numeric characters except '.'
     this.value = value;
   });
