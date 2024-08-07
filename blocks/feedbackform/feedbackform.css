@@ -1,7 +1,7 @@
 button#feedback-title-btn {
     position: fixed;
     right: 0;
-    top: 63%;
+    top: 75%;
     transform: translateY(-50%) rotate(180deg);
     background-color: #5CB7E3;
     color: white;
@@ -594,4 +594,8 @@ input[type="radio"],
 .feedbackform .feedback-submit-btn [type="submit"]:disabled {
     background-color: #E8E8E8;
     color: #3B3B3B;
+}
+
+.section.feedbackform-container{
+    display: contents;
 }

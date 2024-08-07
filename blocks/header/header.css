@@ -36,6 +36,15 @@ header nav {
   font-family: var(--body-font-family);
 }
 
+@media (width >=1600px){
+  header nav {
+    max-width: unset;
+    margin: auto;
+    padding-left: 9vw;
+    padding-right: 9vw;
+  }
+}
+
 header nav[aria-expanded="true"] {
   grid-template:
     'brand hamburger' var(--nav-height) 'sections sections' 1fr
@@ -44,11 +53,19 @@ header nav[aria-expanded="true"] {
   min-height: 100vh;
 }
 
-@media (width >=600px) {
+@media (width >=900px) and (width <= 1599px) {
   header nav {
     padding: 0 2rem;
   }
 }
+
+@media(width >=1600px){
+  header nav{
+    padding-left: 9vw;
+    padding-right: 9vw;
+  }
+}
+
 
 @media (width >=900px) {
   header nav {
@@ -251,7 +268,12 @@ header nav .nav-sections .belowNavMainContainer {
   margin: 0 auto;
   padding-top: 0;
   margin-left: -150px;
+}
 
+@media(width >= 1600px){
+  header nav .nav-sections .belowNavMainContainer {
+    max-width:1556px;
+  }
 }
 
 header nav .nav-sections .belowNavMainContainer .parentContainerdiv {
@@ -399,6 +421,12 @@ header nav .nav-sections .belowNavMainContainer .thirdElementDiv .columns p a:ho
   background-color: #fff;
 }
 
+@media(width >= 1600px){
+  .thirdElementDiv {
+    width: unset;
+  }
+}
+
 .thirdElementDiv .columns {
   width: 100%;
 }
@@ -486,6 +514,12 @@ header nav .nav-sections .firstElementChildDiv ul {
 .firstElementChildDiv li {
   background-color: var(--color-white);
   padding: 12px 60px 12px 40px;
+}
+
+@media(width >= 1600px){
+  .firstElementChildDiv li {
+    padding: 18px 85px 18px 85px;
+  }
 }
 
 header nav .nav-sections ul>li>ul {
@@ -617,6 +651,9 @@ header nav .nav-tools input[type=text] {
   display: block !important;
   color: var(--color-white);
   font-weight: 500;
+}
+.header .section .default-content-wrapper .button-container a:hover{
+  background-color:#00a2ff
 }
 
 .firstElementChildDiv ul {
@@ -750,6 +787,12 @@ header nav .nav-tools input[type=text] {
   box-sizing: border-box;
 }
 
+@media(width >= 1600px){
+  .belowNavMainContainer.show .secondElementDiv .free-credit-container {
+    width: 280px;
+  }
+}
+
 .belowNavMainContainer.show .secondElementDiv .free-credit-container a {
   display: inline-block;
   vertical-align: middle;
@@ -771,6 +814,12 @@ header nav .nav-tools input[type=text] {
   gap: 10px;
   padding: 20px;
   box-sizing: border-box;
+}
+
+@media(width >= 1600px){
+  .belowNavMainContainer.show .secondElementDiv .freeCreditDiv { 
+    align-items: center;
+  }
 }
 
 .belowNavMainContainer.show .secondElementDiv .free-credit-internaldiv {
@@ -812,6 +861,12 @@ header nav .nav-tools input[type=text] {
   width: 240px;
   border-radius: 4px;
   background: var(--SILVER, #F4F4F4);
+}
+
+@media(width >= 1600px){
+  .belowNavMainContainer.show .secondElementDiv .whatsUp-container {
+    width: 280px;
+  }
 }
 
 .belowNavMainContainer.show .secondElementDiv .whatsUp-container .whatsUp-heading {
@@ -923,11 +978,22 @@ header nav .nav-tools input[type=text] {
   padding: 12px 60px 12px 40px;
   position: relative;
   border-bottom: 1px solid #b8b8b8;
-  ;
+}
+
+@media(width >= 1600px){
+  .parentContainerdiv:not(:has(.firstElementChildDiv)) .secondElementDiv li.listElement  {
+    padding:18px 85px 18px 85px;
+  }
 }
 
 .parentContainerdiv:not(:has(.firstElementChildDiv)) .secondElementDiv li.listElement a {
   width: 200px;
+}
+
+@media(width >= 1600px){
+  .parentContainerdiv:not(:has(.firstElementChildDiv)) .secondElementDiv li.listElement a {
+    min-width: 240px;
+  }
 }
 
 
@@ -983,14 +1049,12 @@ header nav .nav-tools input[type=text] {
 /* .subheader .subheader-wrapper .default-content-wrapper ul .subheader-list:hover picture{
   background: #3CB8FF;
 } */
-.header .section .default-content-wrapper .button-container a:hover {
-  background: #00A2FF;
-}
 
-.customerSupportDiv a:hover {
-  color: #3CB8FF;
-}
-
-.belowNavMainContainer.show .firstElementChildDiv .customersupport a:hover {
-  color: #3CB8FF;
+@media (width >=1600px){
+  .subheader .section >div {
+    /* max-width: unset;
+    margin: auto; */
+    padding-left: 9vw;
+    padding-right: 9vw;
+  }
 }

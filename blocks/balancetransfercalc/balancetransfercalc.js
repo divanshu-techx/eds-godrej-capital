@@ -328,45 +328,45 @@ function updateRangeColors() {
     input.style.background = `linear-gradient(to right, #8CB133 ${normalizedValue}%, ${endColor} ${normalizedValue}%)`;
   });
 }
-function toggleInputBox(block){
+function toggleInputBox(block) {
   const loanTenureYearsApr = block.querySelector('#newLoanTenureDisplay');
   const loanTenureYearsAprRange = block.querySelector('#newLoanTenure');
   const loanTenureMonthsAprRange = block.querySelector('#newLoanTenureMonths');
   const loanTenureMonthsApr = block.querySelector('#newLoanTenureMonthsDisplay');
 
-  loanTenureYearsApr.addEventListener('input',function(){
-      const maxValue=loanTenureYearsAprRange.max;
-      const value=this.value;
+  loanTenureYearsApr.addEventListener('input', function () {
+    const maxValue = loanTenureYearsAprRange.max;
+    const { value } = this;
 
-      if (maxValue == value) {
-          loanTenureMonthsAprRange.disabled=true;
-          loanTenureMonthsApr.disabled=true;
-          loanTenureMonthsAprRange.value=loanTenureMonthsAprRange.min;
-          loanTenureMonthsApr.value=loanTenureMonthsAprRange.min;
-          updateCalculations(block);
-          updateRangeColors();
-      } else {
-          loanTenureMonthsAprRange.disabled=false;
-          loanTenureMonthsApr.disabled=false;
-      }
-  })
+    if (maxValue === value) {
+      loanTenureMonthsAprRange.disabled = true;
+      loanTenureMonthsApr.disabled = true;
+      loanTenureMonthsAprRange.value = loanTenureMonthsAprRange.min;
+      loanTenureMonthsApr.value = loanTenureMonthsAprRange.min;
+      updateCalculations(block);
+      updateRangeColors();
+    } else {
+      loanTenureMonthsAprRange.disabled = false;
+      loanTenureMonthsApr.disabled = false;
+    }
+  });
 
-  loanTenureYearsAprRange.addEventListener('change',function(){
-      const maxValue=loanTenureYearsAprRange.max;
-      const value=this.value;
+  loanTenureYearsAprRange.addEventListener('change', function () {
+    const maxValue = loanTenureYearsAprRange.max;
+    const { value } = this;
 
-      if (maxValue == value) {
-          loanTenureMonthsAprRange.disabled=true;
-          loanTenureMonthsApr.disabled=true;
-          loanTenureMonthsAprRange.value=loanTenureMonthsAprRange.min;
-          loanTenureMonthsApr.value=loanTenureMonthsAprRange.min;
-          updateCalculations(block);
-          updateRangeColors();
-      } else {
-          loanTenureMonthsAprRange.disabled=false;
-          loanTenureMonthsApr.disabled=false;
-      }
-  })
+    if (maxValue === value) {
+      loanTenureMonthsAprRange.disabled = true;
+      loanTenureMonthsApr.disabled = true;
+      loanTenureMonthsAprRange.value = loanTenureMonthsAprRange.min;
+      loanTenureMonthsApr.value = loanTenureMonthsAprRange.min;
+      updateCalculations(block);
+      updateRangeColors();
+    } else {
+      loanTenureMonthsAprRange.disabled = false;
+      loanTenureMonthsApr.disabled = false;
+    }
+  });
 }
 
 // Wrap your main functionality in the decorate function
