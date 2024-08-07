@@ -995,9 +995,11 @@ function initialize(block) {
     M = parseFloat(self.target.value);
     const value = M;
     const percentage = (
+      (
       (value - tenureMinMonthValue) /
       (tenureMaxMonthValue - tenureMinMonthValue)
-    ) * 100;
+    ) * 100
+  )
 
     // Update the background gradient with the calculated percentage
     if (window.innerWidth <= 768) {
