@@ -595,3 +595,7 @@ input[type="radio"],
     background-color: #E8E8E8;
     color: #3B3B3B;
 }
+
+.section.feedbackform-container{
+    display: contents;
+}
