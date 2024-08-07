@@ -19,10 +19,10 @@ function numberToWords(num) {
   const suffixes = [
     [1e7, 'Crores'],
     [1e5, 'Lakhs'],
-    [1e3, 'Thousands']
+    [1e3, 'Thousands'],
   ];
 
-  for (let i = 0; i < suffixes.length; i+=1) {
+  for (let i = 0; i < suffixes.length; i += 1) {
     const [divisor, suffix] = suffixes[i];
     if (num >= divisor) {
       return `${Math.floor(num / divisor)} ${suffix}`;
@@ -121,7 +121,7 @@ function displayDetails(P, R, N, M, E, line, pie, block) {
   block.querySelector('#Rate').innerText = `${R.toLocaleString('en-IN')} %`;
 
   block.querySelector('#mobile_interest_rate').innerText = `@${R.toLocaleString('en-IN')}%`;
-  
+
   block.querySelector('#month_Tenure').innerText = `${M.toLocaleString('en-IN')}`;
 
   block.querySelector('#mobile_month_Tenure').innerText = `${M.toLocaleString('en-IN')}`;
@@ -136,9 +136,12 @@ function displayDetails(P, R, N, M, E, line, pie, block) {
 
   // Calculate the loan eligibility using the formula
   let loanEligibility = (P - E) * (
-    ((1 + r) ** totalMonths - 1) /
-    (r * (1 + r) ** totalMonths)
-  );
+    (
+      (1 + r) ** totalMonths - 1
+    ) / (
+      r * (1 + r) ** totalMonths
+    )
+  );  
   loanEligibility = Math.round(Math.max(loanEligibility, 0));
 
   block.querySelector('#le').innerText = `₹ ${loanEligibility.toLocaleString('en-IN')}`;
