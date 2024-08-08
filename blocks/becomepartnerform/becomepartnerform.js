@@ -334,7 +334,7 @@ function handlSelectOnTabAndMob(block) {
     if (fieldsetWrapper) {
       fieldsetWrapper.classList.add('hide-options');
 
-      dropdown.addEventListener('click', function () {
+      dropdown.addEventListener('click', () => {
         this.classList.toggle('active-dropdown');
         fieldsetWrapper.classList.toggle('hide-options');
       });
@@ -347,7 +347,7 @@ function otpsEforcements(block) {
   const otpFieldsEls = block.querySelectorAll('#form-otpfieldset input[type="text"]');
   otpFieldsEls.forEach((otpFieldEl, index) => {
 
-    otpFieldEl.addEventListener('input', function () {
+    otpFieldEl.addEventListener('input', () => {
       if (/^\d$/.test(otpFieldEl.value)) {
         otpFieldEl.parentNode.classList.add('filled');
         if (index < otpFieldsEls.length - 1) {
@@ -364,6 +364,4 @@ function otpsEforcements(block) {
       }
     });
   });
-
 }
-
