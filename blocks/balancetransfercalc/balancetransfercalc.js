@@ -336,7 +336,7 @@ function toggleInputBox(block) {
 
   loanTenureYearsApr.addEventListener('input', function () {
     const maxValue = loanTenureYearsAprRange.max;
-    let { value } = this;
+    const { value } = this;
 
     if (maxValue <= value) {
       loanTenureMonthsAprRange.disabled = true;
@@ -514,4 +514,3 @@ export default async function decorate(block) {
 
 window.addEventListener('resize', updateRangeColors);
 window.addEventListener('load', updateRangeColors);
-
