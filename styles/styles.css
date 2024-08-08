@@ -286,7 +286,8 @@ main .section {
 
 @media (width >= 600px) and (width <= 1599px) {
   main .section {
-    padding: 32px 16px;
+    /* padding: 32px 16px; */
+    padding: 20px 16px;
   }
 }
 

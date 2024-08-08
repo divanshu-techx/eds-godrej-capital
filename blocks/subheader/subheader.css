@@ -1,0 +1,18 @@
+
+.subheader.block {
+    position: relative;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+}
+
+
+.subheader.block {
+    height: 40px;
+}
