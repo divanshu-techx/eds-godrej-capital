@@ -36,8 +36,8 @@ export default async function decorate(block) {
 document.addEventListener('DOMContentLoaded', () => {
 
   fetch(formSheetUrl)
-    .then(response => response.json())
-    .then(data => {
+    .then((response) => response.json())
+    .then((data) => {
       const dropdown = document.getElementById('categoryDropdown');
       const tabsContainer = document.getElementById('tabs-container');
       const contentContainer = document.getElementById('content-container');
@@ -67,11 +67,11 @@ document.addEventListener('DOMContentLoaded', () => {
           const contentDiv = document.createElement('div');
           contentDiv.className = 'content';
           contentDiv.style.display = index === 0 ? 'block' : 'none';
-          contentDiv.innerHTML = `<h3>${doc.title}</h3><p>${doc.description}</p><ul>${doc.documents.map(d => `<li>${d}</li>`).join('')}</ul>`;
+          contentDiv.innerHTML = `<h3>${doc.title}</h3><p>${doc.description}</p><ul>${doc.documents.map((d) => `<li>${d}</li>`).join('')}</ul>`;
           contentContainer.appendChild(contentDiv);
 
           tabDiv.addEventListener('click', function () {
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach((tab) => tab.classList.remove('active'));
             this.classList.add('active');
             document.querySelectorAll('.content').forEach((content, contentIndex) => {
               content.style.display = contentIndex === index ? 'block' : 'none';
@@ -248,8 +248,12 @@ function validateLoanProductCheckboxs(loanProductFieldSet) {
 function toggleFormVisibility(hideSelector, showSelector, block) {
   const hideElements = block.querySelectorAll(hideSelector);
   const showElements = block.querySelectorAll(showSelector);
-  hideElements.forEach((el) => el.style.display = 'none');
-  showElements.forEach((el) => el.style.display = 'block');
+  hideElements.forEach((el) => {
+    el.style.display = 'none'
+  });
+  showElements.forEach((el) => {
+    el.style.display = 'block'
+  });
 }
 
 function makeAjaxRequest(method, url, requestBody) {
