@@ -1,11 +1,12 @@
 import { createForm, generatePayload } from '../../blocks/form/form.js';
-import { restrictNameInputs, restrictPhoneNumberInputs, validateNameField, validateEmail, validateMobileNumber, validateLoanProducts, handleErrorMessages } from '../form/inputFieldsValidation.js';
+import { restrictNameInputs, restrictPhoneNumberInputs, validateNameField, validateEmail, validateMobileNumber, validateLoanProducts, handleErrorMessages, initFormValidation } from '../form/inputFieldsValidation.js';
 
 const apiUrl = getDataAttributeValueByName('otpapiurl');
 const formSheetUrl = getDataAttributeValueByName('sheeturl');
 const thankYouPageUrl = getDataAttributeValueByName('thankyoupageurl');
 
 export default async function decorate(block) {
+
   const formLink = block.querySelector('a[href$=".json"]');
   if (!formLink) return;
 
@@ -18,8 +19,9 @@ export default async function decorate(block) {
 
   // Add change event for checkboxes
   addChangeEventOnCheckboxes(block);
-  handlSelectOnTabAndMob(block);
-  otpsEforcements(block);
+  handlSelectOnTabAndMob(block)
+  initFormValidation(block, '.form1', '.form1 #submit-btn');
+  otpsEforcements(block)
   const editNumberInputEle = block.querySelector('#form-mobilenumber');
   editNumberInputEle.setAttribute('readonly', true);
 
@@ -28,13 +30,14 @@ export default async function decorate(block) {
   // handle edit mobile number
   block.querySelector('#form-editmobilenumber').addEventListener('click', (e) => {
     toggleFormVisibility('.form2', '.form1', block);
-  });
+  })
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+
   fetch(formSheetUrl)
-    .then((response) => response.json())
-    .then((data) => {
+    .then(response => response.json())
+    .then(data => {
       const dropdown = document.getElementById('categoryDropdown');
       const tabsContainer = document.getElementById('tabs-container');
       const contentContainer = document.getElementById('content-container');
@@ -64,20 +67,22 @@ document.addEventListener('DOMContentLoaded', () => {
           const contentDiv = document.createElement('div');
           contentDiv.className = 'content';
           contentDiv.style.display = index === 0 ? 'block' : 'none';
-          contentDiv.innerHTML = `<h3>${doc.title}</h3><p>${doc.description}</p><ul>${doc.documents.map((d) => `<li>${d}</li>`).join('')}</ul>`;
+          contentDiv.innerHTML = `<h3>${doc.title}</h3><p>${doc.description}</p><ul>${doc.documents.map(d => `<li>${d}</li>`).join('')}</ul>`;
           contentContainer.appendChild(contentDiv);
 
           tabDiv.addEventListener('click', function () {
-            document.querySelectorAll('.tab').forEach((tab) => tab.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
             this.classList.add('active');
             document.querySelectorAll('.content').forEach((content, contentIndex) => {
-              content.style.display = contentIndex === index ? 'block' : 'none';
+              content.style.display = contentIndex == index ? 'block' : 'none';
             });
           });
         });
       };
+
       dropdown.addEventListener('change', updateTabsAndContent);
       updateTabsAndContent();
+
 
     })
     .catch(error => console.error('Error fetching data:', error));
@@ -260,7 +265,7 @@ function makeAjaxRequest(method, url, requestBody) {
       type: method,
       url: url,
       headers: {
-        'Content-Typ': 'application/json'
+        "Content-Type": "application/json"
       },
       data: JSON.stringify(requestBody),
       success: function (response) {
@@ -280,8 +285,8 @@ function generateRequestBody(formPayload, isOtpGeneration, otp, selectedProducts
     mobile: formPayload.userMobileNumder,
     location: formPayload.location,
     products: selectedProducts,
-    eventType: isOtpGeneration ? 'OTP_GENERATE' : 'OTP_VERIFY',
-    otp: otp,
+    eventType: isOtpGeneration ? "OTP_GENERATE" : "OTP_VERIFY",
+    otp: otp
   };
   return customPayload;
 }
@@ -296,17 +301,16 @@ function startTimer(block, form) {
 
   var interval = setInterval(function () {
     var seconds = count % 60; // Calculate remaining seconds
-    var displaySeconds = seconds < 10 ? '0' + seconds : seconds;
+    var displaySeconds = seconds < 10 ? "0" + seconds : seconds;
 
-    timerElement.innerText = "Didn't receive any OTP? " + displaySeconds + ' Seconds'; // Update timer display
+    timerElement.innerText = "Didn't receive any OTP? " + displaySeconds + " Seconds"; // Update timer display
 
     if (count <= 0) {
       clearInterval(interval); // Clear interval when count reaches 0
       resendButton.disabled = false; // Enable resend button
       timerElement.innerText = "Didn't receive any OTP?"; // Reset timer text
     }
-    // Decrement count
-    count = - 1; 
+    count--; // Decrement count
   }, 1000); // Update every second (1000 milliseconds)
 
   resendButton.addEventListener('click', async (e) => {
@@ -314,6 +318,7 @@ function startTimer(block, form) {
     const response = await makeAjaxRequest('POST', apiUrl, generateRequestBody(payload, true, '', getSelectedCheckboxValues(block)));
     console.log(response);
   });
+
 }
 
 // Get data attribute value by name
@@ -326,22 +331,23 @@ function handlSelectOnTabAndMob(block) {
   const dropdowns = block.querySelectorAll('.form1 #form-loancategoryplaceholder , .form1 #form-selectlocationplaceholder');
   dropdowns.forEach((dropdown) => {
     const fieldsetWrapper = dropdown.closest('.form1').nextElementSibling.querySelector('fieldset');
-
     if (fieldsetWrapper) {
       fieldsetWrapper.classList.add('hide-options');
 
-      dropdown.addEventListener('click', () => {
+      dropdown.addEventListener('click', function () {
         this.classList.toggle('active-dropdown');
         fieldsetWrapper.classList.toggle('hide-options');
       });
     }
-  });
+  })
+
 }
 
 function otpsEforcements(block) {
   const otpFieldsEls = block.querySelectorAll('#form-otpfieldset input[type="text"]');
   otpFieldsEls.forEach((otpFieldEl, index) => {
-    otpFieldEl.addEventListener('input', () => {
+
+    otpFieldEl.addEventListener('input', function () {
       if (/^\d$/.test(otpFieldEl.value)) {
         otpFieldEl.parentNode.classList.add('filled');
         if (index < otpFieldsEls.length - 1) {
@@ -358,4 +364,6 @@ function otpsEforcements(block) {
       }
     });
   });
+
 }
+
