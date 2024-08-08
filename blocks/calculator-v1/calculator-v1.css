@@ -28,7 +28,7 @@
 }
 
 /* Hover effects for buttons */
-.button-container button:hover:not(.active) {
+.tabs-container .button-container button:hover:not(.active) {
     background-color: #e1e1e1;
     border-color: #bbb;
     color: #3b3b3b;

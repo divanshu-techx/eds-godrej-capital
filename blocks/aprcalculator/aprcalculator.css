@@ -7,7 +7,8 @@
   box-sizing: border-box;
 }
 
-.aprcalculator .inputs,.aprcalculator .outputs {
+.aprcalculator .inputs,
+.aprcalculator .outputs {
   box-sizing: border-box;
   width: calc(50% - 10px);
   max-width: 100%;
@@ -18,14 +19,14 @@
   flex-direction: column;
   max-width: 100%;
   background: #F4F4F4;
-  padding: 20px; 
+  padding: 20px;
   border-radius: 4px;
 }
 
 @media (max-width: 767px) {
   .aprcalculator .inputs {
-      padding: 0; 
-      background: unset;
+    padding: 0;
+    background: unset;
   }
 }
 
@@ -55,9 +56,10 @@
   height: 40px;
   line-height: 30px;
 }
+
 @media (max-width: 767px) {
   .aprcalculator .inputs .inputAprLabelInput input {
-      height: 30px; 
+    height: 30px;
   }
 }
 
@@ -70,7 +72,7 @@
   font-size: 14px;
   font-weight: 300;
   line-height: 16.42px;
-  color:#3b3b3b;
+  color: #3b3b3b;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -79,20 +81,21 @@
 }
 
 @media (max-width: 767px) {
+
   .aprcalculator .inputs .inputAprLabelInput input,
   .aprcalculator .inputs .inputAprLabelInput span {
-      background: #F4F4F4;
-      height: 30px;
+    background: #F4F4F4;
+    height: 30px;
   }
 }
 
 .aprcalculator .inputAprLabelInput span {
-  border-right: none; 
-  border-radius: 4px 0 0 4px; 
+  border-right: none;
+  border-radius: 4px 0 0 4px;
 }
 
 .aprcalculator .inputAprLabelInput input {
-  border-left: none; 
+  border-left: none;
   border-radius: 0 4px 4px 0;
   margin-left: -1px;
   text-align: end;
@@ -123,7 +126,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: #fff; 
+  color: #fff;
   padding: 10px;
   margin-bottom: 20px;
 }
@@ -134,17 +137,17 @@
 
 @media (max-width: 1023px) and (min-width: 768px) {
   .aprcalculator .result {
-      height: 60px;
+    height: 60px;
   }
 }
 
 @media (max-width: 767px) {
   .aprcalculator .result {
-      height: 83px;
+    height: 83px;
   }
 }
 
-.aprcalculator .result > div:first-child {
+.aprcalculator .result>div:first-child {
   font-size: 16px;
   font-weight: 400;
   line-height: 18.77px;
@@ -152,25 +155,25 @@
   margin-bottom: 5px;
 }
 
-.aprcalculator .result > div:last-child {
+.aprcalculator .result>div:last-child {
   font-size: 36px;
   font-weight: 500;
   line-height: 42.23px;
   text-align: left;
 }
 
-.aprcalculator .apply-btn-apr-result{
+.aprcalculator .apply-btn-apr-result {
   display: flex;
   justify-content: center;
   align-items: center;
   box-shadow: 0px 2px 4px 0px #00000014;
-  padding:20px 20px;
+  padding: 20px 20px;
 }
 
-.aprcalculator .apply-btn-apr-result button{
+.aprcalculator .apply-btn-apr-result button {
   background: #3CB8FF;
-  color:#fff;
-  border:none;
+  color: #fff;
+  border: none;
 }
 
 .aprcalculator .inputs label {
@@ -183,18 +186,18 @@
 
 @media (max-width: 767px) {
   .aprcalculator .inputs label {
-      font-size: 14px;
-      line-height: 16.42px;
+    font-size: 14px;
+    line-height: 16.42px;
   }
 }
 
 
-.aprcalculator .inputBoxApr .inputBoxAprBottom{
-    font-size: 14px;
-    font-weight: 300;
-    line-height: 16.42px;
-    text-align: left;
-    color:#000;
+.aprcalculator .inputBoxApr .inputBoxAprBottom {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 16.42px;
+  text-align: left;
+  color: #000;
 }
 
 #interestRateApr,
@@ -208,13 +211,15 @@
   color: #3b3b3b;
 
 }
+
 @media (max-width: 767px) {
+
   #interestRateApr,
   #loanAmountApr,
   #loanTenureYearsApr,
   #loanTenureMonthsApr,
   #loanOriginationChargesApr {
-  max-width: 100px;
+    max-width: 100px;
   }
 }
 
@@ -226,7 +231,7 @@
 }
 
 .aprcalculator .inputs input[type=range] {
-  -webkit-appearance: none!important;
+  -webkit-appearance: none !important;
   appearance: none;
   width: 100%;
   height: 8px;
@@ -236,7 +241,7 @@
 
 @media (max-width: 767px) {
   .aprcalculator .inputs input[type=range] {
-      height: 4px; 
+    height: 4px;
   }
 }
 
@@ -245,6 +250,7 @@
   height: 8px;
   border-radius: 5px;
 }
+
 /* @media (max-width: 767px) {
   .aprcalculator .inputs input[type=range]::-webkit-slider-runnable-track {
       height: 4px; 
@@ -256,19 +262,19 @@
   appearance: none;
   width: 20px;
   height: 20px;
-  background:#8CB133;
+  background: #8CB133;
   border-radius: 50%;
   cursor: pointer;
   margin-top: -6px;
 }
 
 @media (max-width: 767px) {
-  .aprcalculator .inputs input[type=range]::-webkit-slider-thumb  {
+  .aprcalculator .inputs input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 15px;
     height: 15px;
-    background:#8CB133;
+    background: #8CB133;
     border-radius: 50%;
     cursor: pointer;
     margin-top: -4px;
@@ -281,69 +287,77 @@
 }
 
 .aprcalculator .inputs input[type=range]:active::-webkit-slider-thumb {
-  background:#8CB133;
+  background: #8CB133;
 }
 
 /* Desktop */
 @media (min-width: 1351px) {
   .aprcalculator .inputs {
-      max-width: 772px; 
-      width:100%;
+    max-width: 772px;
+    width: 100%;
   }
+
   .aprcalculator .outputs {
-      max-width: calc(100% - 772px - 30px); 
-      width:100%;
+    max-width: calc(100% - 772px - 30px);
+    width: 100%;
   }
+
   .aprcalculator .calculator-container {
-      flex-direction: row;
+    flex-direction: row;
   }
 }
 
 /* Calculate proportion for 1200px screen */
 @media (min-width: 1200px) and (max-width: 1350px) {
   .aprcalculator .inputs {
-      max-width: calc(772px / 1351 * 1200); 
-      width:100%;
+    max-width: calc(772px / 1351 * 1200);
+    width: 100%;
   }
+
   .aprcalculator .outputs {
-      max-width: calc(100% - (772px / 1351 * 1200) - 30px); 
+    max-width: calc(100% - (772px / 1351 * 1200) - 30px);
   }
+
   .aprcalculator .calculator-container {
-      flex-direction: row;
+    flex-direction: row;
   }
 }
 
 /* iPad */
 @media (min-width: 768px) and (max-width: 1199px) {
-  .aprcalculator .inputs {
-      max-width: calc(100% - 303px - 30px); 
-      width:100%;
-  }
-  .aprcalculator .outputs {
-      max-width: 273px;
-  }
   .aprcalculator .calculator-container {
-      flex-direction: row;
+    gap: 10px;
+    flex-wrap: nowrap;
+  }
+
+  .aprcalculator .inputs {
+    max-width: calc(100% - 303px - 30px);
+    width: 100%;
+  }
+
+  .aprcalculator .outputs {
+    flex-grow: 1;
+  }
+
+  .aprcalculator .calculator-container {
+    flex-direction: row;
   }
 }
 
 /* Mobile */
 @media (max-width: 767px) {
-  .aprcalculator .inputs{
-      max-width: 100%;
-      width:100%;
+  .aprcalculator .inputs {
+    max-width: 100%;
+    width: 100%;
   }
 
-.aprcalculator .outputs {
-      max-width: 100%;
-      width:100%;
-      margin-top:20px;
+  .aprcalculator .outputs {
+    max-width: 100%;
+    width: 100%;
+    margin-top: 20px;
   }
+
   .aprcalculator .calculator-container {
-      flex-direction: column;
+    flex-direction: column;
   }
 }
-.inputBoxAprRange .error-span{
-  color: red;
-}
-
