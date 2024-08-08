@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
             this.classList.add('active');
             document.querySelectorAll('.content').forEach((content, contentIndex) => {
-              content.style.display = contentIndex == index ? 'block' : 'none';
+              content.style.display = contentIndex === index ? 'block' : 'none';
             });
           });
         });
@@ -82,8 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       dropdown.addEventListener('change', updateTabsAndContent);
       updateTabsAndContent();
-
-
     })
     .catch(error => console.error('Error fetching data:', error));
 });
@@ -91,7 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
 function handleSubmitBtn(block, form, editNumberInputEle) {
   const submitBtnEle = block.querySelector('#submit-btn');
   submitBtnEle.addEventListener('click', async (e) => {
-
     if (!validateForm1(block)) {
       focusOnFirstInvalidElement(form);
       return;
@@ -116,9 +113,8 @@ function handleSubmitBtn(block, form, editNumberInputEle) {
 
 function handleVerifyBtn(block, form) {
   block.querySelector('#verify-btn').addEventListener('click', (e) => {
-
     if (validateOtp(block, form)) {
-      console.log("otp is verified");
+      console.log('otp is verifie');
       // Perform any specific action needed for the verify button
     } else {
       focusOnFirstInvalidElement(form);
@@ -140,7 +136,6 @@ function updateOTPMessage(block, userMobNo) {
     // Update the text content with the new last four digits
     otpMsgEle.textContent = `${otpTextWithoutDigits}${lastFourDigits}`;
   }
-
 }
 
 // Function to validate form2 inputs
@@ -151,13 +146,13 @@ async function validateOtp(block, form) {
 
   let otpValue = '';
   otpFields.forEach((otpField) => {
-    if (otpField.value.trim() === "") {
+    if (otpField.value.trim() === '') {
       isValid = false;
     }
     otpValue += otpField.value;
   });
 
-  const otpFieldSetEle = document.querySelector("fieldset#form-otpfieldset");
+  const otpFieldSetEle = document.querySelector('fieldset#form-otpfieldset');
   if (!isValid) {
     handleErrorMessages(false, otpFieldSetEle, getDataAttributeValueByName('otperrorvalidationmessage'));
   } else {
@@ -179,7 +174,6 @@ async function validateOtp(block, form) {
   return isValid;
 }
 
-
 function focusOnFirstInvalidElement(form) {
   const firstInvalidEl = form.querySelector(':invalid:not(fieldset)');
   if (firstInvalidEl) {
@@ -191,7 +185,7 @@ function focusOnFirstInvalidElement(form) {
 function addChangeEventOnCheckboxes(block) {
   const checkboxes = block.querySelectorAll('.form1.field-wrapper.checkbox-wrapper.selection-wrapper input[type="checkbox"]');
 
-  checkboxes.forEach(checkbox => {
+  checkboxes.forEach((checkbox) => {
     checkbox.addEventListener('change', (e) => {
       const parentWrapper = checkbox.closest('.form1.field-wrapper.checkbox-wrapper.selection-wrapper');
       // const label = parentWrapper.querySelector('label').textContent;
@@ -212,7 +206,7 @@ function getSelectedCheckboxValues(block) {
   const checkboxes = block.querySelectorAll('fieldset#firstset input[type="checkbox"]');
   let selectedValues = [];
 
-  checkboxes.forEach(checkbox => {
+  checkboxes.forEach((checkbox) => {
     if (checkbox.checked) {
       selectedValues.push(checkbox.value);
     }
@@ -226,7 +220,7 @@ function validateForm1(block) {
   const nameField = block.querySelector('#form-username');
   const mobileField = block.querySelector('#form-usermobilenumder');
   const emailField = block.querySelector('#form-useremailid');
-  const loanProductField = block.querySelector("#firstset");
+  const loanProductField = block.querySelector('#firstset');
   const locationDropdown = block.querySelector('#form-location');
   const isLoanProductsValid = validateLoanProductCheckboxs(loanProductField);
   const isLocationValid = validateLoanProducts(locationDropdown, getDataAttributeValueByName('locationerrorvalidationmessage'));
@@ -254,8 +248,8 @@ function validateLoanProductCheckboxs(loanProductFieldSet) {
 function toggleFormVisibility(hideSelector, showSelector, block) {
   const hideElements = block.querySelectorAll(hideSelector);
   const showElements = block.querySelectorAll(showSelector);
-  hideElements.forEach(el => el.style.display = 'none');
-  showElements.forEach(el => el.style.display = 'block');
+  hideElements.forEach((el) => el.style.display = 'none');
+  showElements.forEach((el) => el.style.display = 'block');
 }
 
 function makeAjaxRequest(method, url, requestBody) {
@@ -265,7 +259,7 @@ function makeAjaxRequest(method, url, requestBody) {
       type: method,
       url: url,
       headers: {
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json',
       },
       data: JSON.stringify(requestBody),
       success: function (response) {
@@ -285,8 +279,8 @@ function generateRequestBody(formPayload, isOtpGeneration, otp, selectedProducts
     mobile: formPayload.userMobileNumder,
     location: formPayload.location,
     products: selectedProducts,
-    eventType: isOtpGeneration ? "OTP_GENERATE" : "OTP_VERIFY",
-    otp: otp
+    eventType: isOtpGeneration ? 'OTP_GENERATE' : 'OTP_VERIFY',
+    otp: otp,
   };
   return customPayload;
 }
@@ -301,9 +295,9 @@ function startTimer(block, form) {
 
   var interval = setInterval(function () {
     var seconds = count % 60; // Calculate remaining seconds
-    var displaySeconds = seconds < 10 ? "0" + seconds : seconds;
+    var displaySeconds = seconds < 10 ? '0' + seconds : seconds;
 
-    timerElement.innerText = "Didn't receive any OTP? " + displaySeconds + " Seconds"; // Update timer display
+    timerElement.innerText = "Didn't receive any OTP? " + displaySeconds + ' Seconds'; // Update timer display
 
     if (count <= 0) {
       clearInterval(interval); // Clear interval when count reaches 0
@@ -318,7 +312,6 @@ function startTimer(block, form) {
     const response = await makeAjaxRequest('POST', apiUrl, generateRequestBody(payload, true, '', getSelectedCheckboxValues(block)));
     console.log(response);
   });
-
 }
 
 // Get data attribute value by name
@@ -334,20 +327,18 @@ function handlSelectOnTabAndMob(block) {
     if (fieldsetWrapper) {
       fieldsetWrapper.classList.add('hide-options');
 
-      dropdown.addEventListener('click', () => {
+      dropdown.addEventListener('click', function () {
         this.classList.toggle('active-dropdown');
         fieldsetWrapper.classList.toggle('hide-options');
       });
     }
-  })
-
+  });
 }
 
 function otpsEforcements(block) {
   const otpFieldsEls = block.querySelectorAll('#form-otpfieldset input[type="text"]');
   otpFieldsEls.forEach((otpFieldEl, index) => {
-
-    otpFieldEl.addEventListener('input', () => {
+    otpFieldEl.addEventListener('input', function () {
       if (/^\d$/.test(otpFieldEl.value)) {
         otpFieldEl.parentNode.classList.add('filled');
         if (index < otpFieldsEls.length - 1) {
