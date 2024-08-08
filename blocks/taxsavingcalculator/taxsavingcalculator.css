@@ -554,5 +554,7 @@
     }
   }
 
-
+.inputTaxSaving .errorMsg_tax_saving .error_text {
+  color: red;
+}
     
