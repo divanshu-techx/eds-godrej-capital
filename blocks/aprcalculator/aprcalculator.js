@@ -240,14 +240,14 @@ function addTextInputListeners(block) {
     const rangeInput = block.querySelector(`#${rangeId}`);
     const errorSpanId = `${rangeId}Error`;
     const errorSpan = block.querySelector(`#${errorSpanId}`);
-  
+
     const min = parseFloat(rangeInput.min);
     const max = parseFloat(rangeInput.max);
-  
+
     // Input event for live validation
     input.addEventListener('input', function () {
       const value = this.value.trim();
-      let numericValue = parseFloat(value.replace(/[^\d.-]/g, ''));
+      const numericValue = parseFloat(value.replace(/[^\d.-]/g, ''));
       if (value === '') {
         if (rangeInput) {
           rangeInput.value = min;
@@ -268,27 +268,27 @@ function addTextInputListeners(block) {
         errorSpan.textContent = `Enter a value between ${min} and ${max}`;
         errorSpan.style.display = 'block';
       }
-  
+
       updateAPR(block);
       updateRangeColors();
     });
-  
+
     // Blur event for final validation and correction
     input.addEventListener('blur', function () {
       const value = this.value.trim();
       let numericValue = parseFloat(value.replace(/[^\d.-]/g, ''));
-  
+
       // If the input is cleared, don't reset to min or max
       if (value === '') {
         return; // Simply return without modifying the value
       }
-  
+
       if (Number.isNaN(numericValue) || numericValue < min) {
         numericValue = min; // Set to min if input is invalid or below min
       } else if (numericValue > max) {
         numericValue = max; // Set to max if input is above max
       }
-  
+
       // Ensure the input field and range input are updated
       if (rangeInput) {
         rangeInput.value = numericValue;
@@ -296,7 +296,7 @@ function addTextInputListeners(block) {
       this.value = numericValue;
       errorSpan.textContent = '';
       errorSpan.style.display = 'none';
-  
+
       updateAPR(block);
       updateRangeColors();
     });
@@ -310,11 +310,11 @@ function addTextInputListeners(block) {
   const max = parseFloat(rangeInput.max);
   interestRateInput.addEventListener('input', () => {
     // Parse the input value, removing non-numeric characters except for the decimal point
-    let value = parseFloat(interestRateInput.value.replace(/[^\d.]/g, ''));
+    const value = parseFloat(interestRateInput.value.replace(/[^\d.]/g, ''));
 
     // Validate and handle errors
     if (Number.isNaN(value)) {
-      errorSpan.textContent = `Please enter a valid number`;
+      errorSpan.textContent = `Enter a value between ${min} and ${max}`;
       rangeInput.value = min; // Reset slider to min
     } else if (value < min) {
       errorSpan.textContent = `Enter a value between ${min} and ${max}`;
@@ -349,7 +349,6 @@ function addTextInputListeners(block) {
     updateAPR(block);
     updateRangeColors();
   });
-
 }
 
 function setApplyNowButton(block, attribute) {
