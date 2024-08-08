@@ -120,6 +120,7 @@
   margin-top: 10px;
 }
 
+.balancetransfercalc .inputBoxBalanceRange
 .balancetransfercalc .inputBoxBalanceRange input[type="range"] {
   width: 100%;
   background: linear-gradient(to right, rgb(140, 177, 51) 0%, rgb(204, 204, 204) 0%);
@@ -212,14 +213,6 @@
     line-height: 16.42px;
     text-align: left;
     color:#000;
-}
-
-
-.error-message {
-  color: red;
-  font-size: 0.9em;
-  margin-top: 5px;
-  display: none;
 }
 
 .balancetransfercalc .inputsBoxBalance input[type=range] {
@@ -425,4 +418,7 @@
   font-size: 14px;
   font-weight: 400;
   text-align: left;
+}
+.inputBalance .error-span{
+  color: red;
 }

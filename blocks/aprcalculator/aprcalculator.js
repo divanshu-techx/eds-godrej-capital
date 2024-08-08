@@ -73,6 +73,7 @@ function renderHTML(attributes) {
                             <span>${attributes.loanAmountMin}</span>
                             <span>${numberToWords(attributes.loanAmountMax)}</span>
                         </div>
+                        <span id="loanAmountAprRangeError" class="error-span"></span>
                     </div>
                 </div>
                 <div class="inputBoxApr">
@@ -84,11 +85,12 @@ function renderHTML(attributes) {
                         </div>
                     </div>
                     <div class="inputBoxAprRange">
-                        <input type="range" id="interestRateAprRange" min="${attributes.interestMin}" max="${attributes.interestMax}" value="${attributes.interestMin}" step="0.1">
+                        <input type="range" id="interestRateAprRange" min="${attributes.interestMin}" max="${attributes.interestMax}" value="${attributes.interestMin}" step="0.01">
                         <div class="inputBoxAprBottom">
                             <span>${attributes.interestMin}${attributes.percentSymbol}</span>
                             <span>${attributes.interestMax}${attributes.percentSymbol}</span>
                         </div>
+                        <span id="interestRateAprRangeError" class="error-span"></span>
                     </div>
                 </div>
                 <div class="inputBoxApr">
@@ -105,6 +107,7 @@ function renderHTML(attributes) {
                             <span>${attributes.yearMin}</span>
                             <span>${attributes.yearMax} Years</span>
                         </div>
+                        <span id="loanTenureYearsAprRangeError" class="error-span"></span>
                     </div>
                 </div>
                 <div class="inputBoxApr">
@@ -121,6 +124,7 @@ function renderHTML(attributes) {
                             <span>${attributes.monthMin}</span>
                             <span>${attributes.monthMax} Months</span>
                         </div>
+                        <span id="loanTenureMonthsAprRangeError" class="error-span"></span>
                     </div>
                 </div>
                 <div class="inputBoxApr">
@@ -137,6 +141,7 @@ function renderHTML(attributes) {
                             <span>${numberToWords(attributes.originationChargesMin)}</span>
                             <span>${numberToWords(attributes.originationChargesMax)}</span>
                         </div>
+                        <span id="loanOriginationChargesAprRangeError" class="error-span"></span>
                     </div>
                 </div>
             </div>
@@ -172,7 +177,7 @@ function updateRangeColors() {
 function updateAPR(block) {
   // Extract values from the form fields
   const loanAmount = parseFloat(block.querySelector('#loanAmountAprRange').value);
-  const interestRate = parseFloat(parseFloat(block.querySelector('#interestRateAprRange').value).toFixed(1));
+  const interestRate = parseFloat(parseFloat(block.querySelector('#interestRateAprRange').value).toFixed(2));
   const loanTenureYears = parseFloat(block.querySelector('#loanTenureYearsAprRange').value);
   const loanTenureMonths = parseFloat(block.querySelector('#loanTenureMonthsAprRange').value);
   const originationCharges = parseFloat(block.querySelector('#loanOriginationChargesAprRange').value);
@@ -231,45 +236,120 @@ function addRangeInputListeners(block) {
 function addTextInputListeners(block) {
   const textInputs = block.querySelectorAll('input[type=text]:not(#interestRateApr)');
   textInputs.forEach((input) => {
+    const rangeId = `${input.id}Range`;
+    const rangeInput = block.querySelector(`#${rangeId}`);
+    const errorSpanId = `${rangeId}Error`;
+    const errorSpan = block.querySelector(`#${errorSpanId}`);
+  
+    const min = parseFloat(rangeInput.min);
+    const max = parseFloat(rangeInput.max);
+  
+    // Input event for live validation
     input.addEventListener('input', function () {
-      const numericValue = parseFloat(this.value.replace(/[^\d.-]/g, ''));
-      const rangeId = `${this.id}Range`;
-      const rangeInput = block.querySelector(`#${rangeId}`);
-      if (!Number.isNaN(numericValue)) {
+      const value = this.value.trim();
+      let numericValue = parseFloat(value.replace(/[^\d.-]/g, ''));
+      if (value === '') {
+        if (rangeInput) {
+          rangeInput.value = min;
+        }
+        this.value = '';
+        errorSpan.textContent = '';
+        errorSpan.style.display = 'none'; // Hide error span
+      } else if (!Number.isNaN(numericValue) && numericValue >= min && numericValue <= max) {
         if (rangeInput) {
           rangeInput.value = numericValue;
-          updateAPR(block);
-          updateRangeColors();
         }
+        errorSpan.textContent = '';
+        errorSpan.style.display = 'none';
       } else {
-        rangeInput.value = rangeInput.min;
-        updateAPR(block);
-        updateRangeColors();
+        if (rangeInput) {
+          rangeInput.value = numericValue < min ? min : max;
+        }
+        errorSpan.textContent = `Enter a value between ${min} and ${max}`;
+        errorSpan.style.display = 'block';
       }
+  
+      updateAPR(block);
+      updateRangeColors();
+    });
+  
+    // Blur event for final validation and correction
+    input.addEventListener('blur', function () {
+      const value = this.value.trim();
+      let numericValue = parseFloat(value.replace(/[^\d.-]/g, ''));
+  
+      // If the input is cleared, don't reset to min or max
+      if (value === '') {
+        return; // Simply return without modifying the value
+      }
+  
+      if (Number.isNaN(numericValue) || numericValue < min) {
+        numericValue = min; // Set to min if input is invalid or below min
+      } else if (numericValue > max) {
+        numericValue = max; // Set to max if input is above max
+      }
+  
+      // Ensure the input field and range input are updated
+      if (rangeInput) {
+        rangeInput.value = numericValue;
+      }
+      this.value = numericValue;
+      errorSpan.textContent = '';
+      errorSpan.style.display = 'none';
+  
+      updateAPR(block);
+      updateRangeColors();
     });
   });
 
   const interestRateInput = block.querySelector('#interestRateApr');
-  interestRateInput.addEventListener('change', function () {
-    let numericValue = parseFloat(this.value.replace(/[^\d.]/g, ''));
-    if (!Number.isNaN(numericValue)) {
-      numericValue = Math.min(Math.max(numericValue, 0));
-      const rangeInput = block.querySelector('#interestRateAprRange');
-      if (rangeInput) {
-        rangeInput.value = numericValue.toFixed(1);
-        updateAPR(block);
-        updateRangeColors();
-      }
+  const rangeInput = block.querySelector('#interestRateAprRange');
+  const errorSpan = block.querySelector('#interestRateAprRangeError'); // Adjust as needed
+
+  const min = parseFloat(rangeInput.min);
+  const max = parseFloat(rangeInput.max);
+  interestRateInput.addEventListener('input', () => {
+    // Parse the input value, removing non-numeric characters except for the decimal point
+    let value = parseFloat(interestRateInput.value.replace(/[^\d.]/g, ''));
+
+    // Validate and handle errors
+    if (Number.isNaN(value)) {
+      errorSpan.textContent = `Please enter a valid number`;
+      rangeInput.value = min; // Reset slider to min
+    } else if (value < min) {
+      errorSpan.textContent = `Enter a value between ${min} and ${max}`;
+      rangeInput.value = min; // Reset slider to min
+    } else if (value > max) {
+      errorSpan.textContent = `Enter a value between ${min} and ${max}`;
+      rangeInput.value = max; // Reset slider to max
     } else {
-      const rangeId = `${this.id}Range`;
-      const rangeInput = block.querySelector(`#${rangeId}`);
-      if (rangeInput) {
-        rangeInput.value = rangeInput.min;
-        updateAPR(block);
-        updateRangeColors();
-      }
+      errorSpan.textContent = '';
+      rangeInput.value = value.toFixed(2);
     }
+    updateRangeColors();
   });
+
+  interestRateInput.addEventListener('blur', () => {
+    // Parse the input value, removing non-numeric characters except for the decimal point
+    let value = parseFloat(interestRateInput.value.replace(/[^\d.]/g, ''));
+
+    // Validate and correct the value
+    if (Number.isNaN(value) || value < min) {
+      value = min;
+    } else if (value > max) {
+      value = max;
+    }
+
+    // Update the input field and slider
+    interestRateInput.value = value.toFixed(2);
+    rangeInput.value = value.toFixed(2);
+    errorSpan.textContent = '';
+
+    // Call update functions if necessary
+    updateAPR(block);
+    updateRangeColors();
+  });
+
 }
 
 function setApplyNowButton(block, attribute) {
@@ -287,13 +367,14 @@ function toggleInputBox(block) {
 
   loanTenureYearsApr.addEventListener('input', function () {
     const maxValue = loanTenureYearsAprRange.max;
-    const { value } = this;
+    let { value } = this;
 
     if (maxValue === value) {
       loanTenureMonthsAprRange.disabled = true;
       loanTenureMonthsApr.disabled = true;
       loanTenureMonthsAprRange.value = loanTenureMonthsAprRange.min;
       loanTenureMonthsApr.value = loanTenureMonthsAprRange.min;
+      value = loanTenureMonthsAprRange.min;
     } else {
       loanTenureMonthsAprRange.disabled = false;
       loanTenureMonthsApr.disabled = false;
@@ -304,13 +385,14 @@ function toggleInputBox(block) {
 
   loanTenureYearsAprRange.addEventListener('change', function () {
     const maxValue = loanTenureYearsAprRange.max;
-    const { value } = this;
+    let { value } = this;
 
     if (maxValue === value) {
       loanTenureMonthsAprRange.disabled = true;
       loanTenureMonthsApr.disabled = true;
       loanTenureMonthsAprRange.value = loanTenureMonthsAprRange.min;
       loanTenureMonthsApr.value = loanTenureMonthsAprRange.min;
+      value = loanTenureMonthsAprRange.min;
     } else {
       loanTenureMonthsAprRange.disabled = false;
       loanTenureMonthsApr.disabled = false;

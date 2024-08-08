@@ -187,7 +187,7 @@ function getHTML(calculatorAttributes) {
                         </div>
                     </div>
                     <div class="inputBoxBalanceRange">
-                    <input type="range" id="balanceTenureYears" min="${calculatorAttributes.balanceTenureYear.min}" max="${calculatorAttributes.balanceTenureYear.max}" value="${calculatorAttributes.balanceTenureYear.min}" step="0.1">
+                    <input type="range" id="balanceTenureYears" min="${calculatorAttributes.balanceTenureYear.min}" max="${calculatorAttributes.balanceTenureYear.max}" value="${calculatorAttributes.balanceTenureYear.min}" step="0.01">
                     <div class="inputBoxBalanceBottom">
                         <span>${calculatorAttributes.balanceTenureYear.min} Year</span>
                         <span>${calculatorAttributes.balanceTenureYear.max} Years</span>
@@ -205,7 +205,7 @@ function getHTML(calculatorAttributes) {
                         </div>
                     </div>
                      <div class="inputBoxBalanceRange">
-                    <input type="range" id="existingInterestRate" min="${calculatorAttributes.existingInterest.min}" max="${calculatorAttributes.existingInterest.max}" value="${calculatorAttributes.existingInterest.min}" step="0.1">
+                    <input type="range" id="existingInterestRate" min="${calculatorAttributes.existingInterest.min}" max="${calculatorAttributes.existingInterest.max}" value="${calculatorAttributes.existingInterest.min}" step="0.01">
                     <div class="inputBoxBalanceBottom">
                         <span>${calculatorAttributes.existingInterest.min}${calculatorAttributes.percentSymbol}</span>
                         <span>${calculatorAttributes.existingInterest.max}${calculatorAttributes.percentSymbol}</span>
@@ -224,7 +224,7 @@ function getHTML(calculatorAttributes) {
                         </div>
                     </div>
                 <div class="inputBoxBalanceRange">
-                    <input type="range" id="newInterestRate" min="${calculatorAttributes.proposedInterestRate.min}" max="${calculatorAttributes.proposedInterestRate.max}" value="${calculatorAttributes.proposedInterestRate.min}" step="0.1">
+                    <input type="range" id="newInterestRate" min="${calculatorAttributes.proposedInterestRate.min}" max="${calculatorAttributes.proposedInterestRate.max}" value="${calculatorAttributes.proposedInterestRate.min}" step="0.01">
                     <div class="inputBoxBalanceBottom">
                         <span>${calculatorAttributes.proposedInterestRate.min}${calculatorAttributes.percentSymbol}</span>
                         <span>${calculatorAttributes.proposedInterestRate.max}${calculatorAttributes.percentSymbol}</span>
@@ -336,13 +336,14 @@ function toggleInputBox(block) {
 
   loanTenureYearsApr.addEventListener('input', function () {
     const maxValue = loanTenureYearsAprRange.max;
-    const { value } = this;
+    let { value } = this;
 
-    if (maxValue === value) {
+    if (maxValue <= value) {
       loanTenureMonthsAprRange.disabled = true;
       loanTenureMonthsApr.disabled = true;
       loanTenureMonthsAprRange.value = loanTenureMonthsAprRange.min;
       loanTenureMonthsApr.value = loanTenureMonthsAprRange.min;
+      // value = loanTenureMonthsAprRange.min;
       updateCalculations(block);
       updateRangeColors();
     } else {
@@ -355,11 +356,13 @@ function toggleInputBox(block) {
     const maxValue = loanTenureYearsAprRange.max;
     const { value } = this;
 
-    if (maxValue === value) {
+    if (maxValue <= value) {
       loanTenureMonthsAprRange.disabled = true;
       loanTenureMonthsApr.disabled = true;
       loanTenureMonthsAprRange.value = loanTenureMonthsAprRange.min;
       loanTenureMonthsApr.value = loanTenureMonthsAprRange.min;
+      // value = loanTenureMonthsAprRange.min;
+      console.log(value);
       updateCalculations(block);
       updateRangeColors();
     } else {
@@ -378,62 +381,75 @@ export default async function decorate(block) {
   // Event listeners for range inputs (excluding principalOutstanding)
   const sliders = block.querySelectorAll('input[type=range]:not(#principalOutstanding)');
   sliders.forEach((slider) => {
-    slider.addEventListener('change', () => {
-      const displayId = `${slider.id}Display`;
-      const displayInput = block.querySelector(`#${displayId}`);
-      const errorSpanId = `${slider.id}Error`;
-      const errorSpan = block.querySelector(`#${errorSpanId}`);
+    const displayId = `${slider.id}Display`;
+    const displayInput = block.querySelector(`#${displayId}`);
+    const errorSpanId = `${slider.id}Error`;
+    const errorSpan = block.querySelector(`#${errorSpanId}`);
 
-      const min = parseFloat(slider.min);
-      const max = parseFloat(slider.max);
+    const min = parseFloat(slider.min);
+    const max = parseFloat(slider.max);
 
+    slider.addEventListener('input', () => {
       const value = parseFloat(slider.value);
       if (!Number.isNaN(value) && value >= min && value <= max) {
-        updateCalculations(block);
-        // updateRangeColors(block); // Uncomment if needed
         displayInput.value = slider.value;
         errorSpan.textContent = '';
       } else {
         errorSpan.textContent = `Enter a value between ${min} and ${max}`;
       }
+      updateRangeColors();
     });
 
-    slider.addEventListener('input', () => {
-      updateRangeColors();
+    slider.addEventListener('change', () => {
+      updateCalculations(block);
     });
   });
 
-  // Event listeners for text inputs (including principalOutstandingDisplay)
-  const textInputs = block.querySelectorAll('input[type=text]');
+  // Event listeners for text inputs (excluding principalOutstandingDisplay)
+  const textInputs = block.querySelectorAll('input[type=text]:not(#principalOutstandingDisplay)');
   textInputs.forEach((input) => {
-    if (!input.id.includes('principalOutstandingDisplay')) {
-      input.addEventListener('blur', () => {
-        const rangeId = input.id.replace('Display', '');
-        const rangeInput = block.querySelector(`#${rangeId}`);
+    const rangeId = input.id.replace('Display', '');
+    const rangeInput = block.querySelector(`#${rangeId}`);
+    const errorSpanId = `${rangeId}Error`;
+    const errorSpan = block.querySelector(`#${errorSpanId}`);
 
-        const min = parseFloat(rangeInput.min);
-        const max = parseFloat(rangeInput.max);
+    const min = parseFloat(rangeInput.min);
+    const max = parseFloat(rangeInput.max);
 
-        const value = parseFloat(input.value);
-        if (!Number.isNaN(value) && value >= min && value <= max) {
-          rangeInput.value = input.value;
-          updateCalculations(block);
-          updateRangeColors();
-        } else {
-          input.value = min;
-          rangeInput.value = min;
-          updateCalculations(block);
-          updateRangeColors();
-        }
-      });
-    }
+    input.addEventListener('blur', () => {
+      const value = parseFloat(input.value);
+      if (Number.isNaN(value)) {
+        input.value = min;
+        rangeInput.value = min;
+      } else if (value >= max) {
+        input.value = max;
+        rangeInput.value = max;
+      } else if (value <= min) {
+        input.value = min;
+        rangeInput.value = min;
+      } else {
+        rangeInput.value = value;
+      }
+      errorSpan.textContent = '';
+      updateCalculations(block);
+      updateRangeColors();
+    });
+
+    input.addEventListener('input', () => {
+      const value = parseFloat(input.value);
+      if (Number.isNaN(value) || value < min || value > max) {
+        errorSpan.textContent = `Enter a value between ${min} and ${max}`;
+      } else {
+        errorSpan.textContent = '';
+      }
+    });
   });
 
   // Event listener for principalOutstandingDisplay input
   const principalOutstandingDisplay = block.querySelector('#principalOutstandingDisplay');
   const principalOutstanding = block.querySelector('#principalOutstanding');
+  const principalErrorSpan = block.querySelector('#principalOutstandingError');
 
-  // Event listener for principalOutstandingDisplay input blur event
   principalOutstandingDisplay.addEventListener('blur', () => {
     const min = parseFloat(principalOutstanding.min);
     const max = parseFloat(principalOutstanding.max);
@@ -443,26 +459,43 @@ export default async function decorate(block) {
 
     if (!Number.isNaN(value) && value >= min && value <= max) {
       principalOutstanding.value = value;
-      updateCalculations(block);
       principalOutstandingDisplay.value = formatNumberToIndianCommas(rawValue);
-      updateRangeColors();
+      principalErrorSpan.textContent = '';
+    } else if (value >= max) {
+      principalOutstanding.value = max;
+      principalOutstandingDisplay.value = formatNumberToIndianCommas(max.toString());
+      principalErrorSpan.textContent = '';
     } else {
       principalOutstanding.value = min;
-      principalOutstandingDisplay.value = min;
-      updateCalculations(block);
-      updateRangeColors();
+      principalOutstandingDisplay.value = formatNumberToIndianCommas(min.toString());
+      principalErrorSpan.textContent = '';
+    }
+    updateCalculations(block);
+    updateRangeColors();
+  });
+
+  principalOutstandingDisplay.addEventListener('input', () => {
+    const min = parseFloat(principalOutstanding.min);
+    const max = parseFloat(principalOutstanding.max);
+
+    const rawValue = principalOutstandingDisplay.value.replace(/,/g, ''); // Remove existing commas
+    const value = parseFloat(rawValue);
+
+    if (Number.isNaN(value) || value < min || value > max) {
+      principalErrorSpan.textContent = `Enter a value between ${formatNumberToIndianCommas(min)} and ${formatNumberToIndianCommas(max)}`;
+    } else {
+      principalErrorSpan.textContent = '';
     }
   });
 
-  // Event listener for principalOutstanding range input change event
-  principalOutstanding.addEventListener('change', () => {
+  principalOutstanding.addEventListener('input', () => {
     const rawValue = principalOutstanding.value;
     principalOutstandingDisplay.value = formatNumberToIndianCommas(rawValue);
-    updateCalculations(block);
-    // updateRangeColors(block);
-  });
-  principalOutstanding.addEventListener('input', () => {
     updateRangeColors();
+  });
+
+  principalOutstanding.addEventListener('change', () => {
+    updateCalculations(block);
   });
 
   const applyNowButton = block.querySelector('#balnance-apply-now');
@@ -478,5 +511,7 @@ export default async function decorate(block) {
   updateRangeColors();
   toggleInputBox(block);
 }
+
 window.addEventListener('resize', updateRangeColors);
 window.addEventListener('load', updateRangeColors);
+
