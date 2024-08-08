@@ -7,13 +7,20 @@
 
 @media (width >= 1600px) {
   .section.interest-rate-container>div {
-    max-width: 1400px;
+    max-width: 100%;
   }
 }
 
 @media(min-width:600px) {
   .interest-rate-container .interest-rate-wrapper {
     padding: 30px;
+    box-sizing: border-box;
+  }
+}
+
+@media (width >= 1600px){
+  .interest-rate-container .interest-rate-wrapper {
+    padding: 30px 80px;
     box-sizing: border-box;
   }
 }
@@ -113,6 +120,12 @@
   display: flex;
   flex-direction: row;
   gap: 20px;
+}
+
+@media (width >= 1600px){
+  .interest-rate-container .interest-rate-wrapper .interest-rate .allCards .main-div {
+    gap:40px;
+  }
 }
 
 .interest-rate-container .interest-rate-wrapper .interest-rate .allCards .other-card div h3 {

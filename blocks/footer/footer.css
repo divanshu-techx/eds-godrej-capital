@@ -191,7 +191,7 @@ footer .partitionfirstcolumn-container {
   background-color: #f4f8e8;
   grid-template-columns: repeat(2, 25%) auto;
 
-  @media (width <=900px) {
+  @media (width <=1199px) {
     display: none;
   }
 }
