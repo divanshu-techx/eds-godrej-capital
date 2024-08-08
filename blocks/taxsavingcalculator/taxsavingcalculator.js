@@ -87,7 +87,7 @@ function getMetaData(metadata) {
 }
 const validateAndShowError = (value, min, max, errorElement) => {
   // Check if the value is a number
-  if (isNaN(value) || value < min || value > max) {
+  if (Number.isNaN(value) || value < min || value > max) {
     errorElement.style.display = 'block';
   } else {
     errorElement.style.display = 'none';
