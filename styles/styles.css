@@ -286,7 +286,8 @@ main .section {
 
 @media (width >= 600px) and (width <= 1599px) {
   main .section {
-    padding: 32px 16px;
+    /* padding: 32px 16px; */
+    padding: 20px 16px;
   }
 }
 
@@ -330,16 +331,33 @@ main .section {
     padding-top:20px;
   }
 
+  .section.global-title-padding{
+    padding:0;
+  }
+
   .section.global-padding{
     padding-top:40px;
     padding-bottom:40px;
   }
+
+  .section.global-block-padding{
+    padding-bottom:36px;
+  }
+
 }
 
 @media (width >=1600px){
   .section>div {
     max-width: unset;
     margin: auto;
+  }
+
+  .section.global-title-padding{
+    padding:0;
+  }
+
+  .section.global-block-padding{
+    padding-bottom:36px;
   }
 }
 
@@ -382,16 +400,17 @@ main {
   margin-top: var(--nav-height);
   overflow: hidden;
 
-  @media(width >=901px) {
+  @media(width >=1200px) {
     margin-top: var(--combined-height);
   }
 }
 
 .section.different-types-v1 {
   padding-bottom: 0;
-  ;
+}
 
-  @media(width <=600px) {
+@media(width <=600px) {
+  .section.different-types-v1 {
     border-radius: 20px 20px 0px 0px;
     position: relative;
     bottom: 30px;

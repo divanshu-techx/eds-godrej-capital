@@ -31,11 +31,16 @@
   justify-content: center;
   position: relative;
   width: 100%;
-  min-height: 500px;
+  /* min-height: 500px; */
+  min-height: calc(100vh * 0.5); 
 
   @media(width <= 600px) {
     min-height: 525px;
     justify-content: start;
+  }
+
+  @media (min-width: 1200px) and (max-width: 1400px) {
+    min-height: calc(100vh * 0.7);
   }
 }
 
@@ -556,7 +561,12 @@
   justify-content: flex-start;
   position: relative;
   width: 100%;
-  min-height: 518px;
+  /* min-height: 518px; */
+  min-height: calc(100vh * 0.5);
+
+  @media (min-width: 1200px) and (max-width: 1400px) {
+    min-height: calc(100vh * 0.7);
+  }
 }
 
 .hero-carousel-secondary .carousel-slide-content.carousel-slide-v1-content {

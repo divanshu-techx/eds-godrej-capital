@@ -88,12 +88,12 @@
     line-height: 14.08px;
 }
 
-@media (max-width: 1200px) {
+/* @media (max-width: 1200px) {
     .contentandpictureparent {
         flex: 1 1 calc(33.333% - 16px); 
         max-width: calc(33.333% - 16px);
     }
-}
+} */
 
 @media (max-width: 900px) {
     .contentandpictureparent {
