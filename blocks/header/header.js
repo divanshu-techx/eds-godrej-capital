@@ -1,7 +1,7 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
-const isDesktop = window.matchMedia('(min-width: 900px)');
+const isDesktop = window.matchMedia('(min-width: 1200px)');
 // var navElement = document.getElementById('nav');
 function closeOnEscape(e) {
   if (e.code === 'Escape') {

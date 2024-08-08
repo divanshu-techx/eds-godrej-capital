@@ -400,7 +400,7 @@ main {
   margin-top: var(--nav-height);
   overflow: hidden;
 
-  @media(width >=901px) {
+  @media(width >=1200px) {
     margin-top: var(--combined-height);
   }
 }
