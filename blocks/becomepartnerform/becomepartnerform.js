@@ -19,9 +19,9 @@ export default async function decorate(block) {
 
   // Add change event for checkboxes
   addChangeEventOnCheckboxes(block);
-  handlSelectOnTabAndMob(block)
+  handlSelectOnTabAndMob(block);
   initFormValidation(block, '.form1', '.form1 #submit-btn');
-  otpsEforcements(block)
+  otpsEforcements(block);
   const editNumberInputEle = block.querySelector('#form-mobilenumber');
   editNumberInputEle.setAttribute('readonly', true);
 
@@ -30,11 +30,10 @@ export default async function decorate(block) {
   // handle edit mobile number
   block.querySelector('#form-editmobilenumber').addEventListener('click', (e) => {
     toggleFormVisibility('.form2', '.form1', block);
-  })
+  });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-
   fetch(formSheetUrl)
     .then((response) => response.json())
     .then((data) => {
@@ -241,7 +240,7 @@ function validateForm1(block) {
 
 // Consolidated validation function
 function validateLoanProductCheckboxs(loanProductFieldSet) {
-  const selectedInputs = loanProductFieldSet.querySelectorAll(`.form1.field-wrapper.checkbox-wrapper.selection-wrapper.checked`);
+  const selectedInputs = loanProductFieldSet.querySelectorAll('.form1.field-wrapper.checkbox-wrapper.selection-wrapper.checked');
   return handleErrorMessages(selectedInputs.length > 0, loanProductFieldSet, getDataAttributeValueByName('producterrorvalidationmessage'));
 }
 
@@ -249,10 +248,10 @@ function toggleFormVisibility(hideSelector, showSelector, block) {
   const hideElements = block.querySelectorAll(hideSelector);
   const showElements = block.querySelectorAll(showSelector);
   hideElements.forEach((el) => {
-    el.style.display = 'none'
+    el.style.display = 'none';
   });
   showElements.forEach((el) => {
-    el.style.display = 'block'
+    el.style.display = 'block';
   });
 }
 
