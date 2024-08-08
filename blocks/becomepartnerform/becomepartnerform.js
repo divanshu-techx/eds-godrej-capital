@@ -296,16 +296,17 @@ function startTimer(block, form) {
 
   var interval = setInterval(function () {
     var seconds = count % 60; // Calculate remaining seconds
-    var displaySeconds = seconds < 10 ? "0" + seconds : seconds;
+    var displaySeconds = seconds < 10 ? '0' + seconds : seconds;
 
-    timerElement.innerText = "Didn't receive any OTP? " + displaySeconds + " Seconds"; // Update timer display
+    timerElement.innerText = "Didn't receive any OTP? " + displaySeconds + ' Seconds'; // Update timer display
 
     if (count <= 0) {
       clearInterval(interval); // Clear interval when count reaches 0
       resendButton.disabled = false; // Enable resend button
       timerElement.innerText = "Didn't receive any OTP?"; // Reset timer text
     }
-    count =- 1; // Decrement count
+    // Decrement count
+    count = - 1; 
   }, 1000); // Update every second (1000 milliseconds)
 
   resendButton.addEventListener('click', async (e) => {
@@ -313,7 +314,6 @@ function startTimer(block, form) {
     const response = await makeAjaxRequest('POST', apiUrl, generateRequestBody(payload, true, '', getSelectedCheckboxValues(block)));
     console.log(response);
   });
-
 }
 
 // Get data attribute value by name
@@ -330,7 +330,7 @@ function handlSelectOnTabAndMob(block) {
     if (fieldsetWrapper) {
       fieldsetWrapper.classList.add('hide-options');
 
-      dropdown.addEventListener('click', function () {
+      dropdown.addEventListener('click', () => {
         this.classList.toggle('active-dropdown');
         fieldsetWrapper.classList.toggle('hide-options');
       });
@@ -341,7 +341,7 @@ function handlSelectOnTabAndMob(block) {
 function otpsEforcements(block) {
   const otpFieldsEls = block.querySelectorAll('#form-otpfieldset input[type="text"]');
   otpFieldsEls.forEach((otpFieldEl, index) => {
-    otpFieldEl.addEventListener('input', function () {
+    otpFieldEl.addEventListener('input', () => {
       if (/^\d$/.test(otpFieldEl.value)) {
         otpFieldEl.parentNode.classList.add('filled');
         if (index < otpFieldsEls.length - 1) {
