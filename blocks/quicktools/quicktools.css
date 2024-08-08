@@ -23,6 +23,12 @@ main .section.quick-tools-component {
     flex-direction: column;
 }
 
+@media (width <=1199px) {
+    .quicktools {
+        display: none;
+    }
+}
+
 .quicktool-item:first-of-type {
     border-top-left-radius: 4px;
 }
