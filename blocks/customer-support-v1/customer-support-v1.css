@@ -3,7 +3,7 @@
 
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1199px) {
   .customer-support-v1 {
     background: none;
   }
@@ -21,7 +21,7 @@
   gap: 10px;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1199px) {
   .cards-container {
     background: none;
     gap: 10px;
@@ -76,7 +76,7 @@
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1199px) {
   .cards {
     box-sizing: border-box;
     box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.12);
@@ -149,13 +149,13 @@
   font-weight: 400;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1199px) {
   .hide-on-mobile {
     display: none;
   }
 }
 
-@media(min-width:901px) {
+@media(min-width:1200px) {
   .show-on-mobile {
     display: none;
   }
