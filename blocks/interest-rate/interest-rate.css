@@ -69,7 +69,7 @@
   font-size: small;
 }
 
-@media (max-width: 968px) {
+@media (max-width: 768px) {
   .allCards {
     display: none;
   }
@@ -110,10 +110,12 @@
   display: none;
 }
 
-.interest-rate-container .interest-rate-wrapper .interest-rate .allCards {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+@media(width >= 1600px){
+  .interest-rate-container .interest-rate-wrapper .interest-rate .allCards {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
 
 .interest-rate-container .interest-rate-wrapper .interest-rate .allCards .main-div {
@@ -129,7 +131,6 @@
 }
 
 .interest-rate-container .interest-rate-wrapper .interest-rate .allCards .other-card div h3 {
-  font-family: Work Sans;
   font-size: 32px;
   font-weight: 500;
   line-height: 48px;
@@ -505,11 +506,17 @@
   }
 }
 
-@media(min-width:900px) {
+@media(min-width:1200px) {
   .interest-rate-container .interest-rate-wrapper .interest-rate .allCards .other-card {
-
     display: block;
     max-width: 232px;
     margin-right: 40px;
+  }
+}
+
+@media(min-width:767px) and (max-width:1199px) {
+  .section.interest-rate-container{
+    padding-left:unset;
+    padding-right:unset;
   }
 }
