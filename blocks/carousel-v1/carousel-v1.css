@@ -424,6 +424,10 @@
   text-decoration: none;
 }
 
+.hero-carousel-v1 .carousel-slide-content.carousel-slide-v1-content p:nth-child(4) a:hover:last-child{
+color:#3CB8FF;
+}
+
 .hero-carousel-v1 .carousel-v1-slide-indicator button:disabled {
   width: 48px;
   height: 4px;
@@ -682,9 +686,12 @@
   @media(width <=600px) {
     display: none;
   }
-
+  padding-left:0;
   background-color: inherit;
 
+}
+.hero-carousel-secondary .carousel-slide-content .play-button-v1:hover{
+color:#3CB8FF;
 }
 
 @media(width <=600px) {

@@ -171,7 +171,7 @@ const createInlineVideoPlayer = (container, videoUrl) => {
   // Create and style the play button
   const playButton = document.createElement('button');
   playButton.className = 'play-button';
-  playButton.innerText = '▶';
+  playButton.append(videoIcon);
 
 
   // Ensure container is positioned relatively
@@ -203,6 +203,13 @@ const createInlineVideoPlayer = (container, videoUrl) => {
     playButton.click();
   };
 
+   videoIcon.onclick = () => {
+     playButton.click();
+   };
+
+   pauseIcon.onclick = () => {
+       playButton.click();
+     };
   // Handle play button click
   playButton.onclick = (event) => {
     const parentElement = event.target.parentNode;
@@ -223,11 +230,13 @@ const createInlineVideoPlayer = (container, videoUrl) => {
     if (video.paused) {
       video.play();
       playButtonInLine.innerText = 'Pause';
-      playButton.innerText = '❚❚'; // Change play button icon to pause
+      playButton.removeChild(playButton.firstChild);
+      playButton.append(pauseIcon); // Change play button icon to pause
     } else {
       video.pause();
       playButtonInLine.innerText = 'Play';
-      playButton.innerText = '▶'; // Change play button icon to play
+      playButton.removeChild(playButton.firstChild);
+      playButton.append(videoIcon); // Change play button icon to play
     }
   };
 };
@@ -348,15 +357,34 @@ export default async function decorate(block) {
 
   if (teaserContainer) {
     createTeaser(teaserContainer);
-    // applyInitialStyles(teaserContainer);
     applyTextAlignmentAndPlacement(teaserContainer);
     convertAnchorsToButtons(block);
     hideSpecifiedButtons(teaserContainer);
     handleBackgroundStyle(teaserContainer, block);
-    // hidePictures(block);
-    // showContainer(teaserContainer);
     triggerCustomEvent();
   }
+}
+
+
+const videoIcon = createPictureElement('play-button.png');
+const pauseIcon = createPictureElement('pause-button.png');
+
+function getIconPath(iconName) {
+    // Relative path to the icons folder
+    const basePath = '../../icons/';
+    const iconPath = `${basePath}${iconName}`;
+    return iconPath;
+}
+
+function createPictureElement(iconName) {
+    const picture = document.createElement('picture');
+    const img = document.createElement('img');
+
+    img.src = getIconPath(iconName);
+    img.alt = 'Icon';
+
+    picture.appendChild(img);
+    return picture;
 }
 
 // const applyInitialStyles = (container) => {

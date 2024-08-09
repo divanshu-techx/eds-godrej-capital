@@ -70,6 +70,9 @@
   color: #3B3B3B;
   cursor: pointer;
 }
+.faqpp-container .faq-container .cannot-find-container .view-all-label:hover{
+color:#3CB8FF;
+}
 
 @media (min-width: 601px) {
   .faqpp .faq-container .faq-tabs {

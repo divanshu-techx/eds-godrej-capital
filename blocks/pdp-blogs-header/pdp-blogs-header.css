@@ -36,6 +36,9 @@
     text-align: left;
 }
 
+.pdp-blogs-header .button-container a:hover{
+color:#3CB8FF;
+}
 @media (min-width:767px) and (max-width:1199px) {
     .pdp-blogs-header .button-container a {
         font-size: 10px;
