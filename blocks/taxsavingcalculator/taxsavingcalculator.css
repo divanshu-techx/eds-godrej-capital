@@ -649,3 +649,6 @@
 
   }
 }
+.inputTaxSaving .errorMsg_tax_saving {
+  color: red;
+}
