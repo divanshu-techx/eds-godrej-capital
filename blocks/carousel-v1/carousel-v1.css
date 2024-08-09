@@ -599,6 +599,10 @@ color:#3CB8FF;
   @media (min-width: 1200px) and (max-width: 1400px) {
     min-height: calc(100vh * 0.7);
   }
+
+  @media (min-width: 600px) and (max-width: 1199px) {
+    min-height: calc(100vh * 0.1);
+  }
 }
 
 .hero-carousel-secondary .carousel-slide-content.carousel-slide-v1-content {
