@@ -691,7 +691,12 @@ color:#3CB8FF;
 
 }
 .hero-carousel-secondary .carousel-slide-content .play-button-v1:hover{
-color:#3CB8FF;
+  color:#3CB8FF;
+  background: none!important;
+}
+
+.hero-carousel-secondary .carousel-slide-content .play-button:hover{
+  background: none!important;
 }
 
 @media(width <=600px) {
