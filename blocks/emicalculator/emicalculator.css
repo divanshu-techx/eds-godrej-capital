@@ -327,7 +327,7 @@ input[type="range"] {
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
 	.sub-container {
 		flex-direction: column;
 		gap: 10px;
@@ -789,6 +789,25 @@ input[type="range"]::-moz-range-track {
         color: #9FC355;
 		text-align: start;
 	}
+
+	.emicalculator .view  .range-values .max-value{
+		font-size: 10px;
+		font-weight: 300;
+		line-height: 11.73px;
+		color:#000000;
+	}
+
+	.emicalculator .view .range-values .min-value{
+		font-size: 10px;
+		font-weight: 300;
+		line-height: 11.73px;
+		color:#000000;
+	}
+
+	.emicalculator .mobile-tenure-apply button{
+		padding: 7px 16px 7px 16px;
+		width: 100%;
+	}
 }
 
 
@@ -796,7 +815,7 @@ input[type="range"]::-moz-range-track {
 
     .emicalculator .view{
 		background:unset;
-		padding:unset;
+		padding: 0 0 0 20px;
 	}
 
 	.emicalculator .details input[type="range"] {
