@@ -98,13 +98,13 @@ function updateButtonWithGtm() {
       if (redirectionUrl) {
         // Get the gtm value
         const gtmValue = redirectionUrl.searchParams.get('gtm');
-
+        if (gtmValue !== null && gtmValue !== undefined && gtmValue !== '') {
         // Add data attribute with the gtm value
         button.setAttribute('data-gtm', gtmValue)
-
         // Remove the gtm query parameter from the URL
         redirectionUrl.searchParams.delete('gtm');
         button.href = redirectionUrl.toString();
+       }
       } else {
         return;
       }
@@ -121,21 +121,25 @@ function getAnchorButtonTag() {
 
   buttonEle.forEach(button => {
     button.addEventListener('click', function() {
+      if (this.hasAttribute('data-gtm')) {
       const gtmValue = this.getAttribute('data-gtm');
-      if (gtmValue) {
+      if (gtmValue !== null && gtmValue !== undefined && gtmValue !== '') {
         dataStoreInDataLayer(gtmValue);
+        console.log('Button clicked:', gtmValue);
       }
-      console.log('Button clicked:', gtmValue);
+    }
     });
   });
 
   anchorEle.forEach(anchor => {
     anchor.addEventListener('click', function() {
+      if (this.hasAttribute('data-gtm')) {
       const gtmValue = this.getAttribute('data-gtm');
-      if (gtmValue) {
+      if (gtmValue !== null && gtmValue !== undefined && gtmValue !== '') {
         dataStoreInDataLayer(gtmValue);
       }
       console.log('Anchor clicked:', gtmValue);
+    }
     });
   });
 }
