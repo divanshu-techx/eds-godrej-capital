@@ -131,7 +131,6 @@ function renderSearchSection(block) {
   block.appendChild(searchFilterContainer);
 }
 
-
 // Handle search input functionality
 function handleSearching(block, searchInputField, responseData) {
   // Event listener for input in search field
@@ -224,20 +223,19 @@ function renderFiltersAndCategoriesDropdown(
   });
 
   filtersDropdown.addEventListener('change', () => handleDropdownChange(
-      block,
-      filtersDropdown,
-      categoriesDropdown,
-      searchInputField,
-      responseData,
-    ));
-  categoriesDropdown.addEventListener('change', () =>
-    handleDropdownChange(
-      block,
-      filtersDropdown,
-      categoriesDropdown,
-      searchInputField,
-      responseData,
-    ));
+    block,
+    filtersDropdown,
+    categoriesDropdown,
+    searchInputField,
+    responseData,
+  ));
+  categoriesDropdown.addEventListener('change', () => handleDropdownChange(
+    block,
+    filtersDropdown,
+    categoriesDropdown,
+    searchInputField,
+    responseData,
+  ));
 }
 
 // Handle dropdown change
