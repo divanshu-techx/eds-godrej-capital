@@ -540,7 +540,7 @@ function initialize(block) {
         { class: 'tenure' },
         createElement(
           'div',
-          { style: 'color: #111111;font-size:14px;font-weight:500;' },
+          {class:'tenure-label'},
           totalTenureLabel,
         ),
         createElement(
@@ -676,7 +676,7 @@ function initialize(block) {
     const value = P;
     const maxValue = loanAmtSlider.max; // Get the maximum value of the range input
     const percentage = (value / maxValue) * 100;
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth <= 1199) {
       this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
     } else {
       this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
@@ -710,7 +710,7 @@ function initialize(block) {
     const maxValue = loanAmtSlider.max; // Get the maximum value of the range input
     const percentage = (value / maxValue) * 100;
 
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth <= 1199) {
       loanAmtSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
     } else {
       loanAmtSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
@@ -736,7 +736,7 @@ function initialize(block) {
     );
 
     // Update the background gradient with the calculated percentage
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth <= 1199) {
       this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
     } else {
       this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
@@ -768,7 +768,7 @@ function initialize(block) {
     );
 
     // Update the background gradient with the calculated percentage
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth <= 1199) {
       intRateSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
     } else {
       intRateSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
@@ -792,7 +792,7 @@ function initialize(block) {
       );
 
       // Update the background gradient with the calculated percentage
-      if (window.innerWidth <= 768) {
+      if (window.innerWidth <= 1199) {
         loanPeriodSliderMonth.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
       } else {
         loanPeriodSliderMonth.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
@@ -808,7 +808,7 @@ function initialize(block) {
     );
 
     // Update the background gradient with the calculated percentage
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth <= 1199) {
       this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
     } else {
       this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
@@ -848,7 +848,7 @@ function initialize(block) {
       );
 
       // Update the background gradient with the calculated percentage
-      if (window.innerWidth <= 768) {
+      if (window.innerWidth <= 1199) {
         loanPeriodSliderMonth.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
       } else {
         loanPeriodSliderMonth.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
@@ -864,7 +864,7 @@ function initialize(block) {
       * 100
     );
     // Update the background gradient with the calculated percentage
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth <= 1199) {
       loanPeriodSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
     } else {
       loanPeriodSlider.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
@@ -882,7 +882,7 @@ function initialize(block) {
     );
 
     // Update the background gradient with the calculated percentage
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth <= 1199) {
       this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
     } else {
       this.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;
@@ -913,7 +913,7 @@ function initialize(block) {
       * 100
     );
     // Update the background gradient with the calculated percentage
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth <= 1199) {
       loanPeriodSliderMonth.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, #F4F4F4 ${percentage}%, #F4F4F4 100%)`;
     } else {
       loanPeriodSliderMonth.style.background = `linear-gradient(to right, #8cb133 0%, #8cb133 ${percentage}%, white ${percentage}%, white 100%)`;

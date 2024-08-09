@@ -327,7 +327,7 @@ input[type="range"] {
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
 	.sub-container {
 		flex-direction: column;
 		gap: 10px;
@@ -441,6 +441,7 @@ input[type="range"] {
 		color: #000000;
 		font-weight: 300;
 		padding-left: 4px;
+		line-height: 22px;
 	}
 
 	.mobile-tenure-emi-label {
@@ -502,7 +503,7 @@ input[type="range"] {
 		margin: 0 5px;
 	}
 
-	@media (min-width: 768px) and (max-width: 900px) {
+	@media (min-width: 768px) and (max-width: 1199px) {
 		display: block;
 		max-width: 273px;
 		width: 100%;
@@ -512,7 +513,7 @@ input[type="range"] {
 		border-radius: 4px;
 	}
 
-	@media (width >=901px) {
+	@media (width >=1200px) {
 		display: none;
 	}
 
@@ -548,7 +549,7 @@ input[type="range"] {
 	}
 }
 
-@media (min-width: 769px) and (max-width: 900px) {
+@media (min-width: 769px) and (max-width: 1199px) {
 	.mobile-tenure-apply {
 		align-items: center;
 		display: flex;
@@ -639,11 +640,11 @@ input[type="range"] {
 }
 
 .breakupdesktop {
-	@media (width <=900px) {
+	@media (width <=1199px) {
 		display: none;
 	}
 
-	@media (width >=901px) {
+	@media (width >=1200px) {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -743,12 +744,221 @@ input[type="range"]::-moz-range-track {
 	}
 }
 
-/* @media (max-width: 767px) {
-    .section.emicalculator-container {
-        border-radius: 20px 20px 0px 0px;
-        position: relative;
-        bottom: 30px;
-        background-color: #fff;
-        padding-bottom: 0px;
+@media(max-width:767px) {
+	.emicalculator .details input[type="range"] {
+        background-color: #F4F4F4;
+		height: 4px;
+		border-radius: 4px;
     }
-} */
+
+	.emicalculator .view [type="range"]::-webkit-slider-thumb {
+		box-shadow: unset;
+		height: 14px!important;
+		width: 14px!important;
+		border-radius: 50%;
+		background: var(--color-citrus);
+		cursor: pointer;
+		margin-top: -3px;
+		appearance: none;
+	}
+
+	.emicalculator .view  span{
+		height: 30px;
+	}
+
+	.emicalculator .view  .details  input[type='text']{
+		min-height: 30px;
+	}
+
+	.emicalculator .view  .details  input[type='number']{
+		min-height: 30px;
+	}
+    
+	.emicalculator .view .detail{
+		justify-content: space-between;
+	}
+
+	.emicalculator .view .detail .inputDetail{
+		width:50%;
+	}
+
+	.mobile-breakup .mobile-tenure-emi-details .mobile-tenure-emi-price{
+		font-size: 32px;
+		font-weight: 700;
+		line-height: 37.54px;
+        color: #9FC355;
+		text-align: start;
+	}
+
+	.emicalculator .view  .range-values .max-value{
+		font-size: 10px;
+		font-weight: 300;
+		line-height: 11.73px;
+		color:#000000;
+	}
+
+	.emicalculator .view .range-values .min-value{
+		font-size: 10px;
+		font-weight: 300;
+		line-height: 11.73px;
+		color:#000000;
+	}
+
+	.emicalculator .mobile-tenure-apply button{
+		padding: 7px 16px 7px 16px;
+		width: 100%;
+	}
+}
+
+
+@media(min-width:768px) and (max-width:1199px){
+
+    .emicalculator .view{
+		background:unset;
+		padding: 0 0 0 20px;
+	}
+
+	.emicalculator .details input[type="range"] {
+        background-color: #F4F4F4;
+		height: 4px;
+		border-radius: 4px;
+    }
+
+	.emicalculator .detail .title{
+		font-size: 14px;
+		font-weight: 400;
+		line-height: 16.42px;
+	}
+
+	.emicalculator .view .inputDetail span{
+		background:#F4F4F4;
+		font-size: 12px;
+		font-weight: 300;
+		line-height: 14.08px;
+		color:#000000;
+	}
+
+	.emicalculator .view  .range-values .max-value{
+		font-size: 10px;
+		font-weight: 300;
+		line-height: 11.73px;
+		color:#000000;
+	}
+
+	.emicalculator .view .range-values .min-value{
+		font-size: 10px;
+		font-weight: 300;
+		line-height: 11.73px;
+		color:#000000;
+	}
+
+	.emicalculator .view .inputDetail input{
+		background:#F4F4F4;
+	}
+
+	.emicalculator .view  span{
+		height: 30px;
+	}
+
+	.emicalculator .view  .details  input[type='text']{
+		min-height: 30px;
+	}
+
+	.emicalculator .view  .details  input[type='number']{
+		min-height: 30px;
+	}
+
+	.mobile-breakup{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		padding:10px;
+	}
+
+	.mobile-breakup .tenure-label{
+		font-size: 14px;
+		font-weight: 500;
+		line-height: 16.42px;
+		text-align: center;
+		color: #111111;
+	}
+
+	.mobile-breakup .mobile-tenure-monthYear{
+		text-align: center;
+		display: block;
+	}
+
+	.mobile-breakup .mobile-tenure-monthYear{
+		font-size: 12px;
+		font-weight: 400;
+		line-height: 14.08px;
+        color:#757575;
+	}
+
+	.mobile-breakup .mobile-tenure-amount-label{
+            text-align: center;
+	}
+
+	.mobile-breakup .mobile-tenure-amount-detail {
+			text-align: center;
+	}
+
+		.mobile-breakup .mobile-tenure-interest-label {
+			text-align: center;
+		}
+
+	.mobile-breakup .mobile-tenure-emi-label{
+                text-align: center;
+				font-size: 18px;
+				font-weight: 400;
+				line-height: 21.11px;
+	}
+
+	.mobile-breakup #tenure-interest{
+                text-align: center;
+	}
+
+	.mobile-breakup .mobile-tenure-emi-details .mobile-tenure-emi-price{
+		font-size: 32px;
+		font-weight: 700;
+		line-height: 37.54px;
+        color: #9FC355;
+		text-align: center;
+	}
+
+	.mobile-breakup .mobile-tenure-apply{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.emicalculator .view [type="range"]::-webkit-slider-thumb {
+		box-shadow: unset;
+		height: 14px!important;
+		width: 14px!important;
+		border-radius: 50%;
+		background: var(--color-citrus);
+		cursor: pointer;
+		margin-top: -3px;
+		appearance: none;
+	}
+
+	.emicalculator .details input{
+		font-size: 12px!important;
+		font-weight: 500!important;
+		line-height: 14.08px!important;
+	}
+
+	.emicalculator .mobile-tenure-apply button{
+		padding: 7px 16px 7px 16px;
+		width: 100%;
+	}
+
+	.emicalculator .mobile-tenure-apply{
+		display: flex;
+		justify-content: center; 
+		margin:unset;
+	}
+
+}

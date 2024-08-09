@@ -27,6 +27,15 @@ export default async function decorate(block) {
 
       block.textContent = '';
       block.append(subHeader);
+
+      document.addEventListener('scroll', () => {
+        if (window.scrollY === 0) {
+          block.classList.remove('hidden');
+        } else {
+          block.classList.add('hidden');
+        }
+      });
+
     } else {
       console.error('Subheader fragment is empty or malformed.');
     }

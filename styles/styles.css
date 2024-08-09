@@ -281,12 +281,13 @@ main img {
 
 /* sections */
 main .section {
-  padding: 16px 26px;
+  padding: 1rem 1rem;
 }
 
 @media (width >= 600px) and (width <= 1599px) {
   main .section {
-    padding: 32px 16px;
+    /* padding: 32px 16px; */
+    padding: 20px 16px;
   }
 }
 
@@ -399,16 +400,17 @@ main {
   margin-top: var(--nav-height);
   overflow: hidden;
 
-  @media(width >=901px) {
+  @media(width >=1200px) {
     margin-top: var(--combined-height);
   }
 }
 
 .section.different-types-v1 {
   padding-bottom: 0;
-  ;
+}
 
-  @media(width <=600px) {
+@media(width <=600px) {
+  .section.different-types-v1 {
     border-radius: 20px 20px 0px 0px;
     position: relative;
     bottom: 30px;

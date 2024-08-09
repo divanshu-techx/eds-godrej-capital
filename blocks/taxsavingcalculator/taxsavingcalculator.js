@@ -86,7 +86,8 @@ function getMetaData(metadata) {
   return metadata;
 }
 const validateAndShowError = (value, min, max, errorElement) => {
-  if (value < min || value > max) {
+  // Check if the value is a number
+  if (Number.isNaN(value) || value < min || value > max) {
     errorElement.style.display = 'block';
   } else {
     errorElement.style.display = 'none';
@@ -277,7 +278,7 @@ function getHtmlData(newMetaData) {
                 <div class="tax_saving_input_label">
                 <span id="inputLabel_tax_saving">${newMetaData.yearSymbol}</span>
                 <span id="age"  class="inputSpan_tax_saving" contenteditable="true" data-min="${newMetaData.ageMin}"
-                data-max="${newMetaData.ageMax}" onblur="updateDisplay()">${newMetaData.ageMin}
+                data-max="${newMetaData.ageMax}" oninput="updateDisplay()">${newMetaData.ageMin}
                 </span>
                 </div>
             </div>
@@ -301,7 +302,7 @@ function getHtmlData(newMetaData) {
                 <div class="tax_saving_input_label">
                 <span id="total_tax_label">${newMetaData.rupeeSymbolEng}</span>
                 <span id="income" class="inputSpan_tax_saving" contenteditable="true" data-min="${newMetaData.totalTaxMin}"
-                data-max="${newMetaData.totalTaxMax}" onblur="updateDisplay()">
+                data-max="${newMetaData.totalTaxMax}" oninput="updateDisplay()">
                 ${formatNumberToIndianCommas(newMetaData.totalTaxMin)}
                 </span>
             </div>
@@ -325,7 +326,7 @@ function getHtmlData(newMetaData) {
                 <div class="tax_saving_input_label">
                 <span id="tax_saving_principal_label">${newMetaData.rupeeSymbolEng}</span>
                 <span id="principal" class="inputSpan_tax_saving" contenteditable="true" data-min="${newMetaData.principalMinAnnual}"
-                 data-max="${newMetaData.principalMaxAnnual}" onblur="updateDisplay()">
+                 data-max="${newMetaData.principalMaxAnnual}" oninput="updateDisplay()">
                  ${formatNumberToIndianCommas(newMetaData.principalMinAnnual)}</span>
                 </div>
             </div>
@@ -351,7 +352,7 @@ function getHtmlData(newMetaData) {
                  <span id="interest_tax_label">${newMetaData.yearSymbol}</span>
                 <span id="interest" class="inputSpan_tax_saving" contenteditable="true" data-min="${newMetaData.interestMinAnnual}"
                  data-max="${newMetaData.interestMaxAnnual}"
-                onblur="updateDisplay()">${formatNumberToIndianCommas(newMetaData.interestMinAnnual)}
+                oninput="updateDisplay()">${formatNumberToIndianCommas(newMetaData.interestMinAnnual)}
                 </span>
             </div>
             </div>

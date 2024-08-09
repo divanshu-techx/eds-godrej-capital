@@ -7,13 +7,20 @@
 
 @media (width >= 1600px) {
   .section.interest-rate-container>div {
-    max-width: 1400px;
+    max-width: 100%;
   }
 }
 
 @media(min-width:600px) {
   .interest-rate-container .interest-rate-wrapper {
     padding: 30px;
+    box-sizing: border-box;
+  }
+}
+
+@media (width >= 1600px){
+  .interest-rate-container .interest-rate-wrapper {
+    padding: 30px 80px;
     box-sizing: border-box;
   }
 }
@@ -62,7 +69,7 @@
   font-size: small;
 }
 
-@media (max-width: 968px) {
+@media (max-width: 768px) {
   .allCards {
     display: none;
   }
@@ -103,10 +110,18 @@
   display: none;
 }
 
-.interest-rate-container .interest-rate-wrapper .interest-rate .allCards {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+@media(width >= 1600px){
+  .interest-rate-container .interest-rate-wrapper .interest-rate .allCards {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 1200px){
+  .interest-rate-container .interest-rate-wrapper .interest-rate .allCards{
+      display: flex;
+  }
 }
 
 .interest-rate-container .interest-rate-wrapper .interest-rate .allCards .main-div {
@@ -115,8 +130,13 @@
   gap: 20px;
 }
 
+@media (width >= 1600px){
+  .interest-rate-container .interest-rate-wrapper .interest-rate .allCards .main-div {
+    gap:40px;
+  }
+}
+
 .interest-rate-container .interest-rate-wrapper .interest-rate .allCards .other-card div h3 {
-  font-family: Work Sans;
   font-size: 32px;
   font-weight: 500;
   line-height: 48px;
@@ -492,11 +512,17 @@
   }
 }
 
-@media(min-width:900px) {
+@media(min-width:1200px) {
   .interest-rate-container .interest-rate-wrapper .interest-rate .allCards .other-card {
-
     display: block;
     max-width: 232px;
     margin-right: 40px;
+  }
+}
+
+@media(min-width:767px) and (max-width:1199px) {
+  .section.interest-rate-container{
+    padding-left:unset;
+    padding-right:unset;
   }
 }

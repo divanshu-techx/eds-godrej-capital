@@ -70,6 +70,9 @@
   color: #3B3B3B;
   cursor: pointer;
 }
+.faqpp-container .faq-container .cannot-find-container .view-all-label:hover{
+color:#3CB8FF;
+}
 
 @media (min-width: 601px) {
   .faqpp .faq-container .faq-tabs {
@@ -81,7 +84,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    /* max-width: 424px; */
+    max-width: 424px;
   }
 
   .tag-button {
@@ -322,7 +325,7 @@
 }
 
 
-@media(min-width:600px) and (max-width:900px) {
+@media(min-width:600px) and (max-width:1199px) {
   .faqpp-container .faq-container {
     gap: 20px;
   }

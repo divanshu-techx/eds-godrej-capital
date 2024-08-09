@@ -57,7 +57,6 @@ const applyTextAlignmentAndPlacement = (container) => {
   const contentColour = container.getAttribute(
     'data-text-color',
   );
-
   const headingStyle = container.getAttribute(
     'data-heading-style',
   );
@@ -160,7 +159,10 @@ const hideSpecifiedButtons = (container) => {
 //   return null; // Return null if no suitable div is found
 // };
 
-const createInlineVideoPlayer = (container, videoUrl) => {
+  const createInlineVideoPlayer = (container, videoUrl) => {
+  const playVideoLabel = container.getAttribute('data-play-video');
+  const videoIcon = createPictureElement('play-button.png');
+  const pauseIcon = createPictureElement('pause-button.png');
   const slideContent = container.querySelector('.carousel-slide-content');
   // const carouselSlideImage = findCarouselSlideImage(container);
 
@@ -171,18 +173,8 @@ const createInlineVideoPlayer = (container, videoUrl) => {
   // Create and style the play button
   const playButton = document.createElement('button');
   playButton.className = 'play-button';
-  playButton.innerText = '▶';
-  playButton.style.position = 'absolute';
-  playButton.style.top = '45px';
-  playButton.style.transform = 'translate(-50%, -50%)';
-  playButton.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-  playButton.style.color = 'white';
-  playButton.style.border = 'none';
-  playButton.style.borderRadius = '50%';
-  playButton.style.padding = '10px 15px';
-  playButton.style.fontSize = '24px';
-  playButton.style.cursor = 'pointer';
-  playButton.style.zIndex = '10'; // Ensure it's above the video
+  playButton.append(videoIcon);
+
 
   // Ensure container is positioned relatively
   container.style.position = 'relative';
@@ -191,7 +183,8 @@ const createInlineVideoPlayer = (container, videoUrl) => {
   container.style.alignItems = 'center';
 
   // Add play button to the container
-  slideContent.appendChild(playButton);
+  //slideContent.appendChild(playButton);
+  container.querySelector('.button-container').appendChild(playButton);
   container.querySelector('.button-container').appendChild(playButtonInLine);
 
   const hideButton = slideContent.querySelector('.button');
@@ -212,11 +205,19 @@ const createInlineVideoPlayer = (container, videoUrl) => {
     playButton.click();
   };
 
+   videoIcon.onclick = () => {
+     playButton.click();
+   };
+
+   pauseIcon.onclick = () => {
+       playButton.click();
+     };
   // Handle play button click
   playButton.onclick = (event) => {
     const parentElement = event.target.parentNode;
     const grandparentElement = parentElement.parentNode;
-    const imageDiv = grandparentElement.querySelector('.carousel-slide-image div');
+    const ggp = grandparentElement.parentNode;
+    const imageDiv = ggp.querySelector('.carousel-slide-image div');
 
     if (!videoAppended) {
       const pictureElement = imageDiv.querySelector('picture');
@@ -231,20 +232,26 @@ const createInlineVideoPlayer = (container, videoUrl) => {
     if (video.paused) {
       video.play();
       playButtonInLine.innerText = 'Pause';
-      playButton.innerText = '❚❚'; // Change play button icon to pause
+      playButton.removeChild(playButton.firstChild);
+      playButton.append(pauseIcon); // Change play button icon to pause
     } else {
       video.pause();
       playButtonInLine.innerText = 'Play';
-      playButton.innerText = '▶'; // Change play button icon to play
+      playButton.removeChild(playButton.firstChild);
+      playButton.append(videoIcon); // Change play button icon to play
     }
   };
 };
 
 const createVideoPopup = (container, videoUrl, isMp4) => {
+ const playButtonInLine = document.createElement('button');
+ playButtonInLine.className = 'play-button-v1';
+ playButtonInLine.innerText = 'Play Video';
+ const videoIcon = createPictureElement('play-button.png');
   // const slideContent = container.querySelector('.carousel-slide-content');
   const playButton = document.createElement('button');
   playButton.className = 'play-button';
-  playButton.innerText = 'Play Video';
+  playButton.append(videoIcon);
   playButton.onclick = () => {
     const popup = document.createElement('div');
     popup.className = 'video-popup';
@@ -276,7 +283,9 @@ const createVideoPopup = (container, videoUrl, isMp4) => {
     popup.appendChild(closeButton);
     document.body.appendChild(popup);
   };
-  container.querySelector('.button-container').appendChild(playButton);
+    container.querySelector('.button-container').appendChild(playButton);
+  container.querySelector('.button-container').appendChild(playButtonInLine);
+
 };
 
 const handleBackgroundStyle = (container, block) => {
@@ -356,15 +365,31 @@ export default async function decorate(block) {
 
   if (teaserContainer) {
     createTeaser(teaserContainer);
-    // applyInitialStyles(teaserContainer);
     applyTextAlignmentAndPlacement(teaserContainer);
     convertAnchorsToButtons(block);
     hideSpecifiedButtons(teaserContainer);
     handleBackgroundStyle(teaserContainer, block);
-    // hidePictures(block);
-    // showContainer(teaserContainer);
     triggerCustomEvent();
   }
+}
+
+
+function getIconPath(iconName) {
+    // Relative path to the icons folder
+    const basePath = '../../icons/';
+    const iconPath = `${basePath}${iconName}`;
+    return iconPath;
+}
+
+function createPictureElement(iconName) {
+    const picture = document.createElement('picture');
+    const img = document.createElement('img');
+
+    img.src = getIconPath(iconName);
+    img.alt = 'Icon';
+
+    picture.appendChild(img);
+    return picture;
 }
 
 // const applyInitialStyles = (container) => {
