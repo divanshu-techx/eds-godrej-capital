@@ -172,17 +172,7 @@ const createInlineVideoPlayer = (container, videoUrl) => {
   const playButton = document.createElement('button');
   playButton.className = 'play-button';
   playButton.innerText = '▶';
-  playButton.style.position = 'absolute';
-  playButton.style.top = '45px';
-  playButton.style.transform = 'translate(-50%, -50%)';
-  playButton.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-  playButton.style.color = 'white';
-  playButton.style.border = 'none';
-  playButton.style.borderRadius = '50%';
-  playButton.style.padding = '10px 15px';
-  playButton.style.fontSize = '24px';
-  playButton.style.cursor = 'pointer';
-  playButton.style.zIndex = '10'; // Ensure it's above the video
+
 
   // Ensure container is positioned relatively
   container.style.position = 'relative';
@@ -191,7 +181,8 @@ const createInlineVideoPlayer = (container, videoUrl) => {
   container.style.alignItems = 'center';
 
   // Add play button to the container
-  slideContent.appendChild(playButton);
+  //slideContent.appendChild(playButton);
+  container.querySelector('.button-container').appendChild(playButton);
   container.querySelector('.button-container').appendChild(playButtonInLine);
 
   const hideButton = slideContent.querySelector('.button');
@@ -216,7 +207,8 @@ const createInlineVideoPlayer = (container, videoUrl) => {
   playButton.onclick = (event) => {
     const parentElement = event.target.parentNode;
     const grandparentElement = parentElement.parentNode;
-    const imageDiv = grandparentElement.querySelector('.carousel-slide-image div');
+    const ggp = grandparentElement.parentNode;
+    const imageDiv = ggp.querySelector('.carousel-slide-image div');
 
     if (!videoAppended) {
       const pictureElement = imageDiv.querySelector('picture');

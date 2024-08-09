@@ -1,3 +1,20 @@
+.cibil-score-container.links-container {
+    display: flex;
+    gap: 40px;
+}
+
+.cibil-score-container.links-container .cibil-score-wrapper {
+    width: 60%;
+}
+
+.cibil-score-container.links-container .links-wrapper {
+    background-color: #F4F4F4;
+    padding: 34.5px;
+    box-shadow: 0px 0px 8px 0px #00000040;
+    border-radius: 4px;
+    width: 40%;
+}
+
 .cibil-score .cibil-score-parent {
     display: flex;
     box-shadow: 0px 0px 8px 0px #00000040;
@@ -58,11 +75,20 @@
     position: relative;
 }
 
+.tooltip-container .info-btn-icon {
+    cursor: pointer;
+}
+
 .cibil-score-info-container .score-info-container {
+    display: none;
+    transition: display 0.5s ease-in;
     position: absolute;
     left: -1rem;
 }
 
+.tooltip-container:hover .score-info-container {
+    display: block;
+}
 
 .score-info-content .score-grade-content {
     display: flex;
@@ -269,4 +295,54 @@
 
 .cibil-score-grade.excellent {
     color: #017b30;
+}
+
+.cibil-score-container.links-container .links-wrapper .links {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.cibil-score-container.links-container .links-wrapper .links>div {
+    display: flex;
+    padding: 1rem 18px;
+    justify-content: space-between;
+    background-color: #FFFFFF;
+    border-radius: 4px;
+}
+
+.cibil-score-container.links-container .links-wrapper .links>div:first-of-type {
+    background-color: unset;
+    padding-left: 0;
+}
+
+.cibil-score-container.links-container .links-wrapper .links>div p {
+    margin: 0;
+}
+
+.cibil-score-container.links-container .links-wrapper .links>div>div:first-of-type p {
+    position: relative;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 21.11px;
+    text-align: left;
+}
+
+.cibil-score-container.links-container .links-wrapper .links>div>div:first-of-type p::after {
+    position: absolute;
+    content: " >>>";
+}
+
+.cibil-score-container.links-container .links-wrapper .links>div p a.button {
+    background-color: #3CB8FF;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16.42px;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 2px;
+}
+
+.cibil-score-container.links-container .links-wrapper .links>div p a.button:hover {
+    background-color: #00A2FF;
 }

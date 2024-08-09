@@ -1,0 +1,121 @@
+.hero-container.check-cibil-score-form-container {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 1fr;
+
+    margin: auto;
+
+
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.hero-container.check-cibil-score-form-container .default-content-wrapper {
+    grid-column: span 2;
+}
+
+.check-cibil-score-form-wrapper .check-cibil-score-form fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.check-cibil-score-form-container .check-cibil-score-form {
+    background-color: #f4f4f4;
+    border-radius: 4px;
+    max-width: 540px;
+
+}
+
+.check-cibil-score-form .field-wrapper label {
+    font-family: Work Sans;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18.77px;
+    text-align: left;
+    color: #3B3B3B;
+    display: block;
+}
+
+.check-cibil-score-form .field-wrapper input[type="tel"],
+.check-cibil-score-form .field-wrapper input[type="email"],
+.check-cibil-score-form .field-wrapper input[type="text"] {
+    font-family: Work Sans;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18.77px;
+    text-align: left;
+    padding: 15.5px 18px;
+    border: none;
+    border-radius: 4px;
+    min-width: -webkit-fill-available;
+    margin-top: 8px;
+}
+
+.check-cibil-score-form .field-wrapper input:focus-visible {
+    outline: unset;
+}
+
+.check-cibil-score-form .field-wrapper input::placeholder {
+    color: #B8B8B8;
+}
+
+.check-cibil-score-form .field-wrapper input::-ms-input-placeholder {
+
+    color: #B8B8B8;
+}
+
+.check-cibil-score-form-container .check-cibil-score-form form {
+    padding: 40px;
+}
+
+.check-cibil-score-form input[type="button"] {
+    padding: 12px 20px;
+    background-color: #3CB8FF;
+
+    color: #ffff;
+    border: unset;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+
+}
+
+.check-cibil-score-form input[type="button"]:hover {
+    background-color: #00A2FF;
+
+}
+
+.check-cibil-score-form input[type="button"]:disabled {
+    background-color: #E8E8E8;
+    color: #3B3B3B;
+
+
+}
+
+.check-cibil-score-form input[type="button"]:disabled:hover {
+    background-color: unset;
+}
+
+.check-cibil-score-form #form-otpfieldset {
+    display: flex;
+}
+
+fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper input::before {
+    position: absolute;
+    content: '';
+    width: 20px;
+    display: block;
+    height: 2px;
+    z-index: 99;
+    bottom: 15px;
+    left: calc(50% - 10px);
+    background-color: #B8B8B8;
+    transform: translateX(calc(50% - 10px));
+    border-radius: 1px;
+}
+
+fieldset#form-otpfieldset .form2.field-wrapper.text-wrapper:has(input:not(:placeholder-shown))input::before {
+    display: none;
+}

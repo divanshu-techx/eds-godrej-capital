@@ -215,8 +215,10 @@ button {
     background-color: #3CB8FF;
     color: #fff;
 }
-.primary-button:hover{
-background-color:#00a2ff}
+
+.primary-button:hover {
+    background-color: #00a2ff
+}
 
 .secondary-button {
     background-color: #6c757d;
@@ -292,12 +294,17 @@ background-color:#00a2ff}
 
 .play-button {
     position: relative;
-    z-index: 1;
-    background-color: inherit;
-    color: #fff;
+    top: 30px;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
     border: none;
-    padding: 10px 20px;
+    border-radius: 50%;
+    left: 29px;
+    padding: 10px 15px;
+    font-size: 24px;
     cursor: pointer;
+    z-index: 10;
 }
 
 @media (min-width: 600px) {
