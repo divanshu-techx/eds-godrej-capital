@@ -747,21 +747,7 @@ color:#3CB8FF;
   mask: url(/icons/arrow-carousel.svg) no-repeat center;
 }
 
-.hero-carousel-secondary .carousel-v1-slide-indicators button.slide-next {
-  border-radius: 8px;
-  margin: 0;
-  padding: 0;
-  width: 2rem;
-  height: 2rem;
-  position: relative;
-
-  @media(width <=600px) {
-    margin-left: auto;
-  }
-
-  /* background-color: rgba(0 0 0 / 25%); */
-}
-
+.hero-carousel-secondary .carousel-v1-slide-indicators button.slide-next,
 .hero-carousel-secondary .carousel-v1-slide-indicators button.slide-prev {
   border-radius: 8px;
   margin: 0;
@@ -770,12 +756,24 @@ color:#3CB8FF;
   height: 2rem;
   position: relative;
 
-  @media(width <=600px) {
-    margin-right: auto;
+  @media (max-width: 600px) {
+    &.slide-next {
+      margin-left: auto;
+    }
+    &.slide-prev {
+      margin-right: auto;
+    }
+  }
+  background: #3CB8FF;
+
+  /* Disabled state styling */
+  &:disabled {
+    cursor: pointer;
+    background: #E8E8E8;
   }
 
-  /* background-color: rgba(0 0 0 / 25%); */
 }
+
 
 .hero-carousel-secondary .carousel-v1 .carousel-v1-slide-indicator button {
   width: unset;
