@@ -57,7 +57,6 @@ const applyTextAlignmentAndPlacement = (container) => {
   const contentColour = container.getAttribute(
     'data-text-color',
   );
-
   const headingStyle = container.getAttribute(
     'data-heading-style',
   );
@@ -160,7 +159,10 @@ const hideSpecifiedButtons = (container) => {
 //   return null; // Return null if no suitable div is found
 // };
 
-const createInlineVideoPlayer = (container, videoUrl) => {
+  const createInlineVideoPlayer = (container, videoUrl) => {
+  const playVideoLabel = container.getAttribute('data-play-video');
+  const videoIcon = createPictureElement('play-button.png');
+  const pauseIcon = createPictureElement('pause-button.png');
   const slideContent = container.querySelector('.carousel-slide-content');
   // const carouselSlideImage = findCarouselSlideImage(container);
 
@@ -242,10 +244,14 @@ const createInlineVideoPlayer = (container, videoUrl) => {
 };
 
 const createVideoPopup = (container, videoUrl, isMp4) => {
+ const playButtonInLine = document.createElement('button');
+ playButtonInLine.className = 'play-button-v1';
+ playButtonInLine.innerText = 'Play Video';
+ const videoIcon = createPictureElement('play-button.png');
   // const slideContent = container.querySelector('.carousel-slide-content');
   const playButton = document.createElement('button');
   playButton.className = 'play-button';
-  playButton.innerText = 'Play Video';
+  playButton.append(videoIcon);
   playButton.onclick = () => {
     const popup = document.createElement('div');
     popup.className = 'video-popup';
@@ -277,7 +283,9 @@ const createVideoPopup = (container, videoUrl, isMp4) => {
     popup.appendChild(closeButton);
     document.body.appendChild(popup);
   };
-  container.querySelector('.button-container').appendChild(playButton);
+    container.querySelector('.button-container').appendChild(playButton);
+  container.querySelector('.button-container').appendChild(playButtonInLine);
+
 };
 
 const handleBackgroundStyle = (container, block) => {
@@ -365,9 +373,6 @@ export default async function decorate(block) {
   }
 }
 
-
-const videoIcon = createPictureElement('play-button.png');
-const pauseIcon = createPictureElement('pause-button.png');
 
 function getIconPath(iconName) {
     // Relative path to the icons folder
