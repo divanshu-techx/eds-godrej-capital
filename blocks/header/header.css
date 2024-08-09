@@ -248,9 +248,17 @@ header nav .nav-sections .belowNavMainContainer.show {
   position: absolute;
   display: block;
   width: 100%;
-  top: 111px;
+  top: 110px;
   border-top: 1px solid #b8b8b8;
-  ;
+  box-shadow: 0px 4px 4px 0px #00000040;
+}
+
+header .hidden-height nav .nav-sections .belowNavMainContainer.show {
+  position: absolute;
+  display: block;
+  width: 100%;
+  top: 70px;
+  border-top: 1px solid #b8b8b8;
   box-shadow: 0px 4px 4px 0px #00000040;
 }
 

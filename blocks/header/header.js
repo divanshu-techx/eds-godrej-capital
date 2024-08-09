@@ -611,4 +611,12 @@ export default async function decorate(block) {
   navBrandImage.addEventListener('click',()=>{
     window.location.href=redirectPath;
   })
+
+  document.addEventListener('scroll', () => {
+    if (window.scrollY === 0) {
+      block.classList.remove('hidden-height');
+    } else {
+      block.classList.add('hidden-height');
+    }
+  });
 }
