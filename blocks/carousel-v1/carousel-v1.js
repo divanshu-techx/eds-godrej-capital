@@ -81,8 +81,11 @@ function updateProgressBar(currentSlideIndex, totalSlides, block) {
 function updateActiveSlide(slide) {
   const block = slide.closest('.carousel-v1');
   const slideIndex = parseInt(slide.dataset.slideIndex, 10);
-  block.dataset.activeSlide = slideIndex;
   const slides = block.querySelectorAll('.carousel-v1-slide');
+  const totalSlides = slides.length;
+
+  block.dataset.activeSlide = slideIndex;
+
   slides.forEach((aSlide, idx) => {
     aSlide.setAttribute('aria-hidden', idx !== slideIndex);
     aSlide.querySelectorAll('a').forEach((link) => {
@@ -93,16 +96,34 @@ function updateActiveSlide(slide) {
       }
     });
   });
+
   const indicators = block.querySelectorAll('.carousel-v1-slide-indicator');
   indicators.forEach((indicator, idx) => {
+    const button = indicator.querySelector('button');
     if (idx !== slideIndex) {
-      indicator.querySelector('button').removeAttribute('disabled');
+      button.removeAttribute('disabled');
     } else {
-      indicator.querySelector('button').setAttribute('disabled', 'true');
+      button.setAttribute('disabled', 'true');
     }
   });
-  updateProgressBar(slideIndex, slides.length, block);
+
+  updateProgressBar(slideIndex, totalSlides, block);
+  updateButtonState(block, slideIndex, totalSlides);
 }
+
+function updateButtonState(block, currentSlide, totalSlides) {
+  const prevButton = block.querySelector('.slide-prev');
+  const nextButton = block.querySelector('.slide-next');
+
+  if (prevButton) {
+    prevButton.disabled = currentSlide === 0;
+  }
+
+  if (nextButton) {
+    nextButton.disabled = currentSlide === totalSlides - 1;
+  }
+}
+
 function showSlide(block, slideIndex = 0) {
   const slides = block.querySelectorAll('.carousel-v1-slide');
   let realSlideIndex = slideIndex < 0 ? slides.length - 1 : slideIndex;
@@ -134,37 +155,57 @@ function bindEvents(block) {
   const slides = block.querySelectorAll('.carousel-v1-slides > li');
   const totalSlides = slides.length;
   const slideIndicators = block.querySelectorAll('.carousel-v1-slide-indicator');
+  
   if (!slideIndicators) return;
+
   slideIndicators.forEach((button) => {
     button.addEventListener('click', (e) => {
       const slideIndicator = e.currentTarget;
-      showSlide(block, parseInt(slideIndicator.dataset.targetSlide, 10));
+      const targetSlide = parseInt(slideIndicator.dataset.targetSlide, 10);
+      showSlide(block, targetSlide);
+      updateButtonState(block, targetSlide, totalSlides);
     });
   });
+
   const prevButton = block.querySelector('.slide-prev');
   const nextButton = block.querySelector('.slide-next');
+
   if (prevButton) {
     prevButton.addEventListener('click', () => {
       const activeSlide = parseInt(block.dataset.activeSlide, 10);
-      showSlide(block, Number.isNaN(activeSlide) ? 0 : activeSlide - 1);
+      const newSlideIndex = Number.isNaN(activeSlide) ? 0 : activeSlide - 1;
+      showSlide(block, newSlideIndex);
+      updateButtonState(block, newSlideIndex, totalSlides);
     });
   }
+
   if (nextButton) {
     nextButton.addEventListener('click', () => {
       const activeSlide = parseInt(block.dataset.activeSlide, 10);
-      showSlide(block, Number.isNaN(activeSlide) ? 0 : activeSlide + 1);
+      const newSlideIndex = Number.isNaN(activeSlide) ? 0 : activeSlide + 1;
+      showSlide(block, newSlideIndex);
+      updateButtonState(block, newSlideIndex, totalSlides);
     });
   }
+
   const slideObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      if (entry.isIntersecting) updateActiveSlide(entry.target);
+      if (entry.isIntersecting) {
+        const slideIndex = parseInt(entry.target.dataset.slideIndex, 10);
+        updateActiveSlide(entry.target);
+        updateButtonState(block, slideIndex, totalSlides);
+      }
     });
   }, { threshold: 0.5 });
+
   block.querySelectorAll('.carousel-v1-slide').forEach((slide) => {
     slideObserver.observe(slide);
   });
+
   updateProgressBar(0, totalSlides, block);
+  updateButtonState(block, 0, totalSlides);
 }
+
 
 async function createCarousel(block, rows, targetId) {
   carouselId += 1;
