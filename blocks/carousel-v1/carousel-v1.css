@@ -40,7 +40,7 @@
   }
 
   @media (min-width: 1200px) and (max-width: 1400px) {
-    min-height: calc(100vh * 0.7);
+    min-height: calc(100vh * 0.5);
   }
 
   @media(min-width:768px) and (max-width:1199px){
@@ -597,7 +597,7 @@ color:#3CB8FF;
   min-height: calc(100vh * 0.5);
 
   @media (min-width: 1200px) and (max-width: 1400px) {
-    min-height: calc(100vh * 0.7);
+    min-height: calc(100vh * 0.5);
   }
 
   @media (min-width: 600px) and (max-width: 1199px) {
