@@ -184,3 +184,20 @@ select {
     font-weight: 400;
     color: #A8A8A8;
 }
+
+@media(min-width:767px) and (max-width:1199px){
+    .tabs-container .button-container button {
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 14.08px;
+    }
+    .tabs-container .button-container button.active{
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 14.08px;
+    }
+
+    .tabs-container .button-container .buttonWrapper{
+        padding:5px;
+    }
+}
