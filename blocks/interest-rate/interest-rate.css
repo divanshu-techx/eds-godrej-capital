@@ -118,6 +118,12 @@
   }
 }
 
+@media (max-width: 1200px){
+  .interest-rate-container .interest-rate-wrapper .interest-rate .allCards{
+      display: flex;
+  }
+}
+
 .interest-rate-container .interest-rate-wrapper .interest-rate .allCards .main-div {
   display: flex;
   flex-direction: row;
