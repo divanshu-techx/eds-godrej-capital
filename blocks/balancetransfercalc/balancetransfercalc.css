@@ -547,3 +547,10 @@
 .inputBalance .error-span {
   color: red;
 }
+
+.inputBalance input[type="range"]:disabled {
+  cursor: not-allowed!important;
+}
+.inputBalance input[type="text"]:disabled {
+  cursor: not-allowed;
+}

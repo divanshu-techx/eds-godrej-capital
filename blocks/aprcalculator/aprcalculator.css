@@ -365,3 +365,9 @@
 .inputBoxApr .inputBoxAprRange .error-span{
   color: red;
 }
+.aprcalculator  input[type="range"]:disabled {
+  cursor: not-allowed;
+}
+.aprcalculator input[type="text"]:disabled {
+  cursor: not-allowed;
+}
