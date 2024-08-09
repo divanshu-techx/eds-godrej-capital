@@ -544,3 +544,6 @@
   font-weight: 400;
   text-align: left;
 }
+.inputBalance .error-span {
+  color: red;
+}

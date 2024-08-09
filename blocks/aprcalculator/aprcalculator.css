@@ -361,3 +361,7 @@
     flex-direction: column;
   }
 }
+
+.inputBoxApr .inputBoxAprRange .error-span{
+  color: red;
+}
