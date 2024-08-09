@@ -151,7 +151,7 @@ function handleSearching(block, searchInputField, responseData) {
       filteredData = getFilteredDataBasedOnDropdown(
         filteredArticlesByUserInput,
         filterDropdown.value,
-        categoryDropdown.value
+        categoryDropdown.value,
       );
 
       if (filteredData.length === 0) {
@@ -223,15 +223,13 @@ function renderFiltersAndCategoriesDropdown(
     categoriesDropdown.appendChild(option);
   });
 
-  filtersDropdown.addEventListener('change', () =>
-    handleDropdownChange(
+  filtersDropdown.addEventListener('change', () => handleDropdownChange(
       block,
       filtersDropdown,
       categoriesDropdown,
       searchInputField,
       responseData,
-    ),
-  );
+    ));
   categoriesDropdown.addEventListener('change', () =>
     handleDropdownChange(
       block,
@@ -239,8 +237,7 @@ function renderFiltersAndCategoriesDropdown(
       categoriesDropdown,
       searchInputField,
       responseData,
-    ),
-  );
+    ));
 }
 
 // Handle dropdown change
@@ -331,7 +328,7 @@ function renderCards(block, data) {
               <img src="${readTimeIcon}" alt="${readTimeIconAltText}">
               <span class="read-time">${article.readtime}</span>
             </div>
-          </div>		
+          </div>
           <div class="description-article">${article.description}</div>
         </div>
       </a>
@@ -394,11 +391,11 @@ function renderPagination(block, data) {
   if (totalPages > 1) {
     // Left arrow button
     const leftButton = document.createElement('button');
-    leftButton.innerHTML = `<img src='/icons/nexticon.svg' alt='Previous' />`;
+    leftButton.innerHTML = '<img src="/icons/nexticon.svg" alt="Previous" />';
     leftButton.classList.add('arrow', 'left');
     leftButton.addEventListener('click', () => {
       if (currentPage > 1) {
-        currentPage--;
+        currentPage -= 1;
         renderCards(block, data);
         renderPagination(block, data);
       }
@@ -415,11 +412,11 @@ function renderPagination(block, data) {
 
     // Right arrow button
     const rightButton = document.createElement('button');
-    rightButton.innerHTML = `<img src='/icons/nexticon.svg' alt='Next' />`;
+    rightButton.innerHTML = '<img src="/icons/nexticon.svg" alt="Next" />';
     rightButton.classList.add('arrow', 'right');
     rightButton.addEventListener('click', () => {
       if (currentPage < totalPages) {
-        currentPage++;
+        currentPage += 1;
         renderCards(block, data);
         renderPagination(block, data);
       }
@@ -449,7 +446,6 @@ function handleDeviceSpecificCode(block, data, totalPages, currentPageEle, pageL
 
     pageLinksContainer.appendChild(pageLink);
     pageLinksContainer.appendChild(totalPageNo);
-
   } else {
     // Numbered pages
     for (let i = 1; i <= totalPages; i += 1) {
@@ -465,7 +461,6 @@ function handleDeviceSpecificCode(block, data, totalPages, currentPageEle, pageL
       });
       pageLinksContainer.appendChild(pageLink);
     }
-
   }
 }
 
@@ -485,8 +480,7 @@ function getDistinctCategories(data) {
 // Filter articles by description
 function filterArticlesByDescription(data, input) {
   return data.filter((article) =>
-    article.description.toLowerCase().includes(input.toLowerCase()),
-  );
+    article.description.toLowerCase().includes(input.toLowerCase()));
 }
 
 // Filter articles by category
