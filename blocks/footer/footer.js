@@ -7,56 +7,52 @@ const isDesktop = window.matchMedia('(min-width: 900px)');
  * loads and decorates the footer
  * @param {Element} block The footer block element
  */
-
 function getDataAttributeValueByName(name) {
   const element = document.querySelector(`[data-${name}]`);
   return element ? element.getAttribute(`data-${name}`) : '';
 }
 
 function getQueryParams(url) {
-    try {
-        // Create a base URL for relative URLs
-        const baseUrl = window.location.origin;
-        const fullUrl = new URL(url, baseUrl); // Handle relative URLs
-        const params = {};
-        for (const [key, value] of fullUrl.searchParams) {
-            params[key] = value;
-        }
-        return params;
-    } catch (error) {
-        console.error(`Invalid URL: ${url}`, error);
-        return {}; // Return an empty object if the URL is invalid
+  try {
+    // Create a base URL for relative URLs
+    const baseUrl = window.location.origin;
+    // Handle relative URLs
+    const fullUrl = new URL(url, baseUrl);
+    const params = {};
+    for (const [key, value] of fullUrl.searchParams) {
+      params[key] = value;
     }
+    return params;
+  } catch (error) {
+    console.error(`Invalid URL: ${url}`, error);
+    return {}; // Return an empty object if the URL is invalid
+  }
 }
 
 function processElements() {
-    // Get all elements inside the footer
-    const footerElements = document.querySelectorAll('footer *');
+  // Get all elements inside the footer
+  const footerElements = document.querySelectorAll('footer *');
 
-    footerElements.forEach(element => {
-        Array.from(element.attributes).forEach(attr => {
-            if (attr.name.startsWith('data-godrej-') && attr.value.includes('gtm=')) {
-                const url = attr.value;
-
-                const params = getQueryParams(url);
-
-                if (params.gtm) {
-                    // Extract the data attribute name (e.g., data-godrej-twitter)
-                    const dataAttrName = attr.name;
-                    // Derive the class name from the data attribute name (e.g., godrej-twitter)
-                    const className = dataAttrName.slice(5); // Remove 'data-' prefix
-
-                    // Find elements with the derived class name inside the footer
-                    const sameClassElements = document.querySelectorAll(`footer .${className}`);
-
-                    sameClassElements.forEach(sameClassElement => {
-                        // Add new data attribute with gtm value
-                        sameClassElement.setAttribute(`data-gtm`, params.gtm);
-                    });
-                }
-            }
-        });
+  footerElements.forEach((element) => {
+    Array.from(element.attributes).forEach((attr) => {
+      if (attr.name.startsWith('data-godrej-') && attr.value.includes('gtm=')) {
+        const url = attr.value;
+        const params = getQueryParams(url);
+        if (params.gtm) {
+          // Extract the data attribute name (e.g., data-godrej-twitter)
+          const dataAttrName = attr.name;
+          // Derive the class name from the data attribute name (e.g., godrej-twitter)
+          const className = dataAttrName.slice(5); // Remove 'data-' prefix
+          // Find elements with the derived class name inside the footer
+          const sameClassElements = document.querySelectorAll(`footer .${className}`);
+          sameClassElements.forEach((sameClassElement) => {
+            // Add new data attribute with gtm value
+            sameClassElement.setAttribute('data-gtm', params.gtm);
+          });
+        }
+      }
     });
+  });
 }
 
 export default async function decorate(block) {
@@ -114,7 +110,7 @@ export default async function decorate(block) {
   const partionAll = partitionBlock.querySelectorAll(':Scope>div');
   partionAll.forEach((elm, i) => {
     elm.classList.add(partionBlockClass[i]);
-  })
+  });
 
   const godrejIcon = block.querySelector('.godrej-icon');
 
@@ -125,21 +121,20 @@ export default async function decorate(block) {
   const godrejInstaLink = getDataAttributeValueByName('godrejInstaLink');
   const godrejTwitterLink = getDataAttributeValueByName('godrejTwitterLink');
 
-
   godrejIcon.addEventListener('click', () => {
     window.location.href = godrejIconLink;
-  })
+  });
 
   const godrejSocial = block.querySelectorAll('.godrej-social-account > div >p');
   godrejSocial.forEach((elm, i) => {
-    elm.classList.add(`social-media${i}`)
-  })
+    elm.classList.add(`social-media${i}`);
+  });
 
-  const socialIconclass = ['godrej-twitter', 'godrej-youtube', 'godrej-facebook', 'godrej-linkdin', 'godrej-insta']
+  const socialIconclass = ['godrej-twitter', 'godrej-youtube', 'godrej-facebook', 'godrej-linkdin', 'godrej-insta'];
   const socialMediaIcons = block.querySelectorAll('.social-media1 > picture');
   socialMediaIcons.forEach((elm, i) => {
     elm.classList.add(socialIconclass[i]);
-  })
+  });
 
   const godrejTwitter = block.querySelector('.godrej-twitter');
   const godrejYoutube = block.querySelector('.godrej-youtube');
@@ -149,19 +144,18 @@ export default async function decorate(block) {
 
   godrejTwitter.addEventListener('click', () => {
     window.location.href = godrejTwitterLink;
-  })
+  });
   godrejYoutube.addEventListener('click', () => {
     window.location.href = godrejYoutubeLink;
-  })
+  });
   godrejFacebook.addEventListener('click', () => {
     window.location.href = godrejFacebookLink;
-  })
+  });
   godrejLinkdIn.addEventListener('click', () => {
     window.location.href = godrejLinkdInLink;
-  })
+  });
   godrejInsta.addEventListener('click', () => {
     window.location.href = godrejInstaLink;
-  })
+  });
   processElements();
-
 }

@@ -30,7 +30,7 @@ export default async function decorate(block) {
     dropdown.style.height = `${halfRemainingHeight}px`;
     dropdown.style.width = '-webkit-fill-available';
     overlay.style.height = `${halfRemainingHeight + headerHeight}px`;
-    overlay.style.top = `0`;
+    overlay.style.top = '0';
   }
 
   allDivs.forEach((div, index) => {

@@ -556,7 +556,6 @@ export default async function decorate(block) {
     }
   });
 
-  
   function validateForm() {
     const fields = document.querySelectorAll('#form-box input[type="text"]');
     let isAnyFieldEmpty = false;

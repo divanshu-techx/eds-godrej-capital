@@ -119,11 +119,10 @@ export default async function decorate(block) {
   });
 
   const navBrand = nav.querySelector('.nav-brand');
-  const navBrandLink=document.createElement('a');
+  const navBrandLink = document.createElement('a');
   navBrandLink.classList.add('nav-brand-link');
 
-  const navBrandImage=navBrand.querySelector(':scope .default-content-wrapper > picture');
-  
+  const navBrandImage = navBrand.querySelector(':scope .default-content-wrapper > picture');
   const brandLink = navBrand.querySelector('.button');
   if (brandLink) {
     brandLink.className = '';
@@ -606,9 +605,8 @@ export default async function decorate(block) {
 
   getApiResponse(api);
 
-  
   const redirectPath = getDataAttributeValueByName('redirectionPath');
-  navBrandImage.addEventListener('click',()=>{
-    window.location.href=redirectPath;
-  })
+  navBrandImage.addEventListener('click', () => {
+    window.location.href = redirectPath;
+  });
 }
