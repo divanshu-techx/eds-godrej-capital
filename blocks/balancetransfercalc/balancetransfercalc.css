@@ -554,3 +554,19 @@
 .inputBalance input[type="text"]:disabled {
   cursor: not-allowed;
 }
+
+@media (width >= 1600px) {
+  .inputsBoxBalance {
+      max-width: calc(772 /(772 + 554)* 100%) !important;
+  }
+
+  .balancetransfercalc .calculator-container-balance-tansfer {
+    flex-wrap: nowrap;
+    gap:30px;
+  }
+
+    .balancetransfercalc .outputs-balance-result {
+      flex: 1; 
+      min-width: 0; 
+    }
+}
