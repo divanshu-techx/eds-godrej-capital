@@ -307,7 +307,7 @@ function startTimer(block, form) {
       resendButton.disabled = false; // Enable resend button
       timerElement.innerText = "Didn't receive any OTP?"; // Reset timer text
     }
-    count--; // Decrement count
+    count -= 1; // Decrement count
   }, 1000); // Update every second (1000 milliseconds)
 
   resendButton.addEventListener('click', async (e) => {
